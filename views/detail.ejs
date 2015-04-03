@@ -1,0 +1,65 @@
+<div class="reminder">
+	<div class="btn-toolbar-vertical">
+		<a href="#/dashboard" class="btn btn-default" popover="Go back to dashboard" popover-trigger="mouseenter" popover-placement="right">
+			<i class="fa fa-reply-all fa-2x"></i>
+		</a>
+
+		<div class="btn-group-vertical">
+			<a class="btn {{sequenceCheck | iif : 'btn-info' : 'btn-default'}}" ng-model="sequenceCheck" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" popover="Refine sequence" popover-trigger="mouseenter" popover-placement="right">
+				<i class="fa fa-text-width fa-2x"></i>
+			</a>
+			<a class="btn {{facetCheck | iif : 'btn-info' : 'btn-default'}}" ng-model="facetCheck" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" popover="Refine data" popover-trigger="mouseenter" popover-placement="right">
+				<i class="fa fa-filter fa-2x"></i>
+			</a>
+		</div>
+		
+		<div class="btn-group-vertical">
+			<a href="#/detail/{{d.cat}}/{{meta.ids}}" class="btn {{ meta.cat != d.cat | iif : 'btn-default' : 'btn-info disabled'}}" ng-repeat="d in details" popover="{{d.label}}" popover-trigger="mouseenter" popover-placement="right">
+				<i class="fa fa-{{d.icon}} fa-2x"></i>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="facets" ng-show="facetCheck">
+	<div class="well well-sm">
+		<b>Refine data</b>
+		<pre>facet 1</pre>
+		<pre>facet 2</pre>
+		<pre>facet 3</pre>
+	</div>
+</div>
+
+<div class="row detail{{facetCheck | iif : ' detail-faceted' : ''}}">
+	<div class="col-xs-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<b class="panel-title">{{meta.label}}</b> details
+				for <em>{{displayProfiles()}}</em>
+			</div>
+			<div class="panel-body">
+				<div class="row profile">
+					<div class="col-xs-9 sequence" ng-show="sequenceCheck">
+						<div class="well well-sm">
+							<b>Refine sequence</b>
+							<pre>sequence here</pre>
+						</div>
+					</div>
+				</div>
+				<div class="row profile" ng-repeat="w in meta.widgets">
+					<div class="col-xs-9 profile-graph">
+						<div class="well well-sm">
+							<b>{{w.title}}</b>
+							<i>{{w.subtitle}}</i>
+							<pre>graph here</pre>
+						</div>
+					</div>
+					<div class="col-xs-3 profile-data">
+						<div class="well well-sm">
+							<pre>data here</pre>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div
+	</div>
+</div>

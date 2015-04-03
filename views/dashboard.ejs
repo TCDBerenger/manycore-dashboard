@@ -1,0 +1,71 @@
+<div class="row dashboard">
+	<!-- Labels -->
+	<div class="col-xs-2">
+		<div class="media-list dashboard-labels">
+			<li class="media" ng-repeat="detail in details">
+				<div class="media-body">{{detail.label}}</div>
+				<div class="media-right media-middle">
+					<a href="#/detail/{{detail.cat}}/{{encodeSelectedProfile()}}" ng-show="hasSelectedProfile()"><i class="fa fa-{{detail.icon}} fa-2x"></i></a>
+					<i class="fa fa-{{detail.icon}} fa-2x" ng-hide="hasSelectedProfile()"></i>
+				</div>
+			</li>
+		</div>
+	</div>
+	
+	<!-- Profiles -->
+	<div class="col-xs-3" ng-repeat="profile in selectedProfiles">
+		<div class="panel panel-default dashboard-profile">
+			<div class="panel-heading">
+				<span class="pull-right link" ng-click="unselectProfile(profile)"><i class="fa fa-times"></i></span>
+				<h3 class="panel-title">{{profile.label}}</h3>
+			</div>
+			<div class="panel-body">
+				<h3>Sequence</h3>
+				<pre>TODO</pre>
+				
+				<h3>Profile</h3>
+				<div class="list-group">
+					<a href="#/detail/tg/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
+					<a href="#/detail/sy/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
+					<a href="#/detail/ds/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
+					<a href="#/detail/lb/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
+					<a href="#/detail/dl/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
+					<a href="#/detail/rs/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
+					<a href="#/detail/io/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
+				</div>
+				
+				<h3>Hardware</h3>
+				<p>
+					<span class="label label-default">CPU</span> Intel core I7,
+					<span class="label label-default">RAM</span> 4 GB,
+					...
+				</p>
+			</div>
+		</div>
+		<button type="button" class="btn btn-default pull-right disabled">
+			<i class="glyphicon fa fa-sliders" aria-hidden="true"></i>
+		</button>
+	</div>
+	
+	<!-- Selection -->
+	<div class="col-xs-1">
+		<div class="btn-group-vertical">
+			<div class="btn-group" dropdown ng-show="canAddProfile()" is-open="! hasSelectedProfile()">
+					<a class="btn btn-default dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+						{{ hasSelectedProfile() | iif : "" : "add app profile"}}
+					</a>
+				<ul class="dropdown-menu" role="menu">
+					<li ng-repeat="profile in availableProfiles | orderBy:'id'"><a href="#" ng-click="selectProfile(profile)">{{profile.label}}</a></li>
+				</ul>
+			</div>
+			
+			<a class="btn btn-default" ng-show="hasSelectedProfile()" ng-click="unselectAllProfiles()">
+				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+			</a>
+			<a class="btn btn-default disabled" ng-show="hasSelectedProfile()">
+				<i class="glyphicon fa fa-sliders" aria-hidden="true"></i>
+			</a>
+		</div>
+	</div>
+</div>
