@@ -1,1 +1,4 @@
-node_modules/
+.architect
+bootstrap.json
+build/
+ext/
