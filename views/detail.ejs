@@ -34,7 +34,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<b class="panel-title">{{meta.label}}</b> details
-				for <em>{{displayProfiles()}}</em>
+				for <span ng-repeat="profile in profiles"><span class="label label-default">{{profile.label}}</span> </span>
 			</div>
 			<div class="panel-body">
 				<div class="row profile">
