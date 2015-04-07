@@ -36,11 +36,11 @@ app.factory('widgets', [function(){
 	output.cacheInvalid		= {id: 'cache-invalid',		title: 'Cache line invalidation',	subtitle:''};
 	output.cacheMisses		= {id: 'cache-misses',		title: 'Cache misses',				subtitle:''};
 	output.coreInactivity	= {id: 'core-inactivity',	title: 'Core inactivity',			subtitle:''};
-	output.syncCosts		= {id: 'sync-costs',		title: 'Synchronisation costs',		subtitle:''};
+	output.syncCosts		= {id: 'sync-costs',		title: 'Lock contention',			subtitle:''};
 	output.threadPaths		= {id: 'thread-paths',		title: 'Thread paths',				subtitle:'Sequential vs. Parallel'};
 	output.threadChains		= {id: 'thread-chains',		title: 'Thread chains',				subtitle:'Data dependencies and critical routes'};
 	output.threadRunning	= {id: 'thread-running',	title: 'Thread running lifetime',	subtitle:''};
-	output.threadLocks		= {id: 'thread-locks',		title: 'Thread lock lifetime',		subtitle:''};
+	output.threadLocks		= {id: 'thread-locks',		title: 'Lock lifetimes',			subtitle:''};
 	output.threadDivergence	= {id: 'thread-divergence',	title: 'Thread divergence',			subtitle:''};
 	output.threadMigrations	= {id: 'thread-migrations',	title: 'Thread migrations',			subtitle:''};
 	output.threadSwitchs	= {id: 'thread-switchs',	title: 'Thread switches',			subtitle:''};
