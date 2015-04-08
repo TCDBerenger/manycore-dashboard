@@ -28,17 +28,14 @@ body {
 	vertical-align: middle;
 }
 
-.dashboard .dashboard-profile {
-	margin-bottom: 0px;
+.dashboard .dashboard-profile .profile-sequence .panel {
+	border-radius: 0px;
 }
-.dashboard .dashboard-profile + button {
-	margin-right: 10px;
+.dashboard .dashboard-profile .profile-body .panel {
 	border-top-left-radius: 0px;
 	border-top-right-radius: 0px;
 }
 
-.dashboard .dashboard-profile .list-group-item {
-}
 
 /*
  * Details

@@ -13,38 +13,56 @@
 	</div>
 	
 	<!-- Profiles -->
-	<div class="col-xs-3" ng-repeat="profile in selectedProfiles">
-		<div class="panel panel-default dashboard-profile">
-			<div class="panel-heading">
-				<span class="pull-right link" ng-click="unselectProfile(profile)"><i class="fa fa-times"></i></span>
-				<h3 class="panel-title">{{profile.label}}</h3>
-			</div>
-			<div class="panel-body">
-				<h3>Sequence</h3>
-				<pre>TODO</pre>
-				
-				<h3>Profile</h3>
-				<div class="list-group">
-					<a href="#/detail/tg/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
-					<a href="#/detail/sy/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
-					<a href="#/detail/ds/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
-					<a href="#/detail/lb/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
-					<a href="#/detail/dl/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
-					<a href="#/detail/rs/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
-					<a href="#/detail/io/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
+	<div class="col-xs-{{selectedProfiles.length * 3}} dashboard-profile" ng-show="hasSelectedProfile()">
+		<div class="row profile-title">
+			<div class="col-xs-{{12 / selectedProfiles.length}}" ng-repeat="profile in selectedProfiles">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<span class="pull-right link" ng-click="unselectProfile(profile)"><i class="fa fa-times"></i></span>
+						<!-- span class="pull-right link desactivate"><i class="fa fa-sliders"></i></span> -->
+						<h3 class="panel-title">{{profile.label}}</h3>
+					</div>
 				</div>
-				
-				<h3>Hardware</h3>
-				<p>
-					<span class="label label-default">CPU</span> Intel core I7,
-					<span class="label label-default">RAM</span> 4 GB,
-					...
-				</p>
 			</div>
 		</div>
-		<button type="button" class="btn btn-default pull-right disabled">
-			<i class="glyphicon fa fa-sliders" aria-hidden="true"></i>
-		</button>
+		<div class="row profile-sequence">
+			<div class="col-xs-12">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<b>Sequence</b>
+						<pre>TODO</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row profile-body">
+			<div class="col-xs-{{12 / selectedProfiles.length}}" ng-repeat="profile in selectedProfiles">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<b>Profile</b>
+						<div class="list-group">
+							<a href="#/detail/tg/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
+							<a href="#/detail/sy/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
+							<a href="#/detail/ds/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
+							<a href="#/detail/lb/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
+							<a href="#/detail/dl/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
+							<a href="#/detail/rs/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
+							<a href="#/detail/io/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<b>Hardware</b>
+						<p>
+							<span class="label label-default">CPU</span> Intel core I7,
+							<span class="label label-default">RAM</span> 4 GB,
+							...
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	
 	<!-- Selection -->
