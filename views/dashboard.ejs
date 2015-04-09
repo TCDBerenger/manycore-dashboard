@@ -30,7 +30,9 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<b>Sequence</b>
-						<pre>TODO</pre>
+						<svg class="widget-sequence" height="30">
+							<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Graph here</text>
+						</svg>
 					</div>
 				</div>
 			</div>
@@ -41,13 +43,41 @@
 					<div class="panel-body">
 						<b>Profile</b>
 						<div class="list-group">
-							<a href="#/detail/tg/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
-							<a href="#/detail/sy/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
-							<a href="#/detail/ds/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
-							<a href="#/detail/lb/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
-							<a href="#/detail/dl/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
-							<a href="#/detail/rs/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
-							<a href="#/detail/io/{{profile.id}}" class="list-group-item"><pre>TODO</pre></a>
+							<a href="#/detail/tg/{{profile.id}}" class="list-group-item">
+								<svg class="indicator-tg" height="40">
+									<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Task granularity graph here</text>
+								</svg>
+							</a>
+							<a href="#/detail/sy/{{profile.id}}" class="list-group-item">
+								<svg class="indicator-sy" height="40">
+									<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Synchronisation graph here</text>
+								</svg>
+							</a>
+							<a href="#/detail/ds/{{profile.id}}" class="list-group-item">
+								<svg class="indicator-ds" height="40">
+									<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Data sharing graph here</text>
+								</svg>
+							</a>
+							<a href="#/detail/lb/{{profile.id}}" class="list-group-item">
+								<svg class="indicator-lb" height="40">
+									<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Load balancing graph here</text>
+								</svg>
+							</a>
+							<a href="#/detail/dl/{{profile.id}}" class="list-group-item">
+								<svg class="indicator-dl" height="40">
+									<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Data locality graph here</text>
+								</svg>
+							</a>
+							<a href="#/detail/rs/{{profile.id}}" class="list-group-item">
+								<svg class="indicator-rs" height="40">
+									<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Ressource sharing graph here</text>
+								</svg>
+							</a>
+							<a href="#/detail/io/{{profile.id}}" class="list-group-item">
+								<svg class="indicator-io" height="40">
+									<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Input/Output graph here</text>
+								</svg>
+							</a>
 						</div>
 					</div>
 				</div>
