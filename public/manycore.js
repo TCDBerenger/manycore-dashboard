@@ -4,15 +4,17 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 	$stateProvider
 		.state('dashboard', {
 			url: '/dashboard',
-			views: {
-				'@': {
+			templateUrl: '/dashboard/dashboard.view.html',
+			controller: 'DashboardController',
+			/*views: {
+				/*'@': {
 					templateUrl: '/dashboard/dashboard.view.html',
 					controller: 'DashboardController'
 				},
 				'sidebar': {
 					templateUrl: '/sidebar/sidebar.view.html',
 					controller: 'SidebarController'
-				}},
+				}},*/
 			resolve: {
 				promise: ['profiles', function(profiles){
 					return profiles.getAll();
@@ -20,7 +22,9 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 			})
 		.state('detail', {
 			url: '/detail/{cat:[b-y]{1,2}}/{ids}',
-			views: {
+			templateUrl: '/detail/detail.view.html',
+			controller: 'DetailController',
+			/*views: {
 				'@': {
 					templateUrl: '/detail/detail.view.html',
 					controller: 'DetailController'
@@ -28,7 +32,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 				'sidebar': {
 					templateUrl: '/sidebar/sidebar.view.html',
 					controller: 'SidebarController'
-				}},
+				}},*/
 			resolve: {
 				selected: ['$stateParams', 'profiles', function($stateParams, profiles) {
 					return profiles.gets($stateParams.ids);

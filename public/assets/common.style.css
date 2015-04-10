@@ -18,6 +18,14 @@ body {
 
 
 /*
+ * Content
+ */
+.content {
+	margin-left: 60px;
+}
+
+
+/*
  * Footer
  */
 .footer {
