@@ -4,3 +4,6 @@
 .sidebar i {
 	width: 26px;
 }
+.sidebar div, .sidebar a {
+	width: 100%;
+}
