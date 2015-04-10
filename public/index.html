@@ -50,19 +50,17 @@
 	</div>
 </nav>
 
-<!-- SIDEBAR -->
-<div class="sidebar" ng-include="'/sidebar/sidebar.view.html'" ng-controller="SidebarController"></div>
+<!-- GLOBAL -->
+<div id="wrapper" class="expanded">
 
-<!-- CONTENT -->
-<div class="container-fluid content">
-	<div ui-view></div>
-</div>
+	<!-- SIDEBAR -->
+	<div id="sidebar" class="sidebar" ng-include="'/sidebar/sidebar.view.html'" ng-controller="SidebarController"></div> <!-- {{isExpanded | iif : ' expanded' : ''}} -->
 
-<!-- FOOTER -->
-<div class="container-fluid footer">
-	<footer>
-		<p>ManyCore project</p>
-	</footer>
+	<!-- CONTENT -->
+	<div id="content" class="container-fluid content">
+		<div ui-view></div>
+	</div>
+
 </div>
 
 </body>

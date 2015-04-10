@@ -16,21 +16,64 @@ body {
   margin-top: 5px;
 }
 
+/*
+ * Navbar
+ */
+.navbar {
+
+}
+
+
+/*
+ * Wrapper
+ */
+#wrapper {
+	padding-left: 0;
+	transition: all 0.5s ease;
+	padding-left: 60px;
+	margin-top: -25px;
+	clear: both;
+}
+
+#wrapper.expanded {
+	padding-left: 217px;
+}
+
+
+/*
+ * Sidebar
+ */
+#sidebar {
+	z-index: 1000;
+	position: fixed;
+	left: 217px;
+	width: 60px;
+	height: 100%;
+	margin-left: -217px;
+	overflow-y: auto;
+	background: #000;
+	transition: all 0.5s ease;
+}
+#wrapper.expanded #sidebar {
+	width: 217px;
+}
 
 /*
  * Content
  */
-.content {
-	margin-left: 60px;
+#content {
+	width: 100%;
+	position: absolute;
+	padding: 30px;
 }
-
-
-/*
- * Footer
- */
-.footer {
-	margin-top: 50px;
+ 
+#content {
+	width: 100%;
+	position: absolute;
+	padding: 15px;
+	margin-right: -60px;
 }
-.footer footer {
-	text-align: center;
+#wrapper.expanded #content {
+	position: absolute;
+	margin-right: -217px;
 }
