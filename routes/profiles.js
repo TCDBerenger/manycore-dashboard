@@ -1,8 +1,5 @@
 var express = require('express');
 var router = express.Router();
-//var mongoose = require('mongoose');
-//var Post = mongoose.model('Post');
-//var Comment = mongoose.model('Comment');
 
 
 var profiles = [
@@ -36,24 +33,5 @@ router.get('/*', function(req, res) {
 	
 	res.json(selected);
 });
-
-/*
-router.param('profile', function(req, res, next) {
-	
-	/*
-	var profile;
-	profiles.forEach(function(element, index, array) {
-		if (element.id == id) {
-			profile = element;
-		}
-	});
-	
-	if (!profile) { return next(new Error('can\'t find profile')); }
-	
-	req.profile = profile;
-    return next();
-	* /
-});
-*/
 
 module.exports = router;

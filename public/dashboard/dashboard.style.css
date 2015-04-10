@@ -1,0 +1,10 @@
+/*
+ * Dashboard
+ */
+.dashboard .dashboard-profile .profile-sequence .panel {
+	border-radius: 0px;
+}
+.dashboard .dashboard-profile .profile-body .panel {
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+}

@@ -29,25 +29,6 @@ app.controller('DashboardController', ['$scope', '$rootScope', 'profiles', 'deta
 		return $scope.selectedProfiles.length > 0;
 	};
 	
-	
-	/************************************************/
-	/* Functions - Browsing							*/
-	/************************************************/
-	
-	/**
-	 * Join
-	 */
-	$scope.encodeSelectedProfile = function() {
-		var output = "";
-		
-		$scope.selectedProfiles.forEach(function(element, index, array) {
-			output += (output.length > 0) ? "-" : "";
-			output += element.id;
-		});
-		
-		return output;
-	};
-	
 	/************************************************/
 	/* Functions - Select data						*/
 	/************************************************/

@@ -1,17 +1,4 @@
 <div class="row dashboard">
-	<!-- Labels -->
-	<div class="col-xs-2">
-		<div class="media-list dashboard-labels">
-			<li class="media" ng-repeat="detail in details">
-				<div class="media-body">{{detail.label}}</div>
-				<div class="media-right media-middle">
-					<a href="#/detail/{{detail.cat}}/{{encodeSelectedProfile()}}" ng-show="hasSelectedProfile()"><i class="fa fa-{{detail.icon}} fa-2x"></i></a>
-					<i class="fa fa-{{detail.icon}} fa-2x" ng-hide="hasSelectedProfile()"></i>
-				</div>
-			</li>
-		</div>
-	</div>
-	
 	<!-- Profiles -->
 	<div class="col-xs-{{selectedProfiles.length * 3}} dashboard-profile" ng-show="hasSelectedProfile()">
 		<div class="row profile-title">

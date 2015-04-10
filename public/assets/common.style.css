@@ -1,0 +1,28 @@
+/*
+ * Base structure
+ */
+body {
+	padding-top: 70px; /* Move down content because we have a fixed navbar that is 50px tall */
+}
+.nav, .pagination, .carousel, .panel-title a, .link {
+	cursor: pointer; /* Angular Bootstrap UI side effect with Bootstrap  */
+}
+.btn-toolbar-vertical {
+  margin-top: -5px;
+}
+.btn-toolbar-vertical > .btn,
+.btn-toolbar-vertical > .btn-group-vertical,
+.btn-toolbar-vertical > .input-group {
+  margin-top: 5px;
+}
+
+
+/*
+ * Footer
+ */
+.footer {
+	margin-top: 50px;
+}
+.footer footer {
+	text-align: center;
+}

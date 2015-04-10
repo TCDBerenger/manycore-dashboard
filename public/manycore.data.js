@@ -1,35 +1,3 @@
-var app = angular.module('manycoreDashboard', ['ui.router', 'ui.bootstrap']);
-
-app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-	$stateProvider
-		.state('dashboard', {
-			url: '/dashboard',
-			templateUrl: '/dashboard.html',
-			controller: 'DashboardController',
-			resolve: {
-				promise: ['profiles', function(profiles){
-					return profiles.getAll();
-				}]
-			}
-		})
-		.state('detail', {
-			url: '/detail/{cat:[b-y]{1,2}}/{ids}',
-			templateUrl: '/detail.html',
-			controller: 'DetailController',
-			resolve: {
-				selected: ['$stateParams', 'profiles', function($stateParams, profiles) {
-					return profiles.gets($stateParams.ids);
-				}]
-			}
-		});
-	
-	$urlRouterProvider.otherwise('dashboard');
-}]);
-
-app.run(function($rootScope) {
-    $rootScope.selectedProfiles = [];
-});
-
 app.factory('widgets', [function(){
 	var output = {};
 	
@@ -81,48 +49,4 @@ app.factory('details', ['widgets', function(widgets){
 	]
 	
 	return output;
-}]);
-
-app.factory('profiles', ['$http', function($http) {
-	var output = {
-		all: [],
-		map: {}
-	};
-	
-	output.reindexation = function() {
-		output.map = {};
-		
-		output.all.forEach(function(profile, index, array) {
-			output.map[profile.id] = index;
-		});
-	}
-	
-	output.getAll = function() {
-		return $http.get('/profiles').success(function(data) {
-			angular.copy(data, output.all);
-			output.reindexation();
-		});
-	};
-	
-	output.gets = function(ids) {
-		return $http.get('/profiles/' + ids).then(function(res){
-			var selected = [];
-			
-			angular.copy(res.data, selected);
-			/*
-			selected.forEach(function(profile) {
-				output.all[output.map[profile.id]] = profile;
-			});
-			*/
-			return selected;
-		});
-	};
-	
-	return output;
-}]);
-
-app.filter('iif', [function () {
-   return function(input, trueValue, falseValue) {
-        return input ? trueValue : falseValue;
-   };
 }]);
