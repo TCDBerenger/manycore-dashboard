@@ -1,17 +1,17 @@
 app.factory('widgets', [function(){
 	var output = {};
 	
-	output.cacheInvalid		= {id: 'cache-invalid',		title: 'Cache line invalidation',	subtitle:''};
-	output.cacheMisses		= {id: 'cache-misses',		title: 'Cache misses',				subtitle:''};
-	output.coreInactivity	= {id: 'core-inactivity',	title: 'Core inactivity',			subtitle:''};
-	output.syncCosts		= {id: 'sync-costs',		title: 'Lock contention',			subtitle:''};
-	output.threadPaths		= {id: 'thread-paths',		title: 'Thread paths',				subtitle:'Sequential vs. Parallel'};
-	output.threadChains		= {id: 'thread-chains',		title: 'Thread chains',				subtitle:'Data dependencies and critical routes'};
-	output.threadRunning	= {id: 'thread-running',	title: 'Thread running lifetime',	subtitle:''};
-	output.threadLocks		= {id: 'thread-locks',		title: 'Lock lifetimes',			subtitle:''};
-	output.threadDivergence	= {id: 'thread-divergence',	title: 'Thread divergence',			subtitle:''};
-	output.threadMigrations	= {id: 'thread-migrations',	title: 'Thread migrations',			subtitle:''};
-	output.threadSwitchs	= {id: 'thread-switchs',	title: 'Thread switches',			subtitle:''};
+	output.cacheInvalid		= {id: 10,	tag: 'cache-invalid',		title: 'Cache misses from updating shared data',				subtitle: ''};
+	output.cacheMisses		= {id: 11,	tag: 'cache-misses',		title: 'Cache misses',											subtitle: ''};
+	output.coreInactivity	= {id: 5,	tag: 'core-idle',			title: 'Idle cores',											subtitle: ''};
+	output.lockContentions	= {id: 9,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
+	output.threadPaths		= {id: 1,	tag: 'thread-paths',		title: 'Single thread execution phases',						subtitle: 'alternating sequential/parallel execution'};
+	output.threadChains		= {id: 2,	tag: 'thread-chains',		title: 'Chains of dependencies',								subtitle: 'synchronisations and waiting between threads'};
+	output.threadRunning	= {id: 3,	tag: 'thread-running',		title: 'Life cycles of threads',								subtitle: 'creation, running, moving between cores, termination'};
+	output.threadLocks		= {id: 4,	tag: 'thread-locks',		title: 'Waiting for locks',										subtitle: ''};
+	output.threadDivergence	= {id: 6,	tag: 'thread-divergence',	title: 'potential parallelism',									subtitle: 'number of running threads compared to number of cores'};
+	output.threadMigrations	= {id: 7,	tag: 'thread-migrations',	title: 'Thread switching the core on which it is executing',	subtitle: 'thread migrations'};
+	output.threadSwitchs	= {id: 8,	tag: 'thread-switchs',		title: 'Core swhitching the thread it is executing',			subtitle: 'Thread switches'};
 	
 	return output;
 }]);
@@ -24,15 +24,15 @@ app.factory('details', ['widgets', function(widgets){
 		},
 		{
 			cat: 'sy', label: 'Synchronisation', icon: 'cutlery',
-			widgets: [widgets.syncCosts, widgets.threadLocks]
+			widgets: [widgets.lockContentions, widgets.threadLocks]
 		},
 		{
 			cat: 'ds', label: 'Data sharing', icon: 'share-alt',
-			widgets: [widgets.syncCosts, widgets.cacheInvalid, widgets.cacheMisses]
+			widgets: [widgets.lockContentions, widgets.cacheInvalid, widgets.cacheMisses]
 		},
 		{
 			cat: 'lb', label: 'Load balancing', icon: 'code-fork',
-			widgets: [widgets.coreInactivity, widgets.syncCosts, widgets.threadMigrations, widgets.threadDivergence, widgets.threadPaths, widgets.threadChains]
+			widgets: [widgets.coreInactivity, widgets.lockContentions, widgets.threadMigrations, widgets.threadDivergence, widgets.threadPaths, widgets.threadChains]
 		},
 		{
 			cat: 'dl', label: 'Data locality', icon: 'location-arrow',
