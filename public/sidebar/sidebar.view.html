@@ -1,21 +1,11 @@
-test
-<div class="btn-toolbar-vertical">
-	<a ui-sref="dashboard" ui-sref-active="active" class="btn btn-default">
-		<i class="fa fa-reply-all fa-2x"></i>
-	</a>
+<button type="button" class="btn btn-primary link link-dashboard" ui-sref="dashboard" ui-sref-active="active">
+	<div class="fa fa-tachometer" aria-hidden="true"></div> Dashboard
+</button>
 
-	<div class="btn-group-vertical">
-		<a class="btn {{sequenceCheck | iif : 'btn-info' : 'btn-default'}}" ng-model="sequenceCheck" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-			<i class="fa fa-text-width fa-2x"></i>
-		</a>
-		<a class="btn {{facetCheck | iif : 'btn-info' : 'btn-default'}}" ng-model="facetCheck" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-			<i class="fa fa-filter fa-2x"></i>
-		</a>
-	</div>
-	
-	<div class="btn-group-vertical">
-		<a href="#/detail/{{d.cat}}/{{encodeSelectedProfile()}}" class="btn {{ meta.cat != d.cat | iif : 'btn-default' : 'btn-info disabled'}}" ng-repeat="d in details">
-			<i class="fa fa-{{d.icon}} fa-2x"></i>
-		</a>
-	</div>
-</div>
+<button type="button" class="btn btn-link link link-sequence" ng-model="sequenceCheck" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-show="hasSelectedProfile()" ng-disabled="! hasSelectedProfile()">
+	<div class="fa fa-text-width" aria-hidden="true"></div> Sequence
+</button>
+
+<a type="button" href="#/detail/{{d.cat}}/{{encodeSelectedProfile()}}" class="btn btn-primary link link-detail" ng-repeat="d in details" ui-sref-active="active" ng-show="hasSelectedProfile()" ng-disabled="! hasSelectedProfile()">
+	<div class="fa fa-{{d.icon}} fa-2x"></div> {{d.label}}
+</a>

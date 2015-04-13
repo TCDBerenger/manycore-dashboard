@@ -1,9 +1,45 @@
 /*
  * Sidebar
  */
+ /*
 .sidebar i {
 	width: 26px;
 }
 .sidebar div, .sidebar a {
 	width: 100%;
+}
+*/
+
+.sidebar .link {
+	width: 220px;
+	padding: 16px 20px;
+	text-align: left;
+	line-height: 26px;
+	vertical-align: middle;
+}
+
+.sidebar .link div {
+	display: inline-block;
+	width: 26px;
+	height: 26px;
+	font-size: 2em;
+	margin-right: 12px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 26px;
+}
+
+.sidebar .link-dashboard {
+	margin-top: 20px;
+}
+
+.sidebar .link-sequence {
+	margin-top: 20px;
+}
+
+.sidebar .link-details {
+	margin-top: 20px;
+}
+.sidebar .link-detail {
+	margin-top: 20px;
 }

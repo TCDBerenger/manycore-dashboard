@@ -19,7 +19,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', 'profiles', 'deta
 	 * Flag - add
 	 */
 	$scope.canAddProfile = function() {
-		return $scope.selectedProfiles.length <= 2;
+		return $scope.selectedProfiles.length < 2;
 	};
 	
 	/**

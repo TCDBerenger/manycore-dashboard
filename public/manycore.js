@@ -6,39 +6,31 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 			url: '/dashboard',
 			templateUrl: '/dashboard/dashboard.view.html',
 			controller: 'DashboardController',
-			/*views: {
-				/*'@': {
-					templateUrl: '/dashboard/dashboard.view.html',
-					controller: 'DashboardController'
-				},
-				'sidebar': {
-					templateUrl: '/sidebar/sidebar.view.html',
-					controller: 'SidebarController'
-				}},*/
 			resolve: {
 				promise: ['profiles', function(profiles){
 					return profiles.getAll();
-				}]}
-			})
+				}]
+			}
+		})
 		.state('detail', {
 			url: '/detail/{cat:[b-y]{1,2}}/{ids}',
 			templateUrl: '/detail/detail.view.html',
 			controller: 'DetailController',
-			/*views: {
-				'@': {
-					templateUrl: '/detail/detail.view.html',
-					controller: 'DetailController'
-				},
-				'sidebar': {
-					templateUrl: '/sidebar/sidebar.view.html',
-					controller: 'SidebarController'
-				}},*/
 			resolve: {
 				selected: ['$stateParams', 'profiles', function($stateParams, profiles) {
 					return profiles.gets($stateParams.ids);
 				}]
 			}
 		});
+		/*
+		.state('detail.tg', { templateUrl: '/detail/tg/', views: {	} })
+		.state('detail.sy', { templateUrl: '/detail/sy/', views: {	} })
+		.state('detail.ds', { templateUrl: '/detail/ds/', views: {	} })
+		.state('detail.lb', { templateUrl: '/detail/lb/', views: {	} })
+		.state('detail.dl', { templateUrl: '/detail/dl/', views: {	} })
+		.state('detail.rs', { templateUrl: '/detail/rs/', views: {	} })
+		.state('detail.io', { templateUrl: '/detail/io/', views: {	} });
+		*/
 	
 	$urlRouterProvider.otherwise('dashboard');
 }]);

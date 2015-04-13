@@ -21,13 +21,23 @@ app.controller('SidebarController', ['$scope', '$rootScope', '$stateParams', 'de
 	$rootScope.$on('$stateChangeStart',
 		function(event, toState, toParams, fromState, fromParams) {
 			if (toState.name == 'dashboard') {
-				document.getElementById('wrapper').className = 'expanded';
-			} else {
 				document.getElementById('wrapper').className = '';
+			} else {
+				document.getElementById('wrapper').className = 'min';
 			}
 		});
-
 	
+	/************************************************/
+	/* Functions - Graphical						*/
+	/************************************************/
+	
+	/**
+	 * Flag - selected
+	 */
+	$scope.hasSelectedProfile = function() {
+		return $scope.selectedProfiles.length > 0;
+	};
+
 	/************************************************/
 	/* Functions - Browsing							*/
 	/************************************************/

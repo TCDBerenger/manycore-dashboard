@@ -3,13 +3,13 @@ var router = express.Router();
 
 
 var profiles = [
-		{id: 101, label: 'Sample #1'},
-		{id: 102, label: 'Example #2'},
-		{id: 103, label: 'Instance #3'},
-		{id: 104, label: 'Try #4'},
-		{id: 105, label: 'Attempt #5'},
-		{id: 106, label: 'Trial #6'},
-		{id: 107, label: 'Test #7'}
+		{id: 101, label: 'Sample #1',	desc: 'little description'},
+		{id: 102, label: 'Example #2',	desc: 'little description'},
+		{id: 103, label: 'Instance #3',	desc: 'little description'},
+		{id: 104, label: 'Try #4',		desc: 'little description'},
+		{id: 105, label: 'Attempt #5',	desc: 'little description'},
+		{id: 106, label: 'Trial #6',	desc: 'little description'},
+		{id: 107, label: 'Test #7',		desc: 'little description'}
 	];
 
 /* GET profiles listing. */

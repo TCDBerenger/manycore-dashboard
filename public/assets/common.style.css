@@ -23,20 +23,28 @@ body {
 
 }
 
+.navbar .navbar-brand {
+	width: 220px;
+	text-align: center;
+}
+
+.navbar i.fa {
+	font-size: 1.5em;
+	margin-right: 2px;
+}
+
 
 /*
  * Wrapper
  */
 #wrapper {
-	padding-left: 0;
 	transition: all 0.5s ease;
-	padding-left: 60px;
+	padding-left: 220px;
 	margin-top: -25px;
-	clear: both;
 }
 
-#wrapper.expanded {
-	padding-left: 217px;
+#wrapper.min {
+	padding-left: 60px;
 }
 
 
@@ -46,34 +54,33 @@ body {
 #sidebar {
 	z-index: 1000;
 	position: fixed;
-	left: 217px;
-	width: 60px;
+	left: 220px;
+	width: 220px;
 	height: 100%;
-	margin-left: -217px;
+	margin-left: -220px;
 	overflow-y: auto;
-	background: #000;
+	background: #000000;
 	transition: all 0.5s ease;
 }
-#wrapper.expanded #sidebar {
-	width: 217px;
+#wrapper.min #sidebar {
+	width: 60px;
 }
 
 /*
  * Content
  */
+ /*
 #content {
 	width: 100%;
 	position: absolute;
 	padding: 30px;
-}
- 
+}*/
+
 #content {
 	width: 100%;
-	position: absolute;
-	padding: 15px;
-	margin-right: -60px;
+	padding: 20px;
 }
-#wrapper.expanded #content {
-	position: absolute;
-	margin-right: -217px;
+
+#wrapper.min #content {
+	margin-right: 0px;
 }

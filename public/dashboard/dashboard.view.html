@@ -83,18 +83,19 @@
 	</div>
 	
 	<!-- Selection -->
+	<div class="col-xs-3" ng-show="canAddProfile()">
+		<h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{! hasSelectedProfile() | iif : "Select a sample" : "Compare with"}}</h2>
+		<div class="list-group">
+			<a ng-click="selectProfile(profile)" class="list-group-item" ng-repeat="profile in availableProfiles | orderBy:'id'">
+				<h4 class="list-group-item-heading">{{profile.label}}</h4>
+				<p class="list-group-item-text">{{profile.desc}}</p>
+			</a>
+		</div>
+	</div>
+	
+	<!-- Selection -->
 	<div class="col-xs-1">
 		<div class="btn-group-vertical">
-			<div class="btn-group" dropdown ng-show="canAddProfile()" is-open="! hasSelectedProfile()">
-					<a class="btn btn-default dropdown-toggle" dropdown-toggle ng-disabled="disabled">
-						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-						{{ hasSelectedProfile() | iif : "" : "add app profile"}}
-					</a>
-				<ul class="dropdown-menu" role="menu">
-					<li ng-repeat="profile in availableProfiles | orderBy:'id'"><a href="#" ng-click="selectProfile(profile)">{{profile.label}}</a></li>
-				</ul>
-			</div>
-			
 			<a class="btn btn-default" ng-show="hasSelectedProfile()" ng-click="unselectAllProfiles()">
 				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 			</a>
