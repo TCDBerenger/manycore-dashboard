@@ -16,6 +16,17 @@
 	padding-right: 6px;
 }
 
+.dashboard .profile-hardware-menu {
+	width: 80%;
+	margin-top: 2px;
+}
+.dashboard .profile-hardware-menu .list-group-item h5 + p {
+	padding-top: 4px;
+}
+.dashboard .profile-hardware-menu b {
+	padding-left: 10px;
+}
+
 
 .dashboard .profile .profile-sequence .panel {
 	border-radius: 0px;

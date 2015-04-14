@@ -3,19 +3,34 @@
 	<div class="col-xs-{{selectedProfiles.length * 3}} profile" ng-show="hasSelectedProfile()">
 		<div class="row profile-title">
 			<div class="col-xs-{{12 / selectedProfiles.length}}" ng-repeat="profile in selectedProfiles">
-				<!-- <h2><span class="pull-right link" ng-click="unselectProfile(profile)"><i class="fa fa-times"></i></span>{{profile.label}}</h2> -->
-				
 				<h2>
 					<a class="pull-right" ng-click="unselectProfile(profile)"><i class="fa fa-minus-square-o"></i></a>
 					{{profile.label}}
 				</h2>
 				<p>{{profile.desc}}</p>
-				<p>
-					<a class="pull-right"><i class="fa fa-caret-square-o-down"></i></a>
-					<span class="label label-default">CPU</span> Intel core I7,
-					<span class="label label-default">RAM</span> 4 GB,
-					...
-				</p>
+				<div class="dropdown profile-hardware" dropdown on-toggle="toggled(open)">
+					<p>
+						<a href class="dropdown-toggle" dropdown-toggle><strong>run on</strong> <i class="fa fa-caret-square-o-down"></i></a>
+						Intel I7 EXSmth with 12 GB RAM
+					</p>
+					<div class="panel panel-primary dropdown-menu profile-hardware-menu">
+						<div class="panel-heading"><h3 class="panel-title">Hardware details</h3></div>
+						<ul class="list-group">
+							<li class="list-group-item">
+								<h5 class="list-group-item-heading"><span class="label label-primary">CPU</span> Intel core I7</h5>
+								<p class="list-group-item-text">
+									<b>Model :</b> ESmth<br />
+									<b>Type :</b> 64 bits<br />
+									<b>Cores :</b> 8 cores<br />
+									<b>Clock :</b> 3 070 MHz
+								</p>
+							</li>
+							<li class="list-group-item">
+								<h5 class="list-group-item-heading"><span class="label label-primary">RAM</span> 12 279 MB</h5>
+							</li>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="row profile-sequence">
@@ -84,7 +99,6 @@
 	<!-- Selection -->
 	<div class="col-xs-1 ctrl-settings" ng-show="hasSelectedProfiles()">
 		<h2><a ng-click="unselectAllProfiles()"><i class="fa fa-minus-square"></i></a></h2>
-
 		<!--
 		<a class="btn btn-default disabled">
 			<i class="glyphicon fa fa-sliders" aria-hidden="true"></i>
