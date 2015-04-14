@@ -1,0 +1,4 @@
+   NumberOfProcessors="8"
+   CpuSpeedMHz="3070"
+   MemorySizeMeg="12279"
+   PointerSize="8" 64 bits
