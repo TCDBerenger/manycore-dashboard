@@ -1,10 +1,42 @@
 /*
  * Dashboard
  */
-.dashboard .dashboard-profile .profile-sequence .panel {
+.dashboard h2 {
+	margin-top: 0px;
+	/* display: inline-block; */
+}
+
+.dashboard a {
+	cursor: pointer;
+}
+
+.dashboard .profile h2 i {
+}
+.dashboard .profile p i {
+	padding-right: 6px;
+}
+
+
+.dashboard .profile .profile-sequence .panel {
 	border-radius: 0px;
 }
-.dashboard .dashboard-profile .profile-body .panel {
+.dashboard .profile .profile-body .panel {
 	border-top-left-radius: 0px;
 	border-top-right-radius: 0px;
+}
+
+.dashboard .profile .profile-body .list-group-item {
+	margin: 0px;
+	padding: 0px;
+	height: 60px;
+	width: 100%;
+}
+.dashboard .profile .profile-body .list-group-item svg {
+	height: 100%;
+	width: 100%;
+}
+
+.dashboard .ctrl-add .list-group {
+	padding-left: 40px;
+	width: 260px;
 }

@@ -17,7 +17,7 @@ app.controller('NavbarController', ['$scope', '$rootScope', '$stateParams', 'det
 	/* Bind - Style									*/
 	/************************************************/
 	/**
-	 * Expand
+	 * Detail
 	 */
 	$rootScope.$on('$stateChangeStart',
 		function(event, toState, toParams, fromState, fromParams) {

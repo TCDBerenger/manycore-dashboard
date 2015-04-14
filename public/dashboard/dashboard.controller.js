@@ -29,6 +29,13 @@ app.controller('DashboardController', ['$scope', '$rootScope', 'profiles', 'deta
 		return $scope.selectedProfiles.length > 0;
 	};
 	
+	/**
+	 * Flag - selected
+	 */
+	$scope.hasSelectedProfiles = function() {
+		return $scope.selectedProfiles.length > 1;
+	};
+	
 	/************************************************/
 	/* Functions - Select data						*/
 	/************************************************/

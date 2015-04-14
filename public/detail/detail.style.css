@@ -1,14 +1,31 @@
 /*
  * Detail
  */
-.facets {
-	float: right;
-	width: 200px;
-	padding-top: 54px;
+.detail h2 {
+	margin-top: 0px;
+	padding-right: 20px;
 }
-.detail-faceted {
-	margin-right: 200px;
+.detail .profile h2 {
+	display: inline-block;
 }
-.detail .profile-data .well {
-	padding-top: 34px;
+.detail .profile h4 {
+	padding-right: 10px;
+	display: inline-block;
+}
+
+.detail .profile .profile-graph {
+	height: 60px;
+}
+
+.detail .profile .profile-graph svg {
+	height: 100%;
+	width: 100%;
+}
+
+.detail .profile .profile-data {
+	padding-top: 42px;
+}
+
+.detail .facets .well {
+	min-height: 500px;
 }

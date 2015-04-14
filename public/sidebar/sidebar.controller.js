@@ -8,6 +8,7 @@ app.controller('SidebarController', ['$scope', '$rootScope', '$stateParams', 'de
 	$scope.profiles = []; //selected;
 	
 	// Details
+	$scope.detail = null;
 	$scope.details = details;
 	
 
@@ -16,17 +17,35 @@ app.controller('SidebarController', ['$scope', '$rootScope', '$stateParams', 'de
 	/* Bind - Style									*/
 	/************************************************/
 	/**
-	 * Expand
+	 * Detail & expand
 	 */
 	$rootScope.$on('$stateChangeStart',
 		function(event, toState, toParams, fromState, fromParams) {
 			if (toState.name == 'dashboard') {
+				$scope.detail = null;
 				document.getElementById('wrapper').className = '';
 			} else {
+				$scope.details.forEach(function(detail) {
+					if (detail.cat == toParams.cat) {
+						$scope.detail = detail;
+					}
+				});
 				document.getElementById('wrapper').className = 'min';
 			}
 		});
 	
+	
+	/************************************************/
+	/* Functions - Graphical						*/
+	/************************************************/
+	
+	/**
+	 * Flag - detail
+	 */
+	$scope.hasDetail = function() {
+		return $scope.detail != null;
+	};
+
 	/************************************************/
 	/* Functions - Graphical						*/
 	/************************************************/

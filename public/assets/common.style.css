@@ -38,7 +38,7 @@ body {
  * Wrapper
  */
 #wrapper {
-	transition: all 0.5s ease;
+	transition: all 0.2s ease;
 	padding-left: 220px;
 	margin-top: -25px;
 }
@@ -58,9 +58,9 @@ body {
 	width: 220px;
 	height: 100%;
 	margin-left: -220px;
-	overflow-y: auto;
+	overflow-y: hidden;
 	background: #000000;
-	transition: all 0.5s ease;
+	transition: all 0.2s ease;
 }
 #wrapper.min #sidebar {
 	width: 60px;
@@ -78,7 +78,7 @@ body {
 
 #content {
 	width: 100%;
-	padding: 20px;
+	padding: 40px 20px 0px 40px;
 }
 
 #wrapper.min #content {

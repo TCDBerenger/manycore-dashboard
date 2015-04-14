@@ -1,13 +1,17 @@
 <div class="row dashboard">
 	<!-- Profiles -->
-	<div class="col-xs-{{selectedProfiles.length * 3}} dashboard-profile" ng-show="hasSelectedProfile()">
+	<div class="col-xs-{{selectedProfiles.length * 3}} profile" ng-show="hasSelectedProfile()">
 		<div class="row profile-title">
 			<div class="col-xs-{{12 / selectedProfiles.length}}" ng-repeat="profile in selectedProfiles">
 				<!-- <h2><span class="pull-right link" ng-click="unselectProfile(profile)"><i class="fa fa-times"></i></span>{{profile.label}}</h2> -->
-				<h2 style="display: inline-block">{{profile.label}}</h2>
-				(<a class="fa fa-times" ng-click="unselectProfile(profile)"></a>)
+				
+				<h2>
+					<a class="pull-right" ng-click="unselectProfile(profile)"><i class="fa fa-minus-square-o"></i></a>
+					{{profile.label}}
+				</h2>
 				<p>{{profile.desc}}</p>
 				<p>
+					<a class="pull-right"><i class="fa fa-caret-square-o-down"></i></a>
 					<span class="label label-default">CPU</span> Intel core I7,
 					<span class="label label-default">RAM</span> 4 GB,
 					...
@@ -27,7 +31,7 @@
 				<h4>Profile</h4>
 				<div class="list-group">
 					<a href="#/detail/tg/{{profile.id}}" class="list-group-item">
-						<svg class="indicator-tg" height="40">
+						<svg class="indicator-tg">
 							<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Task granularity graph here</text>
 						</svg>
 					</a>
@@ -67,7 +71,7 @@
 	</div>
 	
 	<!-- Selection -->
-	<div class="col-xs-3" ng-show="canAddProfile()">
+	<div class="col-xs-3 ctrl-add" ng-show="canAddProfile()">
 		<h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{! hasSelectedProfile() | iif : "Select a sample" : "Compare with"}}</h2>
 		<div class="list-group">
 			<a ng-click="selectProfile(profile)" class="list-group-item" ng-repeat="profile in availableProfiles | orderBy:'id'">
@@ -78,16 +82,13 @@
 	</div>
 	
 	<!-- Selection -->
-	<div class="col-xs-1" ng-show="hasSelectedProfile()">
-		<div class="btn-group-vertical">
-			<a class="btn btn-default" ng-click="unselectAllProfiles()">
-				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-			</a>
-			<!--
-			<a class="btn btn-default disabled">
-				<i class="glyphicon fa fa-sliders" aria-hidden="true"></i>
-			</a>
-			-->
-		</div>
+	<div class="col-xs-1 ctrl-settings" ng-show="hasSelectedProfiles()">
+		<h2><a ng-click="unselectAllProfiles()"><i class="fa fa-minus-square"></i></a></h2>
+
+		<!--
+		<a class="btn btn-default disabled">
+			<i class="glyphicon fa fa-sliders" aria-hidden="true"></i>
+		</a>
+		-->
 	</div>
 </div>

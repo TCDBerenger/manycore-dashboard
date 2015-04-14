@@ -1,45 +1,25 @@
-<div class="facets" ng-show="facetCheck">
-	<div class="well well-sm">
-		<b>Refine data</b>
-		<pre>facet 1</pre>
-		<pre>facet 2</pre>
-		<pre>facet 3</pre>
-	</div>
-</div>
-
 <div class="row detail{{facetCheck | iif : ' detail-faceted' : ''}}">
-	<div class="col-xs-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<b class="panel-title">{{meta.label}}</b> details
-				for <span ng-repeat="profile in profiles"><span class="label label-default">{{profile.label}}</span> </span>
+	<div class="col-xs-9 profile">
+		<h2>{{meta.label}}</h2>
+		details for <span ng-repeat="profile in profiles"><span class="label label-default">{{profile.label}}</span> </span>
+
+		<div class="row profile" ng-repeat="widget in meta.widgets">
+			<div class="col-xs-9 profile-graph">
+				<h4>{{widget.title}}</h4>
+				{{widget.subtitle}}<br />
+				<svg class="indicator-io">
+					<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Graph here</text>
+				</svg>
 			</div>
-			<div class="panel-body">
-				<div class="row profile">
-					<div class="col-xs-9 sequence" ng-show="sequenceCheck">
-						<div class="well well-sm">
-							<b>Refine sequence</b>
-							<pre>sequence here</pre>
-						</div>
-					</div>
-				</div>
-				<div class="row profile" ng-repeat="w in meta.widgets">
-					<div class="col-xs-9 profile-graph">
-						<div class="well well-sm">
-							<b>{{w.title}}</b>
-							<i>{{w.subtitle}}</i><br />
-							<svg class="indicator-io" height="40">
-								<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Graph here</text>
-							</svg>
-						</div>
-					</div>
-					<div class="col-xs-3 profile-data">
-						<div class="well well-sm">
-							<pre>data here</pre>
-						</div>
-					</div>
-				</div>
+			<div class="col-xs-3 profile-data">
+				<pre>data here</pre>
 			</div>
-		</div
+		</div>
+	</div>
+	<div class="col-xs-3 facets">
+		<div class="well well-sm">
+			<h2>Refine data</h2>
+			<p>TODO</p>
+		</div>
 	</div>
 </div>
