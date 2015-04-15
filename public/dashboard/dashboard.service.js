@@ -1,4 +1,4 @@
-app.factory('profiles', ['$http', function($http) {
+app.factory('profileService', ['$http', function($http) {
 	var output = {
 		all: [],
 		map: {}

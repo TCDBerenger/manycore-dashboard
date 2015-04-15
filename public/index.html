@@ -23,6 +23,7 @@
 	<script src="/dashboard/dashboard.service.js" type="text/javascript"></script>
 	<script src="/dashboard/dashboard.controller.js" type="text/javascript"></script>
 	<script src="/detail/detail.controller.js" type="text/javascript"></script>
+	<script src="/detail/detail.service.js" type="text/javascript"></script>
 	<script src="/navbar/navbar.controller.js" type="text/javascript"></script>
 	<script src="/sidebar/sidebar.controller.js" type="text/javascript"></script>
 </head>
@@ -45,7 +46,7 @@
 			<ul class="nav navbar-nav">
 				<li ui-sref-active="active"><a ui-sref="dashboard"><i class="fa fa-tachometer"></i> Dashboard</a></li>
 				<p class="navbar-text" ng-show="hasDetail()">→</p>
-				<li ng-show="hasDetail()"><a href="#"><i class="fa fa-{{detail.icon}}"></i>  {{detail.label}}</a></li>
+				<li ng-show="hasDetail()"><a href="#"><i class="fa fa-{{selectedCategory.icon}}"></i>  {{selectedCategory.label}}</a></li>
 			</ul>
 
 			<!-- collapsible right content -->

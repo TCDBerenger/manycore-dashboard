@@ -1,15 +1,14 @@
-app.controller('SidebarController', ['$scope', '$rootScope', '$stateParams', 'details', function($scope, $rootScope, $stateParams, details) {
+app.controller('SidebarController', ['$scope', '$rootScope', '$stateParams', 'categories', function($scope, $rootScope, $stateParams, categories) {
 	// Metadata
 	$scope.meta = {};
 	$scope.meta.cat = "";
-	$scope.meta.ids = $rootScope;
 	
 	// Profiles
-	$scope.profiles = []; //selected;
+	$scope.profiles = [];
 	
 	// Details
-	$scope.detail = null;
-	$scope.details = details;
+	$scope.categories = categories.all;
+	$scope.selectedCategory = null;
 	
 
 
@@ -22,14 +21,10 @@ app.controller('SidebarController', ['$scope', '$rootScope', '$stateParams', 'de
 	$rootScope.$on('$stateChangeStart',
 		function(event, toState, toParams, fromState, fromParams) {
 			if (toState.name == 'dashboard') {
-				$scope.detail = null;
+				$scope.selectedCategory = null;
 				document.getElementById('wrapper').className = '';
 			} else {
-				$scope.details.forEach(function(detail) {
-					if (detail.cat == toParams.cat) {
-						$scope.detail = detail;
-					}
-				});
+				$scope.selectedCategory = categories[toParams.cat];
 				document.getElementById('wrapper').className = 'min';
 			}
 		});
@@ -43,7 +38,7 @@ app.controller('SidebarController', ['$scope', '$rootScope', '$stateParams', 'de
 	 * Flag - detail
 	 */
 	$scope.hasDetail = function() {
-		return $scope.detail != null;
+		return $scope.selectedCategory != null;
 	};
 
 	/************************************************/

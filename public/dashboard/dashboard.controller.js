@@ -1,14 +1,14 @@
-app.controller('DashboardController', ['$scope', '$rootScope', 'profiles', 'details', function($scope, $rootScope, profiles, details) {
+app.controller('DashboardController', ['$scope', '$rootScope', 'profileService', 'categories', function($scope, $rootScope, profileService, categories) {
 	/************************************************/
 	/* Constructor - Init							*/
 	/************************************************/
 	// Profiles
-	$scope.profiles = profiles.all;
+	$scope.profiles = profileService.all;
 	$scope.selectedProfiles = []
 	$scope.availableProfiles = [];
 	
 	// Details
-	$scope.details = details;
+	$scope.categories = categories.all;
 	
 	
 	/************************************************/

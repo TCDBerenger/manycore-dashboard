@@ -16,37 +16,40 @@ app.factory('widgets', [function(){
 	return output;
 }]);
 
-app.factory('details', ['widgets', function(widgets){
-	var output = [
-		{
-			cat: 'tg', label: 'Task granularity', icon: 'tasks',
-			widgets: [widgets.threadSwitchs, widgets.threadMigrations, widgets.threadRunning, widgets.threadDivergence]
-		},
-		{
-			cat: 'sy', label: 'Synchronisation', icon: 'cutlery',
-			widgets: [widgets.lockContentions, widgets.threadLocks]
-		},
-		{
-			cat: 'ds', label: 'Data sharing', icon: 'share-alt',
-			widgets: [widgets.lockContentions, widgets.cacheInvalid, widgets.cacheMisses]
-		},
-		{
-			cat: 'lb', label: 'Load balancing', icon: 'code-fork',
-			widgets: [widgets.coreInactivity, widgets.lockContentions, widgets.threadMigrations, widgets.threadDivergence, widgets.threadPaths, widgets.threadChains]
-		},
-		{
-			cat: 'dl', label: 'Data locality', icon: 'location-arrow',
-			widgets: [widgets.cacheMisses]
-		},
-		{
-			cat: 'rs', label: 'Resource sharing', icon: 'exchange',
-			widgets: []
-		},
-		{
-			cat: 'io', label: 'Input/Output', icon: 'plug',
-			widgets: []
-		}
-	]
+app.factory('categories', ['widgets', function(widgets){
+	var tg = {
+		cat: 'tg', label: 'Task granularity', title: 'Task granularity', icon: 'tasks',
+		widgets: [widgets.threadSwitchs, widgets.threadMigrations, widgets.threadRunning, widgets.threadDivergence]
+	};
+	var sy = {
+		cat: 'sy', label: 'Synchronisation', title: 'Synchronisation', icon: 'cutlery',
+		widgets: [widgets.lockContentions, widgets.threadLocks]
+	};
+	var ds = {
+		cat: 'ds', label: 'Data sharing', title: 'Data sharing', icon: 'share-alt',
+		widgets: [widgets.lockContentions, widgets.cacheInvalid, widgets.cacheMisses]
+	};
+	var lb = {
+		cat: 'lb', label: 'Load balancing', title: 'Load balancing', icon: 'code-fork',
+		widgets: [widgets.coreInactivity, widgets.lockContentions, widgets.threadMigrations, widgets.threadDivergence, widgets.threadPaths, widgets.threadChains]
+	};
+	var dl = {
+		cat: 'dl', label: 'Data locality', title: 'Data locality', icon: 'location-arrow',
+		widgets: [widgets.cacheMisses]
+	};
+	var rs = {
+		cat: 'rs', label: 'Resource sharing', title: 'Resource sharing', icon: 'exchange',
+		widgets: []
+	};
+	var io = {
+		cat: 'io', label: 'Input/Output', title: 'Input/Output', icon: 'plug',
+		widgets: []
+	};
+
+	var output = {
+		'all': [tg, sy, ds, lb, dl, rs, io],
+		'tg': tg, 'sy': sy, 'ds': ds, 'lb': lb, 'dl': dl, 'rs': rs, 'io': io
+	};
 	
 	return output;
 }]);
