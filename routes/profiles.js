@@ -17,14 +17,16 @@ var hardRoman = {
 	ram:	'12 279 MB'
 };
 
+var profileIJK = {id: 1, tag: 'matmulijk',	label: 'Matmul IJK',	desc: 'Matrice multiplication IJK', 	hardware: hardRoman};
 
-var profiles = [
-		{id: 1, tag: 'matmulijk',	label: 'Matmul IJK',	desc: 'Matrice multiplication IJK', 	hardware: hardRoman}
-	];
+var profiles = {
+	1: profileIJK,	'matmulijk': profileIJK,
+	all: [profileIJK]
+};
 
 /* GET profiles listing. */
 router.get('/', function(req, res, next) {
-	res.json(profiles);
+	res.json(profiles.all);
 });
 
 /* GET profiles data. */
@@ -33,12 +35,8 @@ router.get('/*', function(req, res) {
 	var ids = req.params[0].split('-');
 	var selected = [];
 	
-	ids.forEach(function(id, id_index, id_array) {
-		profiles.forEach(function(profile, profile_index, profile_array) {
-			if (id == profile.id) {
-				selected.push(profile);
-			}
-		})
+	ids.forEach(function(id) {
+		selected.push(profiles[id]);
 	});
 	
 	res.json(selected);
