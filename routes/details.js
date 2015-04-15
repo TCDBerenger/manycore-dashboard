@@ -5,32 +5,133 @@ var router = express.Router();
 /* Variables									*/
 /************************************************/
 var profileMap = {
-	1: 'matmulijk'
+	1: { file: 'matmulijk', program: 'MatmulIJK', timeShift: 635573757342822588, maxThreads: 8 }
 };
-var profileData = {};
+var profileRawData = {};
+
+/**
+	profileData
+	 └	threads
+	  	 └	byFrames
+			 ├	frame<0>			ID
+			 │	 ├	thread<0>		ID
+			 │	 │	 ├	cycles		<integer>
+			 │	 │	 ├	init		<integer>
+			 │	 │	 ├	running		<integer>
+			 │	 │	 ├	standby		<integer>
+			 │	 │	 ├	wait		<integer>
+			 │	 │	 ├	ready		<integer>
+			 │	 │	 ├	transition	<integer>
+			 │	 │	 ├	terminated	<integer>
+			 │	 │	 └	unknown		<integer>
+			 │	 ├	...
+			 │	 └	thread<N>
+			 ├	...
+			 └	frame<N>
+ */
+var profileData = {
+	threads: {
+		byFrames: {}
+	},
+};
 
 
 /************************************************/
 /* Functions - Common							*/
 /************************************************/
+/**
+ * Load raw data
+ */
 function loadData(id) {
-	if (! profileData[id]) {
+	if (! profileRawData[id]) {
+		profileRawData[id] = require('../data/' + profileMap[id].file + '.json');
 	}
+}
+
+/**
+ * Filter threads states
+ */
+function treatThreadStatesByFrame(id) {
+	var timeID = 0;
+	profileRawData[id].forEach(function(element) {
+		if (element.program == profileMap[id].program) {
+
+			// Compute time ID
+			timeID = element.time - profileMap[id].timeShift;
+
+			// Check Frame time
+			if (! profileData.threads.byFrames.hasOwnProperty(timeID)) {
+				profileData.threads.byFrames[timeID] = {};
+			}
+
+			// Check Frame time
+			if (! profileData.threads.byFrames[timeID].hasOwnProperty(element.tid)) {
+				profileData.threads.byFrames[timeID][element.tid] = {};
+			}
+
+			// Stave state
+			profileData.threads.byFrames[timeID][element.tid][element.type] = element.value;
+		}
+	});
 }
 
 
 /************************************************/
 /* Functions - For each category				*/
-/************************************************/	
+/************************************************/
 /**
  * Task granularity
  */
 function jsonTG(id) {
 	var output = {};
 
+	treatThreadStatesByFrame(id);
+
 	output.id = id;
 	output.cat = 'tg';
-	output.log = "TODO";
+	// output.log = profileData.threads.byFrames;
+	output.maxThreads = profileMap[id].maxThreads;
+	output.frames = {};
+
+
+	// Count threads availables
+	var thread, threadRunning, threadReady;
+	var countRunning = 0;
+	var countReady = 0;
+	for (var frameID in profileData.threads.byFrames) {
+		if (profileData.threads.byFrames.hasOwnProperty(frameID)) {
+			// Reinit counters
+			countRunning = 0;
+			countReady = 0;
+
+			// Count among all threads
+			for (var threadID in profileData.threads.byFrames[frameID]) {
+				if (profileData.threads.byFrames[frameID].hasOwnProperty(threadID)) {
+					thread = profileData.threads.byFrames[frameID][threadID];
+					threadRunning = thread.running + thread.cycles;
+					threadReady = thread.ready;
+					if (threadRunning > threadReady && threadRunning > thread.init && threadRunning > thread.standby && threadRunning > thread.terminated && threadRunning > thread.transition && threadRunning > thread.unknown && threadRunning > thread.wait) {
+						countRunning++;
+					} else if (threadReady > threadRunning && threadReady > thread.init && threadReady > thread.standby && threadReady > thread.terminated && threadReady > thread.transition && threadReady > thread.unknown && threadReady > thread.wait) {
+						countReady++;
+					}
+				}
+			}
+
+			// Hack
+			if (countRunning > profileMap[id].maxThreads) {
+				countReady += countRunning - profileMap[id].maxThreads;
+				countRunning = profileMap[id].maxThreads;
+			}
+
+			// Build response
+			output.frames[frameID] = {
+				id: frameID,
+				running : countRunning,
+				ready: countReady
+			};
+		}
+	}
 
 	return output;
 }
