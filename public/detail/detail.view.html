@@ -1,7 +1,34 @@
 <div class="row detail{{facetCheck | iif : ' detail-faceted' : ''}}">
 	<div class="col-xs-9 profile">
 		<h2>{{meta.label}}</h2>
-		details for <span ng-repeat="profile in profiles"><span class="label label-default">{{profile.label}}</span> </span>
+		details for
+		<span class="dropdown profile-hardware" ng-repeat="profile in profiles">
+			<a href class="label label-primary dropdown-toggle">{{profile.label}} <i class="fa fa-info profile-carret"></i></a>
+			<div class="panel panel-primary dropdown-menu profile-hardware-menu">
+				<div class="panel-heading"><h3 class="panel-title">Hardware details</h3></div>
+				<ul class="list-group">
+					<li class="list-group-item">
+						<h5 class="list-group-item-heading">
+							<a href="{{profile.hardware.cpu.link}}" class="pull-right">specs</a>
+							<span class="label label-primary">CPU</span> {{profile.hardware.cpu.label}}
+						</h5>
+						<p class="list-group-item-text">
+							<b>Model :</b> {{profile.hardware.cpu.model}}<br />
+							<b>Type :</b> {{profile.hardware.cpu.type}}<br />
+							<b>Cores :</b> {{profile.hardware.cpu.cores}}<br />
+							<b>Clock :</b> {{profile.hardware.cpu.clock}}<br />
+							<b>Cache L1 :</b> {{profile.hardware.cpu.l1}}<br />
+							<b>Cache L2 :</b> {{profile.hardware.cpu.l2}}<br />
+							<b>Cache L3 :</b> {{profile.hardware.cpu.l3}}
+						</p>
+					</li>
+					<li class="list-group-item">
+						<h5 class="list-group-item-heading"><span class="label label-primary">RAM</span> {{profile.hardware.ram}}</h5>
+					</li>
+				</ul>
+			</div>
+		</span>
+
 
 		<div class="row profile" ng-repeat="widget in meta.widgets">
 			<div class="col-xs-9 profile-graph">

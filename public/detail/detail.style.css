@@ -13,6 +13,24 @@
 	display: inline-block;
 }
 
+.detail .profile-hardware:hover > .dropdown-menu {
+	display: block;
+}
+.detail .profile-hardware .profile-carret {
+	padding-left: 6px;
+}
+.detail .profile-hardware-menu {
+	min-width: 280px;
+	margin-top: 2px;
+}
+.detail .profile-hardware-menu .list-group-item h5 + p {
+	padding-top: 4px;
+}
+.detail .profile-hardware-menu b {
+	padding-left: 10px;
+}
+
+
 .detail .profile .profile-graph {
 	height: 60px;
 }
