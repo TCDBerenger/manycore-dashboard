@@ -17,7 +17,7 @@
 }
 
 .dashboard .profile-hardware-menu {
-	width: 80%;
+	min-width: 280px;
 	margin-top: 2px;
 }
 .dashboard .profile-hardware-menu .list-group-item h5 + p {

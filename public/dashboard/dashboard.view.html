@@ -7,26 +7,32 @@
 					<a class="pull-right" ng-click="unselectProfile(profile)"><i class="fa fa-minus-square-o"></i></a>
 					{{profile.label}}
 				</h2>
-				<p>{{profile.desc}}</p>
+				{{profile.desc}}
 				<div class="dropdown profile-hardware" dropdown on-toggle="toggled(open)">
 					<p>
 						<a href class="dropdown-toggle" dropdown-toggle><strong>run on</strong> <i class="fa fa-caret-square-o-down"></i></a>
-						Intel I7 EXSmth with 12 GB RAM
+						<em>{{profile.hardware.label}}</em>
 					</p>
 					<div class="panel panel-primary dropdown-menu profile-hardware-menu">
 						<div class="panel-heading"><h3 class="panel-title">Hardware details</h3></div>
 						<ul class="list-group">
 							<li class="list-group-item">
-								<h5 class="list-group-item-heading"><span class="label label-primary">CPU</span> Intel core I7</h5>
+								<h5 class="list-group-item-heading">
+									<a href="{{profile.hardware.cpu.link}}" class="pull-right">specs</a>
+									<span class="label label-primary">CPU</span> {{profile.hardware.cpu.label}}
+								</h5>
 								<p class="list-group-item-text">
-									<b>Model :</b> ESmth<br />
-									<b>Type :</b> 64 bits<br />
-									<b>Cores :</b> 8 cores<br />
-									<b>Clock :</b> 3 070 MHz
+									<b>Model :</b> {{profile.hardware.cpu.model}}<br />
+									<b>Type :</b> {{profile.hardware.cpu.type}}<br />
+									<b>Cores :</b> {{profile.hardware.cpu.cores}}<br />
+									<b>Clock :</b> {{profile.hardware.cpu.clock}}<br />
+									<b>Cache L1 :</b> {{profile.hardware.cpu.l1}}<br />
+									<b>Cache L2 :</b> {{profile.hardware.cpu.l2}}<br />
+									<b>Cache L3 :</b> {{profile.hardware.cpu.l3}}
 								</p>
 							</li>
 							<li class="list-group-item">
-								<h5 class="list-group-item-heading"><span class="label label-primary">RAM</span> 12 279 MB</h5>
+								<h5 class="list-group-item-heading"><span class="label label-primary">RAM</span> {{profile.hardware.ram}}</h5>
 							</li>
 						</ul>
 					</div>
@@ -93,6 +99,9 @@
 				<h4 class="list-group-item-heading">{{profile.label}}</h4>
 				<p class="list-group-item-text">{{profile.desc}}</p>
 			</a>
+		</div>
+		<div class="alert alert-dismissible alert-info" ng-show="availableProfiles.length == 0">
+			<strong>Sorry!</strong> No more sample availables.
 		</div>
 	</div>
 	

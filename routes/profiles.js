@@ -1,15 +1,25 @@
 var express = require('express');
 var router = express.Router();
 
+var hardRoman = {
+	label:	'Intel i7-950 with 12 GB RAM',
+	cpu: {
+		label:	'Intel® Core™ i7-950',
+		link:	'http://ark.intel.com/products/37150/Intel-Core-i7-950-Processor-8M-Cache-3_06-GHz-4_80-GTs-Intel-QPI',
+		model:	'i7-950',
+		type:	'64 bits',
+		cores:	'4 cores / 8 threads',
+		clock:	'3.06 GHz',
+		l1:		'32 KB',
+		l2:		'256 KB',
+		l3:		'8 MB'
+	},
+	ram:	'12 279 MB'
+};
+
 
 var profiles = [
-		{id: 101, label: 'Sample #1',	desc: 'little description'},
-		{id: 102, label: 'Example #2',	desc: 'little description'},
-		{id: 103, label: 'Instance #3',	desc: 'little description'},
-		{id: 104, label: 'Try #4',		desc: 'little description'},
-		{id: 105, label: 'Attempt #5',	desc: 'little description'},
-		{id: 106, label: 'Trial #6',	desc: 'little description'},
-		{id: 107, label: 'Test #7',		desc: 'little description'}
+		{id: 1, tag: 'matmulijk',	label: 'Matmul IJK',	desc: 'Matrice multiplication IJK', 	hardware: hardRoman}
 	];
 
 /* GET profiles listing. */
