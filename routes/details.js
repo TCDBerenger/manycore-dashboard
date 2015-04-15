@@ -1,6 +1,27 @@
 var express = require('express');
 var router = express.Router();
 
+/************************************************/
+/* Variables									*/
+/************************************************/
+var profileMap = {
+	1: 'matmulijk'
+};
+var profileData = {};
+
+
+/************************************************/
+/* Functions - Common							*/
+/************************************************/
+function loadData(id) {
+	if (! profileData[id]) {
+	}
+}
+
+
+/************************************************/
+/* Functions - For each category				*/
+/************************************************/	
 /**
  * Task granularity
  */
@@ -100,22 +121,41 @@ router.get('/*', function(request, response) {
 	
 	var params = request.params[0].split('/');
 	var cat = params[0];
-	var id = params[1];
+	var ids = params[1].split('-');
 
-	if (cat && cat.length == 2 && id && isFinite(id)) {
-		switch(cat) {
-			case 'tg':	response.json(jsonTG(id)); break;
-			case 'sy':	response.json(jsonSY(id)); break;
-			case 'ds':	response.json(jsonDS(id)); break;
-			case 'lb':	response.json(jsonLB(id)); break;
-			case 'dl':	response.json(jsonDL(id)); break;
-			case 'rs':	response.json(jsonRS(id)); break;
-			case 'io':	response.json(jsonIO(id)); break;
-			default:	response.send("Illegal category");
-		}
+	// Check preconditions
+	if (cat != 'tg' && cat != 'sy' && cat != 'ds' && cat != 'lb' && cat != 'dl' && cat != 'rs' && cat != 'io') {
+		response.send("Illegal category");
+		return;
+	} else if (ids.length == 0 || ids.length > 4) {
+		response.send("Illegal number of identifiers");
+		return;
 	} else {
-		response.send("Illegal parameters");
+		var issueFound = false;
+		ids.forEach(function(id) {
+			issueFound = issueFound || isNaN(id) || ! profileMap[id];
+		});
+		if (issueFound) {
+			response.send("Illegal identifiers");
+			return;
+		}
 	}
+
+	// Compute
+	var output = {};
+	ids.forEach(function(id) {
+		loadData(id);
+		switch(cat) {
+			case 'tg':	output[id] = jsonTG(id); break;
+			case 'sy':	output[id] = jsonSY(id); break;
+			case 'ds':	output[id] = jsonDS(id); break;
+			case 'lb':	output[id] = jsonLB(id); break;
+			case 'dl':	output[id] = jsonDL(id); break;
+			case 'rs':	output[id] = jsonRS(id); break;
+			case 'io':	output[id] = jsonIO(id); break;
+		}
+	});
+	response.json(output);
 });
 
 module.exports = router;
