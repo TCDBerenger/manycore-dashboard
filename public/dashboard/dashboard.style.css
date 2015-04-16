@@ -16,6 +16,15 @@
 	padding-right: 6px;
 }
 
+.dashboard .profile-title-unselect {
+	float: right !important;
+	margin-right: 4px;
+}
+.dashboard .profile-title-unselect span.fa-stack {
+	font-size: 0.8em;
+}
+
+
 .dashboard .profile-hardware-menu {
 	min-width: 280px;
 	margin-top: 2px;
@@ -47,6 +56,13 @@
 	width: 100%;
 }
 
+.dashboard .ctrl-add h2 {
+	font-weight: 600;
+}
+.dashboard .ctrl-add .ctrl-add-titleicon {
+	float: left !important;
+	margin-right: 4px;
+}
 .dashboard .ctrl-add .list-group {
 	padding-left: 40px;
 	width: 260px;

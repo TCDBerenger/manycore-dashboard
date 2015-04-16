@@ -3,10 +3,13 @@
 	<div class="col-xs-{{selectedProfiles.length * 3}} profile" ng-show="hasSelectedProfile()">
 		<div class="row profile-title">
 			<div class="col-xs-{{12 / selectedProfiles.length}}" ng-repeat="profile in selectedProfiles">
-				<h2>
-					<a class="pull-right" ng-click="unselectProfile(profile)"><i class="fa fa-minus-square-o"></i></a>
-					{{profile.label}}
-				</h2>
+				<a class="profile-title-unselect" href ng-click="unselectProfile(profile)">
+					<span class="fa-stack fa-lg">
+						<i class="fa fa-thumb-tack fa-stack-1x"></i>
+						<i class="fa fa-ban fa-stack-2x"></i>
+					</span>unselect
+				</a>
+				<h2>{{profile.label}}</h2>
 				{{profile.desc}}
 				<div class="dropdown profile-hardware" dropdown on-toggle="toggled(open)">
 					<p>
@@ -93,7 +96,11 @@
 	
 	<!-- Selection -->
 	<div class="col-xs-3 ctrl-add" ng-show="canAddProfile()">
-		<h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{! hasSelectedProfile() | iif : "Select a sample" : "Compare with"}}</h2>
+		<span class="fa-stack fa-lg ctrl-add-titleicon">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-thumb-tack fa-stack-1x fa-inverse"></i>
+		</span>
+		<h2>{{! hasSelectedProfile() | iif : "Select a sample" : "Compare with"}}</h2>
 		<div class="list-group">
 			<a ng-click="selectProfile(profile)" class="list-group-item" ng-repeat="profile in availableProfiles | orderBy:'id'">
 				<h4 class="list-group-item-heading">{{profile.label}}</h4>
@@ -102,14 +109,19 @@
 		</div>
 		<div class="alert alert-dismissible alert-info ctrl-add-nomore" ng-show="availableProfiles.length == 0">
 			<i class="fa fa-2x fa-frown-o" style="float: left; margin-right: 8px;"></i>
-			<strong>Sorry</strong>,<br />
-			not enough sample availables.
+			<strong>Sorry</strong><br />
+			not enough sample are available
 		</div>
 	</div>
 	
 	<!-- Selection -->
 	<div class="col-xs-1 ctrl-settings" ng-show="hasSelectedProfiles()">
-		<h2><a ng-click="unselectAllProfiles()"><i class="fa fa-minus-square"></i></a></h2>
+		<h2><a ng-click="unselectAllProfiles()">
+			<span class="fa-stack fa-lg" style="font-size: 0.8em">
+				<i class="fa fa-thumb-tack fa-stack-1x"></i>
+				<i class="fa fa-ban fa-stack-2x"></i>
+			</span>
+		</a></h2>
 		<!--
 		<a class="btn btn-default disabled">
 			<i class="glyphicon fa fa-sliders" aria-hidden="true"></i>
