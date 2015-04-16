@@ -26,6 +26,14 @@ app.controller('DetailController', ['$scope', '$rootScope', '$stateParams', 'sel
 		$rootScope.selectedProfiles = selectedProfiles;
 	}
 
+	// Setting for layout and visual/graphics elements
+	$scope.layout = {
+		col: {
+			graph: 8,
+			data: 4
+		}
+	};
+
 	
 	$scope.displayProfiles = function() {
 		var output = "";
