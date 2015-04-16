@@ -1,4 +1,4 @@
-app.controller('DetailController', ['$scope', '$stateParams', 'selectedProfiles', 'dataProfiles', 'categories', 'widgets', function($scope, $stateParams, selectedProfiles, dataProfiles, categories, widgets) {
+app.controller('DetailController', ['$scope', '$rootScope', '$stateParams', 'selectedProfiles', 'dataProfiles', 'categories', 'widgets', function($scope, $rootScope, $stateParams, selectedProfiles, dataProfiles, categories, widgets) {
 	// Metadata
 	$scope.meta = {};
 
@@ -20,6 +20,12 @@ app.controller('DetailController', ['$scope', '$stateParams', 'selectedProfiles'
 	$scope.widgets = widgets;
 	$scope.profiles = selectedProfiles;
 	$scope.data = dataProfiles;
+
+	// Start session from here? Dispatch selected profiles
+	if (! $rootScope.hasOwnProperty('selectedProfiles') || $rootScope.selectedProfiles.length == 0) {
+		$rootScope.selectedProfiles = selectedProfiles;
+	}
+
 	
 	$scope.displayProfiles = function() {
 		var output = "";
