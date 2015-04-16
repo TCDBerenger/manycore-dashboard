@@ -25,8 +25,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Server endpoints and pages
 app.use('/', pages);
-app.use('/profiles', profiles);
-app.use('/details', details);
+app.use('/service/profiles', profiles);
+app.use('/service/details', details);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

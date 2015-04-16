@@ -13,14 +13,14 @@ app.factory('profileService', ['$http', function($http) {
 	}
 	
 	output.getAll = function() {
-		return $http.get('/profiles').success(function(data) {
+		return $http.get('/service/profiles').success(function(data) {
 			angular.copy(data, output.all);
 			output.reindexation();
 		});
 	};
 	
 	output.gets = function(ids) {
-		return $http.get('/profiles/' + ids).then(function(res){
+		return $http.get('/service/profiles/' + ids).then(function(res){
 			var selected = [];
 			
 			angular.copy(res.data, selected);
