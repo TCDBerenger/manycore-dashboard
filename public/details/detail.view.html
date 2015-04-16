@@ -5,8 +5,16 @@
 		<span class="dropdown profile-hardware" ng-repeat="profile in profiles">
 			<a href class="label label-primary dropdown-toggle">{{profile.label}} <i class="fa fa-info profile-carret"></i></a>
 			<div class="panel panel-primary dropdown-menu profile-hardware-menu">
-				<div class="panel-heading"><h3 class="panel-title">Hardware details</h3></div>
+				<!-- <div class="panel-heading"><h3 class="panel-title">Hardware details</h3></div> -->
+				<div class="panel-body">{{profile.desc}}</div>
 				<ul class="list-group">
+					<li class="list-group-item">
+						<h5 class="list-group-item-heading"><span class="label label-primary">Stats</span> of execution</h5>
+						<p class="list-group-item-text">
+							<b>Duration :</b> TODO ms<br />
+							<b>Other :</b> TODO
+						</p>
+					</li>
 					<li class="list-group-item">
 						<h5 class="list-group-item-heading">
 							<a href="{{profile.hardware.cpu.link}}" class="pull-right">specs</a>
