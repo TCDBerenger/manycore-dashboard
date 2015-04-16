@@ -51,3 +51,8 @@
 	padding-left: 40px;
 	width: 260px;
 }
+.dashboard .ctrl-add .ctrl-add-nomore {
+	margin-left: 40px;
+	display: inline-block;
+	width: 260px;
+}

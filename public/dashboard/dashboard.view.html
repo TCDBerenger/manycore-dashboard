@@ -100,8 +100,10 @@
 				<p class="list-group-item-text">{{profile.desc}}</p>
 			</a>
 		</div>
-		<div class="alert alert-dismissible alert-info" ng-show="availableProfiles.length == 0">
-			<strong>Sorry!</strong> No more sample availables.
+		<div class="alert alert-dismissible alert-info ctrl-add-nomore" ng-show="availableProfiles.length == 0">
+			<i class="fa fa-2x fa-frown-o" style="float: left; margin-right: 8px;"></i>
+			<strong>Sorry</strong>,<br />
+			not enough sample availables.
 		</div>
 	</div>
 	
