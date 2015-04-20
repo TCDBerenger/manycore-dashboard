@@ -58,6 +58,7 @@ function treatThreadStatesByFrame(id) {
 
 			// Compute time ID
 			timeID = element.time - profileMap[id].timeShift;
+			timeID = Math.round(timeID / 10000);
 
 			// Check Frame time
 			if (! profileData.threads.byFrames.hasOwnProperty(timeID)) {
@@ -91,16 +92,23 @@ function jsonTG(id) {
 	output.cat = 'tg';
 	// output.log = profileData.threads.byFrames;
 	output.maxThreads = profileMap[id].maxThreads;
+	output.timeShift = profileMap[id].timeShift;
 	output.frames = {};
 
 
 	// Count threads availables
 	var thread, threadRunning, threadReady;
-	var countRunning = 0;
-	var countReady = 0;
+	var sumCycles, sumRunning, sumReady, countRunning, countReady;
+	var timeMax = 0;
+	var superSumCycles = 0;
+	var superSumRunning = 0;
+	var superSumReady = 0;
 	for (var frameID in profileData.threads.byFrames) {
 		if (profileData.threads.byFrames.hasOwnProperty(frameID)) {
 			// Reinit counters
+			sumCycles = 0;
+			sumRunning = 0;
+			sumReady = 0;
 			countRunning = 0;
 			countReady = 0;
 
@@ -110,6 +118,9 @@ function jsonTG(id) {
 					thread = profileData.threads.byFrames[frameID][threadID];
 					threadRunning = thread.running + thread.cycles;
 					threadReady = thread.ready;
+					sumCycles += thread.cycles;
+					sumRunning += thread.running;
+					sumReady += thread.ready;
 					if (threadRunning > threadReady && threadRunning > thread.init && threadRunning > thread.standby && threadRunning > thread.terminated && threadRunning > thread.transition && threadRunning > thread.unknown && threadRunning > thread.wait) {
 						countRunning++;
 					} else if (threadReady > threadRunning && threadReady > thread.init && threadReady > thread.standby && threadReady > thread.terminated && threadReady > thread.transition && threadReady > thread.unknown && threadReady > thread.wait) {
@@ -117,6 +128,11 @@ function jsonTG(id) {
 					}
 				}
 			}
+
+			// Super sums
+			superSumCycles += sumCycles;
+			superSumRunning += sumRunning;
+			superSumReady += sumReady;
 
 			// Hack
 			if (countRunning > profileMap[id].maxThreads) {
@@ -126,12 +142,26 @@ function jsonTG(id) {
 
 			// Build response
 			output.frames[frameID] = {
-				id: frameID,
-				running : countRunning,
-				ready: countReady
+				timeRelative: frameID,
+				sumCycles : sumCycles,
+				sumRunning : sumRunning,
+				sumReady: sumReady,
+				countRunning : countRunning,
+				countReady: countReady
 			};
+			timeMax = Math.max(timeMax, frameID); 
 		}
 	}
+
+	// Stats
+	output.stats = {
+		duration: timeMax + 50,
+		cycles: superSumCycles,
+		cyclesRunning: superSumRunning,
+		cyclesReady: superSumReady
+	}
+	output.timeMax = timeMax;
+
 
 	return output;
 }
