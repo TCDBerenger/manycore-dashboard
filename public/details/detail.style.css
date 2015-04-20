@@ -46,3 +46,13 @@
 .detail .facets .well {
 	min-height: 500px;
 }
+
+
+/*
+ * Graphs
+ */
+.data-graph {
+	width: 100%;
+	height: 100px;
+	display: block;
+}

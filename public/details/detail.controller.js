@@ -1,4 +1,4 @@
-app.controller('DetailController', ['$scope', '$rootScope', '$stateParams', 'selectedProfiles', 'dataProfiles', 'categories', 'widgets', function($scope, $rootScope, $stateParams, selectedProfiles, dataProfiles, categories, widgets) {
+app.controller('DetailController', ['$scope', '$rootScope', '$window', '$stateParams', 'selectedProfiles', 'dataProfiles', 'categories', 'widgets', function($scope, $rootScope, $window, $stateParams, selectedProfiles, dataProfiles, categories, widgets) {
 	// Metadata
 	$scope.meta = {};
 
@@ -33,6 +33,11 @@ app.controller('DetailController', ['$scope', '$rootScope', '$stateParams', 'sel
 			data: 4
 		}
 	};
+
+	// Global binds
+	angular.element($window).on('resize', function() {
+		$scope.$apply();
+	});
 
 	
 	$scope.displayProfiles = function() {
