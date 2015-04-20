@@ -1,17 +1,17 @@
 app.factory('widgets', [function(){
 	var output = {};
 	
-	output.cacheInvalid		= {id: 10,	file: 'generic-to-delete',	tag: 'cache-invalid',		title: 'Cache misses from updating shared data',				subtitle: ''};
-	output.cacheMisses		= {id: 11,	file: 'generic-to-delete',	tag: 'cache-misses',		title: 'Cache misses',											subtitle: ''};
-	output.coreInactivity	= {id: 5,	file: 'generic-to-delete',	tag: 'core-idle',			title: 'Idle cores',											subtitle: ''};
-	output.lockContentions	= {id: 9,	file: 'generic-to-delete',	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
-	output.threadPaths		= {id: 1,	file: 'generic-to-delete',	tag: 'thread-paths',		title: 'Single thread execution phases',						subtitle: 'alternating sequential/parallel execution'};
-	output.threadChains		= {id: 2,	file: 'generic-to-delete',	tag: 'thread-chains',		title: 'Chains of dependencies',								subtitle: 'synchronisations and waiting between threads'};
-	output.threadRunning	= {id: 3,	file: 'generic-to-delete',	tag: 'thread-running',		title: 'Life cycles of threads',								subtitle: 'creation, running, moving between cores, termination'};
-	output.threadLocks		= {id: 4,	file: 'generic-to-delete',	tag: 'thread-locks',		title: 'Waiting for locks',										subtitle: ''};
-	output.threadDivergence	= {id: 6,	file: 'thread-divergence',	tag: 'thread-divergence',	title: 'potential parallelism',									subtitle: 'number of running threads compared to number of cores'};
-	output.threadMigrations	= {id: 7,	file: 'generic-to-delete',	tag: 'thread-migrations',	title: 'Thread switching the core on which it is executing',	subtitle: 'thread migrations'};
-	output.threadSwitchs	= {id: 8,	file: 'generic-to-delete',	tag: 'thread-switchs',		title: 'Core swhitching the thread it is executing',			subtitle: 'Thread switches'};
+	output.cacheInvalid		= {id: 10,	file: 'generic-to-delete',	template:'generic',	tag: 'cache-invalid',		title: 'Cache misses from updating shared data',				subtitle: ''};
+	output.cacheMisses		= {id: 11,	file: 'generic-to-delete',	template:'generic',	tag: 'cache-misses',		title: 'Cache misses',											subtitle: ''};
+	output.coreInactivity	= {id: 5,	file: 'generic-to-delete',	template:'generic',	tag: 'core-idle',			title: 'Idle cores',											subtitle: ''};
+	output.lockContentions	= {id: 9,	file: 'generic-to-delete',	template:'generic',	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
+	output.threadPaths		= {id: 1,	file: 'generic-to-delete',	template:'generic',	tag: 'thread-paths',		title: 'Single thread execution phases',						subtitle: 'alternating sequential/parallel execution'};
+	output.threadChains		= {id: 2,	file: 'generic-to-delete',	template:'generic',	tag: 'thread-chains',		title: 'Chains of dependencies',								subtitle: 'synchronisations and waiting between threads'};
+	output.threadRunning	= {id: 3,	file: 'generic-to-delete',	template:'generic',	tag: 'thread-running',		title: 'Life cycles of threads',								subtitle: 'creation, running, moving between cores, termination'};
+	output.threadLocks		= {id: 4,	file: 'generic-to-delete',	template:'generic',	tag: 'thread-locks',		title: 'Waiting for locks',										subtitle: ''};
+	output.threadDivergence	= {id: 6,	file: 'thread-divergence',	template:'generic',	tag: 'thread-divergence',	title: 'potential parallelism',									subtitle: 'number of running threads compared to number of cores'};
+	output.threadMigrations	= {id: 7,	file: 'generic-to-delete',	template:'generic',	tag: 'thread-migrations',	title: 'Thread switching the core on which it is executing',	subtitle: 'thread migrations'};
+	output.threadSwitchs	= {id: 8,	file: 'generic-to-delete',	template:'generic',	tag: 'thread-switchs',		title: 'Core swhitching the thread it is executing',			subtitle: 'Thread switches'};
 	
 	return output;
 }]);

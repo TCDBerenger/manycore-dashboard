@@ -1,0 +1,13 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<div class="pull-right">
+			<div class="btn-group">
+				<button type="button" class="btn btn-default btn-xs" ng-model="radioModel" btn-radio="'normalised'" uncheckable>normalised</button>
+				<button type="button" class="btn btn-default btn-xs" ng-model="radioModel" btn-radio="'real'" uncheckable>real data</button>
+			</div>
+		</div>
+		<h3 class="panel-title" style="display: inline-block; padding-right: 6px">{{widget.title}}</h3>
+		<em>{{widget.subtitle}}</em>
+	</div>
+	<div class="panel-body" ng-include="'/details/widgets/' + widget.file + '.widget.html'"></div>
+</div>
