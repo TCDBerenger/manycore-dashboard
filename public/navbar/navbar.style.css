@@ -1,0 +1,27 @@
+/*
+ * Navbar
+ */
+.navbar {
+}
+
+.navbar .navbar-brand {
+  width: 220px;
+	text-align: center;
+}
+
+.navbar i.fa {
+	font-size: 1.5em;
+	margin-right: 2px;
+}
+
+.navbar .nav-link-detail .navbar-caret {
+	padding-left: 6px;
+}
+
+.navbar .nav-link-detail:hover > .dropdown-menu {
+	display: block;
+}
+
+.nav-link-others {
+  transition: all linear 0.2s;
+}
