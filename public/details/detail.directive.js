@@ -11,7 +11,7 @@ app.directive('chartDataGeneric', function() {
 				ready: scope.data[scope.profiles[0].id].stats.cyclesReady
 			});
 			data.push({
-				label: scope.profiles[i].label + ' 2',
+				label: 'Fake',
 				cycles: scope.data[scope.profiles[0].id].stats.cycles * 0.9,
 				running: scope.data[scope.profiles[0].id].stats.cyclesRunning  * 1000,
 				ready: scope.data[scope.profiles[0].id].stats.cyclesReady * 0.7
