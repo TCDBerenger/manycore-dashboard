@@ -9,6 +9,11 @@
 	width: 100%;
 }
 */
+#sidebar {
+	overflow-y: visible;
+	background: #000000;
+	transition: all 0.2s ease;
+}
 
 .sidebar .link {
 	width: 220px;
@@ -35,29 +40,42 @@
 	transition: all 0.2s ease;
 }
 
-.sidebar .link-sequence {
-	margin-top: 20px;
-}
-
 .sidebar .details {
 	margin-top: 210px;
 	transition: all 0.2s ease;
-}
-.min .sidebar .details {
-	margin-top: 10px;
 }
 
 .sidebar .link-detail {
 	margin-top: 1px;
 	transition: all 0.2s ease;
 }
+
+
+/* MIN */
+.min .sidebar .link {
+	width: 60px;
+}
+.min .sidebar .link span {
+	display: none;
+}
+.min .sidebar .details {
+	margin-top: 10px;
+}
 .min .sidebar .link-detail {
 	margin-top: 4px;
 }
 
 
+/* MIN - Hover */
+.min .sidebar:hover .link {
+	width: 220px;
+}
+.min .sidebar:hover .link span {
+	display: inline-block;
+}
 
 
+/* ANIMATION */
 .link.ng-hide-add, .link.ng-hide-remove {
   /* this is required as of 1.3x to properly
      apply all styling in a show/hide animation */

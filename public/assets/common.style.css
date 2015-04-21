@@ -32,6 +32,13 @@ body {
 
 
 /*
+ * Navbar
+ */
+.navbar {
+}
+
+
+/*
  * Sidebar
  */
 #sidebar {
@@ -41,9 +48,6 @@ body {
 	width: 220px;
 	height: 100%;
 	margin-left: -220px;
-	overflow-y: hidden;
-	background: #000000;
-	transition: all 0.2s ease;
 }
 #wrapper.min #sidebar {
 	width: 60px;
