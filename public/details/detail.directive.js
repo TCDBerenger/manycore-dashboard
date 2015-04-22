@@ -1,3 +1,119 @@
+app.directive('chartDataStackedbars', function() {
+
+	function link(scope, element, attributes) {
+
+		// Compute data
+		var data = [];
+		scope.ids.forEach(function(id, index, array) {
+			data.push({
+				cycles: scope.data[id].stats.cycles,
+				running: scope.data[id].stats.cyclesRunning,
+				ready: scope.data[id].stats.cyclesReady
+			});
+		});
+
+
+		// Vars - layout
+		var width, height, graphWidth, graphHeight, minSize;
+		var color = d3.scale.category20();
+		var container = element[0];
+		var layout = {
+			margin: { top: 20, right: 20, bottom: 30, left: 60},
+			boxes: { width: 10, padding: 2 }
+		}
+		layout.width = layout.boxes.width * scope.ids.length + layout.boxes.padding;
+		layout.height = container.clientHeight;
+
+		// Vars - paint
+		var pie = d3.layout.pie().sort(null);
+		var arc = d3.svg.arc();
+		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
+
+		// Vars - scales
+		var scaleY = d3.scale.linear().rangeRound([layout.height, 0]);
+
+
+		// Map our columns to our colors
+		color.domain(d3.keys(data[0]).filter(function (key) {
+			return key !== "label";
+		}));
+
+		data.forEach(function (d) {
+			var y0 = 0;
+			d.types = color.domain().map(function (name) {
+				return {
+					name: name,
+					y0: y0,
+					y1: y0 += +d[name]
+				};
+			});
+			d.total = d.types[d.types.length - 1].y1;
+		});
+
+		// Our Y domain is from zero to our highest total
+		scaleY.domain([0, d3.max(data, function (d) {
+			return d.total;
+		})]);
+
+
+		// Draw rectanges
+		// Draw rectanges - X axis
+		var boxes = svg.selectAll(".label")
+				.data(data).enter()
+				.append("g")
+					.attr("transform", function (d, i) {
+						return "translate(" + (i * (layout.boxes.width + layout.boxes.padding)) + ", 0)";
+					});
+
+		// Draw rectanges - Y axis
+		boxes.selectAll("rect")
+			.data(function (d) {
+				return d.types;
+			}).enter()
+			.append("rect")
+				.attr("width", layout.boxes.width)
+				.attr("y", function (d) {
+					return scaleY(d.y1);
+				})
+				.attr("height", function (d) {
+					return scaleY(d.y0) - scaleY(d.y1);
+				})
+				.style("fill", function (d) {
+					return color(d.name);
+				});
+
+		// Redraw
+		/*
+		var repaint = function repaint() {
+				console.log("repaint");
+
+				// Sizes
+				height = container.clientHeight;
+				graphHeight = height - layout.margin.top - layout.margin.bottom;
+
+				// SVG
+				svg.attr('height', height);
+				console.log('width: ' + svg.attr('width') + ', height: ' + svg.attr('height'));
+
+				// Scales
+				scaleY.rangeRound([height, 0]);
+			};
+		// repaint();
+
+		// Redraw bind
+		scope.$watch(function() { return container.clientHeight * container.clientWidth; }, repaint);
+		*/
+	};
+
+
+	return {
+		link: link,
+		restrict: 'E'
+	}
+});
+
+
+/*
 app.directive('chartDataGeneric', function() {
 
 	function link(scope, element, attributes) {
@@ -182,6 +298,10 @@ legend.append("text")
 	}
 });
 
+*/
+
+/*
+
 app.directive('chartGeneric', function() {
 
 	function link(scope, element, attributes) {
@@ -231,3 +351,4 @@ app.directive('chartGeneric', function() {
 		restrict: 'E'
 	}
 });
+*/

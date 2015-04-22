@@ -56,3 +56,16 @@
 	height: 150px;
 	display: block;
 }
+
+td.container-graph {
+	padding: 0px !important;
+	height: 100% !important;
+	vertical-align: bottom !important;
+}
+.integrated-graph {
+	margin: 0px !important;
+	height: 100%;
+	min-height: 100px;
+	width: 100%;
+	display: block;
+}

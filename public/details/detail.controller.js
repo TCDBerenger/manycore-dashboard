@@ -19,7 +19,13 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	// Details
 	$scope.widgets = widgets;
 	$scope.profiles = selectedProfiles;
+	$scope.ids = [];
 	$scope.data = dataProfiles;
+
+	// Populate ids
+	$scope.profiles.forEach(function(profile) {
+		$scope.ids.push(profile.id);
+	});
 
 	// Start session from here? Dispatch selected profiles
 	if (! $rootScope.hasOwnProperty('selectedProfiles') || $rootScope.selectedProfiles.length == 0) {
@@ -33,6 +39,15 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			data: 4
 		}
 	};
+
+	// Data to show
+	$scope.chartSets = {
+		cycles: [
+			{ attr: 'cyclesReady',		desc: 'ready',		color: '#ff7f0e' },
+			{ attr: 'cyclesRunning',	desc: 'running',	color: '#aec7e8' },
+			{ attr: 'cycles',			desc: 'cycles',		color: '#1f77b4' }
+		]
+	}
 
 	// Global binds
 	angular.element($window).on('resize', function() {

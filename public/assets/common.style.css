@@ -15,6 +15,9 @@ body {
 .btn-toolbar-vertical > .input-group {
 	margin-top: 5px;
 }
+th {
+	text-align: center;
+}
 svg {
 	font: 10px sans-serif;
 	shape-rendering: crispEdges;
