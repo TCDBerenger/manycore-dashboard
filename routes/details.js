@@ -5,7 +5,7 @@ var router = express.Router();
 /* Variables									*/
 /************************************************/
 var profileMap = {
-	1: { file: 'matmulijk', program: 'MatmulIJK', timeShift: 635573757342822588, maxThreads: 8 }
+	1: { file: 'matmulijk', program: 'MatmulIJK', timeShift: 635573757342822588, timeStep: 50, availableCores: 8 }
 };
 var profileRawData = {};
 
@@ -78,23 +78,47 @@ function treatThreadStatesByFrame(id) {
 
 
 /************************************************/
-/* Functions - For each category				*/
+/* Functions - Add								*/
 /************************************************/
 /**
- * Task granularity
+	output
+	 ├	frames
+	 │	 ├	frame<0>			<integer>	time in ms (10⁻³s) from zero to timeMax by timeStep steps
+	 │	 │	 ├	timeRelative	<integer>	time in ms (10⁻³s), identiral to frame<id>
+	 │	 │	 ├	sumCycles		<integer>	number of cycles
+	 │	 │	 ├	sumRunning		<integer>	number of cycles for running state
+	 │	 │	 ├	sumReady		<integer>	number of cycles for ready state
+	 │	 │	 ├	countRunning	<integer>	number of threads in running state
+	 │	 │	 └	countReady		<integer>	number of threads in ready state
+	 │	 │	...
+	 │	 └	frame<timeMax>
+	 └	stats
+	 	 ├	duration			<integer>	how long is the run
+	 	 ├	timeShift			<integer>	time before starting measures (i.e. we don't care before this time) /!\ in pico seconds (10⁻¹²s) /!\ need to be divided by 10⁹
+	 	 ├	timeMax				<integer>	last time frame in ms (10⁻³s)
+	 	 ├	timeStep			<integer>	time between each frame in ms (10⁻³s) (probably: 50 ms)
+	 	 ├	availableCores		<integer>	number of cores (not physically in hyper threading case)
+		 ├	cycles				<integer>	number of cycles
+		 ├	cyclesRunning		<integer>	number of cycles for running state
+		 └	cyclesReady			<integer>	number of cycles for ready state
  */
-function jsonTG(id) {
-	var output = {};
+/**
+ * Add common stats
+ */
+function addCommon(output, id) {
+	// Stats
+	if (! output.hasOwnProperty('stats')) output.stats = {};
+	output.stats.timeShift = profileMap[id].timeShift;
+	output.stats.timeShift = profileMap[id].timeStep;
+	output.stats.availableCores = profileMap[id].availableCores;
+}
 
-	treatThreadStatesByFrame(id);
-
-	output.id = id;
-	output.cat = 'tg';
-	// output.log = profileData.threads.byFrames;
-	output.maxThreads = profileMap[id].maxThreads;
-	output.timeShift = profileMap[id].timeShift;
+/**
+ * Add cycles
+ */
+function addCycles(output, id) {
+	// Init vars
 	output.frames = {};
-
 
 	// Count threads availables
 	var thread, threadRunning, threadReady;
@@ -154,13 +178,34 @@ function jsonTG(id) {
 	}
 
 	// Stats
-	output.stats = {
-		duration: timeMax + 50,
-		cycles: superSumCycles,
-		cyclesRunning: superSumRunning,
-		cyclesReady: superSumReady
-	}
-	output.timeMax = timeMax;
+	if (! output.hasOwnProperty('stats')) output.stats = {};
+	output.stats.duration = timeMax + 50;
+	output.stats.timeMax = timeMax;
+	output.stats.cycles = superSumCycles;
+	output.stats.cyclesRunning = superSumRunning;
+	output.stats.cyclesReady = superSumReady;
+}
+
+
+/************************************************/
+/* Functions - For each category				*/
+/************************************************/
+/**
+ * Task granularity
+ */
+function jsonTG(id) {
+	var output = {};
+
+	treatThreadStatesByFrame(id);
+
+	output.id = id;
+	output.cat = 'tg';
+
+	// Common
+	addCommon(output, id);
+
+	// for potential parallelism
+	addCycles(output, id);
 
 
 	return output;
@@ -198,9 +243,16 @@ function jsonDS(id) {
 function jsonLB(id) {
 	var output = {};
 
+	treatThreadStatesByFrame(id);
+
 	output.id = id;
 	output.cat = 'lb';
-	output.log = "TODO";
+
+	// Common
+	addCommon(output, id);
+
+	// for potential parallelism
+	addCycles(output, id);
 
 	return output;
 }
