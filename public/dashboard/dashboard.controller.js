@@ -9,6 +9,9 @@ app.controller('DashboardController', ['$scope', '$rootScope', 'profileService',
 	
 	// Details
 	$scope.categories = categories.all;
+
+	// References
+	$scope.encodeSelectedProfile = $rootScope.encodeSelectedProfile;
 	
 	
 	/************************************************/
@@ -48,7 +51,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', 'profileService',
 		$scope.selectedProfiles.push(profile);
 		
 		// Save new selection
-		$scope.flushSelectedProfiles();
+		$rootScope.saveSelectedProfiles($scope.selectedProfiles);
 	};
 	
 	/**
@@ -59,7 +62,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', 'profileService',
 		$scope.availableProfiles.push(profile);
 		
 		// Save new selection
-		$scope.flushSelectedProfiles();
+		$rootScope.saveSelectedProfiles($scope.selectedProfiles);
 	};
 	
 	/**
@@ -71,7 +74,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', 'profileService',
 		}
 		
 		// Save new selection
-		$scope.flushSelectedProfiles();
+		$rootScope.saveSelectedProfiles($scope.selectedProfiles);
 	};
 	
 	/************************************************/
@@ -86,24 +89,17 @@ app.controller('DashboardController', ['$scope', '$rootScope', 'profileService',
 		$scope.availableProfiles = $scope.profiles;
 
 		// For each profile
-		$scope.profiles.forEach(function(profile_element, profile_index, profile_array) {
-			$rootScope.selectedProfiles.forEach(function(selected_element, selected_index, selected_array) {
+		$scope.profiles.forEach(function(profile, index, array) {
+			$rootScope.selectedIDs.forEach(function(id) {
 				// If selected in a previous session
-				if (profile_element.id == selected_element.id) {
+				if (profile.id == id) {
 					// add to selection
-					$scope.selectedProfiles.push(profile_element);
+					$scope.selectedProfiles.push(profile);
 					// remove to available
-					$scope.availableProfiles.splice(profile_index, 1);
+					$scope.availableProfiles.splice(index, 1);
 				}
 			})
 		});
-	};
-	
-	/**
-	 * Save
-	 */
-	$scope.flushSelectedProfiles = function() {
-		$rootScope.selectedProfiles = $scope.selectedProfiles;
 	};
 	
 	

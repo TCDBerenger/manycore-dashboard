@@ -19,6 +19,12 @@
 	display: block;
 }
 
-.nav-link-others {
+.navbar .nav-link-others {
   transition: all linear 0.2s;
+}
+
+.navbar .nav-link-other i {
+	width: 20px;
+	height: 20px;
+	text-align: center;
 }

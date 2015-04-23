@@ -49,8 +49,58 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 		})
 */
 
+
+/**********************************************************/
+/*														  */
+/* Root scope enhancement								  */
+/*														  */
+/**********************************************************/
 app.run(function($rootScope) {
-    $rootScope.selectedProfiles = [];
+	/**
+	 * Selected profiles
+	 */
+	$rootScope.selectedIDs = [];
+    //$rootScope.selectedProfiles = [];
+
+	/**
+	 * Join
+	 */
+	$rootScope.encodeSelectedProfile = function encodeSelectedProfile() {
+		return $rootScope.selectedIDs.join("-");
+	};
+	
+	/**
+	 * Save profiles
+	 */
+	$rootScope.saveSelectedProfiles = function saveSelectedProfiles(profiles) {
+		// Empty array
+		$rootScope.selectedIDs.splice(0, $rootScope.selectedIDs.length);
+
+		// Add id
+		profiles.forEach(function(profile) {
+			$rootScope.selectedIDs.push(profile.id);
+		})
+	};
+	
+	/**
+	 * Save ids
+	 */
+	$rootScope.saveSelectedIDs = function saveSelectedIDs(ids) {
+		// Empty array
+		$rootScope.selectedIDs.splice(0, $rootScope.selectedIDs.length);
+
+		// Add id
+		ids.forEach(function(id) {
+			$rootScope.selectedIDs.push(id);
+		})
+	};
+	
+	/**
+	 * Has ids
+	 */
+	$rootScope.hasSelectedProfile = function hasSelectedProfile() {
+		return $rootScope.selectedIDs.length > 0;
+	};
 });
 
 app.filter('iif', [function () {

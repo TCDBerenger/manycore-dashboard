@@ -28,9 +28,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	});
 
 	// Start session from here? Dispatch selected profiles
-	if (! $rootScope.hasOwnProperty('selectedProfiles') || $rootScope.selectedProfiles.length == 0) {
-		$rootScope.selectedProfiles = selectedProfiles;
-	}
+	$rootScope.saveSelectedIDs($scope.ids);
 
 	// Setting for layout and visual/graphics elements
 	$scope.layout = {

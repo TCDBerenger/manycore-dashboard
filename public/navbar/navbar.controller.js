@@ -40,23 +40,4 @@ app.controller('NavbarController', ['$scope', '$rootScope', '$stateParams', 'cat
 	$scope.hasDetail = function() {
 		return $scope.selectedCategory != null;
 	};
-
-	/************************************************/
-	/* Functions - Browsing							*/
-	/************************************************/
-	
-	/**
-	 * Join
-	 */
-	$scope.encodeSelectedProfile = function() {
-		var output = "";
-		
-		$rootScope.selectedProfiles.forEach(function(element, index, array) {
-			output += (output.length > 0) ? "-" : "";
-			output += element.id;
-		});
-		
-		return output;
-	};
-
 }]);
