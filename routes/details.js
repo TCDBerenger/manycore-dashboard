@@ -196,8 +196,6 @@ function addCycles(output, id) {
 function jsonTG(id) {
 	var output = {};
 
-	treatThreadStatesByFrame(id);
-
 	output.id = id;
 	output.cat = 'tg';
 
@@ -205,6 +203,7 @@ function jsonTG(id) {
 	addCommon(output, id);
 
 	// for potential parallelism
+	treatThreadStatesByFrame(id);
 	addCycles(output, id);
 
 
@@ -243,8 +242,6 @@ function jsonDS(id) {
 function jsonLB(id) {
 	var output = {};
 
-	treatThreadStatesByFrame(id);
-
 	output.id = id;
 	output.cat = 'lb';
 
@@ -252,6 +249,7 @@ function jsonLB(id) {
 	addCommon(output, id);
 
 	// for potential parallelism
+	treatThreadStatesByFrame(id);
 	addCycles(output, id);
 
 	return output;
