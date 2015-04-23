@@ -18,10 +18,14 @@ var hardRoman = {
 };
 
 var profileIJK = {id: 1, tag: 'matmulijk',	label: 'Matmul IJK',	desc: 'Matrice multiplication IJK', 	hardware: hardRoman};
+var profileKIJ = {id: 2, tag: 'matmulkij',	label: 'Matmul KIJ',	desc: 'Matrice multiplication KIJ', 	hardware: hardRoman};
+var profileKJI = {id: 3, tag: 'matmulkji',	label: 'Matmul KJI',	desc: 'Matrice multiplication KJI', 	hardware: hardRoman};
 
 var profiles = {
-	1: profileIJK,	'matmulijk': profileIJK,
-	all: [profileIJK]
+	1: profileIJK,
+	2: profileKIJ,
+	3: profileKJI,
+	all: [profileIJK, profileKIJ, profileKJI]
 };
 
 /* GET profiles listing. */
