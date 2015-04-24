@@ -104,8 +104,8 @@ function treatThreadStatesByFrame(id) {
 /************************************************/
 /**
 	output
-	 ├	frames
-	 │	 ├	frame<0>			<integer>	time in ms (10⁻³s) from zero to timeMax by timeStep steps
+	 ├	frames					<array>		list of time frames
+	 │	 ├	<0>
 	 │	 │	 ├	timeRelative	<integer>	time in ms (10⁻³s), identiral to frame<id>
 	 │	 │	 ├	sumCycles		<integer>	number of cycles
 	 │	 │	 ├	sumRunning		<integer>	number of cycles for running state
@@ -113,7 +113,7 @@ function treatThreadStatesByFrame(id) {
 	 │	 │	 ├	countRunning	<integer>	number of threads in running state
 	 │	 │	 └	countReady		<integer>	number of threads in ready state
 	 │	 │	...
-	 │	 └	frame<timeMax>
+	 │	 └	<timeMax>
 	 └	stats
 	 	 ├	duration			<integer>	how long is the run
 	 	 ├	timeShift			<integer>	time before starting measures (i.e. we don't care before this time) /!\ in pico seconds (10⁻¹²s) /!\ need to be divided by 10⁹
@@ -140,7 +140,7 @@ function addCommon(output, profile) {
  */
 function addCycles(output, data, profile) {
 	// Init vars
-	output.frames = {};
+	output.frames = [];
 
 	// Count threads availables
 	var thread, threadRunning, threadReady;
@@ -187,14 +187,14 @@ function addCycles(output, data, profile) {
 			}
 
 			// Build response
-			output.frames[frameID] = {
+			output.frames.push({
 				timeRelative: frameID,
 				sumCycles : sumCycles,
 				sumRunning : sumRunning,
 				sumReady: sumReady,
 				countRunning : countRunning,
 				countReady: countReady
-			};
+			});
 			timeMax = Math.max(timeMax, frameID); 
 		}
 	}
