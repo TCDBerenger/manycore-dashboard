@@ -1,6 +1,126 @@
+app.directive('chartThreadDivergence', function() {
+
+	function chartThreadDivergence_link(scope, element, attrs, controller) {
+		console.log("== directive ==");
+
+		// Layout
+		var container = element[0];
+		var layout = {
+			margin: { top: 10, right: 10, bottom: 10, left: 10},
+			height:	container.clientHeight,
+			width:	container.clientWidth,
+			graph:	{
+				width:	function() { return Math.max(1, container.clientWidth - layout.margin.left - layout.margin.right); },
+				height:	function() { return Math.max(1, container.clientHeight - layout.margin.top - layout.margin.bottom); },
+				top:	function() { return layout.top.bottom; },
+				right:	function() { return Math.max(1, container.clientWidth - layout.margin.right); },
+				bottom:	function() { return Math.max(1, container.clientHeight - layout.margin.bottom); },
+				left:	function() { return layout.top.left; }
+			}
+		};
+
+		// Data
+		var data = scope.data[scope.ids[0]];
+
+		// DOM
+		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
+		svg.style("background", "#FFEEEE");
+
+
+		// Scales
+		var scaleX = d3.scale.linear().rangeRound([layout.graph.height(), 0]);
+		var scaleY = d3.scale.linear().rangeRound([0, layout.graph.width()]);
+
+		// Scales - domains
+		scaleX.domain([0, 16]);
+		scaleY.domain([0, 100]);
+
+
+		// Draw
+		console.log(data.frames);
+
+		// Draw - core
+		var coreGroup = svg.append("g").attr("class", "dataset");
+		var coreElement = coreGroup.append("rect")
+				.attr("width", layout.graph.width) // 🕒 repaintable
+				.attr("height", scaleX(data.stats.availableCores))
+				.attr("x", layout.margin.left)
+				.attr("y", layout.graph.bottom() - scaleX(data.stats.availableCores))
+				.style("fill", "#4682B4");
+
+/*
+		var	valueline = d3.svg.line()
+			.x(function(d) { return scaleX(d.d); })
+			.y(function(d) { return scaleY(d.i); });
+		var coreLine = coreGroup.append("path")
+				.attr("class", "line")
+				.attr("d", valueline([{i: 0, d: data.stats.availableCores}, {i: 100, d: data.stats.availableCores}]))
+				.style("stroke", "#808080");
+*/
+
+
+		// Draw - core
+
+/*
+		var timeElements = svg.selectAll('.dataset').data(data.frames).enter()
+				.append("g")
+				.attr("class", "dataset");
+		/*
+					.attr("transform", function (d, i) {
+						return "translate(" + (i * (layout.boxes.width + layout.boxes.padding)) + ", 0)";
+					});
+		*/
+/*
+		var boxElements = timeElements.selectAll('rect').data(function (d) {
+				return d.types;
+			}).enter()
+				.append('rect');
+
+		// Draw rectanges - Y axis
+		/*
+		boxes.selectAll("rect")
+			.data(function (d) {
+				return d.types;
+			}).enter()
+			.append("rect")
+				.attr("width", layout.boxes.width)
+				.attr("y", function (d) {
+					return scaleY(d.y1);
+				})
+				.attr("height", function (d) {
+					return scaleY(d.y0) - scaleY(d.y1);
+				})
+				.style("fill", function (d) {
+					return color(d.name);
+				});
+		*/
+
+
+		// Redraw
+		var repaint = function repaint() {
+				// Sizes
+				layout.width = container.clientWidth;
+
+				// SVG
+				svg.attr('width', layout.width);
+				coreElement.attr('width', layout.graph.width);
+
+				// Scales
+			};
+
+		// Redraw bind
+		scope.$watch(function() { return container.clientWidth; }, repaint);
+	}
+
+	return {
+		link: chartThreadDivergence_link,
+		restrict: 'E'
+	}
+});
+
 app.directive('chartDataStackedbars', function() {
 
-	function link(scope, element, attributes) {
+	function chartDataStackedbars_link(scope, element, attributes) {
 
 		// Compute data
 		var data = [];
@@ -14,7 +134,6 @@ app.directive('chartDataStackedbars', function() {
 
 
 		// Vars - layout
-		var width, height, graphWidth, graphHeight, minSize;
 		var color = d3.scale.category20();
 		var container = element[0];
 		var layout = {
@@ -25,8 +144,6 @@ app.directive('chartDataStackedbars', function() {
 		layout.height = container.clientHeight;
 
 		// Vars - paint
-		var pie = d3.layout.pie().sort(null);
-		var arc = d3.svg.arc();
 		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
 
 		// Vars - scales
@@ -107,7 +224,7 @@ app.directive('chartDataStackedbars', function() {
 
 
 	return {
-		link: link,
+		link: chartDataStackedbars_link,
 		restrict: 'E'
 	}
 });
