@@ -4,6 +4,12 @@ var router = express.Router();
 /************************************************/
 /* Variables									*/
 /************************************************/
+/**
+	Computed data:
+		- timeIDMax						<integer>
+	Flags from functions: (to avoid duplicate treatments)
+		- treatThreadStatesByFrame		<boolean>
+*/
 var profileMap = {
 	1: { file: 'matmulijk', program: 'MatmulIJK', timeShift: 635573757342822588, timeStep: 50, availableCores: 8 },
 	2: { file: 'matmulkij', program: 'MatmulKIJ', timeShift: 635573791209358810, timeStep: 50, availableCores: 8 },
@@ -71,6 +77,7 @@ function treatThreadStatesByFrame(id) {
 
 	// Analyse element by element and group them by time
 	var timeID = 0;
+	profileMap[id].timeIDMax = 0;
 	profileRawData[id].forEach(function(element) {
 		if (element.program == profileMap[id].program) {
 
@@ -90,6 +97,7 @@ function treatThreadStatesByFrame(id) {
 
 			// Stave state
 			profileData[id].threads.byFrames[timeID][element.tid][element.type] = element.value;
+			profileMap[id].timeIDMax = Math.max(profileMap[id].timeIDMax, timeID);
 		}
 	});
 
@@ -116,7 +124,7 @@ function treatThreadStatesByFrame(id) {
 	 │	 └	<timeMax>
 	 └	stats
 	 	 ├	duration			<integer>	how long is the run
-	 	 ├	timeShift			<integer>	time before starting measures (i.e. we don't care before this time) /!\ in pico seconds (10⁻¹²s) /!\ need to be divided by 10⁹
+	 	 ├	timeShift			<integer>	time before starting measures (i.e. non interesting computation before this time) /!\ in pico seconds (10⁻¹²s) /!\ need to be divided by 10⁹
 	 	 ├	timeMax				<integer>	last time frame in ms (10⁻³s)
 	 	 ├	timeStep			<integer>	time between each frame in ms (10⁻³s) (probably: 50 ms)
 	 	 ├	availableCores		<integer>	number of cores (not physically in hyper threading case)
@@ -127,7 +135,10 @@ function treatThreadStatesByFrame(id) {
 /**
  * Add common stats
  */
-function addCommon(output, profile) {
+function addCommon(output, id) {
+	// Init vars
+	var profile		= profileMap[id];
+
 	// Stats
 	if (! output.hasOwnProperty('stats')) output.stats = {};
 	output.stats.timeShift = profile.timeShift;
@@ -138,9 +149,110 @@ function addCommon(output, profile) {
 /**
  * Add cycles
  */
-function addCycles(output, data, profile) {
+function addcycles(output, id) {
+	// Init vars
+	var data		= treatThreadStatesByFrame(id);
+	var profile		= profileMap[id];
+	output.cycles	= {
+		axis: [],
+		cycles: [],
+		running: [],
+		ready: [],
+		runningThreads: [],
+		readyThreads: []
+	};
+
+	// Count threads availables
+	var thread, threadRunning, threadReady;
+	var sumCycles, sumRunning, sumReady, countRunning, countReady;
+	var StatSumCycles = 0;
+	var StatSumRunning = 0;
+	var StatSumReady = 0;
+	for (var timeID = 0; timeID <= profile.timeIDMax; timeID+= profile.timeStep) {
+		output.cycles.axis.push(timeID);
+
+		// If the time frame exists
+		if (data.threads.byFrames.hasOwnProperty(timeID)) {
+
+			// Reinit counters
+			sumCycles = 0;
+			sumRunning = 0;
+			sumReady = 0;
+			countRunning = 0;
+			countReady = 0;
+
+			// Count among all threads
+			for (var threadID in data.threads.byFrames[timeID]) {
+				if (data.threads.byFrames[timeID].hasOwnProperty(threadID)) {
+
+					// Get data by thread
+					thread = data.threads.byFrames[timeID][threadID];
+					threadRunning = thread.running + thread.cycles;
+					threadReady = thread.ready;
+
+					// Sum cycles by time frame
+					sumCycles += thread.cycles;
+					sumRunning += thread.running;
+					sumReady += thread.ready;
+
+					// Count states by time frame
+					if (threadRunning > threadReady && threadRunning > thread.init && threadRunning > thread.standby && threadRunning > thread.terminated && threadRunning > thread.transition && threadRunning > thread.unknown && threadRunning > thread.wait) {
+						countRunning++;
+					} else if (threadReady > threadRunning && threadReady > thread.init && threadReady > thread.standby && threadReady > thread.terminated && threadReady > thread.transition && threadReady > thread.unknown && threadReady > thread.wait) {
+						countReady++;
+					}
+
+
+				}
+			}
+
+		} else {
+			// Failed counters
+			sumCycles = NaN;
+			sumRunning = NaN;
+			sumReady = NaN;
+			countRunning = NaN;
+			countReady = NaN;
+		}
+
+		// Sum cycles globally
+		StatSumCycles += sumCycles;
+		StatSumRunning += sumRunning;
+		StatSumReady += sumReady;
+
+		// Hack
+		if (countRunning > profile.availableCores) {
+			countReady += countRunning - profile.availableCores;
+			countRunning = profile.availableCores;
+		}
+
+		// Output
+		output.cycles.cycles.push(sumCycles);
+		output.cycles.running.push(sumRunning);
+		output.cycles.ready.push(sumReady);
+		output.cycles.runningThreads.push(countRunning);
+		output.cycles.readyThreads.push(countReady);
+	};
+
+
+	// Stats
+	if (! output.hasOwnProperty('stats')) output.stats = {};
+	output.stats.timeMax = profile.timeIDMax;
+	output.stats.duration = profile.timeIDMax + profile.timeStep;
+	output.stats.cycles = StatSumCycles;
+	output.stats.cyclesRunning = StatSumRunning;
+	output.stats.cyclesReady = StatSumReady;
+}
+
+/**
+ * Add frames
+ */
+/*
+function addFrames(output, id) {
 	// Init vars
 	output.frames = [];
+	var data		= treatThreadStatesByFrame(id);
+	var profile		= profileMap[id];
 
 	// Count threads availables
 	var thread, threadRunning, threadReady;
@@ -181,9 +293,9 @@ function addCycles(output, data, profile) {
 			superSumReady += sumReady;
 
 			// Hack
-			if (countRunning > profile.maxThreads) {
-				countReady += countRunning - profile.maxThreads;
-				countRunning = profile.maxThreads;
+			if (countRunning > profile.availableCores) {
+				countReady += countRunning - profile.availableCores;
+				countRunning = profile.availableCores;
 			}
 
 			// Build response
@@ -207,6 +319,7 @@ function addCycles(output, data, profile) {
 	output.stats.cyclesRunning = superSumRunning;
 	output.stats.cyclesReady = superSumReady;
 }
+*/
 
 
 /************************************************/
@@ -222,11 +335,10 @@ function jsonTG(id) {
 	output.cat = 'tg';
 
 	// Common
-	addCommon(output, profileMap[id]);
+	addCommon(output, id);
 
 	// for potential parallelism
-	var dataThreads = treatThreadStatesByFrame(id);
-	addCycles(output, dataThreads, profileMap[id]);
+	addcycles(output, id);
 
 
 	return output;
@@ -268,10 +380,10 @@ function jsonLB(id) {
 	output.cat = 'lb';
 
 	// Common
-	addCommon(output, profileMap[id]);
+	addCommon(output, id);
 
 	// for potential parallelism
-	addCycles(output, treatThreadStatesByFrame(id), profileMap[id]);
+	addcycles(output, id);
 
 	return output;
 }

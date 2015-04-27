@@ -136,10 +136,8 @@ app.directive('chartDataStackedbars', function() {
 		// Vars - layout
 		var color = d3.scale.category20();
 		var container = element[0];
-		var layout = {
-			margin: { top: 20, right: 20, bottom: 30, left: 60},
-			boxes: { width: 10, padding: 2 }
-		}
+		var layout = {};
+		layout.boxes = { width: 10, padding: 2 };
 		layout.width = layout.boxes.width * scope.ids.length + layout.boxes.padding;
 		layout.height = container.clientHeight;
 
@@ -198,28 +196,6 @@ app.directive('chartDataStackedbars', function() {
 				.style("fill", function (d) {
 					return color(d.name);
 				});
-
-		// Redraw
-		/*
-		var repaint = function repaint() {
-				console.log("repaint");
-
-				// Sizes
-				height = container.clientHeight;
-				graphHeight = height - layout.margin.top - layout.margin.bottom;
-
-				// SVG
-				svg.attr('height', height);
-				console.log('width: ' + svg.attr('width') + ', height: ' + svg.attr('height'));
-
-				// Scales
-				scaleY.rangeRound([height, 0]);
-			};
-		// repaint();
-
-		// Redraw bind
-		scope.$watch(function() { return container.clientHeight * container.clientWidth; }, repaint);
-		*/
 	};
 
 
