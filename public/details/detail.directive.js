@@ -59,15 +59,15 @@ app.directive('chartThreadDivergence', function() {
 		// Draw - core
 		var coreGroup = svg.append("g").attr("class", "dataset");
 		var coreElement = coreGroup.append("rect")
-				.attr("width", scaleX(xValueMax)) // 🕒 repaintable
+				.attr("width", layout.graph.width) // 🕒 repaintable
 				.attr("height", scaleY(0) - scaleY(availableCores))
 				.attr("x", layout.margin.left)
 				.attr("y", scaleY(availableCores))
-				.style("fill", "rgba(70, 130, 180, .5)"); //"#4682B4");
+				.style("fill", "rgba(70, 130, 180, .5)");
 		var coreLine = coreGroup.append("line")
 				.attr("class", "line")
-				.attr("x1", scaleX(0)).attr("y1", scaleY(availableCores))
-				.attr("x2", scaleX(xValueMax)).attr("y2", scaleY(availableCores))
+				.attr("x1", layout.graph.left).attr("y1", scaleY(availableCores))
+				.attr("x2", layout.graph.right).attr("y2", scaleY(availableCores)) // 🕒 repaintable
   				.attr('stroke', '#4682B4')
   				.attr('stroke-width', 4)
   				.attr('stroke-dasharray', 5.5)
@@ -109,29 +109,24 @@ app.directive('chartThreadDivergence', function() {
 					return color(d.name);
 				});
 		*/
-				console.log("oooold: " + layout.graph.right());
 
 
 		// Redraw
 		var repaint = function repaint() {
 				// Sizes
-				console.log("old: " + layout.graph.right());
 				layout.width = container.clientWidth;
-				console.log("new: " + layout.graph.right());
 
 				// Scales
-				console.log("old scale: " + scaleX(xValueMax));
 				scaleX.rangeRound([layout.graph.left(), layout.graph.right()]);
-				console.log("new scale: " + scaleX(xValueMax));
 				xAxis.scale(scaleX);
 
 				// SVG
 				svg.attr('width', layout.width);
-				coreElement.attr("width", scaleX(xValueMax));
-				coreLine.attr("x2", scaleX(xValueMax));
+				coreElement.attr("width", layout.graph.width);
+				coreLine.attr("x2", layout.graph.right);
 			};
 
-		// Redraw bind
+		// Redraw - bind
 		scope.$watch(function() { return container.clientWidth; }, repaint);
 	}
 
