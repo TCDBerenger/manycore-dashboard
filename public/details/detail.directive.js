@@ -6,57 +6,72 @@ app.directive('chartThreadDivergence', function() {
 		// Layout
 		var container = element[0];
 		var layout = {
-			margin: { top: 10, right: 10, bottom: 10, left: 10},
+			margin: { top: 10, right: 10, bottom: 20, left: 20},
 			height:	container.clientHeight,
 			width:	container.clientWidth,
 			graph:	{
 				width:	function() { return Math.max(1, container.clientWidth - layout.margin.left - layout.margin.right); },
 				height:	function() { return Math.max(1, container.clientHeight - layout.margin.top - layout.margin.bottom); },
-				top:	function() { return layout.top.bottom; },
+				top:	function() { return layout.margin.top; },
 				right:	function() { return Math.max(1, container.clientWidth - layout.margin.right); },
 				bottom:	function() { return Math.max(1, container.clientHeight - layout.margin.bottom); },
-				left:	function() { return layout.top.left; }
+				left:	function() { return layout.margin.left; }
 			}
 		};
 
 		// Data
 		var data = scope.data[scope.ids[0]];
+		var availableCores = data.stats.availableCores
+		// var dataValueMax = Math.max(d3.max(data.cycles.cycles), d3.max(data.cycles.running), d3.max(data.cycles.ready));
+		var xValueMax = data.stats.duration;
+		var yValueMax = Math.max(availableCores * 2, availableCores + d3.max(data.cycles.readyThreads));
 
 		// DOM
 		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
 		svg.style("background", "#FFEEEE");
 
-
 		// Scales
-		var scaleX = d3.scale.linear().rangeRound([layout.graph.height(), 0]);
-		var scaleY = d3.scale.linear().rangeRound([0, layout.graph.width()]);
+		var scaleX = d3.scale.linear().rangeRound([layout.graph.left(), layout.graph.right()]);
+		var scaleY = d3.scale.linear().rangeRound([layout.graph.bottom(), layout.graph.top()]);
 
 		// Scales - domains
-		scaleX.domain([0, 16]);
-		scaleY.domain([0, 100]);
+		scaleX.domain([0, xValueMax]);
+		scaleY.domain([0, yValueMax]);
+
+		// Axis
+		var xAxis = d3.svg.axis().scale(scaleX);
+		var yAxis = d3.svg.axis().scale(scaleY).orient("left");
 
 
 		// Draw
-		console.log(data.frames);
+		console.log(scaleX.domain());
+
+		// Draw - axis
+		svg.append("g")
+				.attr("class", "xAxis")
+				.attr("transform", "translate(0," + layout.graph.bottom() + ")")
+				.call(xAxis);
+		svg.append("g")
+				.attr("class", "xAxis")
+				.attr("transform", "translate(" + layout.graph.left() + ",0)")
+				.call(yAxis);
 
 		// Draw - core
 		var coreGroup = svg.append("g").attr("class", "dataset");
 		var coreElement = coreGroup.append("rect")
-				.attr("width", layout.graph.width) // 🕒 repaintable
-				.attr("height", scaleX(data.stats.availableCores))
+				.attr("width", scaleX(xValueMax)) // 🕒 repaintable
+				.attr("height", scaleY(0) - scaleY(availableCores))
 				.attr("x", layout.margin.left)
-				.attr("y", layout.graph.bottom() - scaleX(data.stats.availableCores))
-				.style("fill", "#4682B4");
-
-/*
-		var	valueline = d3.svg.line()
-			.x(function(d) { return scaleX(d.d); })
-			.y(function(d) { return scaleY(d.i); });
-		var coreLine = coreGroup.append("path")
+				.attr("y", scaleY(availableCores))
+				.style("fill", "rgba(70, 130, 180, .5)"); //"#4682B4");
+		var coreLine = coreGroup.append("line")
 				.attr("class", "line")
-				.attr("d", valueline([{i: 0, d: data.stats.availableCores}, {i: 100, d: data.stats.availableCores}]))
-				.style("stroke", "#808080");
-*/
+				.attr("x1", scaleX(0)).attr("y1", scaleY(availableCores))
+				.attr("x2", scaleX(xValueMax)).attr("y2", scaleY(availableCores))
+  				.attr('stroke', '#4682B4')
+  				.attr('stroke-width', 4)
+  				.attr('stroke-dasharray', 5.5)
+  				.attr('fill', 'none');
 
 
 		// Draw - core
@@ -94,18 +109,26 @@ app.directive('chartThreadDivergence', function() {
 					return color(d.name);
 				});
 		*/
+				console.log("oooold: " + layout.graph.right());
 
 
 		// Redraw
 		var repaint = function repaint() {
 				// Sizes
+				console.log("old: " + layout.graph.right());
 				layout.width = container.clientWidth;
+				console.log("new: " + layout.graph.right());
+
+				// Scales
+				console.log("old scale: " + scaleX(xValueMax));
+				scaleX.rangeRound([layout.graph.left(), layout.graph.right()]);
+				console.log("new scale: " + scaleX(xValueMax));
+				xAxis.scale(scaleX);
 
 				// SVG
 				svg.attr('width', layout.width);
-				coreElement.attr('width', layout.graph.width);
-
-				// Scales
+				coreElement.attr("width", scaleX(xValueMax));
+				coreLine.attr("x2", scaleX(xValueMax));
 			};
 
 		// Redraw bind
