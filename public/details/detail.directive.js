@@ -47,11 +47,11 @@ app.directive('chartThreadDivergence', function() {
 		console.log(scaleX.domain());
 
 		// Draw - axis
-		svg.append("g")
+		var axisXGroup = svg.append("g")
 				.attr("class", "xAxis")
 				.attr("transform", "translate(0," + layout.graph.bottom() + ")")
 				.call(xAxis);
-		svg.append("g")
+		var axisYGroup = svg.append("g")
 				.attr("class", "xAxis")
 				.attr("transform", "translate(" + layout.graph.left() + ",0)")
 				.call(yAxis);
@@ -118,10 +118,10 @@ app.directive('chartThreadDivergence', function() {
 
 				// Scales
 				scaleX.rangeRound([layout.graph.left(), layout.graph.right()]);
-				xAxis.scale(scaleX);
 
 				// SVG
 				svg.attr('width', layout.width);
+				axisXGroup.call(xAxis);
 				coreElement.attr("width", layout.graph.width);
 				coreLine.attr("x2", layout.graph.right);
 			};
