@@ -23,10 +23,15 @@ app.directive('chartThreadDivergence', function() {
 		var data = scope.data[attrs.profileid];
 		var timeStart = +attrs.timestart;			// When the user selection starts
 		var timeEnd = +attrs.timeend;				// When the user selection ends (could be before or after timeMax)
-		var timeMax = data.stats.timeMax;
+		var timeMax = data.stats.duration;
 		var numberCores = data.stats.availableCores;
 		var dataValueMax = Math.max(numberCores * 2, data.stats.threadsMax);
 		// var dataValueMax = Math.max(d3.max(data.cycles.cycles), d3.max(data.cycles.running), d3.max(data.cycles.ready));
+
+		// Fix column layout
+		var lastElement = angular.copy(data.cycles[data.cycles.length - 1], {});
+		lastElement.t = timeMax;
+		data.cycles.push(lastElement);
 
 		// DOM
 		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
@@ -50,16 +55,6 @@ app.directive('chartThreadDivergence', function() {
 		var interpolationMethod = "step-after";
 		console.log(scaleX.domain());
 
-		// Draw - axis
-		var axisXGroup = svg.append("g")
-				.attr("class", "xAxis")
-				.attr("transform", "translate(0," + layout.graph.bottom() + ")")
-				.call(xAxis);
-		var axisYGroup = svg.append("g")
-				.attr("class", "xAxis")
-				.attr("transform", "translate(" + layout.graph.left() + ",0)")
-				.call(yAxis);
-
 		// Draw - core
 		var coreGroup = svg.append("g").attr("class", "dataset");
 		var coreElement = coreGroup.append("rect")
@@ -77,25 +72,6 @@ app.directive('chartThreadDivergence', function() {
   				.attr('stroke-width', 4)
   				.attr('stroke-dasharray', 5.5)
   				.attr('fill', 'none');
-
-		// Draw - running
-		var runningGroup = svg.append("g").attr("class", "dataset");
-		var runningAreaFunction = d3.svg.area()
-				.x(function(d) { return scaleX(d.t); })
-				.y0(layout.graph.bottom)
-				.y1(function(d) { return scaleY(d.trun); })
-				.interpolate(interpolationMethod);
-		var runningArea = runningGroup.append("path")
-				.attr("d", runningAreaFunction(data.cycles)) // 🕒 repaintable
-				.attr("fill", "#8DD28A");
-		var runningLineFunction = d3.svg.line()
-				.x(function(d) { return scaleX(d.t); })
-				.y(function(d) { return scaleY(d.trun); })
-				.interpolate(interpolationMethod);
-		var runningLine = runningGroup.append("path")
-				.attr("stroke", "#4BB446")
-				.attr("stroke-width", 2)
-				.attr("fill", "none");
 
 		// Draw - ready
 		var readyGroup = svg.append("g").attr("class", "dataset");
@@ -116,6 +92,35 @@ app.directive('chartThreadDivergence', function() {
 				.attr("stroke-width", 2)
 				.attr("fill", "none");
 
+		// Draw - running
+		var runningGroup = svg.append("g").attr("class", "dataset");
+		var runningAreaFunction = d3.svg.area()
+				.x(function(d) { return scaleX(d.t); })
+				.y0(layout.graph.bottom)
+				.y1(function(d) { return scaleY(d.trun); })
+				.interpolate(interpolationMethod);
+		var runningArea = runningGroup.append("path")
+				.attr("d", runningAreaFunction(data.cycles)) // 🕒 repaintable
+				.attr("fill", "#8DD28A");
+		var runningLineFunction = d3.svg.line()
+				.x(function(d) { return scaleX(d.t); })
+				.y(function(d) { return scaleY(d.trun); })
+				.interpolate(interpolationMethod);
+		var runningLine = runningGroup.append("path")
+				.attr("stroke", "#4BB446")
+				.attr("stroke-width", 2)
+				.attr("fill", "none");
+
+		// Draw - axis
+		var axisXGroup = svg.append("g")
+				.attr("class", "xAxis")
+				.attr("transform", "translate(0," + layout.graph.bottom() + ")")
+				.call(xAxis);
+		var axisYGroup = svg.append("g")
+				.attr("class", "xAxis")
+				.attr("transform", "translate(" + layout.graph.left() + ",0)")
+				.call(yAxis);
+		
 
 		// Redraw
 		var repaint = function repaint() {
@@ -124,6 +129,7 @@ app.directive('chartThreadDivergence', function() {
 
 				// Scales
 				scaleX.rangeRound([layout.graph.left(), layout.graph.right()]);
+				scaleXStep = scaleX(data.stats.timeStep);
 
 				// SVG
 				svg.attr('width', layout.width);
@@ -131,9 +137,9 @@ app.directive('chartThreadDivergence', function() {
 				coreElement.attr("width", scaleX(timeMax) - scaleX(timeStart));
 				coreLine.attr("x1", scaleX(timeStart)).attr("x2", scaleX(timeMax));
 				runningArea.attr("d", runningAreaFunction(data.cycles));
-				runningLine.attr("d", runningLineFunction(data.cycles));
 				readyArea.attr("d", readyAreaFunction(data.cycles));
 				readyLine.attr("d", readyLineFunction(data.cycles));
+				runningLine.attr("d", runningLineFunction(data.cycles));
 			};
 
 		// Redraw - bind
