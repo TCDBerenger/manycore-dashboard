@@ -55,37 +55,29 @@ app.directive('chartThreadDivergence', function() {
 		var interpolationMethod = "step-after";
 		console.log(scaleX.domain());
 
-		// Draw - core
-		var coreGroup = svg.append("g").attr("class", "dataset");
-		var coreElement = coreGroup.append("rect")
+		// Draw - core area
+		var coreElement = svg.append("rect")
 				.attr("width", scaleX(timeMax) - scaleX(timeStart)) // 🕒 repaintable
 				.attr("height", scaleY(0) - scaleYNumberCore)
 				.attr("x", scaleX(timeStart))
 				.attr("y", scaleYNumberCore)
 				.style("fill", "rgba(70, 130, 180, .5)")
 				.style("fill", "#9ED3FF");
-		var coreLine = coreGroup.append("line")
-				.attr("class", "line")
-				.attr("x1", scaleX(timeStart)).attr("x2", scaleX(timeMax)) // 🕒 repaintable
-				.attr("y1", scaleYNumberCore).attr("y2", scaleYNumberCore)
-  				.attr('stroke', '#4682B4')
-  				.attr('stroke-width', 4)
-  				.attr('stroke-dasharray', 5.5)
-  				.attr('fill', 'none');
 
 		// Draw - ready
 		var readyGroup = svg.append("g").attr("class", "dataset");
 		var readyAreaFunction = d3.svg.area()
 				.x(function(d) { return scaleX(d.t); })
-				.y0(scaleYNumberCore)
-				.y1(function(d) { return scaleY(d.trea + numberCores); })
+				.y0(function(d) { return scaleY(Math.max(numberCores, d.trun)); })
+				.y1(function(d) { return scaleY(d.trea + Math.max(numberCores, d.trun)); })
 				.interpolate(interpolationMethod);
 		var readyArea = readyGroup.append("path")
 				.attr("d", readyAreaFunction(data.cycles)) // 🕒 repaintable
 				.attr("fill", "#D28A8D");
+
 		var readyLineFunction = d3.svg.line()
 				.x(function(d) { return scaleX(d.t); })
-				.y(function(d) { return scaleY(d.trea + numberCores); })
+				.y(function(d) { return scaleY(d.trea + Math.max(numberCores, d.trun)); })
 				.interpolate(interpolationMethod);
 		var readyLine = readyGroup.append("path")
 				.attr("stroke", "#B4464B")
@@ -110,6 +102,16 @@ app.directive('chartThreadDivergence', function() {
 				.attr("stroke", "#4BB446")
 				.attr("stroke-width", 2)
 				.attr("fill", "none");
+		
+		// Draw - core line
+		var coreLine = svg.append("line")
+				.attr("class", "line")
+				.attr("x1", scaleX(timeStart)).attr("x2", scaleX(timeMax)) // 🕒 repaintable
+				.attr("y1", scaleYNumberCore).attr("y2", scaleYNumberCore)
+				.attr('stroke', '#4682B4')
+				.attr('stroke-width', 4)
+				.attr('stroke-dasharray', 5.5)
+				.attr('fill', 'none');
 
 		// Draw - axis
 		var axisXGroup = svg.append("g")
@@ -120,7 +122,6 @@ app.directive('chartThreadDivergence', function() {
 				.attr("class", "xAxis")
 				.attr("transform", "translate(" + layout.graph.left() + ",0)")
 				.call(yAxis);
-		
 
 		// Redraw
 		var repaint = function repaint() {
