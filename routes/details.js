@@ -456,7 +456,7 @@ router.get('/*', function(request, response) {
 	}
 
 	// Compute
-	var output = {};
+	var output = { c: { timeStart: 0} };
 	ids.forEach(function(id) {
 		loadData(id);
 		switch(cat) {
@@ -468,6 +468,8 @@ router.get('/*', function(request, response) {
 			case 'rs':	output[id] = jsonRS(id); break;
 			case 'io':	output[id] = jsonIO(id); break;
 		}
+		output.c.timeMax = Math.max(output[id].stats.timeMax, output.c.timeMax | 0);
+		output.c.durationMax = Math.max(output[id].stats.duration, output.c.durationMax | 0);
 	});
 	response.json(output);
 });

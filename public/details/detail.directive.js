@@ -20,11 +20,13 @@ app.directive('chartThreadDivergence', function() {
 		};
 
 		// Data
-		var data = scope.data[scope.ids[0]];
-		var availableCores = data.stats.availableCores
+		var data = scope.data[attrs.profileid];
+		var timeStart = +attrs.timestart;			// When the user selection starts
+		var timeEnd = +attrs.timeend;				// When the user selection ends (could be before or after timeMax)
+		var timeMax = data.stats.timeMax;
+		var numberCores = data.stats.availableCores;
+		var dataValueMax = Math.max(numberCores * 2, numberCores + d3.max(data.cycles.readyThreads));
 		// var dataValueMax = Math.max(d3.max(data.cycles.cycles), d3.max(data.cycles.running), d3.max(data.cycles.ready));
-		var xValueMax = data.stats.duration;
-		var yValueMax = Math.max(availableCores * 2, availableCores + d3.max(data.cycles.readyThreads));
 
 		// DOM
 		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
@@ -33,10 +35,10 @@ app.directive('chartThreadDivergence', function() {
 		// Scales
 		var scaleX = d3.scale.linear().rangeRound([layout.graph.left(), layout.graph.right()]);
 		var scaleY = d3.scale.linear().rangeRound([layout.graph.bottom(), layout.graph.top()]);
-
 		// Scales - domains
-		scaleX.domain([0, xValueMax]);
-		scaleY.domain([0, yValueMax]);
+
+		scaleY.domain([0, dataValueMax]);
+		scaleX.domain([timeStart, timeEnd]);
 
 		// Axis
 		var xAxis = d3.svg.axis().scale(scaleX);
@@ -59,15 +61,15 @@ app.directive('chartThreadDivergence', function() {
 		// Draw - core
 		var coreGroup = svg.append("g").attr("class", "dataset");
 		var coreElement = coreGroup.append("rect")
-				.attr("width", layout.graph.width) // 🕒 repaintable
-				.attr("height", scaleY(0) - scaleY(availableCores))
-				.attr("x", layout.margin.left)
-				.attr("y", scaleY(availableCores))
+				.attr("width", scaleX(timeMax) - scaleX(timeStart)) // 🕒 repaintable
+				.attr("height", scaleY(0) - scaleY(numberCores))
+				.attr("x", scaleX(timeStart))
+				.attr("y", scaleY(numberCores))
 				.style("fill", "rgba(70, 130, 180, .5)");
 		var coreLine = coreGroup.append("line")
 				.attr("class", "line")
-				.attr("x1", layout.graph.left).attr("y1", scaleY(availableCores))
-				.attr("x2", layout.graph.right).attr("y2", scaleY(availableCores)) // 🕒 repaintable
+				.attr("x1", scaleX(timeStart)).attr("x2", scaleX(timeMax)) // 🕒 repaintable
+				.attr("y1", scaleY(numberCores)).attr("y2", scaleY(numberCores))
   				.attr('stroke', '#4682B4')
   				.attr('stroke-width', 4)
   				.attr('stroke-dasharray', 5.5)
@@ -122,8 +124,8 @@ app.directive('chartThreadDivergence', function() {
 				// SVG
 				svg.attr('width', layout.width);
 				axisXGroup.call(xAxis);
-				coreElement.attr("width", layout.graph.width);
-				coreLine.attr("x2", layout.graph.right);
+				coreElement.attr("width", scaleX(timeMax) - scaleX(timeStart));
+				coreLine.attr("x1", scaleX(timeStart)).attr("x2", scaleX(timeMax));
 			};
 
 		// Redraw - bind
