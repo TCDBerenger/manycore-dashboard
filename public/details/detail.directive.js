@@ -25,7 +25,7 @@ app.directive('chartThreadDivergence', function() {
 		var timeEnd = +attrs.timeend;				// When the user selection ends (could be before or after timeMax)
 		var timeMax = data.stats.timeMax;
 		var numberCores = data.stats.availableCores;
-		var dataValueMax = Math.max(numberCores * 2, numberCores + d3.max(data.cycles.readyThreads));
+		var dataValueMax = Math.max(numberCores * 2, data.stats.threadsMax);
 		// var dataValueMax = Math.max(d3.max(data.cycles.cycles), d3.max(data.cycles.running), d3.max(data.cycles.ready));
 
 		// DOM
@@ -65,7 +65,8 @@ app.directive('chartThreadDivergence', function() {
 				.attr("height", scaleY(0) - scaleY(numberCores))
 				.attr("x", scaleX(timeStart))
 				.attr("y", scaleY(numberCores))
-				.style("fill", "rgba(70, 130, 180, .5)");
+				.style("fill", "rgba(70, 130, 180, .5)")
+				.style("fill", "#9ED3FF");
 		var coreLine = coreGroup.append("line")
 				.attr("class", "line")
 				.attr("x1", scaleX(timeStart)).attr("x2", scaleX(timeMax)) // 🕒 repaintable
@@ -75,8 +76,23 @@ app.directive('chartThreadDivergence', function() {
   				.attr('stroke-dasharray', 5.5)
   				.attr('fill', 'none');
 
+		// Draw - running
+		var runningGroup = svg.append("g").attr("class", "dataset");
+		var runningLineFunction = d3.svg.line()
+				.x(function(d) { return scaleX(d.t); })
+				.y(function(d) { return scaleY(d.trun); })
+				.interpolate("step-after");
+		/*
+		var runningElement = runningGroup.append("path")
+				.attr("d", runningLineFunction(data.cycles))
+				.attr("fill", "#8DD28A");
+		*/
+		var runningLine = runningGroup.append("path")
+				.attr("d", runningLineFunction(data.cycles))
+				.attr("stroke", "#4BB446")
+				.attr("stroke-width", 2)
+				.attr("fill", "none");
 
-		// Draw - core
 
 /*
 		var timeElements = svg.selectAll('.dataset').data(data.frames).enter()
@@ -126,6 +142,7 @@ app.directive('chartThreadDivergence', function() {
 				axisXGroup.call(xAxis);
 				coreElement.attr("width", scaleX(timeMax) - scaleX(timeStart));
 				coreLine.attr("x1", scaleX(timeStart)).attr("x2", scaleX(timeMax));
+				runningLine.attr("d", runningLineFunction(data.cycles));
 			};
 
 		// Redraw - bind

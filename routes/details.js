@@ -7,6 +7,7 @@ var router = express.Router();
 /**
 	Computed data:
 		- timeIDMax						<integer>
+		- threadCount					<integer>	Count all threads
 	Flags from functions: (to avoid duplicate treatments)
 		- treatThreadStatesByFrame		<boolean>
 */
@@ -77,6 +78,7 @@ function treatThreadStatesByFrame(id) {
 
 	// Analyse element by element and group them by time
 	var timeID = 0;
+	var statThreads = {};
 	profileMap[id].timeIDMax = 0;
 	profileRawData[id].forEach(function(element) {
 		if (element.program == profileMap[id].program) {
@@ -85,21 +87,23 @@ function treatThreadStatesByFrame(id) {
 			timeID = element.time - profileMap[id].timeShift;
 			timeID = Math.round(timeID / 10000);
 
-			// Check Frame time
-			if (! profileData[id].threads.byFrames.hasOwnProperty(timeID)) {
-				profileData[id].threads.byFrames[timeID] = {};
-			}
+			// Auto build structure
+			if (! profileData[id].threads.byFrames.hasOwnProperty(timeID)) profileData[id].threads.byFrames[timeID] = {};
+			if (! profileData[id].threads.byFrames[timeID].hasOwnProperty(element.tid)) profileData[id].threads.byFrames[timeID][element.tid] = {};
 
-			// Check Frame time
-			if (! profileData[id].threads.byFrames[timeID].hasOwnProperty(element.tid)) {
-				profileData[id].threads.byFrames[timeID][element.tid] = {};
-			}
-
-			// Stave state
+			// Save state
 			profileData[id].threads.byFrames[timeID][element.tid][element.type] = element.value;
 			profileMap[id].timeIDMax = Math.max(profileMap[id].timeIDMax, timeID);
+
+			// Count threads
+			statThreads[element.tid] = true;
 		}
 	});
+
+	// Count threads
+	var countThreads = 0;
+	for (var t in statThreads) { if (statThreads.hasOwnProperty(t) && t) countThreads++; };
+	profileMap[id].threadCount = countThreads;
 
 	// computation done
 	profileData[id].treatThreadStatesByFrame = true;
@@ -120,6 +124,16 @@ function treatThreadStatesByFrame(id) {
 	 │	 │	 ├	sumReady		<integer>	number of cycles for ready state
 	 │	 │	 ├	countRunning	<integer>	number of threads in running state
 	 │	 │	 └	countReady		<integer>	number of threads in ready state
+	 │	 │	...
+	 │	 └	<timeMax>
+	 ├	cycles					<array>		list of time frames
+	 │	 ├	<0>
+	 │	 │	 ├	t				<integer>	time in ms (10⁻³s), identiral to frame<id>
+	 │	 │	 ├	c				<integer>	number of cycles
+	 │	 │	 ├	crun			<integer>	number of cycles for running state
+	 │	 │	 ├	crea			<integer>	number of cycles for ready state
+	 │	 │	 ├	trun			<integer>	number of threads in running state
+	 │	 │	 └	trea			<integer>	number of threads in ready state
 	 │	 │	...
 	 │	 └	<timeMax>
 	 └	stats
@@ -144,6 +158,7 @@ function addCommon(output, id) {
 	output.stats.timeShift = profile.timeShift;
 	output.stats.timeStep = profile.timeStep;
 	output.stats.availableCores = profile.availableCores;
+	output.stats.threadCount = profile.threadCount;
 }
 
 /**
@@ -153,23 +168,16 @@ function addcycles(output, id) {
 	// Init vars
 	var data		= treatThreadStatesByFrame(id);
 	var profile		= profileMap[id];
-	output.cycles	= {
-		axis: [],
-		cycles: [],
-		running: [],
-		ready: [],
-		runningThreads: [],
-		readyThreads: []
-	};
+	output.cycles	= [];
 
 	// Count threads availables
 	var thread, threadRunning, threadReady;
-	var sumCycles, sumRunning, sumReady, countRunning, countReady;
+	var sumCycles, sumRunning, sumReady, countThread, countRunning, countReady;
+	var statCountThreads = 0;
 	var StatSumCycles = 0;
 	var StatSumRunning = 0;
 	var StatSumReady = 0;
 	for (var timeID = 0; timeID <= profile.timeIDMax; timeID+= profile.timeStep) {
-		output.cycles.axis.push(timeID);
 
 		// If the time frame exists
 		if (data.threads.byFrames.hasOwnProperty(timeID)) {
@@ -178,17 +186,18 @@ function addcycles(output, id) {
 			sumCycles = 0;
 			sumRunning = 0;
 			sumReady = 0;
+			countThread = 0;
 			countRunning = 0;
 			countReady = 0;
 
 			// Count among all threads
 			for (var threadID in data.threads.byFrames[timeID]) {
 				if (data.threads.byFrames[timeID].hasOwnProperty(threadID)) {
-
 					// Get data by thread
 					thread = data.threads.byFrames[timeID][threadID];
 					threadRunning = thread.running + thread.cycles;
 					threadReady = thread.ready;
+					countThread++;
 
 					// Sum cycles by time frame
 					sumCycles += thread.cycles;
@@ -205,6 +214,8 @@ function addcycles(output, id) {
 
 				}
 			}
+
+			statCountThreads = Math.max(statCountThreads, countThread);
 
 		} else {
 			// Failed counters
@@ -227,11 +238,15 @@ function addcycles(output, id) {
 		}
 
 		// Output
-		output.cycles.cycles.push(sumCycles);
-		output.cycles.running.push(sumRunning);
-		output.cycles.ready.push(sumReady);
-		output.cycles.runningThreads.push(countRunning);
-		output.cycles.readyThreads.push(countReady);
+		output.cycles.push({
+			t:		timeID,
+			c:		sumCycles,
+			crun:	sumRunning,
+			crea:	sumReady,
+			trun:	countRunning,
+			trea:	countReady
+		});
+
 	};
 
 
@@ -239,6 +254,7 @@ function addcycles(output, id) {
 	if (! output.hasOwnProperty('stats')) output.stats = {};
 	output.stats.timeMax = profile.timeIDMax;
 	output.stats.duration = profile.timeIDMax + profile.timeStep;
+	output.stats.threadsMax = statCountThreads;
 	output.stats.cycles = StatSumCycles;
 	output.stats.cyclesRunning = StatSumRunning;
 	output.stats.cyclesReady = StatSumReady;
