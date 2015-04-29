@@ -14,11 +14,11 @@
 			<tbody>
 				<tr ng-repeat="(i, e) in chartSets.cycles" style="text-align: right;">
 					<td>{{e.desc}} <font style="color: {{e.color}}">▮</font></td>
-					<td>{{data[profiles[0].id].stats[e.attr] / 1000000 | number: 0}} × 10<sup>6</sup> cycles</td>
+					<td>{{data[profiles[0].id].stats[e.cat][e.attr] / 1000000 | number: 0}} × 10<sup>6</sup> cycles</td>
 					<td class="container-graph" rowspan="{{chartSets.cycles.length}}" colspan="{{profiles.length}}" ng-if="i == 0">
 						<chart-data-stackedbars class="integrated-graph" data="{{data}}" ids="{{ids}}"></chart-data-stackedbars>
 					</td>
-					<td ng-if="profiles.length >= 2">{{data[profiles[1].id].stats[e.attr] / 1000000 | number: 0}} × 10<sup>6</sup> cycles</td>
+					<td ng-if="profiles.length >= 2">{{data[profiles[1].id].stats[e.cat][e.attr] / 1000000 | number: 0}} × 10<sup>6</sup> cycles</td>
 				</tr>
 			</tbody>
 		</table>
