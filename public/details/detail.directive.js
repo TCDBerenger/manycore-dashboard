@@ -1,7 +1,7 @@
 app.directive('chartThreadDivergence', function() {
 
 	function chartThreadDivergence_link(scope, element, attrs, controller) {
-		console.log("== directive ==");
+		console.log("== directive == chartThreadDivergence ==");
 
 		// Layout
 		var container = element[0];
@@ -53,7 +53,6 @@ app.directive('chartThreadDivergence', function() {
 		// Draw
 		var scaleYNumberCore = scaleY(numberCores);
 		var interpolationMethod = "step-after";
-		console.log(scaleX.domain());
 
 		// Draw - core area
 		var coreElement = svg.append("rect")
@@ -153,85 +152,80 @@ app.directive('chartThreadDivergence', function() {
 	}
 });
 
-app.directive('chartDataStackedbars', function() {
+app.directive('chartStats', function() {
 
-	function chartDataStackedbars_link(scope, element, attributes) {
+	function chartDataStackedbars_link(scope, element, attrs, controller) {
+		console.log("== directive == chartStats ==");
 
-		// Compute data
+		// Data - set
+		var ids = scope.ids;
+		var set = scope.chartSets[attrs.set];
+
+		// Data - Copy
 		var data = [];
-		scope.ids.forEach(function(id, index, array) {
-			data.push({
-				cycles: scope.data[id].stats.cycles.cycles,
-				running: scope.data[id].stats.cycles.running,
-				ready: scope.data[id].stats.cycles.ready
+		var dataValueSumMax = 0;
+		var dataElement, dataPreviousValue, dataValueSum;
+		ids.forEach(function(id) {
+			dataElement = [];
+			dataValueSum = 0;
+			dataPreviousValue = 0;
+			set.forEach(function(element) {
+				dataValueSum += scope.data[id].stats[element.cat][element.attr];
+				dataElement.push({
+					attr: element.attr,
+					previous: dataPreviousValue,
+					value: scope.data[id].stats[element.cat][element.attr]
+				});
+				dataPreviousValue += scope.data[id].stats[element.cat][element.attr];
 			});
+			dataValueSumMax = Math.max(dataValueSum, dataValueSumMax);
+			data.push(dataElement);
 		});
-		var dataKeys	= ['cycles', 'running', 'ready'];
-		var dataColors	= ['#8DD28A', '#4BB446', '#D28A8D'];
 
 
 		// Vars - layout
 		var color = d3.scale.category20();
 		var container = element[0];
-		var layout = {};
-		layout.boxes = { width: 10, padding: 2 };
-		layout.width = layout.boxes.width * scope.ids.length + layout.boxes.padding;
-		layout.height = container.clientHeight;
+		var layout = {
+			boxes: { width: 10, padding: 2 },
+			lineHeight: 33
+		};
+		layout.width = layout.boxes.width * ids.length + layout.boxes.padding;
+		layout.height = layout.lineHeight * set.length;
 
 		// Vars - paint
 		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
 
 		// Vars - scales
-		var scaleY = d3.scale.linear().rangeRound([layout.height, 0]);
-
-		// Colors
-		color.domain(d3.keys(data[0]));
-		//color.domain(['', '', '']);
-		//color.range(['', '', 'ff7f0e']]);
-
-		data.forEach(function (d) {
-			var y0 = 0;
-			d.types = color.domain().map(function (name) {
-				return {
-					name: name,
-					y0: y0,
-					y1: y0 += +d[name]
-				};
-			});
-			d.total = d.types[d.types.length - 1].y1;
-		});
-
-		// Our Y domain is from zero to our highest total
-		scaleY.domain([0, d3.max(data, function (d) {
-			return d.total;
-		})]);
+		var scaleY = d3.scale.linear()
+				.rangeRound([0, layout.height])
+				.domain([0, dataValueSumMax]);
 
 
 		// Draw rectanges
 		// Draw rectanges - X axis
 		var boxes = svg.selectAll(".label")
-				.data(data).enter()
-				.append("g")
-					.attr("transform", function (d, i) {
-						return "translate(" + (i * (layout.boxes.width + layout.boxes.padding)) + ", 0)";
-					});
+			.data(data).enter()
+			.append("g")
+				.attr("transform", function (d, i) {
+					return "translate(" + (i * (layout.boxes.width + layout.boxes.padding)) + ", 0)";
+				});
 
 		// Draw rectanges - Y axis
 		boxes.selectAll("rect")
 			.data(function (d) {
-				return d.types;
+				return d;
 			}).enter()
 			.append("rect")
 				.attr("width", layout.boxes.width)
 				.attr("y", function (d) {
-					return scaleY(d.y1);
+					return layout.height - scaleY(d.previous) - scaleY(d.value);
 				})
 				.attr("height", function (d) {
-					return scaleY(d.y0) - scaleY(d.y1);
+					return scaleY(d.value);
 				})
 				.style("fill", function (d, i, j) {
-					return dataColors[i];
-					//return color(d.name);
+					return set[i].color;
 				});
 	};
 

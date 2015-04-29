@@ -41,10 +41,20 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	// Data to show
 	$scope.chartSets = {
 		cycles: [
-			{ cat: 'cycles',	attr: 'ready',		desc: 'ready',		color: '#D28A8D' },
-			{ cat: 'cycles',	attr: 'running',	desc: 'running',	color: '#4BB446' },
-			{ cat: 'cycles',	attr: 'cycles',		desc: 'cycles',		color: '#8DD28A' }
-		]
+			{ cat: 'cycles',	attr: 'running',	title: 'running',	desc: 'running',	color: '#8DD28A' },
+			{ cat: 'cycles',	attr: 'ready',		title: 'ready',		desc: 'ready',		color: '#D28A8D' }
+		],
+		cyclesExtended: [
+			{ cat: 'cycles',	attr:'cycles',		title: 'cycles',		desc: 'cycles',		color:'#8DD28A' },
+			{ cat: 'cycles',	attr:'init',		title: 'init',			desc: 'init',		color:'#797979' },
+			{ cat: 'cycles',	attr:'running',		title: 'running',		desc: 'running',	color:'#4BB446' },
+			{ cat: 'cycles',	attr:'standby',		title: 'standby',		desc: 'standby',	color:'#D2AB8A' },
+			{ cat: 'cycles',	attr:'wait',		title: 'wait',			desc: 'wait',		color:'#D2AB8A' },
+			{ cat: 'cycles',	attr:'ready',		title: 'ready',			desc: 'ready',		color:'#D28A8D' },
+			{ cat: 'cycles',	attr:'transition',	title: 'transition',	desc: 'transition',	color:'#797979' },
+			{ cat: 'cycles',	attr:'terminated',	title: 'terminated',	desc: 'terminated',	color:'#797979' },
+			{ cat: 'cycles',	attr:'unknown',		title: 'unknown',		desc: 'unknown',	color:'#797979' }
+		],
 	}
 
 	// Global binds
