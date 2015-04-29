@@ -41,9 +41,9 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	// Data to show
 	$scope.chartSets = {
 		cycles: [
-			{ attr: 'cyclesReady',		desc: 'ready',		color: '#ff7f0e' },
-			{ attr: 'cyclesRunning',	desc: 'running',	color: '#aec7e8' },
-			{ attr: 'cycles',			desc: 'cycles',		color: '#1f77b4' }
+			{ cat: 'cycles',	attr: 'ready',		desc: 'ready',		color: '#D28A8D' },
+			{ cat: 'cycles',	attr: 'running',	desc: 'running',	color: '#4BB446' },
+			{ cat: 'cycles',	attr: 'cycles',		desc: 'cycles',		color: '#8DD28A' }
 		]
 	}
 

@@ -29,9 +29,9 @@ app.directive('chartThreadDivergence', function() {
 		// var dataValueMax = Math.max(d3.max(data.cycles.cycles), d3.max(data.cycles.running), d3.max(data.cycles.ready));
 
 		// Fix column layout
-		var lastElement = angular.copy(data.cycles[data.cycles.length - 1], {});
+		var lastElement = angular.copy(data.states[data.states.length - 1], {});
 		lastElement.t = timeMax;
-		data.cycles.push(lastElement);
+		data.states.push(lastElement);
 
 		// DOM
 		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
@@ -68,16 +68,16 @@ app.directive('chartThreadDivergence', function() {
 		var readyGroup = svg.append("g").attr("class", "dataset");
 		var readyAreaFunction = d3.svg.area()
 				.x(function(d) { return scaleX(d.t); })
-				.y0(function(d) { return scaleY(Math.max(numberCores, d.trun)); })
-				.y1(function(d) { return scaleY(d.trea + Math.max(numberCores, d.trun)); })
+				.y0(function(d) { return scaleY(Math.max(numberCores, d.c)); })
+				.y1(function(d) { return scaleY(d.rea + Math.max(numberCores, d.c)); })
 				.interpolate(interpolationMethod);
 		var readyArea = readyGroup.append("path")
-				.attr("d", readyAreaFunction(data.cycles)) // 🕒 repaintable
+				.attr("d", readyAreaFunction(data.states)) // 🕒 repaintable
 				.attr("fill", "#D28A8D");
 
 		var readyLineFunction = d3.svg.line()
 				.x(function(d) { return scaleX(d.t); })
-				.y(function(d) { return scaleY(d.trea + Math.max(numberCores, d.trun)); })
+				.y(function(d) { return scaleY(d.rea + Math.max(numberCores, d.c)); })
 				.interpolate(interpolationMethod);
 		var readyLine = readyGroup.append("path")
 				.attr("stroke", "#B4464B")
@@ -89,14 +89,14 @@ app.directive('chartThreadDivergence', function() {
 		var runningAreaFunction = d3.svg.area()
 				.x(function(d) { return scaleX(d.t); })
 				.y0(layout.graph.bottom)
-				.y1(function(d) { return scaleY(d.trun); })
+				.y1(function(d) { return scaleY(d.c); })
 				.interpolate(interpolationMethod);
 		var runningArea = runningGroup.append("path")
-				.attr("d", runningAreaFunction(data.cycles)) // 🕒 repaintable
+				.attr("d", runningAreaFunction(data.states)) // 🕒 repaintable
 				.attr("fill", "#8DD28A");
 		var runningLineFunction = d3.svg.line()
 				.x(function(d) { return scaleX(d.t); })
-				.y(function(d) { return scaleY(d.trun); })
+				.y(function(d) { return scaleY(d.c); })
 				.interpolate(interpolationMethod);
 		var runningLine = runningGroup.append("path")
 				.attr("stroke", "#4BB446")
@@ -137,10 +137,10 @@ app.directive('chartThreadDivergence', function() {
 				axisXGroup.call(xAxis);
 				coreElement.attr("width", scaleX(timeMax) - scaleX(timeStart));
 				coreLine.attr("x1", scaleX(timeStart)).attr("x2", scaleX(timeMax));
-				runningArea.attr("d", runningAreaFunction(data.cycles));
-				readyArea.attr("d", readyAreaFunction(data.cycles));
-				readyLine.attr("d", readyLineFunction(data.cycles));
-				runningLine.attr("d", runningLineFunction(data.cycles));
+				runningArea.attr("d", runningAreaFunction(data.states));
+				readyArea.attr("d", readyAreaFunction(data.states));
+				readyLine.attr("d", readyLineFunction(data.states));
+				runningLine.attr("d", runningLineFunction(data.states));
 			};
 
 		// Redraw - bind
@@ -161,11 +161,13 @@ app.directive('chartDataStackedbars', function() {
 		var data = [];
 		scope.ids.forEach(function(id, index, array) {
 			data.push({
-				cycles: scope.data[id].stats.cycles,
-				running: scope.data[id].stats.cyclesRunning,
-				ready: scope.data[id].stats.cyclesReady
+				cycles: scope.data[id].stats.cycles.cycles,
+				running: scope.data[id].stats.cycles.running,
+				ready: scope.data[id].stats.cycles.ready
 			});
 		});
+		var dataKeys	= ['cycles', 'running', 'ready'];
+		var dataColors	= ['#8DD28A', '#4BB446', '#D28A8D'];
 
 
 		// Vars - layout
@@ -182,11 +184,10 @@ app.directive('chartDataStackedbars', function() {
 		// Vars - scales
 		var scaleY = d3.scale.linear().rangeRound([layout.height, 0]);
 
-
-		// Map our columns to our colors
-		color.domain(d3.keys(data[0]).filter(function (key) {
-			return key !== "label";
-		}));
+		// Colors
+		color.domain(d3.keys(data[0]));
+		//color.domain(['', '', '']);
+		//color.range(['', '', 'ff7f0e']]);
 
 		data.forEach(function (d) {
 			var y0 = 0;
@@ -228,8 +229,9 @@ app.directive('chartDataStackedbars', function() {
 				.attr("height", function (d) {
 					return scaleY(d.y0) - scaleY(d.y1);
 				})
-				.style("fill", function (d) {
-					return color(d.name);
+				.style("fill", function (d, i, j) {
+					return dataColors[i];
+					//return color(d.name);
 				});
 	};
 
@@ -250,15 +252,15 @@ app.directive('chartDataGeneric', function() {
 		for (var i = 0; i < scope.profiles.length; i++) {
 			data.push({
 				label: scope.profiles[i].label,
-				cycles: scope.data[scope.profiles[0].id].stats.cycles,
-				running: scope.data[scope.profiles[0].id].stats.cyclesRunning,
-				ready: scope.data[scope.profiles[0].id].stats.cyclesReady
+				cycles: scope.data[scope.profiles[0].id].stats.cycles.cycles,
+				running: scope.data[scope.profiles[0].id].stats.cycles.running,
+				ready: scope.data[scope.profiles[0].id].stats.cycles.ready
 			});
 			data.push({
 				label: 'Fake',
-				cycles: scope.data[scope.profiles[0].id].stats.cycles * 0.9,
-				running: scope.data[scope.profiles[0].id].stats.cyclesRunning  * 1000,
-				ready: scope.data[scope.profiles[0].id].stats.cyclesReady * 0.7
+				cycles: scope.data[scope.profiles[0].id].stats.cycles.cycles * 0.9,
+				running: scope.data[scope.profiles[0].id].stats.cycles.running  * 1000,
+				ready: scope.data[scope.profiles[0].id].stats.cycles.ready * 0.7
 			});
 		};
 		console.log(data);
@@ -435,9 +437,9 @@ app.directive('chartGeneric', function() {
 	function link(scope, element, attributes) {
 		// Build data
 		var data = [
-				scope.data[scope.profiles[0].id].stats.cycles,
-				scope.data[scope.profiles[0].id].stats.cyclesRunning,
-				scope.data[scope.profiles[0].id].stats.cyclesReady
+				scope.data[scope.profiles[0].id].stats.cycles.cycles,
+				scope.data[scope.profiles[0].id].stats.cycles.running,
+				scope.data[scope.profiles[0].id].stats.cycles.ready
 			];
 		console.log(data);
 

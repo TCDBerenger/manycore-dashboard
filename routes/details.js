@@ -164,87 +164,91 @@ function addCommon(output, id) {
 /**
  * Add cycles
  */
-function addcycles(output, id) {
+function addCycles(output, id) {
 	// Init vars
 	var data		= treatThreadStatesByFrame(id);
 	var profile		= profileMap[id];
 	output.cycles	= [];
 
+	// Loop vars
+	var thread, statCountThreads, countThread;
+	var sumCycles, sumInit, sumRunning, sumStandby, sumWait, sumReady, sumTransition, sumTerminated, sumUnknown;
+	var statSumCycles, statSumInit, statSumRunning, statSumStandby, statSumWait, statSumReady, statSumTransition, statSumTerminated, statSumUnknown;
+
+	// Init stats vars
+	statCountThreads = 0;
+	statSumCycles = 0;	statSumInit = 0;		statSumRunning = 0;		statSumStandby = 0;	statSumWait = 0;
+	statSumReady = 0;	statSumTransition = 0;	statSumTerminated = 0;	statSumUnknown = 0;
+	
 	// Count threads availables
-	var thread, threadRunning, threadReady;
-	var sumCycles, sumRunning, sumReady, countThread, countRunning, countReady;
-	var statCountThreads = 0;
-	var StatSumCycles = 0;
-	var StatSumRunning = 0;
-	var StatSumReady = 0;
 	for (var timeID = 0; timeID <= profile.timeIDMax; timeID+= profile.timeStep) {
 
 		// If the time frame exists
 		if (data.threads.byFrames.hasOwnProperty(timeID)) {
 
 			// Reinit counters
-			sumCycles = 0;
-			sumRunning = 0;
-			sumReady = 0;
+			sumCycles = 0;	sumInit = 0;		sumRunning = 0;		sumStandby = 0;		sumWait = 0;
+			sumReady = 0;	sumTransition = 0;	sumTerminated = 0;	sumUnknown = 0;
 			countThread = 0;
-			countRunning = 0;
-			countReady = 0;
 
 			// Count among all threads
 			for (var threadID in data.threads.byFrames[timeID]) {
 				if (data.threads.byFrames[timeID].hasOwnProperty(threadID)) {
 					// Get data by thread
 					thread = data.threads.byFrames[timeID][threadID];
-					threadRunning = thread.running + thread.cycles;
-					threadReady = thread.ready;
 					countThread++;
 
 					// Sum cycles by time frame
-					sumCycles += thread.cycles;
-					sumRunning += thread.running;
-					sumReady += thread.ready;
-
-					// Count states by time frame
-					if (threadRunning > threadReady && threadRunning > thread.init && threadRunning > thread.standby && threadRunning > thread.terminated && threadRunning > thread.transition && threadRunning > thread.unknown && threadRunning > thread.wait) {
-						countRunning++;
-					} else if (threadReady > threadRunning && threadReady > thread.init && threadReady > thread.standby && threadReady > thread.terminated && threadReady > thread.transition && threadReady > thread.unknown && threadReady > thread.wait) {
-						countReady++;
-					}
-
-
+					sumCycles		+= thread.cycles;
+					sumInit			+= thread.init;
+					sumRunning		+= thread.running;
+					sumStandby		+= thread.standby;
+					sumWait			+= thread.wait;
+					sumReady		+= thread.ready;
+					sumTransition	+= thread.transition;
+					sumTerminated	+= thread.terminated;
+					sumUnknown		+= thread.unknown;
 				}
 			}
 
 			statCountThreads = Math.max(statCountThreads, countThread);
 
 		} else {
-			// Failed counters
-			sumCycles = NaN;
-			sumRunning = NaN;
-			sumReady = NaN;
-			countRunning = NaN;
-			countReady = NaN;
+			// Failed sums
+			sumCycles		= NaN;
+			sumInit			= NaN;
+			sumRunning		= NaN;
+			sumStandby		= NaN;
+			sumWait			= NaN;
+			sumReady		= NaN;
+			sumTransition	= NaN;
+			sumTerminated	= NaN;
+			sumUnknown		= NaN;
 		}
 
 		// Sum cycles globally
-		StatSumCycles += sumCycles;
-		StatSumRunning += sumRunning;
-		StatSumReady += sumReady;
-
-		// Hack
-		if (countRunning > profile.availableCores) {
-			countReady += countRunning - profile.availableCores;
-			countRunning = profile.availableCores;
-		}
+		statSumCycles		+= sumCycles;
+		statSumInit			+= sumInit;
+		statSumRunning		+= sumRunning;
+		statSumStandby		+= sumStandby;
+		statSumWait			+= sumWait;
+		statSumReady		+= sumReady;
+		statSumTransition	+= sumTransition;
+		statSumTerminated	+= sumTerminated;
+		statSumUnknown		+= sumUnknown;
 
 		// Output
 		output.cycles.push({
 			t:		timeID,
 			c:		sumCycles,
-			crun:	sumRunning,
-			crea:	sumReady,
-			trun:	countRunning,
-			trea:	countReady
+			i:		sumInit,
+			run:	sumRunning,
+			s:		sumStandby,
+			w:		sumWait,
+			rea:	sumReady,
+			tra:	sumTransition,
+			ter:	sumTerminated,
+			u:		sumUnknown,
 		});
 
 	};
@@ -255,9 +259,152 @@ function addcycles(output, id) {
 	output.stats.timeMax = profile.timeIDMax;
 	output.stats.duration = profile.timeIDMax + profile.timeStep;
 	output.stats.threadsMax = statCountThreads;
-	output.stats.cycles = StatSumCycles;
-	output.stats.cyclesRunning = StatSumRunning;
-	output.stats.cyclesReady = StatSumReady;
+
+	// Stats - cycles
+	output.stats.cycles = {
+		cycles:		statSumCycles,
+		init:		statSumInit,
+		running:	statSumRunning,
+		standby:	statSumStandby,
+		wait:		statSumWait,
+		ready:		statSumReady,
+		transition:	statSumTransition,
+		terminated:	statSumTerminated,
+		unknown:	statSumUnknown
+	};
+}
+
+/**
+ * Add thread states
+ */
+function addStates(output, id) {
+	// Init vars
+	var data		= treatThreadStatesByFrame(id);
+	var profile		= profileMap[id];
+	output.states	= [];
+
+
+	// Loop vars
+	var thread, threadMaxCycles;
+	var countThread, statCountThreads;
+	var countCycles, countInit, countRunning, countStandby, countWait, countReady, countTransition, countTerminated, countUnknown;
+	var statCountCycles, statCountInit, statCountRunning, statCountStandby, statCountWait, statCountReady, statCountTransition, statCountTerminated, statCountUnknown;
+
+	// Init stats vars
+	statCountThreads = 0;
+	statCountCycles = 0;	statCountInit = 0;			statCountRunning = 0;		statCountStandby = 0;	statCountWait = 0;
+	statCountReady = 0;		statCountTransition = 0;	statCountTerminated = 0;	statCountUnknown = 0;
+
+	
+	// Count threads availables
+	for (var timeID = 0; timeID <= profile.timeIDMax; timeID+= profile.timeStep) {
+
+		// If the time frame exists
+		if (data.threads.byFrames.hasOwnProperty(timeID)) {
+
+			// Reinit counters
+			countThread = 0;
+			countCycles = 0;	countInit = 0;		countRunning = 0;		countStandby = 0;		countWait = 0;
+			countReady = 0;	countTransition = 0;	countTerminated = 0;	countUnknown = 0;
+
+			// Count among all threads
+			for (var threadID in data.threads.byFrames[timeID]) {
+				if (data.threads.byFrames[timeID].hasOwnProperty(threadID)) {
+					// Get data by thread
+					thread = data.threads.byFrames[timeID][threadID];
+					threadMaxCycles = Math.max(thread.cycles, thread.init, thread.running, thread.standby, thread.wait, thread.ready, thread.transition, thread.terminated, thread.unknown);
+					countThread++;
+
+					// Count states by time frame
+					if (threadMaxCycles == thread.cycles)
+						countCycles++;
+					else if (threadMaxCycles == thread.init)
+						countInit++;
+					else if (threadMaxCycles == thread.running)
+						countRunning++;
+					else if (threadMaxCycles == thread.standby)
+						countStandby++;
+					else if (threadMaxCycles == thread.wait)
+						countWait++;
+					else if (threadMaxCycles == thread.ready)
+						countReady++;
+					else if (threadMaxCycles == thread.transition)
+						countTransition++;
+					else if (threadMaxCycles == thread.terminated)
+						countTerminated++;
+					else
+						countUnknown++;
+				}
+			}
+
+			statCountThreads = Math.max(statCountThreads, countThread);
+
+		} else {
+			// Failed counters
+			countCycles		= NaN;
+			countInit		= NaN;
+			countRunning	= NaN;
+			countStandby	= NaN;
+			countWait		= NaN;
+			countReady		= NaN;
+			countTransition	= NaN;
+			countTerminated	= NaN;
+			countUnknown	= NaN;
+		}
+
+
+		// Hack
+		if (countCycles > profile.availableCores) {
+			countReady += countCycles - profile.availableCores;
+			countCycles = profile.availableCores;
+		}
+
+		// Sum cycles globally
+		statCountCycles		+= countCycles;
+		statCountInit		+= countInit;
+		statCountRunning	+= countRunning;
+		statCountStandby	+= countStandby;
+		statCountWait		+= countWait;
+		statCountReady		+= countReady;
+		statCountTransition	+= countTransition;
+		statCountTerminated	+= countTerminated;
+		statCountUnknown	+= countUnknown;
+
+		// Output
+		output.states.push({
+			t:		timeID,
+			c:		countCycles,
+			i:		countInit,
+			run:	countRunning,
+			s:		countStandby,
+			w:		countWait,
+			rea:	countReady,
+			tra:	countTransition,
+			ter:	countTerminated,
+			u:		countUnknown
+		});
+
+	};
+
+
+	// Stats
+	if (! output.hasOwnProperty('stats')) output.stats = {};
+	output.stats.timeMax = profile.timeIDMax;
+	output.stats.duration = profile.timeIDMax + profile.timeStep;
+	output.stats.threadsMax = statCountThreads;
+
+	// Stats - states
+	output.stats.states = {
+		cycles:		statCountCycles,
+		init:		statCountInit,
+		running:	statCountRunning,
+		standby:	statCountStandby,
+		wait:		statCountWait,
+		ready:		statCountReady,
+		transition:	statCountTransition,
+		terminated:	statCountTerminated,
+		unknown:	statCountUnknown
+	};
 }
 
 /**
@@ -354,7 +501,8 @@ function jsonTG(id) {
 	addCommon(output, id);
 
 	// for potential parallelism
-	addcycles(output, id);
+	addCycles(output, id);
+	addStates(output, id);
 
 
 	return output;
@@ -399,7 +547,8 @@ function jsonLB(id) {
 	addCommon(output, id);
 
 	// for potential parallelism
-	addcycles(output, id);
+	addCycles(output, id);
+	addStates(output, id);
 
 	return output;
 }
