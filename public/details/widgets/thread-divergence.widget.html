@@ -14,7 +14,7 @@
 			<tbody>
 				<tr ng-repeat="(i, e) in chartSets.cycles | reverse" style="text-align: right;">
 					<td>{{e.desc}} <font style="color: {{e.color}}">▮</font></td>
-					<td>{{data[profiles[0].id].stats[e.cat][e.attr] / 1000000 | number: 0}} × 10<sup>6</sup> cycles</td>
+					<td>{{data[profiles[0].id].stats[e.cat][e.attr] / 1000000 | number: 0}} × 10<sup>6</sup> ns</td>
 					<td class="container-graph" rowspan="{{chartSets.cycles.length}}" colspan="{{profiles.length}}" ng-if="i == 0">
 						<chart-stats class="integrated-graph" set="cycles"></chart-stats>
 					</td>
@@ -32,7 +32,7 @@
 			<tbody>
 				<tr ng-repeat="(i, e) in chartSets.cyclesExtended | reverse" style="text-align: right;">
 					<td>{{e.desc}} <font style="color: {{e.color}}">▮</font></td>
-					<td>{{data[profiles[0].id].stats[e.cat][e.attr] / 1000000 | number: 0}} × 10<sup>6</sup> cycles</td>
+					<td>{{data[profiles[0].id].stats[e.cat][e.attr] / 1000000 | number: 0}} × 10<sup>6</sup> ns</td>
 					<td class="container-graph" rowspan="{{chartSets.cyclesExtended.length}}" colspan="{{profiles.length}}" ng-if="i == 0">
 						<chart-stats class="integrated-graph" set="cyclesExtended"></chart-stats>
 					</td>

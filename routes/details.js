@@ -92,7 +92,8 @@ function treatThreadStatesByFrame(id) {
 			if (! profileData[id].threads.byFrames[timeID].hasOwnProperty(element.tid)) profileData[id].threads.byFrames[timeID][element.tid] = {};
 
 			// Save state
-			profileData[id].threads.byFrames[timeID][element.tid][element.type] = element.value;
+			if (! profileData[id].threads.byFrames[timeID][element.tid].hasOwnProperty(element.type)) profileData[id].threads.byFrames[timeID][element.tid][element.type] = 0;
+			profileData[id].threads.byFrames[timeID][element.tid][element.type] += element.value;
 			profileMap[id].timeIDMax = Math.max(profileMap[id].timeIDMax, timeID);
 
 			// Count threads
