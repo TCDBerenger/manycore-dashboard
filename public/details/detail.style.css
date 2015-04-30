@@ -13,6 +13,10 @@
 	display: inline-block;
 }
 
+.detail .profile {
+	margin-bottom: 60px;
+}
+
 .detail .profile-hardware:hover > .dropdown-menu {
 	display: block;
 }
