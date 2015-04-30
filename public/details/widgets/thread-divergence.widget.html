@@ -26,8 +26,10 @@
 				</tr>
 			</tbody>
 		</table>
-		<p><span class="label label-primary">Help</span> if there is too many:</p>
-		<ul class="list-unstyled" style="font-size: 0.85em;">
+		<p ng-model="helpThreadDivergence1" ng-mouseover="helpThreadDivergence1 = true" ng-mouseleave="helpThreadDivergence1 = false">
+			<span class="label label-primary">help</span> if an area is too big
+		</p>
+		<ul class="list-unstyled" style="font-size: 0.85em;" ng-show="helpThreadDivergence1">
 			<li><font style="color: #D28A8D">▮</font> <strong>Oversubscription</strong>: too many threads</li>
 			<li><font style="color: #D28A8D">▮</font> <strong>Thread migrations</strong>: too many threads</li>
 			<li><font style="color: #D28A8D">▮</font> <strong>Bad thread to core ratio</strong>: too many threads</li>
