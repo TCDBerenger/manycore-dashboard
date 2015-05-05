@@ -482,6 +482,25 @@ function addStates(output, id) {
 /* Functions - For each category				*/
 /************************************************/
 /**
+ * Dashboard
+ */
+function jsonDash(id) {
+	var output = {};
+
+	output.id = id;
+	output.cat = 'dash';
+
+	// Common
+	addCommon(output, id);
+
+	// for potential parallelism
+	addTime(output, id);
+
+
+	return output;
+}
+
+/**
  * Task granularity
  */
 function jsonTG(id) {
@@ -611,7 +630,7 @@ router.get('/*', function(request, response) {
 	var ids = params[1].split('-');
 
 	// Check preconditions
-	if (cat != 'tg' && cat != 'sy' && cat != 'ds' && cat != 'lb' && cat != 'dl' && cat != 'rs' && cat != 'io') {
+	if (cat != 'tg' && cat != 'sy' && cat != 'ds' && cat != 'lb' && cat != 'dl' && cat != 'rs' && cat != 'io' && cat != 'dash') {
 		response.send("Illegal category");
 		return;
 	} else if (ids.length == 0 || ids.length > 4) {
@@ -633,6 +652,7 @@ router.get('/*', function(request, response) {
 	ids.forEach(function(id) {
 		loadData(id);
 		switch(cat) {
+			case 'dash':output[id] = jsonDash(id); break;
 			case 'tg':	output[id] = jsonTG(id); break;
 			case 'sy':	output[id] = jsonSY(id); break;
 			case 'ds':	output[id] = jsonDS(id); break;

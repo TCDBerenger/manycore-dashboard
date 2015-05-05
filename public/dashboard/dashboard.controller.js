@@ -1,4 +1,4 @@
-app.controller('DashboardController', ['$scope', '$rootScope', 'profileService', 'categories', function($scope, $rootScope, profileService, categories) {
+app.controller('DashboardController', ['$scope', '$rootScope', '$http', 'profileService', 'categories', function($scope, $rootScope, $http, profileService, categories) {
 	/************************************************/
 	/* Constructor - Init							*/
 	/************************************************/
@@ -6,6 +6,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', 'profileService',
 	$scope.profiles = profileService.all;
 	$scope.selectedProfiles = []
 	$scope.availableProfiles = [];
+	$scope.profileData = {};
 	
 	// Details
 	$scope.categories = categories.all;
@@ -38,6 +39,20 @@ app.controller('DashboardController', ['$scope', '$rootScope', 'profileService',
 		return $scope.selectedProfiles.length > 1;
 	};
 	
+	/**
+	 * Flag - selected
+	 */
+	$scope.waitingData = function(id) {
+		return ! $scope.profileData.hasOwnProperty(id);
+	};
+	
+	/**
+	 * Flag - selected
+	 */
+	$scope.hasData = function(id) {
+		return $scope.profileData.hasOwnProperty(id);
+	};
+	
 	/************************************************/
 	/* Functions - Select data						*/
 	/************************************************/
@@ -46,11 +61,17 @@ app.controller('DashboardController', ['$scope', '$rootScope', 'profileService',
 	 * Select
 	 */
 	$scope.selectProfile = function(profile) {
+		// remove to available
 		$scope.availableProfiles.splice($scope.availableProfiles.indexOf(profile), 1);
+
+		// add to selection
 		$scope.selectedProfiles.push(profile);
 		
 		// Save new selection
 		$rootScope.saveSelectedProfiles($scope.selectedProfiles);
+
+		// Download data for graphs
+		$scope.downloadData(profile.id);
 	};
 	
 	/**
@@ -87,18 +108,36 @@ app.controller('DashboardController', ['$scope', '$rootScope', 'profileService',
 		// Init: all profiles are available
 		$scope.availableProfiles = $scope.profiles;
 
+		// retreive ids
+		var ids = [];
+		angular.copy($rootScope.selectedIDs, ids)
+
 		// For each profile
 		$scope.profiles.forEach(function(profile, index, array) {
-			$rootScope.selectedIDs.forEach(function(id) {
-				// If selected in a previous session
+			ids.forEach(function(id) {
+				// If profile was selected in a previous session
 				if (profile.id == id) {
-					// add to selection
-					$scope.selectedProfiles.push(profile);
-					// remove to available
-					$scope.availableProfiles.splice(index, 1);
+					// Select this profile
+					$scope.selectProfile(profile);
 				}
 			})
 		});
+	};
+	
+	
+	/************************************************/
+	/* Functions - Remote data						*/
+	/************************************************/
+
+	/**
+	 * Load
+	 */
+	$scope.downloadData = function(id) {
+		if (! $scope.profileData.hasOwnProperty(id)) {
+			$http.get('/service/details/dash/'+ id).success(function(data) {
+				$scope.profileData[id] = data;
+			});
+		}
 	};
 	
 	

@@ -1,8 +1,6 @@
 app.controller('DetailController', ['$scope', '$rootScope', '$window', '$stateParams', 'selectedProfiles', 'dataProfiles', 'categories', 'widgets', function($scope, $rootScope, $window, $stateParams, selectedProfiles, dataProfiles, categories, widgets) {
 	// Metadata
 	$scope.meta = {};
-
-	console.log(dataProfiles);
 	
 	// Metadata - Copy params data
 	$scope.meta.ids = $stateParams.ids;
