@@ -511,6 +511,9 @@ function jsonSY(id) {
 	output.cat = 'sy';
 	output.log = "TODO";
 
+	// Common
+	addCommon(output, id);
+
 	return output;
 }
 
@@ -523,6 +526,9 @@ function jsonDS(id) {
 	output.id = id;
 	output.cat = 'ds';
 	output.log = "TODO";
+
+	// Common
+	addCommon(output, id);
 
 	return output;
 }
@@ -556,6 +562,9 @@ function jsonDL(id) {
 	output.cat = 'dl';
 	output.log = "TODO";
 
+	// Common
+	addCommon(output, id);
+
 	return output;
 }
 
@@ -569,6 +578,9 @@ function jsonRS(id) {
 	output.cat = 'rs';
 	output.log = "TODO";
 
+	// Common
+	addCommon(output, id);
+
 	return output;
 }
 
@@ -581,6 +593,9 @@ function jsonIO(id) {
 	output.id = id;
 	output.cat = 'io';
 	output.log = "TODO";
+
+	// Common
+	addCommon(output, id);
 
 	return output;
 }
