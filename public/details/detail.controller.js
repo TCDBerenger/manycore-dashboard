@@ -41,18 +41,18 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	// Data to show
 	$scope.chartSets = {
 		cycles: [
-			{ cat: 'time',	attr: 'running',	title: 'running',	desc: 'running',	color: '#8DD28A' },
-			{ cat: 'time',	attr: 'ready',		title: 'ready',		desc: 'ready',		color: '#D28A8D' }
+			{ cat: 'times',	attr: 'r',	title: 'running',	desc: 'running',	color: '#8DD28A' },
+			{ cat: 'times',	attr: 'ys',		title: 'ready',		desc: 'ready',		color: '#D28A8D' }
 		],
 		cyclesExtended: [
-			//{ cat: 'time',	attr:'init',		title: 'init',			desc: 'init',		color:'#797979' },
-			{ cat: 'time',	attr:'running',		title: 'running',		desc: 'running',	color:'#4BB446' },
-			{ cat: 'time',	attr:'standby',		title: 'standby',		desc: 'standby',	color:'#D2AB8A' },
-			{ cat: 'time',	attr:'wait',		title: 'wait',			desc: 'wait',		color:'#D2AB8A' },
-			{ cat: 'time',	attr:'ready',		title: 'ready',			desc: 'ready',		color:'#D28A8D' }
-			//{ cat: 'time',	attr:'transition',	title: 'transition',	desc: 'transition',	color:'#797979' },
-			//{ cat: 'time',	attr:'terminated',	title: 'terminated',	desc: 'terminated',	color:'#797979' },
-			//{ cat: 'time',	attr:'unknown',		title: 'unknown',		desc: 'unknown',	color:'#797979' }
+			//{ cat: 'times',	attr:'init',		title: 'init',			desc: 'init',		color:'#797979' },
+			{ cat: 'times',	attr:'r',		title: 'running',		desc: 'running',	color:'#8DD28A' },
+			{ cat: 'times',	attr:'s',		title: 'standby',		desc: 'standby',	color:'#D2AB8A' },
+			{ cat: 'times',	attr:'w',		title: 'wait',			desc: 'wait',		color:'#D2AB8A' },
+			{ cat: 'times',	attr:'y',		title: 'ready',			desc: 'ready',		color:'#D28A8D' }
+			//{ cat: 'times',	attr:'transition',	title: 'transition',	desc: 'transition',	color:'#797979' },
+			//{ cat: 'times',	attr:'terminated',	title: 'terminated',	desc: 'terminated',	color:'#797979' },
+			//{ cat: 'times',	attr:'unknown',		title: 'unknown',		desc: 'unknown',	color:'#797979' }
 		],
 	}
 

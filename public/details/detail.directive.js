@@ -24,15 +24,14 @@ app.directive('chartThreadDivergence2', function() {
 		var profile = scope.profiles[0];
 		var timeStart = +attrs.timestart;			// When the user selection starts
 		var timeEnd = +attrs.timeend;				// When the user selection ends (could be before or after timeMax)
-		var timeMax = data.stats.duration;
-		var numberCores = data.stats.availableCores;
-		var dataValueMax = numberCores * data.stats.timeStep;
-		// var dataValueMax = Math.max(d3.max(data.cycles.cycles), d3.max(data.cycles.running), d3.max(data.cycles.ready));
+		var timeMax = data.info.duration;
+		var numberCores = data.info.cores;
+		var dataValueMax = numberCores * data.info.timeStep;
 
 		// Fix column layout
-		var lastElement = angular.copy(data.time[data.time.length - 1], {});
+		var lastElement = angular.copy(data.times[data.times.length - 1], {});
 		lastElement.t = timeMax;
-		data.time.push(lastElement);
+		data.times.push(lastElement);
 
 		// DOM
 		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
@@ -69,14 +68,14 @@ app.directive('chartThreadDivergence2', function() {
 		var readyAreaFunction = d3.svg.area()
 				.x(function(d) { return scaleX(d.t); })
 				.y0(function(d) { return scaleY(dataValueMax); })
-				.y1(function(d) { return scaleY(dataValueMax + d.rea); })
+				.y1(function(d) { return scaleY(dataValueMax + d.ys); })
 				.interpolate(interpolationMethod);
 		var readyArea = readyGroup.append("path")
-				.attr("d", readyAreaFunction(data.time)) // 🕒 repaintable
+				.attr("d", readyAreaFunction(data.times)) // 🕒 repaintable
 				.attr("fill", "#D28A8D");
 		var readyLineFunction = d3.svg.line()
 				.x(function(d) { return scaleX(d.t); })
-				.y(function(d) { return scaleY(dataValueMax + d.rea); })
+				.y(function(d) { return scaleY(dataValueMax + d.ys); })
 				.interpolate(interpolationMethod);
 		var readyLine = readyGroup.append("path")
 				.attr("stroke", "#B4464B")
@@ -87,15 +86,15 @@ app.directive('chartThreadDivergence2', function() {
 		var runningGroup = svg.append("g").attr("class", "dataset");
 		var runningAreaFunction = d3.svg.area()
 				.x(function(d) { return scaleX(d.t); })
-				.y0(function(d) { return scaleY(dataValueMax - d.run); })
+				.y0(function(d) { return scaleY(dataValueMax - d.r); })
 				.y1(scaleYCoreCapacity)
 				.interpolate(interpolationMethod);
 		var runningArea = runningGroup.append("path")
-				.attr("d", runningAreaFunction(data.time)) // 🕒 repaintable
+				.attr("d", runningAreaFunction(data.times)) // 🕒 repaintable
 				.attr("fill", "#8DD28A");
 		var runningLineFunction = d3.svg.line()
 				.x(function(d) { return scaleX(d.t); })
-				.y(function(d) { return scaleY(dataValueMax - d.run); })
+				.y(function(d) { return scaleY(dataValueMax - d.r); })
 				.interpolate(interpolationMethod);
 		var runningLine = runningGroup.append("path")
 				.attr("stroke", "#4BB446")
@@ -137,17 +136,17 @@ app.directive('chartThreadDivergence2', function() {
 
 				// Scales
 				scaleX.rangeRound([layout.graph.left(), layout.graph.right()]);
-				scaleXStep = scaleX(data.stats.timeStep);
+				scaleXStep = scaleX(data.info.timeStep);
 
 				// SVG
 				svg.attr('width', layout.width);
 				axisXGroup.call(xAxis);
 				coreElement.attr("width", scaleX(timeMax) - scaleX(timeStart));
 				coreLine.attr("x1", scaleX(timeStart)).attr("x2", scaleX(timeMax));
-				readyArea.attr("d", readyAreaFunction(data.time));
-				readyLine.attr("d", readyLineFunction(data.time));
-				runningArea.attr("d", runningAreaFunction(data.time));
-				runningLine.attr("d", runningLineFunction(data.time));
+				readyArea.attr("d", readyAreaFunction(data.times));
+				readyLine.attr("d", readyLineFunction(data.times));
+				runningArea.attr("d", runningAreaFunction(data.times));
+				runningLine.attr("d", runningLineFunction(data.times));
 				labelElement.attr("x", layout.graph.right);
 			};
 
@@ -186,10 +185,9 @@ app.directive('chartThreadDivergence', function() {
 		var data = scope.data[attrs.profileid];
 		var timeStart = +attrs.timestart;			// When the user selection starts
 		var timeEnd = +attrs.timeend;				// When the user selection ends (could be before or after timeMax)
-		var timeMax = data.stats.duration;
-		var numberCores = data.stats.availableCores;
-		var dataValueMax = Math.max(numberCores * 2, data.stats.threadsMax);
-		// var dataValueMax = Math.max(d3.max(data.cycles.cycles), d3.max(data.cycles.running), d3.max(data.cycles.ready));
+		var timeMax = data.info.duration;
+		var numberCores = data.info.cores;
+		var dataValueMax = Math.max(numberCores * 2, data.info.threadCount);
 
 		// Fix column layout
 		var lastElement = angular.copy(data.states[data.states.length - 1], {});
@@ -230,8 +228,8 @@ app.directive('chartThreadDivergence', function() {
 		var readyGroup = svg.append("g").attr("class", "dataset");
 		var readyAreaFunction = d3.svg.area()
 				.x(function(d) { return scaleX(d.t); })
-				.y0(function(d) { return scaleY(Math.max(numberCores, d.run)); })
-				.y1(function(d) { return scaleY(d.rea + Math.max(numberCores, d.run)); })
+				.y0(function(d) { return scaleY(Math.max(numberCores, d.r)); })
+				.y1(function(d) { return scaleY(d.ys + Math.max(numberCores, d.r)); })
 				.interpolate(interpolationMethod);
 		var readyArea = readyGroup.append("path")
 				.attr("d", readyAreaFunction(data.states)) // 🕒 repaintable
@@ -239,7 +237,7 @@ app.directive('chartThreadDivergence', function() {
 
 		var readyLineFunction = d3.svg.line()
 				.x(function(d) { return scaleX(d.t); })
-				.y(function(d) { return scaleY(d.rea + Math.max(numberCores, d.run)); })
+				.y(function(d) { return scaleY(d.ys + Math.max(numberCores, d.r)); })
 				.interpolate(interpolationMethod);
 		var readyLine = readyGroup.append("path")
 				.attr("stroke", "#B4464B")
@@ -251,14 +249,14 @@ app.directive('chartThreadDivergence', function() {
 		var runningAreaFunction = d3.svg.area()
 				.x(function(d) { return scaleX(d.t); })
 				.y0(layout.graph.bottom)
-				.y1(function(d) { return scaleY(d.run); })
+				.y1(function(d) { return scaleY(d.r); })
 				.interpolate(interpolationMethod);
 		var runningArea = runningGroup.append("path")
 				.attr("d", runningAreaFunction(data.states)) // 🕒 repaintable
 				.attr("fill", "#8DD28A");
 		var runningLineFunction = d3.svg.line()
 				.x(function(d) { return scaleX(d.t); })
-				.y(function(d) { return scaleY(d.run); })
+				.y(function(d) { return scaleY(d.r); })
 				.interpolate(interpolationMethod);
 		var runningLine = runningGroup.append("path")
 				.attr("stroke", "#4BB446")
@@ -300,7 +298,7 @@ app.directive('chartThreadDivergence', function() {
 
 				// Scales
 				scaleX.rangeRound([layout.graph.left(), layout.graph.right()]);
-				scaleXStep = scaleX(data.stats.timeStep);
+				scaleXStep = scaleX(data.info.timeStep);
 
 				// SVG
 				svg.attr('width', layout.width);

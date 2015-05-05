@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-xs-{{layout.col.graph}} profile-graph">
-		<chart-thread-divergence class="widget-graph" profileid="{{ids[0]}}" timestart="{{data.c.timeStart}}" timeend="{{data.c.durationMax}}" title="{{profiles[0].label}}"></chart-thread-divergence>
-		<chart-thread-divergence class="widget-graph" ng-if="ids.length >= 2" profileid="{{ids[1]}}" timestart="{{data.c.timeStart}}" timeend="{{data.c.durationMax}}" title="{{profiles[1].label}}"></chart-thread-divergence>
+		<chart-thread-divergence class="widget-graph" profileid="{{ids[0]}}" timestart="{{data.c.timeMin}}" timeend="{{data.c.duration}}" title="{{profiles[0].label}}"></chart-thread-divergence>
+		<chart-thread-divergence class="widget-graph" ng-if="ids.length >= 2" profileid="{{ids[1]}}" timestart="{{data.c.timeMin}}" timeend="{{data.c.duration}}" title="{{profiles[1].label}}"></chart-thread-divergence>
 	</div>
 	<div class="col-xs-{{layout.col.data}} profile-data">
 		<table class="table table-striped table-hover">
@@ -12,17 +12,17 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="(i, e) in chartSets.cycles | reverse" style="text-align: right;">
-					<td>{{e.desc}} <font style="color: {{e.color}}">▮</font></td>
-					<td>{{data[profiles[0].id].stats[e.cat][e.attr] | number: 0}} ms</td>
-					<td class="container-graph" rowspan="{{chartSets.cycles.length}}" colspan="{{profiles.length}}" ng-if="i == 0">
+				<tr ng-repeat="(i, e) in chartSets.cycles | reverse">
+					<td style="text-align: right;">{{e.desc}} <font style="color: {{e.color}}">▮</font></td>
+					<td style="text-align: right;">{{data[profiles[0].id].stats[e.cat][e.attr] | number: 0}} ms</td>
+					<td style="text-align: center;" class="container-graph" rowspan="{{chartSets.cycles.length}}" colspan="{{profiles.length}}" ng-if="i == 0">
 						<chart-stats class="integrated-graph" set="cycles"></chart-stats>
 					</td>
-					<td ng-if="profiles.length >= 2">{{data[profiles[1].id].stats[e.cat][e.attr] | number: 0}} ms</td>
+					<td style="text-align: right;" ng-if="profiles.length >= 2">{{data[profiles[1].id].stats[e.cat][e.attr] | number: 0}} ms</td>
 				</tr>
 				<tr>
 					<td style="text-align: right;">capacity <font style="color: #9ED3FF">▮</font></td>
-					<td colspan="{{profiles.length * 2}}">? (temp row)</td>
+					<td colspan="{{profiles.length * 2}}"></td>
 				</tr>
 			</tbody>
 		</table>
@@ -41,28 +41,8 @@
 <div class="row">
 	<div class="col-xs-{{layout.col.graph}} profile-graph">
 		<p><strong>Temporary</strong> graphs to shows the "real" data: <em>(in ms)</em></p>
-		<chart-thread-divergence2 class="widget-graph" profileid="{{ids[0]}}" timestart="{{data.c.timeStart}}" timeend="{{data.c.durationMax}}" title="{{profiles[0].label}}"></chart-thread-divergence2>
-		<chart-thread-divergence2 class="widget-graph" ng-if="ids.length >= 2" profileid="{{ids[1]}}" timestart="{{data.c.timeStart}}" timeend="{{data.c.durationMax}}" title="{{profiles[1].label}}"></chart-thread-divergence2>
-	</div>
-	<div class="col-xs-{{layout.col.data}} profile-data">
-		<table class="table table-striped table-hover">
-			<thead>
-				<tr>
-					<th>(temp table)</th>
-					<th colspan="2" ng-repeat="profile in profiles">{{profile.label}}</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="(i, e) in chartSets.cyclesExtended | reverse" style="text-align: right;">
-					<td>{{e.desc}} <font style="color: {{e.color}}">▮</font></td>
-					<td>{{data[profiles[0].id].stats[e.cat][e.attr] | number: 0}} ms</td>
-					<td class="container-graph" rowspan="{{chartSets.cyclesExtended.length}}" colspan="{{profiles.length}}" ng-if="i == 0">
-						<chart-stats class="integrated-graph" set="cyclesExtended"></chart-stats>
-					</td>
-					<td ng-if="profiles.length >= 2">{{data[profiles[1].id].stats[e.cat][e.attr] | number: 0}} ms</td>
-				</tr>
-			</tbody>
-		</table>
+		<chart-thread-divergence2 class="widget-graph" profileid="{{ids[0]}}" timestart="{{data.c.timeMin}}" timeend="{{data.c.duration}}" title="{{profiles[0].label}}"></chart-thread-divergence2>
+		<chart-thread-divergence2 class="widget-graph" ng-if="ids.length >= 2" profileid="{{ids[1]}}" timestart="{{data.c.timeMin}}" timeend="{{data.c.duration}}" title="{{profiles[1].label}}"></chart-thread-divergence2>
 	</div>
 </div>
 
