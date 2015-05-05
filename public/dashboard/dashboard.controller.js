@@ -13,7 +13,6 @@ app.controller('DashboardController', ['$scope', '$rootScope', 'profileService',
 	// References
 	$scope.encodeSelectedProfile = $rootScope.encodeSelectedProfile;
 	
-	
 	/************************************************/
 	/* Functions - Graphical						*/
 	/************************************************/
