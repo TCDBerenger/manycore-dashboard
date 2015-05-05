@@ -6,8 +6,8 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$http', 'profile
 	$scope.profiles = profileService.all;
 	$scope.selectedProfiles = []
 	$scope.availableProfiles = [];
-	$scope.profileData = {};
-	
+	$scope.data = {};
+
 	// Details
 	$scope.categories = categories.all;
 
@@ -43,14 +43,14 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$http', 'profile
 	 * Flag - selected
 	 */
 	$scope.waitingData = function(id) {
-		return ! $scope.profileData.hasOwnProperty(id);
+		return ! $scope.data.hasOwnProperty(id);
 	};
 	
 	/**
 	 * Flag - selected
 	 */
 	$scope.hasData = function(id) {
-		return $scope.profileData.hasOwnProperty(id);
+		return $scope.data.hasOwnProperty(id);
 	};
 	
 	/************************************************/
@@ -71,7 +71,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$http', 'profile
 		$rootScope.saveSelectedProfiles($scope.selectedProfiles);
 
 		// Download data for graphs
-		$scope.downloadData(profile.id);
+		$scope.downloadData(profile);
 	};
 	
 	/**
@@ -132,10 +132,11 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$http', 'profile
 	/**
 	 * Load
 	 */
-	$scope.downloadData = function(id) {
-		if (! $scope.profileData.hasOwnProperty(id)) {
-			$http.get('/service/details/dash/'+ id).success(function(data) {
-				$scope.profileData[id] = data;
+	$scope.downloadData = function(profile) {
+		if (! $scope.data.hasOwnProperty(profile.id)) {
+			$http.get('/service/details/dash/'+ profile.id).success(function(data) {
+				$scope.data[profile.id] = data[profile.id];
+				$scope.data[profile.id].profile = profile;
 			});
 		}
 	};

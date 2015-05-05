@@ -72,3 +72,15 @@
 	display: inline-block;
 	width: 260px;
 }
+
+
+/*
+ * Graphs
+ */
+.indicator-graph {
+	margin: 0px !important;
+	height: 100%;
+	min-height: 40px;
+	width: 100%;
+	display: block;
+}
