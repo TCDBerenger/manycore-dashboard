@@ -37,12 +37,3 @@
 		</ul>
 	</div>
 </div>
-<p>&nbsp;</p><p>&nbsp;</p>
-<div class="row">
-	<div class="col-xs-{{layout.col.graph}} profile-graph">
-		<p><strong>Temporary</strong> graphs to shows the "real" data: <em>(in ms)</em></p>
-		<chart-thread-divergence2 class="widget-graph" profileid="{{ids[0]}}" timestart="{{data.c.timeMin}}" timeend="{{data.c.duration}}" title="{{profiles[0].label}}"></chart-thread-divergence2>
-		<chart-thread-divergence2 class="widget-graph" ng-if="ids.length >= 2" profileid="{{ids[1]}}" timestart="{{data.c.timeMin}}" timeend="{{data.c.duration}}" title="{{profiles[1].label}}"></chart-thread-divergence2>
-	</div>
-</div>
-

@@ -1,4 +1,4 @@
-app.directive('chartDashDivergence', function() {
+app.directive('chartThreadDivergenceWithRealData', function() {
 
 	function chartThreadDivergence_link(scope, element, attrs, controller) {
 		console.log("== directive == chartThreadDivergence ==");
