@@ -6,7 +6,8 @@ app.directive('chartSequence', function() {
 		// Layout
 		var container = element[0];
 		var layout = {
-			margin: { top: 10, right: 10, bottom: 20, left: 40},
+			margin: { top: 4, right: 12, bottom: 4, left: 12},
+			pad: { width: 10},
 			height:	60,
 			width:	container.clientWidth,
 			graph:	{
@@ -28,7 +29,7 @@ app.directive('chartSequence', function() {
 
 		// DOM
 		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
-		svg.style("background", "#EEEEEE");
+		//svg.style("background", "#EEEEEE");
 
 		// Scales
 		var scaleX = d3.scale.linear();
@@ -40,96 +41,83 @@ app.directive('chartSequence', function() {
 		// Axis
 		var xAxis = d3.svg.axis().scale(scaleX);
 
+		// Draw - groups
+		var coreGroup = svg.append("g").attr("class", "core");
+		var profileGroup = svg.append("g").attr("class", "profiles");
+		var padGroup = svg.append("g").attr("class", "pads");
 
-		/*
+		// Draw - core
+		var backgroundElement = coreGroup.append("rect")
+			.attr("height", layout.graph.height)
+			.attr("x", layout.graph.left)
+			.attr("y", layout.graph.top)
+			.style("fill", "#D2D2D2");
 
+		// Draw - Pad left
+		var padLeftElement = padGroup.append("g").attr("class", "pad-left")
+			.attr("transform", "translate(" + (layout.graph.left() - layout.pad.width) + ",0)");
+		padLeftElement.append("rect")
+			.attr("width", layout.pad.width)
+			.attr("height", layout.graph.height)
+			.attr("x", 0)
+			.attr("y", layout.graph.top)
+			.style("fill", "#ABABAB")
+			.attr("stroke", "#333333")
+			.attr("stroke-width", 1);
+		padLeftElement.append("line")
+			.attr("class", "line")
+			.attr("x1", layout.pad.width).attr("x2", layout.pad.width)
+			.attr("y1", 0).attr("y2", layout.height)
+			.attr('stroke', '#333333')
+			.attr('stroke-width', 2)
+			.attr('fill', 'none');
+		padLeftElement.append("text")
+			.attr("x", layout.pad.width / 2)
+			.attr("y", layout.graph.top() + layout.graph.height() / 2)
+			.attr("text-anchor", "middle")
+			.style("fill", "#333333")
+			.text("▶");
 
-		// Draw
-		var scaleYCoreCapacity = scaleY(dataValueMax);
-		var interpolationMethod = "step-after";
+		// Draw - Pad right
+		var padRightElement = padGroup.append("g").attr("class", "pad-right")
+			.attr("transform", "translate(" + layout.graph.right() + ",0)");
+		padRightElement.append("rect")
+			.attr("width", layout.pad.width)
+			.attr("height", layout.graph.height)
+			.attr("x", 0)
+			.attr("y", layout.graph.top)
+			.style("fill", "#ABABAB")
+			.attr("stroke", "#333333")
+			.attr("stroke-width", 1);
+		padRightElement.append("line")
+			.attr("class", "line")
+			.attr("x1", 0).attr("x2", 0)
+			.attr("y1", 0).attr("y2", layout.height)
+			.attr('stroke', '#333333')
+			.attr('stroke-width', 2)
+			.attr('fill', 'none');
+		padRightElement.append("text")
+			.attr("x", layout.pad.width / 2)
+			.attr("y", layout.graph.top() + layout.graph.height() / 2)
+			.attr("text-anchor", "middle")
+			.style("fill", "#333333")
+			.text("◀");
 
-		// Draw - core area
-		var coreElement = svg.append("rect")
-				.attr("width", scaleX(timeMax) - scaleX(timeStart)) // 🕒 repaintable
-				.attr("height", scaleY(0) - scaleYCoreCapacity)
-				.attr("x", scaleX(timeStart))
-				.attr("y", scaleYCoreCapacity)
-				.style("fill", "rgba(70, 130, 180, .5)")
-				.style("fill", "#9ED3FF");
+		// Draw - pad area
+		var profileElements = profileGroup.selectAll(".profiles");
 
-		// Draw - ready
-		var readyGroup = svg.append("g").attr("class", "dataset");
-		var readyAreaFunction = d3.svg.area()
-				.x(function(d) { return scaleX(d.t); })
-				.y0(function(d) { return scaleY(dataValueMax); })
-				.y1(function(d) { return scaleY(dataValueMax + d.ys); })
-				.interpolate(interpolationMethod);
-		var readyArea = readyGroup.append("path")
-				.attr("d", readyAreaFunction(data.times)) // 🕒 repaintable
-				.attr("fill", "#D28A8D");
-		var readyLineFunction = d3.svg.line()
-				.x(function(d) { return scaleX(d.t); })
-				.y(function(d) { return scaleY(dataValueMax + d.ys); })
-				.interpolate(interpolationMethod);
-		var readyLine = readyGroup.append("path")
-				.attr("stroke", "#B4464B")
-				.attr("stroke-width", 2)
-				.attr("fill", "none");
-
-		// Draw - running
-		var runningGroup = svg.append("g").attr("class", "dataset");
-		var runningAreaFunction = d3.svg.area()
-				.x(function(d) { return scaleX(d.t); })
-				.y0(function(d) { return scaleY(dataValueMax - d.r); })
-				.y1(scaleYCoreCapacity)
-				.interpolate(interpolationMethod);
-		var runningArea = runningGroup.append("path")
-				.attr("d", runningAreaFunction(data.times)) // 🕒 repaintable
-				.attr("fill", "#8DD28A");
-		var runningLineFunction = d3.svg.line()
-				.x(function(d) { return scaleX(d.t); })
-				.y(function(d) { return scaleY(dataValueMax - d.r); })
-				.interpolate(interpolationMethod);
-		var runningLine = runningGroup.append("path")
-				.attr("stroke", "#4BB446")
-				.attr("stroke-width", 2)
-				.attr("fill", "none");
 		
-		// Draw - core line
-		var coreLine = svg.append("line")
-				.attr("class", "line")
-				.attr("x1", scaleX(timeStart)).attr("x2", scaleX(timeMax)) // 🕒 repaintable
-				.attr("y1", scaleYCoreCapacity).attr("y2", scaleYCoreCapacity)
-				.attr('stroke', '#4682B4')
-				.attr('stroke-width', 4)
-				.attr('stroke-dasharray', 5.5)
-				.attr('fill', 'none');
-
-		// Draw - axis
-		var axisXGroup = svg.append("g")
-				.attr("class", "xAxis")
-				.attr("transform", "translate(0," + layout.graph.bottom() + ")")
-				.call(xAxis);
-		var axisYGroup = svg.append("g")
-				.attr("class", "xAxis")
-				.attr("transform", "translate(" + layout.graph.left() + ",0)")
-				.call(yAxis);
-
-		// Draw - text
-		var labelElement = svg.append("text")
-			.attr("x", layout.graph.right)
-			.attr("y", layout.graph.top() + 30)
-			.attr("text-anchor", "end")
-			.attr("font-size", "14px")
-			.text(attrs.title);
-*/
 
 		// Compute data
 		var compute = function() {
 			console.log('Need to recompute');
 
 			// Get data from scope
-			profiles = scope.getprofileData();
+			// We don't erase the instance of the profile array
+			profiles.splice(0, profiles.length);
+			scope.getprofileData().forEach(function(profile) {
+				profiles.push(profile);
+			});
 
 			console.log('profile data: ' + profiles.length);
 
@@ -156,14 +144,21 @@ app.directive('chartSequence', function() {
 
 			// SVG
 			svg.attr('width', layout.width);
-			//axisXGroup.call(xAxis);
-			//coreElement.attr("width", scaleX(timeMax) - scaleX(timeStart));
-			//coreLine.attr("x1", scaleX(timeStart)).attr("x2", scaleX(timeMax));
-			//readyArea.attr("d", readyAreaFunction(data.times));
-			//readyLine.attr("d", readyLineFunction(data.times));
-			//runningArea.attr("d", runningAreaFunction(data.times));
-			//runningLine.attr("d", runningLineFunction(data.times));
-			//labelElement.attr("x", layout.graph.right);
+
+			// Core
+			backgroundElement.attr("width", layout.graph.width);
+
+			// Pads
+			padRightElement.attr("transform", "translate(" + layout.graph.right() + ",0)");
+
+			// Profiles
+			profileElements
+				.data(profiles).enter().append("rect")
+					.attr("width", function(d) { return scaleX(d.info.duration) - scaleX(0); })
+					.attr("height", function(d, i, j) { return layout.graph.height() / profiles.length; })
+					.attr("x", scaleX(0))
+					.attr("y", function(d, i, j) { console.log('i: '+i+' j: '+j); return scaleY(100 - 50 * i); })
+					.style("fill", "#008CBA");
 		};
 
 		// compute();
@@ -234,7 +229,7 @@ app.directive('chartDashDivergence', function() {
 				.interpolate(interpolationMethod);
 		var readyArea = readyGroup.append("path")
 				.attr("d", readyAreaFunction(data.times)) // 🕒 repaintable
-				.attr("fill", "#B4464B");
+				.attr("fill", "#D32A0E");
 
 		// Draw - running
 		var runningGroup = svg.append("g").attr("class", "dataset");
@@ -245,7 +240,7 @@ app.directive('chartDashDivergence', function() {
 				.interpolate(interpolationMethod);
 		var runningArea = runningGroup.append("path")
 				.attr("d", runningAreaFunction(data.times)) // 🕒 repaintable
-				.attr("fill", "#4BB446");
+				.attr("fill", "#358753");
 
 		// Redraw
 		var repaint = function repaint() {
