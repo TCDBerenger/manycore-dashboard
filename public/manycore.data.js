@@ -10,8 +10,8 @@ app.factory('widgets', [function(){
 	output.threadRunning	= {id: 3,	file: 'generic-to-delete',	template:'generic',	tag: 'thread-running',		title: 'Life cycles of threads',								subtitle: 'creation, running, moving between cores, termination'};
 	output.threadLocks		= {id: 4,	file: 'generic-to-delete',	template:'generic',	tag: 'thread-locks',		title: 'Waiting for locks',										subtitle: ''};
 	output.threadDivergence	= {id: 6,	file: 'thread-divergence',	template:'generic',	tag: 'thread-divergence',	title: 'Potential parallelism',									subtitle: 'number of running threads compared to number of cores'};
-	output.threadMigrations	= {id: 7,	file: 'generic-to-delete',	template:'generic',	tag: 'thread-migrations',	title: 'Thread switching the core on which it is executing',	subtitle: 'thread migrations'};
-	output.threadSwitchs	= {id: 8,	file: 'generic-to-delete',	template:'generic',	tag: 'thread-switchs',		title: 'Core swhitching the thread it is executing',			subtitle: 'Thread switches'};
+	output.threadMigrations	= {id: 7,	file: 'thread-migrations',	template:'generic',	tag: 'thread-migrations',	title: 'Thread switching the core on which it is executing',	subtitle: 'thread migrations'};
+	output.threadSwitchs	= {id: 8,	file: 'thread-switches',	template:'generic',	tag: 'thread-switchs',		title: 'Core swhitching the thread it is executing',			subtitle: 'thread switches'};
 	
 	return output;
 }]);
