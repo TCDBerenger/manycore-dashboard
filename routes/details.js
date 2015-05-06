@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
-var VERSION = 4;
+var VERSION = 10;
 
 /************************************************/
 /* Variables									*/
@@ -44,6 +44,11 @@ var profileMap = {
 	 │		 │	 └	thread<N>
 	 │		 ├	...
 	 │		 └	frame<?>
+	 ├	frames
+	 │	 ├	frame<0>				ID
+	 │	 │	 └	switches 			<integer>	number of switches
+	 │	 ├	...
+	 │	 └	frame<?>
 	 └	stats
 		 ├	timeShift				<float>		time before starting measures (i.e. non interesting computation before this time) /!\ in pico seconds (10⁻¹²s) /!\ need to be divided by 10⁹
 		 └	switch					<integer>	number of switches for all cores during all run
@@ -119,6 +124,7 @@ function computeData(id, raw1, raw2, profile) {
 			threadCount:	NaN
 		},
 		stats: {},
+		frames: {},
 		threads: {
 			byFrames: {}
 		}
@@ -128,26 +134,61 @@ function computeData(id, raw1, raw2, profile) {
 	var timeID = 0;
 	var statThreads = {};
 	raw1.forEach(function(element) {
+		// Compute time ID
+		timeID = element.time - data.info.timeShift;
+		timeID = Math.round(timeID / 10000);
+
+		// Info
+		data.info.timeMax = Math.max(data.info.timeMax, timeID);
+
+		// Thread treatment
 		if (element.program == profile.program) {
-
-			// Compute time ID
-			timeID = element.time - data.info.timeShift;
-			timeID = Math.round(timeID / 10000);
-
 			// Auto build structure
 			if (! data.threads.byFrames.hasOwnProperty(timeID)) data.threads.byFrames[timeID] = {};
 			if (! data.threads.byFrames[timeID].hasOwnProperty(element.tid)) data.threads.byFrames[timeID][element.tid] = {};
+			if (! data.threads.byFrames[timeID][element.tid].hasOwnProperty(element.type)) data.threads.byFrames[timeID][element.tid][element.type] = 0;
 
 			// Save state
-			if (! data.threads.byFrames[timeID][element.tid].hasOwnProperty(element.type)) data.threads.byFrames[timeID][element.tid][element.type] = 0;
 			data.threads.byFrames[timeID][element.tid][element.type] += element.value;
-			data.info.timeMax = Math.max(data.info.timeMax, timeID);
 
 			// Count threads
 			statThreads[element.tid] = true;
+		}
 
-		} else if (element.program == "N/A") {
-			data.stats[element.type] = element.value;
+		// Frame treatment
+		if (element.program == profile.program || element.program == "N/A") {
+			// Auto build structure
+			if (! data.frames.hasOwnProperty(timeID)) data.frames[timeID] = { t:{}, c:{} };
+			if (! data.frames[timeID].hasOwnProperty(element.type)) data.frames[timeID][element.type] = 0;
+
+			// Sum by frame
+			data.frames[timeID][element.type] += element.value;
+
+			// Auto build structure
+			if (! data.stats.hasOwnProperty(element.type)) data.stats[element.type] = 0;
+
+			// Sum by stat (with auto build structure)
+			data.stats[element.type] += element.value;
+
+			// By thread
+			if (element.tid >= 0) {
+				// Auto build structure
+				if (! data.frames[timeID].t.hasOwnProperty(element.tid)) data.frames[timeID].t[element.tid] = {};
+				if (! data.frames[timeID].t[element.tid].hasOwnProperty(element.type)) data.frames[timeID].t[element.tid][element.type] = 0;
+
+				// Save state
+				data.frames[timeID].t[element.tid][element.type] += element.value;
+			}
+
+			// By core
+			if (element.cid >= 0) {
+				// Auto build structure
+				if (! data.frames[timeID].c.hasOwnProperty(element.cid)) data.frames[timeID].c[element.cid] = {};
+				if (! data.frames[timeID].c[element.cid].hasOwnProperty(element.type)) data.frames[timeID].c[element.cid][element.type] = 0;
+
+				// Save state
+				data.frames[timeID].c[element.cid][element.type] += element.value;
+			}
 		}
 	});
 
@@ -243,6 +284,55 @@ function addCommon(output, id) {
 		threadCount:	data.info.threadCount
 	};
 	output.stats = {};
+}
+
+/**
+ * Add switches
+ */
+function addSwitches(output, id) {
+	// Init vars
+	var data		= profileData[id];
+	output.switches	= [];
+
+	// Build frame in the right order
+	for (var timeID = 0; timeID <= data.info.timeMax; timeID+= data.info.timeStep) {
+
+		// Output
+		output.switches.push({
+			t:	timeID,
+			s:	(data.frames.hasOwnProperty(timeID)) ? data.frames[timeID].switch : NaN
+		});
+	}
+
+	// Stats
+	output.stats.switches = {
+		s: data.stats.switch
+	};
+}
+
+/**
+ * Add migrations
+ */
+function addMigrations(output, id) {
+	// Init vars
+	var data			= profileData[id];
+	output.migrations	= [];
+
+	// Build frame in the right order
+	for (var timeID = 0; timeID <= data.info.timeMax; timeID+= data.info.timeStep) {
+
+		// Output
+		output.migrations.push({
+			t:	timeID,
+			m:	(data.frames.hasOwnProperty(timeID)) ? data.frames[timeID].migration : NaN
+		});
+	}
+
+
+	// Stats
+	output.stats.migrations = {
+		m: NaN
+	};
 }
 
 /**
@@ -512,6 +602,12 @@ function jsonTG(id) {
 	// Common
 	addCommon(output, id);
 
+	// for context switches
+	addSwitches(output, id);
+
+	// for context switches
+	addMigrations(output, id);
+
 	// for potential parallelism
 	addTime(output, id);
 	addStates(output, id);
@@ -563,6 +659,9 @@ function jsonLB(id) {
 
 	// Common
 	addCommon(output, id);
+
+	// for context switches
+	addSwitches(output, id);
 
 	// for potential parallelism
 	addTime(output, id);
