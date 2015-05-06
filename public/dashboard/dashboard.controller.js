@@ -1,4 +1,4 @@
-app.controller('DashboardController', ['$scope', '$rootScope', '$http', 'profileService', 'categories', function($scope, $rootScope, $http, profileService, categories) {
+app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http', 'profileService', 'categories', function($scope, $rootScope, $window, $http, profileService, categories) {
 	/************************************************/
 	/* Constructor - Init							*/
 	/************************************************/
@@ -7,12 +7,18 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$http', 'profile
 	$scope.selectedProfiles = []
 	$scope.availableProfiles = [];
 	$scope.data = {};
+	$scope.dataVersion = 0;					// use to bind graph repaint
 
 	// Details
 	$scope.categories = categories.all;
 
 	// References
 	$scope.encodeSelectedProfile = $rootScope.encodeSelectedProfile;
+
+	// Global binds
+	angular.element($window).on('resize', function() {
+		$scope.$apply();
+	});
 	
 	/************************************************/
 	/* Functions - Graphical						*/
@@ -33,26 +39,27 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$http', 'profile
 	};
 	
 	/**
-	 * Flag - selected
+	 * Flag - selected (s)
 	 */
 	$scope.hasSelectedProfiles = function() {
 		return $scope.selectedProfiles.length > 1;
 	};
 	
 	/**
-	 * Flag - selected
+	 * Flag - data not loaded
 	 */
 	$scope.waitingData = function(id) {
 		return ! $scope.data.hasOwnProperty(id);
 	};
 	
 	/**
-	 * Flag - selected
+	 * Flag - data loaded
 	 */
 	$scope.hasData = function(id) {
 		return $scope.data.hasOwnProperty(id);
 	};
 	
+
 	/************************************************/
 	/* Functions - Select data						*/
 	/************************************************/
@@ -137,10 +144,22 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$http', 'profile
 			$http.get('/service/details/dash/'+ profile.id).success(function(data) {
 				$scope.data[profile.id] = data[profile.id];
 				$scope.data[profile.id].profile = profile;
+				$scope.dataVersion++;
 			});
 		}
 	};
 	
+	/**
+	 * Get data
+	 */
+	$scope.getprofileData = function() {
+		var datap = [];
+		$scope.selectedProfiles.forEach(function(profile) {
+			datap.push($scope.data[profile.id]);
+		});
+		return datap;
+	};
+
 	
 	/************************************************/
 	/* Constructor - Finish							*/

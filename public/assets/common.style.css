@@ -78,3 +78,14 @@ svg {
 #wrapper.min #content {
 	margin-right: 0px;
 }
+
+
+/*
+ * Common mecanism
+ */
+.hover-text .text {
+	display: none;
+}
+.hover-text:hover .text {
+	display: inline-block;
+}

@@ -1,19 +1,19 @@
 <div class="row dashboard">
 	<!-- Profiles -->
-	<div class="col-xs-{{selectedProfiles.length * 3}} profile" ng-show="hasSelectedProfile()">
+	<div class="col-xs-{{selectedProfiles.length * 5}} col-lg-{{selectedProfiles.length * 4}} profile" ng-show="hasSelectedProfile()">
 		<div class="row profile-title">
 			<div class="col-xs-{{12 / selectedProfiles.length}}" ng-repeat="profile in selectedProfiles">
-				<a class="profile-title-unselect" href ng-click="unselectProfile(profile)">
-					<span class="fa-stack fa-lg">
+				<h2>{{profile.label}}</h2>
+				<a class="profile-title-unselect hover-text" href ng-click="unselectProfile(profile)">
+					<span class="fa-stack fa-lg icon">
 						<i class="fa fa-thumb-tack fa-stack-1x"></i>
 						<i class="fa fa-ban fa-stack-2x"></i>
-					</span>unselect
+					</span><span class="text">deselect</span>
 				</a>
-				<h2>{{profile.label}}</h2>
-				{{profile.desc}}
+				<p>{{profile.desc}}</p>
 				<div class="dropdown profile-hardware" dropdown on-toggle="toggled(open)">
 					<p>
-						<a href class="dropdown-toggle" dropdown-toggle><strong>run on</strong> <i class="fa fa-caret-square-o-down"></i></a>
+						<a href class="dropdown-toggle" dropdown-toggle><strong>ran on</strong> <i class="fa fa-caret-square-o-down"></i></a>
 						<em>{{profile.hardware.label}}</em>
 					</p>
 					<div class="panel panel-primary dropdown-menu profile-hardware-menu">
@@ -45,9 +45,7 @@
 		<div class="row profile-sequence">
 			<div class="col-xs-12">
 				<h4>Sequence</h4>
-				<svg class="widget-sequence" height="60">
-					<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Graph here</text>
-				</svg>
+				<chart-sequence class="sequence-graph"></chart-sequence>
 			</div>
 		</div>
 		<div class="row profile-body">
@@ -96,7 +94,7 @@
 	</div>
 	
 	<!-- Selection -->
-	<div class="col-xs-3 ctrl-add" ng-show="canAddProfile()">
+	<div class="col-xs-5 col-lg-4 ctrl-add" ng-show="canAddProfile()">
 		<span class="fa-stack fa-lg ctrl-add-titleicon">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-thumb-tack fa-stack-1x fa-inverse"></i>
@@ -116,13 +114,13 @@
 	</div>
 	
 	<!-- Selection -->
-	<div class="col-xs-1 ctrl-settings" ng-show="hasSelectedProfiles()">
-		<h2><a ng-click="unselectAllProfiles()">
-			<span class="fa-stack fa-lg" style="font-size: 0.8em">
+	<div class="col-xs-2 ctrl-settings" ng-show="hasSelectedProfiles()">
+		<a class="profile-deselection hover-text" ng-click="unselectAllProfiles()">
+			<span class="fa-stack fa-lg icon">
 				<i class="fa fa-thumb-tack fa-stack-1x"></i>
 				<i class="fa fa-ban fa-stack-2x"></i>
-			</span>
-		</a></h2>
+			</span><span class="text">deselect all</span>
+		</h2>
 		<!--
 		<a class="btn btn-default disabled">
 			<i class="glyphicon fa fa-sliders" aria-hidden="true"></i>

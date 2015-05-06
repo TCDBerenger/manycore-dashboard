@@ -3,22 +3,26 @@
  */
 .dashboard h2 {
 	margin-top: 0px;
-	/* display: inline-block; */
 }
 
 .dashboard a {
 	cursor: pointer;
 }
 
-.dashboard .profile h2 i {
-}
 .dashboard .profile p i {
 	padding-right: 6px;
 }
 
+.dashboard .profile h2 {
+	display: inline-block;
+}
 .dashboard .profile-title-unselect {
-	float: right !important;
-	margin-right: 4px;
+	display: inline-block;
+	position: absolute;
+	margin-left: 8px;
+}
+.dashboard .profile-title-unselect .icon {
+	margin-right: 3px;
 }
 .dashboard .profile-title-unselect span.fa-stack {
 	font-size: 0.8em;
@@ -73,10 +77,23 @@
 	width: 260px;
 }
 
+.dashboard .profile-deselection {
+}
+.dashboard .profile-deselection .icon {
+	font-size: 1.6em;
+	margin-right: 4px;
+}
+
 
 /*
  * Graphs
  */
+.sequence-graph {
+	margin: 0px !important;
+	height: 60px;
+	width: 100%;
+	display: block;
+}
 .indicator-graph {
 	margin: 0px !important;
 	height: 100%;
