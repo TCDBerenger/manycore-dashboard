@@ -101,7 +101,7 @@
 		</span>
 		<h2>{{! hasSelectedProfile() | iif : "Select a sample" : "Compare with"}}</h2>
 		<div class="list-group">
-			<a ng-click="selectProfile(profile)" class="list-group-item" ng-repeat="profile in availableProfiles | orderBy:'id'">
+			<a ng-click="selectProfile(profile)" class="list-group-item" ng-repeat="profile in availableProfiles | orderBy:'label'">
 				<h4 class="list-group-item-heading">{{profile.label}}</h4>
 				<p class="list-group-item-text">{{profile.desc}}</p>
 			</a>

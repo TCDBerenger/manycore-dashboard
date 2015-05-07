@@ -14,10 +14,19 @@ var VERSION = 10;
 		- treatThreadStatesByFrame		<boolean>
 */
 var profileMap = {
-	1: { file: 'matmulijk', program: 'MatmulIJK', timeStep: 50, availableCores: 8 },
-	2: { file: 'matmulkij', program: 'MatmulKIJ', timeStep: 50, availableCores: 8 },
-	3: { file: 'matmulkji', program: 'MatmulKJI', timeStep: 50, availableCores: 8 },
-	4: { file: 'particles', program: 'Matmul', timeStep: 50, availableCores: 8 }
+	1:	{ file: 'matmulijk', 	program: 'MatmulIJK',	timeStep: 50, availableCores: 8 },
+	2:	{ file: 'matmulkij', 	program: 'MatmulKIJ',	timeStep: 50, availableCores: 8 },
+	3:	{ file: 'matmulkji', 	program: 'MatmulKJI',	timeStep: 50, availableCores: 8 },
+	4:	{ file: 'particles', 	program: 'Matmul',		timeStep: 50, availableCores: 8 },
+	5:	{ file: 'accountb',		program: 'Matmul',		timeStep: 50, availableCores: 8 },
+	6:	{ file: 'computepi',	program: 'ComputePi',	timeStep: 50, availableCores: 8 },
+	7:	{ file: 'mandelbrot',	program: 'Mandelbrot',	timeStep: 50, availableCores: 8 },
+	8:	{ file: 'nqueens',		program: 'NQueens',		timeStep: 50, availableCores: 8 },
+	9:	{ file: 'raytracer',	program: 'RayTracer',	timeStep: 50, availableCores: 8 },
+ 	10:	{ file: 'accounta',		program: 'Matmul',		timeStep: 50, availableCores: 8 },
+ 	11:	{ file: 'mergesortp',	program: 'Matmul',		timeStep: 50, availableCores: 8 },
+ 	12:	{ file: 'mergesorts',	program: 'Matmul',		timeStep: 50, availableCores: 8 },
+ 	13:	{ file: 'particlep',	program: 'Matmul',		timeStep: 50, availableCores: 8 }
 };
 
 

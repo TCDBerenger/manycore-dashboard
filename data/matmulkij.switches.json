@@ -153898,5 +153898,239 @@
     "tid": 0,
     "pid": 0,
     "cid": 7
+  },
+  {
+    "type": "start",
+    "program": "MatmulKIJ",
+    "time": 635573791209362232,
+    "value": 1.0,
+    "tid": 8128,
+    "pid": 3904,
+    "cid": 4
+  },
+  {
+    "type": "start",
+    "program": "MatmulKIJ",
+    "time": 635573791209784899,
+    "value": 1.0,
+    "tid": 7512,
+    "pid": 3904,
+    "cid": 7
+  },
+  {
+    "type": "start",
+    "program": "MatmulKIJ",
+    "time": 635573791209785702,
+    "value": 1.0,
+    "tid": 4676,
+    "pid": 3904,
+    "cid": 7
+  },
+  {
+    "type": "start",
+    "program": "MatmulKIJ",
+    "time": 635573791209786219,
+    "value": 1.0,
+    "tid": 5580,
+    "pid": 3904,
+    "cid": 7
+  },
+  {
+    "type": "start",
+    "program": "MatmulKIJ",
+    "time": 635573791209786813,
+    "value": 1.0,
+    "tid": 5848,
+    "pid": 3904,
+    "cid": 7
+  },
+  {
+    "type": "start",
+    "program": "MatmulKIJ",
+    "time": 635573791209787263,
+    "value": 1.0,
+    "tid": 5888,
+    "pid": 3904,
+    "cid": 7
+  },
+  {
+    "type": "start",
+    "program": "MatmulKIJ",
+    "time": 635573791209787740,
+    "value": 1.0,
+    "tid": 7012,
+    "pid": 3904,
+    "cid": 7
+  },
+  {
+    "type": "start",
+    "program": "MatmulKIJ",
+    "time": 635573791209788250,
+    "value": 1.0,
+    "tid": 2732,
+    "pid": 3904,
+    "cid": 7
+  },
+  {
+    "type": "start",
+    "program": "MatmulKIJ",
+    "time": 635573791209788710,
+    "value": 1.0,
+    "tid": 4944,
+    "pid": 3904,
+    "cid": 7
+  },
+  {
+    "type": "start",
+    "program": "MatmulKIJ",
+    "time": 635573791217507115,
+    "value": 1.0,
+    "tid": 2080,
+    "pid": 3904,
+    "cid": 2
+  },
+  {
+    "type": "start",
+    "program": "MatmulKIJ",
+    "time": 635573791218872516,
+    "value": 1.0,
+    "tid": 3272,
+    "pid": 3904,
+    "cid": 2
+  },
+  {
+    "type": "start",
+    "program": "MatmulKIJ",
+    "time": 635573791219470702,
+    "value": 1.0,
+    "tid": 1180,
+    "pid": 3904,
+    "cid": 3
+  },
+  {
+    "type": "start",
+    "program": "MatmulKIJ",
+    "time": 635573791219555270,
+    "value": 1.0,
+    "tid": 7564,
+    "pid": 3904,
+    "cid": 2
+  },
+  {
+    "type": "end",
+    "program": "MatmulKIJ",
+    "time": 635573791219578311,
+    "value": 1.0,
+    "tid": 5580,
+    "pid": 3904,
+    "cid": 0
+  },
+  {
+    "type": "end",
+    "program": "MatmulKIJ",
+    "time": 635573791219578314,
+    "value": 1.0,
+    "tid": 4944,
+    "pid": 3904,
+    "cid": 3
+  },
+  {
+    "type": "end",
+    "program": "MatmulKIJ",
+    "time": 635573791219578314,
+    "value": 1.0,
+    "tid": 2080,
+    "pid": 3904,
+    "cid": 4
+  },
+  {
+    "type": "end",
+    "program": "MatmulKIJ",
+    "time": 635573791219578317,
+    "value": 1.0,
+    "tid": 3272,
+    "pid": 3904,
+    "cid": 6
+  },
+  {
+    "type": "end",
+    "program": "MatmulKIJ",
+    "time": 635573791219578324,
+    "value": 1.0,
+    "tid": 5888,
+    "pid": 3904,
+    "cid": 7
+  },
+  {
+    "type": "end",
+    "program": "MatmulKIJ",
+    "time": 635573791219578331,
+    "value": 1.0,
+    "tid": 4676,
+    "pid": 3904,
+    "cid": 1
+  },
+  {
+    "type": "end",
+    "program": "MatmulKIJ",
+    "time": 635573791219578421,
+    "value": 1.0,
+    "tid": 1180,
+    "pid": 3904,
+    "cid": 2
+  },
+  {
+    "type": "end",
+    "program": "MatmulKIJ",
+    "time": 635573791219578471,
+    "value": 1.0,
+    "tid": 5848,
+    "pid": 3904,
+    "cid": 4
+  },
+  {
+    "type": "end",
+    "program": "MatmulKIJ",
+    "time": 635573791219578511,
+    "value": 1.0,
+    "tid": 7512,
+    "pid": 3904,
+    "cid": 7
+  },
+  {
+    "type": "end",
+    "program": "MatmulKIJ",
+    "time": 635573791219578564,
+    "value": 1.0,
+    "tid": 7012,
+    "pid": 3904,
+    "cid": 2
+  },
+  {
+    "type": "end",
+    "program": "MatmulKIJ",
+    "time": 635573791219578578,
+    "value": 1.0,
+    "tid": 7564,
+    "pid": 3904,
+    "cid": 0
+  },
+  {
+    "type": "end",
+    "program": "MatmulKIJ",
+    "time": 635573791219578641,
+    "value": 1.0,
+    "tid": 2732,
+    "pid": 3904,
+    "cid": 7
+  },
+  {
+    "type": "end",
+    "program": "MatmulKIJ",
+    "time": 635573791219579922,
+    "value": 1.0,
+    "tid": 8128,
+    "pid": 3904,
+    "cid": 5
   }
 ]
