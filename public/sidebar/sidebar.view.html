@@ -3,7 +3,7 @@
 </a>
 
 <div class="details">
-	<a type="button" href="#/detail/{{category.cat}}/{{encodeSelectedProfile()}}" class="btn btn-primary link link-detail animate-show" ng-repeat="category in categories" ng-disabled="! hasSelectedProfile()" ng-disabled="! hasSelectedProfile()">
+	<a type="button" href="#/detail/{{category.cat}}/{{encodeSelectedProfile()}}" class="btn btn-primary link link-detail animate-show{{selectedCategory && category.cat == selectedCategory.cat | iif : ' active' : ''}}" ng-repeat="category in categories" ng-disabled="! hasSelectedProfile()" ng-disabled="! hasSelectedProfile()">
 		<div class="fa fa-{{category.icon}} fa-2x"></div> <span>{{category.label}}</span>
 	</a>
 </div>
