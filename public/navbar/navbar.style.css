@@ -6,6 +6,9 @@
 	text-align: center;
 }
 
+.navbar a {
+	outline: 0;
+}
 .navbar i.fa {
 	font-size: 1.5em;
 	margin-right: 2px;

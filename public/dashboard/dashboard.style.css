@@ -7,6 +7,7 @@
 
 .dashboard a {
 	cursor: pointer;
+	outline: 0;
 }
 
 .dashboard .profile p i {
