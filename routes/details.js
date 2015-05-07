@@ -283,7 +283,14 @@ function addCommon(output, id) {
 		duration:		data.info.timeMax + data.info.timeStep,
 		threadCount:	data.info.threadCount
 	};
-	output.stats = {};
+	output.stats = {
+	    s:	data.stats.switch,
+		c:	data.stats.cycles,
+		r:	data.stats.running,
+		y:	data.stats.ready,
+		s:	data.stats.standby,
+		w:	data.stats.wait
+	};
 }
 
 /**

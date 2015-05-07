@@ -53,6 +53,55 @@
 
 
 /*
+ * Profile versus
+ */
+.detail .profile-hardware-versus {
+	min-width: 400px;
+	margin-top: 2px;
+	margin-left: -190px;
+}
+.detail .profile-hardware-versus thead tr td:nth-child(1) {
+	text-align: right;
+}
+.detail .profile-hardware-versus thead tr td:nth-child(3) {
+	text-align: left;
+}
+.detail .profile-hardware-versus tbody tr.info td {
+	text-align: center !important;
+	font-weight: bold;
+}
+.detail .profile-hardware-versus tbody td:nth-child(1) {
+	text-align: right;
+}
+.detail .profile-hardware-versus tbody td:nth-child(2) {
+	text-align: center;
+	font-weight: bold;
+}
+.detail .profile-hardware-versus tbody td:nth-child(3) {
+	text-align: left;
+}
+
+.detail .profile-hardware-versus tbody td:nth-child(2) span:before {	content: "(";	}
+.detail .profile-hardware-versus tbody td:nth-child(2) span:after {		content: ")";	}
+.detail .profile-hardware-versus tbody td:nth-child(2) span {
+	font-size: 0.8em;
+	font-weight: 400;
+}
+
+.detail .profile-hardware-versus tbody td:nth-child(1) span {
+	float: left;
+	font-weight: bold;
+}
+.detail .profile-hardware-versus tbody td:nth-child(3) span {
+	float: right;
+	font-weight: bold;
+}
+.detail .profile-hardware-versus tbody td font {
+	color: #797979;
+}
+
+
+/*
  * Graphs
  */
 .detail .widget-graph {

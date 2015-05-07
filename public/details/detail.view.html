@@ -2,36 +2,139 @@
 	<div class="col-xs-9 profile">
 		<h2>{{meta.label}}</h2>
 		details for
-		<span class="dropdown profile-hardware" ng-repeat="profile in profiles">
-			<a href class="label label-primary dropdown-toggle">{{profile.label}} <i class="fa fa-info profile-carret"></i></a>
+		<span class="dropdown profile-hardware" ng-if="profiles.length > 0">
+			<a href class="label label-primary dropdown-toggle">{{profiles[0].label}} <i class="fa fa-info profile-carret"></i></a>
 			<div class="panel panel-primary dropdown-menu profile-hardware-menu">
 				<!-- <div class="panel-heading"><h3 class="panel-title">Hardware details</h3></div> -->
-				<div class="panel-body">{{profile.desc}}</div>
+				<div class="panel-body">{{profiles[0].desc}}</div>
 				<ul class="list-group">
 					<li class="list-group-item">
 						<h5 class="list-group-item-heading"><span class="label label-primary">Stats</span> of execution</h5>
 						<p class="list-group-item-text">
-							<b>Duration :</b> {{data[profile.id].stats.duration}} ms<br />
-							<b>Cycles :</b> {{data[profile.id].stats.cycles.cycles / 1000000000 | number: 0}} giga cycles
+							<b>Duration :</b> {{data[profiles[0].id].info.duration}} ms<br />
+							<b>Cycles :</b> {{data[profiles[0].id].stats.c / 1000000000 | number: 0}} giga cycles
 						</p>
 					</li>
 					<li class="list-group-item">
 						<h5 class="list-group-item-heading">
-							<a href="{{profile.hardware.cpu.link}}" class="pull-right">specs</a>
-							<span class="label label-primary">CPU</span> {{profile.hardware.cpu.label}}
+							<a href="{{profiles[0].hardware.cpu.link}}" class="pull-right">specs</a>
+							<span class="label label-primary">CPU</span> {{profiles[0].hardware.cpu.label}}
 						</h5>
 						<p class="list-group-item-text">
-							<b>Model :</b> {{profile.hardware.cpu.model}}<br />
-							<b>Type :</b> {{profile.hardware.cpu.type}}<br />
-							<b>Cores :</b> {{profile.hardware.cpu.cores}}<br />
-							<b>Clock :</b> {{profile.hardware.cpu.clock}}<br />
-							<b>Cache L1 :</b> {{profile.hardware.cpu.l1}}<br />
-							<b>Cache L2 :</b> {{profile.hardware.cpu.l2}}<br />
-							<b>Cache L3 :</b> {{profile.hardware.cpu.l3}}
+							<b>Model :</b> {{profiles[0].hardware.cpu.model}}<br />
+							<b>Type :</b> {{profiles[0].hardware.cpu.type}}<br />
+							<b>Cores :</b> {{profiles[0].hardware.cpu.cores}}<br />
+							<b>Clock :</b> {{profiles[0].hardware.cpu.clock}}<br />
+							<b>Cache L1 :</b> {{profiles[0].hardware.cpu.l1}}<br />
+							<b>Cache L2 :</b> {{profiles[0].hardware.cpu.l2}}<br />
+							<b>Cache L3 :</b> {{profiles[0].hardware.cpu.l3}}
 						</p>
 					</li>
 					<li class="list-group-item">
-						<h5 class="list-group-item-heading"><span class="label label-primary">RAM</span> {{profile.hardware.ram}}</h5>
+						<h5 class="list-group-item-heading"><span class="label label-primary">RAM</span> {{profiles[0].hardware.ram}}</h5>
+					</li>
+				</ul>
+			</div>
+		</span>
+		<span class="dropdown profile-hardware" ng-if="profiles.length > 1">
+			<a href class="dropdown-toggle">vs.</a>
+			
+			<div class="dropdown-menu profile-hardware-versus">
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>{{profiles[0].label}}</th>
+						<th></th>
+						<th>{{profiles[1].label}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="info"><td colspan="3">Stats</td></tr>
+					<tr>
+						<td><span>ms</span>{{data[profiles[0].id].info.duration}}</td>
+						<td>duration</td>
+						<td><span>ms</span>{{data[profiles[1].id].info.duration}}</td>
+					</tr>
+					<tr>
+						<td>{{data[profiles[0].id].info.threadCount}}</td>
+						<td>threads</td>
+						<td>{{data[profiles[1].id].info.threadCount}}</td>
+					</tr>
+					<tr>
+						<td><font>10⁶ ×</font> {{data[profiles[0].id].stats.c / 1000000000 | number: 0}}</td>
+						<td>cycles</td>
+						<td>{{data[profiles[1].id].stats.c / 1000000000 | number: 0}} <font>× 10⁶</font></td>
+					</tr>
+					<tr>
+						<td><span>%</span>{{data[profiles[0].id].stats.r * 100 / (data[profiles[0].id].stats.r + data[profiles[0].id].stats.y + data[profiles[0].id].stats.s + data[profiles[0].id].stats.w) | number: 0}}</td>
+						<td>running</td>
+						<td><span>%</span>{{data[profiles[1].id].stats.r * 100 / (data[profiles[1].id].stats.r + data[profiles[1].id].stats.y + data[profiles[1].id].stats.s + data[profiles[1].id].stats.w) | number: 0}}</td>
+					</tr>
+					<tr class="info"><td colspan="3">Hardware</td></tr>
+					<tr>
+						<td>{{profiles[1].hardware.cpu.cores}}</td>
+						<td>cores</td>
+						<td>{{profiles[1].hardware.cpu.cores}}</td>
+					</tr>
+					<tr>
+						<td>{{profiles[0].hardware.cpu.type}} / {{profiles[0].hardware.cpu.clock}}</td>
+						<td>type</td>
+						<td>{{profiles[1].hardware.cpu.type}} / {{profiles[1].hardware.cpu.clock}}</td>
+					</tr>
+					<tr>
+						<td>{{profiles[0].hardware.cpu.l1}}</td>
+						<td>cache L1</td>
+						<td>{{profiles[1].hardware.cpu.l1}}</td>
+					</tr>
+					<tr>
+						<td>{{profiles[0].hardware.cpu.l2}}</td>
+						<td>cache L2</td>
+						<td>{{profiles[1].hardware.cpu.l2}}</td>
+					</tr>
+					<tr>
+						<td>{{profiles[0].hardware.cpu.l3}}</td>
+						<td>cache L3</td>
+						<td>{{profiles[1].hardware.cpu.l3}}</td>
+					</tr>
+					<tr>
+						<td>{{profiles[0].hardware.ram}}</td>
+						<td>RAM</td>
+						<td>{{profiles[1].hardware.ram}}</td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		</span>
+		<span class="dropdown profile-hardware" ng-if="profiles.length > 1">
+			<a href class="label label-primary dropdown-toggle">{{profiles[1].label}} <i class="fa fa-info profile-carret"></i></a>
+			<div class="panel panel-primary dropdown-menu profile-hardware-menu">
+				<!-- <div class="panel-heading"><h3 class="panel-title">Hardware details</h3></div> -->
+				<div class="panel-body">{{profiles[1].desc}}</div>
+				<ul class="list-group">
+					<li class="list-group-item">
+						<h5 class="list-group-item-heading"><span class="label label-primary">Stats</span> of execution</h5>
+						<p class="list-group-item-text">
+							<b>Duration :</b> {{data[profiles[1].id].info.duration}} ms<br />
+							<b>Cycles :</b> {{data[profiles[1].id].stats.c / 1000000000 | number: 0}} giga cycles
+						</p>
+					</li>
+					<li class="list-group-item">
+						<h5 class="list-group-item-heading">
+							<a href="{{profiles[1].hardware.cpu.link}}" class="pull-right">specs</a>
+							<span class="label label-primary">CPU</span> {{profiles[1].hardware.cpu.label}}
+						</h5>
+						<p class="list-group-item-text">
+							<b>Model :</b> {{profiles[1].hardware.cpu.model}}<br />
+							<b>Type :</b> {{profiles[1].hardware.cpu.type}}<br />
+							<b>Cores :</b> {{profiles[1].hardware.cpu.cores}}<br />
+							<b>Clock :</b> {{profiles[1].hardware.cpu.clock}}<br />
+							<b>Cache L1 :</b> {{profiles[1].hardware.cpu.l1}}<br />
+							<b>Cache L2 :</b> {{profiles[1].hardware.cpu.l2}}<br />
+							<b>Cache L3 :</b> {{profiles[1].hardware.cpu.l3}}
+						</p>
+					</li>
+					<li class="list-group-item">
+						<h5 class="list-group-item-heading"><span class="label label-primary">RAM</span> {{profiles[1].hardware.ram}}</h5>
 					</li>
 				</ul>
 			</div>
