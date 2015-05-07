@@ -16,7 +16,8 @@ var VERSION = 10;
 var profileMap = {
 	1: { file: 'matmulijk', program: 'MatmulIJK', timeStep: 50, availableCores: 8 },
 	2: { file: 'matmulkij', program: 'MatmulKIJ', timeStep: 50, availableCores: 8 },
-	3: { file: 'matmulkji', program: 'MatmulKJI', timeStep: 50, availableCores: 8 }
+	3: { file: 'matmulkji', program: 'MatmulKJI', timeStep: 50, availableCores: 8 },
+	4: { file: 'particles', program: 'Matmul', timeStep: 50, availableCores: 8 }
 };
 
 
