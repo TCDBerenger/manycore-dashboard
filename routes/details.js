@@ -258,8 +258,6 @@ function computeData(id, raw1, raw2, profile) {
 		timeEvent = Math.round(timeEvent / 10000);
 		timeID = Math.floor(timeEvent / data.info.timeStep) * data.info.timeStep;
 
-		console.log(timeID, timeEvent);
-
 		// Switch
 		if (element.type == "sw" && element.program == profile.program) {
 			// Auto build structure
@@ -310,6 +308,13 @@ function computeData(id, raw1, raw2, profile) {
 
 	// computation done
 	return data;
+}
+
+/**
+ * Unload raw data
+ */
+function unloadData(id) {
+	delete profileData[id];
 }
 
 
@@ -924,6 +929,7 @@ router.get('/*', function(request, response) {
 		output.c.timeMin = Math.min(output[id].info.timeMin, output.c.timeMin | 0);
 		output.c.timeMax = Math.max(output[id].info.timeMax, output.c.timeMax | 0);
 		output.c.duration = Math.max(output[id].info.duration, output.c.duration | 0);
+		unloadData(id);
 	});
 	response.json(output);
 });
