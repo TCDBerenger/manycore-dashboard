@@ -4,6 +4,7 @@
 		<chart-thread-switches class="widget-graph widget-band" ng-if="ids.length >= 2" profileid="{{ids[1]}}" timestart="{{data.c.timeMin}}" timeend="{{data.c.duration}}" title="{{profiles[1].label}}"></chart-thread-switches>
 	</div>
 	<div class="col-xs-{{layout.col.data}} profile-data">
+		<!--
 		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
@@ -18,6 +19,30 @@
 					<td style="text-align: center;" class="container-graph" colspan="{{profiles.length}}">
 						<chart-stats class="integrated-graph" set="switches"></chart-stats>
 					</td>
+					<td style="text-align: right;" ng-if="profiles.length >= 2">{{data[profiles[1].id].stats[chartSets.switches[0].cat][chartSets.switches[0].attr] | number: 0}}</td>
+				</tr>
+			</tbody>
+		</table>
+		-->
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th></th>
+					<th colspan="2" ng-repeat="profile in profiles">{{profile.label}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="text-align: right;">{{chartSets.switches[1].desc}} <font style="color: {{chartSets.switches[1].color}}">▮</font></td>
+					<td style="text-align: right;">{{data[profiles[0].id].stats[chartSets.switches[1].cat][chartSets.switches[1].attr] | number: 0}}</td>
+					<td style="text-align: center;" class="container-graph" colspan="{{profiles.length}}" rowspan="2">
+						<chart-stats class="integrated-graph" set="switches"></chart-stats>
+					</td>
+					<td style="text-align: right;" ng-if="profiles.length >= 2">{{data[profiles[1].id].stats[chartSets.switches[0].cat][chartSets.switches[1].attr] | number: 0}}</td>
+				</tr>
+				<tr>
+					<td style="text-align: right;">{{chartSets.switches[0].desc}} <font style="color: {{chartSets.switches[0].color}}">▮</font></td>
+					<td style="text-align: right;">{{data[profiles[0].id].stats[chartSets.switches[0].cat][chartSets.switches[0].attr] | number: 0}}</td>
 					<td style="text-align: right;" ng-if="profiles.length >= 2">{{data[profiles[1].id].stats[chartSets.switches[0].cat][chartSets.switches[0].attr] | number: 0}}</td>
 				</tr>
 			</tbody>

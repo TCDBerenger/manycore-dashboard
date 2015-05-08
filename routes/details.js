@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
-var VERSION = 10;
+var VERSION = 11;
 
 /************************************************/
 /* Variables									*/
@@ -49,16 +49,42 @@ var profileMap = {
 	 │		 │	 │	 ├	ready		<integer>	duration of ready state
 	 │		 │	 │	 ├	running		<integer>	duration of running state
 	 │		 │	 │	 ├	standby		<integer>	duration of standby state
-	 │		 │	 │	 ├	wait		<integer>	duration of wait state
+	 │		 │	 │	 └	wait		<integer>	duration of wait state
 	 │		 │	 ├	...
 	 │		 │	 └	thread<N>
 	 │		 ├	...
 	 │		 └	frame<?>
 	 ├	frames
-	 │	 ├	frame<0>				ID
-	 │	 │	 └	switches 			<integer>	number of switches
+	 │	 ├	0
+	 │	 │	 ├	t					[]			array of threads
+	 │	 │	 │	 ├	0
+	 │	 │	 │	 │	 ├	cycles		<integer>	number of cycles
+	 │	 │	 │	 │	 ├	ready		<integer>	duration of ready state
+	 │	 │	 │	 │	 ├	running		<integer>	duration of running state
+	 │	 │	 │	 │	 ├	standby		<integer>	duration of standby state
+	 │	 │	 │	 │	 ├	wait		<integer>	duration of wait state
+	 │	 │	 │	 ├	...
+	 │	 │	 │	 └	<?>
+	 │	 │	 ├	c					[]			array of cores
+	 │	 │	 │	 ├	0
+	 │	 │	 │	 │	 ├	switch		<integer>	number of switches
+	 │	 │	 │	 │	 ├	cycles		<integer>	number of cycles
+	 │	 │	 │	 │	 ├	ready		<integer>	duration of ready state
+	 │	 │	 │	 │	 ├	running		<integer>	duration of running state
+	 │	 │	 │	 │	 ├	standby		<integer>	duration of standby state
+	 │	 │	 │	 │	 ├	wait		<integer>	duration of wait state
+	 │	 │	 │	 ├	...
+	 │	 │	 │	 └	<?>
+	 │	 │	 ├	switch 				<integer>	number of switches (from system)
+	 │	 │	 ├	switches 			<integer>	number of switches (from events)
+	 │	 │	 ├	migrations 			<integer>	number of migrations (from events)
+	 │	 │	 ├	cycles				<integer>	number of cycles
+	 │	 │	 ├	ready				<integer>	duration of ready state
+	 │	 │	 ├	running				<integer>	duration of running state
+	 │	 │	 ├	standby				<integer>	duration of standby state
+	 │	 │	 └	wait				<integer>	duration of wait state
 	 │	 ├	...
-	 │	 └	frame<?>
+	 │	 └	<?>
 	 └	stats
 		 ├	timeShift				<float>		time before starting measures (i.e. non interesting computation before this time) /!\ in pico seconds (10⁻¹²s) /!\ need to be divided by 10⁹
 		 └	switch					<integer>	number of switches for all cores during all run
@@ -133,15 +159,25 @@ function computeData(id, raw1, raw2, profile) {
 			timeMax:		0,
 			threadCount:	NaN
 		},
-		stats: {},
+		stats: {
+			switches:		0,
+			migrations:		0
+		},
 		frames: {},
+		migrations: [],
 		threads: {
 			byFrames: {}
 		}
 	};
 
+	// Grobal vars
+	var timeID;
+
+	/**
+	 * RAW 1: states
+	 */
+
 	// Analyse element by element and group them by time
-	var timeID = 0;
 	var statThreads = {};
 	raw1.forEach(function(element) {
 		// Compute time ID
@@ -207,6 +243,68 @@ function computeData(id, raw1, raw2, profile) {
 	for (var t in statThreads) { if (statThreads.hasOwnProperty(t) && t) countThreads++; };
 	data.info.threadCount = countThreads;
 
+
+
+	/**
+	 * RAW 2: switches
+	 */
+	// Vars
+	var coreThreads = {};
+
+	// Loop
+	raw2.forEach(function(element) {
+		// Compute time ID
+		timeID = element.time - data.info.timeShift;
+		timeID = Math.round(timeID / 10000);
+
+		// Switch
+		if (element.type == "sw" && element.program == profile.program) {
+			// Auto build structure
+			if (! coreThreads.hasOwnProperty(element.tid)) coreThreads[element.tid] = element.cid;
+
+			// Switch or migration ?
+			if (coreThreads[element.tid] == element.cid) {
+				// Switch
+				data.stats.switches++;
+
+				// Add a switch
+				if (! data.frames.hasOwnProperty(timeID)) data.frames[timeID] = { switches: 1 };
+				else if (! data.frames[timeID].hasOwnProperty("switches")) data.frames[timeID].switches = 1;
+				else data.frames[timeID].switches++;
+
+			} else {
+				// Migration
+				data.stats.migrations++;
+
+				// Add a migration
+				if (! data.frames.hasOwnProperty(timeID)) data.frames[timeID] = { migrations: 1 };
+				else if (! data.frames[timeID].hasOwnProperty("migrations")) data.frames[timeID].migrations = 1;
+				else data.frames[timeID].migrations++;
+
+				// Save migration
+				data.migrations.push({
+					t: timeID,
+					h: element.tid,
+					c: element.cid
+				});
+
+				// Save new attached core
+				coreThreads[element.tid] = element.cid;
+			}
+
+		}
+		
+	});
+
+
+
+	/**
+	 * RAW 3: memory
+	 */
+
+
+
+
 	// computation done
 	return data;
 }
@@ -218,7 +316,7 @@ function computeData(id, raw1, raw2, profile) {
 /**
 	output
 	 ├	frames					<array>		list of time frames
-	 │	 ├	<0>
+	 │	 ├	0
 	 │	 │	 ├	timeRelative	<integer>	time in ms (10⁻³s), identiral to frame<id>
 	 │	 │	 ├	sumCycles		<integer>	number of cycles
 	 │	 │	 ├	sumRunning		<integer>	number of cycles for running state
@@ -227,30 +325,36 @@ function computeData(id, raw1, raw2, profile) {
 	 │	 │	 └	countReady		<integer>	number of threads in ready state
 	 │	 │	...
 	 │	 └	<timeMax>
-	 ├	cycles					<array>		list of time frames
-	 │	 ├	<0>
+	 ├	cycles					<array>		list of cycles by frams
+	 │	 ├	0
 	 │	 │	 ├	t				<integer>	time in ms (10⁻³s), identiral to frame<id>
 	 │	 │	 └	c				<integer>	number of cycles
 	 │	 │	...
 	 │	 └	<timeMax>
-	 ├	time					<array>		list of time frames
-	 │	 ├	<0>
-	 │	 │	 ├	t				<integer>	time in ms (10⁻³s), identiral to frame<id>
-	 │	 │	 ├	run				<integer>	duration in ms for running state
-	 │	 │	 ├	rea				<integer>	duration in ms for ready state
-	 │	 │	 ├	w				<integer>	duration in ms for waiting state
-	 │	 │	 └	s				<integer>	duration in ms for standby state
-	 │	 │	...
-	 │	 └	<timeMax>
-	 ├	states					<array>		list of time frames
-	 │	 ├	<0>
+	 ├	migrations
+	 │	 ├	list				<array>		list of migrations
+	 │	 │	 ├	0
+	 │	 │	 │	 └	t			<integer>	time in ms (10⁻³s), identiral to frame<id>
+	 │	 │	 │	...
+	 │	 │	 └	<stats.migrations.m>
+	 ├	states					<array>		list of states by frams
+	 │	 ├	0
 	 │	 │	 ├	t				<integer>	time in ms (10⁻³s), identiral to frame<id>
 	 │	 │	 ├	r				<integer>	number of threads in running state
-	 │	 │	 ├	y				<integer>	number of threads in ready state
-	 │	 │	 ├	s				<integer>	number of threads in standby state
-	 │	 │	 ├	ys				<integer>	number of threads in ready or standby state /!\ false state /!\
-	 │	 │	 ├	w				<integer>	number of threads in waiting state
-	 │	 │	 └	u				<integer>	number of threads in unknow state
+	 │	 │	 └	ys				<integer>	number of threads in ready or standby state /!\ false state /!\
+	 │	 │	...
+	 │	 └	<timeMax>
+	 ├	switches				<array>		list of switches by frams
+	 │	 ├	0
+	 │	 │	 ├	t				<integer>	time in ms (10⁻³s), identiral to frame<id>
+	 │	 │	 └	s				<integer>	number of switches
+	 │	 │	...
+	 │	 └	<timeMax>
+	 ├	times					<array>		list of state times by frams
+	 │	 ├	0
+	 │	 │	 ├	t				<integer>	time in ms (10⁻³s), identiral to frame<id>
+	 │	 │	 ├	r				<integer>	duration in ms for running state
+	 │	 │	 └	ys				<integer>	duration in ms for ready and standby state
 	 │	 │	...
 	 │	 └	<timeMax>
 	 ├	info
@@ -263,18 +367,22 @@ function computeData(id, raw1, raw2, profile) {
 	 │	 └	threadCount			<integer>	number of (unique) threads
 	 └	stats
 		 ├	cycles
-		 │	 └	cycles			<integer>	number of cycles
+		 │	 └	c				<integer>	number of cycles
+		 ├	migrations
+		 │	 └	m				<integer>	number of migrations
+		 ├	switches
+		 │	 └	s				<integer>	number of switches
 		 ├	times
-		 │	 ├	running			<integer>	duration in ms for running state
-		 │	 ├	ready			<integer>	duration in ms for ready state
-		 │	 ├	wait			<integer>	duration in ms for waiting state
-		 │	 ├	standby			<integer>	duration in ms for standby state
-		 │	 └	readystandby	<integer>	duration in ms for ready or standby state /!\ false state /!\
+		 │	 ├	r				<integer>	duration in ms for running state
+		 │	 ├	y				<integer>	duration in ms for ready state
+		 │	 ├	w				<integer>	duration in ms for waiting state
+		 │	 ├	s				<integer>	duration in ms for standby state
+		 │	 └	ys				<integer>	duration in ms for ready or standby state /!\ false state /!\
 		 └	states
-			 ├	running			<integer>	number of cycles for running state
-			 ├	ready			<integer>	number of cycles for ready state
-			 ├	wait			<integer>	number of cycles for waiting state
-			 └	standby			<integer>	number of cycles for standby state
+			 ├	r				<integer>	number of cycles for running state
+			 ├	y				<integer>	number of cycles for ready state
+			 ├	w				<integer>	number of cycles for waiting state
+			 └	s				<integer>	number of cycles for standby state
  */
 /**
  * Add common stats
@@ -317,13 +425,15 @@ function addSwitches(output, id) {
 		// Output
 		output.switches.push({
 			t:	timeID,
-			s:	(data.frames.hasOwnProperty(timeID)) ? data.frames[timeID].switch : NaN
+			s:	(data.frames.hasOwnProperty(timeID)) ? data.frames[timeID].switches : NaN,
+			s2:	(data.frames.hasOwnProperty(timeID)) ? data.frames[timeID].switch : NaN
 		});
 	}
 
 	// Stats
 	output.stats.switches = {
-		s: data.stats.switch
+		s: data.stats.switches,
+		s2: data.stats.switch
 	};
 }
 
@@ -333,9 +443,15 @@ function addSwitches(output, id) {
 function addMigrations(output, id) {
 	// Init vars
 	var data			= profileData[id];
-	output.migrations	= [];
+	output.migrations	= {
+		list: []
+	};
 
 	// Build frame in the right order
+	data.migrations.forEach(function(migration) {
+		output.migrations.list.push(migration.t);
+	})
+	/*
 	for (var timeID = 0; timeID <= data.info.timeMax; timeID+= data.info.timeStep) {
 
 		// Output
@@ -344,11 +460,11 @@ function addMigrations(output, id) {
 			m:	(data.frames.hasOwnProperty(timeID)) ? data.frames[timeID].migration : NaN
 		});
 	}
-
+	*/
 
 	// Stats
 	output.stats.migrations = {
-		m: NaN
+		m: data.stats.migrations
 	};
 }
 
@@ -589,6 +705,31 @@ function addStates(output, id) {
 /* Functions - For each category				*/
 /************************************************/
 /**
+ * Test
+ */
+function jsonTest(id) {
+	var output = {};
+
+	output.id = id;
+	output.cat = 'dash';
+
+	// Common
+	addCommon(output, id);
+
+	// Cache
+	output.cache = profileData[id];
+
+	// Computation
+	addCycles(output, id);
+	addMigrations(output, id);
+	addStates(output, id);
+	addSwitches(output, id);
+	addTime(output, id);
+
+	return output;
+}
+
+/**
  * Dashboard
  */
 function jsonDash(id) {
@@ -746,7 +887,7 @@ router.get('/*', function(request, response) {
 	var ids = params[1].split('-');
 
 	// Check preconditions
-	if (cat != 'tg' && cat != 'sy' && cat != 'ds' && cat != 'lb' && cat != 'dl' && cat != 'rs' && cat != 'io' && cat != 'dash') {
+	if (cat != 'tg' && cat != 'sy' && cat != 'ds' && cat != 'lb' && cat != 'dl' && cat != 'rs' && cat != 'io' && cat != 'dash' && cat != 'test') {
 		response.send("Illegal category");
 		return;
 	} else if (ids.length == 0 || ids.length > 4) {
@@ -768,6 +909,7 @@ router.get('/*', function(request, response) {
 	ids.forEach(function(id) {
 		loadData(id);
 		switch(cat) {
+			case 'test':output[id] = jsonTest(id); break;
 			case 'dash':output[id] = jsonDash(id); break;
 			case 'tg':	output[id] = jsonTG(id); break;
 			case 'sy':	output[id] = jsonSY(id); break;
