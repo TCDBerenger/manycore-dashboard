@@ -45,11 +45,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			{ cat: 'times',	attr: 'r',	title: 'running',	desc: 'running',	color: '#8DD28A' },
 			{ cat: 'times',	attr: 'ys',		title: 'ready',		desc: 'ready',		color: '#D28A8D' }
 		],
-		//switches: 	[{ cat: 'switches',		attr: 's',	title: 'switches',		desc: 'switches',	color: '#797979' }],
-		switches: 	[
-			{ cat: 'switches',		attr: 's',	title: 'switches',		desc: 'switches (from count)',	color: '#797979' },
-			{ cat: 'switches',		attr: 's2',	title: 'switches',		desc: 'switches (from stats)',	color: '#ABABAB' }
-		],
+		switches: 	[{ cat: 'switches',		attr: 's',	title: 'switches',		desc: 'switches',	color: '#797979' }],
 		migrations: [{ cat: 'migrations',	attr: 'm',	title: 'migrations',	desc: 'migrations',	color: '#797979' }],
 		cyclesExtended: [
 			//{ cat: 'times',	attr:'init',		title: 'init',			desc: 'init',		color:'#797979' },

@@ -1,3 +1,222 @@
+var genericLayout = function() {
+	this.margin	= { top: 10, right: 10, bottom: 20, left: 20 };
+	this.height	= 0;
+	this.width	= 0;
+	this.graph	= {
+		layout:	this,
+		width: 	function() { return this.layout.width - this.layout.margin.left - this.layout.margin.right; },
+		height: function() { return this.layout.height - this.layout.margin.top - this.layout.margin.bottom; },
+		top: 	function() { return this.layout.margin.top; },
+		right: 	function() { return this.layout.width - this.layout.margin.right; },
+		bottom: function() { return this.layout.height - this.layout.margin.bottom; },
+		left: 	function() { return this.layout.margin.left; }
+	};
+};
+
+app.directive('chartBandTick', function() {
+
+	function chartThreadDivergence_link(scope, element, attrs, controller) {
+		console.log("== directive == chartBandTick ==");
+
+		// Layout
+		var container = element[0];
+		var layout = new genericLayout();
+
+		// Non repaintable layout
+		layout.height = 40;
+		layout.margin.top = 0;
+
+		// Data
+		var data = scope.data[attrs.profileid];
+		var dataList = data.migrations.list;
+		var timeStart = +attrs.timestart;			// When the user selection starts
+		var timeEnd = +attrs.timeend;				// When the user selection ends (could be before or after timeMax)
+		var timeMax = data.info.duration;
+
+		// DOM
+		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
+		svg.style("background", "#FFFFFF");
+
+		// Scales
+		var scaleX = d3.scale.linear().rangeRound([layout.graph.left(), layout.graph.right()]);
+
+		// Scales - domains
+		scaleX.domain([timeStart, timeEnd]);
+
+		// Axis
+		var xAxis = d3.svg.axis().scale(scaleX);
+
+		// Draw - ticks
+		var tickGroup = svg.append("g").attr("class", "dataset");
+		var tickXFunction = function(d) {
+			if (isFinite(d)) {
+				return scaleX(d);
+			} else {
+				return scaleX(d.t);
+			}
+		};
+		var tickLines = [];
+		dataList.forEach(function(m) {
+			tickLines.push(
+				tickGroup.append("line")
+					.attr("class", "tick")
+					.attr("x1", 0).attr("x2", 0) // 🕒 repaintable
+					.attr("y1", layout.graph.top()).attr("y2", layout.graph.bottom())
+					.attr('stroke', '#797979')
+					.attr('stroke-opacity', '0.5')
+					.attr('stroke-width', 1)
+					.attr('fill', 'none')
+				);
+		});
+
+
+		// Draw - axis
+		var axisXGroup = svg.append("g")
+				.attr("class", "xAxis")
+				.attr("transform", "translate(0," + layout.graph.bottom() + ")")
+				.call(xAxis);
+
+		// Draw - text
+		var labelElement = svg.append("text")
+			.attr("x", layout.graph.right())
+			.attr("y", layout.graph.bottom())
+			.attr("text-anchor", "end")
+			.attr("font-size", "14px")
+			.text(attrs.title);
+
+		// Redraw
+		var repaint = function repaint() {
+				// Sizes
+				layout.width = container.clientWidth;
+
+				// Scales
+				scaleX.rangeRound([layout.graph.left(), layout.graph.right()]);
+
+				// SVG
+				svg.attr('width', layout.width);
+				tickLines.forEach(function(tick, i) {
+					tick.attr("x1", tickXFunction(dataList[i])).attr("x2", tickXFunction(dataList[i]));
+				})
+				axisXGroup.call(xAxis);
+				labelElement.attr("x", layout.graph.right());
+			};
+
+		// Redraw - bind
+		scope.$watch(function() { return container.clientWidth; }, repaint);
+	}
+
+	return {
+		link: chartThreadDivergence_link,
+		restrict: 'E'
+	}
+});
+
+app.directive('chartBandDensity', function() {
+
+	function chartThreadDivergence_link(scope, element, attrs, controller) {
+		console.log("== directive == chartBandTick ==");
+
+		// Layout
+		var container = element[0];
+		var layout = new genericLayout();
+
+		// Non repaintable layout
+		layout.height = 40;
+		layout.margin.top = 0;
+
+		// Data
+		var data = scope.data[attrs.profileid];
+		var dataList = data.switches;
+		var timeStart = +attrs.timestart;			// When the user selection starts
+		var timeEnd = +attrs.timeend;				// When the user selection ends (could be before or after timeMax)
+		var timeMax = data.info.duration;
+		var timeStep = data.info.timeStep;
+		var scaleVPrecision = 1000;
+
+		// DOM
+		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
+		svg.style("background", "#FFFFFF");
+
+		// Scales
+		var scaleX = d3.scale.linear().rangeRound([layout.graph.left(), layout.graph.right()]);
+		var scaleV = d3.scale.linear().rangeRound([0, scaleVPrecision]);
+
+		// Scales - domains
+		scaleX.domain([timeStart, timeEnd]);
+		scaleV.domain([0, 300]);
+
+		// Axis
+		var xAxis = d3.svg.axis().scale(scaleX);
+
+		// Draw
+		var xBoxWidth = 0;
+
+		// Draw - ticks
+		var densityGroup = svg.append("g").attr("class", "dataset");
+		var densityXFunction = function(d) {
+			return scaleX(d.t);
+		};
+		var densityVFunction = function(d) {
+			return scaleV(d.s | 0) / scaleVPrecision;
+		};
+		var densityBoxes = [];
+		dataList.forEach(function(s) {
+			densityBoxes.push(
+				densityGroup.append("rect")
+					.attr("width", xBoxWidth) // 🕒 repaintable
+					.attr("height", layout.graph.height())
+					.attr("x", densityXFunction(s)) // 🕒 repaintable
+					.attr("y", layout.graph.top())
+					.attr("fill", "#797979")
+					.attr("fill-opacity", densityVFunction(s))
+				);
+		});
+
+
+		// Draw - axis
+		var axisXGroup = svg.append("g")
+				.attr("class", "xAxis")
+				.attr("transform", "translate(0," + layout.graph.bottom() + ")")
+				.call(xAxis);
+
+		// Draw - text
+		var labelElement = svg.append("text")
+			.attr("x", layout.graph.right())
+			.attr("y", layout.graph.bottom())
+			.attr("text-anchor", "end")
+			.attr("font-size", "14px")
+			.text(attrs.title);
+
+		// Redraw
+		var repaint = function repaint() {
+				// Sizes
+				layout.width = container.clientWidth;
+
+				// Scales
+				scaleX.rangeRound([layout.graph.left(), layout.graph.right()]);
+				xBoxWidth = scaleX(data.info.timeStep) - scaleX(0);
+
+				// SVG
+				svg.attr('width', layout.width);
+				densityBoxes.forEach(function(box, i) {
+					box.attr("x", densityXFunction(dataList[i]))
+						.attr("width", xBoxWidth)
+						.attr("fill-opacity", densityVFunction(dataList[i]))
+				})
+				axisXGroup.call(xAxis);
+				labelElement.attr("x", layout.graph.right());
+			};
+
+		// Redraw - bind
+		scope.$watch(function() { return container.clientWidth; }, repaint);
+	}
+
+	return {
+		link: chartThreadDivergence_link,
+		restrict: 'E'
+	}
+});
+
 app.directive('chartThreadDivergence', function() {
 
 	function chartThreadDivergence_link(scope, element, attrs, controller) {
@@ -5,16 +224,21 @@ app.directive('chartThreadDivergence', function() {
 
 		// Layout
 		var container = element[0];
+		var layout = new genericLayout();
+
+		// Non repaintable layout
+		layout.height = container.clientHeight;
+
 		var layout = {
 			margin: { top: 10, right: 10, bottom: 20, left: 20},
 			height:	container.clientHeight,
 			width:	container.clientWidth,
 			graph:	{
-				width:	function() { return Math.max(1, container.clientWidth - layout.margin.left - layout.margin.right); },
-				height:	function() { return Math.max(1, container.clientHeight - layout.margin.top - layout.margin.bottom); },
+				width:	function() { return Math.max(1, layout.width - layout.margin.left - layout.margin.right); },
+				height:	function() { return Math.max(1, layout.height - layout.margin.top - layout.margin.bottom); },
 				top:	function() { return layout.margin.top; },
-				right:	function() { return Math.max(1, container.clientWidth - layout.margin.right); },
-				bottom:	function() { return Math.max(1, container.clientHeight - layout.margin.bottom); },
+				right:	function() { return Math.max(1, layout.width - layout.margin.right); },
+				bottom:	function() { return Math.max(1, layout.height - layout.margin.bottom); },
 				left:	function() { return layout.margin.left; }
 			}
 		};
@@ -135,7 +359,6 @@ app.directive('chartThreadDivergence', function() {
 
 				// Scales
 				scaleX.rangeRound([layout.graph.left(), layout.graph.right()]);
-				scaleXStep = scaleX(data.info.timeStep);
 
 				// SVG
 				svg.attr('width', layout.width);

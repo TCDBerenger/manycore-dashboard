@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
-var VERSION = 11;
+var VERSION = 19;
 
 /************************************************/
 /* Variables									*/
@@ -67,7 +67,8 @@ var profileMap = {
 	 │	 │	 │	 └	<?>
 	 │	 │	 ├	c					[]			array of cores
 	 │	 │	 │	 ├	0
-	 │	 │	 │	 │	 ├	switch		<integer>	number of switches
+	 │	 │	 │	 │	 ├	switches	<integer>	number of switches
+	 │	 │	 │	 │	 ├	migrations	<integer>	number of migrations
 	 │	 │	 │	 │	 ├	cycles		<integer>	number of cycles
 	 │	 │	 │	 │	 ├	ready		<integer>	duration of ready state
 	 │	 │	 │	 │	 ├	running		<integer>	duration of running state
@@ -75,9 +76,8 @@ var profileMap = {
 	 │	 │	 │	 │	 ├	wait		<integer>	duration of wait state
 	 │	 │	 │	 ├	...
 	 │	 │	 │	 └	<?>
-	 │	 │	 ├	switch 				<integer>	number of switches (from system)
-	 │	 │	 ├	switches 			<integer>	number of switches (from events)
-	 │	 │	 ├	migrations 			<integer>	number of migrations (from events)
+	 │	 │	 ├	switches 			<integer>	number of switches
+	 │	 │	 ├	migrations 			<integer>	number of migrations
 	 │	 │	 ├	cycles				<integer>	number of cycles
 	 │	 │	 ├	ready				<integer>	duration of ready state
 	 │	 │	 ├	running				<integer>	duration of running state
@@ -171,7 +171,7 @@ function computeData(id, raw1, raw2, profile) {
 	};
 
 	// Grobal vars
-	var timeID;
+	var timeID, timeEvent;
 
 	/**
 	 * RAW 1: states
@@ -202,7 +202,7 @@ function computeData(id, raw1, raw2, profile) {
 		}
 
 		// Frame treatment
-		if (element.program == profile.program || element.program == "N/A") {
+		if (element.program == profile.program) {
 			// Auto build structure
 			if (! data.frames.hasOwnProperty(timeID)) data.frames[timeID] = { t:{}, c:{} };
 			if (! data.frames[timeID].hasOwnProperty(element.type)) data.frames[timeID][element.type] = 0;
@@ -254,8 +254,11 @@ function computeData(id, raw1, raw2, profile) {
 	// Loop
 	raw2.forEach(function(element) {
 		// Compute time ID
-		timeID = element.time - data.info.timeShift;
-		timeID = Math.round(timeID / 10000);
+		timeEvent = element.time - data.info.timeShift;
+		timeEvent = Math.round(timeEvent / 10000);
+		timeID = Math.floor(timeEvent / data.info.timeStep) * data.info.timeStep;
+
+		console.log(timeID, timeEvent);
 
 		// Switch
 		if (element.type == "sw" && element.program == profile.program) {
@@ -268,9 +271,9 @@ function computeData(id, raw1, raw2, profile) {
 				data.stats.switches++;
 
 				// Add a switch
-				if (! data.frames.hasOwnProperty(timeID)) data.frames[timeID] = { switches: 1 };
-				else if (! data.frames[timeID].hasOwnProperty("switches")) data.frames[timeID].switches = 1;
-				else data.frames[timeID].switches++;
+				if (! data.frames.hasOwnProperty(timeID)) data.frames[timeID] = { };
+				if (! data.frames[timeID].hasOwnProperty("switches")) data.frames[timeID].switches = 0;
+				data.frames[timeID].switches++;
 
 			} else {
 				// Migration
@@ -283,7 +286,7 @@ function computeData(id, raw1, raw2, profile) {
 
 				// Save migration
 				data.migrations.push({
-					t: timeID,
+					t: timeEvent,
 					h: element.tid,
 					c: element.cid
 				});
@@ -402,7 +405,8 @@ function addCommon(output, id) {
 		threadCount:	data.info.threadCount
 	};
 	output.stats = {
-	    s:	data.stats.switch,
+	    s:	data.stats.switches,
+	    m:	data.stats.migrations,
 		c:	data.stats.cycles,
 		r:	data.stats.running,
 		y:	data.stats.ready,
@@ -425,15 +429,13 @@ function addSwitches(output, id) {
 		// Output
 		output.switches.push({
 			t:	timeID,
-			s:	(data.frames.hasOwnProperty(timeID)) ? data.frames[timeID].switches : NaN,
-			s2:	(data.frames.hasOwnProperty(timeID)) ? data.frames[timeID].switch : NaN
+			s:	(data.frames.hasOwnProperty(timeID)) ? data.frames[timeID].switches : NaN
 		});
 	}
 
 	// Stats
 	output.stats.switches = {
-		s: data.stats.switches,
-		s2: data.stats.switch
+		s: data.stats.switches
 	};
 }
 

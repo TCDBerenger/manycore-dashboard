@@ -3,7 +3,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757342822588,
-    "value": 387.0,
+    "value": 10.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -192,7 +192,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757342822588,
-    "value": 107.0,
+    "value": 12.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -381,7 +381,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757342822588,
-    "value": 344.0,
+    "value": 66.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -705,7 +705,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757342822588,
-    "value": 199.0,
+    "value": 8.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -849,7 +849,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757342822588,
-    "value": 509.0,
+    "value": 27.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -1038,7 +1038,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757342822588,
-    "value": 170.0,
+    "value": 7.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -1182,7 +1182,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757342822588,
-    "value": 288.0,
+    "value": 18.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -1326,7 +1326,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757342822588,
-    "value": 324.0,
+    "value": 7.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -1425,7 +1425,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757343322588,
-    "value": 111.0,
+    "value": 53.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -1659,7 +1659,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757343322588,
-    "value": 93.0,
+    "value": 43.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -1893,7 +1893,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757343322588,
-    "value": 72.0,
+    "value": 36.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -2172,7 +2172,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757343322588,
-    "value": 65.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -2316,7 +2316,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757343322588,
-    "value": 100.0,
+    "value": 43.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -2505,7 +2505,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757343322588,
-    "value": 80.0,
+    "value": 39.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -2739,7 +2739,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757343322588,
-    "value": 71.0,
+    "value": 35.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -2928,7 +2928,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757343322588,
-    "value": 67.0,
+    "value": 34.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -3117,7 +3117,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757343822588,
-    "value": 131.0,
+    "value": 61.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -3351,7 +3351,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757343822588,
-    "value": 106.0,
+    "value": 53.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -3585,7 +3585,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757343822588,
-    "value": 67.0,
+    "value": 34.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -3774,7 +3774,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757343822588,
-    "value": 62.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -3963,7 +3963,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757343822588,
-    "value": 104.0,
+    "value": 49.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -4197,7 +4197,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757343822588,
-    "value": 77.0,
+    "value": 38.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -4386,7 +4386,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757343822588,
-    "value": 63.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -4575,7 +4575,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757343822588,
-    "value": 61.0,
+    "value": 31.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -4764,7 +4764,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757344322588,
-    "value": 106.0,
+    "value": 52.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -5043,7 +5043,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757344322588,
-    "value": 76.0,
+    "value": 37.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -5277,7 +5277,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757344322588,
-    "value": 80.0,
+    "value": 39.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -5466,7 +5466,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757344322588,
-    "value": 62.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -5700,7 +5700,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757344322588,
-    "value": 114.0,
+    "value": 49.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -5934,7 +5934,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757344322588,
-    "value": 74.0,
+    "value": 36.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -6168,7 +6168,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757344322588,
-    "value": 67.0,
+    "value": 34.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -6312,7 +6312,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757344322588,
-    "value": 63.0,
+    "value": 31.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -6546,7 +6546,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757344822588,
-    "value": 108.0,
+    "value": 53.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -6825,7 +6825,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757344822588,
-    "value": 86.0,
+    "value": 41.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -7059,7 +7059,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757344822588,
-    "value": 88.0,
+    "value": 45.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -7248,7 +7248,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757344822588,
-    "value": 68.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -7437,7 +7437,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757344822588,
-    "value": 100.0,
+    "value": 41.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -7671,7 +7671,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757344822588,
-    "value": 109.0,
+    "value": 45.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -7905,7 +7905,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757344822588,
-    "value": 77.0,
+    "value": 36.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -8049,7 +8049,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757344822588,
-    "value": 62.0,
+    "value": 31.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -8238,7 +8238,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757345322588,
-    "value": 98.0,
+    "value": 48.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -8427,7 +8427,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757345322588,
-    "value": 70.0,
+    "value": 35.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -8661,7 +8661,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757345322588,
-    "value": 70.0,
+    "value": 36.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -8895,7 +8895,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757345322588,
-    "value": 65.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -9039,7 +9039,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757345322588,
-    "value": 78.0,
+    "value": 35.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -9273,7 +9273,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757345322588,
-    "value": 84.0,
+    "value": 38.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -9507,7 +9507,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757345322588,
-    "value": 78.0,
+    "value": 38.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -9696,7 +9696,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757345322588,
-    "value": 68.0,
+    "value": 35.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -9885,7 +9885,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757345822588,
-    "value": 82.0,
+    "value": 41.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -10074,7 +10074,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757345822588,
-    "value": 96.0,
+    "value": 46.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -10308,7 +10308,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757345822588,
-    "value": 92.0,
+    "value": 47.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -10542,7 +10542,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757345822588,
-    "value": 65.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -10686,7 +10686,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757345822588,
-    "value": 142.0,
+    "value": 64.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -10920,7 +10920,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757345822588,
-    "value": 83.0,
+    "value": 39.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -11154,7 +11154,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757345822588,
-    "value": 75.0,
+    "value": 38.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -11343,7 +11343,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757345822588,
-    "value": 69.0,
+    "value": 35.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -11577,7 +11577,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757346322588,
-    "value": 117.0,
+    "value": 58.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -11811,7 +11811,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757346322588,
-    "value": 74.0,
+    "value": 36.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -11955,7 +11955,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757346322588,
-    "value": 62.0,
+    "value": 31.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -12099,7 +12099,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757346322588,
-    "value": 60.0,
+    "value": 30.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -12198,7 +12198,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757346322588,
-    "value": 80.0,
+    "value": 41.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -12387,7 +12387,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757346322588,
-    "value": 66.0,
+    "value": 28.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -12576,7 +12576,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757346322588,
-    "value": 65.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -12720,7 +12720,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757346322588,
-    "value": 60.0,
+    "value": 30.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -12819,7 +12819,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757346822588,
-    "value": 113.0,
+    "value": 56.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -13053,7 +13053,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757346822588,
-    "value": 97.0,
+    "value": 47.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -13287,7 +13287,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757346822588,
-    "value": 89.0,
+    "value": 43.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -13476,7 +13476,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757346822588,
-    "value": 68.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -13620,7 +13620,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757346822588,
-    "value": 421.0,
+    "value": 131.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -13809,7 +13809,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757346822588,
-    "value": 129.0,
+    "value": 55.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -14043,7 +14043,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757346822588,
-    "value": 430.0,
+    "value": 155.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -14322,7 +14322,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757346822588,
-    "value": 99.0,
+    "value": 46.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -14601,7 +14601,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757347322588,
-    "value": 134.0,
+    "value": 65.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -14835,7 +14835,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757347322588,
-    "value": 126.0,
+    "value": 60.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -15069,7 +15069,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757347322588,
-    "value": 75.0,
+    "value": 36.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -15258,7 +15258,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757347322588,
-    "value": 68.0,
+    "value": 34.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -15402,7 +15402,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757347322588,
-    "value": 89.0,
+    "value": 43.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -15636,7 +15636,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757347322588,
-    "value": 92.0,
+    "value": 42.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -15870,7 +15870,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757347322588,
-    "value": 81.0,
+    "value": 41.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -16149,7 +16149,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757347322588,
-    "value": 77.0,
+    "value": 35.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -16338,7 +16338,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757347822588,
-    "value": 132.0,
+    "value": 65.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -16572,7 +16572,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757347822588,
-    "value": 98.0,
+    "value": 49.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -16806,7 +16806,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757347822588,
-    "value": 71.0,
+    "value": 35.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -17040,7 +17040,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757347822588,
-    "value": 68.0,
+    "value": 34.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -17274,7 +17274,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757347822588,
-    "value": 93.0,
+    "value": 43.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -17463,7 +17463,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757347822588,
-    "value": 71.0,
+    "value": 36.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -17697,7 +17697,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757347822588,
-    "value": 68.0,
+    "value": 31.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -17886,7 +17886,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757347822588,
-    "value": 70.0,
+    "value": 35.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -18075,7 +18075,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757348322588,
-    "value": 118.0,
+    "value": 57.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -18309,7 +18309,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757348322588,
-    "value": 114.0,
+    "value": 55.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -18543,7 +18543,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757348322588,
-    "value": 62.0,
+    "value": 27.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -18732,7 +18732,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757348322588,
-    "value": 60.0,
+    "value": 30.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -18876,7 +18876,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757348322588,
-    "value": 97.0,
+    "value": 46.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -19155,7 +19155,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757348322588,
-    "value": 68.0,
+    "value": 34.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -19389,7 +19389,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757348322588,
-    "value": 62.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -19578,7 +19578,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757348322588,
-    "value": 70.0,
+    "value": 30.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -19722,7 +19722,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757348822588,
-    "value": 91.0,
+    "value": 45.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -19911,7 +19911,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757348822588,
-    "value": 106.0,
+    "value": 52.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -20145,7 +20145,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757348822588,
-    "value": 89.0,
+    "value": 44.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -20334,7 +20334,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757348822588,
-    "value": 64.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -20523,7 +20523,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757348822588,
-    "value": 73.0,
+    "value": 37.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -20712,7 +20712,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757348822588,
-    "value": 74.0,
+    "value": 37.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -20901,7 +20901,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757348822588,
-    "value": 69.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -21135,7 +21135,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757348822588,
-    "value": 64.0,
+    "value": 31.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -21324,7 +21324,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757349322588,
-    "value": 148.0,
+    "value": 73.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -21603,7 +21603,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757349322588,
-    "value": 77.0,
+    "value": 38.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -21837,7 +21837,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757349322588,
-    "value": 80.0,
+    "value": 41.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -22116,7 +22116,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757349322588,
-    "value": 71.0,
+    "value": 36.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -22305,7 +22305,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757349322588,
-    "value": 91.0,
+    "value": 40.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -22494,7 +22494,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757349322588,
-    "value": 73.0,
+    "value": 37.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -22683,7 +22683,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757349322588,
-    "value": 62.0,
+    "value": 29.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -22872,7 +22872,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757349322588,
-    "value": 62.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -23061,7 +23061,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757349822588,
-    "value": 120.0,
+    "value": 60.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -23295,7 +23295,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757349822588,
-    "value": 94.0,
+    "value": 47.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -23574,7 +23574,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757349822588,
-    "value": 113.0,
+    "value": 56.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -23853,7 +23853,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757349822588,
-    "value": 67.0,
+    "value": 34.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -23997,7 +23997,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757349822588,
-    "value": 82.0,
+    "value": 38.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -24186,7 +24186,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757349822588,
-    "value": 80.0,
+    "value": 40.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -24330,7 +24330,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757349822588,
-    "value": 74.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -24519,7 +24519,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757349822588,
-    "value": 70.0,
+    "value": 36.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -24663,7 +24663,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757350322588,
-    "value": 144.0,
+    "value": 73.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -24897,7 +24897,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757350322588,
-    "value": 78.0,
+    "value": 38.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -25086,7 +25086,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757350322588,
-    "value": 68.0,
+    "value": 35.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -25320,7 +25320,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757350322588,
-    "value": 82.0,
+    "value": 42.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -25554,7 +25554,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757350322588,
-    "value": 89.0,
+    "value": 40.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -25788,7 +25788,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757350322588,
-    "value": 66.0,
+    "value": 29.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -26022,7 +26022,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757350322588,
-    "value": 63.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -26256,7 +26256,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757350322588,
-    "value": 64.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -26445,7 +26445,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757350822588,
-    "value": 107.0,
+    "value": 53.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -26679,7 +26679,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757350822588,
-    "value": 105.0,
+    "value": 53.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -26913,7 +26913,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757350822588,
-    "value": 97.0,
+    "value": 49.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -27147,7 +27147,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757350822588,
-    "value": 62.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -27381,7 +27381,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757350822588,
-    "value": 79.0,
+    "value": 37.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -27570,7 +27570,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757350822588,
-    "value": 82.0,
+    "value": 36.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -27759,7 +27759,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757350822588,
-    "value": 84.0,
+    "value": 40.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -27993,7 +27993,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757350822588,
-    "value": 66.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -28137,7 +28137,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757351322588,
-    "value": 117.0,
+    "value": 52.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -28371,7 +28371,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757351322588,
-    "value": 96.0,
+    "value": 49.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -28650,7 +28650,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757351322588,
-    "value": 62.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -28839,7 +28839,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757351322588,
-    "value": 85.0,
+    "value": 45.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -29118,7 +29118,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757351322588,
-    "value": 79.0,
+    "value": 34.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -29262,7 +29262,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757351322588,
-    "value": 73.0,
+    "value": 30.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -29451,7 +29451,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757351322588,
-    "value": 66.0,
+    "value": 31.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -29640,7 +29640,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757351322588,
-    "value": 62.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -29784,7 +29784,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757351822588,
-    "value": 139.0,
+    "value": 69.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -30018,7 +30018,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757351822588,
-    "value": 98.0,
+    "value": 49.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -30297,7 +30297,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757351822588,
-    "value": 80.0,
+    "value": 41.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -30531,7 +30531,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757351822588,
-    "value": 71.0,
+    "value": 36.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -30810,7 +30810,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757351822588,
-    "value": 96.0,
+    "value": 46.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -30999,7 +30999,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757351822588,
-    "value": 72.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -31143,7 +31143,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757351822588,
-    "value": 66.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -31287,7 +31287,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757351822588,
-    "value": 66.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -31521,7 +31521,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757352322588,
-    "value": 128.0,
+    "value": 65.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -31755,7 +31755,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757352322588,
-    "value": 94.0,
+    "value": 47.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -31989,7 +31989,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757352322588,
-    "value": 67.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -32223,7 +32223,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757352322588,
-    "value": 88.0,
+    "value": 45.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -32457,7 +32457,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757352322588,
-    "value": 77.0,
+    "value": 38.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -32691,7 +32691,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757352322588,
-    "value": 78.0,
+    "value": 34.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -32925,7 +32925,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757352322588,
-    "value": 72.0,
+    "value": 35.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -33159,7 +33159,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757352322588,
-    "value": 64.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -33348,7 +33348,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757352822588,
-    "value": 131.0,
+    "value": 66.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -33537,7 +33537,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757352822588,
-    "value": 99.0,
+    "value": 50.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -33726,7 +33726,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757352822588,
-    "value": 72.0,
+    "value": 37.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -33960,7 +33960,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757352822588,
-    "value": 63.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -34149,7 +34149,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757352822588,
-    "value": 100.0,
+    "value": 47.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -34338,7 +34338,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757352822588,
-    "value": 76.0,
+    "value": 35.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -34527,7 +34527,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757352822588,
-    "value": 64.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -34671,7 +34671,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757352822588,
-    "value": 69.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -34905,7 +34905,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757353322588,
-    "value": 150.0,
+    "value": 74.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -35184,7 +35184,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757353322588,
-    "value": 71.0,
+    "value": 37.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -35418,7 +35418,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757353322588,
-    "value": 109.0,
+    "value": 55.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -35697,7 +35697,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757353322588,
-    "value": 69.0,
+    "value": 34.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -35886,7 +35886,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757353322588,
-    "value": 109.0,
+    "value": 53.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -36075,7 +36075,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757353322588,
-    "value": 150.0,
+    "value": 70.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -36309,7 +36309,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757353322588,
-    "value": 97.0,
+    "value": 48.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -36498,7 +36498,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757353322588,
-    "value": 65.0,
+    "value": 30.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -36687,7 +36687,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757353822588,
-    "value": 119.0,
+    "value": 59.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -36921,7 +36921,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757353822588,
-    "value": 111.0,
+    "value": 55.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -37200,7 +37200,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757353822588,
-    "value": 82.0,
+    "value": 40.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -37389,7 +37389,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757353822588,
-    "value": 69.0,
+    "value": 36.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -37578,7 +37578,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757353822588,
-    "value": 307.0,
+    "value": 133.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -37812,7 +37812,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757353822588,
-    "value": 191.0,
+    "value": 85.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -38046,7 +38046,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757353822588,
-    "value": 72.0,
+    "value": 36.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -38280,7 +38280,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757353822588,
-    "value": 111.0,
+    "value": 49.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -38514,7 +38514,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757354322588,
-    "value": 88.0,
+    "value": 42.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -38748,7 +38748,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757354322588,
-    "value": 148.0,
+    "value": 74.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -39027,7 +39027,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757354322588,
-    "value": 85.0,
+    "value": 43.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -39261,7 +39261,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757354322588,
-    "value": 78.0,
+    "value": 39.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -39495,7 +39495,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757354322588,
-    "value": 98.0,
+    "value": 49.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -39639,7 +39639,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757354322588,
-    "value": 69.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -39828,7 +39828,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757354322588,
-    "value": 66.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -39927,7 +39927,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757354322588,
-    "value": 69.0,
+    "value": 35.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -40116,7 +40116,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757354822588,
-    "value": 166.0,
+    "value": 84.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -40395,7 +40395,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757354822588,
-    "value": 70.0,
+    "value": 35.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -40629,7 +40629,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757354822588,
-    "value": 72.0,
+    "value": 37.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -40863,7 +40863,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757354822588,
-    "value": 65.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -41052,7 +41052,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757354822588,
-    "value": 93.0,
+    "value": 41.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -41241,7 +41241,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757354822588,
-    "value": 71.0,
+    "value": 35.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -41430,7 +41430,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757354822588,
-    "value": 70.0,
+    "value": 35.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -41574,7 +41574,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757354822588,
-    "value": 64.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -41718,7 +41718,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757355322588,
-    "value": 130.0,
+    "value": 65.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -41952,7 +41952,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757355322588,
-    "value": 93.0,
+    "value": 46.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -42141,7 +42141,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757355322588,
-    "value": 66.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -42330,7 +42330,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757355322588,
-    "value": 64.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -42519,7 +42519,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757355322588,
-    "value": 102.0,
+    "value": 51.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -42663,7 +42663,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757355322588,
-    "value": 77.0,
+    "value": 38.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -42807,7 +42807,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757355322588,
-    "value": 65.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -42996,7 +42996,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757355322588,
-    "value": 64.0,
+    "value": 30.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -43095,7 +43095,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757355822588,
-    "value": 129.0,
+    "value": 63.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -43284,7 +43284,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757355822588,
-    "value": 100.0,
+    "value": 50.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -43518,7 +43518,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757355822588,
-    "value": 62.0,
+    "value": 31.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -43662,7 +43662,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757355822588,
-    "value": 60.0,
+    "value": 30.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -43806,7 +43806,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757355822588,
-    "value": 81.0,
+    "value": 35.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -43995,7 +43995,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757355822588,
-    "value": 62.0,
+    "value": 31.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -44184,7 +44184,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757355822588,
-    "value": 70.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -44373,7 +44373,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757355822588,
-    "value": 63.0,
+    "value": 27.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -44562,7 +44562,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757356322588,
-    "value": 141.0,
+    "value": 68.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -44796,7 +44796,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757356322588,
-    "value": 110.0,
+    "value": 55.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -45030,7 +45030,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757356322588,
-    "value": 77.0,
+    "value": 38.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -45174,7 +45174,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757356322588,
-    "value": 67.0,
+    "value": 34.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -45318,7 +45318,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757356322588,
-    "value": 94.0,
+    "value": 42.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -45507,7 +45507,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757356322588,
-    "value": 70.0,
+    "value": 35.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -45651,7 +45651,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757356322588,
-    "value": 66.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -45750,7 +45750,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757356322588,
-    "value": 67.0,
+    "value": 34.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -45894,7 +45894,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757356822588,
-    "value": 138.0,
+    "value": 66.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -46083,7 +46083,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757356822588,
-    "value": 91.0,
+    "value": 31.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -46317,7 +46317,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757356822588,
-    "value": 76.0,
+    "value": 37.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -46416,7 +46416,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757356822588,
-    "value": 64.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -46515,7 +46515,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757356822588,
-    "value": 83.0,
+    "value": 40.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -46704,7 +46704,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757356822588,
-    "value": 76.0,
+    "value": 35.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -46848,7 +46848,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757356822588,
-    "value": 66.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -46992,7 +46992,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757356822588,
-    "value": 64.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -47136,7 +47136,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757357322588,
-    "value": 131.0,
+    "value": 55.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -47370,7 +47370,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757357322588,
-    "value": 81.0,
+    "value": 40.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -47604,7 +47604,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757357322588,
-    "value": 89.0,
+    "value": 45.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -47838,7 +47838,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757357322588,
-    "value": 70.0,
+    "value": 23.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -48027,7 +48027,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757357322588,
-    "value": 71.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -48216,7 +48216,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757357322588,
-    "value": 77.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -48450,7 +48450,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757357322588,
-    "value": 66.0,
+    "value": 34.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -48594,7 +48594,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757357322588,
-    "value": 61.0,
+    "value": 31.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -48738,7 +48738,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757357822588,
-    "value": 114.0,
+    "value": 56.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -48972,7 +48972,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757357822588,
-    "value": 108.0,
+    "value": 54.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -49206,7 +49206,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757357822588,
-    "value": 72.0,
+    "value": 35.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -49440,7 +49440,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757357822588,
-    "value": 62.0,
+    "value": 31.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -49629,7 +49629,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757357822588,
-    "value": 70.0,
+    "value": 35.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -49728,7 +49728,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757357822588,
-    "value": 65.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -49827,7 +49827,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757357822588,
-    "value": 70.0,
+    "value": 35.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -49971,7 +49971,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757357822588,
-    "value": 67.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -50160,7 +50160,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757358322588,
-    "value": 124.0,
+    "value": 61.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -50394,7 +50394,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757358322588,
-    "value": 84.0,
+    "value": 42.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -50583,7 +50583,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757358322588,
-    "value": 112.0,
+    "value": 55.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -50772,7 +50772,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757358322588,
-    "value": 66.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -50916,7 +50916,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757358322588,
-    "value": 92.0,
+    "value": 47.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -51105,7 +51105,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757358322588,
-    "value": 74.0,
+    "value": 27.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -51294,7 +51294,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757358322588,
-    "value": 68.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -51438,7 +51438,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757358322588,
-    "value": 67.0,
+    "value": 34.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -51627,7 +51627,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757358822588,
-    "value": 174.0,
+    "value": 86.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -51861,7 +51861,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757358822588,
-    "value": 74.0,
+    "value": 36.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -52050,7 +52050,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757358822588,
-    "value": 66.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -52239,7 +52239,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757358822588,
-    "value": 68.0,
+    "value": 34.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -52383,7 +52383,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757358822588,
-    "value": 78.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -52572,7 +52572,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757358822588,
-    "value": 79.0,
+    "value": 38.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -52716,7 +52716,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757358822588,
-    "value": 77.0,
+    "value": 39.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -52860,7 +52860,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757358822588,
-    "value": 64.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -52959,7 +52959,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757359322588,
-    "value": 145.0,
+    "value": 72.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -53238,7 +53238,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757359322588,
-    "value": 105.0,
+    "value": 51.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -53472,7 +53472,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757359322588,
-    "value": 64.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -53661,7 +53661,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757359322588,
-    "value": 64.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -53850,7 +53850,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757359322588,
-    "value": 98.0,
+    "value": 46.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -54129,7 +54129,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757359322588,
-    "value": 82.0,
+    "value": 42.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -54408,7 +54408,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757359322588,
-    "value": 79.0,
+    "value": 36.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -54642,7 +54642,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757359322588,
-    "value": 72.0,
+    "value": 38.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -54876,7 +54876,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757359822588,
-    "value": 130.0,
+    "value": 64.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -55110,7 +55110,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757359822588,
-    "value": 94.0,
+    "value": 46.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -55299,7 +55299,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757359822588,
-    "value": 62.0,
+    "value": 31.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -55488,7 +55488,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757359822588,
-    "value": 60.0,
+    "value": 30.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -55677,7 +55677,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757359822588,
-    "value": 81.0,
+    "value": 40.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -55866,7 +55866,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757359822588,
-    "value": 74.0,
+    "value": 36.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -56055,7 +56055,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757359822588,
-    "value": 60.0,
+    "value": 30.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -56154,7 +56154,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757359822588,
-    "value": 60.0,
+    "value": 30.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -56298,7 +56298,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757360322588,
-    "value": 138.0,
+    "value": 73.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -56577,7 +56577,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757360322588,
-    "value": 119.0,
+    "value": 60.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -56811,7 +56811,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757360322588,
-    "value": 70.0,
+    "value": 37.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -57090,7 +57090,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757360322588,
-    "value": 65.0,
+    "value": 34.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -57279,7 +57279,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757360322588,
-    "value": 112.0,
+    "value": 55.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -57468,7 +57468,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757360322588,
-    "value": 83.0,
+    "value": 37.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -57657,7 +57657,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757360322588,
-    "value": 89.0,
+    "value": 44.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -57846,7 +57846,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757360322588,
-    "value": 61.0,
+    "value": 31.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -58035,7 +58035,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757360822588,
-    "value": 150.0,
+    "value": 74.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -58269,7 +58269,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757360822588,
-    "value": 110.0,
+    "value": 55.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -58503,7 +58503,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757360822588,
-    "value": 71.0,
+    "value": 36.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -58692,7 +58692,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757360822588,
-    "value": 84.0,
+    "value": 44.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -58926,7 +58926,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757360822588,
-    "value": 92.0,
+    "value": 46.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -59160,7 +59160,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757360822588,
-    "value": 79.0,
+    "value": 40.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -59349,7 +59349,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757360822588,
-    "value": 80.0,
+    "value": 38.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -59538,7 +59538,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757360822588,
-    "value": 71.0,
+    "value": 36.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -59727,7 +59727,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757361322588,
-    "value": 142.0,
+    "value": 70.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -59916,7 +59916,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757361322588,
-    "value": 127.0,
+    "value": 52.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -60105,7 +60105,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757361322588,
-    "value": 72.0,
+    "value": 36.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -60294,7 +60294,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757361322588,
-    "value": 62.0,
+    "value": 31.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -60393,7 +60393,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757361322588,
-    "value": 105.0,
+    "value": 49.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -60582,7 +60582,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757361322588,
-    "value": 106.0,
+    "value": 51.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -60816,7 +60816,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757361322588,
-    "value": 70.0,
+    "value": 35.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -60960,7 +60960,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757361322588,
-    "value": 64.0,
+    "value": 32.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -61149,7 +61149,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757361822588,
-    "value": 156.0,
+    "value": 86.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -61473,7 +61473,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757361822588,
-    "value": 115.0,
+    "value": 59.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -61797,7 +61797,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757361822588,
-    "value": 109.0,
+    "value": 59.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -62121,7 +62121,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757361822588,
-    "value": 72.0,
+    "value": 40.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -62445,7 +62445,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757361822588,
-    "value": 102.0,
+    "value": 52.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -62679,7 +62679,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757361822588,
-    "value": 95.0,
+    "value": 48.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -62958,7 +62958,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757361822588,
-    "value": 74.0,
+    "value": 43.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -63192,7 +63192,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757361822588,
-    "value": 71.0,
+    "value": 40.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -63471,7 +63471,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757362322588,
-    "value": 160.0,
+    "value": 84.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -63795,7 +63795,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757362322588,
-    "value": 98.0,
+    "value": 49.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -64119,7 +64119,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757362322588,
-    "value": 82.0,
+    "value": 43.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -64398,7 +64398,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757362322588,
-    "value": 67.0,
+    "value": 36.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -64632,7 +64632,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757362322588,
-    "value": 91.0,
+    "value": 45.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -64956,7 +64956,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757362322588,
-    "value": 89.0,
+    "value": 56.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -65235,7 +65235,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757362322588,
-    "value": 92.0,
+    "value": 54.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -65514,7 +65514,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757362322588,
-    "value": 74.0,
+    "value": 42.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
@@ -65748,7 +65748,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757362822588,
-    "value": 208.0,
+    "value": 38.0,
     "tid": -1,
     "pid": 0,
     "cid": 0
@@ -66072,7 +66072,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757362822588,
-    "value": 142.0,
+    "value": 45.0,
     "tid": -1,
     "pid": 0,
     "cid": 1
@@ -66396,7 +66396,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757362822588,
-    "value": 216.0,
+    "value": 64.0,
     "tid": -1,
     "pid": 0,
     "cid": 2
@@ -66810,7 +66810,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757362822588,
-    "value": 162.0,
+    "value": 44.0,
     "tid": -1,
     "pid": 0,
     "cid": 3
@@ -67269,7 +67269,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757362822588,
-    "value": 227.0,
+    "value": 39.0,
     "tid": -1,
     "pid": 0,
     "cid": 4
@@ -67683,7 +67683,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757362822588,
-    "value": 203.0,
+    "value": 34.0,
     "tid": -1,
     "pid": 0,
     "cid": 5
@@ -68007,7 +68007,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757362822588,
-    "value": 252.0,
+    "value": 33.0,
     "tid": -1,
     "pid": 0,
     "cid": 6
@@ -68376,7 +68376,7 @@
     "type": "switch",
     "program": "N/A",
     "time": 635573757362822588,
-    "value": 186.0,
+    "value": 38.0,
     "tid": -1,
     "pid": 0,
     "cid": 7
