@@ -58,7 +58,7 @@
 }
 .detail .two-profiles div.dropdown-menu {
 	min-width: 400px;
-	margin-left: -170px;
+	margin-left: -165px;
 }
 .detail .profile-versus thead tr td:nth-child(1) {
 	text-align: right;
@@ -118,6 +118,10 @@
 .detail .widget-detail {
 	height: 140px;
 }
+.detail .widget-path {
+	min-height: 40px;
+	background: none;
+}
 
 .detail td.container-graph {
 	padding: 0px !important;
@@ -135,6 +139,32 @@
 /*
  * Data
  */
-.detail .clues-list {
+
+/*
+ * Clues
+ */
+.detail .clues .clues-label {
+	cursor: help;
+}
+.detail .clues .clues-list {
 	transition: all 0.2s ease;
+	/*display: none;*/
+	height: 10px;
+	overflow: hidden;
+}
+.detail .clues:hover .clues-list {
+	/*display: block; */
+	height: auto;
+}
+.detail .clues ul.clues-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.detail .clues ul.clues-list li { 
+	padding-left: 1em;
+	text-indent: -1.2em;
+}
+.detail .clues ul.clues-list li:before {
+	content: "▮ ";
 }

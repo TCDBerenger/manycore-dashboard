@@ -1,8 +1,8 @@
 var genericLayout = function() {
-	this.margin	= { top: 10, right: 10, bottom: 20, left: 20 };
-	this.height	= 0;
-	this.width	= 0;
-	this.graph	= {
+	this.margin		= { top: 10, right: 10, bottom: 20, left: 20 };
+	this.height		= 0;
+	this.width		= 0;
+	this.graph		= {
 		layout:	this,
 		width: 	function() { return this.layout.width - this.layout.margin.left - this.layout.margin.right; },
 		height: function() { return this.layout.height - this.layout.margin.top - this.layout.margin.bottom; },
@@ -28,7 +28,7 @@ app.directive('chartBandTick', function() {
 
 		// Data
 		var data = scope.data[attrs.profileid];
-		var dataList = data.migrations.list;
+		var dataList = data[scope.widget.deck[0].cat].list;
 		var timeStart = +attrs.timestart;			// When the user selection starts
 		var timeEnd = +attrs.timeend;				// When the user selection ends (could be before or after timeMax)
 		var timeMax = data.info.duration;
@@ -126,7 +126,7 @@ app.directive('chartBandDensity', function() {
 
 		// Data
 		var data = scope.data[attrs.profileid];
-		var dataList = data.switches;
+		var dataList = data[scope.widget.deck[0].cat];
 		var timeStart = +attrs.timestart;			// When the user selection starts
 		var timeEnd = +attrs.timeend;				// When the user selection ends (could be before or after timeMax)
 		var timeMax = data.info.duration;
@@ -382,6 +382,94 @@ app.directive('chartThreadDivergence', function() {
 	}
 });
 
+app.directive('chartThreadLifetime', function() {
+
+	function chartThreadDivergence_link(scope, element, attrs, controller) {
+		console.log("== directive == chartBandTick ==");
+
+		// Layout
+		var container = element[0];
+		var layout = new genericLayout();
+
+		// Non repaintable layout
+		layout.height = 40;
+		layout.margin.top = 0;
+
+		// Data
+		var data = scope.data[attrs.profileid];
+		var timeStart = +attrs.timestart;			// When the user selection starts
+		var timeEnd = +attrs.timeend;				// When the user selection ends (could be before or after timeMax)
+		var timeMin = 0;
+		var timeMax = data.info.duration;
+		var threadCount = data.info.threadCount;
+
+		// Compute lifetime
+
+
+		// Compute layout
+		layout.lines	= { size: 4, padding: 2 };
+		layout.section	= { height: 20 };
+		layout.height	= layout.margin.top + layout.margin.bottom + 2 * layout.section.height + threadCount * layout.lines.size + (threadCount + 1) * layout.lines.padding;
+
+		// DOM
+		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
+		svg.style("background", "#FFFFFF");
+
+		// Scales
+		var scaleX = d3.scale.linear().rangeRound([layout.graph.left(), layout.graph.right()]);
+
+		// Scales - domains
+		scaleX.domain([timeStart, timeEnd]);
+
+		// Axis
+		var xAxis = d3.svg.axis().scale(scaleX);
+
+		// Draw - lines/box
+
+		// Draw - starts
+
+		// Draw - ends
+
+		// Draw - threads
+
+		// Draw - axis
+		var axisXGroup = svg.append("g")
+				.attr("class", "xAxis")
+				.attr("transform", "translate(0," + (layout.height - layout.margin.bottom) + ")")
+				.call(xAxis);
+
+		// Draw - text
+		var labelElement = svg.append("text")
+			.attr("x", layout.graph.right())
+			.attr("y", layout.graph.bottom())
+			.attr("text-anchor", "end")
+			.attr("font-size", "14px")
+			.text(attrs.title);
+
+		// Redraw
+		var repaint = function repaint() {
+				// Sizes
+				layout.width = container.clientWidth;
+
+				// Scales
+				scaleX.rangeRound([layout.graph.left(), layout.graph.right()]);
+
+				// SVG
+				svg.attr('width', layout.width);
+				axisXGroup.call(xAxis);
+				labelElement.attr("x", layout.graph.right());
+			};
+
+		// Redraw - bind
+		scope.$watch(function() { return container.clientWidth; }, repaint);
+	}
+
+	return {
+		link: chartThreadDivergence_link,
+		restrict: 'E'
+	}
+});
+
 app.directive('chartStats', function() {
 
 	function chartDataStackedbars_link(scope, element, attrs, controller) {
@@ -389,7 +477,7 @@ app.directive('chartStats', function() {
 
 		// Data - set
 		var ids = scope.ids;
-		var set = scope.widget.set;
+		var deck = scope.widget.deck;
 
 		// Data - Copy
 		var data = [];
@@ -399,7 +487,7 @@ app.directive('chartStats', function() {
 			dataElement = [];
 			dataValueSum = 0;
 			dataPreviousValue = 0;
-			set.forEach(function(element) {
+			deck.forEach(function(element) {
 				dataValueSum += scope.data[id].stats[element.cat][element.attr];
 				dataElement.push({
 					attr: element.attr,
@@ -421,7 +509,7 @@ app.directive('chartStats', function() {
 			lineHeight: 33
 		};
 		layout.width = layout.boxes.width * ids.length + layout.boxes.padding;
-		layout.height = layout.lineHeight * set.length;
+		layout.height = layout.lineHeight * deck.length;
 
 		// Vars - paint
 		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
@@ -455,7 +543,7 @@ app.directive('chartStats', function() {
 					return scaleY(d.value);
 				})
 				.style("fill", function (d, i, j) {
-					return set[i].color;
+					return deck[i].color;
 				});
 	};
 

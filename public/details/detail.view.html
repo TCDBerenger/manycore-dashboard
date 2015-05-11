@@ -72,7 +72,7 @@
 		</span>
 		<span ng-if="profiles.length > 1">{{profiles[0].label}}</span>
 
-		<div class="row profile" ng-repeat="widget in meta.widgets">
+		<div class="row profile" ng-repeat="(iw, widget) in meta.widgets">
 			<div class="col-xs-{{layout.col.graph}} profile-graph">
 				<div class="profile-title">
 					<h4>{{widget.title}}</h4>
