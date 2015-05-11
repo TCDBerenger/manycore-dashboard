@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
-var VERSION = 20;
+var VERSION = 23;
 
 /************************************************/
 /* Variables									*/
@@ -94,13 +94,20 @@ var profileMap = {
 	 │	 │	 └	c					ID			new core ID
 	 │	 ├	...
 	 │	 └	<?>
-	 ├	lifecycles					[]			array of thread lifecycle events
+	 ├	lifetimes					[]			array of thread lifecycle events
 	 │	 ├	0
 	 │	 │	 ├	t					<integer>	time (real, not corresponding to a time frame)
 	 │	 │	 ├	h					ID			thread ID
 	 │	 │	 └	e					<char>		's' for start, 'e' for end
 	 │	 ├	...
 	 │	 └	<?>
+	 ├	lifecycles					[]			array of thread lifecycle events
+	 │	 ├	<thread0>
+	 │	 │	 ├	s					<integer>	start time (real, not corresponding to a time frame), could be null
+	 │	 │	 ├	m					[]			array of migration (real) times
+	 │	 │	 └	e					<char>		start time (real, not corresponding to a time frame), could be null
+	 │	 ├	...
+	 │	 └	<threadN>
 	 └	stats
 		 ├	timeShift				<float>		time before starting measures (i.e. non interesting computation before this time) /!\ in pico seconds (10⁻¹²s) /!\ need to be divided by 10⁹
 		 └	switch					<integer>	number of switches for all cores during all run
@@ -182,7 +189,8 @@ function computeData(id, raw1, raw2, profile) {
 		},
 		frames: {},
 		migrations: [],
-		lifecycles: [],
+		lifetimes: [],
+		lifecycle: {},
 		threads: {
 			byFrames: {}
 		}
@@ -308,6 +316,11 @@ function computeData(id, raw1, raw2, profile) {
 					c: element.cid
 				});
 
+				// Save lifecycle
+				if (! data.lifecycle.hasOwnProperty(element.tid)) data.lifecycle[element.tid] = { s: null, e: null, m: []};
+				data.lifecycle[element.tid].m.push(timeEvent);
+				data.lifecycle[element.tid].m.sort(function(a, b){return a - b});
+
 				// Save new attached core
 				coreThreads[element.tid] = element.cid;
 			}
@@ -329,12 +342,15 @@ function computeData(id, raw1, raw2, profile) {
 			else data.frames[timeID][property]++;
 
 			// Save start
-			data.lifecycles.push({
+			data.lifetimes.push({
 				t: timeEvent,
 				h: element.tid,
 				e: element.type[0]
 			});
 
+			// Save lifecycle
+			if (! data.lifecycle.hasOwnProperty(element.tid)) data.lifecycle[element.tid] = { s: null, e: null, m: []};
+			data.lifecycle[element.tid][element.type[0]] = timeEvent;
 		}
 		
 	});
@@ -381,6 +397,12 @@ function unloadData(id) {
 	 │	 │	 └	c				<integer>	number of cycles
 	 │	 │	...
 	 │	 └	<timeMax>
+	 ├	lifetimes
+	 │	 ├	list				<array>		list of migrations
+	 │	 │	 ├	0
+	 │	 │	 │	 └	t			<integer>	time in ms (10⁻³s), identiral to frame<id>
+	 │	 │	 │	...
+	 │	 │	 └	<info.threadCount * 2>
 	 ├	migrations
 	 │	 ├	list				<array>		list of migrations
 	 │	 │	 ├	0
@@ -514,6 +536,21 @@ function addMigrations(output, id) {
 	// Stats
 	output.stats.migrations = {
 		m: data.stats.migrations
+	};
+}
+
+/**
+ * Add lifetimes
+ */
+function addLifetimes(output, id) {
+	// Init vars
+	var data			= profileData[id];
+	output.lifetimes	= {
+		list: data.lifecycle
+	};
+
+	// Stats
+	output.stats.lifetimes = {
 	};
 }
 
@@ -770,6 +807,7 @@ function jsonTest(id) {
 
 	// Computation
 	addCycles(output, id);
+	addLifetimes(output, id);
 	addMigrations(output, id);
 	addStates(output, id);
 	addSwitches(output, id);
@@ -815,10 +853,12 @@ function jsonTG(id) {
 	// for context switches
 	addMigrations(output, id);
 
+	// for lifetimes
+	addLifetimes(output, id);
+
 	// for potential parallelism
 	addTime(output, id);
 	addStates(output, id);
-
 
 	return output;
 }

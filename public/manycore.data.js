@@ -53,7 +53,7 @@ app.factory('widgets', ['chartSets', 'clues', function(chartSets, clues){
 	output.lockContentions	= {id: 9,	file: 'generic-to-delete',	set: null,					set2: null,				clues: clues.x,				tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
 	output.threadPaths		= {id: 1,	file: 'generic-to-delete',	set: null,					set2: null,				clues: clues.x,				tag: 'thread-paths',		title: 'Single thread execution phases',						subtitle: 'alternating sequential/parallel execution'};
 	output.threadChains		= {id: 2,	file: 'generic-to-delete',	set: null,					set2: null,				clues: clues.x,				tag: 'thread-chains',		title: 'Chains of dependencies',								subtitle: 'synchronisations and waiting between threads'};
-	output.threadRunning	= {id: 3,	file: 'generic-to-delete',	set: null,					set2: null,				clues: clues.x,				tag: 'thread-running',		title: 'Life cycles of threads',								subtitle: 'creation, running, moving between cores, termination'};
+	output.threadLifetime	= {id: 3,	file: 'thread-lifetime',	set: null,					set2: null,				clues: clues.x,				tag: 'thread-running',		title: 'Life cycles of threads',								subtitle: 'creation, running, moving between cores, termination'};
 	output.threadLocks		= {id: 4,	file: 'generic-to-delete',	set: null,					set2: null,				clues: clues.x,				tag: 'thread-locks',		title: 'Waiting for locks',										subtitle: ''};
 	output.threadDivergence	= {id: 6,	file: 'thread-divergence',	set: chartSets.cycles,		set2: chartSets.common,	clues: clues.cycles,		tag: 'thread-divergence',	title: 'Potential parallelism',									subtitle: 'number of running threads compared to number of cores'};
 	output.threadMigrations	= {id: 7,	file: 'thread-migrations',	set: chartSets.migrations,	set2: null,				clues: clues.switches,		tag: 'thread-migrations',	title: 'Thread switching the core on which it is executing',	subtitle: 'thread migrations'};
@@ -65,7 +65,7 @@ app.factory('widgets', ['chartSets', 'clues', function(chartSets, clues){
 app.factory('categories', ['widgets', function(widgets){
 	var tg = {
 		cat: 'tg', label: 'Task granularity', title: 'Task granularity', icon: 'tasks',
-		widgets: [widgets.threadSwitchs, widgets.threadMigrations, widgets.threadRunning, widgets.threadDivergence]
+		widgets: [widgets.threadSwitchs, widgets.threadMigrations, widgets.threadLifetime, widgets.threadDivergence]
 	};
 	var sy = {
 		cat: 'sy', label: 'Synchronisation', title: 'Synchronisation', icon: 'cutlery',
