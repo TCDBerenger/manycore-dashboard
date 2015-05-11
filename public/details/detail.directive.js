@@ -389,7 +389,7 @@ app.directive('chartStats', function() {
 
 		// Data - set
 		var ids = scope.ids;
-		var set = scope.chartSets[attrs.set];
+		var set = scope.widget.set;
 
 		// Data - Copy
 		var data = [];

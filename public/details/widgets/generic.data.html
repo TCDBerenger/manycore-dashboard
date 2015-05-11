@@ -1,0 +1,28 @@
+<table class="table table-striped table-hover">
+	<thead>
+		<tr>
+			<th></th>
+			<th colspan="2" ng-repeat="profile in profiles">{{profile.label}}</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="(i, e) in widget.set | reverse">
+			<td style="text-align: right;">{{e.desc}} <font style="color: {{e.color}}">▮</font></td>
+			<td style="text-align: right;">{{data[profiles[0].id].stats[e.cat][e.attr] | number: 0}} ms</td>
+			<td style="text-align: center;" class="container-graph" rowspan="{{widget.set.length}}" colspan="{{profiles.length}}" ng-if="i == 0">
+				<chart-stats class="integrated-graph"></chart-stats>
+			</td>
+			<td style="text-align: right;" ng-if="profiles.length >= 2">{{data[profiles[1].id].stats[e.cat][e.attr] | number: 0}} ms</td>
+		</tr>
+		<tr ng-if="widget.set2" ng-repeat="(i, e) in widget.set2">
+			<td style="text-align: right;">{{e.desc}} <font style="color: {{e.color}}">▮</font></td>
+			<td colspan="{{profiles.length * 2}}"></td>
+		</tr>
+	</tbody>
+</table>
+<p ng-model="helpClues" ng-mouseover="helpClues = true" ng-mouseleave="helpClues = false">
+	<span class="label label-primary">help <i class="fa fa-caret-down"></i></span> clues about troubleshooting
+</p>
+<ul class="clues-list list-unstyled" style="font-size: 0.85em;" ng-show="helpClues">
+	<li ng-repeat="c in widget.clues"><font style="color: {{c.color}}">▮</font> <strong>{{c.tax}}</strong>: {{c.text}}</li>
+</ul>

@@ -17,23 +17,6 @@
 	margin-bottom: 60px;
 }
 
-.detail .profile-hardware:hover > .dropdown-menu {
-	display: block;
-}
-.detail .profile-hardware .profile-carret {
-	padding-left: 6px;
-}
-.detail .profile-hardware-menu {
-	min-width: 280px;
-	margin-top: 2px;
-}
-.detail .profile-hardware-menu .list-group-item h5 + p {
-	padding-top: 4px;
-}
-.detail .profile-hardware-menu b {
-	padding-left: 10px;
-}
-
 
 .detail .profile .profile-graph {
 	min-height: 60px;
@@ -55,48 +38,65 @@
 /*
  * Profile versus
  */
-.detail .profile-hardware-versus {
-	min-width: 400px;
-	margin-top: 2px;
-	margin-left: -190px;
+.detail .profile-versus:hover > .dropdown-menu {
+	display: block;
 }
-.detail .profile-hardware-versus thead tr td:nth-child(1) {
+.detail .profile-versus a.dropdown-toggle {
+	margin-left: 6px;
+	margin-right: 6px;
+	text-decoration: none;
+}
+.detail .profile-versus a.dropdown-toggle i {
+	padding-left: 6px;
+}
+.detail .profile-versus div.dropdown-menu {
+	margin-top: 2px;
+}
+.detail .one-profile div.dropdown-menu {
+	min-width: 200px;
+	margin-left: -130px;
+}
+.detail .two-profiles div.dropdown-menu {
+	min-width: 400px;
+	margin-left: -170px;
+}
+.detail .profile-versus thead tr td:nth-child(1) {
 	text-align: right;
 }
-.detail .profile-hardware-versus thead tr td:nth-child(3) {
+.detail .profile-versus thead tr td:nth-child(3) {
 	text-align: left;
 }
-.detail .profile-hardware-versus tbody tr.info td {
+.detail .profile-versus tbody tr.info td {
 	text-align: center !important;
 	font-weight: bold;
 }
-.detail .profile-hardware-versus tbody td:nth-child(1) {
+.detail .profile-versus tbody td:nth-child(1) {
 	text-align: right;
 }
-.detail .profile-hardware-versus tbody td:nth-child(2) {
+.detail .profile-versus tbody td:nth-child(2) {
 	text-align: center;
 	font-weight: bold;
 }
-.detail .profile-hardware-versus tbody td:nth-child(3) {
+.detail .profile-versus tbody td:nth-child(3) {
 	text-align: left;
 }
 
-.detail .profile-hardware-versus tbody td:nth-child(2) span:before {	content: "(";	}
-.detail .profile-hardware-versus tbody td:nth-child(2) span:after {		content: ")";	}
-.detail .profile-hardware-versus tbody td:nth-child(2) span {
+.detail .profile-versus tbody td:nth-child(2) span:before {	content: "(";	}
+.detail .profile-versus tbody td:nth-child(2) span:after {		content: ")";	}
+.detail .profile-versus tbody td:nth-child(2) span {
 	font-size: 0.8em;
 	font-weight: 400;
 }
 
-.detail .profile-hardware-versus tbody td:nth-child(1) span {
+.detail .profile-versus tbody td:nth-child(1) span {
 	float: left;
 	font-weight: bold;
 }
-.detail .profile-hardware-versus tbody td:nth-child(3) span {
+.detail .profile-versus tbody td:nth-child(3) span {
 	float: right;
 	font-weight: bold;
 }
-.detail .profile-hardware-versus tbody td font {
+.detail .profile-versus tbody td font {
 	color: #797979;
 }
 
@@ -130,4 +130,11 @@
 	min-height: 33px;
 	width: 100%;
 	display: block;
+}
+
+/*
+ * Data
+ */
+.detail .clues-list {
+	transition: all 0.2s ease;
 }
