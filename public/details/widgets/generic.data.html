@@ -8,11 +8,11 @@
 	<tbody>
 		<tr ng-repeat="(i, e) in widget.set | reverse">
 			<td style="text-align: right;">{{e.desc}} <font style="color: {{e.color}}">▮</font></td>
-			<td style="text-align: right;">{{data[profiles[0].id].stats[e.cat][e.attr] | number: 0}} ms</td>
+			<td style="text-align: right;">{{data[profiles[0].id].stats[e.cat][e.attr] | number: 0}}{{e.unity != null | iif : ' ' + e.unity : ''}}</td>
 			<td style="text-align: center;" class="container-graph" rowspan="{{widget.set.length}}" colspan="{{profiles.length}}" ng-if="i == 0">
 				<chart-stats class="integrated-graph"></chart-stats>
 			</td>
-			<td style="text-align: right;" ng-if="profiles.length >= 2">{{data[profiles[1].id].stats[e.cat][e.attr] | number: 0}} ms</td>
+			<td style="text-align: right;" ng-if="profiles.length >= 2">{{data[profiles[1].id].stats[e.cat][e.attr] | number: 0}}{{e.unity != null | iif : ' ' + e.unity : ''}}</td>
 		</tr>
 		<tr ng-if="widget.set2" ng-repeat="(i, e) in widget.set2">
 			<td style="text-align: right;">{{e.desc}} <font style="color: {{e.color}}">▮</font></td>

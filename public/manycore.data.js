@@ -8,17 +8,21 @@ app.factory('chartColours', [function(){
 }]);
 
 app.factory('chartSets', ['chartColours', function(chartColours){
-	
+
 	return {
 		common: [
-			{ cat: '', attr: '',	title: 'capacity',		desc: 'capacity',	color: chartColours.available }
+			{ title: 'capacity',	desc: 'capacity',	unity: null,	cat: '',			attr: '',	color: chartColours.available }
 		],
 		cycles: [
-			{ cat: 'times',	attr: 'r',	title: 'running',	desc: 'running',	color: chartColours.good },
-			{ cat: 'times',	attr: 'ys',		title: 'ready',		desc: 'ready',		color: chartColours.bad }
+			{ title: 'running',		desc: 'running',	unity: 'ms',	cat: 'times',		attr: 'r',	color: chartColours.good },
+			{ title: 'ready',		desc: 'ready',		unity: 'ms',	cat: 'times',		attr: 'ys',	color: chartColours.bad }
 		],
-		switches: 	[{ cat: 'switches',		attr: 's',	title: 'switches',		desc: 'switches',	color: chartColours.generic }],
-		migrations: [{ cat: 'migrations',	attr: 'm',	title: 'migrations',	desc: 'migrations',	color: chartColours.generic }]
+		switches: 	[
+			{ title: 'switches',	desc: 'switches',	unity: null,	cat: 'switches',	attr: 's',	color: chartColours.generic }
+		],
+		migrations: [
+			{ title: 'migrations',	desc: 'migrations',	unity: null,	cat: 'migrations',	attr: 'm',	color: chartColours.generic }
+		]
 	};
 }]);
 
