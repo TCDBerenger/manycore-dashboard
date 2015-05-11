@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
-var VERSION = 19;
+var VERSION = 20;
 
 /************************************************/
 /* Variables									*/
@@ -14,19 +14,19 @@ var VERSION = 19;
 		- treatThreadStatesByFrame		<boolean>
 */
 var profileMap = {
-	1:	{ file: 'matmulijk', 	program: 'MatmulIJK',	timeStep: 50, availableCores: 8 },
-	2:	{ file: 'matmulkij', 	program: 'MatmulKIJ',	timeStep: 50, availableCores: 8 },
-	3:	{ file: 'matmulkji', 	program: 'MatmulKJI',	timeStep: 50, availableCores: 8 },
-	4:	{ file: 'particles', 	program: 'Matmul',		timeStep: 50, availableCores: 8 },
-	5:	{ file: 'accountb',		program: 'Matmul',		timeStep: 50, availableCores: 8 },
-	6:	{ file: 'computepi',	program: 'ComputePi',	timeStep: 50, availableCores: 8 },
-	7:	{ file: 'mandelbrot',	program: 'Mandelbrot',	timeStep: 50, availableCores: 8 },
-	8:	{ file: 'nqueens',		program: 'NQueens',		timeStep: 50, availableCores: 8 },
-	9:	{ file: 'raytracer',	program: 'RayTracer',	timeStep: 50, availableCores: 8 },
- 	10:	{ file: 'accounta',		program: 'Matmul',		timeStep: 50, availableCores: 8 },
- 	11:	{ file: 'mergesortp',	program: 'Matmul',		timeStep: 50, availableCores: 8 },
- 	12:	{ file: 'mergesorts',	program: 'Matmul',		timeStep: 50, availableCores: 8 },
- 	13:	{ file: 'particlep',	program: 'Matmul',		timeStep: 50, availableCores: 8 }
+	1:	{ file: 'matmulijk', 	pid: 6396,	program: 'MatmulIJK',	timeStep: 50, availableCores: 8 },
+	2:	{ file: 'matmulkij', 	pid: 3904,	program: 'MatmulKIJ',	timeStep: 50, availableCores: 8 },
+	3:	{ file: 'matmulkji', 	pid: 1788,	program: 'MatmulKJI',	timeStep: 50, availableCores: 8 },
+	4:	{ file: 'particles', 	pid: 10460,	program: 'Matmul',		timeStep: 50, availableCores: 8 },
+	5:	{ file: 'accountb',		pid: 11300,	program: 'Matmul',		timeStep: 50, availableCores: 8 },
+	6:	{ file: 'computepi',	pid: 6568,	program: 'ComputePi',	timeStep: 50, availableCores: 8 },
+	7:	{ file: 'mandelbrot',	pid: 7484,	program: 'Mandelbrot',	timeStep: 50, availableCores: 8 },
+	8:	{ file: 'nqueens',		pid: 3120,	program: 'NQueens',		timeStep: 50, availableCores: 8 },
+	9:	{ file: 'raytracer',	pid: 7500,	program: 'RayTracer',	timeStep: 50, availableCores: 8 },
+ 	10:	{ file: 'accounta',		pid: 11360,	program: 'Matmul',		timeStep: 50, availableCores: 8 },
+ 	11:	{ file: 'mergesortp',	pid: 9148,	program: 'Matmul',		timeStep: 50, availableCores: 8 },
+ 	12:	{ file: 'mergesorts',	pid: 7272,	program: 'Matmul',		timeStep: 50, availableCores: 8 },
+ 	13:	{ file: 'particlep',	pid: 4532,	program: 'Matmul',		timeStep: 50, availableCores: 8 }
 };
 
 
@@ -78,11 +78,27 @@ var profileMap = {
 	 │	 │	 │	 └	<?>
 	 │	 │	 ├	switches 			<integer>	number of switches
 	 │	 │	 ├	migrations 			<integer>	number of migrations
+	 │	 │	 ├	starts 				<integer>	number of thread starts
+	 │	 │	 ├	ends 				<integer>	number of thread ends
 	 │	 │	 ├	cycles				<integer>	number of cycles
 	 │	 │	 ├	ready				<integer>	duration of ready state
 	 │	 │	 ├	running				<integer>	duration of running state
 	 │	 │	 ├	standby				<integer>	duration of standby state
 	 │	 │	 └	wait				<integer>	duration of wait state
+	 │	 ├	...
+	 │	 └	<?>
+	 ├	migrations					[]			array of migration events
+	 │	 ├	0
+	 │	 │	 ├	t					<integer>	time (real, not corresponding to a time frame)
+	 │	 │	 ├	h					ID			thread ID
+	 │	 │	 └	c					ID			new core ID
+	 │	 ├	...
+	 │	 └	<?>
+	 ├	lifecycles					[]			array of thread lifecycle events
+	 │	 ├	0
+	 │	 │	 ├	t					<integer>	time (real, not corresponding to a time frame)
+	 │	 │	 ├	h					ID			thread ID
+	 │	 │	 └	e					<char>		's' for start, 'e' for end
 	 │	 ├	...
 	 │	 └	<?>
 	 └	stats
@@ -151,7 +167,6 @@ function computeData(id, raw1, raw2, profile) {
 	var data = {
 		info: {
 			version:		VERSION,
-			program:		profile.program,
 			cores:			profile.availableCores,
 			timeShift:		raw1[0].time,
 			timeStep:		profile.timeStep,
@@ -161,10 +176,13 @@ function computeData(id, raw1, raw2, profile) {
 		},
 		stats: {
 			switches:		0,
-			migrations:		0
+			migrations:		0,
+			starts:			0,
+			ends:			0
 		},
 		frames: {},
 		migrations: [],
+		lifecycles: [],
 		threads: {
 			byFrames: {}
 		}
@@ -188,7 +206,7 @@ function computeData(id, raw1, raw2, profile) {
 		data.info.timeMax = Math.max(data.info.timeMax, timeID);
 
 		// Thread treatment
-		if (element.program == profile.program) {
+		if (element.pid == profile.pid) {
 			// Auto build structure
 			if (! data.threads.byFrames.hasOwnProperty(timeID)) data.threads.byFrames[timeID] = {};
 			if (! data.threads.byFrames[timeID].hasOwnProperty(element.tid)) data.threads.byFrames[timeID][element.tid] = {};
@@ -202,7 +220,7 @@ function computeData(id, raw1, raw2, profile) {
 		}
 
 		// Frame treatment
-		if (element.program == profile.program) {
+		if (element.pid == profile.pid) {
 			// Auto build structure
 			if (! data.frames.hasOwnProperty(timeID)) data.frames[timeID] = { t:{}, c:{} };
 			if (! data.frames[timeID].hasOwnProperty(element.type)) data.frames[timeID][element.type] = 0;
@@ -250,6 +268,7 @@ function computeData(id, raw1, raw2, profile) {
 	 */
 	// Vars
 	var coreThreads = {};
+	var property;
 
 	// Loop
 	raw2.forEach(function(element) {
@@ -259,21 +278,21 @@ function computeData(id, raw1, raw2, profile) {
 		timeID = Math.floor(timeEvent / data.info.timeStep) * data.info.timeStep;
 
 		// Switch
-		if (element.type == "sw" && element.program == profile.program) {
+		if (element.type == "sw" && element.pid == profile.pid) {
 			// Auto build structure
 			if (! coreThreads.hasOwnProperty(element.tid)) coreThreads[element.tid] = element.cid;
 
-			// Switch or migration ?
-			if (coreThreads[element.tid] == element.cid) {
-				// Switch
-				data.stats.switches++;
+			// Switch
+			data.stats.switches++;
 
-				// Add a switch
-				if (! data.frames.hasOwnProperty(timeID)) data.frames[timeID] = { };
-				if (! data.frames[timeID].hasOwnProperty("switches")) data.frames[timeID].switches = 0;
-				data.frames[timeID].switches++;
+			// Add a switch
+			if (! data.frames.hasOwnProperty(timeID)) data.frames[timeID] = { switches: 1 };
+			else if (! data.frames[timeID].hasOwnProperty("switches")) data.frames[timeID].switches = 1;
+			else data.frames[timeID].switches++;
 
-			} else {
+
+			// Switch for migration
+			if (coreThreads[element.tid] != element.cid) {
 				// Migration
 				data.stats.migrations++;
 
@@ -292,6 +311,29 @@ function computeData(id, raw1, raw2, profile) {
 				// Save new attached core
 				coreThreads[element.tid] = element.cid;
 			}
+
+		}
+
+		// Lifecycle
+		else if ((element.type == "start" || element.type == "end") && element.pid == profile.pid) {
+
+			// Which case ?
+			property = element.type + "s";
+
+			// Start
+			data.stats[property]++;
+
+			// Add a start with auto build structure
+			if (! data.frames.hasOwnProperty(timeID)) data.frames[timeID] = {};
+			if (! data.frames[timeID].hasOwnProperty(property)) data.frames[timeID][property] = 1;
+			else data.frames[timeID][property]++;
+
+			// Save start
+			data.lifecycles.push({
+				t: timeEvent,
+				h: element.tid,
+				e: element.type[0]
+			});
 
 		}
 		
