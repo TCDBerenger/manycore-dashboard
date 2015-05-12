@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
-var VERSION = 23;
+var VERSION = 24;
 
 /************************************************/
 /* Variables									*/
@@ -104,7 +104,7 @@ var profileMap = {
 	 ├	lifecycles					[]			array of thread lifecycle events
 	 │	 ├	<thread0>
 	 │	 │	 ├	s					<integer>	start time (real, not corresponding to a time frame), could be null
-	 │	 │	 ├	m					[]			array of migration (real) times
+	 │	 │	 ├	m					[]			array of migration /!\ unique /!\ (real) times (only one migration appears for 1 ms, so some migrations are missing)
 	 │	 │	 └	e					<char>		start time (real, not corresponding to a time frame), could be null
 	 │	 ├	...
 	 │	 └	<threadN>
@@ -318,8 +318,10 @@ function computeData(id, raw1, raw2, profile) {
 
 				// Save lifecycle
 				if (! data.lifecycle.hasOwnProperty(element.tid)) data.lifecycle[element.tid] = { s: null, e: null, m: []};
-				data.lifecycle[element.tid].m.push(timeEvent);
-				data.lifecycle[element.tid].m.sort(function(a, b){return a - b});
+				if (data.lifecycle[element.tid].m[data.lifecycle[element.tid].m.length - 1] != timeEvent) {
+					data.lifecycle[element.tid].m.push(timeEvent);
+					data.lifecycle[element.tid].m.sort(function(a, b){return a - b});
+				}
 
 				// Save new attached core
 				coreThreads[element.tid] = element.cid;
@@ -398,9 +400,12 @@ function unloadData(id) {
 	 │	 │	...
 	 │	 └	<timeMax>
 	 ├	lifetimes
-	 │	 ├	list				<array>		list of migrations
+	 │	 ├	list				<array>		list of migrations, ordered by start time
 	 │	 │	 ├	0
-	 │	 │	 │	 └	t			<integer>	time in ms (10⁻³s), identiral to frame<id>
+	 │	 │	 │	 └	h			ID	thread ID
+	 │	 │	 │	 └	s			<integer>	start time in ms (10⁻³s), real time, not a time frame
+	 │	 │	 │	 └	m			[]			array of time migrations, ordered by time, real time, not a time frame
+	 │	 │	 │	 └	e			<integer>	end time in ms (10⁻³s), real time, not a time frame
 	 │	 │	 │	...
 	 │	 │	 └	<info.threadCount * 2>
 	 ├	migrations
@@ -471,7 +476,8 @@ function addCommon(output, id) {
 		timeMin:		data.info.timeMin,
 		timeMax:		data.info.timeMax,
 		duration:		data.info.timeMax + data.info.timeStep,
-		threadCount:	data.info.threadCount
+		threadCount:	data.info.threadCount,
+		threads:		[]
 	};
 	output.stats = {
 	    s:	data.stats.switches,
@@ -482,6 +488,18 @@ function addCommon(output, id) {
 		s:	data.stats.standby,
 		w:	data.stats.wait
 	};
+
+	// Threads
+	for(var h in data.lifecycle) {
+		output.info.threads.push({
+			h: +h,
+			s: data.lifecycle[h].s,
+			e: data.lifecycle[h].e,
+		});
+	};
+
+	// Sort - by start time
+	output.info.threads.sort(function(a, b){return a.s - b.s});
 }
 
 /**
@@ -546,8 +564,32 @@ function addLifetimes(output, id) {
 	// Init vars
 	var data			= profileData[id];
 	output.lifetimes	= {
-		list: data.lifecycle
+		list: []
 	};
+
+	var m_complete;
+	for(var h in data.lifecycle) {
+		m_complete = data.lifecycle[h].m.slice(0);
+		// Remove start
+		if (m_complete[0] ==  data.lifecycle[h].s)						m_complete.shift();
+		// Remove end
+		if (m_complete[m_complete.length - 1] ==  data.lifecycle[h].e)	m_complete.pop();
+
+		// Add start
+		// if (m_complete[0] !=  data.lifecycle[h].s)						m_complete.unshift(data.lifecycle[h].s);
+		// Add end
+		// if (m_complete[m_complete.length - 1] !=  data.lifecycle[h].e)	m_complete.push(data.lifecycle[h].e);
+
+		output.lifetimes.list.push({
+			h: +h,
+			s: data.lifecycle[h].s,
+			m: m_complete,
+			e: data.lifecycle[h].e,
+		});
+	};
+
+	// Sort - by start time
+	output.lifetimes.list.sort(function(a, b){return a.s - b.s});
 
 	// Stats
 	output.stats.lifetimes = {

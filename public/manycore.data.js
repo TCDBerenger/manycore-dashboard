@@ -1,5 +1,6 @@
 app.factory('colours', [function(){
 	return {
+		unkn:	'#000000',		// unkown color
 		base:	'#797979',		// generic color
 		plus:	'#9ED3FF',		// plus, capacity, more possible
 		good:	'#8DD28A',		// correctly running
@@ -23,6 +24,9 @@ app.factory('decks', ['colours', function(colours){
 		],
 		migrations: [
 			{ title: 'migrations',	desc: 'migrations',	unity: null,	cat: 'migrations',	attr: 'm',	color: colours.base }
+		],
+		lifetime: [
+			{ title: 'migrations',	desc: 'migrations',	unity: null,	cat: 'migrations',	attr: 'm',	color: colours.base,	color2: colours.alt }
 		]
 	};
 }]);
@@ -33,14 +37,21 @@ app.factory('clues', ['colours', function(colours){
 			{ color: colours.bad,	tax: 'Oversubscription', 							text: 'too many threads' },
 			{ color: colours.bad,	tax: 'Thread migrations', 							text: 'too many threads' },
 			{ color: colours.bad,	tax: 'Bad thread to core ratio', 					text: 'too many threads' },
-			{ color: colours.plus,	tax: 'Underscubscription', 							text: 'not enough threads' },
+			{ color: colours.plus,	tax: 'Underscubscription', 							text: 'not enough threads' }
 		],
 		switches: 	[
-			{ color: colours.base,	tax: 'Oversubscription',							text: 'high frequency' },
+			{ color: colours.base,	tax: 'Oversubscription',							text: 'high frequency' }
 		],
 		migrations: [
 			{ color: colours.base,	tax: 'Thread migrations',							text: 'too many migrations' },
-			{ color: colours.base,	tax: 'Alternating sequential/parallel execution',	text: 'alternating period of high and low thread migrations' },
+			{ color: colours.base,	tax: 'Alternating sequential/parallel execution',	text: 'alternating period of high and low thread migrations' }
+		],
+		lifetime: [
+			{ color: colours.unkn,	tax: 'Task start/stop overhead',					text: 'too many creations' },
+			{ color: colours.alt,	tax: 'Oversubscription',							text: 'too many threads' },
+			{ color: colours.base,	tax: 'Thread migrations',							text: 'too many threads' },
+			{ color: colours.alt,	tax: 'Thread migrations',							text: 'too many migrations' },
+			{ color: colours.unkn,	tax: 'Task start/stop overhead',					text: 'too short lifetime' }
 		]
 	};
 }]);
@@ -54,7 +65,7 @@ app.factory('widgets', ['decks', 'clues', function(decks, clues){
 	output.lockContentions	= {id: 9,	file: 'generic-to-delete',	deck: null,				deck2: null,			clues: null,				tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
 	output.threadPaths		= {id: 1,	file: 'generic-to-delete',	deck: null,				deck2: null,			clues: null,				tag: 'thread-paths',		title: 'Single thread execution phases',						subtitle: 'alternating sequential/parallel execution'};
 	output.threadChains		= {id: 2,	file: 'generic-to-delete',	deck: null,				deck2: null,			clues: null,				tag: 'thread-chains',		title: 'Chains of dependencies',								subtitle: 'synchronisations and waiting between threads'};
-	output.threadLifetime	= {id: 3,	file: 'thread-lifetime',	deck: null,				deck2: null,			clues: null,				tag: 'thread-running',		title: 'Life cycles of threads',								subtitle: 'creation, running, moving between cores, termination'};
+	output.threadLifetime	= {id: 3,	file: 'thread-lifetime',	deck: decks.lifetime,	deck2: null,			clues: clues.lifetime,		tag: 'thread-running',		title: 'Life cycles of threads',								subtitle: 'creation, running, moving between cores, termination'};
 	output.threadLocks		= {id: 4,	file: 'generic-to-delete',	deck: null,				deck2: null,			clues: null,				tag: 'thread-locks',		title: 'Waiting for locks',										subtitle: ''};
 	output.threadDivergence	= {id: 6,	file: 'thread-divergence',	deck: decks.cycles,		deck2: decks.common,	clues: clues.cycles,		tag: 'thread-divergence',	title: 'Potential parallelism',									subtitle: 'number of running threads compared to number of cores'};
 	output.threadMigrations	= {id: 7,	file: 'thread-migrations',	deck: decks.migrations,	deck2: null,			clues: clues.switches,		tag: 'thread-migrations',	title: 'Thread switching the core on which it is executing',	subtitle: 'thread migrations'};

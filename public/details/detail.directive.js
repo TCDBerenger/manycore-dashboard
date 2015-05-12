@@ -385,7 +385,7 @@ app.directive('chartThreadDivergence', function() {
 app.directive('chartThreadLifetime', function() {
 
 	function chartThreadDivergence_link(scope, element, attrs, controller) {
-		console.log("== directive == chartBandTick ==");
+		console.log("== directive == chartThreadLifetime ==");
 
 		// Layout
 		var container = element[0];
@@ -397,19 +397,24 @@ app.directive('chartThreadLifetime', function() {
 
 		// Data
 		var data = scope.data[attrs.profileid];
+		var dataList = data.lifetimes.list
 		var timeStart = +attrs.timestart;			// When the user selection starts
 		var timeEnd = +attrs.timeend;				// When the user selection ends (could be before or after timeMax)
 		var timeMin = 0;
 		var timeMax = data.info.duration;
 		var threadCount = data.info.threadCount;
+		var colors = [scope.widget.deck[0].color, scope.widget.deck[0].color2];
 
 		// Compute lifetime
 
 
 		// Compute layout
-		layout.lines	= { size: 4, padding: 2 };
-		layout.section	= { height: 20 };
-		layout.height	= layout.margin.top + layout.margin.bottom + 2 * layout.section.height + threadCount * layout.lines.size + (threadCount + 1) * layout.lines.padding;
+		layout.lines			= { size: 4, padding: 2 };
+		layout.section			= { height: 20, pad: 8 };
+		layout.height			= layout.margin.top + layout.margin.bottom + 2 * layout.section.height + threadCount * layout.lines.size + (threadCount + 1) * layout.lines.padding;
+		layout.graph.height		= function() { return this.layout.height - this.layout.margin.top - this.layout.margin.bottom - 2 * this.layout.section.height; };
+		layout.graph.top		= function() { return this.layout.margin.top + this.layout.section.height; };
+		layout.graph.bottom		= function() { return this.layout.height - this.layout.margin.bottom - this.layout.section.height; };
 
 		// DOM
 		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
@@ -424,24 +429,100 @@ app.directive('chartThreadLifetime', function() {
 		// Axis
 		var xAxis = d3.svg.axis().scale(scaleX);
 
+		// Draw - groups
+		var startGroup = svg.append("g");
+		var endGroup = svg.append("g");
+		var threadGroup = svg.append("g");
+		var outlineGroup = svg.append("g");
+
 		// Draw - lines/box
+		var outlineTop = outlineGroup.append("line")
+			.attr("class", "outline")
+			.attr("x1", layout.graph.left()).attr("x2", layout.graph.right()) // 🕒 repaintable
+			.attr("y1", layout.graph.top()).attr("y2", layout.graph.top())
+			.attr('stroke', '#000000')
+			.attr('stroke-width', 1)
+			.attr('fill', 'none');
 
 		// Draw - starts
+		var startElements = [];
+		var pad = 0;
+		dataList.forEach(function(m, i, a) {
+			pad = Math.max(pad, m.s);
+			startElements.push(
+				startGroup.append("text")
+					.attr("x", scaleX(pad))
+					.attr("y", (layout.section.height / 2) + layout.margin.top + 5)
+					.attr("text-anchor", "middle")
+					.attr("font-size", "18px")
+					.text("⊕")
+				);
+			pad += layout.section.pad;
+		});
 
 		// Draw - ends
+		var endElements = [];
+		var pad = 0;
+		dataList.forEach(function(m, i, a) {
+			pad = Math.max(pad, m.s);
+			endElements.push(
+				endGroup.append("text")
+					.attr("x", scaleX(pad))
+					.attr("y", layout.graph.bottom() + (layout.section.height / 2) + layout.margin.bottom)
+					.attr("text-anchor", "middle")
+					.attr("font-size", "18px")
+					.text("⊖")
+				);
+			pad += layout.section.pad;
+		});
 
 		// Draw - threads
+		var threadGroups = [];
+		var threadElements, threadBlocks, previousTime, color_i;
+		dataList.forEach(function(t, i, a) {
+			threadElements = threadGroup.append("g")
+				.attr("transform", "translate(0," + (layout.graph.top() + (i + .5) * layout.lines.size + (i + 1) * layout.lines.padding) + ")");
+
+			threadBlocks = [];
+			previousTime = t.s;
+			color_i = 0;
+
+			t.m.forEach(function(m) {
+				threadBlocks.push(
+					threadElements.append("line")
+						.attr("class", "thread")
+						.attr("x1", scaleX(previousTime)).attr("x2", scaleX(m)) // 🕒 repaintable
+						.attr("y1", 0).attr("y2", 0)
+						.attr('stroke', colors[color_i])
+						.attr('stroke-width', layout.lines.size)
+						.attr('fill', 'none')
+					);
+				previousTime = m;
+				color_i = ++color_i % 2;
+			});
+			threadBlocks.push(
+				threadElements.append("line")
+					.attr("class", "thread")
+					.attr("x1", scaleX(previousTime)).attr("x2", scaleX(t.e)) // 🕒 repaintable
+					.attr("y1", 0).attr("y2", 0)
+					.attr('stroke', colors[color_i])
+					.attr('stroke-width', layout.lines.size)
+					.attr('fill', 'none')
+				);
+
+			threadGroups.push(threadBlocks);
+		});
 
 		// Draw - axis
 		var axisXGroup = svg.append("g")
 				.attr("class", "xAxis")
-				.attr("transform", "translate(0," + (layout.height - layout.margin.bottom) + ")")
+				.attr("transform", "translate(0," + layout.graph.bottom() + ")")
 				.call(xAxis);
 
 		// Draw - text
 		var labelElement = svg.append("text")
 			.attr("x", layout.graph.right())
-			.attr("y", layout.graph.bottom())
+			.attr("y", layout.graph.top())
 			.attr("text-anchor", "end")
 			.attr("font-size", "14px")
 			.text(attrs.title);
@@ -456,8 +537,39 @@ app.directive('chartThreadLifetime', function() {
 
 				// SVG
 				svg.attr('width', layout.width);
+				outlineTop.attr("x2", layout.graph.right());
 				axisXGroup.call(xAxis);
 				labelElement.attr("x", layout.graph.right());
+
+				// Start
+				var pad = 0;
+				startElements.forEach(function(s, i) {
+					pad = Math.max(pad, dataList[i].s);
+					s.attr("x", scaleX(pad));
+					pad += layout.section.pad;
+				});
+
+				// End
+				var pad = 0;
+				endElements.forEach(function(e, i) {
+					pad = Math.max(pad, dataList[i].e);
+					e.attr("x", scaleX(pad));
+					pad += layout.section.pad;
+				});
+
+				// Threads
+				var maxJ;
+				threadGroups.forEach(function(g, i) {
+					maxJ = dataList[i].m.length;
+					g.forEach(function(b, j) {
+						if (j == 0) // start
+							b.attr("x1", scaleX(dataList[i].s)).attr("x2", scaleX(dataList[i].m[0]));
+						else if (j == maxJ) // end
+							b.attr("x1", scaleX(dataList[i].m[j - 1])).attr("x2", scaleX(dataList[i].e));
+						else
+							b.attr("x1", scaleX(dataList[i].m[j - 1])).attr("x2", scaleX(dataList[i].m[j]));
+					});
+				});
 			};
 
 		// Redraw - bind
