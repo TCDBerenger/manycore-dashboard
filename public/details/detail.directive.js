@@ -405,12 +405,10 @@ app.directive('chartThreadLifetime', function() {
 		var threadCount = data.info.threadCount;
 		var colors = [scope.widget.deck[0].color, scope.widget.deck[0].color2];
 
-		// Compute lifetime
-
 
 		// Compute layout
 		layout.lines			= { size: 4, padding: 2 };
-		layout.section			= { height: 20, pad: 8 };
+		layout.section			= { height: 20, pad: 18 };
 		layout.height			= layout.margin.top + layout.margin.bottom + 2 * layout.section.height + threadCount * layout.lines.size + (threadCount + 1) * layout.lines.padding;
 		layout.graph.height		= function() { return this.layout.height - this.layout.margin.top - this.layout.margin.bottom - 2 * this.layout.section.height; };
 		layout.graph.top		= function() { return this.layout.margin.top + this.layout.section.height; };
@@ -430,10 +428,20 @@ app.directive('chartThreadLifetime', function() {
 		var xAxis = d3.svg.axis().scale(scaleX);
 
 		// Draw - groups
-		var startGroup = svg.append("g");
-		var endGroup = svg.append("g");
+		var startGroup = svg.append("g")
+				.attr("class", "starts")
+				.attr("transform", "translate(0," + ((layout.section.height / 2) + layout.margin.top + 5) + ")");
+		var endGroup = svg.append("g")
+				.attr("class", "ends")
+				.attr("transform", "translate(0," + (layout.graph.bottom() + (layout.section.height / 2) + layout.margin.bottom) + ")");
 		var threadGroup = svg.append("g");
 		var outlineGroup = svg.append("g");
+
+		// Draw data
+		var sections = [
+			{ group: startGroup,	property: 's', text: "⊕"},
+			{ group: endGroup,		property: 'e', text: "⊖"}
+		];
 
 		// Draw - lines/box
 		var outlineTop = outlineGroup.append("line")
@@ -443,38 +451,6 @@ app.directive('chartThreadLifetime', function() {
 			.attr('stroke', '#000000')
 			.attr('stroke-width', 1)
 			.attr('fill', 'none');
-
-		// Draw - starts
-		var startElements = [];
-		var pad = 0;
-		dataList.forEach(function(m, i, a) {
-			pad = Math.max(pad, m.s);
-			startElements.push(
-				startGroup.append("text")
-					.attr("x", scaleX(pad))
-					.attr("y", (layout.section.height / 2) + layout.margin.top + 5)
-					.attr("text-anchor", "middle")
-					.attr("font-size", "18px")
-					.text("⊕")
-				);
-			pad += layout.section.pad;
-		});
-
-		// Draw - ends
-		var endElements = [];
-		var pad = 0;
-		dataList.forEach(function(m, i, a) {
-			pad = Math.max(pad, m.s);
-			endElements.push(
-				endGroup.append("text")
-					.attr("x", scaleX(pad))
-					.attr("y", layout.graph.bottom() + (layout.section.height / 2) + layout.margin.bottom)
-					.attr("text-anchor", "middle")
-					.attr("font-size", "18px")
-					.text("⊖")
-				);
-			pad += layout.section.pad;
-		});
 
 		// Draw - threads
 		var threadGroups = [];
@@ -541,22 +517,6 @@ app.directive('chartThreadLifetime', function() {
 				axisXGroup.call(xAxis);
 				labelElement.attr("x", layout.graph.right());
 
-				// Start
-				var pad = 0;
-				startElements.forEach(function(s, i) {
-					pad = Math.max(pad, dataList[i].s);
-					s.attr("x", scaleX(pad));
-					pad += layout.section.pad;
-				});
-
-				// End
-				var pad = 0;
-				endElements.forEach(function(e, i) {
-					pad = Math.max(pad, dataList[i].e);
-					e.attr("x", scaleX(pad));
-					pad += layout.section.pad;
-				});
-
 				// Threads
 				var maxJ;
 				threadGroups.forEach(function(g, i) {
@@ -570,6 +530,44 @@ app.directive('chartThreadLifetime', function() {
 							b.attr("x1", scaleX(dataList[i].m[j - 1])).attr("x2", scaleX(dataList[i].m[j]));
 					});
 				});
+
+
+				// Draw - starts
+				sections.forEach(function(section) {
+					section.group.selectAll("*").remove();
+					var i = 0;
+					var j, m_count, text;
+					while (i < dataList.length) {
+						previousStart = scaleX(dataList[i][section.property]);
+
+						// Count how many at the "same" time "pad" frame
+						m_count = 1;
+						j = i + 1;
+						while (j < dataList.length && scaleX(dataList[j][section.property]) <= previousStart + layout.section.pad) {
+							m_count++;
+							j++;
+						}
+
+						if (m_count <= 1) {
+							text = section.text;
+						} else {
+							text = section.text + m_count;
+						}
+
+						// Add
+						section.group.append("text")
+							.attr("x", scaleX(dataList[i][section.property]))
+							.attr("y", 0)
+							.attr("text-anchor", "middle")
+							.attr("font-size", "14px")
+							.text(text);
+
+						// Move to next step
+						i += m_count;
+					};
+				});
+
+
 			};
 
 		// Redraw - bind
