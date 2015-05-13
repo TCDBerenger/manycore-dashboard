@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('mctest02:server');
+var debug = require('debug')('dashboard:server');
 var http = require('http');
 
 /**
