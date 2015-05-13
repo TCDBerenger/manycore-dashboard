@@ -23,14 +23,32 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	/************************************************/
 	/* Functions - Graphical						*/
 	/************************************************/
-	
 	/**
 	 * Flag - add
 	 */
 	$scope.canAddProfile = function() {
 		return $scope.selectedProfiles.length < 2;
 	};
+
+	/**
+	 * Flag - selected
+	 */
+	$scope.hasProfiles = function() {
+		return $scope.selectedProfiles.length > 0;
+	};
+
+	/**
+	 * Flag - selected
+	 */
+	$scope.has2Profiles = function() {
+		return $scope.selectedProfiles.length == 2;
+	};
+
+	//
+	// OLD
+	//
 	
+
 	/**
 	 * Flag - selected
 	 */
@@ -102,6 +120,16 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 		
 		// Save new selection
 		$rootScope.saveSelectedProfiles($scope.selectedProfiles);
+	};
+	
+	/**
+	 * Reverse
+	 */
+	$scope.invertProfiles = function() {
+		$scope.selectedProfiles.reverse();
+		
+		// Save new selection
+		$rootScope.invert();
 	};
 	
 	/************************************************/

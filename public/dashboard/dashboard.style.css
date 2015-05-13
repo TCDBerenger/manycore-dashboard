@@ -1,10 +1,69 @@
 /*
- * Dashboard
+ * Dashboard layout
+ */
+.dashboard > div {
+	text-align: center;
+}
+
+/**
+ * Dashboard style
  */
 .dashboard h2 {
 	margin-top: 0px;
+	display: inline-block;
 }
 
+/**
+ * Dashboard profile
+ */
+.dashboard .profile {
+	background-color: #FFCCCC;
+}
+.dashboard .profile .profile-title-unselect {
+	position: absolute;
+	margin-left: 4px;
+}
+.dashboard .profile .profile-title-unselect .icon {
+	font-size: 0.8em !important;
+}
+.dashboard .profile .subtitle {
+	margin-top: -12px;
+}
+
+
+/**
+ * Dashboard add
+ */
+.dashboard .ctrl-add {
+}
+.dashboard .ctrl-add h2 .icon {
+	margin-right: 4px;
+	font-size: 0.8em;
+}
+.dashboard .ctrl-add .hover-text:hover .text {
+	position: absolute;
+	top: 20px;
+	text-align: center;
+	display: block !important;
+}
+.dashboard .ctrl-add .ctrl-element {
+	max-width: 300px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/**
+ * Dashboard versus/info
+ */
+.dashboard .ctrl-versus {
+	background-color: #CCCCFF;
+}
+.dashboard .ctrl-add a .icon {
+	font-size: 1em !important;
+}
+
+
+ /*
 .dashboard a {
 	cursor: pointer;
 	outline: 0;
@@ -84,6 +143,7 @@
 	font-size: 1.6em;
 	margin-right: 4px;
 }
+*/
 
 
 /*

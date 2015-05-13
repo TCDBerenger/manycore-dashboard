@@ -1,5 +1,62 @@
 <div class="row dashboard">
+
 	<!-- Profiles -->
+	<div class="col-xs-5 profile" ng-repeat-start="profile in selectedProfiles">
+		<h2>{{profile.label}}</h2>
+		<a class="profile-title-unselect hover-text" href ng-click="unselectProfile(profile)">
+			<span class="fa-stack fa-lg icon">
+				<i class="fa fa-thumb-tack fa-stack-1x"></i>
+				<i class="fa fa-ban fa-stack-2x"></i>
+			</span><span class="text">deselect</span>
+		</a>
+		<p class="subtitle">{{profile.desc}}</p>
+	</div>
+
+	<!-- Versus or Infos -->
+	<div class="col-xs-2 ctrl-versus" ng-repeat-end ng-if="$index == 0">
+		<a href ng-click="invertProfiles()" ng-if="has2Profiles()">
+			<span class="fa-stack icon">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-exchange fa-stack-1x fa-inverse"></i>
+			</span>
+		</a>
+		<a href ng-click="unselectAllProfiles()" ng-if="has2Profiles()">
+			<span class="fa-stack icon">
+				<i class="fa fa-thumb-tack fa-stack-1x"></i>
+				<i class="fa fa-ban fa-stack-2x"></i>
+			</span>
+		</a>
+	</div>
+	
+	<!-- Selection -->
+	<div class="col-xs-5 ctrl-add" ng-show="canAddProfile()">
+		<h2>
+			<span class="fa-stack icon">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-thumb-tack fa-stack-1x fa-inverse"></i>
+			</span>
+			{{! hasSelectedProfile() | iif : "Select a sample" : "Compare with"}}
+		</h2>
+		<div class="list-group ctrl-element">
+			<a href ng-click="selectProfile(profile)" class="list-group-item" ng-repeat="profile in availableProfiles | orderBy:'label'">
+				<h4 class="list-group-item-heading">{{profile.label}}</h4>
+				<p class="list-group-item-text">{{profile.desc}}</p>
+			</a>
+		</div>
+		<div class="alert alert-dismissible alert-info ctrl-element ctrl-add-nomore" ng-show="availableProfiles.length == 0">
+			<i class="fa fa-2x fa-frown-o" style="float: left; margin-right: 8px;"></i>
+			<strong>Sorry</strong><br />
+			not enough sample are available
+		</div>
+	</div>
+</div>
+
+<script type="text/ng-template" id="/inline-dashboard-profile.html">
+	Content of the template. {{profile.id}}
+</script>
+
+<!--
+<div class="row dashboard">
 	<div class="col-xs-{{selectedProfiles.length * 5}} col-lg-{{selectedProfiles.length * 4}} profile" ng-show="hasSelectedProfile()">
 		<div class="row profile-title">
 			<div class="col-xs-{{12 / selectedProfiles.length}}" ng-repeat="profile in selectedProfiles">
@@ -92,39 +149,5 @@
 			</div>
 		</div>
 	</div>
-	
-	<!-- Selection -->
-	<div class="col-xs-5 col-lg-4 ctrl-add" ng-show="canAddProfile()">
-		<span class="fa-stack fa-lg ctrl-add-titleicon">
-			<i class="fa fa-circle fa-stack-2x"></i>
-			<i class="fa fa-thumb-tack fa-stack-1x fa-inverse"></i>
-		</span>
-		<h2>{{! hasSelectedProfile() | iif : "Select a sample" : "Compare with"}}</h2>
-		<div class="list-group">
-			<a ng-click="selectProfile(profile)" class="list-group-item" ng-repeat="profile in availableProfiles | orderBy:'label'">
-				<h4 class="list-group-item-heading">{{profile.label}}</h4>
-				<p class="list-group-item-text">{{profile.desc}}</p>
-			</a>
-		</div>
-		<div class="alert alert-dismissible alert-info ctrl-add-nomore" ng-show="availableProfiles.length == 0">
-			<i class="fa fa-2x fa-frown-o" style="float: left; margin-right: 8px;"></i>
-			<strong>Sorry</strong><br />
-			not enough sample are available
-		</div>
-	</div>
-	
-	<!-- Selection -->
-	<div class="col-xs-2 ctrl-settings" ng-show="hasSelectedProfiles()">
-		<a class="profile-deselection hover-text" ng-click="unselectAllProfiles()">
-			<span class="fa-stack fa-lg icon">
-				<i class="fa fa-thumb-tack fa-stack-1x"></i>
-				<i class="fa fa-ban fa-stack-2x"></i>
-			</span><span class="text">deselect all</span>
-		</h2>
-		<!--
-		<a class="btn btn-default disabled">
-			<i class="glyphicon fa fa-sliders" aria-hidden="true"></i>
-		</a>
-		-->
-	</div>
 </div>
+-->

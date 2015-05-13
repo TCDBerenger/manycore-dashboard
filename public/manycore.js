@@ -86,6 +86,13 @@ app.run(function($rootScope) {
 	$rootScope.hasSelectedProfile = function hasSelectedProfile() {
 		return $rootScope.selectedIDs.length > 0;
 	};
+	
+	/**
+	 * Invert ids
+	 */
+	$rootScope.invert = function invert() {
+		return $rootScope.selectedIDs.reverse();
+	};
 });
 
 app.filter('iif', [function () {
