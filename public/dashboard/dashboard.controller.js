@@ -6,7 +6,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	$scope.profiles = profileService.all;
 	$scope.selectedProfiles = []
 	$scope.availableProfiles = [];
-	$scope.data = {};
+	$scope.data = { c: {} };
 	$scope.dataVersion = 0;					// use to bind graph repaint
 
 	// Details
@@ -141,11 +141,10 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	 */
 	$scope.restoreSelectedProfiles = function() {
 		// Init: all profiles are available
-		$scope.availableProfiles = $scope.profiles;
+		$scope.availableProfiles = $scope.profiles.slice(0);
 
 		// retreive ids
-		var ids = [];
-		angular.copy($rootScope.selectedIDs, ids)
+		var ids = $rootScope.selectedIDs.slice(0);
 
 		// For each profile
 		$scope.profiles.forEach(function(profile, index, array) {
@@ -172,6 +171,9 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 			$http.get('/service/details/dash/'+ profile.id).success(function(data) {
 				$scope.data[profile.id] = data[profile.id];
 				$scope.data[profile.id].profile = profile;
+				$scope.data.c.timeMin = Math.min(data.c.timeMin, $scope.data.c.timeMin | 0);
+				$scope.data.c.timeMax = Math.max(data.c.timeMax, $scope.data.c.timeMax | 0);
+				$scope.data.c.duration = Math.max(data.c.duration, $scope.data.c.duration | 0);
 				$scope.dataVersion++;
 			});
 		}

@@ -24,8 +24,8 @@ app.directive('chartSequence', function() {
 		var profiles = [];
 		var timeMin = 0;
 		var timeMax = 0;
-		var timeStart = 0;
-		var timeEnd = 0;
+		var timeStart = +attrs.timestart;			// The common min time
+		var timeEnd = +attrs.timeend;				// The common max time
 
 		// DOM
 		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
@@ -188,10 +188,11 @@ app.directive('chartDashDivergence', function() {
 
 		// Data
 		var data = scope.data[attrs.profileid];
-		console.log(data);
 		var profile = scope.data.profile;
-		var timeMin = 0;			// When the user selection starts
+		var timeMin = 0;
 		var timeMax = data.info.duration;
+		var timeStart = scope.data.c.timeMin;		// When the user selection starts
+		var timeEnd = scope.data.c.duration;		// When the user selection ends (could be before or after timeMax)
 		var numberCores = data.info.cores;
 		var dataValueMax = numberCores * data.info.timeStep;
 
@@ -209,7 +210,7 @@ app.directive('chartDashDivergence', function() {
 
 		// Scales - domains
 		scaleY.domain([0, 2 * dataValueMax]);
-		scaleX.domain([timeMin, timeMax]);
+		scaleX.domain([timeStart, timeEnd]);
 
 		// Axis
 		var xAxis = d3.svg.axis().scale(scaleX);
@@ -242,6 +243,15 @@ app.directive('chartDashDivergence', function() {
 				.attr("d", runningAreaFunction(data.times)) // 🕒 repaintable
 				.attr("fill", "#358753");
 
+		// Recompute
+		var recompute = function recompute() {
+				scaleX.domain([scope.data.c.timeMin, scope.data.c.duration]);
+
+				// Repaint
+				repaint();
+			};
+
+
 		// Redraw
 		var repaint = function repaint() {
 				// Scales
@@ -254,7 +264,8 @@ app.directive('chartDashDivergence', function() {
 				runningArea.attr("d", runningAreaFunction(data.times));
 			};
 
-		// Redraw - bind
+		// Binds
+		scope.$watch(function() { return scope.data.c.duration; }, recompute);
 		scope.$watch(function() { return container.clientWidth; }, repaint);
 	}
 
