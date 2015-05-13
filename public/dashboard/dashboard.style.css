@@ -17,7 +17,6 @@
  * Dashboard profile
  */
 .dashboard .profile {
-	background-color: #FFCCCC;
 }
 .dashboard .profile .profile-title-unselect {
 	position: absolute;
@@ -29,7 +28,20 @@
 .dashboard .profile .subtitle {
 	margin-top: -12px;
 }
-
+.dashboard .profile .profile-list {
+	max-width: 300px;
+	margin: 0px auto 0px auto;
+}
+.dashboard .profile .profile-list .list-group-item {
+	margin: 0px;
+	padding: 0px;
+	height: 60px;
+	width: 100%;
+}
+.dashboard .profile .profile-list .list-group-item svg {
+	height: 100%;
+	width: 100%;
+}
 
 /**
  * Dashboard add
@@ -56,7 +68,6 @@
  * Dashboard versus/info
  */
 .dashboard .ctrl-versus {
-	background-color: #CCCCFF;
 }
 .dashboard .ctrl-add a .icon {
 	font-size: 1em !important;

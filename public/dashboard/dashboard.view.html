@@ -9,7 +9,50 @@
 				<i class="fa fa-ban fa-stack-2x"></i>
 			</span><span class="text">deselect</span>
 		</a>
-		<p class="subtitle">{{profile.desc}}</p>
+		<p class="subtitle">{{profile.desc != null && profile.desc.length > 0 | iif : profile.desc : '&nbsp;' }}</p>
+		<h4>Hardware</h4>
+		<p>todo</p>
+		<h4>Sequence</h4>
+		<p>todo</p>
+		<h4>Profile</h4>
+		<div ng-if="waitingData(profile.id)">
+			<i class="fa fa-spinner fa-pulse"></i> <strong>Retreiving data...</strong>
+		</div>
+		<div class="list-group profile-list" ng-if="hasData(profile.id)">
+			<a href="#/detail/tg/{{encodeSelectedProfile()}}" class="list-group-item">
+				<chart-dash-divergence class="indicator-graph" profileid="{{profile.id}}"></chart-dash-divergence>
+			</a>
+			<a href="#/detail/sy/{{encodeSelectedProfile()}}" class="list-group-item">
+				<svg class="indicator-sy" height="40">
+					<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Synchronisation graph here</text>
+				</svg>
+			</a>
+			<a href="#/detail/ds/{{encodeSelectedProfile()}}" class="list-group-item">
+				<svg class="indicator-ds" height="40">
+					<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Data sharing graph here</text>
+				</svg>
+			</a>
+			<a href="#/detail/lb/{{encodeSelectedProfile()}}" class="list-group-item">
+				<svg class="indicator-lb" height="40">
+					<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Load balancing graph here</text>
+				</svg>
+			</a>
+			<a href="#/detail/dl/{{encodeSelectedProfile()}}" class="list-group-item">
+				<svg class="indicator-dl" height="40">
+					<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Data locality graph here</text>
+				</svg>
+			</a>
+			<a href="#/detail/rs/{{encodeSelectedProfile()}}" class="list-group-item">
+				<svg class="indicator-rs" height="40">
+					<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Ressource sharing graph here</text>
+				</svg>
+			</a>
+			<a href="#/detail/io/{{encodeSelectedProfile()}}" class="list-group-item">
+				<svg class="indicator-io" height="40">
+					<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Input/Output graph here</text>
+				</svg>
+			</a>
+		</div>
 	</div>
 
 	<!-- Versus or Infos -->
