@@ -24,30 +24,15 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 					return detailService.gets($stateParams.cat, $stateParams.ids);
 				}]
 			}
-		});/*
-		.state('detail.tg', { templateUrl: '/detail/tg/', views: {	} })
-		.state('detail.sy', { templateUrl: '/detail/sy/', views: {	} })
-		.state('detail.ds', { templateUrl: '/detail/ds/', views: {	} })
-		.state('detail.lb', { templateUrl: '/detail/lb/', views: {	} })
-		.state('detail.dl', { templateUrl: '/detail/dl/', views: {	} })
-		.state('detail.rs', { templateUrl: '/detail/rs/', views: {	} })
-		.state('detail.io', { templateUrl: '/detail/io/', views: {	} });*/
+		})
+		.state('admin', {
+			url: '/admin',
+			templateUrl: '/admin/admin.view.html',
+			controller: 'AdminController'
+		});
 	
 	$urlRouterProvider.otherwise('dashboard');
 }]);
-
-/*
-		.state('dashboard', {
-			url: '/dashboard',
-			templateUrl: '/dashboard/dashboard.view.html',
-			controller: 'DashboardController',
-			resolve: {
-				promise: ['profiles', function(profiles){
-					return profiles.getAll();
-				}]
-			}
-		})
-*/
 
 
 /**********************************************************/
