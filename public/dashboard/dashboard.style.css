@@ -63,11 +63,18 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+.dashboard .ctrl-add .ctrl-add-nomore {
+	max-width: 260px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+}
 
 /**
  * Dashboard versus/info
  */
 .dashboard .ctrl-versus {
+	transition: all 0.2s ease;
 }
 .dashboard .ctrl-add a .icon {
 	font-size: 1em !important;
