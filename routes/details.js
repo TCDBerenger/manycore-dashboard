@@ -892,7 +892,7 @@ function jsonTG(id) {
 	// for context switches
 	addSwitches(output, id);
 
-	// for context switches
+	// for migrations
 	addMigrations(output, id);
 
 	// for lifetimes
@@ -949,8 +949,8 @@ function jsonLB(id) {
 	// Common
 	addCommon(output, id);
 
-	// for context switches
-	addSwitches(output, id);
+	// for migrations
+	addMigrations(output, id);
 
 	// for potential parallelism
 	addTime(output, id);
