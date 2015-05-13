@@ -77,7 +77,7 @@ app.factory('widgets', ['decks', 'clues', function(decks, clues){
 app.factory('categories', ['widgets', function(widgets){
 	var tg = {
 		cat: 'tg', label: 'Task granularity', title: 'Task granularity', icon: 'tasks',
-		widgets: [widgets.threadSwitchs, widgets.threadMigrations, widgets.threadLifetime, widgets.threadDivergence]
+		widgets: [widgets.threadDivergence, widgets.threadSwitchs, widgets.threadMigrations, widgets.threadLifetime]
 	};
 	var sy = {
 		cat: 'sy', label: 'Synchronisation', title: 'Synchronisation', icon: 'cutlery',
