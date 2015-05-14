@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
-var VERSION = 24;
+var VERSION = 26;
 
 /************************************************/
 /* Variables									*/
@@ -41,19 +41,6 @@ var profileMap = {
 	 
 	 profile
 	 ├	version						<integer>	version of the cache
-	 ├	threads
-	 │	 └	byFrames
-	 │		 ├	frame<0>			ID
-	 │		 │	 ├	thread<0>		ID
-	 │		 │	 │	 ├	cycles		<integer>	number of cycles
-	 │		 │	 │	 ├	ready		<integer>	duration of ready state
-	 │		 │	 │	 ├	running		<integer>	duration of running state
-	 │		 │	 │	 ├	standby		<integer>	duration of standby state
-	 │		 │	 │	 └	wait		<integer>	duration of wait state
-	 │		 │	 ├	...
-	 │		 │	 └	thread<N>
-	 │		 ├	...
-	 │		 └	frame<?>
 	 ├	frames
 	 │	 ├	0
 	 │	 │	 ├	t					[]			array of threads
@@ -87,20 +74,6 @@ var profileMap = {
 	 │	 │	 └	wait				<integer>	duration of wait state
 	 │	 ├	...
 	 │	 └	<?>
-	 ├	migrations					[]			array of migration events
-	 │	 ├	0
-	 │	 │	 ├	t					<integer>	time (real, not corresponding to a time frame)
-	 │	 │	 ├	h					ID			thread ID
-	 │	 │	 └	c					ID			new core ID
-	 │	 ├	...
-	 │	 └	<?>
-	 ├	lifetimes					[]			array of thread lifecycle events
-	 │	 ├	0
-	 │	 │	 ├	t					<integer>	time (real, not corresponding to a time frame)
-	 │	 │	 ├	h					ID			thread ID
-	 │	 │	 └	e					<char>		's' for start, 'e' for end
-	 │	 ├	...
-	 │	 └	<?>
 	 ├	lifecycles					[]			array of thread lifecycle events
 	 │	 ├	<thread0>
 	 │	 │	 ├	s					<integer>	start time (real, not corresponding to a time frame), could be null
@@ -108,6 +81,42 @@ var profileMap = {
 	 │	 │	 └	e					<char>		start time (real, not corresponding to a time frame), could be null
 	 │	 ├	...
 	 │	 └	<threadN>
+	 ├	lifetimes					[]			array of thread lifecycle events
+	 │	 ├	0
+	 │	 │	 ├	t					<integer>	time (real, not corresponding to a time frame)
+	 │	 │	 ├	h					ID			thread ID
+	 │	 │	 └	e					<char>		's' for start, 'e' for end
+	 │	 ├	...
+	 │	 └	<?>
+	 ├	migrations					[]			array of migration events, in the increasing time order
+	 │	 ├	0
+	 │	 │	 ├	t					<integer>	time (real, not corresponding to a time frame)
+	 │	 │	 ├	h					ID			thread ID
+	 │	 │	 └	c					ID			new core ID
+	 │	 ├	...
+	 │	 └	<?>
+	 ├	switches					[]			array of switches events, in the increasing time order
+	 │	 ├	0
+	 │	 │	 ├	t					<integer>	time (real, not corresponding to a time frame)
+	 │	 │	 ├	h					ID			thread ID
+	 │	 ├	...
+	 │	 └	<?>
+	 ├	timelist
+	 │	 ├	migrations				[]			array of migration event time (real, not corresponding to a time frame), in the increasing time order
+	 │	 └	switches				[]			array of switches event time (real, not corresponding to a time frame), in the increasing time order
+	 ├	threads
+	 │	 └	byFrames
+	 │		 ├	frame<0>			ID
+	 │		 │	 ├	thread<0>		ID
+	 │		 │	 │	 ├	cycles		<integer>	number of cycles
+	 │		 │	 │	 ├	ready		<integer>	duration of ready state
+	 │		 │	 │	 ├	running		<integer>	duration of running state
+	 │		 │	 │	 ├	standby		<integer>	duration of standby state
+	 │		 │	 │	 └	wait		<integer>	duration of wait state
+	 │		 │	 ├	...
+	 │		 │	 └	thread<N>
+	 │		 ├	...
+	 │		 └	frame<?>
 	 └	stats
 		 ├	timeShift				<float>		time before starting measures (i.e. non interesting computation before this time) /!\ in pico seconds (10⁻¹²s) /!\ need to be divided by 10⁹
 		 └	switch					<integer>	number of switches for all cores during all run
@@ -188,9 +197,14 @@ function computeData(id, raw1, raw2, profile) {
 			ends:			0
 		},
 		frames: {},
+		switches: [],
 		migrations: [],
 		lifetimes: [],
 		lifecycle: {},
+		timelist: {
+			switches: [],
+			migrations: []
+		},
 		threads: {
 			byFrames: {}
 		}
@@ -298,6 +312,14 @@ function computeData(id, raw1, raw2, profile) {
 			else if (! data.frames[timeID].hasOwnProperty("switches")) data.frames[timeID].switches = 1;
 			else data.frames[timeID].switches++;
 
+			// Save switch
+			data.switches.push({
+				t: timeEvent,
+				h: element.tid
+			});
+
+			// Save switch time
+			data.timelist.switches.push(timeEvent);
 
 			// Switch for migration
 			if (coreThreads[element.tid] != element.cid) {
@@ -315,6 +337,9 @@ function computeData(id, raw1, raw2, profile) {
 					h: element.tid,
 					c: element.cid
 				});
+
+				// Save migration time
+				data.timelist.migrations.push(timeEvent);
 
 				// Save lifecycle
 				if (! data.lifecycle.hasOwnProperty(element.tid)) data.lifecycle[element.tid] = { s: null, e: null, m: []};
@@ -356,6 +381,12 @@ function computeData(id, raw1, raw2, profile) {
 		}
 		
 	});
+
+	// Sorts arrays
+	data.switches.sort(function(a, b){return a.t - b.t});
+	data.migrations.sort(function(a, b){return a.t - b.t});
+	data.timelist.switches.sort(function(a, b){return a - b});
+	data.timelist.migrations.sort(function(a, b){return a - b});
 
 
 
@@ -409,11 +440,11 @@ function unloadData(id) {
 	 │	 │	 │	...
 	 │	 │	 └	<info.threadCount * 2>
 	 ├	migrations
-	 │	 ├	list				<array>		list of migrations
-	 │	 │	 ├	0
-	 │	 │	 │	 └	t			<integer>	time in ms (10⁻³s), identiral to frame<id>
-	 │	 │	 │	...
-	 │	 │	 └	<stats.migrations.m>
+	 │	 └	list				<array>		list of migrations
+	 │		 ├	0
+	 │		 │	 └	t			<integer>	time in ms (10⁻³s), real time, not a frame time
+	 │		 │	...
+	 │		 └	<stats.migrations.m>
 	 ├	states					<array>		list of states by frams
 	 │	 ├	0
 	 │	 │	 ├	t				<integer>	time in ms (10⁻³s), identiral to frame<id>
@@ -421,12 +452,18 @@ function unloadData(id) {
 	 │	 │	 └	ys				<integer>	number of threads in ready or standby state /!\ false state /!\
 	 │	 │	...
 	 │	 └	<timeMax>
-	 ├	switches				<array>		list of switches by frams
-	 │	 ├	0
-	 │	 │	 ├	t				<integer>	time in ms (10⁻³s), identiral to frame<id>
-	 │	 │	 └	s				<integer>	number of switches
-	 │	 │	...
-	 │	 └	<timeMax>
+	 ├	switches
+	 │	 ├	frames				<array>		switches by frames, ordered by start time
+	 │	 │	 ├	0
+	 │	 │	 │	 ├	t				<integer>	time in ms (10⁻³s), identiral to frame<id>
+	 │	 │	 │	 └	s				<integer>	number of switches
+	 │	 │	 │	...
+	 │	 │	 └	<timeMax>
+	 │	 └	list				<array>		list of switches
+	 │		 ├	0
+	 │		 │	 └	t			<integer>	time in ms (10⁻³s), real time, not a frame time
+	 │		 │	...
+	 │		 └	<stats.migrations.m>
 	 ├	times					<array>		list of state times by frams
 	 │	 ├	0
 	 │	 │	 ├	t				<integer>	time in ms (10⁻³s), identiral to frame<id>
@@ -508,13 +545,16 @@ function addCommon(output, id) {
 function addSwitches(output, id) {
 	// Init vars
 	var data		= profileData[id];
-	output.switches	= [];
+	output.switches	= {
+		list: data.timelist.switches,
+		frames: []
+	};
 
 	// Build frame in the right order
 	for (var timeID = 0; timeID <= data.info.timeMax; timeID+= data.info.timeStep) {
 
 		// Output
-		output.switches.push({
+		output.switches.frames.push({
 			t:	timeID,
 			s:	(data.frames.hasOwnProperty(timeID)) ? data.frames[timeID].switches : NaN
 		});
@@ -533,23 +573,8 @@ function addMigrations(output, id) {
 	// Init vars
 	var data			= profileData[id];
 	output.migrations	= {
-		list: []
+		list: data.timelist.migrations
 	};
-
-	// Build frame in the right order
-	data.migrations.forEach(function(migration) {
-		output.migrations.list.push(migration.t);
-	})
-	/*
-	for (var timeID = 0; timeID <= data.info.timeMax; timeID+= data.info.timeStep) {
-
-		// Output
-		output.migrations.push({
-			t:	timeID,
-			m:	(data.frames.hasOwnProperty(timeID)) ? data.frames[timeID].migration : NaN
-		});
-	}
-	*/
 
 	// Stats
 	output.stats.migrations = {

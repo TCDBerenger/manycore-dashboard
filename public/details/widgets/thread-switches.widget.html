@@ -1,2 +1,5 @@
 <chart-band-density class="widget-graph widget-band" profileid="{{ids[0]}}" timestart="{{data.c.timeMin}}" timeend="{{data.c.duration}}" title="{{profiles[0].label}}"></chart-band-density>
+<chart-histoband class="widget-graph widget-band" profileid="{{ids[0]}}" timestart="{{data.c.timeMin}}" timeend="{{data.c.duration}}"></chart-histoband>
+
 <chart-band-density class="widget-graph widget-band" ng-if="ids.length >= 2" profileid="{{ids[1]}}" timestart="{{data.c.timeMin}}" timeend="{{data.c.duration}}" title="{{profiles[1].label}}"></chart-band-density>
+<chart-histoband class="widget-graph widget-band" ng-if="ids.length >= 2" profileid="{{ids[1]}}" timestart="{{data.c.timeMin}}" timeend="{{data.c.duration}}"></chart-histoband>
