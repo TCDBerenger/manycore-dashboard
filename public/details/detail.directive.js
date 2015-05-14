@@ -95,7 +95,7 @@ app.directive('chartHistoband', function() {
 				var e_index = 0;									// TODO find the first index
 				var e, e_count;
 				var vZero = scaleV(0);
-				var xLeft = layout.graph.left();
+				var xLeft = layout.graph.left() + 1;
 				for (var x = 0; x < xLength; x++) {
 
 					// Count the relative event in the "pixel" frame time
