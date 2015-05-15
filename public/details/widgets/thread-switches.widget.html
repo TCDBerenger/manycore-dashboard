@@ -7,5 +7,5 @@
 <chart-histoband class="widget-graph widget-histo" ng-if="ids.length >= 2" profileid="{{ids[1]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" max="{{data[ids[1]].info.cores * data[ids[1]].info.calib.switches}}" focus="10" autoscale></chart-histoband>
 
 <h5>Colourisation (Roman):</h5>
-<chart-histoband class="widget-graph widget-histo" profileid="{{ids[0]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" max="{{data[ids[0]].info.cores * data[ids[0]].info.calib.switches}}" focus="10" graduate="4"></chart-histoband>
-<chart-histoband class="widget-graph widget-histo" ng-if="ids.length >= 2" profileid="{{ids[1]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" max="{{data[ids[1]].info.cores * data[ids[1]].info.calib.switches}}" focus="10" graduate="4"></chart-histoband>
+<chart-coloroband class="widget-graph widget-histo" profileid="{{ids[0]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" max="{{data[ids[0]].info.cores * data[ids[0]].info.calib.switches}}" focus="10" graduate="4"></chart-coloroband>
+<chart-coloroband class="widget-graph widget-histo" ng-if="ids.length >= 2" profileid="{{ids[1]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" max="{{data[ids[1]].info.cores * data[ids[1]].info.calib.switches}}" focus="10" graduate="4"></chart-coloroband>

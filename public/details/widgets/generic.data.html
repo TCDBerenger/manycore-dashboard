@@ -6,26 +6,22 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="(i, e) in widget.deck | reverse">
+		<tr ng-repeat="(i, e) in widget.deck.data | reverse">
 			<td style="text-align: right;">{{e.desc}} <font style="color: {{e.color}}">{{e.color2 != null | iif : '◤' : '▮'}}</font><font ng-if="e.color2 != null" style="color: {{e.color2}}; margin-left: -8px;">◢</font></td>
 			<td style="text-align: right;">{{data[profiles[0].id].stats[e.cat][e.attr] | number: 0}}{{e.unity != null | iif : ' ' + e.unity : ''}}</td>
-			<td style="text-align: center;" class="container-graph" rowspan="{{widget.deck.length}}" colspan="{{profiles.length}}" ng-if="i == 0">
+			<td style="text-align: center;" class="container-graph" rowspan="{{widget.deck.data.length}}" colspan="{{profiles.length}}" ng-if="i == 0">
 				<chart-stats class="integrated-graph"></chart-stats>
 			</td>
 			<td style="text-align: right;" ng-if="profiles.length >= 2">{{data[profiles[1].id].stats[e.cat][e.attr] | number: 0}}{{e.unity != null | iif : ' ' + e.unity : ''}}</td>
 		</tr>
-		<tr ng-if="widget.deck2" ng-repeat="(i, e) in widget.deck2">
-			<td style="text-align: right;">{{e.desc}} <font style="color: {{e.color}}">▮</font></td>
-			<td colspan="{{profiles.length * 2}}"></td>
-		</tr>
 	</tbody>
 </table>
-<div class="clues" ng-if="widget.clues != null">
+<div class="clues" ng-if="widget.deck.clues != null">
 	<p class="clues-label">
 		<span class="label label-primary">help <i class="fa fa-caret-down"></i></span> clues about troubleshooting
 	</p>
-	<style ng-repeat="(i, c) in widget.clues">#cli{{iw}}{{i}}:before { color: {{c.color}}; }</style>
+	<style ng-repeat="(i, c) in widget.deck.clues">#cli{{iw}}{{i}}:before { color: {{c.color}}; }</style>
 	<ul class="clues-list" style="font-size: 0.85em;">
-		<li id="cli{{iw}}{{i}}" ng-repeat="(i, c) in widget.clues"><strong>{{c.tax}}</strong>: {{c.text}}</li>
+		<li id="cli{{iw}}{{i}}" ng-repeat="(i, c) in widget.deck.clues"><strong>{{c.tax}}</strong>: {{c.text}}</li>
 	</ul>
 </div>

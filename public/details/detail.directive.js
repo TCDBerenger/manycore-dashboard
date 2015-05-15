@@ -28,28 +28,21 @@ app.directive('chartHistoband', function() {
 		layout.margin.top = 0;
 
 		// Attributes
-		var deck = scope.widget.deck;
+		var deck = scope.widget.deck.axis;
 		var meta = {
 			autoscale:	(attrs.autoscale === 'true' || attrs.autoscale === 'yes' || attrs.autoscale === '' || attrs.autoscale === 'autoscale'),
-			graduate:	(attrs.graduate) ? +attrs.graduate : 1,		// Divide the value with graduate color
 			begin:		+attrs.begin,								// When the user selection starts
 			end:		+attrs.end,									// When the user selection ends (could be before or after timeMax)
 			max:		(attrs.max) ? +attrs.max : NaN,				// Maximum possible value (cf. focus for divide this value)
 			focus:		(attrs.focus) ? +attrs.focus : 1,			// Focusing data (divide factor)
-			halfLimit:	(attrs.graduate) ? +attrs.graduate == 1 : true,
-		}
-
-		// Hack for color band
-		if (meta.graduate > 1) {
-			preferedHeight = preferedHeight / 2;
-			layout.height = preferedHeight;
+			halfLimit:	true,
 		}
 
 		// Data
 		var profileID = +attrs.profileid;
 		var profileIndex = scope.ids.indexOf(profileID);
 		var data = scope.data[profileID];
-		var dataList = data[deck[0].cat].list;
+		var dataList = data[scope.widget.deck.data[0].cat].list;
 		var title = scope.profiles[profileIndex].label;
 		var timeMax = data.info.duration;
 		var valueMax = meta.max / meta.focus;
@@ -78,7 +71,7 @@ app.directive('chartHistoband', function() {
 		if (meta.halfLimit) {
 				var halfLimitLine = limitGroup.append("line")
 						.attr("class", "line")
-						.attr('stroke', '#000000')
+						.attr('stroke', deck.limit.color)
 						.attr('stroke-width', 1)
 						.attr('stroke-dasharray', 5.5)
 						.attr('fill', 'none');
@@ -133,8 +126,8 @@ app.directive('chartHistoband', function() {
 				var xLength = layout.graph.width();
 				var tLength = (meta.end - meta.begin) / xLength;		// a pixel equals (tLength) ms
 				var eLength = dataList.length;
-				var valueMaxPixel = valueMax * tLength;
-				scaleV.domain([0, valueMaxPixel]);				// a pixel could display (valueMax * tLength) maximum switches
+				var valueMaxByPixel = valueMax * tLength;
+				scaleV.domain([0, valueMaxByPixel]);				// a pixel could display (valueMax * tLength) maximum switches
 
 				// Limits
 				if (meta.halfLimit) {
@@ -142,10 +135,10 @@ app.directive('chartHistoband', function() {
 					halfLimitLine
 						.attr("x1", layout.graph.left())
 						.attr("x2", layout.graph.right())
-						.attr("y1", scaleV(valueMaxPixel / 2))
-						.attr("y2", scaleV(valueMaxPixel / 2));
+						.attr("y1", scaleV(valueMaxByPixel / 2))
+						.attr("y2", scaleV(valueMaxByPixel / 2));
 					halfLimitText
-						.attr("y", scaleV(valueMaxPixel / 2));
+						.attr("y", scaleV(valueMaxByPixel / 2));
 				}
 
 				// Ticks
@@ -172,7 +165,7 @@ app.directive('chartHistoband', function() {
 						.attr("class", "tick")
 						.attr("x1", xLeft + x).attr("x2", xLeft + x)
 						.attr("y1", vZero).attr("y2", scaleV(e_count))
-						.attr('stroke', '#797979')
+						.attr('stroke', deck.x.color)
 						.attr('stroke-width', 1)
 						.attr('fill', 'none');
 
@@ -203,6 +196,152 @@ app.directive('chartHistoband', function() {
 					}
 				}
 
+			};
+
+		// Redraw - bind
+		scope.$watch(function() { return container.clientWidth; }, repaint);
+	}
+
+	return {
+		link: chartThreadDivergence_link,
+		restrict: 'E'
+	}
+});
+
+app.directive('chartColoroband', function() {
+
+	function chartThreadDivergence_link(scope, element, attrs, controller) {
+		console.log("== directive == chartColoroband ==");
+
+		// Layout
+		var container = element[0];
+		var layout = new genericLayout();
+
+		// Non repaintable layout
+		layout.height = 40;
+		layout.margin.top = 0;
+
+		// Attributes
+		var deck = scope.widget.deck.axis;
+		var meta = {
+			graduate:	(attrs.graduate) ? +attrs.graduate : 1,		// Divide the value with graduate color
+			begin:		+attrs.begin,								// When the user selection starts
+			end:		+attrs.end,									// When the user selection ends (could be before or after timeMax)
+			max:		(attrs.max) ? +attrs.max : NaN,				// Maximum possible value (cf. focus for divide this value)
+			focus:		(attrs.focus) ? +attrs.focus : 1,			// Focusing data (divide factor)
+		}
+
+		// Data
+		var profileID = +attrs.profileid;
+		var profileIndex = scope.ids.indexOf(profileID);
+		var data = scope.data[profileID];
+		var dataList = data[scope.widget.deck.data[0].cat].list;
+		var title = scope.profiles[profileIndex].label;
+		var timeMax = data.info.duration;
+		var valueMax = meta.max / meta.focus;
+		var maxColorIndex = deck.x.colors.length - 1;
+
+		// DOM
+		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
+		svg.style("background", "#FFFFFF");
+
+		// Scales
+		var scaleX = d3.scale.linear().rangeRound([layout.graph.left(), layout.graph.right()]);
+		var scaleV = d3.scale.linear();
+
+		// Scales - domains
+		scaleX.domain([meta.begin, meta.end]);
+
+		// Axis
+		var xAxis = d3.svg.axis().scale(scaleX);
+
+		// Draw
+		var tickGroup = svg.append("g").attr("class", "dataset");
+
+		// Draw - axis
+		var axisXGroup = svg.append("g")
+				.attr("class", "xAxis")
+				.attr("transform", "translate(0," + layout.graph.bottom() + ")")
+				.call(xAxis);
+
+		// Draw - text
+		var labelElement = svg.append("text")
+			.attr("x", layout.graph.right())
+			.attr("y", layout.graph.bottom())
+			.attr("text-anchor", "end")
+			.attr("font-size", "14px")
+			.text(title);
+
+		// Redraw
+		var repaint = function repaint() {
+				// Sizes
+				layout.width = container.clientWidth;
+
+				// Scales
+				scaleX.rangeRound([layout.graph.left(), layout.graph.right()]);
+				scaleV.rangeRound([layout.graph.bottom(), layout.graph.top()]);
+
+				// Container
+				d3.select(container).style('height', layout.height + 'px');
+
+				// SVG
+				svg.attr({width: layout.width, height: layout.height});
+				axisXGroup
+					.attr("transform", "translate(0," + layout.graph.bottom() + ")")
+					.call(xAxis);
+				labelElement
+					.attr("x", layout.graph.right())
+					.attr("y", layout.graph.bottom());
+
+				// Scales
+				var xLength = layout.graph.width();
+				var tLength = (meta.end - meta.begin) / xLength;		// a pixel equals (tLength) ms
+				var eLength = dataList.length;
+				var valueMaxByPixel = valueMax * tLength;
+				var valueMaxByPixelByColor = valueMaxByPixel / 2;
+				scaleV.domain([0, valueMaxByPixelByColor]);			// a pixel could display (valueMax * tLength / 2) maximum switches by colour (for targeting 4 colours)
+
+				// Ticks
+				tickGroup.selectAll("*").remove();
+				tickGroup.attr("transform", null);
+				var e_index = 0;									// TODO find the first index
+				var e, e_count, e_color_index, e_color;
+				var vZero = scaleV(0);
+				var vMaxColor = scaleV(valueMaxByPixelByColor);
+				var xLeft = layout.graph.left() + 1;
+				for (var x = 0; x < xLength; x++) {
+
+					// Count the relative event in the "pixel" frame time
+					e_count = 0;
+					if (e_index < eLength) {
+						e = dataList[e_index];
+						while (e_index < eLength && e < tLength * (x + 1)) {
+							e_index++;
+							e_count++;
+							e = dataList[e_index];
+						}
+					}
+
+					e_color_index = Math.min(maxColorIndex, Math.floor(e_count / valueMaxByPixelByColor));
+					e_count = e_count - e_color_index * valueMaxByPixelByColor;
+					e_color = deck.x.colors[e_color_index];
+
+					tickGroup.append("line")
+						.attr("class", "tick")
+						.attr("x1", xLeft + x).attr("x2", xLeft + x)
+						.attr("y1", vZero).attr("y2", scaleV(e_count))
+						.attr('stroke', e_color)
+						.attr('stroke-width', 1)
+						.attr('fill', 'none');
+
+					tickGroup.append("line")
+						.attr("class", "tick")
+						.attr("x1", xLeft + x).attr("x2", xLeft + x)
+						.attr("y1", scaleV(e_count)).attr("y2", vMaxColor)
+						.attr('stroke', deck.x.colors[e_color_index - 1])
+						.attr('stroke-width', 1)
+						.attr('fill', 'none');
+				};
 			};
 
 		// Redraw - bind
@@ -400,7 +539,7 @@ app.directive('chartThreadLifetime', function() {
 		var timeMin = 0;
 		var timeMax = data.info.duration;
 		var threadCount = data.info.threadCount;
-		var colors = [scope.widget.deck[0].color, scope.widget.deck[0].color2];
+		var colors = [scope.widget.deck1[0].color, scope.widget.deck1[0].color2];
 
 
 		// Compute layout
@@ -587,7 +726,7 @@ app.directive('chartStats', function() {
 
 		// Data - set
 		var ids = scope.ids;
-		var deck = scope.widget.deck;
+		var deck1 = scope.widget.deck1;
 
 		// Data - Copy
 		var data = [];
@@ -597,7 +736,7 @@ app.directive('chartStats', function() {
 			dataElement = [];
 			dataValueSum = 0;
 			dataPreviousValue = 0;
-			deck.forEach(function(element) {
+			deck1.forEach(function(element) {
 				dataValueSum += scope.data[id].stats[element.cat][element.attr];
 				dataElement.push({
 					attr: element.attr,
@@ -619,7 +758,7 @@ app.directive('chartStats', function() {
 			lineHeight: 33
 		};
 		layout.width = layout.boxes.width * ids.length + layout.boxes.padding;
-		layout.height = layout.lineHeight * deck.length;
+		layout.height = layout.lineHeight * deck1.length;
 
 		// Vars - paint
 		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
@@ -653,7 +792,7 @@ app.directive('chartStats', function() {
 					return scaleY(d.value);
 				})
 				.style("fill", function (d, i, j) {
-					return deck[i].color;
+					return deck1[i].color;
 				});
 	};
 

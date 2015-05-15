@@ -1,75 +1,112 @@
-app.factory('colours', [function(){
+app.factory('colours', [function() {
+	var list = {
+		black:		'#000000',		white:		'#FFFFFF',
+		dGrey:		'#797979',		eGrey:		'#ABABAB',
+		dBlue:		'#4682B4',		eBlue:		'#9ED3FF',
+		dGreen:		'#4BB446',		eGreen:		'#8DD28A',
+		dRed:		'#B4464B',		eRed:		'#D28A8D',
+		dOrange:	'#B47846',		eOrange:	'#D2AB8A',
+		dMagenta:	'#AF46B4',		eMagenta:	'#CE8AD2',
+		dViolet:	'#7846B4',		eViolet:	'#AB8AD2',
+
+	};
+
 	return {
-		unkn:	'#000000',		// unkown color
-		base:	'#797979',		// generic color
-		plus:	'#9ED3FF',		// plus, capacity, more possible
-		good:	'#8DD28A',		// correctly running
-		bad:	'#D28A8D',		// Not expected
-		alt:	'#7846B4'		// alternating
+		unkn:	list.black,		// unkown color
+		base:	list.dGrey,		// generic color
+		plus:	list.eBlue,		// plus, capacity, more possible
+		good:	list.eGreen,	// correctly running
+		bad:	list.eRed,		// Not expected
+		alt:	list.eViolet,	// alternating
+		list:	list
 	};
 }]);
 
-app.factory('decks', ['colours', function(colours){
+app.factory('decks', ['colours', function(colours) {
 
 	return {
-		common: [
-			{ title: 'capacity',	desc: 'capacity',	unity: null,	cat: '',			attr: '',	color: colours.plus }
-		],
-		cycles: [
-			{ title: 'running',		desc: 'running',	unity: 'ms',	cat: 'times',		attr: 'r',	color: colours.good },
-			{ title: 'ready',		desc: 'ready',		unity: 'ms',	cat: 'times',		attr: 'ys',	color: colours.bad }
-		],
-		switches: 	[
-			{ title: 'switches',	desc: 'switches',	unity: null,	cat: 'switches',	attr: 's',	color: colours.base }
-		],
-		migrations: [
-			{ title: 'migrations',	desc: 'migrations',	unity: null,	cat: 'migrations',	attr: 'm',	color: colours.base }
-		],
-		lifetime: [
-			{ title: 'migrations',	desc: 'migrations',	unity: null,	cat: 'migrations',	attr: 'm',	color: colours.base,	color2: colours.alt }
-		]
+		cycles: {
+			axis : {
+				limit: { color: colours.list.dBlue, background: colours.list.eBlue }
+			},
+			data : [
+				{ title: 'running',		desc: 'running',	unity: 'ms',	cat: 'times',		attr: 'r',	color: colours.good },
+				{ title: 'ready',		desc: 'ready',		unity: 'ms',	cat: 'times',		attr: 'ys',	color: colours.bad }
+			],
+			legend : [
+				{ title: 'threads running',		desc: '',	color: colours.good },
+				{ title: 'threads ready',		desc: '',	color: colours.bad },
+				{ title: 'CPU capacity',		desc: '',	color: colours.list.dBlue }
+			],
+			clues: [
+				{ color: colours.bad,	tax: 'Oversubscription', 							text: 'too many threads' },
+				{ color: colours.bad,	tax: 'Thread migrations', 							text: 'too many threads' },
+				{ color: colours.bad,	tax: 'Bad thread to core ratio', 					text: 'too many threads' },
+				{ color: colours.plus,	tax: 'Underscubscription', 							text: 'not enough threads' }
+			]
+		},
+		switches: {
+			axis : {
+				limit:	{ color: colours.list.black },
+				x:		{ color: colours.list.dGrey, colors: [colours.list.eGrey, colours.list.dGrey, colours.list.eRed, colours.list.dRed] }
+			},
+			data : [
+				{ title: 'switches',	desc: 'switches',	unity: null,	cat: 'switches',	attr: 's',	color: colours.base }
+			],
+			legend : [
+			],
+			clues: [
+				{ color: colours.base,	tax: 'Oversubscription',							text: 'high frequency' }
+			]
+		},
+		migrations: {
+			axis : {
+				limit:	{ color: colours.list.black },
+				x:		{ color: colours.list.dGrey, colors: [colours.list.eGrey, colours.list.dGrey, colours.list.eRed, colours.list.dRed] }
+			},
+			data : [
+				{ title: 'migrations',	desc: 'migrations',	unity: null,	cat: 'migrations',	attr: 'm',	color: colours.base }
+			],
+			legend : [
+			],
+			clues: [
+				{ color: colours.base,	tax: 'Thread migrations',							text: 'too many migrations' },
+				{ color: colours.base,	tax: 'Alternating sequential/parallel execution',	text: 'alternating period of high and low thread migrations' }
+			]
+		},
+		lifetime: {
+			axis : [
+			],
+			data : [
+				{ title: 'migrations',	desc: 'migrations',	unity: null,	cat: 'migrations',	attr: 'm',	color: colours.base,	color2: colours.alt }
+			],
+			legend : [
+			],
+			clues: [
+				{ color: colours.unkn,	tax: 'Task start/stop overhead',					text: 'too many creations' },
+				{ color: colours.alt,	tax: 'Oversubscription',							text: 'too many threads' },
+				{ color: colours.base,	tax: 'Thread migrations',							text: 'too many threads' },
+				{ color: colours.alt,	tax: 'Thread migrations',							text: 'too many migrations' },
+				{ color: colours.unkn,	tax: 'Task start/stop overhead',					text: 'too short lifetime' }
+			]
+		}
 	};
 }]);
 
-app.factory('clues', ['colours', function(colours){
-	return {
-		cycles: [
-			{ color: colours.bad,	tax: 'Oversubscription', 							text: 'too many threads' },
-			{ color: colours.bad,	tax: 'Thread migrations', 							text: 'too many threads' },
-			{ color: colours.bad,	tax: 'Bad thread to core ratio', 					text: 'too many threads' },
-			{ color: colours.plus,	tax: 'Underscubscription', 							text: 'not enough threads' }
-		],
-		switches: 	[
-			{ color: colours.base,	tax: 'Oversubscription',							text: 'high frequency' }
-		],
-		migrations: [
-			{ color: colours.base,	tax: 'Thread migrations',							text: 'too many migrations' },
-			{ color: colours.base,	tax: 'Alternating sequential/parallel execution',	text: 'alternating period of high and low thread migrations' }
-		],
-		lifetime: [
-			{ color: colours.unkn,	tax: 'Task start/stop overhead',					text: 'too many creations' },
-			{ color: colours.alt,	tax: 'Oversubscription',							text: 'too many threads' },
-			{ color: colours.base,	tax: 'Thread migrations',							text: 'too many threads' },
-			{ color: colours.alt,	tax: 'Thread migrations',							text: 'too many migrations' },
-			{ color: colours.unkn,	tax: 'Task start/stop overhead',					text: 'too short lifetime' }
-		]
-	};
-}]);
-
-app.factory('widgets', ['decks', 'clues', function(decks, clues){
+app.factory('widgets', ['decks', function(decks) {
 	var output = {};
 	
-	output.cacheInvalid		= {id: 10,	file: 'generic-to-delete',	deck: null,				deck2: null,			clues: null,				tag: 'cache-invalid',		title: 'Cache misses from updating shared data',				subtitle: ''};
-	output.cacheMisses		= {id: 11,	file: 'generic-to-delete',	deck: null,				deck2: null,			clues: null,				tag: 'cache-misses',		title: 'Cache misses',											subtitle: ''};
-	output.coreInactivity	= {id: 5,	file: 'generic-to-delete',	deck: null,				deck2: null,			clues: null,				tag: 'core-idle',			title: 'Idle cores',											subtitle: ''};
-	output.lockContentions	= {id: 9,	file: 'generic-to-delete',	deck: null,				deck2: null,			clues: null,				tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
-	output.threadPaths		= {id: 1,	file: 'generic-to-delete',	deck: null,				deck2: null,			clues: null,				tag: 'thread-paths',		title: 'Single thread execution phases',						subtitle: 'alternating sequential/parallel execution'};
-	output.threadChains		= {id: 2,	file: 'generic-to-delete',	deck: null,				deck2: null,			clues: null,				tag: 'thread-chains',		title: 'Chains of dependencies',								subtitle: 'synchronisations and waiting between threads'};
-	output.threadLifetime	= {id: 3,	file: 'thread-lifetime',	deck: decks.lifetime,	deck2: null,			clues: clues.lifetime,		tag: 'thread-running',		title: 'Life cycles of threads',								subtitle: 'creation, running, moving between cores, termination'};
-	output.threadLocks		= {id: 4,	file: 'generic-to-delete',	deck: null,				deck2: null,			clues: null,				tag: 'thread-locks',		title: 'Waiting for locks',										subtitle: ''};
-	output.threadDivergence	= {id: 6,	file: 'thread-divergence',	deck: decks.cycles,		deck2: decks.common,	clues: clues.cycles,		tag: 'thread-divergence',	title: 'Potential parallelism',									subtitle: 'number of running threads compared to number of cores'};
-	output.threadMigrations	= {id: 7,	file: 'thread-migrations',	deck: decks.migrations,	deck2: null,			clues: clues.switches,		tag: 'thread-migrations',	title: 'Thread switching the core on which it is executing',	subtitle: 'thread migrations'};
-	output.threadSwitchs	= {id: 8,	file: 'thread-switches',	deck: decks.switches,	deck2: null,			clues: clues.migrations,	tag: 'thread-switchs',		title: 'Core swhitching the thread it is executing',			subtitle: 'thread switches'};
+	output.cacheInvalid		= {id: 10,	file: 'generic-to-delete',	deck: null,				deck1: null,					tag: 'cache-invalid',		title: 'Cache misses from updating shared data',				subtitle: ''};
+	output.cacheMisses		= {id: 11,	file: 'generic-to-delete',	deck: null,				deck1: null,					tag: 'cache-misses',		title: 'Cache misses',											subtitle: ''};
+	output.coreInactivity	= {id: 5,	file: 'generic-to-delete',	deck: null,				deck1: null,					tag: 'core-idle',			title: 'Idle cores',											subtitle: ''};
+	output.lockContentions	= {id: 9,	file: 'generic-to-delete',	deck: null,				deck1: null,					tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
+	output.threadPaths		= {id: 1,	file: 'generic-to-delete',	deck: null,				deck1: null,					tag: 'thread-paths',		title: 'Single thread execution phases',						subtitle: 'alternating sequential/parallel execution'};
+	output.threadChains		= {id: 2,	file: 'generic-to-delete',	deck: null,				deck1: null,					tag: 'thread-chains',		title: 'Chains of dependencies',								subtitle: 'synchronisations and waiting between threads'};
+	output.threadLifetime	= {id: 3,	file: 'thread-lifetime',	deck: decks.lifetime,	deck1: decks.lifetime.data,		tag: 'thread-running',		title: 'Life cycles of threads',								subtitle: 'creation, running, moving between cores, termination'};
+	output.threadLocks		= {id: 4,	file: 'generic-to-delete',	deck: null,				deck1: null,					tag: 'thread-locks',		title: 'Waiting for locks',										subtitle: ''};
+	output.threadDivergence	= {id: 6,	file: 'thread-divergence',	deck: decks.cycles,		deck1: decks.cycles.data,		tag: 'thread-divergence',	title: 'Potential parallelism',									subtitle: 'number of running threads compared to number of cores'};
+	output.threadMigrations	= {id: 7,	file: 'thread-migrations',	deck: decks.migrations,	deck1: decks.migrations.data,	tag: 'thread-migrations',	title: 'Thread switching the core on which it is executing',	subtitle: 'thread migrations'};
+	output.threadSwitchs	= {id: 8,	file: 'thread-switches',	deck: decks.switches,	deck1: decks.switches.data,		tag: 'thread-switchs',		title: 'Core swhitching the thread it is executing',			subtitle: 'thread switches'};
 	
 	return output;
 }]);
