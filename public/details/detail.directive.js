@@ -23,21 +23,36 @@ app.directive('chartHistoband', function() {
 		var layout = new genericLayout();
 
 		// Non repaintable layout
-		layout.height = 40;
+		var preferedHeight = 80;
+		layout.height = preferedHeight;
 		layout.margin.top = 0;
 
+		// Attributes
+		var deck = scope.widget.deck;
+		var meta = {
+			autoscale:	(attrs.autoscale === 'true' || attrs.autoscale === 'yes' || attrs.autoscale === '' || attrs.autoscale === 'autoscale'),
+			graduate:	(attrs.graduate) ? +attrs.graduate : 1,		// Divide the value with graduate color
+			begin:		+attrs.begin,								// When the user selection starts
+			end:		+attrs.end,									// When the user selection ends (could be before or after timeMax)
+			max:		(attrs.max) ? +attrs.max : NaN,				// Maximum possible value (cf. focus for divide this value)
+			focus:		(attrs.focus) ? +attrs.focus : 1,			// Focusing data (divide factor)
+			halfLimit:	(attrs.graduate) ? +attrs.graduate == 1 : true,
+		}
+
+		// Hack for color band
+		if (meta.graduate > 1) {
+			preferedHeight = preferedHeight / 2;
+			layout.height = preferedHeight;
+		}
 
 		// Data
 		var profileID = +attrs.profileid;
 		var profileIndex = scope.ids.indexOf(profileID);
 		var data = scope.data[profileID];
-		var dataList = data[scope.widget.deck[0].cat].list;
+		var dataList = data[deck[0].cat].list;
 		var title = scope.profiles[profileIndex].label;
-		var timeStart = +attrs.timestart;			// When the user selection starts
-		var timeEnd = +attrs.timeend;				// When the user selection ends (could be before or after timeMax)
 		var timeMax = data.info.duration;
-		var focus = (attrs.focus) ? +attrs.focus : 1;
-		var valueMax = data.info.cores * 3000000 / 862500 / focus; // 10 % of the 1725 possibles switches for 50 ms
+		var valueMax = meta.max / meta.focus;
 
 		// DOM
 		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
@@ -48,13 +63,32 @@ app.directive('chartHistoband', function() {
 		var scaleV = d3.scale.linear();
 
 		// Scales - domains
-		scaleX.domain([timeStart, timeEnd]);
+		scaleX.domain([meta.begin, meta.end]);
 
 		// Axis
 		var xAxis = d3.svg.axis().scale(scaleX);
 
 		// Draw
 		var tickGroup = svg.append("g").attr("class", "dataset");
+		if (meta.halfLimit)
+			var limitGroup = svg.append("g").attr("class", "limit");
+
+		
+		// Draw - limit
+		if (meta.halfLimit) {
+				var halfLimitLine = limitGroup.append("line")
+						.attr("class", "line")
+						.attr('stroke', '#000000')
+						.attr('stroke-width', 1)
+						.attr('stroke-dasharray', 5.5)
+						.attr('fill', 'none');
+				var halfLimitText = limitGroup.append("text")
+						.attr("x", layout.graph.left() - 2)
+						.attr("text-anchor", "end")
+						.attr("alignment-baseline", "middle")
+						.attr("font-size", "10px")
+						.text((100 / meta.focus / 2) + ' %');
+		}
 
 		// Draw - axis
 		var axisXGroup = svg.append("g")
@@ -73,25 +107,50 @@ app.directive('chartHistoband', function() {
 		// Redraw
 		var repaint = function repaint() {
 				// Sizes
+				layout.height = preferedHeight;
 				layout.width = container.clientWidth;
 
 				// Scales
 				scaleX.rangeRound([layout.graph.left(), layout.graph.right()]);
 				scaleV.rangeRound([layout.graph.bottom(), layout.graph.top()]);
 
+				// Overflow
+				var higherV = layout.graph.top();
+
+				// Container
+				d3.select(container).style('height', layout.height + 'px');
+
 				// SVG
-				svg.attr('width', layout.width);
-				axisXGroup.call(xAxis);
-				labelElement.attr("x", layout.graph.right());
+				svg.attr({width: layout.width, height: layout.height});
+				axisXGroup
+					.attr("transform", "translate(0," + layout.graph.bottom() + ")")
+					.call(xAxis);
+				labelElement
+					.attr("x", layout.graph.right())
+					.attr("y", layout.graph.bottom());
 
 				// Scales
 				var xLength = layout.graph.width();
-				var tLength = (timeEnd - timeStart) / xLength;		// a pixel equals (tLength) ms
+				var tLength = (meta.end - meta.begin) / xLength;		// a pixel equals (tLength) ms
 				var eLength = dataList.length;
-				scaleV.domain([0, valueMax * tLength]);				// a pixel could display (valueMax * tLength) maximum switches
+				var valueMaxPixel = valueMax * tLength;
+				scaleV.domain([0, valueMaxPixel]);				// a pixel could display (valueMax * tLength) maximum switches
+
+				// Limits
+				if (meta.halfLimit) {
+					limitGroup.attr("transform", null);
+					halfLimitLine
+						.attr("x1", layout.graph.left())
+						.attr("x2", layout.graph.right())
+						.attr("y1", scaleV(valueMaxPixel / 2))
+						.attr("y2", scaleV(valueMaxPixel / 2));
+					halfLimitText
+						.attr("y", scaleV(valueMaxPixel / 2));
+				}
 
 				// Ticks
 				tickGroup.selectAll("*").remove();
+				tickGroup.attr("transform", null);
 				var e_index = 0;									// TODO find the first index
 				var e, e_count;
 				var vZero = scaleV(0);
@@ -108,7 +167,6 @@ app.directive('chartHistoband', function() {
 							e = dataList[e_index];
 						}
 					}
-					if (x < 50) console.log(x, e_count);
 
 					tickGroup.append("line")
 						.attr("class", "tick")
@@ -117,212 +175,34 @@ app.directive('chartHistoband', function() {
 						.attr('stroke', '#797979')
 						.attr('stroke-width', 1)
 						.attr('fill', 'none');
+
+					// Check overflox
+					higherV = Math.min(higherV, scaleV(e_count));
 				};
 
-			};
+				// Treat overflow
+				if (meta.autoscale && higherV < layout.graph.top()) {
+					var yOverflow = layout.graph.top() - higherV;
+					console.log("need to repaint", yOverflow);
 
-		// Redraw - bind
-		scope.$watch(function() { return container.clientWidth; }, repaint);
-	}
+					// Layout
+					layout.height += yOverflow;
 
-	return {
-		link: chartThreadDivergence_link,
-		restrict: 'E'
-	}
-});
+					// Container
+					d3.select(container).style('height', layout.height + 'px');
 
-app.directive('chartBandTick', function() {
+					// SVG
+					svg.attr('height', layout.height);
+					axisXGroup.attr("transform", "translate(0," + layout.graph.bottom() + ")");
+					tickGroup.attr("transform", "translate(0," + yOverflow + ")");
+					labelElement.attr("y", layout.graph.bottom());
 
-	function chartThreadDivergence_link(scope, element, attrs, controller) {
-		console.log("== directive == chartBandTick ==");
+					// Limits
+					if (meta.halfLimit) {
+						limitGroup.attr("transform", "translate(0," + yOverflow + ")");
+					}
+				}
 
-		// Layout
-		var container = element[0];
-		var layout = new genericLayout();
-
-		// Non repaintable layout
-		layout.height = 40;
-		layout.margin.top = 0;
-
-		// Data
-		var data = scope.data[attrs.profileid];
-		var dataList = data[scope.widget.deck[0].cat].list;
-		var timeStart = +attrs.timestart;			// When the user selection starts
-		var timeEnd = +attrs.timeend;				// When the user selection ends (could be before or after timeMax)
-		var timeMax = data.info.duration;
-
-		// DOM
-		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
-		svg.style("background", "#FFFFFF");
-
-		// Scales
-		var scaleX = d3.scale.linear().rangeRound([layout.graph.left(), layout.graph.right()]);
-
-		// Scales - domains
-		scaleX.domain([timeStart, timeEnd]);
-
-		// Axis
-		var xAxis = d3.svg.axis().scale(scaleX);
-
-		// Draw - ticks
-		var tickGroup = svg.append("g").attr("class", "dataset");
-		var tickXFunction = function(d) {
-			if (isFinite(d)) {
-				return scaleX(d);
-			} else {
-				return scaleX(d.t);
-			}
-		};
-		var tickLines = [];
-		dataList.forEach(function(m) {
-			tickLines.push(
-				tickGroup.append("line")
-					.attr("class", "tick")
-					.attr("x1", 0).attr("x2", 0) // 🕒 repaintable
-					.attr("y1", layout.graph.top()).attr("y2", layout.graph.bottom())
-					.attr('stroke', '#797979')
-					.attr('stroke-opacity', '0.5')
-					.attr('stroke-width', 1)
-					.attr('fill', 'none')
-				);
-		});
-
-
-		// Draw - axis
-		var axisXGroup = svg.append("g")
-				.attr("class", "xAxis")
-				.attr("transform", "translate(0," + layout.graph.bottom() + ")")
-				.call(xAxis);
-
-		// Draw - text
-		var labelElement = svg.append("text")
-			.attr("x", layout.graph.right())
-			.attr("y", layout.graph.bottom())
-			.attr("text-anchor", "end")
-			.attr("font-size", "14px")
-			.text(attrs.title);
-
-		// Redraw
-		var repaint = function repaint() {
-				// Sizes
-				layout.width = container.clientWidth;
-
-				// Scales
-				scaleX.rangeRound([layout.graph.left(), layout.graph.right()]);
-
-				// SVG
-				svg.attr('width', layout.width);
-				tickLines.forEach(function(tick, i) {
-					tick.attr("x1", tickXFunction(dataList[i])).attr("x2", tickXFunction(dataList[i]));
-				})
-				axisXGroup.call(xAxis);
-				labelElement.attr("x", layout.graph.right());
-			};
-
-		// Redraw - bind
-		scope.$watch(function() { return container.clientWidth; }, repaint);
-	}
-
-	return {
-		link: chartThreadDivergence_link,
-		restrict: 'E'
-	}
-});
-
-app.directive('chartBandDensity', function() {
-
-	function chartThreadDivergence_link(scope, element, attrs, controller) {
-		console.log("== directive == chartBandTick ==");
-
-		// Layout
-		var container = element[0];
-		var layout = new genericLayout();
-
-		// Non repaintable layout
-		layout.height = 40;
-		layout.margin.top = 0;
-
-		// Data
-		var data = scope.data[attrs.profileid];
-		var dataList = data[scope.widget.deck[0].cat].frames;
-		var timeStart = +attrs.timestart;			// When the user selection starts
-		var timeEnd = +attrs.timeend;				// When the user selection ends (could be before or after timeMax)
-		var timeMax = data.info.duration;
-		var timeStep = data.info.timeStep;
-		var scaleVPrecision = 1000;
-
-		// DOM
-		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
-		svg.style("background", "#FFFFFF");
-
-		// Scales
-		var scaleX = d3.scale.linear().rangeRound([layout.graph.left(), layout.graph.right()]);
-		var scaleV = d3.scale.linear().rangeRound([0, scaleVPrecision]);
-
-		// Scales - domains
-		scaleX.domain([timeStart, timeEnd]);
-		scaleV.domain([0, 300]);
-
-		// Axis
-		var xAxis = d3.svg.axis().scale(scaleX);
-
-		// Draw
-		var xBoxWidth = 0;
-
-		// Draw - ticks
-		var densityGroup = svg.append("g").attr("class", "dataset");
-		var densityXFunction = function(d) {
-			return scaleX(d.t);
-		};
-		var densityVFunction = function(d) {
-			return scaleV(d.s | 0) / scaleVPrecision;
-		};
-		var densityBoxes = [];
-		dataList.forEach(function(s) {
-			densityBoxes.push(
-				densityGroup.append("rect")
-					.attr("width", xBoxWidth) // 🕒 repaintable
-					.attr("height", layout.graph.height())
-					.attr("x", densityXFunction(s)) // 🕒 repaintable
-					.attr("y", layout.graph.top())
-					.attr("fill", "#797979")
-					.attr("fill-opacity", densityVFunction(s))
-				);
-		});
-
-
-		// Draw - axis
-		var axisXGroup = svg.append("g")
-				.attr("class", "xAxis")
-				.attr("transform", "translate(0," + layout.graph.bottom() + ")")
-				.call(xAxis);
-
-		// Draw - text
-		var labelElement = svg.append("text")
-			.attr("x", layout.graph.right())
-			.attr("y", layout.graph.bottom())
-			.attr("text-anchor", "end")
-			.attr("font-size", "14px")
-			.text(attrs.title);
-
-		// Redraw
-		var repaint = function repaint() {
-				// Sizes
-				layout.width = container.clientWidth;
-
-				// Scales
-				scaleX.rangeRound([layout.graph.left(), layout.graph.right()]);
-				xBoxWidth = scaleX(data.info.timeStep) - scaleX(0);
-
-				// SVG
-				svg.attr('width', layout.width);
-				densityBoxes.forEach(function(box, i) {
-					box.attr("x", densityXFunction(dataList[i]))
-						.attr("width", xBoxWidth)
-						.attr("fill-opacity", densityVFunction(dataList[i]))
-				})
-				axisXGroup.call(xAxis);
-				labelElement.attr("x", layout.graph.right());
 			};
 
 		// Redraw - bind
@@ -510,7 +390,6 @@ app.directive('chartThreadLifetime', function() {
 		var layout = new genericLayout();
 
 		// Non repaintable layout
-		layout.height = 40;
 		layout.margin.top = 0;
 
 		// Data
@@ -531,6 +410,9 @@ app.directive('chartThreadLifetime', function() {
 		layout.graph.height		= function() { return this.layout.height - this.layout.margin.top - this.layout.margin.bottom - 2 * this.layout.section.height; };
 		layout.graph.top		= function() { return this.layout.margin.top + this.layout.section.height; };
 		layout.graph.bottom		= function() { return this.layout.height - this.layout.margin.bottom - this.layout.section.height; };
+
+		// Container
+		d3.select(container).style('height', layout.height + 'px');
 
 		// DOM
 		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});

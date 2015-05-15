@@ -1,5 +1,2 @@
-<chart-band-tick class="widget-graph widget-band" profileid="{{ids[0]}}" timestart="{{data.c.timeMin}}" timeend="{{data.c.duration}}" title="{{profiles[0].label}}"></chart-band-tick>
-<chart-histoband class="widget-graph widget-band" profileid="{{ids[0]}}" timestart="{{data.c.timeMin}}" timeend="{{data.c.duration}}" focus="10"></chart-histoband>
-
-<chart-band-tick class="widget-graph widget-band" ng-if="ids.length >= 2" profileid="{{ids[1]}}" timestart="{{data.c.timeMin}}" timeend="{{data.c.duration}}" title="{{profiles[1].label}}"></chart-band-tick>
-<chart-histoband class="widget-graph widget-band" ng-if="ids.length >= 2" profileid="{{ids[1]}}" timestart="{{data.c.timeMin}}" timeend="{{data.c.duration}}" focus="10"></chart-histoband>
+<chart-histoband class="widget-graph widget-histo" profileid="{{ids[0]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" max="{{data[ids[0]].info.cores * data[ids[0]].info.calib.switches}}" focus="10" autoscale></chart-histoband>
+<chart-histoband class="widget-graph widget-histo" ng-if="ids.length >= 2" profileid="{{ids[1]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" max="{{data[ids[0]].info.cores * data[ids[1]].info.calib.switches}}" focus="10" autoscale></chart-histoband>

@@ -115,12 +115,14 @@
 .detail .widget-band {
 	height: 40px;
 }
+.detail .widget-histo {
+	height: 80px;
+}
 .detail .widget-detail {
 	height: 140px;
 }
 .detail .widget-path {
 	min-height: 40px;
-	background: none;
 }
 
 .detail td.container-graph {

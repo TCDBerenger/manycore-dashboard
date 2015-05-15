@@ -3,6 +3,15 @@ var router = express.Router();
 var fs = require('fs');
 var VERSION = 26;
 
+var hardRoman = {
+	data: {
+		cores: 8
+	},
+	calib: {
+		switches:	35		// number of switches by ms by core
+	}
+};
+
 /************************************************/
 /* Variables									*/
 /************************************************/
@@ -14,19 +23,19 @@ var VERSION = 26;
 		- treatThreadStatesByFrame		<boolean>
 */
 var profileMap = {
-	1:	{ file: 'matmulijk', 	pid: 6396,	program: 'MatmulIJK',	timeStep: 50, availableCores: 8 },
-	2:	{ file: 'matmulkij', 	pid: 3904,	program: 'MatmulKIJ',	timeStep: 50, availableCores: 8 },
-	3:	{ file: 'matmulkji', 	pid: 1788,	program: 'MatmulKJI',	timeStep: 50, availableCores: 8 },
-	4:	{ file: 'particles', 	pid: 10460,	program: 'Matmul',		timeStep: 50, availableCores: 8 },
-	5:	{ file: 'accountb',		pid: 11300,	program: 'Matmul',		timeStep: 50, availableCores: 8 },
-	6:	{ file: 'computepi',	pid: 6568,	program: 'ComputePi',	timeStep: 50, availableCores: 8 },
-	7:	{ file: 'mandelbrot',	pid: 7484,	program: 'Mandelbrot',	timeStep: 50, availableCores: 8 },
-	8:	{ file: 'nqueens',		pid: 3120,	program: 'NQueens',		timeStep: 50, availableCores: 8 },
-	9:	{ file: 'raytracer',	pid: 7500,	program: 'RayTracer',	timeStep: 50, availableCores: 8 },
- 	10:	{ file: 'accounta',		pid: 11360,	program: 'Matmul',		timeStep: 50, availableCores: 8 },
- 	11:	{ file: 'mergesortp',	pid: 9148,	program: 'Matmul',		timeStep: 50, availableCores: 8 },
- 	12:	{ file: 'mergesorts',	pid: 7272,	program: 'Matmul',		timeStep: 50, availableCores: 8 },
- 	13:	{ file: 'particlep',	pid: 4532,	program: 'Matmul',		timeStep: 50, availableCores: 8 }
+	1:	{ file: 'matmulijk', 	pid: 6396,	timeStep: 50, hardware: hardRoman },
+	2:	{ file: 'matmulkij', 	pid: 3904,	timeStep: 50, hardware: hardRoman },
+	3:	{ file: 'matmulkji', 	pid: 1788,	timeStep: 50, hardware: hardRoman },
+	4:	{ file: 'particles', 	pid: 10460,	timeStep: 50, hardware: hardRoman },
+	5:	{ file: 'accountb',		pid: 11300,	timeStep: 50, hardware: hardRoman },
+	6:	{ file: 'computepi',	pid: 6568,	timeStep: 50, hardware: hardRoman },
+	7:	{ file: 'mandelbrot',	pid: 7484,	timeStep: 50, hardware: hardRoman },
+	8:	{ file: 'nqueens',		pid: 3120,	timeStep: 50, hardware: hardRoman },
+	9:	{ file: 'raytracer',	pid: 7500,	timeStep: 50, hardware: hardRoman },
+ 	10:	{ file: 'accounta',		pid: 11360,	timeStep: 50, hardware: hardRoman },
+ 	11:	{ file: 'mergesortp',	pid: 9148,	timeStep: 50, hardware: hardRoman },
+ 	12:	{ file: 'mergesorts',	pid: 7272,	timeStep: 50, hardware: hardRoman },
+ 	13:	{ file: 'particlep',	pid: 4532,	timeStep: 50, hardware: hardRoman }
 };
 
 
@@ -183,7 +192,7 @@ function computeData(id, raw1, raw2, profile) {
 	var data = {
 		info: {
 			version:		VERSION,
-			cores:			profile.availableCores,
+			cores:			profile.hardware.data.cores,
 			timeShift:		raw1[0].time,
 			timeStep:		profile.timeStep,
 			timeMin:		0,
@@ -514,6 +523,9 @@ function addCommon(output, id) {
 		timeMax:		data.info.timeMax,
 		duration:		data.info.timeMax + data.info.timeStep,
 		threadCount:	data.info.threadCount,
+		calib: {
+			switches:	profileMap[id].hardware.calib.switches
+		},
 		threads:		[]
 	};
 	output.stats = {
@@ -821,9 +833,9 @@ function addStates(output, id) {
 
 		// Hack
 		/*
-		if (countRunning > profile.availableCores) {
-			countReady += countRunning - profile.availableCores;
-			countRunning = profile.availableCores;
+		if (countRunning > profile.hardware.data.cores) {
+			countReady += countRunning - profile.hardware.data.cores;
+			countRunning = profile.hardware.data.cores;
 		}
 		*/
 
