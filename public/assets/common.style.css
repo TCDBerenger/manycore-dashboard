@@ -15,6 +15,9 @@ body {
 .btn-toolbar-vertical > .input-group {
 	margin-top: 5px;
 }
+a {
+	outline: 0 !important;
+}
 th {
 	text-align: center;
 }

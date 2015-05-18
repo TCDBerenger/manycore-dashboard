@@ -5,13 +5,134 @@
 	text-align: center;
 }
 
-/**
- * Dashboard style
- */
-.dashboard h2 {
+.dashboard2 h2 {
 	margin-top: 0px;
 	display: inline-block;
 }
+
+
+
+/**
+ * Dashboard icons
+ */
+.dashboard2 .tile-icon {
+	position: absolute;
+	overflow: hidden;
+	width: 30px;
+	height: 30px;
+	margin-top: -19px;
+	margin-left: -20px;
+}
+.dashboard2 .tile-icon > .fa-stack, .dashboard2 .tile-icon > .fa {
+	position: absolute;
+	margin-top: -7px;
+	margin-left: -7px;
+}
+.dashboard2 .tile-icon > .fa-stack	{	font-size: 1.2em;	}
+.dashboard2 .tile-icon > .fa		{	font-size: 2.2em;	}
+
+
+.dashboard2 .well-icon {
+	float: left;
+	font-size: 2.2em;
+	margin-right: 6px;
+	margin-top: -30px;
+	margin-left: -30px;
+}
+
+
+
+/**
+ * Dashboard profile
+ */
+.dashboard2 .col-auto {
+	float: left;
+	width: auto;
+	position: relative;
+	min-height: 1px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+.dashboard2 .profile {
+}
+.dashboard2 .profile .tile {
+	background-color: #FFF;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 0px;
+	box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+	background-clip: padding-box;
+	outline: 0px none;
+	margin-bottom: 10px;
+}
+
+
+.dashboard2 .profile .section {
+	padding: 20px;
+}
+.dashboard2 .profile .section:first-child {
+	padding-right: 60px;
+}
+.dashboard2 .profile .section ~ .section {
+	border-top: 1px dashed #000000;
+}
+
+
+.dashboard2 .profile .pin {
+	position: absolute;
+	top: 2px;
+	right: 17px;
+	z-index: 100;
+}
+.dashboard2 .profile .pin .icon {
+	font-size: 0.8em !important;
+}
+.dashboard2 .profile .pin .text {
+	padding-right: 2px;
+}
+
+
+.dashboard2 .profile .subtitle {
+	margin-top: -10px;
+}
+
+
+/**
+ * Dashboard control
+ */
+.dashboard2 .ctrl .well {
+	border-width: 2px;
+	border-style: dashed;
+	background-color: transparent;
+	overflow: hidden;
+}
+
+.dashboard2 .ctrl a .text {
+	padding-left: 4px;
+}
+
+/*
+.dashboard2 .ctrl .action .text {
+	position: fixed;
+	margin-top: -27px;
+	margin-left: 33px;
+	background-color: #FFFFFF;
+}
+.dashboard2 .ctrl .hover-text:hover .text {
+	display: block !important;
+	min-width: 150px;
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * Dashboard profile
