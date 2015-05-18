@@ -1,8 +1,8 @@
-<div class="row dashboard2 profiles">
+<div class="row dashboard">
 	<!-- Profiles -->
 	<div class="col-auto profile" ng-repeat="profile in selectedProfiles">
 		<div class="tile">
-			<div class="section">
+			<section>
 				<a class="pin hover-text" href ng-click="unselectProfile(profile)">
 					<span class="text">deselect</span><span class="fa-stack fa-lg icon">
 						<i class="fa fa-thumb-tack fa-stack-1x"></i>
@@ -11,156 +11,9 @@
 				</a>
 				<h2>{{profile.label}}</h2>
 				<p class="subtitle">{{profile.desc != null && profile.desc.length > 0 | iif : profile.desc : '&nbsp;' }}</p>
-			</div>
-			<div class="section">
+			</section>
+			<section>
 				<div class="tile-icon"><i class="fa fa-laptop"></i></div>
-				<h4>Hardware</h4>
-			</div>
-			<!--
-			<div class="section">
-				<div class="tile-icon"><i class="fa fa-bar-chart"></i></div>
-				<h4>Stats</h4>
-			</div>
-			-->
-		</div>
-	</div>
-
-
-	<!-- Selection -->
-	<div ng-if="canAddProfile()" class="col-auto ctrl"><div class="well">
-		<span class="fa-stack well-icon">
-			<i class="fa fa-circle fa-stack-2x"></i>
-			<i class="fa fa-thumb-tack fa-stack-1x fa-inverse"></i>
-		</span>
-		<h2>{{! hasSelectedProfile() | iif : "Add a sample" : "Compare with"}}</h2>
-		<div class="list-group ctrl-element">
-			<a href ng-click="selectProfile(profile)" class="list-group-item" ng-repeat="profile in availableProfiles | orderBy:'label'">
-				<h4 class="list-group-item-heading">{{profile.label}}</h4>
-				<p class="list-group-item-text">{{profile.desc}}</p>
-			</a>
-		</div>
-		<div class="alert alert-dismissible alert-info ctrl-element ctrl-add-nomore" ng-show="availableProfiles.length == 0">
-			<i class="fa fa-2x fa-frown-o" style="float: left; margin-right: 8px;"></i>
-			<strong>Sorry</strong><br />
-			not enough sample are available
-		</div>
-
-	</div></div>
-
-
-	<!-- Control -->
-	<div ng-if="hasProfiles()" class="col-auto ctrl"><div class="well">
-		<span class="fa-stack well-icon">
-			<i class="fa fa-circle fa-stack-2x"></i>
-			<i class="fa fa-wrench fa-stack-1x fa-inverse"></i>
-		</span>
-		<h2>&nbsp;</h2>
-		<p ng-if="hasProfiles()"><a class="action" href ng-click="unselectAllProfiles()">
-			<span class="fa-stack icon">
-				<i class="fa fa-thumb-tack fa-stack-1x"></i>
-				<i class="fa fa-ban fa-stack-2x"></i>
-			</span><span class="text">deselect all</span>
-		</a></p>
-		<p ng-if="has2Profiles()"><a class="action" href ng-click="invertProfiles()">
-			<span class="fa-stack icon">
-				<i class="fa fa-circle fa-stack-2x"></i>
-				<i class="fa fa-exchange fa-stack-1x fa-inverse"></i>
-			</span><span class="text">invert</span>
-		</a></p>
-	</div></div>
-
-</div>
-
-<div class="row dashboard">
-
-
-
-
-
-
-<!--
-	<!-- Profiles - ->
-	<div class="col-xs-5 profile" ng-repeat-start="profile in selectedProfiles">
-		<h4>Hardware</h4>
-		<p>todo</p>
-		<h4>Sequence</h4>
-		<p>todo</p>
-		<h4>Profile</h4>
-		<div ng-if="waitingData(profile.id)">
-			<i class="fa fa-spinner fa-pulse"></i> <strong>Retreiving data...</strong>
-		</div>
-		<div class="list-group profile-list" ng-if="hasData(profile.id)">
-			<a href="#/detail/tg/{{encodeSelectedProfile()}}" class="list-group-item">
-				<chart-dash-divergence class="indicator-graph" profileid="{{profile.id}}"></chart-dash-divergence>
-			</a>
-			<a href="#/detail/sy/{{encodeSelectedProfile()}}" class="list-group-item">
-				<svg class="indicator-sy" height="40">
-					<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Synchronisation graph here</text>
-				</svg>
-			</a>
-			<a href="#/detail/ds/{{encodeSelectedProfile()}}" class="list-group-item">
-				<svg class="indicator-ds" height="40">
-					<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Data sharing graph here</text>
-				</svg>
-			</a>
-			<a href="#/detail/lb/{{encodeSelectedProfile()}}" class="list-group-item">
-				<svg class="indicator-lb" height="40">
-					<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Load balancing graph here</text>
-				</svg>
-			</a>
-			<a href="#/detail/dl/{{encodeSelectedProfile()}}" class="list-group-item">
-				<svg class="indicator-dl" height="40">
-					<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Data locality graph here</text>
-				</svg>
-			</a>
-			<a href="#/detail/rs/{{encodeSelectedProfile()}}" class="list-group-item">
-				<svg class="indicator-rs" height="40">
-					<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Ressource sharing graph here</text>
-				</svg>
-			</a>
-			<a href="#/detail/io/{{encodeSelectedProfile()}}" class="list-group-item">
-				<svg class="indicator-io" height="40">
-					<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Input/Output graph here</text>
-				</svg>
-			</a>
-		</div>
-	</div>
-
-	<!-- Versus or Infos - ->
-	<div class="col-xs-2 ctrl-versus" ng-repeat-end ng-if="$index == 0">
-		<a href ng-click="invertProfiles()" ng-if="has2Profiles()">
-			<span class="fa-stack icon">
-				<i class="fa fa-circle fa-stack-2x"></i>
-				<i class="fa fa-exchange fa-stack-1x fa-inverse"></i>
-			</span>
-		</a>
-		<a href ng-click="unselectAllProfiles()" ng-if="has2Profiles()">
-			<span class="fa-stack icon">
-				<i class="fa fa-thumb-tack fa-stack-1x"></i>
-				<i class="fa fa-ban fa-stack-2x"></i>
-			</span>
-		</a>
-	</div>
-	
-</div>
-
-<script type="text/ng-template" id="/inline-dashboard-profile.html">
-	Content of the template. {{profile.id}}
-</script>
-
-<!--
-<div class="row dashboard">
-	<div class="col-xs-{{selectedProfiles.length * 5}} col-lg-{{selectedProfiles.length * 4}} profile" ng-show="hasSelectedProfile()">
-		<div class="row profile-title">
-			<div class="col-xs-{{12 / selectedProfiles.length}}" ng-repeat="profile in selectedProfiles">
-				<h2>{{profile.label}}</h2>
-				<a class="profile-title-unselect hover-text" href ng-click="unselectProfile(profile)">
-					<span class="fa-stack fa-lg icon">
-						<i class="fa fa-thumb-tack fa-stack-1x"></i>
-						<i class="fa fa-ban fa-stack-2x"></i>
-					</span><span class="text">deselect</span>
-				</a>
-				<p>{{profile.desc}}</p>
 				<div class="dropdown profile-hardware" dropdown on-toggle="toggled(open)">
 					<p>
 						<a href class="dropdown-toggle" dropdown-toggle><strong>ran on</strong> <i class="fa fa-caret-square-o-down"></i></a>
@@ -190,58 +43,130 @@
 						</ul>
 					</div>
 				</div>
-			</div>
+			</section>
+			<section ng-if="hasData(profile.id)">
+				<div class="tile-icon"><i class="fa fa-bar-chart"></i></div>
+				<p><strong>duration:</strong> {{data[profile.id].info.duration}} ms</p>
+			</section>
 		</div>
-		<div class="row profile-sequence">
-			<div class="col-xs-12">
-				<h4>Sequence</h4>
-				<chart-sequence class="sequence-graph"></chart-sequence>
-			</div>
+
+
+		<div ng-if="waitingData(profile.id)">
+			<i class="fa fa-spinner fa-pulse"></i> <strong>Retreiving data...</strong>
 		</div>
-		<div class="row profile-body">
-			<div class="col-xs-{{12 / selectedProfiles.length}}" ng-repeat="profile in selectedProfiles">
-				<h4>Profile</h4>
-				<div ng-if="waitingData(profile.id)">
-					<i class="fa fa-spinner fa-pulse"></i> <strong>Retreiving data...</strong>
-				</div>
-				<div class="list-group" ng-if="hasData(profile.id)">
-					<a href="#/detail/tg/{{encodeSelectedProfile()}}" class="list-group-item">
-						<chart-dash-divergence class="indicator-graph" profileid="{{profile.id}}"></chart-dash-divergence>
-					</a>
-					<a href="#/detail/sy/{{encodeSelectedProfile()}}" class="list-group-item">
-						<svg class="indicator-sy" height="40">
-							<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Synchronisation graph here</text>
-						</svg>
-					</a>
-					<a href="#/detail/ds/{{encodeSelectedProfile()}}" class="list-group-item">
-						<svg class="indicator-ds" height="40">
-							<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Data sharing graph here</text>
-						</svg>
-					</a>
-					<a href="#/detail/lb/{{encodeSelectedProfile()}}" class="list-group-item">
-						<svg class="indicator-lb" height="40">
-							<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Load balancing graph here</text>
-						</svg>
-					</a>
-					<a href="#/detail/dl/{{encodeSelectedProfile()}}" class="list-group-item">
-						<svg class="indicator-dl" height="40">
-							<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Data locality graph here</text>
-						</svg>
-					</a>
-					<a href="#/detail/rs/{{encodeSelectedProfile()}}" class="list-group-item">
-						<svg class="indicator-rs" height="40">
-							<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Ressource sharing graph here</text>
-						</svg>
-					</a>
-					<a href="#/detail/io/{{encodeSelectedProfile()}}" class="list-group-item">
-						<svg class="indicator-io" height="40">
-							<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Input/Output graph here</text>
-						</svg>
-					</a>
-				</div>
-			</div>
+
+		<div class="well" ng-if="waitingData(profile.id)">
+			<span class="fa-stack well-icon">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-spinner fa-pulse fa-stack-1x fa-inverse"></i>
+			</span>
+			<strong>Retreiving data...</strong>
+		</div>
+
+		<div class="tile graphs" ng-if="hasData(profile.id)">
+			<section>
+				<a href="#/detail/tg/{{encodeSelectedProfile()}}">
+					<chart-dash-divergence class="indicator-graph" profileid="{{profile.id}}"></chart-dash-divergence>
+				</a>
+			</section>
+			<section>
+				<a href="#/detail/sy/{{encodeSelectedProfile()}}">
+					<svg class="indicator-graph indicator-sy">
+						<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Synchronisation graph here</text>
+					</svg>
+				</a>
+			</section>
+			<section>
+				<a href="#/detail/ds/{{encodeSelectedProfile()}}">
+					<svg class="indicator-graph indicator-ds">
+						<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Data sharing graph here</text>
+					</svg>
+				</a>
+			</section>
+			<section>
+				<a href="#/detail/lb/{{encodeSelectedProfile()}}">
+					<svg class="indicator-graph indicator-lb">
+						<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Load balancing graph here</text>
+					</svg>
+				</a>
+			</section>
+			<section>
+				<a href="#/detail/dl/{{encodeSelectedProfile()}}">
+					<svg class="indicator-graph indicator-dl">
+						<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Data locality graph here</text>
+					</svg>
+				</a>
+			</section>
+			<section>
+				<a href="#/detail/rs/{{encodeSelectedProfile()}}">
+					<svg class="indicator-graph indicator-rs">
+						<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Ressource sharing graph here</text>
+					</svg>
+				</a>
+			</section>
+			<section>
+				<a href="#/detail/io/{{encodeSelectedProfile()}}">
+					<svg class="indicator-graph indicator-io">
+						<text fill="#000000" font-size="10" font-family="Verdana" x="5" y="15">Input/Output graph here</text>
+					</svg>
+				</a>
+			</section>
 		</div>
 	</div>
-</div>
--->
+
+
+	<!-- Selection -->
+	<div ng-if="canAddProfile()" class="col-auto ctrl"><div class="well">
+		<span class="fa-stack well-icon">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-thumb-tack fa-stack-1x fa-inverse"></i>
+		</span>
+		<h2>{{! hasSelectedProfile() | iif : "Add a sample" : "Compare with"}}</h2>
+		<div class="list-group ctrl-element">
+			<a href ng-click="selectProfile(profile)" class="list-group-item" ng-repeat="profile in availableProfiles | orderBy:'label'">
+				<h4 class="list-group-item-heading">{{profile.label}}</h4>
+				<p class="list-group-item-text">{{profile.desc}}</p>
+			</a>
+		</div>
+		<div class="alert alert-dismissible alert-info ctrl-element ctrl-add-nomore" ng-show="availableProfiles.length == 0">
+			<i class="fa fa-2x fa-frown-o" style="float: left; margin-right: 8px;"></i>
+			<strong>Sorry</strong><br />
+			not enough sample are available
+		</div>
+
+	</div></div>
+
+
+	<!-- Control -->
+	<div ng-if="hasProfiles()" class="col-auto ctrl">
+		<div class="well">
+			<span class="fa-stack well-icon">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-wrench fa-stack-1x fa-inverse"></i>
+			</span>
+			<h2>&nbsp;</h2>
+			<p ng-if="hasProfiles()"><a class="action" href ng-click="unselectAllProfiles()">
+				<span class="fa-stack icon">
+					<i class="fa fa-thumb-tack fa-stack-1x"></i>
+					<i class="fa fa-ban fa-stack-2x"></i>
+				</span><span class="text">deselect all</span>
+			</a></p>
+			<p ng-if="has2Profiles()"><a class="action" href ng-click="invertProfiles()">
+				<span class="fa-stack icon">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-exchange fa-stack-1x fa-inverse"></i>
+				</span><span class="text">invert</span>
+			</a></p>
+		</div>
+		<div class="well">
+			<span class="fa-stack well-icon">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-text-width fa-stack-1x fa-inverse"></i>
+			</span>
+			<h2>&nbsp;</h2>
+			<p>Refine the relevant sequence:</p>
+			<pre>TODO</pre>
+		</span>
+	</div>
+
 </div>
