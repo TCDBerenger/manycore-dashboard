@@ -3,74 +3,69 @@
  */
 .dashboard h2 {
 	margin-top: 0px;
-	display: inline-block;
+	/*display: inline-block;*/
 }
 
 
 
 /**
- * Dashboard decoration
+ * Dashboard tiles
  */
+.dashboard .tile, .dashboard .block, .dashboard .cat {
+	overflow: hidden;
+	margin-bottom: 20px;
+	min-height: 20px;
+}
+
 .dashboard .tile {
-	background-color: #FFF;
+	overflow: visible;
+	background-color: #FFFFFF;
+
 	border: 1px solid rgba(0, 0, 0, 0.2);
 	border-radius: 0px;
+
 	box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
 	background-clip: padding-box;
 	outline: 0px none;
-	margin-bottom: 20px;
-}
-.dashboard .tile section {
+
 	padding: 20px;
 }
-.dashboard .tile section:first-child {
-	padding-right: 60px;
+
+.dashboard .block {
+	border: 2px dashed #E8E8E8;
+	border-radius: 0px;
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05) inset;
+
+	padding: 55px 20px 20px 20px;
 }
-.dashboard .tile section ~ section {
-	border-top: 1px dashed #000000;
+.dashboard .block-title {
+	padding-top: 20px;
 }
 
-.dashboard .well {
-	border-width: 2px;
-	border-style: dashed;
-	background-color: transparent;
-	overflow: hidden;
-	margin-bottom: 20px;
+.dashboard .cat {
+	border: 2px dashed #E8E8E8;
+	border-radius: 0px;
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05) inset;
+
+	padding: 55px 20px 20px 20px;
+
+	background-color: #FAFAFA;
 }
 
 
 
 /**
- * Dashboard icons
+ * Dashboard tile icons
  */
-.dashboard .tile-icon {
-	position: absolute;
-	overflow: hidden;
-	width: 30px;
-	height: 30px;
-	margin-top: -19px;
-	margin-left: -20px;
-}
-.dashboard .tile-icon > .fa-stack {
-	position: absolute;
-	margin-top: -6px;
-	margin-left: -6px;
-	font-size: 1.2em;
-}
-.dashboard .tile-icon > .fa {
-	position: absolute;
-	margin-top: -7px;
-	margin-left: -9px;
-	font-size: 1.8em;
-}
-
-
 .dashboard .well-icon {
 	float: left;
 	font-size: 2.2em;
 	margin-right: 6px;
-	margin-top: -30px;
-	margin-left: -30px;
+	margin-top: -66px;
+	margin-left: -31px;
+}
+.dashboard .block-title .well-icon {
+	margin-top: -31px;
 }
 
 
@@ -78,15 +73,6 @@
 /**
  * Dashboard profile
  */
-.dashboard .col-auto {
-	float: left;
-	width: auto;
-	position: relative;
-	min-height: 1px;
-	padding-left: 15px;
-	padding-right: 15px;
-}
-
 .dashboard .profile .pin {
 	position: absolute;
 	top: 2px;

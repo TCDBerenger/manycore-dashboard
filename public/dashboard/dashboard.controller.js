@@ -7,7 +7,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	$scope.selectedProfiles = []
 	$scope.availableProfiles = [];
 	$scope.data = { c: {} };
-	$scope.dataVersion = 0;					// use to bind graph repaint
+	$scope.waitingDataCounter = 0;
 
 	// Details
 	$scope.categories = categories.all;
@@ -43,6 +43,14 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	$scope.has2Profiles = function() {
 		return $scope.selectedProfiles.length == 2;
 	};
+	
+	/**
+	 * Flag - data not loaded
+	 */
+	$scope.waitingData = function() {
+		return $scope.waitingDataCounter < 0;
+	};
+
 
 	//
 	// OLD
@@ -66,7 +74,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	/**
 	 * Flag - data not loaded
 	 */
-	$scope.waitingData = function(id) {
+	$scope.waitingDataFor = function(id) {
 		return ! $scope.data.hasOwnProperty(id);
 	};
 	
@@ -89,14 +97,19 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 		// remove to available
 		$scope.availableProfiles.splice($scope.availableProfiles.indexOf(profile), 1);
 
+		// Download data for graphs
+		if ($scope.data.hasOwnProperty(profile.id)) {
+			$scope._selectProfile_withData(profile);
+		} else {
+			$scope.downloadData(profile);
+		}
+	};
+	$scope._selectProfile_withData = function(profile) {
 		// add to selection
 		$scope.selectedProfiles.push(profile);
 		
 		// Save new selection
 		$rootScope.saveSelectedProfiles($scope.selectedProfiles);
-
-		// Download data for graphs
-		$scope.downloadData(profile);
 	};
 	
 	/**
@@ -167,16 +180,19 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	 * Load
 	 */
 	$scope.downloadData = function(profile) {
-		if (! $scope.data.hasOwnProperty(profile.id)) {
-			$http.get('/service/details/dash/'+ profile.id).success(function(data) {
-				$scope.data[profile.id] = data[profile.id];
-				$scope.data[profile.id].profile = profile;
-				$scope.data.c.timeMin = Math.min(data.c.timeMin, $scope.data.c.timeMin | 0);
-				$scope.data.c.timeMax = Math.max(data.c.timeMax, $scope.data.c.timeMax | 0);
-				$scope.data.c.duration = Math.max(data.c.duration, $scope.data.c.duration | 0);
-				$scope.dataVersion++;
-			});
-		}
+		$scope.waitingDataCounter--;
+
+		$http.get('/service/details/dash/'+ profile.id).success(function(data) {
+			$scope.data[profile.id] = data[profile.id];
+			$scope.data[profile.id].profile = profile;
+			$scope.data.c.timeMin = Math.min(data.c.timeMin, $scope.data.c.timeMin | 0);
+			$scope.data.c.timeMax = Math.max(data.c.timeMax, $scope.data.c.timeMax | 0);
+			$scope.data.c.duration = Math.max(data.c.duration, $scope.data.c.duration | 0);
+
+			$scope._selectProfile_withData(profile);
+
+			$scope.waitingDataCounter++;
+		});
 	};
 	
 	/**

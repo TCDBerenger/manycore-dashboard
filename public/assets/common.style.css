@@ -31,16 +31,56 @@ svg .svg-fa {
 
 
 /*
+ * Bootstrap extended columns
+ *
+ * µ: size to be set
+ * auto: ? columns (size from the content)
+ * 015: 1.5 columns
+ * 105: 10,5 columns
+ * 7-1: 1 column for a grid of 7 columns
+ */
+.col-µ, .col-auto, .col-015, .col-105, .col-7-1 {
+	float: left;
+	position: relative;
+	min-height: 1px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+.col-auto	{ width: auto;	}
+.col-015	{ width: 12.5%;	}
+.col-105	{ width: 87.5%;	}
+.col-7-1	{ width: 87.5%;	}
+
+
+/*
+ * Bootstrap extended buttons
+ */
+.btn-group-col {
+	-webkit-column-gap: 8px; /* Chrome, Safari, Opera */
+	-moz-column-gap: 8px; /* Firefox */
+	column-gap: 8px;
+}
+.btn-group-col-3 {
+	-webkit-column-count: 3; /* Chrome, Safari, Opera */
+	-moz-column-count: 3; /* Firefox */
+	column-count: 3;
+}
+.btn-group-col .btn {
+	width: 100%;
+	margin-bottom: 6px;
+}
+
+
+
+/*
  * Wrapper
  */
 #wrapper {
 	transition: all 0.2s ease;
-	padding-left: 220px;
 	margin-top: -25px;
 }
 
 #wrapper.min {
-	padding-left: 60px;
 }
 
 

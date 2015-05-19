@@ -106,3 +106,23 @@ app.filter('reverse', function() {
     return items ? items.slice().reverse() : items;
   };
 });
+
+app.filter('range', function() {
+	return function(val, range) {
+		range = parseInt(range);
+		for (var i = range - 1; i >= 0; i--) {
+			val.push(i);
+		};
+		return val;
+	};
+});
+
+app.filter('cell', function() {
+	return function(val, length, cols) {
+		var range = Math.ceil(parseInt(length) / parseInt(cols));
+		for (var i = range - 1; i >= 0; i--) {
+			val.push(i);
+		};
+		return val;
+	};
+});
