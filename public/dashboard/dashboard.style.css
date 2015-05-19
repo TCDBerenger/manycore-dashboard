@@ -28,7 +28,7 @@
 	background-clip: padding-box;
 	outline: 0px none;
 
-	padding: 20px;
+	padding: 20px 20px 10px 20px;
 }
 
 .dashboard .block {
@@ -47,7 +47,7 @@
 	border-radius: 0px;
 	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05) inset;
 
-	padding: 55px 20px 20px 20px;
+	padding: 20px;
 
 	background-color: #FAFAFA;
 }
@@ -69,23 +69,39 @@
 }
 
 
-
 /**
- * Dashboard profile
+ * Dashboard pin
  */
-.dashboard .profile .pin {
+.dashboard .pin {
 	position: absolute;
 	top: 2px;
 	right: 17px;
 	z-index: 100;
 }
-.dashboard .profile .pin .icon {
-	font-size: 0.8em !important;
-}
-.dashboard .profile .pin .text {
-	padding-right: 2px;
+.dashboard .pin .text		{ padding-right: 2px; }
+.dashboard .pin > .fa		{ font-size: 1.1em !important; }
+.dashboard .pin .fa-stack	{ font-size: 0.8em !important; }
+
+.dashboard .cat .pin {
+	top: 4px;
+	right: 19px;
 }
 
+
+
+/**
+ * Dashboard widget
+ */
+.dashboard .widget-graph {
+	margin: 0px !important;
+	min-width: 40px;
+	min-height: 40px;
+}
+
+
+/**
+ * Dashboard profile
+ */
 .dashboard .profile .subtitle {
 	margin-top: -10px;
 }

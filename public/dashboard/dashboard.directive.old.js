@@ -1,18 +1,7 @@
-app.directive('widgetDash', ['$parse', '$injector', '$compile', function ($parse, $injector, $compile) {
-	return {
-		restrict: 'E',
-		link: function (scope, element, attrs, controller) {
-			if (attrs.cat != null && $injector.has('widgetDash' + attrs.cat.toUpperCase() + 'Directive')) {
-				$injector.get('widgetDash' + attrs.cat.toUpperCase() + 'Directive')[0].link(scope, element, attrs, controller);
-			}
-		}
-	}
-}]);
-
-app.directive('widgetDashTG', function() {
+app.directive('chartSequence', function() {
 
 	function chartThreadDivergence_link(scope, element, attrs, controller) {
-		console.log("== directive == widgetDashTg ==");
+		console.log("== directive == chartSequence ==");
 
 		// Layout
 		var container = element[0];
@@ -120,6 +109,8 @@ app.directive('widgetDashTG', function() {
 		
 
 		// Compute data
+		var compute = function() {
+			console.log('Need to recompute');
 
 			// Get data from scope
 			// We don't erase the instance of the profile array
@@ -127,6 +118,8 @@ app.directive('widgetDashTG', function() {
 			scope.getprofileData().forEach(function(profile) {
 				profiles.push(profile);
 			});
+
+			console.log('profile data: ' + profiles.length);
 
 			// Find the max length
 			timeMax = 0;
@@ -138,8 +131,11 @@ app.directive('widgetDashTG', function() {
 			// Scales
 			scaleX.domain([timeMin, timeMax]);
 
+			repaint();
+		}
 
 		// Redraw
+		var repaint = function repaint() {
 			// Sizes
 			layout.width = container.clientWidth;
 
@@ -161,10 +157,116 @@ app.directive('widgetDashTG', function() {
 					.attr("width", function(d) { return scaleX(d.info.duration) - scaleX(0); })
 					.attr("height", function(d, i, j) { return layout.graph.height() / profiles.length; })
 					.attr("x", scaleX(0))
-					.attr("y", function(d, i, j) { return scaleY(100 - 50 * i); })
+					.attr("y", function(d, i, j) { console.log('i: '+i+' j: '+j); return scaleY(100 - 50 * i); })
 					.style("fill", "#008CBA");
-		
-		// scope.$watch(function() { return scope.selectedProfiles; }, redraw);
+		};
+
+		// compute();
+
+		// Binds
+		scope.$watch(function() { return scope.dataVersion; }, compute);
+		scope.$watch(function() { return container.clientWidth; }, repaint);
+	}
+
+	return {
+		link: chartThreadDivergence_link,
+		restrict: 'E'
+	}
+});
+
+app.directive('chartDashDivergence', function() {
+
+	function chartThreadDivergence_link(scope, element, attrs, controller) {
+		console.log("== directive == chartDashDivergence ==");
+
+		// Layout
+		var container = element[0];
+		var layout = {
+			height:	function() { return container.clientHeight; },
+			width:	function() { return container.clientWidth; }
+		};
+
+		// Data
+		var data = scope.data[attrs.profileid];
+		var profile = scope.data.profile;
+		var timeMin = 0;
+		var timeMax = data.info.duration;
+		var timeStart = scope.data.c.timeMin;		// When the user selection starts
+		var timeEnd = scope.data.c.duration;		// When the user selection ends (could be before or after timeMax)
+		var numberCores = data.info.cores;
+		var dataValueMax = numberCores * data.info.timeStep;
+
+		// Fix column layout
+		var lastElement = angular.copy(data.times[data.times.length - 1], {});
+		lastElement.t = timeMax;
+		data.times.push(lastElement);
+
+		// DOM
+		var svg = d3.select(container).append('svg').attr({width: layout.width(), height: layout.height()});
+
+		// Scales
+		var scaleX = d3.scale.linear().rangeRound([0, layout.width]);
+		var scaleY = d3.scale.linear().rangeRound([layout.height(), 0]);
+
+		// Scales - domains
+		scaleY.domain([0, 2 * dataValueMax]);
+		scaleX.domain([timeStart, timeEnd]);
+
+		// Axis
+		var xAxis = d3.svg.axis().scale(scaleX);
+		var yAxis = d3.svg.axis().scale(scaleY).orient("left");
+
+
+		// Draw
+		var scaleYCoreCapacity = scaleY(dataValueMax);
+		var interpolationMethod = "step-after";
+
+		// Draw - ready
+		var readyGroup = svg.append("g").attr("class", "dataset");
+		var readyAreaFunction = d3.svg.area()
+				.x(function(d) { return scaleX(d.t); })
+				.y0(function(d) { return scaleY(dataValueMax); })
+				.y1(function(d) { return scaleY(dataValueMax + d.ys); })
+				.interpolate(interpolationMethod);
+		var readyArea = readyGroup.append("path")
+				.attr("d", readyAreaFunction(data.times)) // 🕒 repaintable
+				.attr("fill", "#D32A0E");
+
+		// Draw - running
+		var runningGroup = svg.append("g").attr("class", "dataset");
+		var runningAreaFunction = d3.svg.area()
+				.x(function(d) { return scaleX(d.t); })
+				.y0(function(d) { return scaleY(dataValueMax - d.r); })
+				.y1(scaleYCoreCapacity)
+				.interpolate(interpolationMethod);
+		var runningArea = runningGroup.append("path")
+				.attr("d", runningAreaFunction(data.times)) // 🕒 repaintable
+				.attr("fill", "#358753");
+
+		// Recompute
+		var recompute = function recompute() {
+				scaleX.domain([scope.data.c.timeMin, scope.data.c.duration]);
+
+				// Repaint
+				repaint();
+			};
+
+
+		// Redraw
+		var repaint = function repaint() {
+				// Scales
+				scaleX.rangeRound([0, layout.width()]);
+				scaleXStep = scaleX(data.info.timeStep);
+
+				// SVG
+				svg.attr('width', layout.width());
+				readyArea.attr("d", readyAreaFunction(data.times));
+				runningArea.attr("d", runningAreaFunction(data.times));
+			};
+
+		// Binds
+		scope.$watch(function() { return scope.data.c.duration; }, recompute);
+		scope.$watch(function() { return container.clientWidth; }, repaint);
 	}
 
 	return {

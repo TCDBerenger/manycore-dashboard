@@ -126,6 +126,7 @@ svg .svg-fa {
 }
 
 
+
 /*
  * Common mecanism
  */
@@ -134,4 +135,16 @@ svg .svg-fa {
 }
 .hover-text:hover .text {
 	display: inline-block;
+}
+
+
+/*
+ *	Widgets
+ */
+.widget-graph {
+	display: block;
+	
+	background-attachment: fixed;
+	background-image: url("../assets/error.jpg");
+	
 }

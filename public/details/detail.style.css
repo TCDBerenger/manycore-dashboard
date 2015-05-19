@@ -106,11 +106,6 @@
  */
 .detail .widget-graph {
 	width: 100%;
-	display: block;
-	
-	background-attachment: fixed;
-	background-image: url("../assets/error.jpg");
-	
 }
 .detail .widget-band {
 	height: 40px;
