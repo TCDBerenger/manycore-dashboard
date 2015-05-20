@@ -3,21 +3,14 @@
  */
 .dashboard h2 {
 	margin-top: 0px;
-	/*display: inline-block;*/
 }
 
 
 
 /**
- * Dashboard tiles
+ * Dashboard profile
  */
-.dashboard .tile, .dashboard .block, .dashboard .cat {
-	overflow: hidden;
-	margin-bottom: 20px;
-	min-height: 20px;
-}
-
-.dashboard .tile {
+.dashboard .profile .tile {
 	overflow: visible;
 	background-color: #FFFFFF;
 
@@ -28,80 +21,11 @@
 	background-clip: padding-box;
 	outline: 0px none;
 
+	min-height: 20px;
+
+	margin-bottom: 40px;
 	padding: 20px 20px 10px 20px;
 }
-
-.dashboard .block {
-	border: 2px dashed #E8E8E8;
-	border-radius: 0px;
-	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05) inset;
-
-	padding: 55px 20px 20px 20px;
-}
-.dashboard .block-title {
-	padding-top: 20px;
-}
-
-.dashboard .cat {
-	border: 2px dashed #E8E8E8;
-	border-radius: 0px;
-	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05) inset;
-
-	padding: 20px;
-
-	background-color: #FAFAFA;
-}
-
-
-
-/**
- * Dashboard tile icons
- */
-.dashboard .well-icon {
-	float: left;
-	font-size: 2.2em;
-	margin-right: 6px;
-	margin-top: -66px;
-	margin-left: -31px;
-}
-.dashboard .block-title .well-icon {
-	margin-top: -31px;
-}
-
-
-/**
- * Dashboard pin
- */
-.dashboard .pin {
-	position: absolute;
-	top: 2px;
-	right: 17px;
-	z-index: 100;
-}
-.dashboard .pin .text		{ padding-right: 2px; }
-.dashboard .pin > .fa		{ font-size: 1.1em !important; }
-.dashboard .pin .fa-stack	{ font-size: 0.8em !important; }
-
-.dashboard .cat .pin {
-	top: 4px;
-	right: 19px;
-}
-
-
-
-/**
- * Dashboard widget
- */
-.dashboard .widget-graph {
-	margin: 0px !important;
-	min-width: 40px;
-	min-height: 40px;
-}
-
-
-/**
- * Dashboard profile
- */
 .dashboard .profile .subtitle {
 	margin-top: -10px;
 	margin-bottom: 16px;
@@ -130,6 +54,64 @@
 }
 
 
+
+/**
+ * Dashboard block
+ */
+.dashboard .block {
+	overflow: hidden;
+
+	border: 2px dashed #E8E8E8;
+	border-radius: 0px;
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05) inset;
+
+	margin-bottom: 20px;
+	padding: 55px 20px 20px 20px;
+}
+.dashboard .block-imp {
+	border: none;
+
+	box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+	background-clip: padding-box;
+	outline: 0px none;
+
+	background-color: #FFFFFF;
+}
+.dashboard .block-title {
+	padding-top: 20px;
+}
+.dashboard .block-icon {
+	float: left;
+	font-size: 2.2em;
+	margin-right: 6px;
+	margin-top: -66px;
+	margin-left: -31px;
+}
+.dashboard .block-title .block-icon {
+	margin-top: -31px;
+}
+
+
+/**
+ * Dashboard pin
+ */
+.dashboard .pin {
+	position: absolute;
+	top: 2px;
+	right: 17px;
+	z-index: 100;
+}
+.dashboard .pin .text		{ padding-right: 2px; }
+.dashboard .pin > .fa		{ font-size: 1.1em !important; }
+.dashboard .pin .fa-stack	{ font-size: 0.8em !important; }
+
+.dashboard .cat .pin {
+	top: 4px;
+	right: 19px;
+}
+
+
+
 /**
  * Dashboard control
  */
@@ -140,8 +122,20 @@
 
 
 /*
- * Dashboard cat
+ * Dashboard category
  */
+/* .dashboard .cat {
+	overflow: hidden;
+
+	border: 2px dashed #E8E8E8;
+	border-radius: 0px;
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05) inset;
+
+	margin-bottom: 20px;
+	padding: 20px;
+
+	background-color: #FAFAFA;
+}*/
 .dashboard .category {
 	box-shadow: 0px 5px 15px rgba(0, 140, 186, 0.3);
 }
@@ -158,4 +152,15 @@
 }
 .dashboard .category .more .text {
 	padding-right: 2px;
+}
+
+
+
+/**
+ * Dashboard widget
+ */
+.dashboard .widget-graph {
+	margin: 0px !important;
+	min-width: 40px;
+	min-height: 40px;
 }

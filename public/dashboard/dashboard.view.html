@@ -10,7 +10,6 @@
 		</a>
 		<h2>{{profile.label}}</h2>
 		<p class="subtitle">{{profile.desc != null && profile.desc.length > 0 | iif : profile.desc : '&nbsp;' }}</p>
-
 		<!-- <div class="tile-icon"><i class="fa fa-bar-chart"></i></div> -->
 		<div class="dropdown profile-hardware" dropdown on-toggle="toggled(open)">
 			<p>
@@ -49,7 +48,7 @@
 
 	<!-- Waiting -->
 	<div ng-if="waitingData()" class="col-auto ctrl"><div class="block">
-		<span class="well-icon fa-stack">
+		<span class="block-icon fa-stack">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-spinner fa-pulse fa-stack-1x fa-inverse"></i>
 		</span>
@@ -58,7 +57,7 @@
 
 	<!-- Selection -->
 	<div ng-if="canAddProfile()" class="col-µ ctrl" style="width: 350px"><div class="block block-title">
-		<span class="well-icon fa-stack">
+		<span class="block-icon fa-stack">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-thumb-tack fa-stack-1x fa-inverse"></i>
 		</span>
@@ -75,7 +74,7 @@
 
 	<!-- Control -->
 	<div ng-if="hasProfiles()" class="col-auto ctrl"><div class="block">
-		<span class="well-icon fa-stack">
+		<span class="block-icon fa-stack">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-wrench fa-stack-1x fa-inverse"></i>
 		</span>
@@ -94,8 +93,8 @@
 	</div></div>
 
 	<!-- Stats -->
-	<div ng-if="hasProfiles()" class="col-µ" style="min-width: 280px"><div class="block block-title">
-		<span class="well-icon fa-stack">
+	<div ng-if="hasProfiles()" class="col-µ" style="min-width: 280px"><div class="block block-imp block-title">
+		<span class="block-icon fa-stack">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-bar-chart fa-stack-1x fa-inverse"></i>
 		</span>
@@ -104,13 +103,13 @@
 	</div></div>
 
 	<!-- Hardware -->
-	<div ng-if="hasProfiles()" class="col-µ" style="min-width: 280px"><div class="block block-title">
-		<span class="well-icon fa-stack">
+	<div ng-if="hasProfiles()" class="col-µ" style="min-width: 280px"><div class="block block-imp block-title">
+		<span class="block-icon fa-stack">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
 		</span>
 		<h2>Harware</h2>
-		<div class="alert alert-info">The same hardware has been used.</div>
+		<!-- <div class="alert alert-info">The same hardware has been used.</div> -->
 		<p>TODO vs. TODO</p>
 	</div></div>
 </div>
@@ -122,7 +121,7 @@
 		</div>
 		<div class="panel-body">
 			<widget-dash ng-attr-cat="{{category.cat}}" class="widget-graph"></widget-dash>
-			<a class="more" href ui-sref='detail({cat: category.cat, ids: encodeSelectedProfile()})'><span class="text">more</span><i class="fa fa-arrow-circle-o-right icon"></i></a>
+			<a class="more" href ui-sref='detail({cat: category.cat, ids: encodeSelectedProfile()})'><span class="text">{{has2Profiles() | iif : 'find out about these numbers' : 'see more'}}</span><i class="fa fa-arrow-circle-o-right icon"></i></a>
 		</div>
 	</div></div>
 	<!--
