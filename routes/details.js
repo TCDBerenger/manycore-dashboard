@@ -458,7 +458,7 @@ function unloadData(id) {
 	 │	 ├	0
 	 │	 │	 ├	t				<integer>	time in ms (10⁻³s), identiral to frame<id>
 	 │	 │	 ├	r				<integer>	number of threads in running state
-	 │	 │	 └	ys				<integer>	number of threads in ready or standby state /!\ false state /!\
+	 │	 │	 └	yb				<integer>	number of threads in ready or standby state /!\ false state /!\
 	 │	 │	...
 	 │	 └	<timeMax>
 	 ├	switches
@@ -477,7 +477,7 @@ function unloadData(id) {
 	 │	 ├	0
 	 │	 │	 ├	t				<integer>	time in ms (10⁻³s), identiral to frame<id>
 	 │	 │	 ├	r				<integer>	duration in ms for running state
-	 │	 │	 └	ys				<integer>	duration in ms for ready and standby state
+	 │	 │	 └	yb				<integer>	duration in ms for ready and standby state
 	 │	 │	...
 	 │	 └	<timeMax>
 	 ├	info
@@ -489,6 +489,14 @@ function unloadData(id) {
 	 │	 ├	duration			<integer>	how long is the run
 	 │	 └	threadCount			<integer>	number of (unique) threads
 	 └	stats
+		 ├	
+		 ├	s					<interger>	number of switches
+		 ├	m					<interger>	number of migrations
+		 ├	c					<interger>	number of cycles
+		 ├	r					<interger>	duration in ms for running state
+		 ├	y					<interger>	duration in ms for ready state
+		 ├	b					<interger>	duration in ms for standby state
+		 ├	w					<interger>	duration in ms for waiting state
 		 ├	cycles
 		 │	 └	c				<integer>	number of cycles
 		 ├	migrations
@@ -499,13 +507,13 @@ function unloadData(id) {
 		 │	 ├	r				<integer>	duration in ms for running state
 		 │	 ├	y				<integer>	duration in ms for ready state
 		 │	 ├	w				<integer>	duration in ms for waiting state
-		 │	 ├	s				<integer>	duration in ms for standby state
-		 │	 └	ys				<integer>	duration in ms for ready or standby state /!\ false state /!\
+		 │	 ├	b				<integer>	duration in ms for standby state
+		 │	 └	yb				<integer>	duration in ms for ready or standby state /!\ false state /!\
 		 └	states
 			 ├	r				<integer>	number of cycles for running state
 			 ├	y				<integer>	number of cycles for ready state
 			 ├	w				<integer>	number of cycles for waiting state
-			 └	s				<integer>	number of cycles for standby state
+			 └	b				<integer>	number of cycles for standby state
  */
 /**
  * Add common stats
@@ -534,7 +542,7 @@ function addCommon(output, id) {
 		c:	data.stats.cycles,
 		r:	data.stats.running,
 		y:	data.stats.ready,
-		s:	data.stats.standby,
+		b:	data.stats.standby,
 		w:	data.stats.wait
 	};
 
@@ -750,7 +758,7 @@ function addTime(output, id) {
 		output.times.push({
 			t:	timeID,
 			r:	sumRunning,
-			ys:	sumReady + sumStandby
+			yb:	sumReady + sumStandby
 		});
 
 	};
@@ -758,10 +766,10 @@ function addTime(output, id) {
 	// Stats
 	output.stats.times = {
 		r:	statSumRunning,
-		s:	statSumStandby,
+		b:	statSumStandby,
 		w:	statSumWait,
 		y:	statSumReady,
-		ys:	statSumReady + statSumStandby
+		yb:	statSumReady + statSumStandby
 	};
 }
 
@@ -777,7 +785,7 @@ function addStates(output, id) {
 
 	// Loop vars
 	var thread, threadMaxDuration;
-	var countRunning, countStandby, countWait, countReady, countUnknown, countYS;
+	var countRunning, countStandby, countWait, countReady, countUnknown, countYB;
 	var statCountRunning, statCountStandby, statCountWait, statCountReady, statCountUnknown;
 
 	// Init stats vars
@@ -791,7 +799,7 @@ function addStates(output, id) {
 		if (data.threads.byFrames.hasOwnProperty(timeID)) {
 
 			// Reinit counters
-			countRunning = 0; countStandby = 0; countWait = 0; countReady = 0; countUnknown = 0; countYS = 0;
+			countRunning = 0; countStandby = 0; countWait = 0; countReady = 0; countUnknown = 0; countYB = 0;
 
 			// Count among all threads
 			for (var threadID in data.threads.byFrames[timeID]) {
@@ -805,7 +813,7 @@ function addStates(output, id) {
 						countRunning++;
 
 					} else if (threadMaxDuration == thread.standby + thread.ready) {
-						countYS++;
+						countYB++;
 						if (thread.ready >= thread.standby) {
 							countReady++;
 						} else {
@@ -827,7 +835,7 @@ function addStates(output, id) {
 			countWait		= NaN;
 			countReady		= NaN;
 			countUnknown	= NaN;
-			countYS			= NaN;
+			countYB			= NaN;
 		}
 
 
@@ -850,7 +858,7 @@ function addStates(output, id) {
 		output.states.push({
 			t:	timeID,
 			r:	countRunning,
-			ys:	countYS
+			yb:	countYB
 		});
 
 	};
@@ -859,7 +867,7 @@ function addStates(output, id) {
 	// Stats
 	output.stats.states = {
 		r:	statCountRunning,
-		s:	statCountStandby,
+		b:	statCountStandby,
 		w:	statCountWait,
 		r:	statCountReady
 	};

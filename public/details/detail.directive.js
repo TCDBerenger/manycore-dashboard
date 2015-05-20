@@ -36,7 +36,7 @@ app.directive('chartHistoband', function() {
 			max:		(attrs.max) ? +attrs.max : NaN,				// Maximum possible value (cf. focus for divide this value)
 			focus:		(attrs.focus) ? +attrs.focus : 1,			// Focusing data (divide factor)
 			halfLimit:	true,
-		}
+		};
 
 		// Data
 		var profileID = +attrs.profileid;
@@ -428,14 +428,14 @@ app.directive('chartThreadDivergence', function() {
 		var readyAreaFunction = d3.svg.area()
 				.x(function(d) { return scaleX(d.t); })
 				.y0(function(d) { return scaleY(Math.max(numberCores, d.r)); })
-				.y1(function(d) { return scaleY(d.ys + Math.max(numberCores, d.r)); })
+				.y1(function(d) { return scaleY(d.yb + Math.max(numberCores, d.r)); })
 				.interpolate(interpolationMethod);
 		var readyArea = readyGroup.append("path")
 				.attr("d", readyAreaFunction(data.states)) // 🕒 repaintable
 				.attr("fill", "#D28A8D");
 		var readyLineFunction = d3.svg.line()
 				.x(function(d) { return scaleX(d.t); })
-				.y(function(d) { return scaleY(d.ys + Math.max(numberCores, d.r)); })
+				.y(function(d) { return scaleY(d.yb + Math.max(numberCores, d.r)); })
 				.interpolate(interpolationMethod);
 		var readyLine = readyGroup.append("path")
 				.attr("stroke", "#B4464B")

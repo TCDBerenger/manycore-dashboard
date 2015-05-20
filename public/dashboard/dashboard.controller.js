@@ -1,4 +1,4 @@
-app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http', 'profileService', 'categories', function($scope, $rootScope, $window, $http, profileService, categories) {
+app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http', 'profileService', 'categories', 'colours' , function($scope, $rootScope, $window, $http, profileService, categories, colours) {
 	/************************************************/
 	/* Constructor - Init							*/
 	/************************************************/
@@ -204,6 +204,106 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 			datap.push($scope.data[profile.id]);
 		});
 		return datap;
+	};
+	
+	
+	/************************************************/
+	/* Functions - Widget data						*/
+	/************************************************/
+
+	/**
+	 * Get
+	 */
+	$scope.getWigdetData = function(cat) {
+		var wd = [];
+
+		$scope.selectedProfiles.forEach(function(profile, i) {
+			var dp = $scope.data[profile.id];
+
+			switch(cat) {
+				case 'tg':
+					var timeCapacity = dp.info.cores * dp.info.duration;
+					var timeRunning = dp.stats.r / timeCapacity;
+					var timeAvailable = Math.max((timeCapacity - dp.stats.r - dp.stats.y - dp.stats.b) / timeCapacity, 0);
+					var timeWaiting = (dp.stats.y + dp.stats.b) / timeCapacity;
+
+					var evCapacity = 35 * dp.info.duration;
+					var evSwitches = dp.stats.s / evCapacity;
+					var evMigrations = dp.stats.m / evCapacity;
+
+					wd.push([
+						// top
+						[
+							// Running
+							{
+								t: 'running',
+								l: Math.round(timeRunning * 100) + '%',
+								v: timeRunning,
+								c: colours.list.dGreen,
+								b: colours.list.lGreen
+							},
+							// available
+							{
+								t: 'unused ressources',
+								l: Math.round(timeAvailable * 100) + '%',
+								v: timeAvailable,
+								c: colours.list.dBlue,
+								b: colours.list.lBlue
+							},
+							// waiting
+							{
+								t: 'waiting',
+								l: Math.round(timeWaiting * 100) + '%',
+								v: timeWaiting,
+								c: colours.list.dRed,
+								b: colours.list.lRed
+							}
+						],
+						// Bottom
+						[
+							// Switches
+							{
+								t: 'context switches',
+								l: Math.round(evSwitches * 100) + '%',
+								v: Math.min(evSwitches * 10, 1),	// Focus on 10 %
+								c: colours.list.dGrey,
+								b: colours.list.lGrey
+							},
+							// Migrations
+							{
+								t: 'migrations',
+								l: Math.round(evMigrations * 100) + '%',
+								v: Math.min(evMigrations * 20, 1),	// Focus on 5 %
+								c: colours.list.dViolet,
+								b: colours.list.lViolet
+							}
+						]
+					]);
+
+
+					break;
+				case 'sy':
+
+					break;
+				case 'ds':
+
+					break;
+				case 'lb':
+
+					break;
+				case 'dl':
+
+					break;
+				case 'rs':
+
+					break;
+				case 'io':
+
+					break;
+			}
+		});
+
+		return wd;
 	};
 
 	

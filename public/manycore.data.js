@@ -1,13 +1,13 @@
 app.factory('colours', [function() {
 	var list = {
 		black:		'#000000',		white:		'#FFFFFF',
-		dGrey:		'#797979',		eGrey:		'#ABABAB',
-		dBlue:		'#4682B4',		eBlue:		'#9ED3FF',
-		dGreen:		'#4BB446',		eGreen:		'#8DD28A',
-		dRed:		'#B4464B',		eRed:		'#D28A8D',
-		dOrange:	'#B47846',		eOrange:	'#D2AB8A',
-		dMagenta:	'#AF46B4',		eMagenta:	'#CE8AD2',
-		dViolet:	'#7846B4',		eViolet:	'#AB8AD2',
+		dGrey:		'#797979',		eGrey:		'#ABABAB',		lGrey:		'#DEDEDE',
+		dBlue:		'#4682B4',		eBlue:		'#9ED3FF',		lBlue:		'#D0E0ED',
+		dGreen:		'#4BB446',		eGreen:		'#8DD28A',		lGreen:		'#D2EDD0',
+		dRed:		'#B4464B',		eRed:		'#D28A8D',		lRed:		'#EDD0D2',
+		dOrange:	'#B47846',		eOrange:	'#D2AB8A',		lOrange:	'#EDDDD0',
+		dMagenta:	'#AF46B4',		eMagenta:	'#CE8AD2',		lMagenta:	'#ECD0ED',
+		dViolet:	'#7846B4',		eViolet:	'#AB8AD2',		lViolet:	'#DDD0ED',
 
 	};
 
@@ -31,7 +31,7 @@ app.factory('decks', ['colours', function(colours) {
 			},
 			data : [
 				{ title: 'running',		desc: 'running',	unity: 'ms',	cat: 'times',		attr: 'r',	color: colours.good },
-				{ title: 'ready',		desc: 'ready',		unity: 'ms',	cat: 'times',		attr: 'ys',	color: colours.bad }
+				{ title: 'ready',		desc: 'ready',		unity: 'ms',	cat: 'times',		attr: 'yb',	color: colours.bad }
 			],
 			legend : [
 				{ title: 'threads running',		desc: '',	color: colours.good },
