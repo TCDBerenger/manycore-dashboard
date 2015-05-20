@@ -118,11 +118,11 @@
 <div class="row dashboard" ng-if="hasProfiles()">
 	<div class="col-auto" ng-repeat="category in categories"><div class="panel panel-primary category">
 		<div class="panel-heading" ui-sref='detail({cat: category.cat, ids: encodeSelectedProfile()})'>
-			<h3 class="panel-title">{{category.label}}</h3>
+			<h3 class="panel-title"><i class="fa fa-{{category.icon}}"></i> {{category.label}}</h3>
 		</div>
 		<div class="panel-body">
 			<widget-dash ng-attr-cat="{{category.cat}}" class="widget-graph"></widget-dash>
-			<a class="more" href="#/detail/{{category.cat}}/{{encodeSelectedProfile()}}"><span class="text">more</span><i class="fa fa-arrow-circle-o-right icon"></i></a>
+			<a class="more" href ui-sref='detail({cat: category.cat, ids: encodeSelectedProfile()})'><span class="text">more</span><i class="fa fa-arrow-circle-o-right icon"></i></a>
 		</div>
 	</div></div>
 	<!--

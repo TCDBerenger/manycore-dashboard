@@ -148,6 +148,9 @@
 .dashboard .category .panel-heading {
 	cursor: pointer;
 }
+.dashboard .category .panel-heading i {
+	padding-right: 4px;
+}
 .dashboard .category .more {
 	display: block;
 	text-align: right;

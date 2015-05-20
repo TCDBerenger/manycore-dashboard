@@ -175,6 +175,7 @@ app.directive('widgetDashTrack', function() {
 			// r: row
 			// d: donut : one arc
 			var arc_data;
+			var indicator_onLeft = profiles.length == 1;
 			data.forEach(function(c_data, c_index) {
 				c_data.forEach(function(r_data, r_index) {
 					r_data.forEach(function(d_data, d_index) {
@@ -212,9 +213,9 @@ app.directive('widgetDashTrack', function() {
 						// Label
 						if (c_index == 0) {
 							labelGroups[r_index].append("text")
-								.attr("x", layout.texts.indicators.width / 2)
+								.attr("x", (indicator_onLeft) ? 6 : layout.texts.indicators.width / 2)
 								.attr("y", (r_index == 0) ? layout.donut.size - layout.donuts[d_index].text : layout.donuts[d_index].text + 2)
-								.attr("text-anchor", "middle")
+								.attr("text-anchor", (indicator_onLeft) ? "start" : "middle")
 								.style("fill", d_data.c)
 								.text(d_data.t);
 						}
