@@ -231,54 +231,37 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 					var evSwitches = dp.stats.s / evCapacity;
 					var evMigrations = dp.stats.m / evCapacity;
 
-					wd.push([
-						// top
-						[
-							// Running
-							{
-								t: 'running',
-								l: Math.round(timeRunning * 100) + '%',
-								v: timeRunning,
-								c: colours.list.dGreen,
-								b: colours.list.lGreen
-							},
-							// available
-							{
-								t: 'unused ressources',
-								l: Math.round(timeAvailable * 100) + '%',
-								v: timeAvailable,
-								c: colours.list.dBlue,
-								b: colours.list.lBlue
-							},
-							// waiting
-							{
-								t: 'waiting',
-								l: Math.round(timeWaiting * 100) + '%',
-								v: timeWaiting,
-								c: colours.list.dRed,
-								b: colours.list.lRed
-							}
-						],
-						// Bottom
-						[
-							// Switches
-							{
-								t: 'context switches',
-								l: Math.round(evSwitches * 100) + '%',
-								v: Math.min(evSwitches * 10, 1),	// Focus on 10 %
-								c: colours.list.dGrey,
-								b: colours.list.lGrey
-							},
-							// Migrations
-							{
-								t: 'migrations',
-								l: Math.round(evMigrations * 100) + '%',
-								v: Math.min(evMigrations * 20, 1),	// Focus on 5 %
-								c: colours.list.dViolet,
-								b: colours.list.lViolet
-							}
-						]
-					]);
+					wd.push([[{
+						t: 'running',
+						l: Math.round(timeRunning * 100) + '%',
+						v: timeRunning,
+						c: colours.list.dGreen,
+						b: colours.list.lGreen
+					}, {
+						t: 'unused ressources',
+						l: Math.round(timeAvailable * 100) + '%',
+						v: timeAvailable,
+						c: colours.list.dBlue,
+						b: colours.list.lBlue
+					}, {
+						t: 'waiting',
+						l: Math.round(timeWaiting * 100) + '%',
+						v: timeWaiting,
+						c: colours.list.dRed,
+						b: colours.list.lRed
+					}], [{
+							t: 'context switches',
+						l: Math.round(evSwitches * 100) + '%',
+						v: Math.min(evSwitches * 10, 1),	// Focus on 10 %
+						c: colours.list.dGrey,
+						b: colours.list.lGrey
+					}, {
+						t: 'migrations',
+						l: Math.round(evMigrations * 100) + '%',
+						v: Math.min(evMigrations * 20, 1),	// Focus on 5 %
+						c: colours.list.dViolet,
+						b: colours.list.lViolet
+					}]]);
 
 
 					break;

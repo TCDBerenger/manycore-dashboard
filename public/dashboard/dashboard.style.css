@@ -104,6 +104,7 @@
  */
 .dashboard .profile .subtitle {
 	margin-top: -10px;
+	margin-bottom: 16px;
 }
 
 .dashboard .profile .graphs section {
@@ -139,18 +140,19 @@
 
 
 /*
- * Graphs
+ * Dashboard cat
  */
-.sequence-graph {
-	margin: 0px !important;
-	height: 60px;
-	width: 100%;
-	display: block;
+.dashboard .category {
+	box-shadow: 0px 5px 15px rgba(0, 140, 186, 0.3);
 }
-.indicator-graph {
-	margin: 0px !important;
-	height: 100%;
-	min-height: 40px;
-	width: 100%;
+.dashboard .category .panel-heading {
+	cursor: pointer;
+}
+.dashboard .category .more {
 	display: block;
+	text-align: right;
+	margin: 10px -10px -10px 0px;
+}
+.dashboard .category .more .text {
+	padding-right: 2px;
 }
