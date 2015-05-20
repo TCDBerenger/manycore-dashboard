@@ -5,12 +5,12 @@ app.directive('widgetDash', ['$parse', '$injector', '$compile', function ($parse
 			var directiveName = null;
 			switch (attrs.cat.toLowerCase()) {
 				case 'tg':
+				case 'lb':
 					directiveName = 'widgetDashTrack';
 					break;
 				/*
 				case 'sy':	directiveName = ''; break;
 				case 'ds':	directiveName = ''; break;
-				case 'lb':	directiveName = ''; break;
 				case 'dl':	directiveName = ''; break;
 				case 'rs':	directiveName = ''; break;
 				case 'io':	directiveName = ''; break;
@@ -48,7 +48,7 @@ var widgetDashLayout = function() {
 		layout:	this,
 		compute: function(cols, rows) {
 			this.layout.width = this.layout.texts.indicators.width + cols * this.layout.donut.size;
-			this.layout.height = this.layout.texts.values.height * 2 + this.layout.texts.app.height + rows * this.layout.donut.size;
+			this.layout.height = this.layout.texts.app.height + rows * (this.layout.donut.size + this.layout.texts.values.height);
 		}
 	};
 };
@@ -154,7 +154,7 @@ app.directive('widgetDashTrack', function() {
 			data = scope.getWigdetData(cat.cat);
 
 			// Precomputation
-			layout.widget.compute(profiles.length, 2);
+			layout.widget.compute(profiles.length, (data[0].length > 0 && data[0][1].length > 0) ? 2 : 1);
 
 			// DOM
 			svg.attr({width: layout.width, height: layout.height});
