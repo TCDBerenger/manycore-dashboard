@@ -1,5 +1,5 @@
 <div class="row detail{{facetCheck | iif : ' detail-faceted' : ''}}">
-	<div class="col-xs-9 profile">
+	<div class="col-xs-12 profile">
 		<h2>{{meta.label}}</h2> for
 		<span>{{profiles[0].label}}</span>
 		<span class="dropdown profile-versus {{profiles.length == 1 | iif : 'one-profile' : 'two-profiles'}}">
@@ -73,18 +73,19 @@
 		<span ng-if="profiles.length > 1">{{profiles[0].label}}</span>
 
 		<div class="row profile" ng-repeat="(iw, widget) in meta.widgets">
-			<div class="col-xs-{{layout.col.graph}} profile-graph">
+			<div class="col-xs-{{layout.colXS.graph}} col-sm-{{layout.colSM.graph}} col-md-{{layout.comMD.graph}} col-lg-{{layout.colLG.graph}} profile-graph">
 				<div class="profile-title">
 					<h4>{{widget.title}}</h4>
 					{{widget.subtitle}}<br />
 				</div>
 				<div class="profile-body" ng-include="'/details/widgets/' + widget.file + '.widget.html'"></div>
 			</div>
-			<div class="col-xs-{{layout.col.data}} profile-data">
+			<div class="col-xs-{{layout.colXS.data}} col-sm-{{layout.colSM.data}} col-md-{{layout.comMD.data}} col-lg-{{layout.colLG.data}} profile-data">
 				<div ng-include="'/details/widgets/generic.data.html'"></div>
 			</div>
 		</div>
 	</div>
+	<!--
 	<div class="col-xs-3 facets">
 		<div class="well well-sm">
 			<h2>Refine data</h2>
@@ -98,4 +99,5 @@
 			</div>
 		</div>
 	</div>
+	-->
 </div>

@@ -30,9 +30,21 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 
 	// Setting for layout and visual/graphics elements
 	$scope.layout = {
-		col: {
+		colXS: {
+			graph: 7,
+			data: 5
+		},
+		colSM: {
 			graph: 8,
 			data: 4
+		},
+		colMD: {
+			graph: 9,
+			data: 3
+		},
+		colLG: {
+			graph: 9,
+			data: 3
 		}
 	};
 
