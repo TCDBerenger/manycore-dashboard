@@ -7,7 +7,7 @@
 	</thead>
 	<tbody>
 		<tr ng-repeat="(i, e) in widget.deck.data | reverse">
-			<td style="text-align: right;">{{e.desc}} <font style="color: {{e.color}}">{{e.color2 != null | iif : '◤' : '▮'}}</font><font ng-if="e.color2 != null" style="color: {{e.color2}}; margin-left: -8px;">◢</font></td>
+			<td style="text-align: right;">{{e.title}} <font style="color: {{e.color}}">{{e.color2 != null | iif : '◤' : '▮'}}</font><font ng-if="e.color2 != null" style="color: {{e.color2}}; margin-left: -8px;">◢</font></td>
 			<td style="text-align: right;">{{data[profiles[0].id].stats[e.cat][e.attr] | number: 0}}{{e.unity != null | iif : ' ' + e.unity : ''}}</td>
 			<td style="text-align: center;" class="container-graph" rowspan="{{widget.deck.data.length}}" colspan="{{profiles.length}}" ng-if="i == 0">
 				<chart-stats class="integrated-graph"></chart-stats>
