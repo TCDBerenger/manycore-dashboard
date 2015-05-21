@@ -1,14 +1,5 @@
 [
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759879478919,
-    "value": 276.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759879478919,
@@ -144,15 +135,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759879478919,
-    "value": 96.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759879478919,
@@ -196,15 +178,6 @@
     "tid": 0,
     "pid": 0,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759879478919,
-    "value": 269.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -297,15 +270,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759879478919,
-    "value": 178.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759879478919,
@@ -349,15 +313,6 @@
     "tid": 0,
     "pid": 0,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759879478919,
-    "value": 340.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -450,15 +405,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759879478919,
-    "value": 143.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759879478919,
@@ -502,15 +448,6 @@
     "tid": 0,
     "pid": 0,
     "cid": 5
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759879478919,
-    "value": 265.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
   },
   {
     "type": "cycles",
@@ -648,15 +585,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759879478919,
-    "value": 151.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759879478919,
@@ -745,15 +673,6 @@
     "tid": 2328,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759879978919,
-    "value": 107.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -1071,15 +990,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759879978919,
-    "value": 69.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759879978919,
@@ -1303,15 +1213,6 @@
     "tid": 2328,
     "pid": 6568,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759879978919,
-    "value": 109.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -1674,15 +1575,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759879978919,
-    "value": 90.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759879978919,
@@ -1951,15 +1843,6 @@
     "tid": 2008,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759879978919,
-    "value": 141.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -2322,15 +2205,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759879978919,
-    "value": 121.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759879978919,
@@ -2691,15 +2565,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759879978919,
-    "value": 86.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759879978919,
@@ -3015,15 +2880,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759879978919,
-    "value": 74.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759879978919,
@@ -3294,15 +3150,6 @@
     "cid": 7
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759880478919,
-    "value": 134.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759880478919,
@@ -3481,15 +3328,6 @@
     "tid": 2008,
     "pid": 6568,
     "cid": 0
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759880478919,
-    "value": 80.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
   },
   {
     "type": "cycles",
@@ -3672,15 +3510,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759880478919,
-    "value": 68.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759880478919,
@@ -3859,15 +3688,6 @@
     "tid": 2328,
     "pid": 6568,
     "cid": 2
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759880478919,
-    "value": 65.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
   },
   {
     "type": "cycles",
@@ -4050,15 +3870,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759880478919,
-    "value": 105.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759880478919,
@@ -4237,15 +4048,6 @@
     "tid": 5564,
     "pid": 6568,
     "cid": 4
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759880478919,
-    "value": 79.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
   },
   {
     "type": "cycles",
@@ -4518,15 +4320,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759880478919,
-    "value": 65.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759880478919,
@@ -4707,15 +4500,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759880478919,
-    "value": 62.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759880478919,
@@ -4894,15 +4678,6 @@
     "tid": 4828,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759880978919,
-    "value": 115.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -5130,15 +4905,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759880978919,
-    "value": 118.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759880978919,
@@ -5362,15 +5128,6 @@
     "tid": 6840,
     "pid": 6568,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759880978919,
-    "value": 79.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -5598,15 +5355,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759880978919,
-    "value": 71.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759880978919,
@@ -5785,15 +5533,6 @@
     "tid": 2328,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759880978919,
-    "value": 97.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -6021,15 +5760,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759880978919,
-    "value": 93.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759880978919,
@@ -6253,15 +5983,6 @@
     "tid": 936,
     "pid": 6568,
     "cid": 5
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759880978919,
-    "value": 82.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
   },
   {
     "type": "cycles",
@@ -6489,15 +6210,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759880978919,
-    "value": 71.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759880978919,
@@ -6676,15 +6388,6 @@
     "tid": 936,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759881478919,
-    "value": 102.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -6957,15 +6660,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759881478919,
-    "value": 92.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759881478919,
@@ -7144,15 +6838,6 @@
     "tid": 2328,
     "pid": 6568,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759881478919,
-    "value": 73.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -7335,15 +7020,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759881478919,
-    "value": 62.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759881478919,
@@ -7522,15 +7198,6 @@
     "tid": 4444,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759881478919,
-    "value": 95.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -7803,15 +7470,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759881478919,
-    "value": 91.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759881478919,
@@ -8082,15 +7740,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759881478919,
-    "value": 72.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759881478919,
@@ -8316,15 +7965,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759881478919,
-    "value": 66.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759881478919,
@@ -8548,15 +8188,6 @@
     "tid": 5564,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759881978919,
-    "value": 95.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -8829,15 +8460,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759881978919,
-    "value": 89.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759881978919,
@@ -9061,15 +8683,6 @@
     "tid": 4444,
     "pid": 6568,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759881978919,
-    "value": 76.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -9297,15 +8910,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759881978919,
-    "value": 61.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759881978919,
@@ -9484,15 +9088,6 @@
     "tid": 4444,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759881978919,
-    "value": 104.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -9720,15 +9315,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759881978919,
-    "value": 105.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759881978919,
@@ -9954,15 +9540,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759881978919,
-    "value": 89.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759881978919,
@@ -10143,15 +9720,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759881978919,
-    "value": 60.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759881978919,
@@ -10330,15 +9898,6 @@
     "tid": 7860,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759882478919,
-    "value": 90.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -10566,15 +10125,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759882478919,
-    "value": 100.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759882478919,
@@ -10753,15 +10303,6 @@
     "tid": 6840,
     "pid": 6568,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759882478919,
-    "value": 73.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -10944,15 +10485,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759882478919,
-    "value": 63.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759882478919,
@@ -11131,15 +10663,6 @@
     "tid": 7820,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759882478919,
-    "value": 97.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -11412,15 +10935,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759882478919,
-    "value": 79.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759882478919,
@@ -11646,15 +11160,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759882478919,
-    "value": 69.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759882478919,
@@ -11833,15 +11338,6 @@
     "tid": 936,
     "pid": 6568,
     "cid": 6
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759882478919,
-    "value": 68.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
   },
   {
     "type": "cycles",
@@ -12069,15 +11565,6 @@
     "cid": 7
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759882978919,
-    "value": 141.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759882978919,
@@ -12258,15 +11745,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759882978919,
-    "value": 100.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759882978919,
@@ -12400,15 +11878,6 @@
     "tid": 2008,
     "pid": 6568,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759882978919,
-    "value": 76.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -12546,15 +12015,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759882978919,
-    "value": 68.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759882978919,
@@ -12643,15 +12103,6 @@
     "tid": 7820,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759882978919,
-    "value": 92.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -12879,15 +12330,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759882978919,
-    "value": 84.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759882978919,
@@ -13066,15 +12508,6 @@
     "tid": 4444,
     "pid": 6568,
     "cid": 5
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759882978919,
-    "value": 70.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
   },
   {
     "type": "cycles",
@@ -13257,15 +12690,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759882978919,
-    "value": 86.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759882978919,
@@ -13401,15 +12825,6 @@
     "cid": 7
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759883478919,
-    "value": 108.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759883478919,
@@ -13498,15 +12913,6 @@
     "tid": 2008,
     "pid": 6568,
     "cid": 0
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759883478919,
-    "value": 116.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
   },
   {
     "type": "cycles",
@@ -13644,15 +13050,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759883478919,
-    "value": 60.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759883478919,
@@ -13741,15 +13138,6 @@
     "tid": 2328,
     "pid": 6568,
     "cid": 2
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759883478919,
-    "value": 66.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
   },
   {
     "type": "cycles",
@@ -13887,15 +13275,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759883478919,
-    "value": 73.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759883478919,
@@ -14029,15 +13408,6 @@
     "tid": 5564,
     "pid": 6568,
     "cid": 4
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759883478919,
-    "value": 76.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
   },
   {
     "type": "cycles",
@@ -14265,15 +13635,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759883478919,
-    "value": 66.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759883478919,
@@ -14454,15 +13815,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759883478919,
-    "value": 64.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759883478919,
@@ -14641,15 +13993,6 @@
     "tid": 5564,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759883978919,
-    "value": 170.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -14877,15 +14220,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759883978919,
-    "value": 74.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759883978919,
@@ -15064,15 +14398,6 @@
     "tid": 6840,
     "pid": 6568,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759883978919,
-    "value": 64.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -15255,15 +14580,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759883978919,
-    "value": 62.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759883978919,
@@ -15442,15 +14758,6 @@
     "tid": 2008,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759883978919,
-    "value": 95.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -15633,15 +14940,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759883978919,
-    "value": 68.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759883978919,
@@ -15820,15 +15118,6 @@
     "tid": 7860,
     "pid": 6568,
     "cid": 5
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759883978919,
-    "value": 81.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
   },
   {
     "type": "cycles",
@@ -16011,15 +15300,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759883978919,
-    "value": 69.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759883978919,
@@ -16198,15 +15478,6 @@
     "tid": 4828,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759884478919,
-    "value": 130.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -16434,15 +15705,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759884478919,
-    "value": 110.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759884478919,
@@ -16668,15 +15930,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759884478919,
-    "value": 66.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759884478919,
@@ -16857,15 +16110,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759884478919,
-    "value": 67.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759884478919,
@@ -16999,15 +16243,6 @@
     "tid": 6840,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759884478919,
-    "value": 89.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -17190,15 +16425,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759884478919,
-    "value": 70.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759884478919,
@@ -17379,15 +16605,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759884478919,
-    "value": 65.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759884478919,
@@ -17521,15 +16738,6 @@
     "tid": 7860,
     "pid": 6568,
     "cid": 6
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759884478919,
-    "value": 64.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
   },
   {
     "type": "cycles",
@@ -17755,15 +16963,6 @@
     "tid": 4444,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759884978919,
-    "value": 168.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -18036,15 +17235,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759884978919,
-    "value": 122.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759884978919,
@@ -18268,15 +17458,6 @@
     "tid": 6840,
     "pid": 6568,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759884978919,
-    "value": 74.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -18504,15 +17685,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759884978919,
-    "value": 75.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759884978919,
@@ -18646,15 +17818,6 @@
     "tid": 7820,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759884978919,
-    "value": 92.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -18837,15 +18000,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759884978919,
-    "value": 68.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759884978919,
@@ -19024,15 +18178,6 @@
     "tid": 7860,
     "pid": 6568,
     "cid": 5
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759884978919,
-    "value": 75.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
   },
   {
     "type": "cycles",
@@ -19260,15 +18405,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759884978919,
-    "value": 76.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759884978919,
@@ -19402,15 +18538,6 @@
     "tid": 4828,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759885478919,
-    "value": 161.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -19638,15 +18765,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759885478919,
-    "value": 75.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759885478919,
@@ -19827,15 +18945,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759885478919,
-    "value": 64.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759885478919,
@@ -19969,15 +19078,6 @@
     "tid": 2008,
     "pid": 6568,
     "cid": 2
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759885478919,
-    "value": 62.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
   },
   {
     "type": "cycles",
@@ -20160,15 +19260,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759885478919,
-    "value": 77.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759885478919,
@@ -20347,15 +19438,6 @@
     "tid": 5564,
     "pid": 6568,
     "cid": 4
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759885478919,
-    "value": 115.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
   },
   {
     "type": "cycles",
@@ -20628,15 +19710,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759885478919,
-    "value": 64.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759885478919,
@@ -20817,15 +19890,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759885478919,
-    "value": 64.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759885478919,
@@ -21004,15 +20068,6 @@
     "tid": 936,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759885978919,
-    "value": 160.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -21240,15 +20295,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759885978919,
-    "value": 72.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759885978919,
@@ -21429,15 +20475,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759885978919,
-    "value": 66.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759885978919,
@@ -21573,15 +20610,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759885978919,
-    "value": 60.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759885978919,
@@ -21715,15 +20743,6 @@
     "tid": 2328,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759885978919,
-    "value": 80.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -21904,15 +20923,6 @@
     "tid": 4444,
     "pid": 6568,
     "cid": 4
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759885978919,
-    "value": 82.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
   },
   {
     "type": "cycles",
@@ -22185,15 +21195,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759885978919,
-    "value": 72.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759885978919,
@@ -22372,15 +21373,6 @@
     "tid": 7860,
     "pid": 6568,
     "cid": 6
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759885978919,
-    "value": 79.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
   },
   {
     "type": "cycles",
@@ -22563,15 +21555,6 @@
     "cid": 7
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759886478919,
-    "value": 135.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759886478919,
@@ -22750,15 +21733,6 @@
     "tid": 2008,
     "pid": 6568,
     "cid": 0
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759886478919,
-    "value": 112.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
   },
   {
     "type": "cycles",
@@ -22941,15 +21915,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759886478919,
-    "value": 65.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759886478919,
@@ -23085,15 +22050,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759886478919,
-    "value": 62.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759886478919,
@@ -23182,15 +22138,6 @@
     "tid": 2328,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759886478919,
-    "value": 97.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -23418,15 +22365,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759886478919,
-    "value": 93.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759886478919,
@@ -23652,15 +22590,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759886478919,
-    "value": 62.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759886478919,
@@ -23884,15 +22813,6 @@
     "tid": 936,
     "pid": 6568,
     "cid": 6
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759886478919,
-    "value": 66.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
   },
   {
     "type": "cycles",
@@ -24165,15 +23085,6 @@
     "cid": 7
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759886978919,
-    "value": 155.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759886978919,
@@ -24354,15 +23265,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759886978919,
-    "value": 92.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759886978919,
@@ -24496,15 +23398,6 @@
     "tid": 7820,
     "pid": 6568,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759886978919,
-    "value": 74.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -24642,15 +23535,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759886978919,
-    "value": 68.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759886978919,
@@ -24739,15 +23623,6 @@
     "tid": 2328,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759886978919,
-    "value": 90.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -24975,15 +23850,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759886978919,
-    "value": 84.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759886978919,
@@ -25207,15 +24073,6 @@
     "tid": 5564,
     "pid": 6568,
     "cid": 5
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759886978919,
-    "value": 69.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
   },
   {
     "type": "cycles",
@@ -25443,15 +24300,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759886978919,
-    "value": 68.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759886978919,
@@ -25677,15 +24525,6 @@
     "cid": 7
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759887478919,
-    "value": 131.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759887478919,
@@ -25819,15 +24658,6 @@
     "tid": 7820,
     "pid": 6568,
     "cid": 0
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759887478919,
-    "value": 106.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
   },
   {
     "type": "cycles",
@@ -26010,15 +24840,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759887478919,
-    "value": 68.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759887478919,
@@ -26199,15 +25020,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759887478919,
-    "value": 60.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759887478919,
@@ -26296,15 +25108,6 @@
     "tid": 2328,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759887478919,
-    "value": 76.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -26487,15 +25290,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759887478919,
-    "value": 93.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759887478919,
@@ -26674,15 +25468,6 @@
     "tid": 4828,
     "pid": 6568,
     "cid": 5
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759887478919,
-    "value": 68.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
   },
   {
     "type": "cycles",
@@ -26865,15 +25650,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759887478919,
-    "value": 81.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759887478919,
@@ -27052,15 +25828,6 @@
     "tid": 936,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759887978919,
-    "value": 142.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -27243,15 +26010,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759887978919,
-    "value": 88.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759887978919,
@@ -27432,15 +26190,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759887978919,
-    "value": 68.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759887978919,
@@ -27576,15 +26325,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759887978919,
-    "value": 61.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759887978919,
@@ -27718,15 +26458,6 @@
     "tid": 7820,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759887978919,
-    "value": 69.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -27954,15 +26685,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759887978919,
-    "value": 77.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759887978919,
@@ -28141,15 +26863,6 @@
     "tid": 7860,
     "pid": 6568,
     "cid": 5
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759887978919,
-    "value": 73.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
   },
   {
     "type": "cycles",
@@ -28332,15 +27045,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759887978919,
-    "value": 63.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759887978919,
@@ -28519,15 +27223,6 @@
     "tid": 4444,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759888478919,
-    "value": 130.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -28710,15 +27405,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759888478919,
-    "value": 92.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759888478919,
@@ -28899,15 +27585,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759888478919,
-    "value": 62.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759888478919,
@@ -29041,15 +27718,6 @@
     "tid": 2008,
     "pid": 6568,
     "cid": 2
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759888478919,
-    "value": 80.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
   },
   {
     "type": "cycles",
@@ -29230,15 +27898,6 @@
     "tid": 6840,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759888478919,
-    "value": 96.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -29466,15 +28125,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759888478919,
-    "value": 72.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759888478919,
@@ -29698,15 +28348,6 @@
     "tid": 4828,
     "pid": 6568,
     "cid": 5
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759888478919,
-    "value": 65.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
   },
   {
     "type": "cycles",
@@ -29934,15 +28575,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759888478919,
-    "value": 66.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759888478919,
@@ -30076,15 +28708,6 @@
     "tid": 936,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759888978919,
-    "value": 179.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -30312,15 +28935,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759888978919,
-    "value": 77.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759888978919,
@@ -30501,15 +29115,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759888978919,
-    "value": 70.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759888978919,
@@ -30643,15 +29248,6 @@
     "tid": 6840,
     "pid": 6568,
     "cid": 2
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759888978919,
-    "value": 69.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
   },
   {
     "type": "cycles",
@@ -30834,15 +29430,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759888978919,
-    "value": 126.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759888978919,
@@ -31023,15 +29610,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759888978919,
-    "value": 75.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759888978919,
@@ -31165,15 +29743,6 @@
     "tid": 5564,
     "pid": 6568,
     "cid": 5
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759888978919,
-    "value": 66.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
   },
   {
     "type": "cycles",
@@ -31356,15 +29925,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759888978919,
-    "value": 72.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759888978919,
@@ -31498,15 +30058,6 @@
     "tid": 4444,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759889478919,
-    "value": 167.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -31734,15 +30285,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759889478919,
-    "value": 74.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759889478919,
@@ -31968,15 +30510,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759889478919,
-    "value": 67.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759889478919,
@@ -32155,15 +30688,6 @@
     "tid": 7820,
     "pid": 6568,
     "cid": 2
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759889478919,
-    "value": 60.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
   },
   {
     "type": "cycles",
@@ -32346,15 +30870,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759889478919,
-    "value": 87.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759889478919,
@@ -32533,15 +31048,6 @@
     "tid": 5564,
     "pid": 6568,
     "cid": 4
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759889478919,
-    "value": 73.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
   },
   {
     "type": "cycles",
@@ -32769,15 +31275,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759889478919,
-    "value": 65.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759889478919,
@@ -32958,15 +31455,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759889478919,
-    "value": 65.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759889478919,
@@ -33145,15 +31633,6 @@
     "tid": 936,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759889978919,
-    "value": 103.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -33379,15 +31858,6 @@
     "tid": 2892,
     "pid": 6568,
     "cid": 0
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759889978919,
-    "value": 163.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
   },
   {
     "type": "cycles",
@@ -33705,15 +32175,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759889978919,
-    "value": 68.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759889978919,
@@ -33892,15 +32353,6 @@
     "tid": 2328,
     "pid": 6568,
     "cid": 2
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759889978919,
-    "value": 63.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
   },
   {
     "type": "cycles",
@@ -34126,15 +32578,6 @@
     "tid": 2008,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759889978919,
-    "value": 94.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -34407,15 +32850,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759889978919,
-    "value": 68.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759889978919,
@@ -34596,15 +33030,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759889978919,
-    "value": 62.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759889978919,
@@ -34783,15 +33208,6 @@
     "tid": 5564,
     "pid": 6568,
     "cid": 6
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759889978919,
-    "value": 65.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
   },
   {
     "type": "cycles",
@@ -35064,15 +33480,6 @@
     "cid": 7
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759890478919,
-    "value": 178.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759890478919,
@@ -35296,15 +33703,6 @@
     "tid": 2328,
     "pid": 6568,
     "cid": 0
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759890478919,
-    "value": 79.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
   },
   {
     "type": "cycles",
@@ -35532,15 +33930,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759890478919,
-    "value": 67.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759890478919,
@@ -35766,15 +34155,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759890478919,
-    "value": 65.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759890478919,
@@ -35953,15 +34333,6 @@
     "tid": 2892,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759890478919,
-    "value": 97.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -36189,15 +34560,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759890478919,
-    "value": 69.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759890478919,
@@ -36423,15 +34785,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759890478919,
-    "value": 70.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759890478919,
@@ -36612,15 +34965,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759890478919,
-    "value": 65.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759890478919,
@@ -36799,15 +35143,6 @@
     "tid": 936,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759890978919,
-    "value": 176.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -37080,15 +35415,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759890978919,
-    "value": 89.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759890978919,
@@ -37359,15 +35685,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759890978919,
-    "value": 81.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759890978919,
@@ -37591,15 +35908,6 @@
     "tid": 2892,
     "pid": 6568,
     "cid": 2
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759890978919,
-    "value": 80.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
   },
   {
     "type": "cycles",
@@ -37872,15 +36180,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759890978919,
-    "value": 113.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759890978919,
@@ -38059,15 +36358,6 @@
     "tid": 4828,
     "pid": 6568,
     "cid": 4
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759890978919,
-    "value": 86.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
   },
   {
     "type": "cycles",
@@ -38250,15 +36540,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759890978919,
-    "value": 66.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759890978919,
@@ -38439,15 +36720,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759890978919,
-    "value": 69.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759890978919,
@@ -38581,15 +36853,6 @@
     "tid": 936,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759891478919,
-    "value": 204.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -38862,15 +37125,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759891478919,
-    "value": 93.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759891478919,
@@ -39141,15 +37395,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759891478919,
-    "value": 91.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759891478919,
@@ -39373,15 +37618,6 @@
     "tid": 6840,
     "pid": 6568,
     "cid": 2
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759891478919,
-    "value": 69.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
   },
   {
     "type": "cycles",
@@ -39609,15 +37845,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759891478919,
-    "value": 117.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759891478919,
@@ -39843,15 +38070,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759891478919,
-    "value": 78.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759891478919,
@@ -40030,15 +38248,6 @@
     "tid": 5564,
     "pid": 6568,
     "cid": 5
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759891478919,
-    "value": 65.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
   },
   {
     "type": "cycles",
@@ -40221,15 +38430,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759891478919,
-    "value": 72.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759891478919,
@@ -40408,15 +38608,6 @@
     "tid": 936,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759891978919,
-    "value": 156.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -40689,15 +38880,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759891978919,
-    "value": 125.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759891978919,
@@ -40921,15 +39103,6 @@
     "tid": 6840,
     "pid": 6568,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759891978919,
-    "value": 96.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -41202,15 +39375,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759891978919,
-    "value": 68.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759891978919,
@@ -41481,15 +39645,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759891978919,
-    "value": 100.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759891978919,
@@ -41713,15 +39868,6 @@
     "tid": 7860,
     "pid": 6568,
     "cid": 4
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759891978919,
-    "value": 81.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
   },
   {
     "type": "cycles",
@@ -41994,15 +40140,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759891978919,
-    "value": 70.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759891978919,
@@ -42273,15 +40410,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759891978919,
-    "value": 63.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759891978919,
@@ -42460,15 +40588,6 @@
     "tid": 7860,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759892478919,
-    "value": 129.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -42741,15 +40860,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759892478919,
-    "value": 140.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759892478919,
@@ -43018,15 +41128,6 @@
     "tid": 7820,
     "pid": 6568,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759892478919,
-    "value": 106.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -43299,15 +41400,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759892478919,
-    "value": 73.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759892478919,
@@ -43486,15 +41578,6 @@
     "tid": 2892,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759892478919,
-    "value": 93.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -43767,15 +41850,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759892478919,
-    "value": 136.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759892478919,
@@ -43999,15 +42073,6 @@
     "tid": 936,
     "pid": 6568,
     "cid": 5
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759892478919,
-    "value": 76.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
   },
   {
     "type": "cycles",
@@ -44235,15 +42300,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759892478919,
-    "value": 66.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759892478919,
@@ -44467,15 +42523,6 @@
     "tid": 4828,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759892978919,
-    "value": 187.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -44748,15 +42795,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759892978919,
-    "value": 153.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759892978919,
@@ -45025,15 +43063,6 @@
     "tid": 2892,
     "pid": 6568,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759892978919,
-    "value": 96.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -45306,15 +43335,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759892978919,
-    "value": 80.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759892978919,
@@ -45493,15 +43513,6 @@
     "tid": 2892,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759892978919,
-    "value": 156.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -45774,15 +43785,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759892978919,
-    "value": 85.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759892978919,
@@ -46006,15 +44008,6 @@
     "tid": 4444,
     "pid": 6568,
     "cid": 5
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759892978919,
-    "value": 99.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
   },
   {
     "type": "cycles",
@@ -46242,15 +44235,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759892978919,
-    "value": 71.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759892978919,
@@ -46474,15 +44458,6 @@
     "tid": 7860,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759893478919,
-    "value": 154.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -46755,15 +44730,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759893478919,
-    "value": 94.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759893478919,
@@ -47032,15 +44998,6 @@
     "tid": 2892,
     "pid": 6568,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759893478919,
-    "value": 87.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -47313,15 +45270,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759893478919,
-    "value": 76.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759893478919,
@@ -47592,15 +45540,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759893478919,
-    "value": 93.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759893478919,
@@ -47779,15 +45718,6 @@
     "tid": 5564,
     "pid": 6568,
     "cid": 4
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759893478919,
-    "value": 72.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
   },
   {
     "type": "cycles",
@@ -48015,15 +45945,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759893478919,
-    "value": 74.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759893478919,
@@ -48249,15 +46170,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759893478919,
-    "value": 65.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759893478919,
@@ -48391,15 +46303,6 @@
     "tid": 936,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759893978919,
-    "value": 153.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -48672,15 +46575,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759893978919,
-    "value": 98.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759893978919,
@@ -48904,15 +46798,6 @@
     "tid": 2328,
     "pid": 6568,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759893978919,
-    "value": 72.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -49140,15 +47025,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759893978919,
-    "value": 69.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759893978919,
@@ -49372,15 +47248,6 @@
     "tid": 7820,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759893978919,
-    "value": 90.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -49653,15 +47520,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759893978919,
-    "value": 83.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759893978919,
@@ -49930,15 +47788,6 @@
     "tid": 7860,
     "pid": 6568,
     "cid": 5
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759893978919,
-    "value": 63.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
   },
   {
     "type": "cycles",
@@ -50211,15 +48060,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759893978919,
-    "value": 61.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759893978919,
@@ -50443,15 +48283,6 @@
     "tid": 7860,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759894478919,
-    "value": 145.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -50724,15 +48555,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759894478919,
-    "value": 92.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759894478919,
@@ -51003,15 +48825,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759894478919,
-    "value": 82.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759894478919,
@@ -51235,15 +49048,6 @@
     "tid": 2892,
     "pid": 6568,
     "cid": 2
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759894478919,
-    "value": 65.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
   },
   {
     "type": "cycles",
@@ -51516,15 +49320,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759894478919,
-    "value": 133.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759894478919,
@@ -51795,15 +49590,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759894478919,
-    "value": 98.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759894478919,
@@ -52027,15 +49813,6 @@
     "tid": 4444,
     "pid": 6568,
     "cid": 5
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759894478919,
-    "value": 64.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
   },
   {
     "type": "cycles",
@@ -52263,15 +50040,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759894478919,
-    "value": 64.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759894478919,
@@ -52495,15 +50263,6 @@
     "tid": 5564,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759894978919,
-    "value": 106.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -52776,15 +50535,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759894978919,
-    "value": 168.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759894978919,
@@ -53008,15 +50758,6 @@
     "tid": 4552,
     "pid": 6568,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759894978919,
-    "value": 82.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -53244,15 +50985,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759894978919,
-    "value": 78.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759894978919,
@@ -53433,15 +51165,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759894978919,
-    "value": 115.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759894978919,
@@ -53620,15 +51343,6 @@
     "tid": 4828,
     "pid": 6568,
     "cid": 4
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759894978919,
-    "value": 71.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
   },
   {
     "type": "cycles",
@@ -53856,15 +51570,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759894978919,
-    "value": 71.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759894978919,
@@ -54045,15 +51750,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759894978919,
-    "value": 68.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759894978919,
@@ -54232,15 +51928,6 @@
     "tid": 936,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759895478919,
-    "value": 172.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -54468,15 +52155,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759895478919,
-    "value": 63.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759895478919,
@@ -54657,15 +52335,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759895478919,
-    "value": 64.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759895478919,
@@ -54844,15 +52513,6 @@
     "tid": 7820,
     "pid": 6568,
     "cid": 2
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759895478919,
-    "value": 67.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
   },
   {
     "type": "cycles",
@@ -55080,15 +52740,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759895478919,
-    "value": 88.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759895478919,
@@ -55314,15 +52965,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759895478919,
-    "value": 86.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759895478919,
@@ -55546,15 +53188,6 @@
     "tid": 7860,
     "pid": 6568,
     "cid": 5
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759895478919,
-    "value": 69.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
   },
   {
     "type": "cycles",
@@ -55827,15 +53460,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759895478919,
-    "value": 65.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759895478919,
@@ -56061,15 +53685,6 @@
     "cid": 7
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759895978919,
-    "value": 166.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759895978919,
@@ -56248,15 +53863,6 @@
     "tid": 2008,
     "pid": 6568,
     "cid": 0
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759895978919,
-    "value": 88.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
   },
   {
     "type": "cycles",
@@ -56484,15 +54090,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759895978919,
-    "value": 69.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759895978919,
@@ -56718,15 +54315,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759895978919,
-    "value": 61.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759895978919,
@@ -56905,15 +54493,6 @@
     "tid": 2892,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759895978919,
-    "value": 96.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -57186,15 +54765,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759895978919,
-    "value": 86.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759895978919,
@@ -57420,15 +54990,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759895978919,
-    "value": 73.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759895978919,
@@ -57607,15 +55168,6 @@
     "tid": 7860,
     "pid": 6568,
     "cid": 6
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759895978919,
-    "value": 64.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
   },
   {
     "type": "cycles",
@@ -57798,15 +55350,6 @@
     "cid": 7
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759896478919,
-    "value": 119.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759896478919,
@@ -57940,15 +55483,6 @@
     "tid": 2892,
     "pid": 6568,
     "cid": 0
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759896478919,
-    "value": 115.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
   },
   {
     "type": "cycles",
@@ -58129,15 +55663,6 @@
     "tid": 2328,
     "pid": 6568,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759896478919,
-    "value": 64.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -58365,15 +55890,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759896478919,
-    "value": 63.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759896478919,
@@ -58552,15 +56068,6 @@
     "tid": 2008,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759896478919,
-    "value": 93.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -58788,15 +56295,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759896478919,
-    "value": 95.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759896478919,
@@ -58975,15 +56473,6 @@
     "tid": 4444,
     "pid": 6568,
     "cid": 5
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759896478919,
-    "value": 70.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
   },
   {
     "type": "cycles",
@@ -59211,15 +56700,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759896478919,
-    "value": 62.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759896478919,
@@ -59400,15 +56880,6 @@
     "cid": 7
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759896978919,
-    "value": 132.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759896978919,
@@ -59587,15 +57058,6 @@
     "tid": 2328,
     "pid": 6568,
     "cid": 0
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759896978919,
-    "value": 123.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
   },
   {
     "type": "cycles",
@@ -59868,15 +57330,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759896978919,
-    "value": 91.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759896978919,
@@ -60055,15 +57508,6 @@
     "tid": 2008,
     "pid": 6568,
     "cid": 2
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759896978919,
-    "value": 72.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
   },
   {
     "type": "cycles",
@@ -60291,15 +57735,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759896978919,
-    "value": 79.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759896978919,
@@ -60480,15 +57915,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759896978919,
-    "value": 75.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759896978919,
@@ -60622,15 +58048,6 @@
     "tid": 5564,
     "pid": 6568,
     "cid": 5
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759896978919,
-    "value": 75.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
   },
   {
     "type": "cycles",
@@ -60813,15 +58230,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759896978919,
-    "value": 70.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759896978919,
@@ -60957,15 +58365,6 @@
     "cid": 7
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759897478919,
-    "value": 61.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759897478919,
@@ -61099,15 +58498,6 @@
     "tid": 2008,
     "pid": 6568,
     "cid": 0
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759897478919,
-    "value": 107.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
   },
   {
     "type": "cycles",
@@ -61290,15 +58680,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759897478919,
-    "value": 89.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759897478919,
@@ -61477,15 +58858,6 @@
     "tid": 6840,
     "pid": 6568,
     "cid": 2
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759897478919,
-    "value": 93.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
   },
   {
     "type": "cycles",
@@ -61668,15 +59040,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759897478919,
-    "value": 76.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759897478919,
@@ -61810,15 +59173,6 @@
     "tid": 7860,
     "pid": 6568,
     "cid": 4
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759897478919,
-    "value": 77.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
   },
   {
     "type": "cycles",
@@ -61956,15 +59310,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759897478919,
-    "value": 63.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759897478919,
@@ -62098,15 +59443,6 @@
     "tid": 4444,
     "pid": 6568,
     "cid": 6
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759897478919,
-    "value": 66.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
   },
   {
     "type": "cycles",
@@ -62287,15 +59623,6 @@
     "tid": 5564,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759897978919,
-    "value": 161.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -62521,15 +59848,6 @@
     "tid": 2328,
     "pid": 6568,
     "cid": 0
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759897978919,
-    "value": 71.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
   },
   {
     "type": "cycles",
@@ -62802,15 +60120,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759897978919,
-    "value": 65.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759897978919,
@@ -63036,15 +60345,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759897978919,
-    "value": 63.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759897978919,
@@ -63225,15 +60525,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759897978919,
-    "value": 77.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759897978919,
@@ -63412,15 +60703,6 @@
     "tid": 936,
     "pid": 6568,
     "cid": 4
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759897978919,
-    "value": 82.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
   },
   {
     "type": "cycles",
@@ -63648,15 +60930,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759897978919,
-    "value": 73.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759897978919,
@@ -63882,15 +61155,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759897978919,
-    "value": 63.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759897978919,
@@ -64069,15 +61333,6 @@
     "tid": 4828,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759898478919,
-    "value": 145.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -64260,15 +61515,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759898478919,
-    "value": 110.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759898478919,
@@ -64447,15 +61693,6 @@
     "tid": 2328,
     "pid": 6568,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759898478919,
-    "value": 68.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -64728,15 +61965,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759898478919,
-    "value": 66.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759898478919,
@@ -64915,15 +62143,6 @@
     "tid": 7820,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759898478919,
-    "value": 85.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -65106,15 +62325,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759898478919,
-    "value": 78.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759898478919,
@@ -65295,15 +62505,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759898478919,
-    "value": 63.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759898478919,
@@ -65437,15 +62638,6 @@
     "tid": 7860,
     "pid": 6568,
     "cid": 6
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759898478919,
-    "value": 68.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
   },
   {
     "type": "cycles",
@@ -65626,15 +62818,6 @@
     "tid": 4828,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759898978919,
-    "value": 164.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -65862,15 +63045,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759898978919,
-    "value": 100.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759898978919,
@@ -66094,15 +63268,6 @@
     "tid": 2892,
     "pid": 6568,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759898978919,
-    "value": 93.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -66330,15 +63495,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759898978919,
-    "value": 72.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759898978919,
@@ -66519,15 +63675,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759898978919,
-    "value": 87.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759898978919,
@@ -66663,15 +63810,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759898978919,
-    "value": 69.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759898978919,
@@ -66805,15 +63943,6 @@
     "tid": 5564,
     "pid": 6568,
     "cid": 5
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759898978919,
-    "value": 94.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
   },
   {
     "type": "cycles",
@@ -66996,15 +64125,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759898978919,
-    "value": 76.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759898978919,
@@ -67185,15 +64305,6 @@
     "cid": 7
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759899478919,
-    "value": 116.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759899478919,
@@ -67372,15 +64483,6 @@
     "tid": 2892,
     "pid": 6568,
     "cid": 0
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759899478919,
-    "value": 133.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
   },
   {
     "type": "cycles",
@@ -67606,15 +64708,6 @@
     "tid": 7820,
     "pid": 6568,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759899478919,
-    "value": 68.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -67887,15 +64980,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759899478919,
-    "value": 73.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759899478919,
@@ -68076,15 +65160,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759899478919,
-    "value": 82.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759899478919,
@@ -68218,15 +65293,6 @@
     "tid": 5564,
     "pid": 6568,
     "cid": 4
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759899478919,
-    "value": 114.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
   },
   {
     "type": "cycles",
@@ -68499,15 +65565,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759899478919,
-    "value": 75.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759899478919,
@@ -68686,15 +65743,6 @@
     "tid": 4444,
     "pid": 6568,
     "cid": 6
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759899478919,
-    "value": 64.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
   },
   {
     "type": "cycles",
@@ -68920,15 +65968,6 @@
     "tid": 7860,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759899978919,
-    "value": 182.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -69201,15 +66240,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759899978919,
-    "value": 93.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759899978919,
@@ -69388,15 +66418,6 @@
     "tid": 2008,
     "pid": 6568,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759899978919,
-    "value": 61.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -69579,15 +66600,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759899978919,
-    "value": 60.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759899978919,
@@ -69766,15 +66778,6 @@
     "tid": 2892,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759899978919,
-    "value": 98.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -70047,15 +67050,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759899978919,
-    "value": 71.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759899978919,
@@ -70191,15 +67185,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759899978919,
-    "value": 60.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759899978919,
@@ -70333,15 +67318,6 @@
     "tid": 4444,
     "pid": 6568,
     "cid": 6
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759899978919,
-    "value": 62.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
   },
   {
     "type": "cycles",
@@ -70522,15 +67498,6 @@
     "tid": 4828,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759900478919,
-    "value": 115.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -70758,15 +67725,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759900478919,
-    "value": 136.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759900478919,
@@ -70990,15 +67948,6 @@
     "tid": 2892,
     "pid": 6568,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759900478919,
-    "value": 78.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -71271,15 +68220,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759900478919,
-    "value": 65.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759900478919,
@@ -71505,15 +68445,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759900478919,
-    "value": 83.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759900478919,
@@ -71692,15 +68623,6 @@
     "tid": 4828,
     "pid": 6568,
     "cid": 4
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759900478919,
-    "value": 66.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
   },
   {
     "type": "cycles",
@@ -71883,15 +68805,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759900478919,
-    "value": 84.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759900478919,
@@ -72070,15 +68983,6 @@
     "tid": 5564,
     "pid": 6568,
     "cid": 6
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759900478919,
-    "value": 63.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
   },
   {
     "type": "cycles",
@@ -72351,15 +69255,6 @@
     "cid": 7
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759900978919,
-    "value": 177.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759900978919,
@@ -72630,15 +69525,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759900978919,
-    "value": 86.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759900978919,
@@ -72819,15 +69705,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759900978919,
-    "value": 72.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759900978919,
@@ -73006,15 +69883,6 @@
     "tid": 7820,
     "pid": 6568,
     "cid": 2
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759900978919,
-    "value": 68.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
   },
   {
     "type": "cycles",
@@ -73242,15 +70110,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759900978919,
-    "value": 99.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759900978919,
@@ -73429,15 +70288,6 @@
     "tid": 4828,
     "pid": 6568,
     "cid": 4
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759900978919,
-    "value": 73.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
   },
   {
     "type": "cycles",
@@ -73665,15 +70515,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759900978919,
-    "value": 70.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759900978919,
@@ -73854,15 +70695,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759900978919,
-    "value": 69.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759900978919,
@@ -73996,15 +70828,6 @@
     "tid": 7860,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759901478919,
-    "value": 146.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -74277,15 +71100,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759901478919,
-    "value": 74.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759901478919,
@@ -74511,15 +71325,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759901478919,
-    "value": 66.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759901478919,
@@ -74698,15 +71503,6 @@
     "tid": 2892,
     "pid": 6568,
     "cid": 2
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759901478919,
-    "value": 82.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
   },
   {
     "type": "cycles",
@@ -74934,15 +71730,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759901478919,
-    "value": 103.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759901478919,
@@ -75166,15 +71953,6 @@
     "tid": 5564,
     "pid": 6568,
     "cid": 4
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759901478919,
-    "value": 66.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
   },
   {
     "type": "cycles",
@@ -75402,15 +72180,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759901478919,
-    "value": 74.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759901478919,
@@ -75636,15 +72405,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759901478919,
-    "value": 65.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759901478919,
@@ -75825,15 +72585,6 @@
     "cid": 7
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759901978919,
-    "value": 126.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759901978919,
@@ -76012,15 +72763,6 @@
     "tid": 2892,
     "pid": 6568,
     "cid": 0
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759901978919,
-    "value": 107.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
   },
   {
     "type": "cycles",
@@ -76248,15 +72990,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759901978919,
-    "value": 65.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759901978919,
@@ -76480,15 +73213,6 @@
     "tid": 6840,
     "pid": 6568,
     "cid": 2
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759901978919,
-    "value": 71.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
   },
   {
     "type": "cycles",
@@ -76716,15 +73440,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759901978919,
-    "value": 81.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759901978919,
@@ -76905,15 +73620,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759901978919,
-    "value": 64.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759901978919,
@@ -77092,15 +73798,6 @@
     "tid": 936,
     "pid": 6568,
     "cid": 5
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759901978919,
-    "value": 76.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
   },
   {
     "type": "cycles",
@@ -77373,15 +74070,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759901978919,
-    "value": 60.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759901978919,
@@ -77515,15 +74203,6 @@
     "tid": 4444,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759902478919,
-    "value": 137.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -77751,15 +74430,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759902478919,
-    "value": 103.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759902478919,
@@ -77985,15 +74655,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759902478919,
-    "value": 64.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759902478919,
@@ -78127,15 +74788,6 @@
     "tid": 2008,
     "pid": 6568,
     "cid": 2
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759902478919,
-    "value": 63.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
   },
   {
     "type": "cycles",
@@ -78363,15 +75015,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759902478919,
-    "value": 86.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759902478919,
@@ -78595,15 +75238,6 @@
     "tid": 7860,
     "pid": 6568,
     "cid": 4
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759902478919,
-    "value": 76.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
   },
   {
     "type": "cycles",
@@ -78831,15 +75465,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759902478919,
-    "value": 66.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759902478919,
@@ -79018,15 +75643,6 @@
     "tid": 936,
     "pid": 6568,
     "cid": 6
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759902478919,
-    "value": 65.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
   },
   {
     "type": "cycles",
@@ -79254,15 +75870,6 @@
     "cid": 7
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759902978919,
-    "value": 144.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759902978919,
@@ -79488,15 +76095,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759902978919,
-    "value": 95.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759902978919,
@@ -79630,15 +76228,6 @@
     "tid": 2008,
     "pid": 6568,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759902978919,
-    "value": 76.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -79866,15 +76455,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759902978919,
-    "value": 71.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759902978919,
@@ -80053,15 +76633,6 @@
     "tid": 6840,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759902978919,
-    "value": 98.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -80244,15 +76815,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759902978919,
-    "value": 67.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759902978919,
@@ -80386,15 +76948,6 @@
     "tid": 5564,
     "pid": 6568,
     "cid": 5
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759902978919,
-    "value": 91.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
   },
   {
     "type": "cycles",
@@ -80532,15 +77085,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759902978919,
-    "value": 69.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759902978919,
@@ -80674,15 +77218,6 @@
     "tid": 7860,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759903478919,
-    "value": 174.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -80910,15 +77445,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759903478919,
-    "value": 63.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759903478919,
@@ -81052,15 +77578,6 @@
     "tid": 6840,
     "pid": 6568,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759903478919,
-    "value": 81.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -81288,15 +77805,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759903478919,
-    "value": 63.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759903478919,
@@ -81522,15 +78030,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759903478919,
-    "value": 72.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759903478919,
@@ -81709,15 +78208,6 @@
     "tid": 5564,
     "pid": 6568,
     "cid": 4
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759903478919,
-    "value": 79.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
   },
   {
     "type": "cycles",
@@ -81990,15 +78480,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759903478919,
-    "value": 65.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759903478919,
@@ -82134,15 +78615,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759903478919,
-    "value": 67.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759903478919,
@@ -82276,15 +78748,6 @@
     "tid": 936,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759903978919,
-    "value": 110.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -82512,15 +78975,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759903978919,
-    "value": 126.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759903978919,
@@ -82746,15 +79200,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759903978919,
-    "value": 61.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759903978919,
@@ -82888,15 +79333,6 @@
     "tid": 2328,
     "pid": 6568,
     "cid": 2
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759903978919,
-    "value": 64.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
   },
   {
     "type": "cycles",
@@ -83122,15 +79558,6 @@
     "tid": 2892,
     "pid": 6568,
     "cid": 3
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759903978919,
-    "value": 84.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
   },
   {
     "type": "cycles",
@@ -83403,15 +79830,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759903978919,
-    "value": 71.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759903978919,
@@ -83590,15 +80008,6 @@
     "tid": 936,
     "pid": 6568,
     "cid": 5
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759903978919,
-    "value": 64.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
   },
   {
     "type": "cycles",
@@ -83781,15 +80190,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759903978919,
-    "value": 63.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759903978919,
@@ -83968,15 +80368,6 @@
     "tid": 7860,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759904478919,
-    "value": 155.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -84249,15 +80640,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759904478919,
-    "value": 79.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759904478919,
@@ -84436,15 +80818,6 @@
     "tid": 2892,
     "pid": 6568,
     "cid": 1
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759904478919,
-    "value": 85.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
   },
   {
     "type": "cycles",
@@ -84672,15 +81045,6 @@
     "cid": 2
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759904478919,
-    "value": 63.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759904478919,
@@ -84861,15 +81225,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759904478919,
-    "value": 79.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759904478919,
@@ -85005,15 +81360,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759904478919,
-    "value": 69.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759904478919,
@@ -85147,15 +81493,6 @@
     "tid": 4444,
     "pid": 6568,
     "cid": 5
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759904478919,
-    "value": 67.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
   },
   {
     "type": "cycles",
@@ -85383,15 +81720,6 @@
     "cid": 6
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759904478919,
-    "value": 66.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759904478919,
@@ -85570,15 +81898,6 @@
     "tid": 4828,
     "pid": 6568,
     "cid": 7
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759904978919,
-    "value": 270.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 0
   },
   {
     "type": "cycles",
@@ -86031,15 +82350,6 @@
     "cid": 0
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759904978919,
-    "value": 277.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 1
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759904978919,
@@ -86400,15 +82710,6 @@
     "cid": 1
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759904978919,
-    "value": 172.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 2
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759904978919,
@@ -86722,15 +83023,6 @@
     "tid": 5564,
     "pid": 6568,
     "cid": 2
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759904978919,
-    "value": 201.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 3
   },
   {
     "type": "cycles",
@@ -87183,15 +83475,6 @@
     "cid": 3
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759904978919,
-    "value": 238.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 4
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759904978919,
@@ -87552,15 +83835,6 @@
     "cid": 4
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759904978919,
-    "value": 155.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 5
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759904978919,
@@ -87876,15 +84150,6 @@
     "cid": 5
   },
   {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759904978919,
-    "value": 285.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 6
-  },
-  {
     "type": "cycles",
     "program": "system",
     "time": 635573759904978919,
@@ -88198,15 +84463,6 @@
     "tid": 3556,
     "pid": 6568,
     "cid": 6
-  },
-  {
-    "type": "switch",
-    "program": "N/A",
-    "time": 635573759904978919,
-    "value": 247.0,
-    "tid": -1,
-    "pid": 0,
-    "cid": 7
   },
   {
     "type": "cycles",
