@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
-var VERSION = 26;
+var VERSION = 27;
 
 var hardRoman = {
 	data: {
@@ -144,6 +144,7 @@ function loadData(id) {
 	// Vars
 	var filenameRaw1 = 'data/' + profileMap[id].file + '.states.json';
 	var filenameRaw2 = 'data/' + profileMap[id].file + '.switches.json';
+	var filenameRaw3 = 'data/' + profileMap[id].file + '.dl.json';
 	var filenameCache = 'data/' + profileMap[id].file + '.cache.json';
 
 	// Load data from cache
@@ -171,10 +172,11 @@ function loadData(id) {
 		// Load raw
 		var raw1 = JSON.parse(fs.readFileSync(filenameRaw1, 'utf8'));
 		var raw2 = JSON.parse(fs.readFileSync(filenameRaw2, 'utf8'));
+		var raw3 = JSON.parse(fs.readFileSync(filenameRaw3, 'utf8'));
 		console.log("[" + id + "] " + profileMap[id].file + " raw data loaded");
 
 		// Compute
-		profileData[id] = computeData(id, raw1, raw2, profileMap[id]);
+		profileData[id] = computeData(id, raw1, raw2, raw3, profileMap[id]);
 		console.log("[" + id + "] " + profileMap[id].file + " raw data computed");
 
 		// Save to cache
@@ -186,7 +188,7 @@ function loadData(id) {
 /**
  * Compute data
  */
-function computeData(id, raw1, raw2, profile) {
+function computeData(id, raw1, raw2, raw3, profile) {
 
 	// Create structure
 	var data = {
@@ -223,7 +225,10 @@ function computeData(id, raw1, raw2, profile) {
 	var timeID, timeEvent;
 
 	/**
-	 * RAW 1: states
+	 *
+	 *	RAW 1:
+	 *		states
+	 *
 	 */
 
 	// Analyse element by element and group them by time
@@ -294,8 +299,12 @@ function computeData(id, raw1, raw2, profile) {
 
 
 
+
 	/**
-	 * RAW 2: switches
+	 *
+	 *	RAW 2:
+	 *		switches
+	 *
 	 */
 	// Vars
 	var coreThreads = {};
@@ -400,8 +409,19 @@ function computeData(id, raw1, raw2, profile) {
 
 
 	/**
-	 * RAW 3: memory
+	 *
+	 *	RAW 3:
+	 *		dala locality
+	 *
 	 */
+	// Stats
+	data.stats.cycles = +raw3.info.cycles;
+	data.stats.l1miss = +raw3.info.l1miss;
+	data.stats.l2miss = +raw3.info.l2miss;
+	data.stats.l3miss = +raw3.info.l3miss;
+	data.stats.tlbmiss = +raw3.info.tlbmiss;
+	data.stats.dzf = +raw3.info.dzf;
+	data.stats.hpf = +raw3.info.hpf;
 
 
 
@@ -543,7 +563,13 @@ function addCommon(output, id) {
 		r:	data.stats.running,
 		y:	data.stats.ready,
 		b:	data.stats.standby,
-		w:	data.stats.wait
+		w:	data.stats.wait,
+		l1:		data.stats.l1miss,
+		l2:		data.stats.l2miss,
+		l3:		data.stats.l3miss,
+		tlb:	data.stats.tlbmiss,
+		dzf:	data.stats.dzf,
+		hpf:	data.stats.hpf
 	};
 
 	// Threads
