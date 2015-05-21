@@ -944,6 +944,17 @@ function addStates(output, id) {
 	};
 }
 
+/**
+ * Add data-locality data
+ */
+function addLocality(output, id) {
+	// Init vars
+	var data		= profileData[id];
+
+	// Stats
+	output.stats.locality = data.locality.stats;
+}
+
 
 /************************************************/
 /* Functions - For each category				*/
@@ -1094,6 +1105,9 @@ function jsonDL(id) {
 	// Common
 	addCommon(output, id);
 	addDetails(output, id);
+
+	// Data
+	addLocality(output, id);
 
 	return output;
 }
