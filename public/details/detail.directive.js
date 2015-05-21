@@ -539,7 +539,7 @@ app.directive('chartThreadLifetime', function() {
 		var timeMin = 0;
 		var timeMax = data.info.duration;
 		var threadCount = data.info.threadCount;
-		var colors = [scope.widget.deck1[0].color, scope.widget.deck1[0].color2];
+		var colors = scope.widget.deck.axis.x.colors;
 
 
 		// Compute layout
@@ -726,7 +726,7 @@ app.directive('chartStats', function() {
 
 		// Data - set
 		var ids = scope.ids;
-		var deck1 = scope.widget.deck1;
+		var deck = scope.widget.deck.data;
 
 		// Data - Copy
 		var data = [];
@@ -736,7 +736,7 @@ app.directive('chartStats', function() {
 			dataElement = [];
 			dataValueSum = 0;
 			dataPreviousValue = 0;
-			deck1.forEach(function(element) {
+			deck.forEach(function(element) {
 				dataValueSum += scope.data[id].stats[element.cat][element.attr];
 				dataElement.push({
 					attr: element.attr,
@@ -758,7 +758,7 @@ app.directive('chartStats', function() {
 			lineHeight: 33
 		};
 		layout.width = layout.boxes.width * ids.length + layout.boxes.padding;
-		layout.height = layout.lineHeight * deck1.length;
+		layout.height = layout.lineHeight * deck.length;
 
 		// Vars - paint
 		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
@@ -792,7 +792,7 @@ app.directive('chartStats', function() {
 					return scaleY(d.value);
 				})
 				.style("fill", function (d, i, j) {
-					return deck1[i].color;
+					return deck[i].color;
 				});
 	};
 
