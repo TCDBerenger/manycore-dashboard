@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
-var VERSION = 31;
+var VERSION = 32;
 
 var hardRoman = {
 	data: {
@@ -213,6 +213,7 @@ function computeData(id, raw1, raw2, raw3, profile) {
 		lifetimes: [],
 		lifecycle: {},
 		locality: {
+			byFrames: {},
 			stats: {
 				ipc:		0,
 				tlb:		0,
@@ -425,13 +426,23 @@ function computeData(id, raw1, raw2, raw3, profile) {
 	 *
 	 */
 	// Var
+	var property;
 	var stat_ipc = 0;
 
 	// Loop
 	raw3.threads.forEach(function(thread) {
 		thread.measures.forEach(function(measure) {
-			measure.data.forEach(function (value) {
-				data.locality.stats[measure.name.toLowerCase()] += +value || 0;
+			measure.data.forEach(function (value, value_index) {
+				timeID = value_index * profile.timeStep;
+				property = measure.name.toLowerCase();
+
+				// By frame
+				if (! data.locality.byFrames.hasOwnProperty(timeID))			data.locality.byFrames[timeID] = { t: timeID };
+				if (! data.locality.byFrames[timeID].hasOwnProperty(property))	data.locality.byFrames[timeID][property] = 0;
+				data.locality.byFrames[timeID][property] += +value || 0;
+
+				// Stats
+				data.locality.stats[property] += +value || 0;
 			});
 		});
 	});
@@ -950,6 +961,16 @@ function addStates(output, id) {
 function addLocality(output, id) {
 	// Init vars
 	var data		= profileData[id];
+	output.locality	= [];
+
+	// Data
+	for (var frameID in data.locality.byFrames) {
+		if (data.locality.byFrames.hasOwnProperty(frameID)) {
+			output.locality.push(data.locality.byFrames[frameID]);
+		}
+	}
+	output.locality.sort(function(a, b){return a.t - b.t});
+	
 
 	// Stats
 	output.stats.locality = data.locality.stats;
