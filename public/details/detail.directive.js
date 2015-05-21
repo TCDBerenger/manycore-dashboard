@@ -1,17 +1,29 @@
 var genericLayout = function() {
+	// Allow seld reference (otherwise this is the caller object)
+	var self = this;
+
 	this.margin		= { top: 10, right: 10, bottom: 20, left: 20 };
 	this.height		= 0;
 	this.width		= 0;
 	this.graph		= {
-		layout:	this,
-		width: 	function() { return this.layout.width - this.layout.margin.left - this.layout.margin.right; },
-		height: function() { return this.layout.height - this.layout.margin.top - this.layout.margin.bottom; },
-		top: 	function() { return this.layout.margin.top; },
-		right: 	function() { return this.layout.width - this.layout.margin.right; },
-		bottom: function() { return this.layout.height - this.layout.margin.bottom; },
-		left: 	function() { return this.layout.margin.left; }
+		width: 	function() { return self.width - self.margin.left - self.margin.right; },
+		height: function() { return self.height - self.margin.top - self.margin.bottom; },
+		top: 	function() { return self.margin.top; },
+		right: 	function() { return self.width - self.margin.right; },
+		bottom: function() { return self.height - self.margin.bottom; },
+		left: 	function() { return self.margin.left; }
 	};
 };
+
+var genericMeta = function(attributes) {
+	this.autoscale		= (attributes.autoscale === 'true' || attributes.autoscale === 'yes' || attributes.autoscale === '' || attributes.autoscale === 'autoscale')
+	this.begin			= +attributes.begin									// When the user selection starts
+	this.end			= +attributes.end									// When the user selection ends (could be before or after timeMax)
+	this.focus			= (attributes.focus) ? +attributes.focus : 1		// Focusing data (divide factor)
+	this.graduate		= (attributes.graduate) ? +attributes.graduate : 1	// Divide the value with graduate color
+	this.max			= (attributes.max) ? +attributes.max : NaN			// Maximum possible value (cf. focus for divide this value)
+};
+
 
 app.directive('chartHistoband', function() {
 
@@ -29,14 +41,8 @@ app.directive('chartHistoband', function() {
 
 		// Attributes
 		var deck = scope.widget.deck.axis;
-		var meta = {
-			autoscale:	(attrs.autoscale === 'true' || attrs.autoscale === 'yes' || attrs.autoscale === '' || attrs.autoscale === 'autoscale'),
-			begin:		+attrs.begin,								// When the user selection starts
-			end:		+attrs.end,									// When the user selection ends (could be before or after timeMax)
-			max:		(attrs.max) ? +attrs.max : NaN,				// Maximum possible value (cf. focus for divide this value)
-			focus:		(attrs.focus) ? +attrs.focus : 1,			// Focusing data (divide factor)
-			halfLimit:	true,
-		};
+		var meta = new genericMeta(attrs);
+		meta.halfLimit = true;
 
 		// Data
 		var profileID = +attrs.profileid;
@@ -223,13 +229,7 @@ app.directive('chartColoroband', function() {
 
 		// Attributes
 		var deck = scope.widget.deck.axis;
-		var meta = {
-			graduate:	(attrs.graduate) ? +attrs.graduate : 1,		// Divide the value with graduate color
-			begin:		+attrs.begin,								// When the user selection starts
-			end:		+attrs.end,									// When the user selection ends (could be before or after timeMax)
-			max:		(attrs.max) ? +attrs.max : NaN,				// Maximum possible value (cf. focus for divide this value)
-			focus:		(attrs.focus) ? +attrs.focus : 1,			// Focusing data (divide factor)
-		}
+		var meta = new genericMeta(attrs);
 
 		// Data
 		var profileID = +attrs.profileid;
@@ -350,6 +350,143 @@ app.directive('chartColoroband', function() {
 
 	return {
 		link: chartThreadDivergence_link,
+		restrict: 'E'
+	}
+});
+
+app.directive('chartCacheMisses', function() {
+
+	function chart_link(scope, element, attrs, controller) {
+		console.log("== directive == chartCacheMisses ==");
+
+		// Layout
+		var container = element[0];
+		var layout = new genericLayout();
+
+		// Attributes
+		var deck = scope.widget.deck.axis;
+		var meta = new genericMeta(attrs);
+
+		// Non repaintable layout
+		layout.height = container.clientHeight;
+
+		// Data
+		var data = scope.data[attrs.profileid];
+		var dataList = data.locality;
+		var colors = deck.x.colors;
+
+		// Fix column layout
+		var lastElement = angular.copy(dataList[dataList.length - 1], {});
+		lastElement.t = data.info.duration;
+		dataList.push(lastElement);
+
+		// DOM
+		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
+		svg.style("background", "#FFFFFF");
+
+		// Scales
+		var scaleX = d3.scale.linear().rangeRound([layout.graph.left(), layout.graph.right()]);
+		var scaleY = d3.scale.linear().rangeRound([layout.graph.bottom(), layout.graph.top()]);
+
+		// Scales - domains
+		scaleY.domain([0, 100]);
+		scaleX.domain([meta.begin, meta.end]);
+
+		// Axis
+		var xAxis = d3.svg.axis().scale(scaleX);
+		var yAxis = d3.svg.axis().scale(scaleY).orient("left");
+
+		// Function bloc - tlb
+		var tlbFunction = d3.svg.area()
+				.x(function(d) { return scaleX(d.t); })
+				.y0(function(d) { return scaleY(100 - d.ipc); })
+				.y1(function(d) { return scaleY(100 - d.ipc - d.tlb); })
+				.interpolate(interpolationMethod);
+
+		// Function bloc - l1
+		var l1Function = d3.svg.area()
+				.x(function(d) { return scaleX(d.t); })
+				.y0(function(d) { return scaleY(100 - d.ipc - d.tlb); })
+				.y1(function(d) { return scaleY(100 - d.ipc - d.tlb - d.l1); })
+				.interpolate(interpolationMethod);
+
+
+		// Draw
+		var scaleY0 = scaleY(0);
+		var scaleY100 = scaleY(100);
+		var interpolationMethod = "step-after";
+		var dataGroup = svg.append("g").attr("class", "dataset");
+
+		// Function bloc
+		var ipcFunction = d3.svg.area().x(function(d) { return scaleX(d.t); }).interpolate(interpolationMethod)
+				.y0(scaleY100) // d.hpf + d.l3 + d.l2 + d.l1 + d.tlb + d.ipc
+				.y1(function(d) { return scaleY(d.hpf + d.l3 + d.l2 + d.l1 + d.tlb); })
+		var tlbFunction = d3.svg.area().x(function(d) { return scaleX(d.t); }).interpolate(interpolationMethod)
+				.y0(function(d) { return scaleY(d.hpf + d.l3 + d.l2 + d.l1 + d.tlb); })
+				.y1(function(d) { return scaleY(d.hpf + d.l3 + d.l2 + d.l1); });
+		var l1Function = d3.svg.area().x(function(d) { return scaleX(d.t); }).interpolate(interpolationMethod)
+				.y0(function(d) { return scaleY(d.hpf + d.l3 + d.l2 + d.l1); })
+				.y1(function(d) { return scaleY(d.hpf + d.l3 + d.l2); });
+		var l2Function = d3.svg.area().x(function(d) { return scaleX(d.t); }).interpolate(interpolationMethod)
+				.y0(function(d) { return scaleY(d.hpf + d.l3 + d.l2); })
+				.y1(function(d) { return scaleY(d.hpf + d.l3); });
+		var l3Function = d3.svg.area().x(function(d) { return scaleX(d.t); }).interpolate(interpolationMethod)
+				.y0(function(d) { return scaleY(d.hpf + d.l3); })
+				.y1(function(d) { return scaleY(d.hpf); });
+		var hpfFunction = d3.svg.area().x(function(d) { return scaleX(d.t); }).interpolate(interpolationMethod)
+				.y0(function(d) { return scaleY(d.hpf); })
+				.y1(scaleY0);
+
+		// Draw - blocks
+		var ipcElement = dataGroup.append("path").attr("fill", colors[0]);
+		var tlbElement = dataGroup.append("path").attr("fill", colors[1]);
+		var l1Element = dataGroup.append("path").attr("fill", colors[2]);
+		var l2Element = dataGroup.append("path").attr("fill", colors[3]);
+		var l3Element = dataGroup.append("path").attr("fill", colors[4]);
+		var hpfElement = dataGroup.append("path").attr("fill", colors[5]);
+
+		// Draw - axis
+		var axisXGroup = svg.append("g")
+				.attr("class", "xAxis")
+				.attr("transform", "translate(0," + layout.graph.bottom() + ")");
+		var axisYGroup = svg.append("g")
+				.attr("class", "xAxis")
+				.attr("transform", "translate(" + layout.graph.left() + ",0)")
+				.call(yAxis);
+
+		// Draw - text
+		var labelElement = svg.append("text")
+			.attr("y", layout.graph.top() + 30)
+			.attr("text-anchor", "end")
+			.attr("font-size", "14px")
+			.text(attrs.title);
+
+		// Redraw
+		var redraw = function redraw() {
+				// Sizes
+				layout.width = container.clientWidth;
+
+				// Scales
+				scaleX.rangeRound([layout.graph.left(), layout.graph.right()]);
+
+				// SVG
+				svg.attr('width', layout.width);
+				axisXGroup.call(xAxis);
+				ipcElement.attr("d", ipcFunction(dataList));
+				tlbElement.attr("d", tlbFunction(dataList));
+				l1Element.attr("d", l1Function(dataList));
+				l2Element.attr("d", l2Function(dataList));
+				l3Element.attr("d", l3Function(dataList));
+				hpfElement.attr("d", hpfFunction(dataList));
+				labelElement.attr("x", layout.graph.right);
+			};
+
+		// Redraw - bind
+		scope.$watch(function() { return container.clientWidth; }, redraw);
+	}
+
+	return {
+		link: chart_link,
 		restrict: 'E'
 	}
 });

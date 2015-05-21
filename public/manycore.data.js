@@ -93,6 +93,7 @@ app.factory('decks', ['colours', function(colours) {
 		},
 		locality: {
 			axis : {
+				x:		{ colors: [colours.good, colours.list.lGrey, colours.list.lRed, colours.list.eRed, colours.list.dRed, colours.list.black] }
 			},
 			data : [
 				{ title: 'Swapping',			desc: 'hard page faults',	unity: '',	cat: 'locality',	attr: 'hpf',	color: colours.list.black },
@@ -110,11 +111,12 @@ app.factory('decks', ['colours', function(colours) {
 	};
 }]);
 
+
 app.factory('widgets', ['decks', function(decks) {
 	var output = {};
 	
 	output.cacheInvalid		= {id: 10,	file: 'generic-to-delete',	deck: null,					tag: 'cache-invalid',		title: 'Cache misses from updating shared data',				subtitle: ''};
-	output.cacheMisses		= {id: 11,	file: 'generic-to-delete',	deck: decks.locality,		tag: 'cache-misses',		title: 'Cache misses',											subtitle: ''};
+	output.cacheMisses		= {id: 11,	file: 'cache-misses',		deck: decks.locality,		tag: 'cache-misses',		title: 'Cache misses',											subtitle: ''};
 	output.coreInactivity	= {id: 5,	file: 'generic-to-delete',	deck: null,					tag: 'core-idle',			title: 'Idle cores',											subtitle: ''};
 	output.lockContentions	= {id: 9,	file: 'generic-to-delete',	deck: null,					tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
 	output.threadPaths		= {id: 1,	file: 'generic-to-delete',	deck: null,					tag: 'thread-paths',		title: 'Single thread execution phases',						subtitle: 'alternating sequential/parallel execution'};

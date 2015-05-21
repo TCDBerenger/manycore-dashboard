@@ -964,9 +964,19 @@ function addLocality(output, id) {
 	output.locality	= [];
 
 	// Data
+	var max;
 	for (var frameID in data.locality.byFrames) {
 		if (data.locality.byFrames.hasOwnProperty(frameID)) {
-			output.locality.push(data.locality.byFrames[frameID]);
+			max = data.locality.byFrames[frameID].ipc + data.locality.byFrames[frameID].tlb + data.locality.byFrames[frameID].l1 + data.locality.byFrames[frameID].l2 + data.locality.byFrames[frameID].l3 + data.locality.byFrames[frameID].hpf
+			output.locality.push({
+				t:		data.locality.byFrames[frameID].t,
+				ipc:	(100 * data.locality.byFrames[frameID].ipc / max),
+				tlb:	(100 * data.locality.byFrames[frameID].tlb / max),
+				l1:		(100 * data.locality.byFrames[frameID].l1 / max),
+				l2:		(100 * data.locality.byFrames[frameID].l2 / max),
+				l3:		(100 * data.locality.byFrames[frameID].l3 / max),
+				hpf:	(100 * data.locality.byFrames[frameID].hpf / max)
+			});
 		}
 	}
 	output.locality.sort(function(a, b){return a.t - b.t});
