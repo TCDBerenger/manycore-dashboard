@@ -6,12 +6,12 @@ app.directive('widgetDash', ['$parse', '$injector', '$compile', function ($parse
 			switch (attrs.cat.toLowerCase()) {
 				case 'tg':
 				case 'lb':
+				case 'dl':
 					directiveName = 'widgetDashTrack';
 					break;
 				/*
 				case 'sy':	directiveName = ''; break;
 				case 'ds':	directiveName = ''; break;
-				case 'dl':	directiveName = ''; break;
 				case 'rs':	directiveName = ''; break;
 				case 'io':	directiveName = ''; break;
 				*/

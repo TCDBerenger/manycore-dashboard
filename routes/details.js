@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
-var VERSION = 27;
+var VERSION = 31;
 
 var hardRoman = {
 	data: {
@@ -212,6 +212,16 @@ function computeData(id, raw1, raw2, raw3, profile) {
 		migrations: [],
 		lifetimes: [],
 		lifecycle: {},
+		locality: {
+			stats: {
+				ipc:		0,
+				tlb:		0,
+				l1:			0,
+				l2:			0,
+				l3:			0,
+				hpf:		0
+			}
+		},
 		timelist: {
 			switches: [],
 			migrations: []
@@ -414,6 +424,18 @@ function computeData(id, raw1, raw2, raw3, profile) {
 	 *		dala locality
 	 *
 	 */
+	// Var
+	var stat_ipc = 0;
+
+	// Loop
+	raw3.threads.forEach(function(thread) {
+		thread.measures.forEach(function(measure) {
+			measure.data.forEach(function (value) {
+				data.locality.stats[measure.name.toLowerCase()] += +value || 0;
+			});
+		});
+	});
+
 	// Stats
 	data.stats.cycles = +raw3.info.cycles;
 	data.stats.l1miss = +raw3.info.l1miss;
@@ -542,7 +564,7 @@ function addCommon(output, id) {
 	// Init vars
 	var data = profileData[id];
 
-	// Stats
+	// Infos
 	output.info = {
 		cores:			data.info.cores,
 		timeShift:		data.info.timeShift,
@@ -550,12 +572,10 @@ function addCommon(output, id) {
 		timeMin:		data.info.timeMin,
 		timeMax:		data.info.timeMax,
 		duration:		data.info.timeMax + data.info.timeStep,
-		threadCount:	data.info.threadCount,
-		calib: {
-			switches:	profileMap[id].hardware.calib.switches
-		},
-		threads:		[]
+		threadCount:	data.info.threadCount
 	};
+
+	// Stats
 	output.stats = {
 	    s:	data.stats.switches,
 	    m:	data.stats.migrations,
@@ -571,10 +591,35 @@ function addCommon(output, id) {
 		dzf:	data.stats.dzf,
 		hpf:	data.stats.hpf
 	};
+}
+
+/**
+ * Add dash stats
+ */
+function addDash(output, id) {
+	// Init vars
+	var data = profileData[id];
+
+	// locality
+	output.stats.locality = data.locality.stats;
+}
+
+/**
+ * Add common stats for details
+ */
+function addDetails(output, id) {
+	// Init vars
+	var data = profileData[id];
+
+	// calib
+	output.calib = {
+		switches:	profileMap[id].hardware.calib.switches
+	},
 
 	// Threads
+	output.threads = {info: []};
 	for(var h in data.lifecycle) {
-		output.info.threads.push({
+		output.threads.info.push({
 			h: +h,
 			s: data.lifecycle[h].s,
 			e: data.lifecycle[h].e,
@@ -582,7 +627,7 @@ function addCommon(output, id) {
 	};
 
 	// Sort - by start time
-	output.info.threads.sort(function(a, b){return a.s - b.s});
+	output.threads.info.sort(function(a, b){return a.s - b.s});
 }
 
 /**
@@ -914,6 +959,7 @@ function jsonTest(id) {
 
 	// Common
 	addCommon(output, id);
+	addDetails(output, id);
 
 	// Cache
 	output.cache = profileData[id];
@@ -940,6 +986,7 @@ function jsonDash(id) {
 
 	// Common
 	addCommon(output, id);
+	addDash(output, id);
 
 	// for potential parallelism
 	addTime(output, id);
@@ -959,6 +1006,7 @@ function jsonTG(id) {
 
 	// Common
 	addCommon(output, id);
+	addDetails(output, id);
 
 	// for context switches
 	addSwitches(output, id);
@@ -988,6 +1036,7 @@ function jsonSY(id) {
 
 	// Common
 	addCommon(output, id);
+	addDetails(output, id);
 
 	return output;
 }
@@ -1004,6 +1053,7 @@ function jsonDS(id) {
 
 	// Common
 	addCommon(output, id);
+	addDetails(output, id);
 
 	return output;
 }
@@ -1019,6 +1069,7 @@ function jsonLB(id) {
 
 	// Common
 	addCommon(output, id);
+	addDetails(output, id);
 
 	// for migrations
 	addMigrations(output, id);
@@ -1042,6 +1093,7 @@ function jsonDL(id) {
 
 	// Common
 	addCommon(output, id);
+	addDetails(output, id);
 
 	return output;
 }
@@ -1058,6 +1110,7 @@ function jsonRS(id) {
 
 	// Common
 	addCommon(output, id);
+	addDetails(output, id);
 
 	return output;
 }
@@ -1074,6 +1127,7 @@ function jsonIO(id) {
 
 	// Common
 	addCommon(output, id);
+	addDetails(output, id);
 
 	return output;
 }

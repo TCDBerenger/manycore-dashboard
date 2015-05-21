@@ -94,7 +94,7 @@
 			<div ng-repeat="p in profiles">
 				<p>{{p.label}}</p>
 				<ul>
-					<li ng-repeat="t in data[p.id].info.threads">{{t.h}}</li>
+					<li ng-repeat="t in data[p.id].threads.info">{{t.h}}</li>
 				</ul>
 			</div>
 		</div>

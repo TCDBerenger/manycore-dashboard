@@ -301,6 +301,27 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 
 					break;
 				case 'dl':
+					var executing = dp.stats.locality.ipc;
+					var cacheMisses = dp.stats.locality.tlb + dp.stats.locality.l1 + dp.stats.locality.l2 + dp.stats.locality.l3 + dp.stats.locality.hpf;
+					var total = executing + cacheMisses;
+
+					executing = executing / total;
+					cacheMisses = cacheMisses / total;
+
+
+					wd.push([[{
+						t: 'executing',
+						l: Math.round(executing * 100) + '%',
+						v: executing,
+						c: colours.list.dGreen,
+						b: colours.list.lGreen
+					}, {
+						t: 'cache misses',
+						l: Math.round(cacheMisses * 100) + '%',
+						v: cacheMisses,
+						c: colours.list.dRed,
+						b: colours.list.lRed
+					}], []]);
 
 					break;
 				case 'rs':
