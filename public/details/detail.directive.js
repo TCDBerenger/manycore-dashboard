@@ -13,6 +13,14 @@ var genericLayout = function() {
 		bottom: function() { return self.height - self.margin.bottom; },
 		left: 	function() { return self.margin.left; }
 	};
+	this.innerGraph	= {
+		width: 	this.graph.width,
+		height: this.graph.height,
+		top: 	this.graph.top,
+		right: 	this.graph.right,
+		bottom: this.graph.bottom,
+		left: 	this.graph.left
+	};
 };
 
 var genericMeta = function(attributes) {
@@ -182,7 +190,7 @@ app.directive('chartHistoband', function() {
 				// Treat overflow
 				if (meta.autoscale && higherV < layout.graph.top()) {
 					var yOverflow = layout.graph.top() - higherV;
-					console.log("need to repaint", yOverflow);
+					console.log("need to repaint with overflow", yOverflow);
 
 					// Layout
 					layout.height += yOverflow;
@@ -503,24 +511,12 @@ app.directive('chartThreadDivergence', function() {
 		// Non repaintable layout
 		layout.height = container.clientHeight;
 
-		var layout = {
-			margin: { top: 10, right: 10, bottom: 20, left: 20},
-			height:	container.clientHeight,
-			width:	container.clientWidth,
-			graph:	{
-				width:	function() { return Math.max(1, layout.width - layout.margin.left - layout.margin.right); },
-				height:	function() { return Math.max(1, layout.height - layout.margin.top - layout.margin.bottom); },
-				top:	function() { return layout.margin.top; },
-				right:	function() { return Math.max(1, layout.width - layout.margin.right); },
-				bottom:	function() { return Math.max(1, layout.height - layout.margin.bottom); },
-				left:	function() { return layout.margin.left; }
-			}
-		};
+		// Attributes
+		var deck = scope.widget.deck.axis;
+		var meta = new genericMeta(attrs);
 
 		// Data
 		var data = scope.data[attrs.profileid];
-		var timeStart = +attrs.timestart;			// When the user selection starts
-		var timeEnd = +attrs.timeend;				// When the user selection ends (could be before or after timeMax)
 		var timeMax = data.info.duration;
 		var numberCores = data.info.cores;
 		var dataValueMax = Math.max(numberCores * 2, data.info.threadCount);
@@ -540,7 +536,7 @@ app.directive('chartThreadDivergence', function() {
 
 		// Scales - domains
 		scaleY.domain([0, dataValueMax]);
-		scaleX.domain([timeStart, timeEnd]);
+		scaleX.domain([meta.begin, meta.end]);
 
 		// Axis
 		var xAxis = d3.svg.axis().scale(scaleX);
@@ -553,9 +549,9 @@ app.directive('chartThreadDivergence', function() {
 
 		// Draw - core area
 		var coreElement = svg.append("rect")
-				.attr("width", scaleX(timeMax) - scaleX(timeStart)) // 🕒 repaintable
+				.attr("width", scaleX(timeMax) - scaleX(meta.begin)) // 🕒 repaintable
 				.attr("height", scaleY(0) - scaleYCoreCapacity)
-				.attr("x", scaleX(timeStart))
+				.attr("x", scaleX(meta.begin))
 				.attr("y", scaleYCoreCapacity)
 				.style("fill", "rgba(70, 130, 180, .5)")
 				.style("fill", "#9ED3FF");
@@ -601,7 +597,7 @@ app.directive('chartThreadDivergence', function() {
 		// Draw - core line
 		var coreLine = svg.append("line")
 				.attr("class", "line")
-				.attr("x1", scaleX(timeStart)).attr("x2", scaleX(timeMax)) // 🕒 repaintable
+				.attr("x1", scaleX(meta.begin)).attr("x2", scaleX(timeMax)) // 🕒 repaintable
 				.attr("y1", scaleYCoreCapacity).attr("y2", scaleYCoreCapacity)
 				.attr('stroke', '#4682B4')
 				.attr('stroke-width', 4)
@@ -637,8 +633,8 @@ app.directive('chartThreadDivergence', function() {
 				// SVG
 				svg.attr('width', layout.width);
 				axisXGroup.call(xAxis);
-				coreElement.attr("width", scaleX(timeMax) - scaleX(timeStart));
-				coreLine.attr("x1", scaleX(timeStart)).attr("x2", scaleX(timeMax));
+				coreElement.attr("width", scaleX(timeMax) - scaleX(meta.begin));
+				coreLine.attr("x1", scaleX(meta.begin)).attr("x2", scaleX(timeMax));
 				runningArea.attr("d", runningAreaFunction(data.states));
 				readyArea.attr("d", readyAreaFunction(data.states));
 				readyLine.attr("d", readyLineFunction(data.states));
@@ -666,28 +662,28 @@ app.directive('chartThreadLifetime', function() {
 		var layout = new genericLayout();
 
 		// Non repaintable layout
-		layout.margin.top = 0;
+		var self = layout;
+		layout.lines				= { size: 4, padding: 2 };
+		layout.section				= { height: 20, pad: 18 };
+		layout.margin.top			= 0;
+		layout.innerGraph.height	= function() { return self.graph.height() - 2 * self.section.height; };
+		layout.innerGraph.top		= function() { return self.graph.top() + self.section.height; };
+		layout.innerGraph.bottom	= function() { return self.graph.bottom() - self.section.height; };
+
+		// Attributes
+		var deck = scope.widget.deck.axis;
+		var meta = new genericMeta(attrs);
 
 		// Data
 		var data = scope.data[attrs.profileid];
 		var dataList = data.lifetimes.list
-		var timeStart = +attrs.timestart;			// When the user selection starts
-		var timeEnd = +attrs.timeend;				// When the user selection ends (could be before or after timeMax)
 		var timeMin = 0;
 		var timeMax = data.info.duration;
 		var threadCount = data.info.threadCount;
 		var colors = scope.widget.deck.axis.x.colors;
 
-
-		// Compute layout
-		layout.lines			= { size: 4, padding: 2 };
-		layout.section			= { height: 20, pad: 18 };
-		layout.height			= layout.margin.top + layout.margin.bottom + 2 * layout.section.height + threadCount * layout.lines.size + (threadCount + 1) * layout.lines.padding;
-		layout.graph.height		= function() { return this.layout.height - this.layout.margin.top - this.layout.margin.bottom - 2 * this.layout.section.height; };
-		layout.graph.top		= function() { return this.layout.margin.top + this.layout.section.height; };
-		layout.graph.bottom		= function() { return this.layout.height - this.layout.margin.bottom - this.layout.section.height; };
-
 		// Container
+		layout.height = layout.margin.top + layout.margin.bottom + 2 * layout.section.height + threadCount * layout.lines.size + (threadCount + 1) * layout.lines.padding;
 		d3.select(container).style('height', layout.height + 'px');
 
 		// DOM
@@ -695,10 +691,10 @@ app.directive('chartThreadLifetime', function() {
 		svg.style("background", "#FFFFFF");
 
 		// Scales
-		var scaleX = d3.scale.linear().rangeRound([layout.graph.left(), layout.graph.right()]);
+		var scaleX = d3.scale.linear().rangeRound([layout.innerGraph.left(), layout.innerGraph.right()]);
 
 		// Scales - domains
-		scaleX.domain([timeStart, timeEnd]);
+		scaleX.domain([meta.begin, meta.end]);
 
 		// Axis
 		var xAxis = d3.svg.axis().scale(scaleX);
@@ -709,7 +705,7 @@ app.directive('chartThreadLifetime', function() {
 				.attr("transform", "translate(0," + ((layout.section.height / 2) + layout.margin.top + 5) + ")");
 		var endGroup = svg.append("g")
 				.attr("class", "ends")
-				.attr("transform", "translate(0," + (layout.graph.bottom() + (layout.section.height / 2) + layout.margin.bottom) + ")");
+				.attr("transform", "translate(0," + (layout.innerGraph.bottom() + (layout.section.height / 2) + layout.margin.bottom) + ")");
 		var threadGroup = svg.append("g");
 		var outlineGroup = svg.append("g");
 
@@ -722,8 +718,8 @@ app.directive('chartThreadLifetime', function() {
 		// Draw - lines/box
 		var outlineTop = outlineGroup.append("line")
 			.attr("class", "outline")
-			.attr("x1", layout.graph.left()).attr("x2", layout.graph.right()) // 🕒 repaintable
-			.attr("y1", layout.graph.top()).attr("y2", layout.graph.top())
+			.attr("x1", layout.innerGraph.left()).attr("x2", layout.innerGraph.right()) // 🕒 repaintable
+			.attr("y1", layout.innerGraph.top()).attr("y2", layout.innerGraph.top())
 			.attr('stroke', '#000000')
 			.attr('stroke-width', 1)
 			.attr('fill', 'none');
@@ -733,7 +729,7 @@ app.directive('chartThreadLifetime', function() {
 		var threadElements, threadBlocks, previousTime, color_i;
 		dataList.forEach(function(t, i, a) {
 			threadElements = threadGroup.append("g")
-				.attr("transform", "translate(0," + (layout.graph.top() + (i + .5) * layout.lines.size + (i + 1) * layout.lines.padding) + ")");
+				.attr("transform", "translate(0," + (layout.innerGraph.top() + (i + .5) * layout.lines.size + (i + 1) * layout.lines.padding) + ")");
 
 			threadBlocks = [];
 			previousTime = t.s;
@@ -768,13 +764,13 @@ app.directive('chartThreadLifetime', function() {
 		// Draw - axis
 		var axisXGroup = svg.append("g")
 				.attr("class", "xAxis")
-				.attr("transform", "translate(0," + layout.graph.bottom() + ")")
+				.attr("transform", "translate(0," + layout.innerGraph.bottom() + ")")
 				.call(xAxis);
 
 		// Draw - text
 		var labelElement = svg.append("text")
-			.attr("x", layout.graph.right())
-			.attr("y", layout.graph.top())
+			.attr("x", layout.innerGraph.right())
+			.attr("y", layout.innerGraph.top())
 			.attr("text-anchor", "end")
 			.attr("font-size", "14px")
 			.text(attrs.title);
@@ -785,13 +781,15 @@ app.directive('chartThreadLifetime', function() {
 				layout.width = container.clientWidth;
 
 				// Scales
-				scaleX.rangeRound([layout.graph.left(), layout.graph.right()]);
+				console.log([layout.innerGraph.left(), layout.innerGraph.right()]);
+				scaleX.rangeRound([layout.innerGraph.left(), layout.innerGraph.right()]);
+				console.log(scaleX(0), scaleX(meta.end));
 
 				// SVG
 				svg.attr('width', layout.width);
-				outlineTop.attr("x2", layout.graph.right());
+				outlineTop.attr("x2", layout.innerGraph.right());
 				axisXGroup.call(xAxis);
-				labelElement.attr("x", layout.graph.right());
+				labelElement.attr("x", layout.innerGraph.right());
 
 				// Threads
 				var maxJ;
@@ -808,7 +806,7 @@ app.directive('chartThreadLifetime', function() {
 				});
 
 
-				// Draw - starts
+				// Draw - starts / ends
 				sections.forEach(function(section) {
 					section.group.selectAll("*").remove();
 					var i = 0;
@@ -842,7 +840,6 @@ app.directive('chartThreadLifetime', function() {
 						i += m_count;
 					};
 				});
-
 
 			};
 
