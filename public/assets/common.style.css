@@ -28,6 +28,10 @@ svg {
 svg .svg-fa {
    font-family: FontAwesome;
 }
+span.link:hover {
+	cursor: pointer;
+	border-bottom: 1px dashed #00526E;
+}
 
 
 /*

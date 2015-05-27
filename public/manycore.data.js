@@ -23,21 +23,23 @@ app.factory('colours', [function() {
 }]);
 
 app.factory('decks', ['colours', function(colours) {
+	var running = 	{ label: 'running',	title: 'threads running',	desc: ' ',	unity: 'ms', cat: 'times', attr: 'r',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
+	var ready = 	{ label: 'ready',	title: 'threads ready',		desc: ' ',	unity: 'ms', cat: 'times', attr: 'yb',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
+	var capacity = 	{ label: 'ready',	title: 'CPU capacity',		desc: ' ',	unity: 'ms', cat: null, attr: null,		color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.gBlue };
 
 	return {
+		tg: {
+			graph: {
+
+			},
+			data: [running, ready]
+		},
 		cycles: {
 			axis : {
 				limit: { color: colours.list.dBlue, background: colours.list.eBlue }
 			},
-			data : [
-				{ title: 'running',		desc: 'running',	unity: 'ms',	cat: 'times',		attr: 'r',	color: colours.good },
-				{ title: 'ready',		desc: 'ready',		unity: 'ms',	cat: 'times',		attr: 'yb',	color: colours.bad }
-			],
-			legend : [
-				{ title: 'threads running',		desc: '',	color: colours.good },
-				{ title: 'threads ready',		desc: '',	color: colours.bad },
-				{ title: 'CPU capacity',		desc: '',	color: colours.list.dBlue }
-			],
+			data : [running, ready],
+			legend : [running, ready, capacity],
 			clues: [
 				{ color: colours.bad,	tax: 'Oversubscription', 							text: 'too many threads' },
 				{ color: colours.bad,	tax: 'Thread migrations', 							text: 'too many threads' },
@@ -130,33 +132,33 @@ app.factory('widgets', ['decks', function(decks) {
 	return output;
 }]);
 
-app.factory('categories', ['widgets', function(widgets){
+app.factory('categories', ['widgets', 'decks', function(widgets, decks){
 	var tg = {
-		cat: 'tg', label: 'Task granularity', title: 'Task granularity', icon: 'tasks',
+		tag: 'tg', cat: 'tg', label: 'Task granularity', title: 'Task granularity', icon: 'tasks', deck: decks.tg,
 		widgets: [widgets.threadDivergence, widgets.threadSwitchs, widgets.threadMigrations, widgets.threadLifetime]
 	};
 	var sy = {
-		cat: 'sy', label: 'Synchronisation', title: 'Synchronisation', icon: 'cutlery',
+		tag: 'sy', cat: 'sy', label: 'Synchronisation', title: 'Synchronisation', icon: 'cutlery', deck: null,
 		widgets: [widgets.lockContentions, widgets.threadLocks]
 	};
 	var ds = {
-		cat: 'ds', label: 'Data sharing', title: 'Data sharing', icon: 'share-alt',
+		tag: 'ds', cat: 'ds', label: 'Data sharing', title: 'Data sharing', icon: 'share-alt', deck: null,
 		widgets: [widgets.lockContentions, widgets.cacheInvalid, widgets.cacheMisses]
 	};
 	var lb = {
-		cat: 'lb', label: 'Load balancing', title: 'Load balancing', icon: 'code-fork',
+		tag: 'lb', cat: 'lb', label: 'Load balancing', title: 'Load balancing', icon: 'code-fork', deck: null,
 		widgets: [widgets.coreInactivity, widgets.lockContentions, widgets.threadMigrations, widgets.threadDivergence, widgets.threadPaths, widgets.threadChains]
 	};
 	var dl = {
-		cat: 'dl', label: 'Data locality', title: 'Data locality', icon: 'location-arrow',
+		tag: 'dl', cat: 'dl', label: 'Data locality', title: 'Data locality', icon: 'location-arrow', deck: null,
 		widgets: [widgets.cacheMisses]
 	};
 	var rs = {
-		cat: 'rs', label: 'Resource sharing', title: 'Resource sharing', icon: 'exchange',
+		tag: 'rs', cat: 'rs', label: 'Resource sharing', title: 'Resource sharing', icon: 'exchange', deck: null,
 		widgets: []
 	};
 	var io = {
-		cat: 'io', label: 'Input/Output', title: 'Input/Output', icon: 'plug',
+		tag: 'io', cat: 'io', label: 'Input/Output', title: 'Input/Output', icon: 'plug', deck: null,
 		widgets: []
 	};
 
@@ -166,4 +168,107 @@ app.factory('categories', ['widgets', function(widgets){
 	};
 	
 	return output;
+}]);
+
+app.factory('indicators', ['colours', 'categories', function(colours, categories) {
+	//
+	//	Getter function
+	//
+	function labelPercent(dp, getter) {return Math.round(getter(dp) * 100) + '%'; }
+
+	function timeRunning(dp) {		return dp.stats.r / (dp.info.cores * dp.info.duration); }
+	function timeAvailable(dp) {	return ((dp.info.cores * dp.info.duration) - dp.stats.r) / (dp.info.cores * dp.info.duration); }
+	function timeWaiting(dp) {		return (dp.stats.y + dp.stats.b) / (dp.info.cores * dp.info.duration); }
+
+	function evCapacity(dp) {	return 35 * dp.info.duration; }
+	function evSwitches(dp) {	return dp.stats.s / evCapacity(dp); }
+	function evMigrations(dp) {	return dp.stats.m / evCapacity(dp); }
+
+	function cmIPC(dp) { return dp.stats.locality.ipc; }
+	function cmMisses(dp) { return dp.stats.locality.tlb + dp.stats.locality.l1 + dp.stats.locality.l2 + dp.stats.locality.l3 + dp.stats.locality.hpf; }
+	function cmTotal(dp) { return cmIPC(dp) + cmMisses(dp); }
+
+	function percentIPC(dp) { return cmIPC(dp) / cmTotal(dp); }
+	function percentMisses(dp) { return cmMisses(dp) / cmTotal(dp); }
+
+
+	//
+	//	Indicators
+	//
+	var indic_p = {
+		title:	'Parallelism',
+		icon:	'info-circle',
+		graph:	'widgetDashTrack',
+		links:	[categories.tg, categories.lb],
+		deck: [[{
+				t: 'running',
+				l: function(dp) { return labelPercent(dp, timeRunning); },
+				v: timeRunning,
+				c: colours.list.dGreen,
+				b: colours.list.lGreen
+			}, {
+				t: 'unused ressources',
+				l: function(dp) { return labelPercent(dp, timeAvailable); },
+				v: timeAvailable,
+				c: colours.list.dBlue,
+				b: colours.list.lBlue
+			}, {
+				t: 'waiting',
+				l: function(dp) { return labelPercent(dp, timeWaiting); },
+				v: timeWaiting,
+				c: colours.list.dRed,
+				b: colours.list.lRed
+			}], []]
+	};
+	
+	var indic_b = {
+		title:	'Core balancing',
+		icon:	'info-circle',
+		graph:	'widgetDashTrack',
+		links:	[categories.tg, categories.lb],
+		deck: [[{
+					t: 'context switches',
+				l: function(dp) { return labelPercent(dp, evSwitches); },
+				v: function(dp) { return Math.min(evSwitches(dp) * 10, 1); },	// Focus on 10 %
+				c: colours.list.dGrey,
+				b: colours.list.lGrey
+			}, {
+				t: 'migrations',
+				l: function(dp) { return labelPercent(dp, evMigrations); },
+				v: function(dp) { return Math.min(evMigrations(dp) * 20, 1); },	// Focus on 5 %
+				c: colours.list.dViolet,
+				b: colours.list.lViolet
+			}], []]
+	};
+	
+	var indic_m = {
+		title:	'Cache misses',
+		icon:	'info-circle',
+		graph:	'widgetDashTrack',
+		links:	[categories.dl],
+		deck: [[{
+				t: 'executing',
+				l: function(dp) { return labelPercent(dp, percentIPC); },
+				v: percentIPC,
+				c: colours.list.dGreen,
+				b: colours.list.lGreen
+			}, {
+				t: 'cache misses',
+				l: function(dp) { return labelPercent(dp, percentMisses); },
+				v: percentMisses,
+				c: colours.list.dRed,
+				b: colours.list.lRed
+			}], []]
+	};
+
+
+	// 
+	//	Output
+	//
+	return {
+		parallelism:	indic_p,
+		balancing:		indic_b,
+		misses:			indic_m,
+		all:			[indic_p, indic_b, indic_m]
+	}
 }]);

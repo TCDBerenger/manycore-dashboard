@@ -1,4 +1,4 @@
-app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http', 'profileService', 'categories', 'colours' , function($scope, $rootScope, $window, $http, profileService, categories, colours) {
+app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http', 'profileService', 'categories', 'indicators' , function($scope, $rootScope, $window, $http, profileService, categories, indicators) {
 	/************************************************/
 	/* Constructor - Init							*/
 	/************************************************/
@@ -11,6 +11,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 
 	// Details
 	$scope.categories = categories.all;
+	$scope.indicators = indicators.all;
 
 	// References
 	$scope.encodeSelectedProfile = $rootScope.encodeSelectedProfile;
@@ -24,66 +25,53 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	/* Functions - Graphical						*/
 	/************************************************/
 	/**
-	 * Flag - add
+	 * Layout - main col
 	 */
-	$scope.canAddProfile = function() {
-		return $scope.selectedProfiles.length < 2;
+	$scope.mainColSize = function() {
+		return 12 - Math.ceil($scope.selectedProfiles.length * 2.5);
 	};
 
 	/**
-	 * Flag - selected
+	 * Profile - can add
+	 */
+	$scope.canAddProfile = function() {
+		return ($scope.selectedProfiles.length + $scope.waitingDataCounter) < 2;
+	};
+
+	/**
+	 * Profile - has at least one selected
 	 */
 	$scope.hasProfiles = function() {
 		return $scope.selectedProfiles.length > 0;
 	};
 
 	/**
-	 * Flag - selected
+	 * Profile - has a complete selection
 	 */
 	$scope.has2Profiles = function() {
 		return $scope.selectedProfiles.length == 2;
 	};
 	
 	/**
-	 * Flag - data not loaded
+	 * Profile - data not loaded
 	 */
 	$scope.waitingData = function() {
-		return $scope.waitingDataCounter < 0;
+		return $scope.waitingDataCounter > 0;
 	};
 
+	/**
+	 * Data - main col
+	 */
+	$scope.getIndicatorData = function() {
+		var output = [];
 
-	//
-	// OLD
-	//
-	
+		$scope.selectedProfiles.forEach(function(profile) {
+			output.push($scope.data[profile.id]);
+		})
 
-	/**
-	 * Flag - selected
-	 */
-	$scope.hasSelectedProfile = function() {
-		return $scope.selectedProfiles.length > 0;
+		return output;
 	};
-	
-	/**
-	 * Flag - selected (s)
-	 */
-	$scope.hasSelectedProfiles = function() {
-		return $scope.selectedProfiles.length > 1;
-	};
-	
-	/**
-	 * Flag - data not loaded
-	 */
-	$scope.waitingDataFor = function(id) {
-		return ! $scope.data.hasOwnProperty(id);
-	};
-	
-	/**
-	 * Flag - data loaded
-	 */
-	$scope.hasData = function(id) {
-		return $scope.data.hasOwnProperty(id);
-	};
+
 	
 
 	/************************************************/
@@ -180,7 +168,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	 * Load
 	 */
 	$scope.downloadData = function(profile) {
-		$scope.waitingDataCounter--;
+		$scope.waitingDataCounter++;
 
 		$http.get('/service/details/dash/'+ profile.id).success(function(data) {
 			$scope.data[profile.id] = data[profile.id];
@@ -191,7 +179,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 
 			$scope._selectProfile_withData(profile);
 
-			$scope.waitingDataCounter++;
+			$scope.waitingDataCounter--;
 		});
 	};
 	
@@ -204,136 +192,6 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 			datap.push($scope.data[profile.id]);
 		});
 		return datap;
-	};
-	
-	
-	/************************************************/
-	/* Functions - Widget data						*/
-	/************************************************/
-
-	/**
-	 * Get
-	 */
-	$scope.getWigdetData = function(cat) {
-		var wd = [];
-
-		$scope.selectedProfiles.forEach(function(profile, i) {
-			var dp = $scope.data[profile.id];
-
-			switch(cat) {
-				case 'tg':
-					var timeCapacity = dp.info.cores * dp.info.duration;
-					var timeRunning = dp.stats.r / timeCapacity;
-					var timeAvailable = Math.max((timeCapacity - dp.stats.r - dp.stats.y - dp.stats.b) / timeCapacity, 0);
-					var timeWaiting = (dp.stats.y + dp.stats.b) / timeCapacity;
-
-					var evCapacity = 35 * dp.info.duration;
-					var evSwitches = dp.stats.s / evCapacity;
-					var evMigrations = dp.stats.m / evCapacity;
-
-					wd.push([[{
-						t: 'running',
-						l: Math.round(timeRunning * 100) + '%',
-						v: timeRunning,
-						c: colours.list.dGreen,
-						b: colours.list.lGreen
-					}, {
-						t: 'unused ressources',
-						l: Math.round(timeAvailable * 100) + '%',
-						v: timeAvailable,
-						c: colours.list.dBlue,
-						b: colours.list.lBlue
-					}, {
-						t: 'waiting',
-						l: Math.round(timeWaiting * 100) + '%',
-						v: timeWaiting,
-						c: colours.list.dRed,
-						b: colours.list.lRed
-					}], [{
-							t: 'context switches',
-						l: Math.round(evSwitches * 100) + '%',
-						v: Math.min(evSwitches * 10, 1),	// Focus on 10 %
-						c: colours.list.dGrey,
-						b: colours.list.lGrey
-					}, {
-						t: 'migrations',
-						l: Math.round(evMigrations * 100) + '%',
-						v: Math.min(evMigrations * 20, 1),	// Focus on 5 %
-						c: colours.list.dViolet,
-						b: colours.list.lViolet
-					}]]);
-
-
-					break;
-				case 'sy':
-
-					break;
-				case 'ds':
-
-					break;
-				case 'lb':
-					var timeCapacity = dp.info.cores * dp.info.duration;
-					var timeAvailable = Math.max((timeCapacity - dp.stats.r - dp.stats.y - dp.stats.b) / timeCapacity, 0);
-					var timeWaiting = (dp.stats.y + dp.stats.b) / timeCapacity;
-
-					var evCapacity = 35 * dp.info.duration;
-					var evMigrations = dp.stats.m / evCapacity;
-
-					wd.push([[{
-						t: 'available ressources',
-						l: Math.round(timeAvailable * 100) + '%',
-						v: timeAvailable,
-						c: colours.list.dBlue,
-						b: colours.list.lBlue
-					}, {
-						t: 'migrations',
-						l: Math.round(evMigrations * 100) + '%',
-						v: Math.min(evMigrations * 20, 1),	// Focus on 5 %
-						c: colours.list.dViolet,
-						b: colours.list.lViolet
-					}, {
-						t: 'waiting ressources',
-						l: Math.round(timeWaiting * 100) + '%',
-						v: timeWaiting,
-						c: colours.list.dRed,
-						b: colours.list.lRed
-					}], []]);
-
-					break;
-				case 'dl':
-					var executing = dp.stats.locality.ipc;
-					var cacheMisses = dp.stats.locality.tlb + dp.stats.locality.l1 + dp.stats.locality.l2 + dp.stats.locality.l3 + dp.stats.locality.hpf;
-					var total = executing + cacheMisses;
-
-					executing = executing / total;
-					cacheMisses = cacheMisses / total;
-
-
-					wd.push([[{
-						t: 'executing',
-						l: Math.round(executing * 100) + '%',
-						v: executing,
-						c: colours.list.dGreen,
-						b: colours.list.lGreen
-					}, {
-						t: 'cache misses',
-						l: Math.round(cacheMisses * 100) + '%',
-						v: cacheMisses,
-						c: colours.list.dRed,
-						b: colours.list.lRed
-					}], []]);
-
-					break;
-				case 'rs':
-
-					break;
-				case 'io':
-
-					break;
-			}
-		});
-
-		return wd;
 	};
 
 	
