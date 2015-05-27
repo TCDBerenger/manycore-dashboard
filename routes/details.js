@@ -958,7 +958,7 @@ function addStates(output, id) {
 /**
  * Add data-locality data
  */
-function addLocality(output, id) {
+function addLocality(output, id, simplified) {
 	// Init vars
 	var data		= profileData[id];
 	output.locality	= [];
@@ -968,15 +968,22 @@ function addLocality(output, id) {
 	for (var frameID in data.locality.byFrames) {
 		if (data.locality.byFrames.hasOwnProperty(frameID)) {
 			max = data.locality.byFrames[frameID].ipc + data.locality.byFrames[frameID].tlb + data.locality.byFrames[frameID].l1 + data.locality.byFrames[frameID].l2 + data.locality.byFrames[frameID].l3 + data.locality.byFrames[frameID].hpf
-			output.locality.push({
-				t:		data.locality.byFrames[frameID].t,
-				ipc:	(100 * data.locality.byFrames[frameID].ipc / max),
-				tlb:	(100 * data.locality.byFrames[frameID].tlb / max),
-				l1:		(100 * data.locality.byFrames[frameID].l1 / max),
-				l2:		(100 * data.locality.byFrames[frameID].l2 / max),
-				l3:		(100 * data.locality.byFrames[frameID].l3 / max),
-				hpf:	(100 * data.locality.byFrames[frameID].hpf / max)
-			});
+			if (simplified)
+				output.locality.push({
+					t:		data.locality.byFrames[frameID].t,
+					ipc:	Math.round(100 * data.locality.byFrames[frameID].ipc / max),
+					miss:	100 - Math.round(100 * data.locality.byFrames[frameID].ipc / max)
+				});
+			else
+				output.locality.push({
+					t:		data.locality.byFrames[frameID].t,
+					ipc:	(100 * data.locality.byFrames[frameID].ipc / max),
+					tlb:	(100 * data.locality.byFrames[frameID].tlb / max),
+					l1:		(100 * data.locality.byFrames[frameID].l1 / max),
+					l2:		(100 * data.locality.byFrames[frameID].l2 / max),
+					l3:		(100 * data.locality.byFrames[frameID].l3 / max),
+					hpf:	(100 * data.locality.byFrames[frameID].hpf / max)
+				});
 		}
 	}
 	output.locality.sort(function(a, b){return a.t - b.t});
@@ -985,6 +992,7 @@ function addLocality(output, id) {
 	// Stats
 	output.stats.locality = data.locality.stats;
 }
+
 
 
 /************************************************/
@@ -1032,6 +1040,9 @@ function jsonDash(id) {
 
 	// for potential parallelism
 	addTime(output, id);
+
+	// Data locality
+	addLocality(output, id, true);
 
 
 	return output;
@@ -1138,7 +1149,7 @@ function jsonDL(id) {
 	addDetails(output, id);
 
 	// Data
-	addLocality(output, id);
+	addLocality(output, id, false);
 
 	return output;
 }

@@ -7,8 +7,10 @@ app.directive('widgetDash', ['$parse', '$injector', '$compile', function ($parse
 				case 'tg':
 					directiveName = 'chartDashDivergence';
 					break;
+				case 'dl':
+					directiveName = 'chartDashStack';
+					break;
 				/*
-				case 'lb':
 				case 'dl':
 				case 'sy':	directiveName = ''; break;
 				case 'ds':	directiveName = ''; break;
@@ -38,7 +40,7 @@ var widgetDashLayout = function() {
 	// Allow seld reference (otherwise this is the caller object)
 	var self = this;
 
-	this.margin		= { top: 0, right: 0, bottom: 0, left: 0 };
+	this.margin		= { top: 4, right: 0, bottom: 4, left: 0 };
 	this.height		= 60;
 	this.width		= 0;
 	this.graph		= {
@@ -87,6 +89,111 @@ var indicatorDashLayout = function() {
 };
 
 
+app.directive('chartDashStack', function() {
+
+	function chartThreadDivergence_link(scope, element, attrs, controller) {
+		console.log("== directive == chartDashStack ==");
+
+		// Layout
+		var container = element[0];
+		var layout = new widgetDashLayout();
+
+		// Attributes
+		var deck = scope.category.deck;
+		var meta = new widgetDashMeta(attrs);
+
+		// Data
+		var data = scope.data[scope.profile.id];
+
+		meta.begin = 0;
+		meta.end = data.info.duration;
+
+		// Fix column layout
+		var lastElement = angular.copy(data[deck.data[0].cat][data[deck.data[0].cat].length - 1], {});
+		lastElement.t = data.info.duration;
+		data[deck.data[0].cat].push(lastElement);
+
+		// DOM
+		var svg = d3.select(container).append('svg').attr('height', layout.height);
+
+		// Scales
+		var scaleX = d3.scale.linear();
+		var scaleY = d3.scale.linear()
+				.rangeRound([layout.graph.bottom(), layout.graph.top()])
+				.domain([0, 100]);
+
+
+		// Draw
+		var interpolationMethod = "step-after";
+
+		// Draw - compute
+		var scaleYMin = scaleY(0);
+		var scaleYMax = scaleY(100);
+
+		// Draw - ready
+		var deckFunctions = [];
+		var deckElements = [];
+		deck.data.forEach(function(set, i) {
+			// Draw function
+			if (i == 0)
+				deckFunctions.push(
+					d3.svg.area()
+						.x(function(d) { return scaleX(d.t); })
+						.y0(scaleYMin)
+						.y1(function(d) { return scaleY(d[set.attr]); })
+						.interpolate(interpolationMethod)
+				);
+			else
+				deckFunctions.push(
+					d3.svg.area()
+						.x(function(d) { return scaleX(d.t); })
+						.y0(function(d) { return scaleY(100 - d[set.attr]); })
+						.y1(scaleYMax)
+						.interpolate(interpolationMethod)
+				);
+
+			// Draw element
+			deckElements.push(
+				svg.append("g").attr("class", "dataset").append("path")
+					.attr("fill", set.fcolor)
+			);
+		});
+
+
+		// (Re) Paint
+		var redraw = function redraw() {
+				// Layout
+				layout.width = container.clientWidth;
+
+				// Scale X
+				scaleX.rangeRound([0, layout.width]).domain([meta.begin, meta.end]);
+				scaleXStep = scaleX(data.info.timeStep);
+
+				// Container
+				d3.select(container)
+					.style('height', layout.height + 'px')
+					.style('background', 'transparent');
+
+				// SVG
+				svg.attr('width', layout.width);
+
+				// Areas
+				for (var i = deck.data.length - 1; i >= 0; i--) {
+					deckElements[i].attr("d", deckFunctions[i](data[deck.data[0].cat]));
+				};
+			};
+
+		// Binds
+		scope.$watch(function() { return container.clientWidth; }, redraw);
+	}
+
+	return {
+		link: chartThreadDivergence_link,
+		restrict: 'E'
+	}
+});
+
+
 app.directive('chartDashDivergence', function() {
 
 	function chartThreadDivergence_link(scope, element, attrs, controller) {
@@ -98,55 +205,59 @@ app.directive('chartDashDivergence', function() {
 
 		// Attributes
 		var deck = scope.category.deck;
-		var profile = scope.profile;
 		var meta = new widgetDashMeta(attrs);
 
 		// Data
-		var data = scope.data[profile.id];
-		var numberCores = data.info.cores;
-		var dataValueMax = numberCores * data.info.timeStep;
+		var data = scope.data[scope.profile.id];
+		var midValue = deck.axis.limit.mid(data);
+
+		meta.begin = 0;
+		meta.end = data.info.duration;
 
 		// Fix column layout
-		var lastElement = angular.copy(data.times[data.times.length - 1], {});
+		var lastElement = angular.copy(data[deck.data[0].cat][data[deck.data[0].cat].length - 1], {});
 		lastElement.t = data.info.duration;
-		data.times.push(lastElement);
+		data[deck.data[0].cat].push(lastElement);
 
 		// DOM
 		var svg = d3.select(container).append('svg').attr('height', layout.height);
-		console.log(layout.height);
 
 		// Scales
 		var scaleX = d3.scale.linear();
-		var scaleY = d3.scale.linear().rangeRound([layout.height, 0]);
-		console.log(layout.height);
-
-		// Scales - domains
-		scaleY.domain([0, 2 * dataValueMax]);
+		var scaleY = d3.scale.linear()
+				.rangeRound([layout.graph.bottom(), layout.graph.top()])
+				.domain([deck.axis.limit.min(data), deck.axis.limit.max(data)]);
 
 
 		// Draw
-		var scaleYCoreCapacity = scaleY(dataValueMax);
+		var scaleYMid = scaleY(deck.axis.limit.mid(data));
 		var interpolationMethod = "step-after";
 
 		// Draw - ready
-		var readyGroup = svg.append("g").attr("class", "dataset");
-		var readyAreaFunction = d3.svg.area()
-				.x(function(d) { return scaleX(d.t); })
-				.y0(function(d) { return scaleY(dataValueMax); })
-				.y1(function(d) { return scaleY(dataValueMax + d[deck.data[1].attr]); })
-				.interpolate(interpolationMethod);
-		var readyArea = readyGroup.append("path")
-				.attr("fill", deck.data[1].fcolor);
-
-		// Draw - running
-		var runningGroup = svg.append("g").attr("class", "dataset");
-		var runningAreaFunction = d3.svg.area()
-				.x(function(d) { return scaleX(d.t); })
-				.y0(function(d) { return scaleY(dataValueMax - d[deck.data[0].attr]); })
-				.y1(scaleYCoreCapacity)
-				.interpolate(interpolationMethod);
-		var runningArea = runningGroup.append("path")
-				.attr("fill", deck.data[0].fcolor);
+		var deckFunctions = [];
+		var deckElements = [];
+		deck.data.forEach(function(set, i) {
+			if (i == 0)
+				deckFunctions.push(
+					d3.svg.area()
+						.x(function(d) { return scaleX(d.t); })
+						.y0(function(d) { return scaleY(midValue - d[deck.data[0].attr]); })
+						.y1(scaleYMid)
+						.interpolate(interpolationMethod)
+				);
+			else
+				deckFunctions.push(
+					d3.svg.area()
+						.x(function(d) { return scaleX(d.t); })
+						.y0(scaleYMid)
+						.y1(function(d) { return scaleY(midValue + d[set.attr]); })
+						.interpolate(interpolationMethod)
+				);
+			deckElements.push(
+				svg.append("g").attr("class", "dataset").append("path")
+					.attr("fill", set.fcolor)
+			);
+		});
 
 
 		// (Re) Paint
@@ -154,11 +265,7 @@ app.directive('chartDashDivergence', function() {
 				// Layout
 				layout.width = container.clientWidth;
 
-				// Params
-				meta.begin = 0;
-				meta.end = data.info.duration;
-
-				// Scales
+				// Scale X
 				scaleX.rangeRound([0, layout.width]).domain([meta.begin, meta.end]);
 				scaleXStep = scaleX(data.info.timeStep);
 
@@ -169,12 +276,15 @@ app.directive('chartDashDivergence', function() {
 
 				// SVG
 				svg.attr('width', layout.width);
-				readyArea.attr("d", readyAreaFunction(data[deck.data[0].cat]));
-				runningArea.attr("d", runningAreaFunction(data[deck.data[0].cat]));
+
+				// Areas
+				for (var i = deck.data.length - 1; i >= 0; i--) {
+					deckElements[i].attr("d", deckFunctions[i](data[deck.data[0].cat]));
+				};
 			};
 
 		// Binds
-		scope.$watch(function() { return container.clientWidth * scope.selectedProfiles[0].id; }, redraw);
+		scope.$watch(function() { return container.clientWidth; }, redraw);
 	}
 
 	return {

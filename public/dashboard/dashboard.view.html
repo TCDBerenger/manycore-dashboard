@@ -51,7 +51,7 @@
 
 		<!-- categories -->
 		<div class="section" ng-repeat="category in categories">
-			<widget-dash ng-attr-tag="{{category.tag}}" class="widget-graph"></widget-dash>
+			<a href ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})'><widget-dash ng-attr-tag="{{category.tag}}" class="widget-graph"></widget-dash></a>
 		</div>
 	</div></div>
 
