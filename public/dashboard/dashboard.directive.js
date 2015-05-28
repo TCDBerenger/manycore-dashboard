@@ -27,6 +27,12 @@ var indicatorDashLayout = function() {
 		{	inner: 50,	outer: 70,	text: 60},
 		{	inner: 80,	outer: 100,	text: 90}
 	];
+	this.deviance	= { size: 100 };
+	this.deviances	= [
+		{	x: 10,	width: 20,	height: 100,	text: 20},
+		{	x: 40,	width: 20,	height: 100,	text: 50},
+		{	x: 70,	width: 20,	height: 100,	text: 80}
+	];
 	this.texts		= {
 		indicators:	{
 			width:	100
@@ -471,6 +477,177 @@ app.directive('widgetDashTrack', function() {
 							labelGroups[row_index].append("text")
 								.attr("x", (indicator_onLeft) ? 6 : layout.texts.indicators.width / 2)
 								.attr("y", (row_index == 0) ? layout.donut.size - layout.donuts[arc_index].text : layout.donuts[arc_index].text + 2)
+								.attr("text-anchor", (indicator_onLeft) ? "start" : "middle")
+								.style("fill", arc_data.c)
+								.text(arc_data.t);
+						}
+					});
+				});
+
+
+				// App text
+				appGroup.append("text")
+					.attr("x", (layout.donut.size / 2) + col_index * (layout.donut.size + layout.texts.indicators.width))
+					.attr("y", layout.texts.app.size + 1)
+					.attr("text-anchor", "middle")
+					.attr("font-size", layout.texts.app.size + "px")
+					.attr("font-weight", "bold")
+					.text(profiles[col_index].label);
+			});
+
+		}
+
+
+		scope.$watch(function() { return scope.selectedProfiles.length * scope.selectedProfiles[0].id; }, redraw);
+	}
+
+	return {
+		link: chartThreadDivergence_link,
+		restrict: 'E'
+	}
+});
+
+
+
+app.directive('widgetDashDeviation', function() {
+
+	function chartThreadDivergence_link(scope, element, attrs, controller) {
+		console.log("== directive == widgetDashDeviation ==");
+
+		// Layout
+		var container = element[0];
+		var layout = new indicatorDashLayout();
+
+		// Attributes
+		var deck = scope.indicator.deck;
+		var meta = {
+		};
+
+		// Data
+		var profiles = scope.selectedProfiles;
+
+		// DOM
+		var svg = d3.select(container).append('svg');
+
+		// Groups
+		var donutSupergroup = svg.append("g").attr("class", "svg-dataset");
+		var donutGroups = [[
+				donutSupergroup.append("g").attr("class", "svg-donut svg-donut-top svg-donut-left"),
+				donutSupergroup.append("g").attr("class", "svg-donut svg-donut-bottom svg-donut-left")
+					.attr("transform", "translate(0," + (layout.deviance.size + layout.texts.values.height * 2 + layout.texts.app.height) + ")")
+			], [
+				donutSupergroup.append("g").attr("class", "svg-donut svg-donut-top svg-donut-right")
+					.attr("transform", "translate(" + (layout.deviance.size + layout.texts.indicators.width) + ",0)"),
+				donutSupergroup.append("g").attr("class", "svg-donut svg-donut-bottom svg-donut-right")
+					.attr("transform", "translate(" + (layout.deviance.size + layout.texts.indicators.width) + "," + (layout.deviance.size + layout.texts.values.height * 2 + layout.texts.app.height) + ")")
+			]];
+
+		var valueSupergroup = svg.append("g")
+			.attr("transform", "translate(0," + (layout.deviance.size + 14 ) + ")")
+			.attr("class", "svg-label");
+		var valueGroups = [[
+				valueSupergroup.append("g").attr("class", "svg-donut-top svg-donut-left"),
+				valueSupergroup.append("g").attr("class", "svg-donut-bottom svg-donut-left")
+					.attr("transform", "translate(" + 0 + "," + (layout.texts.values.height + layout.texts.app.height) + ")")
+			], [
+				valueSupergroup.append("g").attr("class", "svg-donut-top svg-donut-right")
+					.attr("transform", "translate(" + (layout.deviance.size + layout.texts.indicators.width) + ",0)"),
+				valueSupergroup.append("g").attr("class", "svg-donut-bottom svg-donut-right")
+					.attr("transform", "translate(" + (layout.deviance.size + layout.texts.indicators.width) + "," + (layout.texts.values.height + layout.texts.app.height)  + ")")
+			]];
+		
+		var labelSupergroup = svg.append("g")
+			.attr("transform", "translate(" + layout.deviance.size  + ",0)")
+			.attr("class", "svg-text");
+		var labelGroups = [
+				labelSupergroup.append("g").attr("class", "svg-donut-top"),
+				labelSupergroup.append("g").attr("class", "svg-donut-bottom")
+					.attr("transform", "translate(0," + (layout.deviance.size + layout.texts.values.height * 2 + layout.texts.app.height) + ")")
+			];
+		
+		var appGroup = svg.append("g").attr("class", "svg-text svg-text-app")
+				.attr("transform", "translate(" + 0 + "," + (layout.donut.size + layout.texts.values.height) + ")");
+
+
+		// Big painting function
+		function redraw() {
+			// Precomputation
+			layout.widget.compute(profiles.length, (deck.length > 1 && deck[1].length > 0) ? 2 : 1);
+
+			// DOM
+			svg.attr({width: layout.width, height: layout.height});
+			d3.select(container)
+				.style('width', layout.width + 'px')
+				.style('height', layout.height + 'px')
+				.style('background', 'transparent');
+
+			// Clean
+			donutSupergroup.selectAll("rect").remove();
+			valueSupergroup.selectAll("text").remove();
+			labelSupergroup.selectAll("text").remove();
+			appGroup.selectAll("text").remove();
+
+
+			// Draw
+			// c: column : profile
+			// r: row
+			// d: donut : one arc
+			var deviance, x, value, valueLimit, valueMax, pixelValue;
+			var indicator_onLeft = profiles.length == 1;
+			profiles.forEach(function(profile, col_index) {
+				deck.forEach(function(row_data, row_index) {
+					row_data.forEach(function(arc_data, arc_index) {
+
+						deviance =		layout.deviances[arc_index];
+						xBox =			(col_index == 0) ? layout.deviance.size - deviance.x - deviance.width : deviance.x;
+						xText =			(col_index == 0) ? layout.deviance.size - deviance.text : deviance.text;
+						value =			arc_data.v(profile);
+						valueLimit =	arc_data.m;
+						valueMax =		arc_data.x;
+						pixelValue =	deviance.height / valueMax;
+						console.log(value, valueLimit, valueMax);
+
+						// Background
+						if (value < valueLimit) {
+							donutGroups[col_index][row_index].append("rect")
+								.attr("x", xBox)
+								.attr("y", pixelValue * (valueMax - valueLimit))
+								.attr("width", deviance.width)
+								.attr("height", pixelValue * (valueLimit - value))
+								.style("fill", arc_data.b);
+						}
+
+						// Over
+						else if (value > valueLimit) {
+							donutGroups[col_index][row_index].append("rect")
+								.attr("x", xBox)
+								.attr("y", pixelValue * (valueMax - value))
+								.attr("width", deviance.width)
+								.attr("height", pixelValue * (value - valueLimit))
+								.style("fill", arc_data.o);
+						}
+
+						// Value (under the limit)
+						donutGroups[col_index][row_index].append("rect")
+							.attr("x", xBox)
+							.attr("y", pixelValue * (valueMax - Math.min(value, valueLimit)))
+							.attr("width", deviance.width)
+							.attr("height", pixelValue * Math.min(value, valueLimit))
+							.style("fill", arc_data.c);
+
+						// Value label
+						valueGroups[col_index][row_index].append("text")
+							.attr("x", xText)
+							.attr("y", 0)
+							.attr("text-anchor", "middle")
+							.style("fill", arc_data.c)
+							.text(arc_data.l(profile));
+
+						// Label
+						if (col_index == 0) {
+							labelGroups[row_index].append("text")
+								.attr("x", (indicator_onLeft) ? 6 : layout.texts.indicators.width / 2)
+								.attr("y", (row_index == 0) ? layout.deviance.size - deviance.text : deviance.text + 2)
 								.attr("text-anchor", (indicator_onLeft) ? "start" : "middle")
 								.style("fill", arc_data.c)
 								.text(arc_data.t);

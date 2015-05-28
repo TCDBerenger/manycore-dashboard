@@ -193,15 +193,17 @@ app.factory('indicators', ['colours', 'categories', function(colours, categories
 	//
 	//	Getter function
 	//
-	function labelPercent(dp, getter) {return Math.round(getter(dp) * 100) + '%'; }
+	function labelPercent(p, getter) {return Math.round(getter(p) * 100) + '%'; }
+	function labelTimes(p, getter) {return '×' + (Math.round(getter(p) * 10) / 10); }
 
 	function timeRunning(dp) {		return dp.stats.r / (dp.info.cores * dp.info.duration); }
 	function timeAvailable(dp) {	return ((dp.info.cores * dp.info.duration) - dp.stats.r) / (dp.info.cores * dp.info.duration); }
 	function timeWaiting(dp) {		return (dp.stats.y + dp.stats.b) / (dp.info.cores * dp.info.duration); }
 
-	function evCapacity(dp) {	return 35 * dp.info.duration; }
-	function evSwitches(dp) {	return dp.stats.s / evCapacity(dp); }
-	function evMigrations(dp) {	return dp.stats.m / evCapacity(dp); }
+	function evSwCapacity(profile) {	return (profile.hardware.calibration.switches * profile.hardware.data.threads * profile.data.dash.info.duration); }
+	function evMgCapacity(profile) {	return (profile.hardware.calibration.migrations * profile.hardware.data.threads * profile.data.dash.info.duration); }
+	function evSwitches(profile) {		return profile.data.dash.stats.s / evSwCapacity(profile); }
+	function evMigrations(profile) {	return profile.data.dash.stats.m / evMgCapacity(profile); }
 
 	function cmIPC(dp) { return dp.stats.locality.ipc; }
 	function cmMisses(dp) { return dp.stats.locality.tlb + dp.stats.locality.l1 + dp.stats.locality.l2 + dp.stats.locality.l3 + dp.stats.locality.hpf; }
@@ -244,20 +246,26 @@ app.factory('indicators', ['colours', 'categories', function(colours, categories
 	var indic_b = {
 		title:	'Core balancing',
 		icon:	'info-circle',
-		graph:	'widgetDashTrack',
+		graph:	'widgetDashDeviation',
 		links:	[categories.tg, categories.lb],
 		deck: [[{
-					t: 'context switches',
-				l: function(dp) { return labelPercent(dp, evSwitches); },
-				v: function(dp) { return Math.min(evSwitches(dp) * 10, 1); },	// Focus on 10 %
-				c: colours.list.dGrey,
-				b: colours.list.lGrey
+				t: 'context switches',
+				l: function(profile) { return labelTimes(profile, evSwitches); },
+				v: evSwitches,			// value
+				m: 1,					// max limit
+				x: 4,					// max over
+				c: colours.list.eGrey,	// color: foreground
+				b: colours.list.lGrey,	// color: background
+				o: colours.list.dGrey	// color: over
 			}, {
 				t: 'migrations',
-				l: function(dp) { return labelPercent(dp, evMigrations); },
-				v: function(dp) { return Math.min(evMigrations(dp) * 20, 1); },	// Focus on 5 %
-				c: colours.list.dViolet,
-				b: colours.list.lViolet
+				l: function(profile) { return labelTimes(profile, evMigrations); },
+				v: evMigrations,			// value
+				m: 1,						// max limit
+				x: 4,						// max over
+				c: colours.list.eViolet,	// color: foreground
+				b: colours.list.lViolet,	// color: background
+				o: colours.list.dViolet		// color: over
 			}]]
 	};
 	
