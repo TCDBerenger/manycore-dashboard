@@ -177,7 +177,7 @@
 	background-color: #FAFAFA;
 }*/
 .dashboard .category {
-	box-shadow: 0px 5px 15px rgba(0, 140, 186, 0.3);
+	box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
 .dashboard .category .panel-heading i {
 	padding-right: 4px;

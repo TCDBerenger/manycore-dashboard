@@ -139,10 +139,10 @@
 	<!-- Other - line 2 - indicators -->
 	</div><div class="row" ng-if="hasProfiles()">
 
-		<div class="col-auto" ng-repeat="indicator in indicators"><div class="panel panel-primary category">
-			<div class="panel-heading">
+		<div class="col-auto" ng-repeat="indicator in indicators"><div class="panel panel-default category">
+			<!-- <div class="panel-heading">
 				<h3 class="panel-title"><i class="fa fa-{{indicator.icon}}"></i> {{indicator.title}}</h3>
-			</div>
+			</div> -->
 			<div class="panel-body">
 				<proxy-link-directive ng-attr-graph="{{indicator.graph}}" class="indicator-graph"></proxy-link-directive>
 			</div>
