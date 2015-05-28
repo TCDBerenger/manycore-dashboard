@@ -8,7 +8,7 @@ var router = express.Router();
 /************************************************/
 /* Import profiles								*/
 /************************************************/
-var profiles = require('./common/profiles.js');
+var profiles = require('./common/profiles.common.js');
 
 
 
@@ -114,18 +114,7 @@ var profiles = require('./common/profiles.js');
  */
 function addCommon(output, id) {
 	// Init vars
-	var data = profiles.data[id];
-
-	// Infos
-	output.info = {
-		cores:			data.info.cores,
-		timeShift:		data.info.timeShift,
-		timeStep:		data.info.timeStep,
-		timeMin:		data.info.timeMin,
-		timeMax:		data.info.timeMax,
-		duration:		data.info.timeMax + data.info.timeStep,
-		threadCount:	data.info.threadCount
-	};
+	var data = profiles[id].data;
 
 	// Stats
 	output.stats = {
@@ -143,27 +132,8 @@ function addCommon(output, id) {
 		dzf:	data.stats.dzf,
 		hpf:	data.stats.hpf
 	};
-}
 
-/**
- * Add dash stats
- */
-function addDash(output, id) {
-	// Init vars
-	var data = profiles.data[id];
-
-	// locality
-	output.stats.locality = data.locality.stats;
-}
-
-/**
- * Add common stats for details
- */
-function addDetails(output, id) {
-	// Init vars
-	var data = profiles.data[id];
-
-	// calib
+	// Calibration
 	output.calibration = {};
 
 	// Threads
@@ -185,7 +155,7 @@ function addDetails(output, id) {
  */
 function addSwitches(output, id) {
 	// Init vars
-	var data		= profiles.data[id];
+	var data		= profiles[id].data;
 	output.switches	= {
 		list: data.timelist.switches,
 		frames: []
@@ -215,7 +185,7 @@ function addSwitches(output, id) {
  */
 function addMigrations(output, id) {
 	// Init vars
-	var data			= profiles.data[id];
+	var data			= profiles[id].data;
 	output.migrations	= {
 		list: data.timelist.migrations
 	};
@@ -234,7 +204,7 @@ function addMigrations(output, id) {
  */
 function addLifetimes(output, id) {
 	// Init vars
-	var data			= profiles.data[id];
+	var data			= profiles[id].data;
 	output.lifetimes	= {
 		list: []
 	};
@@ -273,7 +243,7 @@ function addLifetimes(output, id) {
  */
 function addCycles(output, id) {
 	// Init vars
-	var data		= profiles.data[id];
+	var data		= profiles[id].data;
 	output.cycles	= [];
 
 	// Loop vars
@@ -326,7 +296,7 @@ function addCycles(output, id) {
  */
 function addTime(output, id) {
 	// Init vars
-	var data		= profiles.data[id];
+	var data		= profiles[id].data;
 	output.times	= [];
 
 	// Loop vars
@@ -403,7 +373,7 @@ function addTime(output, id) {
  */
 function addStates(output, id) {
 	// Init vars
-	var data		= profiles.data[id];
+	var data		= profiles[id].data;
 	output.states	= [];
 
 
@@ -502,7 +472,7 @@ function addStates(output, id) {
  */
 function addLocality(output, id, simplified) {
 	// Init vars
-	var data		= profiles.data[id];
+	var data		= profiles[id].data;
 	output.locality	= [];
 
 	// Data
@@ -541,67 +511,18 @@ function addLocality(output, id, simplified) {
 /* Functions - For each category				*/
 /************************************************/
 /**
- * Test
- */
-function jsonTest(id) {
-	var output = {};
-
-	output.id = id;
-	output.cat = 'dash';
-
-	// Common
-	addCommon(output, id);
-	addDetails(output, id);
-
-	// Cache
-	output.cache = profiles.data[id];
-
-	// Computation
-	addCycles(output, id);
-	addLifetimes(output, id);
-	addMigrations(output, id);
-	addStates(output, id);
-	addSwitches(output, id);
-	addTime(output, id);
-
-	return output;
-}
-
-/**
- * Dashboard
- */
-function jsonDash(id) {
-	var output = {};
-
-	output.id = id;
-	output.cat = 'dash';
-
-	// Common
-	addCommon(output, id);
-	addDash(output, id);
-
-	// for potential parallelism
-	addTime(output, id);
-
-	// Data locality
-	addLocality(output, id, true);
-
-
-	return output;
-}
-
-/**
  * Task granularity
  */
-function jsonTG(id) {
+function jsonTG(profile, id) {
 	var output = {};
 
 	output.id = id;
 	output.cat = 'tg';
 
 	// Common
+
+	profile.exportInfo(output);
 	addCommon(output, id);
-	addDetails(output, id);
 
 	// for context switches
 	addSwitches(output, id);
@@ -622,7 +543,7 @@ function jsonTG(id) {
 /**
  * Synchronisation
  */
-function jsonSY(id) {
+function jsonSY(profile, id) {
 	var output = {};
 
 	output.id = id;
@@ -630,8 +551,9 @@ function jsonSY(id) {
 	output.log = "TODO";
 
 	// Common
+
+	profile.exportInfo(output);
 	addCommon(output, id);
-	addDetails(output, id);
 
 	return output;
 }
@@ -639,7 +561,7 @@ function jsonSY(id) {
 /**
  * Data sharing
  */
-function jsonDS(id) {
+function jsonDS(profile, id) {
 	var output = {};
 
 	output.id = id;
@@ -647,8 +569,9 @@ function jsonDS(id) {
 	output.log = "TODO";
 
 	// Common
+
+	profile.exportInfo(output);
 	addCommon(output, id);
-	addDetails(output, id);
 
 	return output;
 }
@@ -656,15 +579,16 @@ function jsonDS(id) {
 /**
  * Load balancing
  */
-function jsonLB(id) {
+function jsonLB(profile, id) {
 	var output = {};
 
 	output.id = id;
 	output.cat = 'lb';
 
 	// Common
+
+	profile.exportInfo(output);
 	addCommon(output, id);
-	addDetails(output, id);
 
 	// for migrations
 	addMigrations(output, id);
@@ -679,7 +603,7 @@ function jsonLB(id) {
 /**
  * Data locality
  */
-function jsonDL(id) {
+function jsonDL(profile, id) {
 	var output = {};
 
 	output.id = id;
@@ -687,8 +611,9 @@ function jsonDL(id) {
 	output.log = "TODO";
 
 	// Common
+
+	profile.exportInfo(output);
 	addCommon(output, id);
-	addDetails(output, id);
 
 	// Data
 	addLocality(output, id, false);
@@ -699,7 +624,7 @@ function jsonDL(id) {
 /**
  * Resource sharing
  */
-function jsonRS(id) {
+function jsonRS(profile, id) {
 	var output = {};
 
 	output.id = id;
@@ -707,8 +632,9 @@ function jsonRS(id) {
 	output.log = "TODO";
 
 	// Common
+
+	profile.exportInfo(output);
 	addCommon(output, id);
-	addDetails(output, id);
 
 	return output;
 }
@@ -716,7 +642,7 @@ function jsonRS(id) {
 /**
  * Input / Outp
  */
-function jsonIO(id) {
+function jsonIO(profile, id) {
 	var output = {};
 
 	output.id = id;
@@ -724,8 +650,9 @@ function jsonIO(id) {
 	output.log = "TODO";
 
 	// Common
+
+	profile.exportInfo(output);
 	addCommon(output, id);
-	addDetails(output, id);
 
 	return output;
 }
@@ -745,7 +672,7 @@ router.get('/*', function(request, response) {
 	var ids = params[1].split('-');
 
 	// Check preconditions
-	if (cat != 'tg' && cat != 'sy' && cat != 'ds' && cat != 'lb' && cat != 'dl' && cat != 'rs' && cat != 'io' && cat != 'dash' && cat != 'test') {
+	if (cat != 'tg' && cat != 'sy' && cat != 'ds' && cat != 'lb' && cat != 'dl' && cat != 'rs' && cat != 'io') {
 		response.send("Illegal category");
 		return;
 	} else if (ids.length == 0 || ids.length > 4) {
@@ -764,23 +691,31 @@ router.get('/*', function(request, response) {
 
 	// Compute
 	var output = { c: {} };
+	var profile;
 	ids.forEach(function(id) {
-		profiles.loadData(id);
+		profile = profiles[id];
+
+		// Load data
+		profile.loadData();
+
+		// Result
 		switch(cat) {
-			case 'test':output[id] = jsonTest(id); break;
-			case 'dash':output[id] = jsonDash(id); break;
-			case 'tg':	output[id] = jsonTG(id); break;
-			case 'sy':	output[id] = jsonSY(id); break;
-			case 'ds':	output[id] = jsonDS(id); break;
-			case 'lb':	output[id] = jsonLB(id); break;
-			case 'dl':	output[id] = jsonDL(id); break;
-			case 'rs':	output[id] = jsonRS(id); break;
-			case 'io':	output[id] = jsonIO(id); break;
+			case 'tg':	output[id] = jsonTG(profile, id); break;
+			case 'sy':	output[id] = jsonSY(profile, id); break;
+			case 'ds':	output[id] = jsonDS(profile, id); break;
+			case 'lb':	output[id] = jsonLB(profile, id); break;
+			case 'dl':	output[id] = jsonDL(profile, id); break;
+			case 'rs':	output[id] = jsonRS(profile, id); break;
+			case 'io':	output[id] = jsonIO(profile, id); break;
 		}
+
+		// Comon result
 		output.c.timeMin = Math.min(output[id].info.timeMin, output.c.timeMin | 0);
 		output.c.timeMax = Math.max(output[id].info.timeMax, output.c.timeMax | 0);
 		output.c.duration = Math.max(output[id].info.duration, output.c.duration | 0);
-		profiles.unloadData(id);
+
+		// Unload data
+		profile.unloadData();
 	});
 	response.json(output);
 });

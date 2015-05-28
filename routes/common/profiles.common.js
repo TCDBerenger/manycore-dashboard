@@ -167,66 +167,68 @@ var profileData = {};
 /**
  * Load raw data
  */
-function loadData(id) {
+function loadData(profile) {
 	// Check if data are already loaded
-	if (profileData.hasOwnProperty(id)) {
+	if (profile.hasOwnProperty('data')) {
 		return;
 	}
 
 	// Vars
-	var filenameRaw1 = 'data/' + profileMap[id].file + '.states.json';
-	var filenameRaw2 = 'data/' + profileMap[id].file + '.switches.json';
-	var filenameRaw3 = 'data/' + profileMap[id].file + '.dl.json';
-	var filenameCache = 'data/' + profileMap[id].file + '.cache.json';
+	var filenameRaw1 = 'data/' + profile.file + '.states.json';
+	var filenameRaw2 = 'data/' + profile.file + '.switches.json';
+	var filenameRaw3 = 'data/' + profile.file + '.dl.json';
+	var filenameCache = 'data/' + profile.file + '.cache.json';
 
 	// Load data from cache
 	try {
 		// Load cache
-		profileData[id] = JSON.parse(fs.readFileSync(filenameCache, 'utf8'));
-		console.log("[" + id + "] " + profileMap[id].file + " cache opened");
+		profile.data = JSON.parse(fs.readFileSync(filenameCache, 'utf8'));
+		console.log("[" + profile.id + "] " + profile.file + " cache opened");
 
 		// Check old version
-		if (profileData[id].info.version != VERSION) {
+		if (profile.data.info.version != VERSION) {
 
 			// Delete file
 			fs.unlinkSync(filenameCache);
-			console.log("[" + id + "] " + profileMap[id].file + " cache invalidated");
+			console.log("[" + profile.id + "] " + profile.file + " cache invalidated");
 
 			// Start over
-			delete profileData[id];
+			delete profile.data;
 		}
 
 	} catch (e) { }
 
 	// Load from raw data
-	if (! profileData.hasOwnProperty(id)) {
+	if (! profile.hasOwnProperty('data')) {
 
 		// Load raw
 		var raw1 = JSON.parse(fs.readFileSync(filenameRaw1, 'utf8'));
 		var raw2 = JSON.parse(fs.readFileSync(filenameRaw2, 'utf8'));
 		var raw3 = JSON.parse(fs.readFileSync(filenameRaw3, 'utf8'));
-		console.log("[" + id + "] " + profileMap[id].file + " raw data loaded");
+		console.log("[" + profile.id + "] " + profile.file + " raw data loaded");
 
 		// Compute
-		profileData[id] = computeData(id, raw1, raw2, raw3, profileMap[id]);
-		console.log("[" + id + "] " + profileMap[id].file + " raw data computed");
+		profile.data = computeData(profile, raw1, raw2, raw3);
+		profileData[profile.id] = profile.data;
+		console.log("[" + profile.id + "] " + profile.file + " raw data computed");
 
 		// Save to cache
-		fs.writeFileSync(filenameCache, JSON.stringify(profileData[id]));
-		console.log("[" + id + "] " + profileMap[id].file + " raw data cached");
+		fs.writeFileSync(filenameCache, JSON.stringify(profile.data));
+		console.log("[" + profile.id + "] " + profile.file + " raw data cached");
 	}
 }
 
 /**
  * Compute data
  */
-function computeData(id, raw1, raw2, raw3, profile) {
+function computeData(profile, raw1, raw2, raw3) {
 
 	// Create structure
 	var data = {
 		info: {
 			version:		VERSION,
 			cores:			profile.hardware.data.cores,
+			threads:		profile.hardware.data.threads,
 			timeShift:		raw1[0].time,
 			timeStep:		profile.timeStep,
 			timeMin:		0,
@@ -498,8 +500,33 @@ function computeData(id, raw1, raw2, raw3, profile) {
 /**
  * Unload raw data
  */
-function unloadData(id) {
-	delete profileData[id];
+function unloadData(profile) {
+	delete profile.data;
+	delete profileData[profile.id];
+}
+
+
+/************************************************/
+/* Post treatment								*/
+/************************************************/
+/**
+ * Add common stats
+ */
+function exportInfo(output, profile) {
+	// Data
+	var data = profile.data;
+
+	// Infos
+	output.info = {
+		cores:			data.info.cores,
+		threads:		data.info.threads,
+		timeShift:		data.info.timeShift,
+		timeStep:		data.info.timeStep,
+		timeMin:		data.info.timeMin,
+		timeMax:		data.info.timeMax,
+		duration:		data.info.timeMax + data.info.timeStep,
+		threadCount:	data.info.threadCount
+	};
 }
 
 
@@ -508,9 +535,23 @@ function unloadData(id) {
 /************************************************/
 var profileExport = {
 	data:		profileData,
-	loadData:	loadData,
-	unloadData:	unloadData
+	loadData:	function(id) { loadData(profileMap[id]) },
+	unloadData:	function(id) { unloadData(profileMap[id]) },
+	exportInfo:	exportInfo
 };
+
+// Add load/unload function
+profileMap.all.forEach(function(profile) {
+	profile.loadData = function() {
+		loadData(profile);
+	};
+	profile.unloadData = function() {
+		unloadData(profile);
+	};
+	profile.exportInfo = function(output) {
+		exportInfo(output, profile);
+	};
+})
 
 // Copy in all profiles attributes
 for (var attribute in profileMap) {
