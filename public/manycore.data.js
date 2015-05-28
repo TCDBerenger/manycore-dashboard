@@ -224,7 +224,8 @@ app.factory('indicators', ['colours', 'categories', function(colours, categories
 				l: function(dp) { return labelPercent(dp, timeRunning); },
 				v: timeRunning,
 				c: colours.list.dGreen,
-				b: colours.list.lGreen
+				b: colours.list.lGreen,
+				g: 2 // group the 2 firsts
 			}, {
 				t: 'unused ressources',
 				l: function(dp) { return labelPercent(dp, timeAvailable); },
@@ -237,7 +238,7 @@ app.factory('indicators', ['colours', 'categories', function(colours, categories
 				v: timeWaiting,
 				c: colours.list.dRed,
 				b: colours.list.lRed
-			}], []]
+			}]]
 	};
 	
 	var indic_b = {
@@ -257,7 +258,7 @@ app.factory('indicators', ['colours', 'categories', function(colours, categories
 				v: function(dp) { return Math.min(evMigrations(dp) * 20, 1); },	// Focus on 5 %
 				c: colours.list.dViolet,
 				b: colours.list.lViolet
-			}], []]
+			}]]
 	};
 	
 	var indic_m = {
@@ -270,14 +271,15 @@ app.factory('indicators', ['colours', 'categories', function(colours, categories
 				l: function(dp) { return labelPercent(dp, percentIPC); },
 				v: percentIPC,
 				c: colours.list.dGreen,
-				b: colours.list.lGreen
+				b: colours.list.lGreen,
+				g: 2 // group the 2 firsts
 			}, {
 				t: 'cache misses',
 				l: function(dp) { return labelPercent(dp, percentMisses); },
 				v: percentMisses,
 				c: colours.list.dRed,
 				b: colours.list.lRed
-			}], []]
+			}]]
 	};
 
 

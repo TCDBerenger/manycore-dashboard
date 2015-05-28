@@ -330,7 +330,6 @@ app.directive('widgetDashTrack', function() {
 				d.b.e = dpi * 4;
 			}
 			else if (c == 0 && r == 1) {
-				console.log(c, r, v);
 				d.c.s = dpi * (3 - v);
 				d.c.e = dpi * 3;
 				d.b.s = dpi * 2;
@@ -359,7 +358,7 @@ app.directive('widgetDashTrack', function() {
 			data = scope.getIndicatorData();
 
 			// Precomputation
-			layout.widget.compute(profiles.length, (deck.length > 0 && deck[1].length > 0) ? 2 : 1);
+			layout.widget.compute(profiles.length, (deck.length > 1 && deck[1].length > 0) ? 2 : 1);
 
 			// DOM
 			svg.attr({width: layout.width, height: layout.height});
@@ -379,32 +378,84 @@ app.directive('widgetDashTrack', function() {
 			// c: column : profile
 			// r: row
 			// d: donut : one arc
-			var arc_layout;
+			var arc_layout, arc_precedingRadius, arc_precedingEnd, arc_value;
 			var indicator_onLeft = profiles.length == 1;
+			var inGroup = 0;
 			data.forEach(function(col_data, col_index) {
 				deck.forEach(function(row_data, row_index) {
 					row_data.forEach(function(arc_data, arc_index) {
 						// Data
 						arc_layout = getArcLayoutData(col_index, row_index, arc_data.v(col_data));
 
-						// Background
-						donutGroups[col_index][row_index].append("path")
-							.attr("d", d3.svg.arc()
-										.innerRadius(layout.donuts[arc_index].inner)
-										.outerRadius(layout.donuts[arc_index].outer)
-										.startAngle(arc_layout.b.s)
-										.endAngle(arc_layout.b.e))
-							.attr("fill", arc_data.b);
-						
-						// Value
-						if (arc_data.v(col_data) >= 0.005) {
+						// Are we in a group ?
+						if (inGroup > 0) {
+							inGroup--;
+							arc_precedingRadius--;
+							arc_value = Math.max(0, Math.min(1, arc_data.v(col_data))) * Math.PI / 2;
+
+							// Value
+							if (arc_data.v(col_data) >= 0.005) {
+
+								if (col_index + row_index != 1) {
+									donutGroups[col_index][row_index].append("path")
+										.attr("d", d3.svg.arc()
+													.innerRadius(layout.donuts[arc_index + arc_precedingRadius].inner)
+													.outerRadius(layout.donuts[arc_index + inGroup].outer)
+													.startAngle(arc_precedingEnd)
+													.endAngle(arc_precedingEnd + arc_value))
+										.attr("fill", arc_data.c);
+									arc_precedingEnd += arc_value;
+								} else {
+									donutGroups[col_index][row_index].append("path")
+										.attr("d", d3.svg.arc()
+													.innerRadius(layout.donuts[arc_index + arc_precedingRadius].inner)
+													.outerRadius(layout.donuts[arc_index + inGroup].outer)
+													.startAngle(arc_precedingEnd - arc_value)
+													.endAngle(arc_precedingEnd))
+										.attr("fill", arc_data.c);
+									arc_precedingEnd -= arc_value;
+								}
+
+							}
+
+
+						} else {
+							// Do we start a new group ?
+							if (arc_data.hasOwnProperty('g')) {
+								inGroup = arc_data.g - 1;
+								arc_precedingRadius = 0;
+
+								if (col_index + row_index != 1) {
+									arc_precedingEnd = arc_layout.c.e;
+								} else {
+									arc_precedingEnd = arc_layout.c.s;
+								}
+
+							} else {
+								inGroup = 0;
+								arc_precedingRadius = null;
+								arc_precedingEnd = null;
+							}
+
+							// Background (useless in a group but could hide bugs)
 							donutGroups[col_index][row_index].append("path")
 								.attr("d", d3.svg.arc()
 											.innerRadius(layout.donuts[arc_index].inner)
 											.outerRadius(layout.donuts[arc_index].outer)
-											.startAngle(arc_layout.c.s)
-											.endAngle(arc_layout.c.e))
-								.attr("fill", arc_data.c);
+											.startAngle(arc_layout.b.s)
+											.endAngle(arc_layout.b.e))
+								.attr("fill", arc_data.b);
+
+							// Value
+							if (arc_data.v(col_data) >= 0.005) {
+								donutGroups[col_index][row_index].append("path")
+									.attr("d", d3.svg.arc()
+												.innerRadius(layout.donuts[arc_index].inner)
+												.outerRadius(layout.donuts[arc_index + inGroup].outer)
+												.startAngle(arc_layout.c.s)
+												.endAngle(arc_layout.c.e))
+									.attr("fill", arc_data.c);
+							}
 						}
 
 						// Value label
