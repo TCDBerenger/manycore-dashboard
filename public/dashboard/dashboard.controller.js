@@ -66,6 +66,13 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	$scope.has2Profiles = function() {
 		return $scope.selectedProfiles.length == 2;
 	};
+
+	/**
+	 * Profile - has a complete selection even without loaded data
+	 */
+	$scope.will2Profiles = function() {
+		return ($scope.selectedProfiles.length + $scope.waitingDataCounter) == 2;
+	};
 	
 	/**
 	 * Profile - data not loaded

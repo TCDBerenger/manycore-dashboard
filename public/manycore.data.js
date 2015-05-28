@@ -51,7 +51,7 @@ app.factory('decks', ['colours', function(colours) {
 		},
 		dl: {
 			data: [miss],// , ipc
-			legend: [miss, ipc_blank]
+			legend: [miss] // , ipc_blank
 		},
 		cycles: {
 			axis : {

@@ -56,7 +56,7 @@
 	</div></div>
 
 	<!-- Control and Legend -->
-	<div id="ctrl-legend" class="col-xs-1 ctrl ctrl-legend" ng-repeat-end ng-if="$index == 0" ng-class="(has2Profiles()) ? 'center' : ''">
+	<div id="ctrl-legend" class="col-xs-1 ctrl ctrl-legend" ng-repeat-end ng-if="$index == 0" ng-class="(will2Profiles()) ? 'center' : ''">
 
 		<!-- Auto scroll -->
 		<div id="autoScrollLegend">&nbsp;</div>
@@ -64,11 +64,11 @@
 
 		<!-- legend -->
 		<div class="section" ng-repeat="category in categories" ng-style="{top: sectionY($index) + 'px'}" ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})'>
-			<p class="title"><i class="fa fa-{{category.icon}}"></i> {{category.title}}</p>
+			<p class="title"><!-- <i class="fa fa-{{category.icon}}"></i>  -->{{category.title}}</p>
 			<p class="legend">
 				<span ng-repeat="legend in category.deck.legend | reverse" style="color: {{legend.fcolor}}">
 					<span class="icon left">▮</span>
-					<span class="icon right" ng-if="has2Profiles()">▮</span>
+					<span class="icon right" ng-if="will2Profiles()">▮</span>
 					<span class="text">{{legend.label}}</span>
 					<br ng-if="! $last" />
 				</span>
