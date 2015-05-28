@@ -32,6 +32,21 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	};
 
 	/**
+	 * Layout - section Y postiion
+	 */
+	$scope.sectionY = function(index) {
+		if (! $scope.hasOwnProperty('ctrlLegendY')) {
+			$scope.ctrlLegendY = document.getElementById('ctrl-legend').getBoundingClientRect().y
+		}
+		var section = document.getElementById('section0' + index);
+		if (section != null) {
+			return section.getBoundingClientRect().y - $scope.ctrlLegendY;
+		} else {
+			return index * 61;
+		}
+	};
+
+	/**
 	 * Profile - can add
 	 */
 	$scope.canAddProfile = function() {

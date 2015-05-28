@@ -1,46 +1,8 @@
-app.directive('widgetDash', ['$parse', '$injector', '$compile', function ($parse, $injector, $compile) {
-	return {
-		restrict: 'E',
-		link: function (scope, element, attrs, controller) {
-			var directiveName = null;
-			switch (attrs.tag.toLowerCase()) {
-				case 'tg':
-					directiveName = 'chartDashDivergence';
-					break;
-				case 'dl':
-					directiveName = 'chartDashStack';
-					break;
-				/*
-				case 'dl':
-				case 'sy':	directiveName = ''; break;
-				case 'ds':	directiveName = ''; break;
-				case 'rs':	directiveName = ''; break;
-				case 'io':	directiveName = ''; break;
-				*/
-			}
-			if (directiveName != null) {
-				$injector.get(directiveName + 'Directive')[0].link(scope, element, attrs, controller);
-			}
-		}
-	}
-}]);
-app.directive('indicatorDash', ['$parse', '$injector', '$compile', function ($parse, $injector, $compile) {
-	return {
-		restrict: 'E',
-		link: function (scope, element, attrs, controller) {
-			var directiveName = attrs.graph;
-			if (directiveName != null) {
-				$injector.get(directiveName + 'Directive')[0].link(scope, element, attrs, controller);
-			}
-		}
-	}
-}]);
-
 var widgetDashLayout = function() {
 	// Allow seld reference (otherwise this is the caller object)
 	var self = this;
 
-	this.margin		= { top: 4, right: 0, bottom: 4, left: 0 };
+	this.margin		= { top: 4, right: 4, bottom: 4, left: 4 };
 	this.height		= 60;
 	this.width		= 0;
 	this.graph		= {
@@ -166,7 +128,9 @@ app.directive('chartDashStack', function() {
 				layout.width = container.clientWidth;
 
 				// Scale X
-				scaleX.rangeRound([0, layout.width]).domain([meta.begin, meta.end]);
+				scaleX
+					.rangeRound([layout.graph.left(), layout.graph.right()])
+					.domain([meta.begin, meta.end]);
 				scaleXStep = scaleX(data.info.timeStep);
 
 				// Container
@@ -266,7 +230,7 @@ app.directive('chartDashDivergence', function() {
 				layout.width = container.clientWidth;
 
 				// Scale X
-				scaleX.rangeRound([0, layout.width]).domain([meta.begin, meta.end]);
+				scaleX.rangeRound([layout.graph.left(), layout.graph.right()]).domain([meta.begin, meta.end]);
 				scaleXStep = scaleX(data.info.timeStep);
 
 				// Container

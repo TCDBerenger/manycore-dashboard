@@ -126,3 +126,14 @@ app.filter('cell', function() {
 		return val;
 	};
 });
+
+app.directive('proxyLinkDirective', ['$parse', '$injector', '$compile', function ($parse, $injector, $compile) {
+	return {
+		restrict: 'E',
+		link: function (scope, element, attrs, controller) {
+			if (attrs.graph != null && $injector.has(attrs.graph + 'Directive')) {
+				$injector.get(attrs.graph + 'Directive')[0].link(scope, element, attrs, controller);
+			}
+		}
+	}
+}]);

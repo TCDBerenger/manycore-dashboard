@@ -66,6 +66,36 @@
 
 
 /**
+ * Dashboard Legend
+ */
+.dashboard .ctrl-legend {
+	padding: 0px;
+	font-size: 0.8em;
+}
+
+.dashboard .ctrl-legend .section {
+	min-height: 60px;
+	width: 100%;
+	position: absolute;
+	cursor: pointer;
+	border-top: 1px dashed #797979;
+}
+.dashboard .ctrl-legend .section + .section {
+	border-top: 1px dashed #797979;
+}
+.dashboard .ctrl-legend p.title {
+	margin: 0px;
+	font-weight: bold;
+}
+
+.dashboard .ctrl-legend.left {		text-align: left; }
+.dashboard .ctrl-legend.center {	text-align: center; }
+.dashboard .ctrl-legend .icon.left {	float: left; }
+.dashboard .ctrl-legend .icon.right {	float: right; }
+
+
+
+/**
  * Dashboard block
  */
 .dashboard .block {

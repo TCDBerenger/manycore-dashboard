@@ -28,6 +28,7 @@ app.factory('decks', ['colours', function(colours) {
 	var capacity = 	{ label: 'ready',	title: 'CPU capacity',		desc: ' ',	unity: 'ms', cat: null, attr: null,		color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.gBlue };
 
 	var ipc = 		{ label: 'executing',		title: 'executing',				desc: 'executing',			unity: '',	cat: 'locality',	attr: 'ipc',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
+	var ipc_blank = { label: 'executing',		title: 'executing',				desc: 'executing',			unity: '',	cat: 'locality',	attr: 'ipc',	color: colours.list.black,		fcolor: colours.list.black,		gcolor: colours.list.black };
 	var miss = 		{ label: 'cache misses',	title: 'Cache misses',			desc: '',					unity: '',	cat: 'locality',	attr: 'miss',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
 	var tlbmiss = 	{ label: 'TLB misses',		title: 'address translation',	desc: 'TLB',				unity: '',	cat: 'locality',	attr: 'tlb',	color: colours.list.lGrey };
 	var l1miss = 	{ label: 'L1 misses',		title: 'loading from L2',		desc: 'L1 misses',			unity: '',	cat: 'locality',	attr: 'l1',		color: colours.list.lRed };
@@ -45,10 +46,12 @@ app.factory('decks', ['colours', function(colours) {
 					max: function(data) { return 2 * data.info.cores * data.info.timeStep;},
 				}
 			},
-			data: [running, ready]
+			data: [running, ready],
+			legend: [running, ready]
 		},
 		dl: {
-			data: [miss, ipc]
+			data: [miss],// , ipc
+			legend: [miss, ipc_blank]
 		},
 		cycles: {
 			axis : {
@@ -143,31 +146,38 @@ app.factory('widgets', ['decks', function(decks) {
 
 app.factory('categories', ['widgets', 'decks', function(widgets, decks){
 	var tg = {
-		tag: 'tg', cat: 'tg', label: 'Task granularity', title: 'Task granularity', icon: 'tasks', deck: decks.tg,
+		tag: 'tg', cat: 'tg', label: 'Task granularity', title: 'Task granularity', icon: 'tasks',
+		graph: 'chartDashDivergence', deck: decks.tg,
 		widgets: [widgets.threadDivergence, widgets.threadSwitchs, widgets.threadMigrations, widgets.threadLifetime]
 	};
 	var sy = {
-		tag: 'sy', cat: 'sy', label: 'Synchronisation', title: 'Synchronisation', icon: 'cutlery', deck: decks.sy,
+		tag: 'sy', cat: 'sy', label: 'Synchronisation', title: 'Synchronisation', icon: 'cutlery',
+		graph: null, deck: decks.sy,
 		widgets: [widgets.lockContentions, widgets.threadLocks]
 	};
 	var ds = {
-		tag: 'ds', cat: 'ds', label: 'Data sharing', title: 'Data sharing', icon: 'share-alt', deck: decks.ds,
+		tag: 'ds', cat: 'ds', label: 'Data sharing', title: 'Data sharing', icon: 'share-alt',
+		graph: null, deck: decks.ds,
 		widgets: [widgets.lockContentions, widgets.cacheInvalid, widgets.cacheMisses]
 	};
 	var lb = {
-		tag: 'lb', cat: 'lb', label: 'Load balancing', title: 'Load balancing', icon: 'code-fork', deck: decks.ld,
+		tag: 'lb', cat: 'lb', label: 'Load balancing', title: 'Load balancing', icon: 'code-fork',
+		graph: null, deck: decks.ld,
 		widgets: [widgets.coreInactivity, widgets.lockContentions, widgets.threadMigrations, widgets.threadDivergence, widgets.threadPaths, widgets.threadChains]
 	};
 	var dl = {
-		tag: 'dl', cat: 'dl', label: 'Data locality', title: 'Data locality', icon: 'location-arrow', deck: decks.dl,
+		tag: 'dl', cat: 'dl', label: 'Data locality', title: 'Data locality', icon: 'location-arrow',
+		graph: 'chartDashStack', deck: decks.dl,
 		widgets: [widgets.cacheMisses]
 	};
 	var rs = {
-		tag: 'rs', cat: 'rs', label: 'Resource sharing', title: 'Resource sharing', icon: 'exchange', deck: decks.rs,
+		tag: 'rs', cat: 'rs', label: 'Resource sharing', title: 'Resource sharing', icon: 'exchange',
+		graph: null, deck: decks.rs,
 		widgets: []
 	};
 	var io = {
-		tag: 'io', cat: 'io', label: 'Input/Output', title: 'Input/Output', icon: 'plug', deck: decks.io,
+		tag: 'io', cat: 'io', label: 'Input/Output', title: 'Input/Output', icon: 'plug',
+		graph: null, deck: decks.io,
 		widgets: []
 	};
 

@@ -1,6 +1,6 @@
 <div class="row dashboard">
 	<!-- Profiles -->
-	<div class="col-xs-2 profile" ng-repeat-start="profile in selectedProfiles"><div class="tile">
+	<div class="col-xs-2 profile" ng-repeat-start="(profile_index, profile) in selectedProfiles"><div class="tile">
 
 		<!-- main -->
 		<div class="section">
@@ -50,25 +50,29 @@
 		</div>
 
 		<!-- categories -->
-		<div class="section" ng-repeat="category in categories">
-			<a href ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})'><widget-dash ng-attr-tag="{{category.tag}}" class="widget-graph"></widget-dash></a>
+		<div id="section{{profile_index}}{{category_index}}" class="section" ng-repeat="(category_index, category) in categories">
+			<a href ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})'><proxy-link-directive ng-attr-graph="{{category.graph}}" class="widget-graph"></proxy-link-directive></a>
 		</div>
 	</div></div>
 
 	<!-- Control and Legend -->
-	<div class="col-xs-1 profile" ng-repeat-end ng-if="$index == 0">
+	<div id="ctrl-legend" class="col-xs-1 ctrl ctrl-legend" ng-repeat-end ng-if="$index == 0" ng-class="(has2Profiles()) ? 'center' : ''">
 
 		<!-- Auto scroll -->
 		<div id="autoScrollLegend">&nbsp;</div>
 
 
 		<!-- legend -->
-		<div class="section" ng-repeat="category in categories">
-			Legend {{category.tag}}
-		<!--
-			<span ng-if="category.deck != null"><span ng-repeat="legend in category.deck.data"><font style="color: {{legend.fcolor}}">{{▮}}</font> {{legend.title}}</span></span>
-			<span ng-repeat-start="legend in category.deck.data"><font style="color: {{legend.fcolor}}">{{▮}}</font> {{legend.title}}</span><br ng-repeat-end />
-			-->
+		<div class="section" ng-repeat="category in categories" ng-style="{top: sectionY($index) + 'px'}" ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})'>
+			<p class="title"><i class="fa fa-{{category.icon}}"></i> {{category.title}}</p>
+			<p class="legend">
+				<span ng-repeat="legend in category.deck.legend | reverse" style="color: {{legend.fcolor}}">
+					<span class="icon left">▮</span>
+					<span class="icon right" ng-if="has2Profiles()">▮</span>
+					<span class="text">{{legend.label}}</span>
+					<br ng-if="! $last" />
+				</span>
+			</p>
 		</div>
 	</div>
 
@@ -133,14 +137,14 @@
 
 
 	<!-- Other - line 2 - indicators -->
-	</div><div class="row dashboard" ng-if="hasProfiles()">
+	</div><div class="row" ng-if="hasProfiles()">
 
 		<div class="col-auto" ng-repeat="indicator in indicators"><div class="panel panel-primary category">
 			<div class="panel-heading">
 				<h3 class="panel-title"><i class="fa fa-{{indicator.icon}}"></i> {{indicator.title}}</h3>
 			</div>
 			<div class="panel-body">
-				<indicator-dash ng-attr-graph="{{indicator.graph}}" class="indicator-graph"></indicator-dash>
+				<proxy-link-directive ng-attr-graph="{{indicator.graph}}" class="indicator-graph"></proxy-link-directive>
 			</div>
 			<div class="panel-footer" style="text-align: right;">
 				<a href ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})' ng-repeat-start="category in indicator.links">investigate into {{category.label}} <i class="fa fa-arrow-circle-o-right"></i></a><br ng-repeat-end ng-if="! $last" />
