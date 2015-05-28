@@ -17,7 +17,7 @@
 			<div class="dropdown" dropdown on-toggle="toggled(open)"><p class="profile-hardware">
 				<i class="fa fa-laptop"></i>
 				<span class="dropdown-toggle link" dropdown-toggle>
-					{{profile.hardware.label}}
+					{{profile.hardware.info.cpu.label}}
 					<a href><i class="fa fa-caret-square-o-down"></i></a>
 				</span>
 				<div class="panel panel-primary dropdown-menu profile-hardware-menu">
@@ -25,21 +25,21 @@
 					<ul class="list-group">
 						<li class="list-group-item">
 							<h5 class="list-group-item-heading">
-								<a href="{{profile.hardware.cpu.link}}" class="pull-right">specs</a>
-								<span class="label label-primary">CPU</span> {{profile.hardware.cpu.label}}
+								<a href="{{profile.hardware.info.cpu.link}}" class="pull-right">specs</a>
+								<span class="label label-primary">CPU</span> {{profile.hardware.info.cpu.label}}
 							</h5>
 							<p class="list-group-item-text">
-								<b>Model :</b> {{profile.hardware.cpu.model}}<br />
-								<b>Type :</b> {{profile.hardware.cpu.type}}<br />
-								<b>Cores :</b> {{profile.hardware.cpu.cores}}<br />
-								<b>Clock :</b> {{profile.hardware.cpu.clock}}<br />
-								<b>Cache L1 :</b> {{profile.hardware.cpu.l1}}<br />
-								<b>Cache L2 :</b> {{profile.hardware.cpu.l2}}<br />
-								<b>Cache L3 :</b> {{profile.hardware.cpu.l3}}
+								<b>Model :</b> {{profile.hardware.info.cpu.model}}<br />
+								<b>Type :</b> {{profile.hardware.info.cpu.type}}<br />
+								<b>Cores :</b> {{profile.hardware.info.cpu.cores}}<br />
+								<b>Clock :</b> {{profile.hardware.info.cpu.clock}}<br />
+								<b>Cache L1 :</b> {{profile.hardware.info.cpu.l1}}<br />
+								<b>Cache L2 :</b> {{profile.hardware.info.cpu.l2}}<br />
+								<b>Cache L3 :</b> {{profile.hardware.info.cpu.l3}}
 							</p>
 						</li>
 						<li class="list-group-item">
-							<h5 class="list-group-item-heading"><span class="label label-primary">RAM</span> {{profile.hardware.ram}}</h5>
+							<h5 class="list-group-item-heading"><span class="label label-primary">RAM</span> {{profile.hardware.info.ram}}</h5>
 						</li>
 					</ul>
 				</div>

@@ -28,6 +28,7 @@ app.use('/', pages);
 app.use('/service/profiles', profiles);
 app.use('/service/details', details);
 app.use('/service/admin', require('./routes/admin'));
+app.use('/service/dash', require('./routes/dash'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -6,7 +6,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	$scope.profiles = profileService.all;
 	$scope.selectedProfiles = []
 	$scope.availableProfiles = [];
-	$scope.data = { c: {} };
+	$scope.data = {};					// to delete : already replaced by profile.data.dash
 	$scope.waitingDataCounter = 0;
 
 	// Details
@@ -20,6 +20,14 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	angular.element($window).on('resize', function() {
 		$scope.$apply();
 	});
+
+	// Brushing
+	$scope.brushing = {
+		timeMin:	0,
+		timeMax:	0,
+		selectMin:	NaN,
+		selectMax:	NaN
+	}
 	
 	/************************************************/
 	/* Functions - Graphical						*/
@@ -108,7 +116,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 		$scope.availableProfiles.splice($scope.availableProfiles.indexOf(profile), 1);
 
 		// Download data for graphs
-		if ($scope.data.hasOwnProperty(profile.id)) {
+		if (profile.data.hasOwnProperty('dash')) {
 			$scope._selectProfile_withData(profile);
 		} else {
 			$scope.downloadData(profile);
@@ -192,12 +200,12 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	$scope.downloadData = function(profile) {
 		$scope.waitingDataCounter++;
 
-		$http.get('/service/details/dash/'+ profile.id).success(function(data) {
-			$scope.data[profile.id] = data[profile.id];
+		$http.get('/service/dash/'+ profile.id).success(function(data) {
+			profile.data.dash = data;
+			$scope.data[profile.id] = data;
 			$scope.data[profile.id].profile = profile;
-			$scope.data.c.timeMin = Math.min(data.c.timeMin, $scope.data.c.timeMin | 0);
-			$scope.data.c.timeMax = Math.max(data.c.timeMax, $scope.data.c.timeMax | 0);
-			$scope.data.c.duration = Math.max(data.c.duration, $scope.data.c.duration | 0);
+
+			$scope.brushing.timeMax = Math.max($scope.brushing.timeMax, data.info.duration);
 
 			$scope._selectProfile_withData(profile);
 
