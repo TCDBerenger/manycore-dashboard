@@ -140,14 +140,26 @@
 	</div><div class="row" ng-if="hasProfiles()">
 
 		<div class="col-auto" ng-repeat="indicator in indicators"><div class="panel panel-default category">
-			<!-- <div class="panel-heading">
-				<h3 class="panel-title"><i class="fa fa-{{indicator.icon}}"></i> {{indicator.title}}</h3>
-			</div> -->
+			<div class="panel-heading">
+				<h3 class="panel-title">{{indicator.title}}</h3>
+			</div>
 			<div class="panel-body">
 				<proxy-link-directive ng-attr-graph="{{indicator.graph}}" class="indicator-graph"></proxy-link-directive>
 			</div>
-			<div class="panel-footer" style="text-align: right;">
-				<a href ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})' ng-repeat-start="category in indicator.links">investigate into {{category.label}} <i class="fa fa-arrow-circle-o-right"></i></a><br ng-repeat-end ng-if="! $last" />
+			<div class="panel-footer">
+				<p class="legend">
+					<span class="legend-row" ng-repeat="legendGroup in getLegendGroup(indicator.deck)">
+						<br ng-if="! $first" />
+						<span ng-repeat="legend in legendGroup" style="color: {{legend.legend.color}}">
+							<span class="icon">▮</span>
+							<span class="text">{{legend.legend.label}}</span>
+							<br ng-if="! $last" />
+						</span>
+					</span>
+				</p>
+				<p class="links">
+					<a href ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})' ng-repeat-start="category in indicator.links">{{category.label}} <i class="fa fa-arrow-circle-o-right"></i></a><br ng-repeat-end ng-if="! $last" />
+				</p>
 			</div>
 		</div></div>
 

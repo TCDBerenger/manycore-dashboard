@@ -191,6 +191,16 @@
 	padding-right: 2px;
 }
 
+.dashboard .category .panel-footer .legend {
+	float: left;
+	display: inline-block;
+	font-size: 0.8em;
+}
+
+.dashboard .category .panel-footer .links {
+	text-align: right;
+}
+
 
 
 /**

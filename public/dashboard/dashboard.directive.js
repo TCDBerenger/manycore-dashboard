@@ -21,18 +21,53 @@ var widgetDashMeta = function(attributes) {
 	this.end			= 0
 };
 var indicatorDashLayout = function() {
-	this.donut		= { size: 100 };
+	// Allow seld reference (otherwise this is the caller object)
+	var self = this;
+	
+	// Common
+	this.height		= NaN;
+	this.width		= NaN;
+
+	// Donut
+	this.donut		= {
+		size: 100,
+		compute: function(cols, rows) {
+			self.width = self.texts.indicators.width + cols * self.donut.size;
+			self.height = self.texts.app.height + rows * (self.donut.size + self.texts.values.height);
+		}
+	};
 	this.donuts		= [
 		{	inner: 20,	outer: 40,	text: 30},
 		{	inner: 50,	outer: 70,	text: 60},
 		{	inner: 80,	outer: 100,	text: 90}
 	];
-	this.deviance	= { size: 100 };
+
+	// Deviance
+	this.deviance	= {
+		size: 100,
+		compute: function(cols, rows) {
+			self.width = self.texts.indicators.width + cols * self.donut.size;
+			self.height = self.texts.app.height + rows * (self.donut.size + self.texts.values.height);
+		}
+	};
 	this.deviances	= [
 		{	x: 10,	width: 20,	height: 100,	text: 20},
 		{	x: 40,	width: 20,	height: 100,	text: 50},
 		{	x: 70,	width: 20,	height: 100,	text: 80}
 	];
+
+	// Arc
+	this.arc		= {
+		width: 100, height: 50, arc: 50, size: 20, padding: 40,
+		compute: function(cols) {
+			self.width = self.arc.width * cols + self.arc.padding * (cols - 1);
+			self.height = self.arc.height + self.texts.values.height + self.texts.app.height * (cols - 1);
+		}
+
+	};
+
+
+	// Texts
 	this.texts		= {
 		indicators:	{
 			width:	100
@@ -43,15 +78,6 @@ var indicatorDashLayout = function() {
 		app:	{
 			height:	20,
 			size:	14,
-		}
-	};
-	this.height		= NaN;
-	this.width		= NaN;
-	this.widget		= {
-		layout:	this,
-		compute: function(cols, rows) {
-			this.layout.width = this.layout.texts.indicators.width + cols * this.layout.donut.size;
-			this.layout.height = this.layout.texts.app.height + rows * (this.layout.donut.size + this.layout.texts.values.height);
 		}
 	};
 };
@@ -285,7 +311,9 @@ app.directive('widgetDashTrack', function() {
 		var svg = d3.select(container).append('svg');
 
 		// Groups
-		var donutSupergroup = svg.append("g").attr("transform", "translate(" + layout.donut.size + "," + layout.donut.size + ")");
+		var donutSupergroup = svg.append("g")
+			.attr("transform", "translate(" + layout.donut.size + "," + layout.donut.size + ")")
+			.attr("class", "svg-dataset");
 		var donutGroups = [[
 				donutSupergroup.append("g").attr("class", "svg-donut svg-donut-top svg-donut-left"),
 				donutSupergroup.append("g").attr("class", "svg-donut svg-donut-bottom svg-donut-left")
@@ -364,7 +392,7 @@ app.directive('widgetDashTrack', function() {
 			data = scope.getIndicatorData();
 
 			// Precomputation
-			layout.widget.compute(profiles.length, (deck.length > 1 && deck[1].length > 0) ? 2 : 1);
+			layout.donut.compute(profiles.length, (deck.length > 1 && deck[1].length > 0) ? 2 : 1);
 
 			// DOM
 			svg.attr({width: layout.width, height: layout.height});
@@ -508,7 +536,6 @@ app.directive('widgetDashTrack', function() {
 });
 
 
-
 app.directive('widgetDashDeviation', function() {
 
 	function chartThreadDivergence_link(scope, element, attrs, controller) {
@@ -572,7 +599,7 @@ app.directive('widgetDashDeviation', function() {
 		// Big painting function
 		function redraw() {
 			// Precomputation
-			layout.widget.compute(profiles.length, (deck.length > 1 && deck[1].length > 0) ? 2 : 1);
+			layout.deviance.compute(profiles.length, (deck.length > 1 && deck[1].length > 0) ? 2 : 1);
 
 			// DOM
 			svg.attr({width: layout.width, height: layout.height});
@@ -605,7 +632,6 @@ app.directive('widgetDashDeviation', function() {
 						valueLimit =	arc_data.m;
 						valueMax =		arc_data.x;
 						pixelValue =	deviance.height / valueMax;
-						console.log(value, valueLimit, valueMax);
 
 						// Background
 						if (value < valueLimit) {
@@ -666,6 +692,127 @@ app.directive('widgetDashDeviation', function() {
 					.text(profiles[col_index].label);
 			});
 
+		}
+
+
+		scope.$watch(function() { return scope.selectedProfiles.length * scope.selectedProfiles[0].id; }, redraw);
+	}
+
+	return {
+		link: chartThreadDivergence_link,
+		restrict: 'E'
+	}
+});
+
+
+
+app.directive('widgetDashCompare', function() {
+
+	function chartThreadDivergence_link(scope, element, attrs, controller) {
+		console.log("== directive == widgetDashCompare ==");
+
+		// Layout
+		var container = element[0];
+		var layout = new indicatorDashLayout();
+
+		// Attributes
+		var deck = scope.indicator.deck;
+		var meta = {};
+
+		// Data
+		var profiles = scope.selectedProfiles;
+		var data;
+		var startAngle = 1.5 * Math.PI;
+
+		// DOM
+		var svg = d3.select(container).append('svg');
+
+		// Groups
+		var donutSupergroup = svg.append("g")
+			.attr("transform", "translate(" + layout.arc.arc + "," + layout.arc.arc + ")")
+			.attr("class", "svg-dataset");
+		var donutGroups = [
+				donutSupergroup.append("g").attr("class", "svg-donut svg-donut-top svg-donut-left"),
+				donutSupergroup.append("g").attr("class", "svg-donut svg-donut-top svg-donut-right")
+					.attr("transform", "translate(" + (layout.arc.width + layout.arc.padding) + ",0)")
+			];
+
+		var valueSupergroup = svg.append("g")
+			.attr("transform", "translate(0," + (layout.arc.height + 14 ) + ")")
+			.attr("class", "svg-label");
+		var valueGroups = [
+				valueSupergroup.append("g").attr("class", "svg-donut-top svg-donut-left"),
+				valueSupergroup.append("g").attr("class", "svg-donut-top svg-donut-right")
+					.attr("transform", "translate(" + (layout.arc.width + layout.arc.padding) + ",0)")
+			];
+		
+		var appGroup = svg.append("g").attr("class", "svg-text svg-text-app")
+				.attr("transform", "translate(" + 0 + "," + (layout.arc.height + layout.texts.values.height) + ")");
+
+
+		// Big painting function
+		function redraw() {
+			// Precomputation
+			layout.arc.compute(profiles.length);
+
+			// DOM
+			svg.attr({width: layout.width, height: layout.height});
+			d3.select(container)
+				.style('width', layout.width + 'px')
+				.style('height', layout.height + 'px')
+				.style('background', 'transparent');
+
+			// Clean
+			donutSupergroup.selectAll("path").remove();
+			valueSupergroup.selectAll("text").remove();
+			appGroup.selectAll("text").remove();
+
+
+			// Draw
+			var precedingAngle, arc_endAngle;
+			profiles.forEach(function(profile, col_index) {
+				// Reset position
+				precedingAngle = startAngle;
+
+				deck.forEach(function(arc_data, arc_index) {
+					// Values
+					arc_endAngle = precedingAngle + Math.PI * arc_data.v(profile);
+
+					// Arc
+					if (arc_data.v(profile) >= 0.005) {
+						donutGroups[col_index].append("path")
+							.attr("d", d3.svg.arc()
+										.innerRadius(layout.arc.arc - layout.arc.size)
+										.outerRadius(layout.arc.arc)
+										.startAngle(precedingAngle)
+										.endAngle(arc_endAngle))
+							.attr("fill", arc_data.c);
+
+						precedingAngle = arc_endAngle;
+					}
+
+					// Value label
+					valueGroups[col_index].append("text")
+						.attr("x", (arc_index == 0) ? layout.arc.size / 2 : layout.arc.width - layout.arc.size / 2)
+						.attr("y", 0)
+						.attr("text-anchor", "middle")
+						.style("fill", arc_data.c)
+						.text(arc_data.l(profile));
+
+				});
+
+
+				// App text
+				if (profiles.length > 1) {
+					appGroup.append("text")
+						.attr("x", layout.arc.arc + col_index * (layout.arc.width + layout.arc.padding))
+						.attr("y", layout.texts.app.size + 1)
+						.attr("text-anchor", "middle")
+						.attr("font-size", layout.texts.app.size + "px")
+						.attr("font-weight", "bold")
+						.text(profiles[col_index].label);
+				}
+			});
 		}
 
 

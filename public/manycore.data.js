@@ -205,12 +205,12 @@ app.factory('indicators', ['colours', 'categories', function(colours, categories
 	function evSwitches(profile) {		return profile.data.dash.stats.s / evSwCapacity(profile); }
 	function evMigrations(profile) {	return profile.data.dash.stats.m / evMgCapacity(profile); }
 
-	function cmIPC(dp) { return dp.stats.locality.ipc; }
-	function cmMisses(dp) { return dp.stats.locality.tlb + dp.stats.locality.l1 + dp.stats.locality.l2 + dp.stats.locality.l3 + dp.stats.locality.hpf; }
-	function cmTotal(dp) { return cmIPC(dp) + cmMisses(dp); }
+	function cmIPC(profile) { return profile.data.dash.stats.locality.ipc; }
+	function cmMisses(profile) { return profile.data.dash.stats.locality.tlb + profile.data.dash.stats.locality.l1 + profile.data.dash.stats.locality.l2 + profile.data.dash.stats.locality.l3 + profile.data.dash.stats.locality.hpf; }
+	function cmTotal(profile) { return cmIPC(profile) + cmMisses(profile); }
 
-	function percentIPC(dp) { return cmIPC(dp) / cmTotal(dp); }
-	function percentMisses(dp) { return cmMisses(dp) / cmTotal(dp); }
+	function percentIPC(profile) { return cmIPC(profile) / cmTotal(profile); }
+	function percentMisses(profile) { return cmMisses(profile) / cmTotal(profile); }
 
 
 	//
@@ -222,24 +222,36 @@ app.factory('indicators', ['colours', 'categories', function(colours, categories
 		graph:	'widgetDashTrack',
 		links:	[categories.tg, categories.lb],
 		deck: [[{
-				t: 'running',
+				t: '',
 				l: function(dp) { return labelPercent(dp, timeRunning); },
 				v: timeRunning,
 				c: colours.list.dGreen,
 				b: colours.list.lGreen,
-				g: 2 // group the 2 firsts
+				g: 2, // group the 2 firsts
+				legend: {
+					label: 'running',
+					color: colours.list.dGreen
+				}
 			}, {
-				t: 'unused ressources',
+				t: '',
 				l: function(dp) { return labelPercent(dp, timeAvailable); },
 				v: timeAvailable,
 				c: colours.list.dBlue,
-				b: colours.list.lBlue
+				b: colours.list.lBlue,
+				legend: {
+					label: 'unused ressources',
+					color: colours.list.dBlue
+				}
 			}, {
-				t: 'waiting',
+				t: '',
 				l: function(dp) { return labelPercent(dp, timeWaiting); },
 				v: timeWaiting,
 				c: colours.list.dRed,
-				b: colours.list.lRed
+				b: colours.list.lRed,
+				legend: {
+					label: 'waiting',
+					color: colours.list.dRed
+				}
 			}]]
 	};
 	
@@ -249,45 +261,56 @@ app.factory('indicators', ['colours', 'categories', function(colours, categories
 		graph:	'widgetDashDeviation',
 		links:	[categories.tg, categories.lb],
 		deck: [[{
-				t: 'context switches',
+				t: '',
 				l: function(profile) { return labelTimes(profile, evSwitches); },
 				v: evSwitches,			// value
 				m: 1,					// max limit
 				x: 4,					// max over
 				c: colours.list.eGrey,	// color: foreground
 				b: colours.list.lGrey,	// color: background
-				o: colours.list.dGrey	// color: over
+				o: colours.list.dGrey,	// color: over
+				legend: {
+					label: 'context switches',
+					color: colours.list.dGrey
+				}
 			}, {
-				t: 'migrations',
+				t: '',
 				l: function(profile) { return labelTimes(profile, evMigrations); },
 				v: evMigrations,			// value
 				m: 1,						// max limit
 				x: 4,						// max over
 				c: colours.list.eViolet,	// color: foreground
 				b: colours.list.lViolet,	// color: background
-				o: colours.list.dViolet		// color: over
+				o: colours.list.dViolet,	// color: over
+				legend: {
+					label: 'migrations',
+					color: colours.list.dViolet
+				}
 			}]]
 	};
 	
 	var indic_m = {
 		title:	'Cache misses',
 		icon:	'info-circle',
-		graph:	'widgetDashTrack',
+		graph:	'widgetDashCompare',
 		links:	[categories.dl],
-		deck: [[{
-				t: 'executing',
-				l: function(dp) { return labelPercent(dp, percentIPC); },
+		deck: [{
+				l: function(profile) { return labelPercent(profile, percentIPC); },
 				v: percentIPC,
 				c: colours.list.dGreen,
-				b: colours.list.lGreen,
-				g: 2 // group the 2 firsts
+				legend: {
+					label: 'executing',
+					color: colours.list.dGreen
+				}
 			}, {
-				t: 'cache misses',
-				l: function(dp) { return labelPercent(dp, percentMisses); },
+				l: function(profile) { return labelPercent(profile, percentMisses); },
 				v: percentMisses,
 				c: colours.list.dRed,
-				b: colours.list.lRed
-			}]]
+				legend: {
+					label: 'cache misses',
+					color: colours.list.dRed
+				}
+			}]
 	};
 
 
