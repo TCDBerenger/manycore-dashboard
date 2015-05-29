@@ -221,37 +221,30 @@ app.factory('indicators', ['colours', 'categories', function(colours, categories
 		icon:	'info-circle',
 		graph:	'widgetDashTrack',
 		links:	[categories.tg, categories.lb],
+		legend:	[
+			{ label: 'running',				color: colours.list.dGreen	},
+			{ label: 'unused ressources',	color: colours.list.dBlue	},
+			{ label: 'waiting',				color: colours.list.dRed	}
+		],
 		deck: [[{
 				t: '',
 				l: function(dp) { return labelPercent(dp, timeRunning); },
 				v: timeRunning,
 				c: colours.list.dGreen,
 				b: colours.list.lGreen,
-				g: 2, // group the 2 firsts
-				legend: {
-					label: 'running',
-					color: colours.list.dGreen
-				}
+				g: 2 // group the 2 firsts
 			}, {
 				t: '',
 				l: function(dp) { return labelPercent(dp, timeAvailable); },
 				v: timeAvailable,
 				c: colours.list.dBlue,
-				b: colours.list.lBlue,
-				legend: {
-					label: 'unused ressources',
-					color: colours.list.dBlue
-				}
+				b: colours.list.lBlue
 			}, {
 				t: '',
 				l: function(dp) { return labelPercent(dp, timeWaiting); },
 				v: timeWaiting,
 				c: colours.list.dRed,
-				b: colours.list.lRed,
-				legend: {
-					label: 'waiting',
-					color: colours.list.dRed
-				}
+				b: colours.list.lRed
 			}]]
 	};
 	
@@ -260,7 +253,11 @@ app.factory('indicators', ['colours', 'categories', function(colours, categories
 		icon:	'info-circle',
 		graph:	'widgetDashDeviation',
 		links:	[categories.tg, categories.lb],
-		deck: [[{
+		legend:	[
+			{ label: 'context switches',	color: colours.list.dGrey	},
+			{ label: 'migrations',			color: colours.list.dViolet }
+		],
+		deck: [{
 				t: '',
 				l: function(profile) { return labelTimes(profile, evSwitches); },
 				v: evSwitches,			// value
@@ -268,11 +265,7 @@ app.factory('indicators', ['colours', 'categories', function(colours, categories
 				x: 4,					// max over
 				c: colours.list.eGrey,	// color: foreground
 				b: colours.list.lGrey,	// color: background
-				o: colours.list.dGrey,	// color: over
-				legend: {
-					label: 'context switches',
-					color: colours.list.dGrey
-				}
+				o: colours.list.dGrey	// color: over
 			}, {
 				t: '',
 				l: function(profile) { return labelTimes(profile, evMigrations); },
@@ -281,12 +274,8 @@ app.factory('indicators', ['colours', 'categories', function(colours, categories
 				x: 4,						// max over
 				c: colours.list.eViolet,	// color: foreground
 				b: colours.list.lViolet,	// color: background
-				o: colours.list.dViolet,	// color: over
-				legend: {
-					label: 'migrations',
-					color: colours.list.dViolet
-				}
-			}]]
+				o: colours.list.dViolet		// color: over
+			}]
 	};
 	
 	var indic_m = {
@@ -294,22 +283,18 @@ app.factory('indicators', ['colours', 'categories', function(colours, categories
 		icon:	'info-circle',
 		graph:	'widgetDashCompare',
 		links:	[categories.dl],
+		legend:	[
+			{ label: 'executing',		color: colours.list.dGreen	},
+			{ label: 'cache misses',	color: colours.list.dRed	}
+		],
 		deck: [{
 				l: function(profile) { return labelPercent(profile, percentIPC); },
 				v: percentIPC,
-				c: colours.list.dGreen,
-				legend: {
-					label: 'executing',
-					color: colours.list.dGreen
-				}
+				c: colours.list.dGreen
 			}, {
 				l: function(profile) { return labelPercent(profile, percentMisses); },
 				v: percentMisses,
-				c: colours.list.dRed,
-				legend: {
-					label: 'cache misses',
-					color: colours.list.dRed
-				}
+				c: colours.list.dRed
 			}]
 	};
 

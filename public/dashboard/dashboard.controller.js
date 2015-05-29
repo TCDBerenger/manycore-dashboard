@@ -102,13 +102,6 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 		return output;
 	};
 
-	/**
-	 * Layout - legend group
-	 */
-	$scope.getLegendGroup = function(deck) {
-		return (angular.isArray(deck[0])) ? deck : [deck];
-	};
-
 	
 
 	/************************************************/

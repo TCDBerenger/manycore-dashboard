@@ -148,13 +148,10 @@
 			</div>
 			<div class="panel-footer">
 				<p class="legend">
-					<span class="legend-row" ng-repeat="legendGroup in getLegendGroup(indicator.deck)">
-						<br ng-if="! $first" />
-						<span ng-repeat="legend in legendGroup" style="color: {{legend.legend.color}}">
-							<span class="icon">▮</span>
-							<span class="text">{{legend.legend.label}}</span>
-							<br ng-if="! $last" />
-						</span>
+					<span ng-repeat="l in indicator.legend" style="color: {{l.color}}">
+						<span class="icon">▮</span>
+						<span class="text">{{l.label}}</span>
+						<br ng-if="! $last" />
 					</span>
 				</p>
 				<p class="links">

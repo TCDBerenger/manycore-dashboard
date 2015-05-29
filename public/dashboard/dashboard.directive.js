@@ -44,24 +44,19 @@ var indicatorDashLayout = function() {
 
 	// Deviance
 	this.deviance	= {
-		size: 100,
-		compute: function(cols, rows) {
-			self.width = self.texts.indicators.width + cols * self.donut.size;
-			self.height = self.texts.app.height + rows * (self.donut.size + self.texts.values.height);
+		height: 100, width: 20, innerPadding: 20, outerPadding: 10, padding: 40,
+		compute: function(profiles, decks) {
+			self.width = (self.deviance.width * decks + self.deviance.innerPadding * (decks - 1) + self.deviance.outerPadding * 2) * profiles + self.deviance.padding;
+			self.height = self.deviance.height + self.texts.values.height + self.texts.app.height * (profiles - 1);
 		}
 	};
-	this.deviances	= [
-		{	x: 10,	width: 20,	height: 100,	text: 20},
-		{	x: 40,	width: 20,	height: 100,	text: 50},
-		{	x: 70,	width: 20,	height: 100,	text: 80}
-	];
 
 	// Arc
 	this.arc		= {
 		width: 100, height: 50, arc: 50, size: 20, padding: 40,
-		compute: function(cols) {
-			self.width = self.arc.width * cols + self.arc.padding * (cols - 1);
-			self.height = self.arc.height + self.texts.values.height + self.texts.app.height * (cols - 1);
+		compute: function(profiles) {
+			self.width = self.arc.width * profiles + self.arc.padding * (profiles - 1);
+			self.height = self.arc.height + self.texts.values.height + self.texts.app.height * (profiles - 1);
 		}
 
 	};
@@ -548,8 +543,7 @@ app.directive('widgetDashDeviation', function() {
 
 		// Attributes
 		var deck = scope.indicator.deck;
-		var meta = {
-		};
+		var meta = {};
 
 		// Data
 		var profiles = scope.selectedProfiles;
@@ -557,50 +551,42 @@ app.directive('widgetDashDeviation', function() {
 		// DOM
 		var svg = d3.select(container).append('svg');
 
+		// sizes
+		var colWidth = deck.length * layout.deviance.width + (deck.length - 1) * layout.deviance.innerPadding + 2 * layout.deviance.outerPadding;
+		var col1Position = colWidth + layout.deviance.padding;
+
 		// Groups
 		var donutSupergroup = svg.append("g").attr("class", "svg-dataset");
-		var donutGroups = [[
+		var donutGroups = [
 				donutSupergroup.append("g").attr("class", "svg-donut svg-donut-top svg-donut-left"),
-				donutSupergroup.append("g").attr("class", "svg-donut svg-donut-bottom svg-donut-left")
-					.attr("transform", "translate(0," + (layout.deviance.size + layout.texts.values.height * 2 + layout.texts.app.height) + ")")
-			], [
 				donutSupergroup.append("g").attr("class", "svg-donut svg-donut-top svg-donut-right")
-					.attr("transform", "translate(" + (layout.deviance.size + layout.texts.indicators.width) + ",0)"),
-				donutSupergroup.append("g").attr("class", "svg-donut svg-donut-bottom svg-donut-right")
-					.attr("transform", "translate(" + (layout.deviance.size + layout.texts.indicators.width) + "," + (layout.deviance.size + layout.texts.values.height * 2 + layout.texts.app.height) + ")")
-			]];
+					.attr("transform", "translate(" + col1Position + ",0)"),
+			];
 
 		var valueSupergroup = svg.append("g")
-			.attr("transform", "translate(0," + (layout.deviance.size + 14 ) + ")")
+			.attr("transform", "translate(0," + (layout.deviance.height + 14 ) + ")")
 			.attr("class", "svg-label");
-		var valueGroups = [[
+		var valueGroups = [
 				valueSupergroup.append("g").attr("class", "svg-donut-top svg-donut-left"),
-				valueSupergroup.append("g").attr("class", "svg-donut-bottom svg-donut-left")
-					.attr("transform", "translate(" + 0 + "," + (layout.texts.values.height + layout.texts.app.height) + ")")
-			], [
 				valueSupergroup.append("g").attr("class", "svg-donut-top svg-donut-right")
-					.attr("transform", "translate(" + (layout.deviance.size + layout.texts.indicators.width) + ",0)"),
-				valueSupergroup.append("g").attr("class", "svg-donut-bottom svg-donut-right")
-					.attr("transform", "translate(" + (layout.deviance.size + layout.texts.indicators.width) + "," + (layout.texts.values.height + layout.texts.app.height)  + ")")
-			]];
-		
-		var labelSupergroup = svg.append("g")
-			.attr("transform", "translate(" + layout.deviance.size  + ",0)")
-			.attr("class", "svg-text");
-		var labelGroups = [
-				labelSupergroup.append("g").attr("class", "svg-donut-top"),
-				labelSupergroup.append("g").attr("class", "svg-donut-bottom")
-					.attr("transform", "translate(0," + (layout.deviance.size + layout.texts.values.height * 2 + layout.texts.app.height) + ")")
+					.attr("transform", "translate(" + col1Position + ",0)"),
 			];
 		
 		var appGroup = svg.append("g").attr("class", "svg-text svg-text-app")
-				.attr("transform", "translate(" + 0 + "," + (layout.donut.size + layout.texts.values.height) + ")");
+				.attr("transform", "translate(" + 0 + "," + (layout.deviance.height + layout.texts.values.height) + ")");
+
+		// Draw - limit label
+		var limitLabel = svg.append("g").attr("class", "svg-text").append("text")
+			.attr("x", colWidth + layout.deviance.padding / 2)
+			.attr("text-anchor", "middle")
+			.style("fill", "#000000")
+			.text("×1");
 
 
 		// Big painting function
 		function redraw() {
 			// Precomputation
-			layout.deviance.compute(profiles.length, (deck.length > 1 && deck[1].length > 0) ? 2 : 1);
+			layout.deviance.compute(profiles.length, deck.length);
 
 			// DOM
 			svg.attr({width: layout.width, height: layout.height});
@@ -611,88 +597,97 @@ app.directive('widgetDashDeviation', function() {
 
 			// Clean
 			donutSupergroup.selectAll("rect").remove();
+			donutSupergroup.selectAll("line").remove();
 			valueSupergroup.selectAll("text").remove();
-			labelSupergroup.selectAll("text").remove();
 			appGroup.selectAll("text").remove();
 
 
 			// Draw
-			// c: column : profile
-			// r: row
-			// d: donut : one arc
-			var deviance, x, value, valueLimit, valueMax, pixelValue;
-			var indicator_onLeft = profiles.length == 1;
+			var precedingPosition;
+			var value, valueLimit, valueMax, pixelValue;
+			var limitYSum = 0;
 			profiles.forEach(function(profile, col_index) {
-				deck.forEach(function(row_data, row_index) {
-					row_data.forEach(function(arc_data, arc_index) {
 
-						deviance =		layout.deviances[arc_index];
-						xBox =			(col_index == 0) ? layout.deviance.size - deviance.x - deviance.width : deviance.x;
-						xText =			(col_index == 0) ? layout.deviance.size - deviance.text : deviance.text;
-						value =			arc_data.v(profile);
-						valueLimit =	arc_data.m;
-						valueMax =		arc_data.x;
-						pixelValue =	deviance.height / valueMax;
+				// Reset position
+				precedingPosition = layout.deviance.outerPadding;
+
+				deck.forEach(function(dev_data, dev_index) {
+						// Values
+						value =			dev_data.v(profile);
+						valueLimit =	dev_data.m;
+						valueMax =		dev_data.x;
+						pixelValue =	layout.deviance.height / valueMax;
 
 						// Background
-						if (value < valueLimit) {
-							donutGroups[col_index][row_index].append("rect")
-								.attr("x", xBox)
+						/*if (value < valueLimit) {
+							donutGroups[col_index].append("rect")
+								.attr("x", precedingPosition)
 								.attr("y", pixelValue * (valueMax - valueLimit))
-								.attr("width", deviance.width)
+								.attr("width", layout.deviance.width)
 								.attr("height", pixelValue * (valueLimit - value))
-								.style("fill", arc_data.b);
-						}
+								.style("fill", dev_data.b);
+						}*/
 
 						// Over
-						else if (value > valueLimit) {
-							donutGroups[col_index][row_index].append("rect")
-								.attr("x", xBox)
+						if (value > valueLimit) {
+							donutGroups[col_index].append("rect")
+								.attr("x", precedingPosition)
 								.attr("y", pixelValue * (valueMax - value))
-								.attr("width", deviance.width)
+								.attr("width", layout.deviance.width)
 								.attr("height", pixelValue * (value - valueLimit))
-								.style("fill", arc_data.o);
+								.style("fill", dev_data.o);
 						}
 
 						// Value (under the limit)
-						donutGroups[col_index][row_index].append("rect")
-							.attr("x", xBox)
+						donutGroups[col_index].append("rect")
+							.attr("x", precedingPosition)
 							.attr("y", pixelValue * (valueMax - Math.min(value, valueLimit)))
-							.attr("width", deviance.width)
+							.attr("width", layout.deviance.width)
 							.attr("height", pixelValue * Math.min(value, valueLimit))
-							.style("fill", arc_data.c);
+							.style("fill", dev_data.c);
+
+						// Limit
+						donutGroups[col_index].append("line")
+							.attr("class", "line")
+							.attr('stroke', "#000000")
+							.attr('stroke-width', 1)
+							.attr('stroke-dasharray', 3.1)
+							.attr("x1", precedingPosition - layout.deviance.innerPadding / 3)
+							.attr("x2", precedingPosition + layout.deviance.width + layout.deviance.innerPadding / 3)
+							.attr("y1", layout.deviance.height * 3 / 4)
+							.attr("y2", layout.deviance.height * 3 / 4);
 
 						// Value label
-						valueGroups[col_index][row_index].append("text")
-							.attr("x", xText)
+						valueGroups[col_index].append("text")
+							.attr("x", precedingPosition + layout.deviance.width / 2)
 							.attr("y", 0)
 							.attr("text-anchor", "middle")
-							.style("fill", arc_data.c)
-							.text(arc_data.l(profile));
+							.style("fill", dev_data.c)
+							.text(dev_data.l(profile));
 
-						// Label
-						if (col_index == 0) {
-							labelGroups[row_index].append("text")
-								.attr("x", (indicator_onLeft) ? 6 : layout.texts.indicators.width / 2)
-								.attr("y", (row_index == 0) ? layout.deviance.size - deviance.text : deviance.text + 2)
-								.attr("text-anchor", (indicator_onLeft) ? "start" : "middle")
-								.style("fill", arc_data.c)
-								.text(arc_data.t);
-						}
-					});
+
+						// For the limit
+						limitYSum += pixelValue * (valueMax - valueLimit);
+
+						// Next position
+						precedingPosition += layout.deviance.width + layout.deviance.innerPadding;
 				});
 
 
 				// App text
-				appGroup.append("text")
-					.attr("x", (layout.donut.size / 2) + col_index * (layout.donut.size + layout.texts.indicators.width))
-					.attr("y", layout.texts.app.size + 1)
-					.attr("text-anchor", "middle")
-					.attr("font-size", layout.texts.app.size + "px")
-					.attr("font-weight", "bold")
-					.text(profiles[col_index].label);
+				if (profiles.length > 1) {
+					appGroup.append("text")
+						.attr("x", col1Position * col_index + colWidth / 2)
+						.attr("y", layout.texts.app.size + 1)
+						.attr("text-anchor", "middle")
+						.attr("font-size", layout.texts.app.size + "px")
+						.attr("font-weight", "bold")
+						.text(profiles[col_index].label);
+				}
 			});
 
+			// Set limit in the middle
+			limitLabel.attr("y", limitYSum / deck.length / profiles.length);
 		}
 
 
