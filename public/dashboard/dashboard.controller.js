@@ -36,7 +36,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	 * Layout - main col
 	 */
 	$scope.mainColSize = function() {
-		return 12 - Math.ceil(($scope.selectedProfiles.length + Math.pow(1, $scope.waitingDataCounter)) * 2.5);
+		return 12 - Math.ceil(($scope.selectedProfiles.length + Math.min(1, $scope.waitingDataCounter)) * 2.5);
 	};
 
 	/**
