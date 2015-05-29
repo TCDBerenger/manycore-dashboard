@@ -249,20 +249,19 @@ app.factory('indicators', ['colours', 'categories', function(colours, categories
 	};
 	
 	var indic_b = {
-		title:	'Core balancing',
+		title:	'Thread swhitching',
 		icon:	'info-circle',
 		graph:	'widgetDashDeviation',
 		links:	[categories.tg, categories.lb],
 		legend:	[
 			{ label: 'context switches',	color: colours.list.dGrey	},
-			{ label: 'core migrations',			color: colours.list.dViolet }
+			{ label: 'core migrations',		color: colours.list.dViolet }/*,
+			{ label: 'calibration',			color: colours.list.black,		icon: '×1' }*/
 		],
 		deck: [{
 				t: '',
 				l: function(profile) { return labelTimes(profile, evSwitches); },
 				v: evSwitches,			// value
-				m: 1,					// max limit
-				x: 4,					// max over
 				c: colours.list.eGrey,	// color: foreground
 				b: colours.list.lGrey,	// color: background
 				o: colours.list.dGrey	// color: over
@@ -270,8 +269,6 @@ app.factory('indicators', ['colours', 'categories', function(colours, categories
 				t: '',
 				l: function(profile) { return labelTimes(profile, evMigrations); },
 				v: evMigrations,			// value
-				m: 1,						// max limit
-				x: 4,						// max over
 				c: colours.list.eViolet,	// color: foreground
 				b: colours.list.lViolet,	// color: background
 				o: colours.list.dViolet		// color: over

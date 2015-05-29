@@ -526,6 +526,8 @@ app.directive('widgetDashDeviation', function() {
 
 		// Data
 		var profiles = scope.selectedProfiles;
+		var valueLimit = 1;
+		var valueMax = 4;
 
 		// DOM
 		var svg = d3.select(container).append('svg');
@@ -586,7 +588,7 @@ app.directive('widgetDashDeviation', function() {
 
 			// Draw
 			var precedingPosition;
-			var value, valueLimit, valueMax, pixelValue;
+			var value, pixelValue;
 			var limitYSum = 0;
 			var firstY = layout.deviance.height;
 			profiles.forEach(function(profile, col_index) {
@@ -597,8 +599,6 @@ app.directive('widgetDashDeviation', function() {
 				deck.forEach(function(dev_data, dev_index) {
 						// Values
 						value =			dev_data.v(profile);
-						valueLimit =	dev_data.m;
-						valueMax =		dev_data.x;
 						pixelValue =	layout.deviance.height / valueMax;
 
 						// Background

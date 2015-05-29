@@ -162,19 +162,15 @@
 			<div class="panel-body">
 				<proxy-link-directive ng-attr-graph="{{indicator.graph}}" class="indicator-graph"></proxy-link-directive>
 			</div>
-			<div class="panel-footer">
-				<p class="legend">
-					<span ng-repeat="l in indicator.legend" style="color: {{l.color}}">
-						<span class="icon">▮</span>
-						<span class="text">{{l.label}}</span>
-						<br ng-if="! $last" />
-					</span>
-				</p>
+			<div class="panel-footer legend">
+				<span ng-repeat="l in indicator.legend" style="color: {{l.color}}">
+					<span class="icon">{{l.icon | iif : l.icon : '▮'}}</span>
+					<span class="text">{{l.label}}</span>
+					<br ng-if="! $last" />
+				</span>
 			</div>
-			<div class="panel-footer">
-				<p class="links">
-					<a href ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})' ng-repeat-start="category in indicator.links">{{category.label}} <i class="fa fa-arrow-circle-o-right"></i></a><br ng-repeat-end ng-if="! $last" />
-				</p>
+			<div class="panel-footer links">
+				<a href ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})' ng-repeat-start="category in indicator.links">{{category.label}} <i class="fa fa-arrow-circle-o-right"></i></a><br ng-repeat-end ng-if="! $last" />
 			</div>
 		</div></div>
 
