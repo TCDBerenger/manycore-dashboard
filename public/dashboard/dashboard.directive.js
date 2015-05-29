@@ -535,14 +535,16 @@ app.directive('widgetDashDeviation', function() {
 		var col1Position = colWidth + layout.deviance.padding;
 
 		// Groups
-		var donutSupergroup = svg.append("g").attr("class", "svg-dataset");
+		var autoCropGroup = svg.append("g").attr("class", "svg-autocrop");
+
+		var donutSupergroup = autoCropGroup.append("g").attr("class", "svg-dataset");
 		var donutGroups = [
 				donutSupergroup.append("g").attr("class", "svg-donut svg-donut-top svg-donut-left"),
 				donutSupergroup.append("g").attr("class", "svg-donut svg-donut-top svg-donut-right")
 					.attr("transform", "translate(" + col1Position + ",0)"),
 			];
 
-		var valueSupergroup = svg.append("g")
+		var valueSupergroup = autoCropGroup.append("g")
 			.attr("transform", "translate(0," + (layout.deviance.height + 14 ) + ")")
 			.attr("class", "svg-label");
 		var valueGroups = [
@@ -551,11 +553,11 @@ app.directive('widgetDashDeviation', function() {
 					.attr("transform", "translate(" + col1Position + ",0)"),
 			];
 		
-		var appGroup = svg.append("g").attr("class", "svg-text svg-text-app")
+		var appGroup = autoCropGroup.append("g").attr("class", "svg-text svg-text-app")
 				.attr("transform", "translate(" + 0 + "," + (layout.deviance.height + layout.texts.values.height) + ")");
 
 		// Draw - limit label
-		var limitLabel = svg.append("g").attr("class", "svg-text").append("text")
+		var limitLabel = autoCropGroup.append("g").attr("class", "svg-text").append("text")
 			.attr("x", colWidth + layout.deviance.padding / 2)
 			.attr("text-anchor", "middle")
 			.style("fill", "#000000")
@@ -573,6 +575,7 @@ app.directive('widgetDashDeviation', function() {
 				.style('width', layout.width + 'px')
 				.style('height', layout.height + 'px')
 				.style('background', 'transparent');
+			autoCropGroup.attr("transform", null);
 
 			// Clean
 			donutSupergroup.selectAll("rect").remove();
@@ -585,6 +588,7 @@ app.directive('widgetDashDeviation', function() {
 			var precedingPosition;
 			var value, valueLimit, valueMax, pixelValue;
 			var limitYSum = 0;
+			var firstY = layout.deviance.height;
 			profiles.forEach(function(profile, col_index) {
 
 				// Reset position
@@ -648,6 +652,9 @@ app.directive('widgetDashDeviation', function() {
 						// For the limit
 						limitYSum += pixelValue * (valueMax - valueLimit);
 
+						// For the auto-crop
+						firstY = Math.min(firstY, pixelValue * (valueMax - value));
+
 						// Next position
 						precedingPosition += layout.deviance.width + layout.deviance.innerPadding;
 				});
@@ -666,7 +673,17 @@ app.directive('widgetDashDeviation', function() {
 			});
 
 			// Set limit in the middle
-			limitLabel.attr("y", limitYSum / deck.length / profiles.length);
+			limitLabel.attr("y", limitYSum / deck.length / profiles.length + 4);
+
+			// For the auto-crop
+			firstY = Math.min(firstY, limitYSum / deck.length / profiles.length - 2);
+
+			// Auto-crop
+			if (firstY > 0) {
+				svg.attr('height', layout.height - firstY);
+				d3.select(container).style('height', (layout.height - firstY) + 'px')
+				autoCropGroup.attr("transform", "translate(0," + (-firstY) + ")");
+			}
 		}
 
 
