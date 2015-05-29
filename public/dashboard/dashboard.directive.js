@@ -469,16 +469,17 @@ app.directive('widgetDashTrack', function() {
 								inGroup = 0;
 								arc_precedingRadius = null;
 								arc_precedingEnd = null;
+
+								// Background (useless in a group)
+								donutGroups[col_index][row_index].append("path")
+									.attr("d", d3.svg.arc()
+												.innerRadius(layout.donuts[arc_index].inner)
+												.outerRadius(layout.donuts[arc_index].outer)
+												.startAngle(arc_layout.b.s)
+												.endAngle(arc_layout.b.e))
+									.attr("fill", arc_data.b);
 							}
 
-							// Background (useless in a group but could hide bugs)
-							donutGroups[col_index][row_index].append("path")
-								.attr("d", d3.svg.arc()
-											.innerRadius(layout.donuts[arc_index].inner)
-											.outerRadius(layout.donuts[arc_index].outer)
-											.startAngle(arc_layout.b.s)
-											.endAngle(arc_layout.b.e))
-								.attr("fill", arc_data.b);
 
 							// Value
 							if (arc_data.v(col_data) >= 0.005) {
