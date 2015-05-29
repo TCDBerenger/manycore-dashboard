@@ -58,8 +58,24 @@
 	<!-- Control and Legend -->
 	<div id="ctrl-legend" class="col-xs-1 ctrl ctrl-legend" ng-repeat-end ng-if="$index == 0" ng-class="(will2Profiles()) ? 'center' : ''">
 
-		<!-- Auto scroll -->
-		<div id="autoScrollLegend">&nbsp;</div>
+		<!-- Control -->
+		<div class="ctrl-box" ng-if="has2Profiles()">
+			<p>
+				<a class="action" href ng-click="unselectAllProfiles()">
+					<span class="fa-stack icon">
+						<i class="fa fa-thumb-tack fa-stack-1x"></i>
+						<i class="fa fa-ban fa-stack-2x"></i>
+					</span><span class="text">deselect all</span>
+				</a>
+			</p><p>
+				<a class="action" href ng-click="invertProfiles()">
+					<span class="fa-stack icon">
+						<i class="fa fa-circle fa-stack-2x"></i>
+						<i class="fa fa-exchange fa-stack-1x fa-inverse"></i>
+					</span><span class="text">invert</span>
+				</a>
+			</p>
+		</div>
 
 
 		<!-- legend -->
@@ -106,7 +122,7 @@
 		</div></div>
 
 		<!-- Control -->
-		<div ng-if="hasProfiles()" class="col-auto ctrl"><div class="block">
+		<!-- <div ng-if="hasProfiles()" class="col-auto ctrl"><div class="block">
 			<span class="block-icon fa-stack">
 				<i class="fa fa-circle fa-stack-2x"></i>
 				<i class="fa fa-wrench fa-stack-1x fa-inverse"></i>
@@ -123,7 +139,7 @@
 					<i class="fa fa-exchange fa-stack-1x fa-inverse"></i>
 				</span><span class="text">invert</span>
 			</a></p>
-		</div></div>
+		</div></div> -->
 
 		<!-- Stats -->
 		<div ng-if="hasProfiles()" class="col-µ" style="min-width: 280px"><div class="block block-imp block-title">
@@ -154,6 +170,8 @@
 						<br ng-if="! $last" />
 					</span>
 				</p>
+			</div>
+			<div class="panel-footer">
 				<p class="links">
 					<a href ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})' ng-repeat-start="category in indicator.links">{{category.label}} <i class="fa fa-arrow-circle-o-right"></i></a><br ng-repeat-end ng-if="! $last" />
 				</p>

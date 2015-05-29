@@ -158,6 +158,21 @@
 .dashboard .ctrl a .text {
 	padding-left: 4px;
 }
+.dashboard .ctrl-box {
+	width: auto;
+	display: inline-block;
+	text-align: left;
+
+	border: 2px dashed #E8E8E8;
+	border-radius: 0px;
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05) inset;
+
+	margin-top: 10px;
+	padding: 10px 10px 10px 8px;
+}
+.dashboard .ctrl-box p:last-child {
+	margin: 0px;
+}
 
 
 
@@ -192,8 +207,8 @@
 }
 
 .dashboard .category .panel-footer .legend {
-	float: left;
-	display: inline-block;
+	/*float: left;
+	display: inline-block;*/
 	font-size: 0.8em;
 }
 
