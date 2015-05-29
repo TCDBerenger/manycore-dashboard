@@ -255,7 +255,7 @@ app.factory('indicators', ['colours', 'categories', function(colours, categories
 		links:	[categories.tg, categories.lb],
 		legend:	[
 			{ label: 'context switches',	color: colours.list.dGrey	},
-			{ label: 'migrations',			color: colours.list.dViolet }
+			{ label: 'core migrations',			color: colours.list.dViolet }
 		],
 		deck: [{
 				t: '',

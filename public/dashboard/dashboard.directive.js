@@ -30,10 +30,10 @@ var indicatorDashLayout = function() {
 
 	// Donut
 	this.donut		= {
-		size: 100,
-		compute: function(cols, rows) {
-			self.width = self.texts.indicators.width + cols * self.donut.size;
-			self.height = self.texts.app.height + rows * (self.donut.size + self.texts.values.height);
+		size: 100, padding: 40,
+		compute: function(profiles, deckGroups) {
+			self.width = self.donut.size * profiles + self.donut.padding * (profiles - 1);
+			self.height = self.texts.app.height + deckGroups * (self.donut.size + self.texts.values.height * (profiles - 1));
 		}
 	};
 	this.donuts		= [
@@ -64,9 +64,6 @@ var indicatorDashLayout = function() {
 
 	// Texts
 	this.texts		= {
-		indicators:	{
-			width:	100
-		},
 		values:	{
 			height:	20
 		},
@@ -315,9 +312,9 @@ app.directive('widgetDashTrack', function() {
 					.attr("transform", "translate(0," + (layout.texts.values.height * 2 + layout.texts.app.height) + ")")
 			], [
 				donutSupergroup.append("g").attr("class", "svg-donut svg-donut-top svg-donut-right")
-					.attr("transform", "translate(" + layout.texts.indicators.width + ",0)"),
+					.attr("transform", "translate(" + layout.donut.padding + ",0)"),
 				donutSupergroup.append("g").attr("class", "svg-donut svg-donut-bottom svg-donut-right")
-					.attr("transform", "translate(" + layout.texts.indicators.width + "," + (layout.texts.values.height * 2 + layout.texts.app.height) + ")")
+					.attr("transform", "translate(" + layout.donut.padding + "," + (layout.texts.values.height * 2 + layout.texts.app.height) + ")")
 			]];
 
 		var valueSupergroup = svg.append("g")
@@ -329,19 +326,10 @@ app.directive('widgetDashTrack', function() {
 					.attr("transform", "translate(" + 0 + "," + (layout.texts.values.height + layout.texts.app.height) + ")")
 			], [
 				valueSupergroup.append("g").attr("class", "svg-donut-top svg-donut-right")
-					.attr("transform", "translate(" + (layout.donut.size + layout.texts.indicators.width) + ",0)"),
+					.attr("transform", "translate(" + (layout.donut.size + layout.donut.padding) + ",0)"),
 				valueSupergroup.append("g").attr("class", "svg-donut-bottom svg-donut-right")
-					.attr("transform", "translate(" + (layout.donut.size + layout.texts.indicators.width) + "," + (layout.texts.values.height + layout.texts.app.height)  + ")")
+					.attr("transform", "translate(" + (layout.donut.size + layout.donut.padding) + "," + (layout.texts.values.height + layout.texts.app.height)  + ")")
 			]];
-		
-		var labelSupergroup = svg.append("g")
-			.attr("transform", "translate(" + layout.donut.size  + ",0)")
-			.attr("class", "svg-text");
-		var labelGroups = [
-				labelSupergroup.append("g").attr("class", "svg-donut-top"),
-				labelSupergroup.append("g").attr("class", "svg-donut-bottom")
-					.attr("transform", "translate(0," + (layout.donut.size + layout.texts.values.height * 2 + layout.texts.app.height) + ")")
-			];
 		
 		var appGroup = svg.append("g").attr("class", "svg-text svg-text-app")
 				.attr("transform", "translate(" + 0 + "," + (layout.donut.size + layout.texts.values.height) + ")");
@@ -399,7 +387,6 @@ app.directive('widgetDashTrack', function() {
 			// Clean
 			donutSupergroup.selectAll("path").remove();
 			valueSupergroup.selectAll("text").remove();
-			labelSupergroup.selectAll("text").remove();
 			appGroup.selectAll("text").remove();
 
 
@@ -495,28 +482,20 @@ app.directive('widgetDashTrack', function() {
 							.attr("text-anchor", "middle")
 							.style("fill", arc_data.c)
 							.text(arc_data.l(col_data));
-
-						// Label
-						if (col_index == 0) {
-							labelGroups[row_index].append("text")
-								.attr("x", (indicator_onLeft) ? 6 : layout.texts.indicators.width / 2)
-								.attr("y", (row_index == 0) ? layout.donut.size - layout.donuts[arc_index].text : layout.donuts[arc_index].text + 2)
-								.attr("text-anchor", (indicator_onLeft) ? "start" : "middle")
-								.style("fill", arc_data.c)
-								.text(arc_data.t);
-						}
 					});
 				});
 
 
 				// App text
-				appGroup.append("text")
-					.attr("x", (layout.donut.size / 2) + col_index * (layout.donut.size + layout.texts.indicators.width))
-					.attr("y", layout.texts.app.size + 1)
-					.attr("text-anchor", "middle")
-					.attr("font-size", layout.texts.app.size + "px")
-					.attr("font-weight", "bold")
-					.text(profiles[col_index].label);
+				if (profiles.length > 1) {
+					appGroup.append("text")
+						.attr("x", (layout.donut.size / 2) + col_index * (layout.donut.size + layout.donut.padding))
+						.attr("y", layout.texts.app.size + 1)
+						.attr("text-anchor", "middle")
+						.attr("font-size", layout.texts.app.size + "px")
+						.attr("font-weight", "bold")
+						.text(profiles[col_index].label);
+				}
 			});
 
 		}
