@@ -154,9 +154,6 @@ app.directive('chartSwitches', function() {
 		var scaleX = d3.scale.linear();
 		var scaleV = d3.scale.linear();
 
-		// Axis
-		var xAxis = d3.svg.axis().scale(scaleX);
-
 		// Draw - XAxis
 		var groupXAxis = svg.append("g").attr("class", "svg-axis svg-axis-x");
 
