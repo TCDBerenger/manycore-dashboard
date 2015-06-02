@@ -363,3 +363,333 @@ app.directive('chartBandDensity', function() {
 		restrict: 'E'
 	}
 });
+
+
+app.directive('chartHistoband', function() {
+
+	function chartThreadDivergence_link(scope, element, attrs, controller) {
+		console.log("== directive == chartHistoband ==");
+
+		// Layout
+		var container = element[0];
+		var layout = new genericLayout();
+
+		// Non repaintable layout
+		var preferedHeight = 80;
+		layout.height = preferedHeight;
+		layout.margin.top = 0;
+
+		// Attributes
+		var deck = scope.widget.deck.axis;
+		var meta = new genericMeta(attrs);
+		meta.halfLimit = true;
+
+		// Data
+		var profileID = +attrs.profileid;
+		var profileIndex = scope.ids.indexOf(profileID);
+		var data = scope.data[profileID];
+		var dataList = data[scope.widget.deck.data[0].cat].list;
+		var title = scope.profiles[profileIndex].label;
+		var timeMax = data.info.duration;
+		var valueMax = meta.max / meta.focus;
+
+		// DOM
+		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
+		svg.style("background", "#FFFFFF");
+
+		// Scales
+		var scaleX = d3.scale.linear().rangeRound([layout.graph.left(), layout.graph.right()]);
+		var scaleV = d3.scale.linear();
+
+		// Scales - domains
+		scaleX.domain([meta.begin, meta.end]);
+
+		// Axis
+		var xAxis = d3.svg.axis().scale(scaleX);
+
+		// Draw
+		var tickGroup = svg.append("g").attr("class", "dataset");
+		if (meta.halfLimit)
+			var limitGroup = svg.append("g").attr("class", "limit");
+
+		
+		// Draw - limit
+		if (meta.halfLimit) {
+				var halfLimitLine = limitGroup.append("line")
+						.attr("class", "line")
+						.attr('stroke', deck.limit.color)
+						.attr('stroke-width', 1)
+						.attr('stroke-dasharray', 5.5)
+						.attr('fill', 'none');
+				var halfLimitText = limitGroup.append("text")
+						.attr("x", layout.graph.left() - 2)
+						.attr("text-anchor", "end")
+						.attr("alignment-baseline", "middle")
+						.attr("font-size", "10px")
+						.text((100 / meta.focus / 2) + ' %');
+		}
+
+		// Draw - axis
+		var axisXGroup = svg.append("g")
+				.attr("class", "xAxis")
+				.attr("transform", "translate(0," + layout.graph.bottom() + ")")
+				.call(xAxis);
+
+		// Draw - text
+		var labelElement = svg.append("text")
+			.attr("x", layout.graph.right())
+			.attr("y", layout.graph.bottom())
+			.attr("text-anchor", "end")
+			.attr("font-size", "14px")
+			.text(title);
+
+		// Redraw
+		var repaint = function repaint() {
+				// Sizes
+				layout.height = preferedHeight;
+				layout.width = container.clientWidth;
+
+				// Scales
+				scaleX.rangeRound([layout.graph.left(), layout.graph.right()]);
+				scaleV.rangeRound([layout.graph.bottom(), layout.graph.top()]);
+
+				// Overflow
+				var higherV = layout.graph.top();
+
+				// Container
+				d3.select(container).style('height', layout.height + 'px');
+
+				// SVG
+				svg.attr({width: layout.width, height: layout.height});
+				axisXGroup
+					.attr("transform", "translate(0," + layout.graph.bottom() + ")")
+					.call(xAxis);
+				labelElement
+					.attr("x", layout.graph.right())
+					.attr("y", layout.graph.bottom());
+
+				// Scales
+				var xLength = layout.graph.width();
+				var tLength = (meta.end - meta.begin) / xLength;		// a pixel equals (tLength) ms
+				var eLength = dataList.length;
+				var valueMaxByPixel = valueMax * tLength;
+				scaleV.domain([0, valueMaxByPixel]);				// a pixel could display (valueMax * tLength) maximum switches
+
+				// Limits
+				if (meta.halfLimit) {
+					limitGroup.attr("transform", null);
+					halfLimitLine
+						.attr("x1", layout.graph.left())
+						.attr("x2", layout.graph.right())
+						.attr("y1", scaleV(valueMaxByPixel / 2))
+						.attr("y2", scaleV(valueMaxByPixel / 2));
+					halfLimitText
+						.attr("y", scaleV(valueMaxByPixel / 2));
+				}
+
+				// Ticks
+				tickGroup.selectAll("*").remove();
+				tickGroup.attr("transform", null);
+				var e_index = 0;									// TODO find the first index
+				var e, e_count;
+				var vZero = scaleV(0);
+				var xLeft = layout.graph.left() + 1;
+				for (var x = 0; x < xLength; x++) {
+
+					// Count the relative event in the "pixel" frame time
+					e_count = 0;
+					if (e_index < eLength) {
+						e = dataList[e_index];
+						while (e_index < eLength && e < tLength * (x + 1)) {
+							e_index++;
+							e_count++;
+							e = dataList[e_index];
+						}
+					}
+
+					tickGroup.append("line")
+						.attr("class", "tick")
+						.attr("x1", xLeft + x).attr("x2", xLeft + x)
+						.attr("y1", vZero).attr("y2", scaleV(e_count))
+						.attr('stroke', deck.x.color)
+						.attr('stroke-width', 1)
+						.attr('fill', 'none');
+
+					// Check overflox
+					higherV = Math.min(higherV, scaleV(e_count));
+				};
+
+				// Treat overflow
+				if (meta.autoscale && higherV < layout.graph.top()) {
+					var yOverflow = layout.graph.top() - higherV;
+					console.log("need to repaint with overflow", yOverflow);
+
+					// Layout
+					layout.height += yOverflow;
+
+					// Container
+					d3.select(container).style('height', layout.height + 'px');
+
+					// SVG
+					svg.attr('height', layout.height);
+					axisXGroup.attr("transform", "translate(0," + layout.graph.bottom() + ")");
+					tickGroup.attr("transform", "translate(0," + yOverflow + ")");
+					labelElement.attr("y", layout.graph.bottom());
+
+					// Limits
+					if (meta.halfLimit) {
+						limitGroup.attr("transform", "translate(0," + yOverflow + ")");
+					}
+				}
+
+			};
+
+		// Redraw - bind
+		scope.$watch(function() { return container.clientWidth; }, repaint);
+	}
+
+	return {
+		link: chartThreadDivergence_link,
+		restrict: 'E'
+	}
+});
+
+app.directive('chartColoroband', function() {
+
+	function chartThreadDivergence_link(scope, element, attrs, controller) {
+		console.log("== directive == chartColoroband ==");
+
+		// Layout
+		var container = element[0];
+		var layout = new genericLayout();
+
+		// Non repaintable layout
+		layout.height = 40;
+		layout.margin.top = 0;
+
+		// Attributes
+		var deck = scope.widget.deck.axis;
+		var meta = new genericMeta(attrs);
+
+		// Data
+		var profileID = +attrs.profileid;
+		var profileIndex = scope.ids.indexOf(profileID);
+		var data = scope.data[profileID];
+		var dataList = data[scope.widget.deck.data[0].cat].list;
+		var title = scope.profiles[profileIndex].label;
+		var timeMax = data.info.duration;
+		var valueMax = meta.max / meta.focus;
+		var maxColorIndex = deck.x.colors.length - 1;
+
+		// DOM
+		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
+		svg.style("background", "#FFFFFF");
+
+		// Scales
+		var scaleX = d3.scale.linear().rangeRound([layout.graph.left(), layout.graph.right()]);
+		var scaleV = d3.scale.linear();
+
+		// Scales - domains
+		scaleX.domain([meta.begin, meta.end]);
+
+		// Axis
+		var xAxis = d3.svg.axis().scale(scaleX);
+
+		// Draw
+		var tickGroup = svg.append("g").attr("class", "dataset");
+
+		// Draw - axis
+		var axisXGroup = svg.append("g")
+				.attr("class", "xAxis")
+				.attr("transform", "translate(0," + layout.graph.bottom() + ")")
+				.call(xAxis);
+
+		// Draw - text
+		var labelElement = svg.append("text")
+			.attr("x", layout.graph.right())
+			.attr("y", layout.graph.bottom())
+			.attr("text-anchor", "end")
+			.attr("font-size", "14px")
+			.text(title);
+
+		// Redraw
+		var repaint = function repaint() {
+				// Sizes
+				layout.width = container.clientWidth;
+
+				// Scales
+				scaleX.rangeRound([layout.graph.left(), layout.graph.right()]);
+				scaleV.rangeRound([layout.graph.bottom(), layout.graph.top()]);
+
+				// Container
+				d3.select(container).style('height', layout.height + 'px');
+
+				// SVG
+				svg.attr({width: layout.width, height: layout.height});
+				axisXGroup
+					.attr("transform", "translate(0," + layout.graph.bottom() + ")")
+					.call(xAxis);
+				labelElement
+					.attr("x", layout.graph.right())
+					.attr("y", layout.graph.bottom());
+
+				// Scales
+				var xLength = layout.graph.width();
+				var tLength = (meta.end - meta.begin) / xLength;		// a pixel equals (tLength) ms
+				var eLength = dataList.length;
+				var valueMaxByPixel = valueMax * tLength;
+				var valueMaxByPixelByColor = valueMaxByPixel / 2;
+				scaleV.domain([0, valueMaxByPixelByColor]);			// a pixel could display (valueMax * tLength / 2) maximum switches by colour (for targeting 4 colours)
+
+				// Ticks
+				tickGroup.selectAll("*").remove();
+				tickGroup.attr("transform", null);
+				var e_index = 0;									// TODO find the first index
+				var e, e_count, e_color_index, e_color;
+				var vZero = scaleV(0);
+				var vMaxColor = scaleV(valueMaxByPixelByColor);
+				var xLeft = layout.graph.left() + 1;
+				for (var x = 0; x < xLength; x++) {
+
+					// Count the relative event in the "pixel" frame time
+					e_count = 0;
+					if (e_index < eLength) {
+						e = dataList[e_index];
+						while (e_index < eLength && e < tLength * (x + 1)) {
+							e_index++;
+							e_count++;
+							e = dataList[e_index];
+						}
+					}
+
+					e_color_index = Math.min(maxColorIndex, Math.floor(e_count / valueMaxByPixelByColor));
+					e_count = e_count - e_color_index * valueMaxByPixelByColor;
+					e_color = deck.x.colors[e_color_index];
+
+					tickGroup.append("line")
+						.attr("class", "tick")
+						.attr("x1", xLeft + x).attr("x2", xLeft + x)
+						.attr("y1", vZero).attr("y2", scaleV(e_count))
+						.attr('stroke', e_color)
+						.attr('stroke-width', 1)
+						.attr('fill', 'none');
+
+					tickGroup.append("line")
+						.attr("class", "tick")
+						.attr("x1", xLeft + x).attr("x2", xLeft + x)
+						.attr("y1", scaleV(e_count)).attr("y2", vMaxColor)
+						.attr('stroke', deck.x.colors[e_color_index - 1])
+						.attr('stroke-width', 1)
+						.attr('fill', 'none');
+				};
+			};
+
+		// Redraw - bind
+		scope.$watch(function() { return container.clientWidth; }, repaint);
+	}
+
+	return {
+		link: chartThreadDivergence_link,
+		restrict: 'E'
+	}
+});

@@ -1,11 +1,1 @@
-<h5>New idea (David):</h5>
-<chart-histoband class="widget-graph widget-histo" profileid="{{ids[0]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" max="{{data[ids[0]].info.cores * data[ids[0]].calib.switches}}" focus="10"></chart-histoband>
-<chart-histoband class="widget-graph widget-histo" ng-if="ids.length >= 2" profileid="{{ids[1]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" max="{{data[ids[1]].info.cores * data[ids[1]].calib.switches}}" focus="10"></chart-histoband>
-
-<h5>Autoscale (Gavin):</h5>
-<chart-histoband class="widget-graph widget-histo" profileid="{{ids[0]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" max="{{data[ids[0]].info.cores * data[ids[0]].calib.switches}}" focus="10" autoscale></chart-histoband>
-<chart-histoband class="widget-graph widget-histo" ng-if="ids.length >= 2" profileid="{{ids[1]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" max="{{data[ids[1]].info.cores * data[ids[1]].calib.switches}}" focus="10" autoscale></chart-histoband>
-
-<h5>Colourisation (Roman):</h5>
-<chart-coloroband class="widget-graph widget-histo" profileid="{{ids[0]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" max="{{data[ids[0]].info.cores * data[ids[0]].calib.switches}}" focus="10" graduate="4"></chart-coloroband>
-<chart-coloroband class="widget-graph widget-histo" ng-if="ids.length >= 2" profileid="{{ids[1]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" max="{{data[ids[1]].info.cores * data[ids[1]].calib.switches}}" focus="10" graduate="4"></chart-coloroband>
+<chart-switches class="widget-graph widget-histo" ng-attr-begin="{{data.c.timeMin}}" ng-attr-end="{{data.c.duration}}" ng-attr-calibration="'switches'"></chart-switches>
