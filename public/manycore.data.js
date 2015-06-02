@@ -35,6 +35,9 @@ app.factory('decks', ['colours', function(colours) {
 	var l3miss = 	{ label: 'loading from RAM',	title: 'L3 misses',			desc: 'loading data from RAM',	unity: '',	cat: 'locality',	attr: 'l3',		color: colours.list.dRed };
 	var swapping = 	{ label: 'Swapping',			title: 'Swapping',			desc: 'hard page faults',		unity: '',	cat: 'locality',	attr: 'hpf',	color: colours.list.black };
 
+	var sw = 		{ label: 'switches',	title: 'switches',		desc: 'switches',		unity: null, cat: 'switches', attr: 's',											color: colours.list.eGrey,		fcolor: colours.list.dGrey,		gcolor: colours.list.gGrey };
+	var mg = 		{ label: 'migrations',	title: 'migrations',	desc: 'migrations',		unity: null, cat: 'migrations', attr: 'm',	colors: [colours.base, colours.alt],	color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.gViolet };
+	var mg_tmp = 	{ label: 'migrations',	title: 'migrations',	desc: 'migrations',		unity: null, cat: 'migrations', attr: 'm',	color2: colours.alt,	color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.gViolet };
 
 	return {
 		tg: {
@@ -70,11 +73,8 @@ app.factory('decks', ['colours', function(colours) {
 				limit:	{ color: colours.list.black },
 				x:		{ color: colours.list.dGrey, colors: [colours.list.eGrey, colours.list.dGrey, colours.list.eRed, colours.list.dRed] }
 			},
-			data : [
-				{ label: 'switches',	unity: null,	cat: 'switches',	attr: 's',	color: colours.base }
-			],
-			legend : [
-			],
+			data : [sw],
+			legend : [sw],
 			clues: [
 				{ color: colours.base,	tax: 'Oversubscription',							text: 'high frequency' }
 			]
@@ -84,11 +84,8 @@ app.factory('decks', ['colours', function(colours) {
 				limit:	{ color: colours.list.black },
 				x:		{ color: colours.list.dGrey, colors: [colours.list.eGrey, colours.list.dGrey, colours.list.eRed, colours.list.dRed] }
 			},
-			data : [
-				{ label: 'migrations',	unity: null,	cat: 'migrations',	attr: 'm',	color: colours.base }
-			],
-			legend : [
-			],
+			data : [mg],
+			legend : [mg],
 			clues: [
 				{ color: colours.base,	tax: 'Thread migrations',							text: 'too many migrations' },
 				{ color: colours.base,	tax: 'Alternating sequential/parallel execution',	text: 'alternating period of high and low thread migrations' }
@@ -98,11 +95,8 @@ app.factory('decks', ['colours', function(colours) {
 			axis : {
 				x:		{ color: colours.base, colors: [colours.base, colours.alt] }
 			},
-			data : [
-				{ label: 'migrations',	unity: null,	cat: 'migrations',	attr: 'm',	color: colours.base,	color2: colours.alt }
-			],
-			legend : [
-			],
+			data : [mg_tmp],
+			legend : [mg],
 			clues: [
 				{ color: colours.unkn,	tax: 'Task start/stop overhead',					text: 'too many creations' },
 				{ color: colours.alt,	tax: 'Oversubscription',							text: 'too many threads' },
@@ -176,7 +170,7 @@ app.factory('categories', ['widgets', 'decks', function(widgets, decks){
 	var io = {
 		tag: 'io', cat: 'io', label: 'Input/Output', title: 'Input/Output', icon: 'plug',
 		graph: null, deck: decks.io,
-		widgets: []
+		widgets: [widgets.threadSwitchs]
 	};
 
 	var output = {
