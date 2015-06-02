@@ -28,7 +28,7 @@ var graphLayout = function(type) {
 
 	// Constants
 	this.padding	= { top: 0, right: 10, bottom: 0, left: 20, inner: 10 };
-	this.xAxis		= { height: 10, text: 12 };
+	this.xAxis		= { height: 10, text: 8, textShift: 8, arrow: 8 };
 	this.profile	= { favoriteHeight: 0 };
 
 	// common vars
@@ -58,8 +58,10 @@ var graphLayout = function(type) {
 	this.profile.bottom =	function() { return self.profile.favoriteHeight; };
 
 	// Draw - x axis
-	this.xAxis.x =	function() { return self.padding.left; };
-	this.xAxis.y =	function() { return self.padding.top + self.profile.favoriteHeight + self.padding.inner; };
+	this.xAxis.x =		function() { return self.padding.left; };
+	this.xAxis.y =		function() { return self.padding.top + self.profile.favoriteHeight + self.padding.inner; };
+	this.xAxis.left =	function() { return 0; }; 
+	this.xAxis.right =	function() { return self.width - self.padding.left - self.padding.right; };
 
 
 	switch(type) {
@@ -82,6 +84,51 @@ var genericMeta = function(attributes) {
 	this.graduate		= (attributes.graduate) ? +attributes.graduate : 1	// Divide the value with graduate color
 	this.max			= (attributes.max) ? +attributes.max : NaN			// Maximum possible value (cf. focus for divide this value)
 };
+
+
+// Repaint - XAxis
+function graphRepaint_xAxis(layout, groupXAxis, scaleX) {
+	// Clean
+	groupXAxis.attr("transform", "translate(" + layout.xAxis.x() + "," + layout.xAxis.y() + ")");
+	groupXAxis.selectAll("text").remove();
+
+	// Box
+	var points = [
+			{"x": -layout.xAxis.arrow, "y": 0},
+			{"x": layout.xAxis.right(),	"y": 0},
+			{"x": layout.xAxis.right() + layout.xAxis.arrow, "y": layout.xAxis.height / 2},
+			{"x": layout.xAxis.right(),	"y": layout.xAxis.height},
+			{"x": -layout.xAxis.arrow, "y": layout.xAxis.height},
+			{"x": 0, "y": layout.xAxis.height / 2},
+	];
+	groupXAxis.append("polygon")
+		.attr("points",function() { return points.map(function(d) { return [d.x, d.y].join(","); }).join(" "); })
+		.attr("stroke","black")
+		.attr("stroke-width", 2);
+
+	// Labels
+	var texts = scaleX.ticks();
+	groupXAxis
+		.selectAll(".svg-text")
+		.data(texts).enter()
+		.append("text")
+			.attr("y", layout.xAxis.textShift)
+			.attr("x", function (d) { return scaleX(d)})
+			.attr("text-anchor", function(d, i) { return (i == 0) ? "start" : (i == texts.length) ? "end" : "middle"; })
+			.attr("font-size", layout.xAxis.text + "px")
+			.attr("fill", "#FFFFFF")
+			.text(function (d) { return d});
+}
+
+
+
+
+
+
+
+
+
+
 
 
 app.directive('chartSwitches', function() {
@@ -110,7 +157,9 @@ app.directive('chartSwitches', function() {
 		// Axis
 		var xAxis = d3.svg.axis().scale(scaleX);
 
-		// Draw
+		// Draw - XAxis
+		var groupXAxis = svg.append("g").attr("class", "svg-axis svg-axis-x");
+
 
 		// Redraw
 		var repaint = function repaint() {
@@ -130,6 +179,8 @@ app.directive('chartSwitches', function() {
 					.style('height', layout.height + 'px')
 					.style('background', 'transparent');
 
+				// Repaint graphical elements
+				graphRepaint_xAxis(layout, groupXAxis, scaleX);
 		};
 
 		// Redraw - bind
