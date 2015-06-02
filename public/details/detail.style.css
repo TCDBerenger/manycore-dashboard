@@ -165,3 +165,34 @@
 .detail .clues ul.clues-list li:before {
 	content: "▮ ";
 }
+
+/*
+ * Extra tabs
+ */
+.detail .extra-tabs {
+	margin-top: 20px;
+}
+.detail .extra-tabs .nav-tabs {
+	font-size: 0.8em;
+}
+.detail .extra-tabs .tab-pane {
+	padding: 14px;
+}
+
+.detail .extra-tabs .info-profiles {
+	float: left;
+	margin-right: 40px;
+}
+.detail .extra-tabs .info-profiles p {		display: inline-block;	}
+.detail .extra-tabs .info-profiles p.left {	text-align: right;		}
+
+.detail .extra-tabs ul.legend-list {
+	display: inline-block;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.detail .extra-tabs ul.legend-list li { 
+	padding-left: 1em;
+	text-indent: -1.2em;
+}

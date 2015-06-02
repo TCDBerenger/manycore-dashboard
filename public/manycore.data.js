@@ -23,18 +23,17 @@ app.factory('colours', [function() {
 }]);
 
 app.factory('decks', ['colours', function(colours) {
-	var running = 	{ label: 'running',	title: 'threads running',	desc: ' ',	unity: 'ms', cat: 'times', attr: 'r',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
-	var ready = 	{ label: 'ready',	title: 'threads ready',		desc: ' ',	unity: 'ms', cat: 'times', attr: 'yb',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
-	var capacity = 	{ label: 'ready',	title: 'CPU capacity',		desc: ' ',	unity: 'ms', cat: null, attr: null,		color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.gBlue };
+	var running = 	{ label: 'threads running',	title: 'running',	desc: 'a core executing a thread',					unity: 'ms', cat: 'times', attr: 'r',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
+	var ready = 	{ label: 'threads ready',	title: 'ready',		desc: 'a thread is waiting a core but CPU is full',	unity: 'ms', cat: 'times', attr: 'yb',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
+	var capacity = 	{ label: 'available',		title: 'unused',	desc: 'a core is available but unused',				unity: 'ms', cat: null, attr: null,		color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.gBlue };
 
-	var ipc = 		{ label: 'executing',		title: 'executing',				desc: 'executing',			unity: '',	cat: 'locality',	attr: 'ipc',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
-	var ipc_blank = { label: 'executing',		title: 'executing',				desc: 'executing',			unity: '',	cat: 'locality',	attr: 'ipc',	color: colours.list.black,		fcolor: colours.list.black,		gcolor: colours.list.black };
-	var miss = 		{ label: 'cache misses',	title: 'Cache misses',			desc: '',					unity: '',	cat: 'locality',	attr: 'miss',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
-	var tlbmiss = 	{ label: 'TLB misses',		title: 'address translation',	desc: 'TLB',				unity: '',	cat: 'locality',	attr: 'tlb',	color: colours.list.lGrey };
-	var l1miss = 	{ label: 'L1 misses',		title: 'loading from L2',		desc: 'L1 misses',			unity: '',	cat: 'locality',	attr: 'l1',		color: colours.list.lRed };
-	var l2miss = 	{ label: 'L2 misses',		title: 'loading from L3',		desc: 'L2 misses',			unity: '',	cat: 'locality',	attr: 'l2',		color: colours.list.eRed };
-	var l3miss = 	{ label: 'L3 misses',		title: 'loading from RAM',		desc: 'L3 misses',			unity: '',	cat: 'locality',	attr: 'l3',		color: colours.list.dRed };
-	var swapping = 	{ label: 'Swapping',		title: 'Swapping',				desc: 'hard page faults',	unity: '',	cat: 'locality',	attr: 'hpf',	color: colours.list.black };
+	var ipc = 		{ label: 'executing',			title: 'Executing',			desc: 'executing',				unity: '',	cat: 'locality',	attr: 'ipc',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
+	var miss = 		{ label: 'Cache misses',		title: 'Cache misses',		desc: '',						unity: '',	cat: 'locality',	attr: 'miss',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
+	var tlbmiss = 	{ label: 'address translation',	title: 'TLB misses',		desc: 'address translation',	unity: '',	cat: 'locality',	attr: 'tlb',	color: colours.list.lGrey };
+	var l1miss = 	{ label: 'loading from L2',		title: 'L1 misses',			desc: 'loading data from L2',	unity: '',	cat: 'locality',	attr: 'l1',		color: colours.list.lRed };
+	var l2miss = 	{ label: 'loading from L3',		title: 'L2 misses',			desc: 'loading data from L3',	unity: '',	cat: 'locality',	attr: 'l2',		color: colours.list.eRed };
+	var l3miss = 	{ label: 'loading from RAM',	title: 'L3 misses',			desc: 'loading data from RAM',	unity: '',	cat: 'locality',	attr: 'l3',		color: colours.list.dRed };
+	var swapping = 	{ label: 'Swapping',			title: 'Swapping',			desc: 'hard page faults',		unity: '',	cat: 'locality',	attr: 'hpf',	color: colours.list.black };
 
 
 	return {
@@ -50,8 +49,8 @@ app.factory('decks', ['colours', function(colours) {
 			legend: [running, ready]
 		},
 		dl: {
-			data: [miss],// , ipc
-			legend: [miss] // , ipc_blank
+			data: [miss],
+			legend: [miss]
 		},
 		cycles: {
 			axis : {
@@ -72,7 +71,7 @@ app.factory('decks', ['colours', function(colours) {
 				x:		{ color: colours.list.dGrey, colors: [colours.list.eGrey, colours.list.dGrey, colours.list.eRed, colours.list.dRed] }
 			},
 			data : [
-				{ title: 'switches',	desc: 'switches',	unity: null,	cat: 'switches',	attr: 's',	color: colours.base }
+				{ label: 'switches',	unity: null,	cat: 'switches',	attr: 's',	color: colours.base }
 			],
 			legend : [
 			],
@@ -86,7 +85,7 @@ app.factory('decks', ['colours', function(colours) {
 				x:		{ color: colours.list.dGrey, colors: [colours.list.eGrey, colours.list.dGrey, colours.list.eRed, colours.list.dRed] }
 			},
 			data : [
-				{ title: 'migrations',	desc: 'migrations',	unity: null,	cat: 'migrations',	attr: 'm',	color: colours.base }
+				{ label: 'migrations',	unity: null,	cat: 'migrations',	attr: 'm',	color: colours.base }
 			],
 			legend : [
 			],
@@ -100,7 +99,7 @@ app.factory('decks', ['colours', function(colours) {
 				x:		{ color: colours.base, colors: [colours.base, colours.alt] }
 			},
 			data : [
-				{ title: 'migrations',	desc: 'migrations',	unity: null,	cat: 'migrations',	attr: 'm',	color: colours.base,	color2: colours.alt }
+				{ label: 'migrations',	unity: null,	cat: 'migrations',	attr: 'm',	color: colours.base,	color2: colours.alt }
 			],
 			legend : [
 			],
@@ -117,8 +116,7 @@ app.factory('decks', ['colours', function(colours) {
 				x:		{ colors: [colours.good, colours.list.lGrey, colours.list.lRed, colours.list.eRed, colours.list.dRed, colours.list.black] }
 			},
 			data : [ipc, tlbmiss, l1miss, l2miss, l3miss, swapping],
-			legend : [
-			],
+			legend : [ipc, tlbmiss, l1miss, l2miss, l3miss, swapping],
 			clues: [
 			]
 		}
