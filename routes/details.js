@@ -520,7 +520,6 @@ function jsonTG(profile, id) {
 	output.cat = 'tg';
 
 	// Common
-
 	profile.exportInfo(output);
 	addCommon(output, id);
 
@@ -551,7 +550,6 @@ function jsonSY(profile, id) {
 	output.log = "TODO";
 
 	// Common
-
 	profile.exportInfo(output);
 	addCommon(output, id);
 
@@ -569,7 +567,6 @@ function jsonDS(profile, id) {
 	output.log = "TODO";
 
 	// Common
-
 	profile.exportInfo(output);
 	addCommon(output, id);
 
@@ -586,7 +583,6 @@ function jsonLB(profile, id) {
 	output.cat = 'lb';
 
 	// Common
-
 	profile.exportInfo(output);
 	addCommon(output, id);
 
@@ -611,7 +607,6 @@ function jsonDL(profile, id) {
 	output.log = "TODO";
 
 	// Common
-
 	profile.exportInfo(output);
 	addCommon(output, id);
 
@@ -632,7 +627,6 @@ function jsonRS(profile, id) {
 	output.log = "TODO";
 
 	// Common
-
 	profile.exportInfo(output);
 	addCommon(output, id);
 
@@ -650,7 +644,6 @@ function jsonIO(profile, id) {
 	output.log = "TODO";
 
 	// Common
-
 	profile.exportInfo(output);
 	addCommon(output, id);
 
