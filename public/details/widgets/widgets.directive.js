@@ -40,8 +40,9 @@ var graphLayout = function(type) {
 
 	// Constants
 	this.padding	= { top: 0, right: 10, bottom: 0, left: 20, inner: 10 };
-	this.xAxis		= { height: 10, text: 8, textShift: 8, arrow: 8 };
 	this.profile	= { favoriteHeight: 0 };
+	this.xAxis		= { height: 10, text: 8, textShift: 8, arrow: 8 };
+	this.vAxis		= {  };
 
 	// common vars
 	this.height		= 0;
@@ -60,7 +61,7 @@ var graphLayout = function(type) {
 	};
 
 	// Draw - profiles
-	this.profile.x =		function() { return self.padding.left };
+	this.profile.x =		function() { return self.padding.left; };
 	this.profile.y =		function(index) { return self.padding.top + index * (self.profile.favoriteHeight + self.padding.inner + self.xAxis.height) };
 	this.profile.width =	function() { return self.width - self.padding.left - self.padding.right; };
 	this.profile.height =	function() { return self.profile.favoriteHeight; };
@@ -74,6 +75,12 @@ var graphLayout = function(type) {
 	this.xAxis.y =		function() { return self.padding.top + self.profile.favoriteHeight + self.padding.inner; };
 	this.xAxis.left =	function() { return 0; }; 
 	this.xAxis.right =	function() { return self.width - self.padding.left - self.padding.right; };
+
+	// Draw - v axis
+	this.vAxis.x =		function() { return 0; };
+	this.vAxis.y =		this.profile.y;
+	this.vAxis.width =	function() { return self.padding.left; };
+	this.vAxis.height =	this.profile.heigh;
 
 
 	switch(type) {
@@ -98,13 +105,24 @@ var genericMeta = function(attributes) {
 /**
  * Meta (parameters)
  */
-var graphMeta = function(attributes) {
+var graphMeta = function(attributes, allowOverflow) {
+	// Allow seld reference (otherwise this is the caller object)
+	var self = this;
+
 	// Common
-	this.begin	= +attributes.begin;	// When the user selection starts
-	this.end	= +attributes.end;		// When the user selection ends (could be before or after timeMax)
+	this.begin			= +attributes.begin;	// When the user selection starts
+	this.end			= +attributes.end;		// When the user selection ends (could be before or after timeMax)
+
+	// Computed
+	this.allowOverflow	= (allowOverflow !== undefined) ? allowOverflow : false;
+	this.overflow1		= 0;					// Possible overflow by first profile
+	this.overflow2		= 0;					// Possible overflow by second profile
 
 	// On demand
-	if (attributes.hasOwnProperty('focus'))	this.focus		= +attributes.focus;		// Focusing data (divide factor)
+	['calibration'].forEach(function(a) {
+		if (attributes.hasOwnProperty(a))
+			self[a] = isNaN(attributes[a]) ? attributes[a] : +attributes[a];
+	});
 };
 
 
@@ -117,18 +135,19 @@ var graphMeta = function(attributes) {
 /**
  * Init directive
  */
-function directive_init(scope, element, attrs, controller) {
+function directive_init(scope, element, attrs, layoutType, allowOverflow) {
 	var container =	element[0];
 	var svg =		d3.select(container).append('svg');
+	var overflow =	(allowOverflow) ? svg.append("g").attr("class", "svg-overflow") : svg;
 
 	return {
 		// Layout
 		container:	container,
-		layout:		new graphLayout('band'),
+		layout:		new graphLayout(layoutType),
 
 		// Attributes
 		deck:		scope.widget.deck.axis,
-		meta:		new graphMeta(attrs),
+		meta:		new graphMeta(attrs, allowOverflow),
 
 		// Data
 		profiles:	scope.profiles,
@@ -140,19 +159,24 @@ function directive_init(scope, element, attrs, controller) {
 		scaleX:		d3.scale.linear(),
 		scalesV:	[d3.scale.linear(), d3.scale.linear()],
 
-		// Draw - XAxis
-		groupAxisX:	svg.append("g").attr("class", "svg-axis svg-axis-x"),
+		// Groups
+		groupO:			overflow,
+		groupAxisX:		overflow.append("g").attr("class", "svg-axis svg-axis-x"),
+		groupAxisV1:	overflow.append("g").attr("class", "svg-axis svg-axis-v svg-profile-1"),
+		groupAxisV2:	overflow.append("g").attr("class", "svg-axis svg-axis-v svg-profile-2"),
+		group1:			overflow.append("g").attr("class", "svg-profile svg-profile-1"),
+		group2:			overflow.append("g").attr("class", "svg-profile svg-profile-2"),
 	};
 }
 
 /**
  * Repaint - container
  */
-function directive_repaint_container(r, mirrorV, vData1, vData2) {
+function directive_repaint_container(r, mirrorV, vData, vData2) {
 	// Parameters - Scales
 	r.scaleX.domain([r.meta.begin, r.meta.end]);
-	r.scalesV[0].domain(vData1);
-	if (vData2 !== undefined) r.scalesV[1].domain(vData2);
+	r.scalesV[0].domain(vData);
+	if (vData2 !== undefined) r.scalesV[1].domain(vData2); else r.scalesV[1].domain(vData);
 
 	// Sizes
 	r.layout.refresh(r.container, r.profiles);
@@ -160,13 +184,48 @@ function directive_repaint_container(r, mirrorV, vData1, vData2) {
 	// Sizes - Scales
 	r.scaleX.rangeRound([r.layout.profile.left(), r.layout.profile.right()]);
 	r.scalesV[0].rangeRound([r.layout.profile.bottom(), r.layout.profile.top()]);
-	if (vData2 !== undefined) if (mirrorV) r.scalesV[1].rangeRound([r.layout.profile.top(), r.layout.profile.bottom()]); else r.scalesV[1].rangeRound([r.layout.profile.bottom(), r.layout.profile.top()]);
+	if (mirrorV) r.scalesV[1].rangeRound([r.layout.profile.top(), r.layout.profile.bottom()]); else r.scalesV[1].rangeRound([r.layout.profile.bottom(), r.layout.profile.top()]);
 
 	// Sizes - container
-	r.svg.attr({width: r.layout.width, height: r.layout.height});
 	d3.select(r.container)
 		.style('height', r.layout.height + 'px')
 		.style('background', 'transparent');
+	r.svg.attr({width: r.layout.width, height: r.layout.height});
+
+	// Clean axis
+	r.groupAxisV1.attr("transform", "translate(" + r.layout.vAxis.x() + "," + r.layout.vAxis.y(0) + ")");
+	r.groupAxisV2.attr("transform", "translate(" + r.layout.vAxis.x() + "," + r.layout.vAxis.y(1) + ")");
+
+	// Clean groups
+	r.group1.attr("transform", "translate(" + r.layout.profile.x() + "," + r.layout.profile.y(0) + ")");
+	r.group2.attr("transform", "translate(" + r.layout.profile.x() + "," + r.layout.profile.y(1) + ")");
+
+	// Overflow
+	if (r.meta.allowOverflow) {
+		r.meta.overflow1 = [0, 0];
+		r.meta.overflow2 = [0, 0];
+		r.groupO.attr("transform", null);
+	}
+}
+
+/**
+ * Repaint - container
+ */
+function directive_repaint_post(r) {
+	// Overflow
+	if (r.meta.allowOverflow) {
+
+		// Top (profile 1)
+		if (r.meta.overflow1 > 0) {
+			r.groupO.attr("transform", "translate(0," + r.meta.overflow + ")");
+		}
+
+		// Bottom (profile 2)
+		if (r.meta.overflow2 > 0) {
+			d3.select(r.container).style('height', (r.layout.height + r.meta.overflow2) + 'px');
+			r.svg.attr('height', r.layout.height + r.meta.overflow2);
+		}
+	}
 }
 
 /**
@@ -223,18 +282,34 @@ app.directive('chartSwitches', function() {
 		console.log("== directive == chartSwitches ==");
 
 		// Init vars
-		var r = directive_init(scope, element, attrs, controller);
+		var r = directive_init(scope, element, attrs, 'band', true);
+
+		// Enhance meta
+		r.meta.expected = 1;
+		r.meta.minLimit = 2;
+		r.meta.pixelGroup = 3;
+		r.meta.calibrations = [];
+
+		// Calibration
+		r.profiles.forEach(function(profile) {
+			r.meta.calibrations.push(profile.hardware.calibration[r.meta.calibration]);
+		});
+		console.log(r.meta.calibrations);
 
 		// Enhance layout
-		r.layout
 
 		// Redraw
 		var repaint = function repaint() {
 				// Repaint container
-				directive_repaint_container(r, true, [0, 1], [0, 1]);
+				directive_repaint_container(r, true, [0, r.meta.minLimit]);
 
 				// Repaint graphical elements
 				directive_repaint_xAxis(r);
+
+				// custom treatement
+
+				// Post-treatment
+				directive_repaint_post(r);
 		};
 
 		// Redraw - bind
