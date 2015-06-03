@@ -143,16 +143,16 @@
 .detail .clues .clues-label {
 	cursor: help;
 }
-.detail .clues .clues-list {
+/*.detail .clues .clues-list {
 	transition: all 0.2s ease;
-	/*display: none;*/
+	/*display: none;* /
 	height: 10px;
 	overflow: hidden;
 }
 .detail .clues:hover .clues-list {
-	/*display: block; */
+	/*display: block; * /
 	height: auto;
-}
+}*/
 .detail .clues ul.clues-list {
 	list-style: none;
 	padding: 0;

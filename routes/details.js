@@ -647,6 +647,12 @@ function jsonIO(profile, id) {
 	profile.exportInfo(output);
 	addCommon(output, id);
 
+	// for context switches
+	addSwitches(output, id);
+
+	// for migrations
+	addMigrations(output, id);
+
 	return output;
 }
 

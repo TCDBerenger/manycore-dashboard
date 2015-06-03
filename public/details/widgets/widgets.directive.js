@@ -1,3 +1,11 @@
+/**********************************************************/
+/*														  */
+/*	Common smart objects								  */
+/*														  */
+/**********************************************************/
+/**
+ * Layout (old)
+ */
 var genericLayout = function() {
 	// Allow seld reference (otherwise this is the caller object)
 	var self = this;
@@ -22,6 +30,10 @@ var genericLayout = function() {
 		left: 	this.graph.left
 	};
 };
+
+/**
+ * Layout for graphs
+ */
 var graphLayout = function(type) {
 	// Allow seld reference (otherwise this is the caller object)
 	var self = this;
@@ -71,125 +83,174 @@ var graphLayout = function(type) {
 	}
 };
 
+/**
+ * Meta (parameters) (old)
+ */
 var genericMeta = function(attributes) {
+	this.begin	= +attributes.begin;	// When the user selection starts
+	this.end	= +attributes.end;		// When the user selection ends (could be before or after timeMax)
+	if (attributes.hasOwnProperty('focus'))	this.focus		= +attributes.focus;		// Focusing data (divide factor)
+	this.autoscale		= (attributes.autoscale === 'true' || attributes.autoscale === 'yes' || attributes.autoscale === '' || attributes.autoscale === 'autoscale')
+	this.graduate		= (attributes.graduate) ? +attributes.graduate : 1	// Divide the value with graduate color
+	this.max			= (attributes.max) ? +attributes.max : NaN			// Maximum possible value (cf. focus for divide this value)
+};
+
+/**
+ * Meta (parameters)
+ */
+var graphMeta = function(attributes) {
 	// Common
 	this.begin	= +attributes.begin;	// When the user selection starts
 	this.end	= +attributes.end;		// When the user selection ends (could be before or after timeMax)
 
 	// On demand
 	if (attributes.hasOwnProperty('focus'))	this.focus		= +attributes.focus;		// Focusing data (divide factor)
-
-	// Old
-	this.autoscale		= (attributes.autoscale === 'true' || attributes.autoscale === 'yes' || attributes.autoscale === '' || attributes.autoscale === 'autoscale')
-	this.graduate		= (attributes.graduate) ? +attributes.graduate : 1	// Divide the value with graduate color
-	this.max			= (attributes.max) ? +attributes.max : NaN			// Maximum possible value (cf. focus for divide this value)
 };
 
 
-// Repaint - XAxis
-function graphRepaint_xAxis(layout, groupXAxis, scaleX) {
+/**********************************************************/
+/*														  */
+/*	Common directive mecanisms							  */
+/*														  */
+/**********************************************************/
+
+/**
+ * Init directive
+ */
+function directive_init(scope, element, attrs, controller) {
+	var container =	element[0];
+	var svg =		d3.select(container).append('svg');
+
+	return {
+		// Layout
+		container:	container,
+		layout:		new graphLayout('band'),
+
+		// Attributes
+		deck:		scope.widget.deck.axis,
+		meta:		new graphMeta(attrs),
+
+		// Data
+		profiles:	scope.profiles,
+
+		// DOM
+		svg:		svg,
+
+		// Scales
+		scaleX:		d3.scale.linear(),
+		scalesV:	[d3.scale.linear(), d3.scale.linear()],
+
+		// Draw - XAxis
+		groupAxisX:	svg.append("g").attr("class", "svg-axis svg-axis-x"),
+	};
+}
+
+/**
+ * Repaint - container
+ */
+function directive_repaint_container(r, mirrorV, vData1, vData2) {
+	// Parameters - Scales
+	r.scaleX.domain([r.meta.begin, r.meta.end]);
+	r.scalesV[0].domain(vData1);
+	if (vData2 !== undefined) r.scalesV[1].domain(vData2);
+
+	// Sizes
+	r.layout.refresh(r.container, r.profiles);
+
+	// Sizes - Scales
+	r.scaleX.rangeRound([r.layout.profile.left(), r.layout.profile.right()]);
+	r.scalesV[0].rangeRound([r.layout.profile.bottom(), r.layout.profile.top()]);
+	if (vData2 !== undefined) if (mirrorV) r.scalesV[1].rangeRound([r.layout.profile.top(), r.layout.profile.bottom()]); else r.scalesV[1].rangeRound([r.layout.profile.bottom(), r.layout.profile.top()]);
+
+	// Sizes - container
+	r.svg.attr({width: r.layout.width, height: r.layout.height});
+	d3.select(r.container)
+		.style('height', r.layout.height + 'px')
+		.style('background', 'transparent');
+}
+
+/**
+ * Repaint - XAxis
+ */
+function directive_repaint_xAxis(r) {
 	// Clean
-	groupXAxis.attr("transform", "translate(" + layout.xAxis.x() + "," + layout.xAxis.y() + ")");
-	groupXAxis.selectAll("text").remove();
+	r.groupAxisX.attr("transform", "translate(" + r.layout.xAxis.x() + "," + r.layout.xAxis.y() + ")");
+	r.groupAxisX.selectAll("text").remove();
 
 	// Box
 	var points = [
-			{"x": -layout.xAxis.arrow, "y": 0},
-			{"x": layout.xAxis.right(),	"y": 0},
-			{"x": layout.xAxis.right() + layout.xAxis.arrow, "y": layout.xAxis.height / 2},
-			{"x": layout.xAxis.right(),	"y": layout.xAxis.height},
-			{"x": -layout.xAxis.arrow, "y": layout.xAxis.height},
-			{"x": 0, "y": layout.xAxis.height / 2},
+			{"x": -r.layout.xAxis.arrow, "y": 0},
+			{"x": r.layout.xAxis.right(),	"y": 0},
+			{"x": r.layout.xAxis.right() + r.layout.xAxis.arrow, "y": r.layout.xAxis.height / 2},
+			{"x": r.layout.xAxis.right(),	"y": r.layout.xAxis.height},
+			{"x": -r.layout.xAxis.arrow, "y": r.layout.xAxis.height},
+			{"x": 0, "y": r.layout.xAxis.height / 2},
 	];
-	groupXAxis.append("polygon")
+	r.groupAxisX.append("polygon")
 		.attr("points",function() { return points.map(function(d) { return [d.x, d.y].join(","); }).join(" "); })
 		.attr("stroke","black")
 		.attr("stroke-width", 2);
 
 	// Labels
-	var texts = scaleX.ticks();
-	groupXAxis
+	var texts = r.scaleX.ticks();
+	var lastIndex = texts.length - 1;
+	r.groupAxisX
 		.selectAll(".svg-text")
 		.data(texts).enter()
 		.append("text")
-			.attr("y", layout.xAxis.textShift)
-			.attr("x", function (d) { return scaleX(d)})
-			.attr("text-anchor", function(d, i) { return (i == 0) ? "start" : (i == texts.length) ? "end" : "middle"; })
-			.attr("font-size", layout.xAxis.text + "px")
+			.attr("y", r.layout.xAxis.textShift)
+			.attr("x", function (d) { return r.scaleX(d)})
+			.attr("text-anchor", function(d, i) { return (i == 0) ? "start" : (i == lastIndex) ? "end" : "middle"; })
+			.attr("font-size", r.layout.xAxis.text + "px")
 			.attr("fill", "#FFFFFF")
 			.text(function (d) { return d});
 }
 
 
 
+/**********************************************************/
+/*														  */
+/*	Directives											  */
+/*														  */
+/**********************************************************/
 
-
-
-
-
-
-
-
-
+/**
+ * Switches and migrations
+ */
 app.directive('chartSwitches', function() {
 
-	function chartThreadDivergence_link(scope, element, attrs, controller) {
-		console.log("== directive == chartHistoband ==");
+	function chart_link(scope, element, attrs, controller) {
+		console.log("== directive == chartSwitches ==");
 
-		// Layout
-		var container = element[0];
-		var layout = new graphLayout('band');
+		// Init vars
+		var r = directive_init(scope, element, attrs, controller);
 
-		// Attributes
-		var deck = scope.widget.deck.axis;
-		var meta = new genericMeta(attrs);
-
-		// Data
-		var profiles = scope.profiles;
-
-		// DOM
-		var svg = d3.select(container).append('svg');
-
-		// Scales
-		var scaleX = d3.scale.linear();
-		var scaleV = d3.scale.linear();
-
-		// Draw - XAxis
-		var groupXAxis = svg.append("g").attr("class", "svg-axis svg-axis-x");
-
+		// Enhance layout
+		r.layout
 
 		// Redraw
 		var repaint = function repaint() {
-				// Parameters - Scales
-				scaleX.domain([meta.begin, meta.end]);
-
-				// Sizes
-				layout.refresh(container, profiles);
-
-				// Sizes - Scales
-				scaleX.rangeRound([layout.profile.left(), layout.profile.right()]);
-				scaleV.rangeRound([layout.profile.bottom(), layout.profile.top()]);
-
-				// Sizes - container
-				svg.attr({width: layout.width, height: layout.height});
-				d3.select(container)
-					.style('height', layout.height + 'px')
-					.style('background', 'transparent');
+				// Repaint container
+				directive_repaint_container(r, true, [0, 1], [0, 1]);
 
 				// Repaint graphical elements
-				graphRepaint_xAxis(layout, groupXAxis, scaleX);
+				directive_repaint_xAxis(r);
 		};
 
 		// Redraw - bind
-		scope.$watch(function() { return container.clientWidth; }, repaint);
+		scope.$watch(function() { return r.container.clientWidth; }, repaint);
 	}
 
 	return {
-		link: chartThreadDivergence_link,
+		link: chart_link,
 		restrict: 'E'
 	}
 });
 
+
+/**
+ * Cache misses
+ */
 app.directive('chartCacheMisses', function() {
 
 	function chart_link(scope, element, attrs, controller) {
@@ -327,9 +388,13 @@ app.directive('chartCacheMisses', function() {
 	}
 });
 
+
+/**
+ * 
+ */
 app.directive('chartThreadDivergence', function() {
 
-	function chartThreadDivergence_link(scope, element, attrs, controller) {
+	function chart_link(scope, element, attrs, controller) {
 		console.log("== directive == chartThreadDivergence ==");
 
 		// Layout
@@ -475,14 +540,18 @@ app.directive('chartThreadDivergence', function() {
 	}
 
 	return {
-		link: chartThreadDivergence_link,
+		link: chart_link,
 		restrict: 'E'
 	}
 });
 
+
+/**
+ * 
+ */
 app.directive('chartThreadLifetime', function() {
 
-	function chartThreadDivergence_link(scope, element, attrs, controller) {
+	function chart_link(scope, element, attrs, controller) {
 		console.log("== directive == chartThreadLifetime ==");
 
 		// Layout
@@ -609,9 +678,7 @@ app.directive('chartThreadLifetime', function() {
 				layout.width = container.clientWidth;
 
 				// Scales
-				console.log([layout.innerGraph.left(), layout.innerGraph.right()]);
 				scaleX.rangeRound([layout.innerGraph.left(), layout.innerGraph.right()]);
-				console.log(scaleX(0), scaleX(meta.end));
 
 				// SVG
 				svg.attr('width', layout.width);
@@ -676,91 +743,7 @@ app.directive('chartThreadLifetime', function() {
 	}
 
 	return {
-		link: chartThreadDivergence_link,
-		restrict: 'E'
-	}
-});
-
-app.directive('chartStats', function() {
-
-	function chartDataStackedbars_link(scope, element, attrs, controller) {
-		console.log("== directive == chartStats ==");
-
-		// Data - set
-		var ids = scope.ids;
-		var deck = scope.widget.deck.data;
-
-		// Data - Copy
-		var data = [];
-		var dataValueSumMax = 0;
-		var dataElement, dataPreviousValue, dataValueSum;
-		ids.forEach(function(id) {
-			dataElement = [];
-			dataValueSum = 0;
-			dataPreviousValue = 0;
-			deck.forEach(function(element) {
-				dataValueSum += scope.data[id].stats[element.cat][element.attr];
-				dataElement.push({
-					attr: element.attr,
-					previous: dataPreviousValue,
-					value: scope.data[id].stats[element.cat][element.attr]
-				});
-				dataPreviousValue += scope.data[id].stats[element.cat][element.attr];
-			});
-			dataValueSumMax = Math.max(dataValueSum, dataValueSumMax);
-			data.push(dataElement);
-		});
-
-
-		// Vars - layout
-		var color = d3.scale.category20();
-		var container = element[0];
-		var layout = {
-			boxes: { width: 10, padding: 2 },
-			lineHeight: 33
-		};
-		layout.width = layout.boxes.width * ids.length + layout.boxes.padding;
-		layout.height = layout.lineHeight * deck.length;
-
-		// Vars - paint
-		var svg = d3.select(container).append('svg').attr({width: layout.width, height: layout.height});
-
-		// Vars - scales
-		var scaleY = d3.scale.linear()
-				.rangeRound([0, layout.height])
-				.domain([0, dataValueSumMax]);
-
-
-		// Draw rectanges
-		// Draw rectanges - X axis
-		var boxes = svg.selectAll(".label")
-			.data(data).enter()
-			.append("g")
-				.attr("transform", function (d, i) {
-					return "translate(" + (i * (layout.boxes.width + layout.boxes.padding)) + ", 0)";
-				});
-
-		// Draw rectanges - Y axis
-		boxes.selectAll("rect")
-			.data(function (d) {
-				return d;
-			}).enter()
-			.append("rect")
-				.attr("width", layout.boxes.width)
-				.attr("y", function (d) {
-					return layout.height - scaleY(d.previous) - scaleY(d.value);
-				})
-				.attr("height", function (d) {
-					return scaleY(d.value);
-				})
-				.style("fill", function (d, i, j) {
-					return deck[i].color;
-				});
-	};
-
-
-	return {
-		link: chartDataStackedbars_link,
+		link: chart_link,
 		restrict: 'E'
 	}
 });
