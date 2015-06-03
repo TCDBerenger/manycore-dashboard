@@ -1,13 +1,139 @@
-app.controller('DetailController', ['$scope', '$rootScope', '$window', '$stateParams', 'selectedProfiles', 'dataProfiles', 'categories', 'widgets', function($scope, $rootScope, $window, $stateParams, selectedProfiles, dataProfiles, categories, widgets) {
-	// Metadata
-	$scope.meta = {};
+app.controller('DetailController', ['$scope', '$rootScope', '$window', '$stateParams', '$http', 'selectedProfiles', 'categories', 'widgets', function($scope, $rootScope, $window, $stateParams, $http, selectedProfiles, categories, widgets) {
+	/************************************************/
+	/* Constructor - Init							*/
+	/************************************************/
+	// Profiles
+	var tag =		$stateParams.cat;
+	var ids =		$stateParams.ids.split('-');
+	var profiles =	selectedProfiles;
+	var waiting =	true;
+
+	// Check already data
+	var dataToRetreive = [];
+	profiles.forEach(function(profile) {
+		if (! profile.data.hasOwnProperty(tag)) {
+			dataToRetreive.push(profile.id);
+		}
+	});
+
+	// Something to retreive ?
+	// Looking for profile data
+	if (dataToRetreive.length != 0) {
+		retreiveData(dataToRetreive);
+	} else {
+		postReceiption();
+	}
+
+
+	// Setting for layout and visual/graphics elements
+	var layout = {
+		colXS: { graph: 7, data: 5 },
+		colSM: { graph: 8, data: 4 },
+		colMD: { graph: 9, data: 3 },
+		colLG: { graph: 9, data: 3 }
+	};
+
+
+
 	
+	/************************************************/
+	/* Network - retreive data						*/
+	/************************************************/
+	/**
+	 * Retreive - data
+	 */
+	function retreiveData(dataToRetreive) {
+
+		$http.get('/service/details/'+ tag + '/' + dataToRetreive.join('-')).success(function(data) {
+			profiles.forEach(function(profile) {
+				profile.data[tag] = data[profile.id];
+			});
+			postReceiption();
+		});
+		
+	}
+	/**
+	 * Retreive - populate
+	 */
+	function postReceiption() {
+		oldDataCompatibility();
+
+		$scope.selection = {
+			begin: 0,
+			end: (profiles.length > 1) ? Math.max(profiles[0].data[tag].info.duration, profiles[1].data[tag].info.duration) : profiles[0].data[tag].info.duration
+		}
+
+		waiting =	false;
+	}
+	
+	/************************************************/
+	/* Functions - Graphical						*/
+	/************************************************/
+	/**
+	 * Waiting - is waiting some data
+	 */
+	function isWaiting() {
+		return waiting;
+	};
+
+
+
+	
+	/************************************************/
+	/* Scope - post treatment						*/
+	/************************************************/
+	/**
+	 * Global binds
+	 */
+	angular.element($window).on('resize', function() {
+		$scope.$apply();
+	});
+
+	/**
+	 * Start session from here?
+	 *	-> Dispatch selected profiles
+	 */
+	$rootScope.saveSelectedIDs(ids);
+
+	/**
+	 * Populate
+	 */
+	$scope.widgets = widgets;
+	$scope.ids = ids;
+	$scope.profiles = profiles;
+	$scope.isWaiting = isWaiting;
+	$scope.layout = layout;
+	$scope.meta = categories[tag];
+
+	/**
+	 * Old compatibilty
+	 */
+	function oldDataCompatibility() {
+		$scope.data = {
+			c: {
+				timeMin: 0,
+				duration: 0
+			}
+		};
+		profiles.forEach(function(profile) {
+			$scope.data[profile.id] = profile.data[tag];
+			$scope.data.c.duration = Math.max($scope.data.c.duration, profile.data[tag].info.duration);
+		});
+	}
+
+
+
+	//
+	//
+	//		OLD
+	//
+	//
+	/*
 	// Metadata - Copy params data
-	$scope.meta.ids = $stateParams.ids;
-	$scope.ids = $stateParams.ids.split('-');
-	
+	$scope.meta.ids = $stateParams.ids;	
+
 	// Metadata - Copy detail data
-	var category = categories[$stateParams.cat];
+	var category = categories[tag];
 	for (var attr in category) {
 		if (category.hasOwnProperty(attr)) {
 			$scope.meta[attr] = category[attr];
@@ -15,7 +141,6 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	};
 	
 	// Details
-	$scope.widgets = widgets;
 	$scope.profiles = selectedProfiles;
 	$scope.ids = [];
 	$scope.data = dataProfiles;
@@ -24,76 +149,5 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	$scope.profiles.forEach(function(profile) {
 		$scope.ids.push(profile.id);
 	});
-
-	// Start session from here? Dispatch selected profiles
-	$rootScope.saveSelectedIDs($scope.ids);
-
-	// Setting for layout and visual/graphics elements
-	$scope.layout = {
-		colXS: {
-			graph: 7,
-			data: 5
-		},
-		colSM: {
-			graph: 8,
-			data: 4
-		},
-		colMD: {
-			graph: 9,
-			data: 3
-		},
-		colLG: {
-			graph: 9,
-			data: 3
-		}
-	};
-
-	// Data to show
-	$scope.chartSets = {
-		common: [
-			{ cat: '', attr: '',	title: 'capacity',		desc: 'capacity',	color: '#9ED3FF' }
-		],
-		cycles: [
-			{ cat: 'times',	attr: 'r',	title: 'running',	desc: 'running',	color: '#8DD28A' },
-			{ cat: 'times',	attr: 'ys',		title: 'ready',		desc: 'ready',		color: '#D28A8D' }
-		],
-		switches: 	[{ cat: 'switches',		attr: 's',	title: 'switches',		desc: 'switches',	color: '#797979' }],
-		migrations: [{ cat: 'migrations',	attr: 'm',	title: 'migrations',	desc: 'migrations',	color: '#797979' }],
-		cyclesExtended: [
-			//{ cat: 'times',	attr:'init',		title: 'init',			desc: 'init',		color:'#797979' },
-			{ cat: 'times',	attr:'r',		title: 'running',		desc: 'running',	color:'#8DD28A' },
-			{ cat: 'times',	attr:'s',		title: 'standby',		desc: 'standby',	color:'#D2AB8A' },
-			{ cat: 'times',	attr:'w',		title: 'wait',			desc: 'wait',		color:'#D2AB8A' },
-			{ cat: 'times',	attr:'y',		title: 'ready',			desc: 'ready',		color:'#D28A8D' }
-			//{ cat: 'times',	attr:'transition',	title: 'transition',	desc: 'transition',	color:'#797979' },
-			//{ cat: 'times',	attr:'terminated',	title: 'terminated',	desc: 'terminated',	color:'#797979' },
-			//{ cat: 'times',	attr:'unknown',		title: 'unknown',		desc: 'unknown',	color:'#797979' }
-		],
-	}
-
-	// Global binds
-	angular.element($window).on('resize', function() {
-		$scope.$apply();
-	});
-
-	
-	$scope.displayProfiles = function() {
-		var output = "";
-		
-		if ($scope.profiles.length == 0) {
-			output = "nothing (bad URL)"
-		} else {
-			$scope.profiles.forEach(function(element, index, array) {
-				if (array.length > 1 && index == array.length - 1) {
-					output += " & ";
-				} else if (index > 0) {
-					output += ", ";
-				}
-				
-				output += element.label;
-			});
-		}
-		
-		return output;
-	}
+	*/
 }]);

@@ -196,3 +196,15 @@
 	padding-left: 1em;
 	text-indent: -1.2em;
 }
+
+
+/*
+ * Waiting
+ */
+.detail .waiting {
+	text-align: center;
+}
+.detail .waiting .block {
+	margin-top: 150px;
+	font-size: 3em;
+}

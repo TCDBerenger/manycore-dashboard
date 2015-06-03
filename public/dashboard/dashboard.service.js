@@ -1,71 +1,86 @@
 app.factory('profileService', ['$http', function($http) {
 	var output = {
-		all: [],
-		map: {}
+		all: []
 	};
 	
-	output.reindexation = function() {
-		output.map = {};
-		
-		output.all.forEach(function(profile, index, array) {
-			output.map[profile.id] = index;
+	output.postReceipt = function(list) {
+		list.forEach(function(profile) {
+			// Only add
+			if (! output.hasOwnProperty(profile.id)) {
+				output[profile.id] = profile;
+			}
+
+			// Check data property
+			if (! profile.hasOwnProperty('data')) {
+				profile.data = {};
+			}
 		});
 	}
 	
 	output.getAll = function() {
 		return $http.get('/service/profiles').success(function(data) {
 			angular.copy(data, output.all);
-			output.reindexation();
-
-			output.all.forEach(function(profile) {
-				profile.data = {};
-			});
+			output.postReceipt(output.all);
 		});
 	};
 	
 	output.gets = function(ids) {
 		/*
-		var selected = [];
+		// Init
+		ids = ids.split('-');
 
-		for (var i = ids.length - 1; i >= 0; i--) {
-			if (output.map.hasOwnProperty(ids[i])) {
-				selected.push(output.map[ids[i]]);
-				array.splice(i, 1);
+		// Vars
+		var missingIDs = [];
+		var directResult = [];
+
+		// Reuse
+		idArray.forEach(function(id) {
+			if (output.map.hasOwnProperty(id)) {
+				directResult.push(output.map[id]);
+			} else {
+				missingIDs.push(id);
 			}
-		};
-		
-		if (ids.length > 0) {
-			return $http.get('/service/profiles/' + ids).then(function(res){
-				
-				angular.copy(res.data, selected);
+		});
 
-				selected.forEach(function(profile) {
-					profile.data = {};
+		console.log('before', ids, directResult, missingIDs);
+		
+		if (missingIDs.length > 0) {
+			var tmp = $http.get('/service/profiles/' + missingIDs.join('-')).then(function(result) {
+
+				// Get result profiles
+				var profiles = [];
+				angular.copy(result.data, profiles);
+				output.postReceipt(profiles);
+
+				// Prepare result (with previously downloaded results)
+				var result = [];
+				idArray.forEach(function(id) {
+					result.push(output.map[id]);
 				});
 				
-				return selected;
+				console.log('result', result);
+				return result;
 			});
+			console.log('promise', tmp);
+			return tmp;
 		} else {
-			return function() {
-				return selected;
-			}
+			return directResult;
 		}
 		*/
+		
 		return $http.get('/service/profiles/' + ids).then(function(res){
-			var selected = [];
+			var fromServer = [];
+			var toController = [];
 			
-			angular.copy(res.data, selected);
-			/*
-			selected.forEach(function(profile) {
-				output.all[output.map[profile.id]] = profile;
-			});
-			*/
-			
-			selected.forEach(function(profile) {
-				profile.data = {};
+			angular.copy(res.data, fromServer);
+			output.postReceipt(fromServer);
+
+			// Prepare result (with previously downloaded results)
+			fromServer.forEach(function(profile) {
+				toController.push(output[profile.id]);
 			});
 			
-			return selected;
+			return toController;
 		});
 	};
 	

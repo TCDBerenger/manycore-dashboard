@@ -105,28 +105,38 @@ var genericMeta = function(attributes) {
 /**
  * Meta (parameters)
  */
-var graphMeta = function(attributes, vMirror, allowOverflow) {
+var graphMeta = function(scope, attributes, vMirror, allowOverflow) {
 	// Allow seld reference (otherwise this is the caller object)
 	var self = this;
 
+	// Save params
+	this.scope			= scope;
+
 	// Common
-	this.begin			= +attributes.begin;	// When the user selection starts
-	this.end			= +attributes.end;		// When the user selection ends (could be before or after timeMax)
+	this.begin			= NaN;		// When the user selection starts
+	this.end			= NaN;		// When the user selection ends (could be before or after timeMax)
 	this.duration		= function() { return self. end - self.begin; };
+	this.refresh		= function() {
+		self.begin = self.scope.selection.begin;
+		self.end = self.scope.selection.end;
+	}
 
 	// Layout
 	this.vMirror		= (vMirror !== undefined) ? vMirror : false;
 
 	// Overflow
 	this.allowOverflow	= (allowOverflow !== undefined) ? allowOverflow : false;
-	this.overflow1		= 0;					// Possible overflow by first profile
-	this.overflow2		= 0;					// Possible overflow by second profile
+	this.overflow1		= NaN;		// Possible overflow by first profile
+	this.overflow2		= NaN;		// Possible overflow by second profile
 
 	// On demand
 	['calibration'].forEach(function(a) {
 		if (attributes.hasOwnProperty(a))
 			self[a] = isNaN(attributes[a]) ? attributes[a] : +attributes[a];
 	});
+
+	// Compute
+	this.refresh();
 };
 
 
@@ -146,7 +156,7 @@ function directive_init(scope, element, attrs, layoutType, vMirror, allowOverflo
 
 	// Attributes
 	var deck =		scope.widget.deck.axis;
-	var meta =		new graphMeta(attrs, vMirror, allowOverflow);
+	var meta =		new graphMeta(scope, attrs, vMirror, allowOverflow);
 
 	// Data
 	var profiles =	scope.profiles;
@@ -190,6 +200,9 @@ function directive_init(scope, element, attrs, layoutType, vMirror, allowOverflo
  * Repaint - container
  */
 function directive_repaint_container(r, vData, vData2) {
+	// Parameters - Data
+	r.meta.refresh();
+
 	// Parameters - Scales
 	r.scaleX.domain([r.meta.begin, r.meta.end]);
 	r.scalesV[0].domain(vData);

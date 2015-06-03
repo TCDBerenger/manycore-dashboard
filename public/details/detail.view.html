@@ -1,4 +1,11 @@
-<div class="row detail{{facetCheck | iif : ' detail-faceted' : ''}}">
+<!-- Waiting -->
+<div class="row detail" ng-if="isWaiting()"><div class="col-xs-12 waiting"><div class="block">
+	<i class="fa fa-spinner fa-pulse"></i>
+	<strong>Retrieving data...</strong>
+</div></div></div>
+
+<!-- Display data -->
+<div class="row detail" ng-if="! isWaiting()">
 	<div class="col-xs-12 profile">
 		<h2>{{meta.label}}</h2> for
 		<span>{{profiles[0].label}}</span>

@@ -19,10 +19,10 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 			resolve: {
 				selectedProfiles: ['$stateParams', 'profileService', function($stateParams, profileService) {
 					return profileService.gets($stateParams.ids);
-				}],
+				}]/*,
 				dataProfiles: ['$stateParams', 'detailService', function($stateParams, detailService) {
 					return detailService.gets($stateParams.cat, $stateParams.ids);
-				}]
+				}]*/
 			}
 		})
 		.state('admin', {
