@@ -328,73 +328,73 @@ app.directive('chartSwitches', function() {
 
 		// Redraw
 		var repaint = function repaint() {
-				// Repaint container
-				directive_repaint_container(r, [0, r.meta.minLimit]);
+			// Repaint container
+			directive_repaint_container(r, [0, r.meta.minLimit]);
 
-				// Repaint graphical elements
-				directive_repaint_xAxis(r);
+			// Repaint graphical elements
+			directive_repaint_xAxis(r);
+
+			// Computation
+			var msByBrushstroke =		r.meta.duration() / r.layout.width / r.meta.pixelGroup;
+			
+
+			// Draw
+			r.profiles.forEach(function(profile, index) {
+				// Clean
+				r.groupV[index].selectAll("text").remove();
 
 				// Computation
-				var msByBrushstroke =		r.meta.duration() / r.layout.width / r.meta.pixelGroup;
-				
+				var limitByBrushstroke = msByBrushstroke * r.meta.calibrations[index];
 
-				// Draw
-				r.profiles.forEach(function(profile, index) {
-					// Clean
-					r.groupV[index].selectAll("text").remove();
+				// Limit - label
+				r.groupV[index].append("text")
+					.attr("x", r.layout.vAxis.width())
+					.attr("y", r.scalesV[index](r.meta.expected) + 3)
+					.attr("text-anchor", "end")
+					.attr("font-size", r.layout.vAxis.fontSize + "px")
+					.attr("font-weight", "bold")
+					.text(r.meta.expected + "×");
 
-					// Computation
-					var limitByBrushstroke = msByBrushstroke * r.meta.calibrations[index];
+				// Limit
+				r.groupV[index].append("line")
+					.attr("class", "line")
+					.attr('stroke', "#000000")
+					.attr('stroke-width', 1)
+					.attr('stroke-dasharray', 3.1)
+					.attr("x1", r.layout.vAxis.width())
+					.attr("x2", r.layout.vAxis.width() + r.layout.profile.width())
+					.attr("y1", r.scalesV[index](r.meta.expected))
+					.attr("y2", r.scalesV[index](r.meta.expected));
 
-					// Limit - label
-					r.groupV[index].append("text")
-						.attr("x", r.layout.vAxis.width())
-						.attr("y", r.scalesV[index](r.meta.expected) + 3)
-						.attr("text-anchor", "end")
-						.attr("font-size", r.layout.vAxis.fontSize + "px")
-						.attr("font-weight", "bold")
-						.text(r.meta.expected + "×");
+				// Data - vars
+				var x = 0;	var xMax = r.layout.width;			var xPad = r.meta.pixelGroup;
+				var d = 0;	var dMax = 0 /* datal length */;	var dPad = msByBrushstroke;
+				var count;
 
-					// Limit
-					r.groupV[index].append("line")
-						.attr("class", "line")
-						.attr('stroke', "#000000")
-						.attr('stroke-width', 1)
-						.attr('stroke-dasharray', 3.1)
-						.attr("x1", r.layout.vAxis.width())
-						.attr("x2", r.layout.vAxis.width() + r.layout.profile.width())
-						.attr("y1", r.scalesV[index](r.meta.expected))
-						.attr("y2", r.scalesV[index](r.meta.expected));
+				// Data - loop
+				while (x < xMax) {
+					// Reset
+					count = 0;
 
-					// Data - vars
-					var x = 0;	var xMax = r.layout.width;			var xPad = r.meta.pixelGroup;
-					var d = 0;	var dMax = 0 /* datal length */;	var dPad = msByBrushstroke;
-					var count;
-
-					// Data - loop
-					while (x < xMax) {
-						// Reset
-						count = 0;
-
-						// Count events
+					// Count events
 
 
 
-						// Next loop
-						x += xPad;
-					}
+					// Next loop
+					x += xPad;
+				}
 
-					// Data - draw
-					r.groupP[index].append("polygon")
-						.attr("points",function() { return [{"x": 0, "y": r.scalesV[index](0)}, {"x": r.scaleX(r.meta.duration()), "y": r.scalesV[index](0)}, {"x": r.scaleX(r.meta.duration()), "y": r.scalesV[index](2)}, {"x": 0, "y": r.scalesV[index](2)}].map(function(d) { return [d.x, d.y].join(","); }).join(" "); })
-						.attr("stroke", "#F9F9F9")
-						.attr("stroke-width", 2);
+				// Data - draw
+				r.groupP[index].append("polygon")
+					.attr("points",function() { return [{"x": 0, "y": r.scalesV[index](0)}, {"x": r.scaleX(r.meta.duration()), "y": r.scalesV[index](0)}, {"x": r.scaleX(r.meta.duration()), "y": r.scalesV[index](2)}, {"x": 0, "y": r.scalesV[index](2)}].map(function(d) { return [d.x, d.y].join(","); }).join(" "); })
+					.attr("stroke", "#F9F9F9")
+					.attr("stroke-width", 2);
 
-				});
+			});
 
 
-				// Post-treatment
-				directive_repaint_post(r);
+			// Post-treatment
+			directive_repaint_post(r);
 		};
 
 		// Redraw - bind
