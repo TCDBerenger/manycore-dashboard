@@ -46,6 +46,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 
 		$http.get('/service/details/'+ tag + '/' + dataToRetreive.join('-')).success(function(data) {
 			profiles.forEach(function(profile) {
+				profile.currentData = data[profile.id];
 				profile.data[tag] = data[profile.id];
 			});
 			postReceiption();

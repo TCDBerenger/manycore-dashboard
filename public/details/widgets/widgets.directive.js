@@ -179,7 +179,6 @@ function directive_init(scope, element, attrs, layoutType, vMirror, allowOverflo
 	var groupP2 =		overflow.append("g").attr("class", "svg-profile svg-profile-2");
 
 
-
 	return {
 		container:	container,
 		layout:		layout,
