@@ -42,7 +42,7 @@ var graphLayout = function(type) {
 	this.padding	= { top: 0, right: 10, bottom: 0, left: 20, inner: 10 };
 	this.profile	= { favoriteHeight: 0 };
 	this.xAxis		= { height: 10, text: 8, textShift: 8, arrow: 8 };
-	this.vAxis		= {  };
+	this.vAxis		= { fontSize: 10 };
 
 	// common vars
 	this.height		= 0;
@@ -62,7 +62,7 @@ var graphLayout = function(type) {
 
 	// Draw - profiles
 	this.profile.x =		function() { return self.padding.left; };
-	this.profile.y =		function(index) { return self.padding.top + index * (self.profile.favoriteHeight + self.padding.inner + self.xAxis.height) };
+	this.profile.y =		function(index) { return self.padding.top + index * (self.profile.favoriteHeight + self.padding.inner * 2 + self.xAxis.height) };
 	this.profile.width =	function() { return self.width - self.padding.left - self.padding.right; };
 	this.profile.height =	function() { return self.profile.favoriteHeight; };
 	this.profile.left =		function() { return 0; }; 
@@ -105,15 +105,19 @@ var genericMeta = function(attributes) {
 /**
  * Meta (parameters)
  */
-var graphMeta = function(attributes, allowOverflow) {
+var graphMeta = function(attributes, vMirror, allowOverflow) {
 	// Allow seld reference (otherwise this is the caller object)
 	var self = this;
 
 	// Common
 	this.begin			= +attributes.begin;	// When the user selection starts
 	this.end			= +attributes.end;		// When the user selection ends (could be before or after timeMax)
+	this.duration		= function() { return self. end - self.begin; };
 
-	// Computed
+	// Layout
+	this.vMirror		= (vMirror !== undefined) ? vMirror : false;
+
+	// Overflow
 	this.allowOverflow	= (allowOverflow !== undefined) ? allowOverflow : false;
 	this.overflow1		= 0;					// Possible overflow by first profile
 	this.overflow2		= 0;					// Possible overflow by second profile
@@ -135,48 +139,61 @@ var graphMeta = function(attributes, allowOverflow) {
 /**
  * Init directive
  */
-function directive_init(scope, element, attrs, layoutType, allowOverflow) {
+function directive_init(scope, element, attrs, layoutType, vMirror, allowOverflow) {
+	// Layout
 	var container =	element[0];
+	var layout =	new graphLayout(layoutType);
+
+	// Attributes
+	var deck =		scope.widget.deck.axis;
+	var meta =		new graphMeta(attrs, vMirror, allowOverflow);
+
+	// Data
+	var profiles =	scope.profiles;
+
+	// Canvas
 	var svg =		d3.select(container).append('svg');
+
+	// Scales
+	var scaleX =	d3.scale.linear();
+	var scalesV =	[d3.scale.linear(), d3.scale.linear()];
+
+	// Overflow
 	var overflow =	(allowOverflow) ? svg.append("g").attr("class", "svg-overflow") : svg;
 
+	// Groups
+	var groupAxisX =	overflow.append("g").attr("class", "svg-axis svg-axis-x");
+	var groupAxisV1 =	overflow.append("g").attr("class", "svg-axis svg-axis-v svg-profile-1");
+	var groupAxisV2 =	overflow.append("g").attr("class", "svg-axis svg-axis-v svg-profile-2");
+	var groupP1 =		overflow.append("g").attr("class", "svg-profile svg-profile-1");
+	var groupP2 =		overflow.append("g").attr("class", "svg-profile svg-profile-2");
+
+
+
 	return {
-		// Layout
 		container:	container,
-		layout:		new graphLayout(layoutType),
-
-		// Attributes
-		deck:		scope.widget.deck.axis,
-		meta:		new graphMeta(attrs, allowOverflow),
-
-		// Data
-		profiles:	scope.profiles,
-
-		// DOM
+		layout:		layout,
+		deck:		deck,
+		meta:		meta,
+		profiles:	profiles,
 		svg:		svg,
-
-		// Scales
-		scaleX:		d3.scale.linear(),
-		scalesV:	[d3.scale.linear(), d3.scale.linear()],
-
-		// Groups
-		groupO:			overflow,
-		groupAxisX:		overflow.append("g").attr("class", "svg-axis svg-axis-x"),
-		groupAxisV1:	overflow.append("g").attr("class", "svg-axis svg-axis-v svg-profile-1"),
-		groupAxisV2:	overflow.append("g").attr("class", "svg-axis svg-axis-v svg-profile-2"),
-		group1:			overflow.append("g").attr("class", "svg-profile svg-profile-1"),
-		group2:			overflow.append("g").attr("class", "svg-profile svg-profile-2"),
+		scaleX:		scaleX,
+		scalesV:	scalesV,
+		groupO:		overflow,
+		groupX:		groupAxisX,
+		groupV:		[groupAxisV1, groupAxisV2],
+		groupP:		[groupP1, groupP2],
 	};
 }
 
 /**
  * Repaint - container
  */
-function directive_repaint_container(r, mirrorV, vData, vData2) {
+function directive_repaint_container(r, vData, vData2) {
 	// Parameters - Scales
 	r.scaleX.domain([r.meta.begin, r.meta.end]);
 	r.scalesV[0].domain(vData);
-	if (vData2 !== undefined) r.scalesV[1].domain(vData2); else r.scalesV[1].domain(vData);
+	r.scalesV[1].domain((vData2 !== undefined) ? vData2 : vData);
 
 	// Sizes
 	r.layout.refresh(r.container, r.profiles);
@@ -184,7 +201,7 @@ function directive_repaint_container(r, mirrorV, vData, vData2) {
 	// Sizes - Scales
 	r.scaleX.rangeRound([r.layout.profile.left(), r.layout.profile.right()]);
 	r.scalesV[0].rangeRound([r.layout.profile.bottom(), r.layout.profile.top()]);
-	if (mirrorV) r.scalesV[1].rangeRound([r.layout.profile.top(), r.layout.profile.bottom()]); else r.scalesV[1].rangeRound([r.layout.profile.bottom(), r.layout.profile.top()]);
+	if (r.meta.vMirror) r.scalesV[1].rangeRound([r.layout.profile.top(), r.layout.profile.bottom()]); else r.scalesV[1].rangeRound([r.layout.profile.bottom(), r.layout.profile.top()]);
 
 	// Sizes - container
 	d3.select(r.container)
@@ -193,12 +210,12 @@ function directive_repaint_container(r, mirrorV, vData, vData2) {
 	r.svg.attr({width: r.layout.width, height: r.layout.height});
 
 	// Clean axis
-	r.groupAxisV1.attr("transform", "translate(" + r.layout.vAxis.x() + "," + r.layout.vAxis.y(0) + ")");
-	r.groupAxisV2.attr("transform", "translate(" + r.layout.vAxis.x() + "," + r.layout.vAxis.y(1) + ")");
+	r.groupV[0].attr("transform", "translate(" + r.layout.vAxis.x() + "," + r.layout.vAxis.y(0) + ")");
+	r.groupV[1].attr("transform", "translate(" + r.layout.vAxis.x() + "," + r.layout.vAxis.y(1) + ")");
 
 	// Clean groups
-	r.group1.attr("transform", "translate(" + r.layout.profile.x() + "," + r.layout.profile.y(0) + ")");
-	r.group2.attr("transform", "translate(" + r.layout.profile.x() + "," + r.layout.profile.y(1) + ")");
+	r.groupP[0].attr("transform", "translate(" + r.layout.profile.x() + "," + r.layout.profile.y(0) + ")");
+	r.groupP[1].attr("transform", "translate(" + r.layout.profile.x() + "," + r.layout.profile.y(1) + ")");
 
 	// Overflow
 	if (r.meta.allowOverflow) {
@@ -233,8 +250,8 @@ function directive_repaint_post(r) {
  */
 function directive_repaint_xAxis(r) {
 	// Clean
-	r.groupAxisX.attr("transform", "translate(" + r.layout.xAxis.x() + "," + r.layout.xAxis.y() + ")");
-	r.groupAxisX.selectAll("text").remove();
+	r.groupX.attr("transform", "translate(" + r.layout.xAxis.x() + "," + r.layout.xAxis.y() + ")");
+	r.groupX.selectAll("text").remove();
 
 	// Box
 	var points = [
@@ -245,7 +262,7 @@ function directive_repaint_xAxis(r) {
 			{"x": -r.layout.xAxis.arrow, "y": r.layout.xAxis.height},
 			{"x": 0, "y": r.layout.xAxis.height / 2},
 	];
-	r.groupAxisX.append("polygon")
+	r.groupX.append("polygon")
 		.attr("points",function() { return points.map(function(d) { return [d.x, d.y].join(","); }).join(" "); })
 		.attr("stroke","black")
 		.attr("stroke-width", 2);
@@ -253,7 +270,7 @@ function directive_repaint_xAxis(r) {
 	// Labels
 	var texts = r.scaleX.ticks();
 	var lastIndex = texts.length - 1;
-	r.groupAxisX
+	r.groupX
 		.selectAll(".svg-text")
 		.data(texts).enter()
 		.append("text")
@@ -282,7 +299,7 @@ app.directive('chartSwitches', function() {
 		console.log("== directive == chartSwitches ==");
 
 		// Init vars
-		var r = directive_init(scope, element, attrs, 'band', true);
+		var r = directive_init(scope, element, attrs, 'band', true, true);
 
 		// Enhance meta
 		r.meta.expected = 1;
@@ -300,12 +317,69 @@ app.directive('chartSwitches', function() {
 		// Redraw
 		var repaint = function repaint() {
 				// Repaint container
-				directive_repaint_container(r, true, [0, r.meta.minLimit]);
+				directive_repaint_container(r, [0, r.meta.minLimit]);
 
 				// Repaint graphical elements
 				directive_repaint_xAxis(r);
 
-				// custom treatement
+				// Computation
+				var msByBrushstroke =		r.meta.duration() / r.layout.width / r.meta.pixelGroup;
+				
+
+				// Draw
+				r.profiles.forEach(function(profile, index) {
+					// Clean
+					r.groupV[index].selectAll("text").remove();
+
+					// Computation
+					var limitByBrushstroke = msByBrushstroke * r.meta.calibrations[index];
+
+					// Limit - label
+					r.groupV[index].append("text")
+						.attr("x", r.layout.vAxis.width())
+						.attr("y", r.scalesV[index](r.meta.expected) + 3)
+						.attr("text-anchor", "end")
+						.attr("font-size", r.layout.vAxis.fontSize + "px")
+						.attr("font-weight", "bold")
+						.text(r.meta.expected + "×");
+
+					// Limit
+					r.groupV[index].append("line")
+						.attr("class", "line")
+						.attr('stroke', "#000000")
+						.attr('stroke-width', 1)
+						.attr('stroke-dasharray', 3.1)
+						.attr("x1", r.layout.vAxis.width())
+						.attr("x2", r.layout.vAxis.width() + r.layout.profile.width())
+						.attr("y1", r.scalesV[index](r.meta.expected))
+						.attr("y2", r.scalesV[index](r.meta.expected));
+
+					// Data - vars
+					var x = 0;	var xMax = r.layout.width;			var xPad = r.meta.pixelGroup;
+					var d = 0;	var dMax = 0 /* datal length */;	var dPad = msByBrushstroke;
+					var count;
+
+					// Data - loop
+					while (x < xMax) {
+						// Reset
+						count = 0;
+
+						// Count events
+
+
+
+						// Next loop
+						x += xPad;
+					}
+
+					// Data - draw
+					r.groupP[index].append("polygon")
+						.attr("points",function() { return [{"x": 0, "y": r.scalesV[index](0)}, {"x": r.scaleX(r.meta.duration()), "y": r.scalesV[index](0)}, {"x": r.scaleX(r.meta.duration()), "y": r.scalesV[index](2)}, {"x": 0, "y": r.scalesV[index](2)}].map(function(d) { return [d.x, d.y].join(","); }).join(" "); })
+						.attr("stroke", "#F9F9F9")
+						.attr("stroke-width", 2);
+
+				});
+
 
 				// Post-treatment
 				directive_repaint_post(r);
