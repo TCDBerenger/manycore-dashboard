@@ -15,56 +15,68 @@
 			<table class="table table-striped table-hover">
 				<thead ng-if="profiles.length > 1">
 					<tr>
-						<th ng-repeat-start="profile in profiles">{{profile.label}}</th>
-						<th ng-repeat-end ng-if="$first"></th>
+						<th>{{profiles[0].label}}</th>
+						<th></th>
+						<th ng-if="profiles.length == 2">{{profiles[1].label}}</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr class="info"><td colspan="{{profiles.length > 1 | iif : '3' : '2'}}">Stats</td></tr>
 					<tr>
-						<td ng-repeat-start="profile in profiles"><span>ms</span>{{data[profile.id].info.duration}}</td>
-						<td ng-repeat-end ng-if="$first">duration</td>
+						<td><span>ms</span>{{data[profiles[0].id].info.duration}}</td>
+						<td>duration</td>
+						<td ng-if="profiles.length == 2"><span>ms</span>{{data[profiles[1].id].info.duration}}</td>
 					</tr>
 					<tr>
-						<td ng-repeat-start="profile in profiles">{{data[profile.id].info.threadCount}}</td>
-						<td ng-repeat-end ng-if="$first">threads</td>
+						<td>{{data[profiles[0].id].info.threadCount}}</td>
+						<td>threads</td>
+						<td ng-if="profiles.length == 2">{{data[profiles[1].id].info.threadCount}}</td>
 					</tr>
 					<tr>
-						<td ng-repeat-start="profile in profiles"><span>10⁶</span><span>&nbsp;</span><span>×</span>{{data[profile.id].stats.c / 1000000000 | number: 0}}</td>
-						<td ng-repeat-end ng-if="$first">cycles</td>
+						<td><span>10⁶</span><span>&nbsp;</span><span>×</span>{{data[profiles[0].id].stats.c / 1000000000 | number: 0}}</td>
+						<td>cycles</td>
+						<td ng-if="profiles.length == 2"><span>10⁶</span><span>&nbsp;</span><span>×</span>{{data[profiles[1].id].stats.c / 1000000000 | number: 0}}</td>
 					</tr>
 					<tr>
-						<td ng-repeat-start="profile in profiles"><span>%</span>{{data[profile.id].stats.r * 100 / (data[profile.id].stats.r + data[profile.id].stats.y + data[profile.id].stats.s + data[profile.id].stats.w) | number: 0}}</td>
-						<td ng-repeat-end ng-if="$first">running</td>
+						<td><span>%</span>{{data[profiles[0].id].stats.r * 100 / (data[profiles[0].id].stats.r + data[profiles[0].id].stats.y + data[profiles[0].id].stats.s + data[profiles[0].id].stats.w) | number: 0}}</td>
+						<td>running</td>
+						<td ng-if="profiles.length == 2"><span>%</span>{{data[profiles[1].id].stats.r * 100 / (data[profiles[1].id].stats.r + data[profiles[1].id].stats.y + data[profiles[1].id].stats.s + data[profiles[1].id].stats.w) | number: 0}}</td>
 					</tr>
 					<tr class="info"><td colspan="{{profiles.length > 1 | iif : '3' : '2'}}">Hardware</td></tr>
 					<tr>
-						<td ng-repeat-start="profile in profiles">{{profile.hardware.data.cores}} / {{profile.hardware.data.threads}}</td>
-						<td ng-repeat-end ng-if="$first">cores / threads</td>
+						<td>{{profiles[0].hardware.data.cores}} / {{profiles[0].hardware.data.threads}}</td>
+						<td>cores / threads</td>
+						<td ng-if="profiles.length == 2">{{profiles[1].hardware.data.cores}} / {{profiles[1].hardware.data.threads}}</td>
 					</tr>
 					<tr>
-						<td ng-repeat-start="profile in profiles">{{profile.hardware.data.type}} bits</td>
-						<td ng-repeat-end ng-if="$first">type</td>
+						<td>{{profiles[0].hardware.data.type}} bits</td>
+						<td>type</td>
+						<td ng-if="profiles.length == 2">{{profiles[1].hardware.data.type}} bits</td>
 					</tr>
 					<tr>
-						<td ng-repeat-start="profile in profiles"><span>GHz</span>{{profile.hardware.data.clock}}</td>
-						<td ng-repeat-end ng-if="$first">clock</td>
+						<td><span>GHz</span>{{profiles[0].hardware.data.clock}}</td>
+						<td>clock</td>
+						<td ng-if="profiles.length == 2"><span>GHz</span>{{profiles[1].hardware.data.clock}}</td>
 					</tr>
 					<tr>
-						<td ng-repeat-start="profile in profiles"><span>KB</span>{{profile.hardware.data.l1}}</td>
-						<td ng-repeat-end ng-if="$first">cache L1</td>
+						<td><span>KB</span>{{profiles[0].hardware.data.l1}}</td>
+						<td>cache L1</td>
+						<td ng-if="profiles.length == 2"><span>KB</span>{{profiles[1].hardware.data.l1}}</td>
 					</tr>
 					<tr>
-						<td ng-repeat-start="profile in profiles"><span>KB</span>{{profile.hardware.data.l2}}</td>
-						<td ng-repeat-end ng-if="$first">cache L2</td>
+						<td><span>KB</span>{{profiles[0].hardware.data.l2}}</td>
+						<td>cache L2</td>
+						<td ng-if="profiles.length == 2"><span>KB</span>{{profiles[1].hardware.data.l2}}</td>
 					</tr>
 					<tr>
-						<td ng-repeat-start="profile in profiles"><span>KB</span>{{profile.hardware.data.l3}}</td>
-						<td ng-repeat-end ng-if="$first">cache L3</td>
+						<td><span>KB</span>{{profiles[0].hardware.data.l3}}</td>
+						<td>cache L3</td>
+						<td ng-if="profiles.length == 2"><span>KB</span>{{profiles[1].hardware.data.l3}}</td>
 					</tr>
 					<tr>
-						<td ng-repeat-start="profile in profiles"><span>GB</span>{{profile.hardware.data.ram / 1048576 | number : 0}}</td>
-						<td ng-repeat-end ng-if="$first">RAM</td>
+						<td><span>GB</span>{{profiles[0].hardware.data.ram / 1048576 | number : 0}}</td>
+						<td>RAM</td>
+						<td ng-if="profiles.length == 2"><span>GB</span>{{profiles[1].hardware.data.ram / 1048576 | number : 0}}</td>
 					</tr>
 				</tbody>
 			</table>
