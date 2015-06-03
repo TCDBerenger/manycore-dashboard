@@ -294,7 +294,6 @@ app.directive('chartSwitches', function() {
 		r.profiles.forEach(function(profile) {
 			r.meta.calibrations.push(profile.hardware.calibration[r.meta.calibration]);
 		});
-		console.log(r.meta.calibrations);
 
 		// Enhance layout
 
