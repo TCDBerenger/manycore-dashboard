@@ -44,33 +44,6 @@ var graphLayout = function(type) {
 	this.xAxis		= { height: 10, text: 8, textShift: 8, arrow: 8 };
 	this.vAxis		= { fontSize: 10 };
 
-	// common vars
-	this.width		= NaN;
-	this.height		= NaN;
-
-	// Draw - profiles
-	this.profile.x =		NaN;
-	this.profile.y =		[NaN, NaN];
-	this.profile.width =	NaN;
-	this.profile.height =	NaN;
-	this.profile.left =		NaN;
-	this.profile.right =	NaN;
-	this.profile.top =		NaN;
-	this.profile.bottom =	NaN;
-
-	// Draw - x axis
-	this.xAxis.x =		NaN;
-	this.xAxis.y =		NaN;
-	this.xAxis.left =	NaN;
-	this.xAxis.right =	NaN;
-
-	// Draw - v axis
-	this.vAxis.x =		NaN;
-	this.vAxis.y =		[NaN, NaN];
-	this.vAxis.width =	NaN;
-	this.vAxis.height =	NaN;
-
-
 	switch(type) {
 		case 'band':
 			this.profile.favoriteHeight = 40;
@@ -83,6 +56,7 @@ var graphLayout = function(type) {
 		self.height	=	self.padding.top + (self.profile.favoriteHeight + self.padding.inner) * profiles.length + self.xAxis.height + self.padding.bottom;
 
 		self.profile.x =		self.padding.left;
+		self.profile.y =		[null, null];
 		self.profile.y[0] =		self.padding.top;
 		self.profile.y[1] =		self.padding.top + self.profile.favoriteHeight + self.padding.inner * 2 + self.xAxis.height;
 		self.profile.width =	self.width - self.padding.left - self.padding.right;
@@ -333,6 +307,7 @@ app.directive('chartSwitches', function() {
 
 		// Enhance meta
 		r.meta.v = r.deck.v[0];
+		r.meta.lastSelectID = null;
 		
 		// Meta - layout Y (arbitrary)
 		r.meta.expected = 1;
@@ -459,11 +434,16 @@ app.directive('chartSwitches', function() {
 				return;
 			}
 
-			// vars
+			// Time ID
 			var tID = Math.floor((x - r.layout.profile.x) / r.meta.pixelGroup);
-			var points;
+			if (tID == r.meta.lastSelectID) {
+				return;
+			} else {
+				r.meta.lastSelectID = tID;
+			}
 
 			// Loop
+			var points;
 			for (var index = 0; index < r.profiles.length; index++) {
 				// Compute points
 				points =
@@ -488,6 +468,7 @@ app.directive('chartSwitches', function() {
 		function unselect() {
 			r.svg.selectAll(".svg-selection").remove();
 			r.iSelection = [null, null];
+			r.meta.lastSelectID = null;
 		}
 
 		// Redraw - bind
