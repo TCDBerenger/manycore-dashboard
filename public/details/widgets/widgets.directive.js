@@ -39,48 +39,36 @@ var graphLayout = function(type) {
 	var self = this;
 
 	// Constants
-	this.padding	= { top: 0, right: 10, bottom: 0, left: 20, inner: 10 };
+	this.padding	= { top: 0, right: 10, bottom: 0, left: 30, inner: 4 };
 	this.profile	= { favoriteHeight: 0 };
 	this.xAxis		= { height: 10, text: 8, textShift: 8, arrow: 8 };
 	this.vAxis		= { fontSize: 10 };
 
 	// common vars
-	this.height		= 0;
-	this.width		= 0;
-
-	// Compute
-	this.refresh	= function (container, profiles) {
-		self.width	= self.canvas.width.apply(self, arguments);
-		self.height	= self.canvas.height.apply(self, arguments);
-	};
-
-	// Draw - all canvas (with margins)
-	this.canvas	= {
-		width: 	function(container) { return container.clientWidth; },
-		height:	function(container, profiles) { return self.padding.top + (self.profile.favoriteHeight + self.padding.inner) * profiles.length + self.xAxis.height + self.padding.bottom; }
-	};
+	this.width		= NaN;
+	this.height		= NaN;
 
 	// Draw - profiles
-	this.profile.x =		function() { return self.padding.left; };
-	this.profile.y =		function(index) { return self.padding.top + index * (self.profile.favoriteHeight + self.padding.inner * 2 + self.xAxis.height) };
-	this.profile.width =	function() { return self.width - self.padding.left - self.padding.right; };
-	this.profile.height =	function() { return self.profile.favoriteHeight; };
-	this.profile.left =		function() { return 0; }; 
-	this.profile.right =	function() { return self.width - self.padding.left - self.padding.right; };
-	this.profile.top =		function() { return 0; }; 
-	this.profile.bottom =	function() { return self.profile.favoriteHeight; };
+	this.profile.x =		NaN;
+	this.profile.y =		[NaN, NaN];
+	this.profile.width =	NaN;
+	this.profile.height =	NaN;
+	this.profile.left =		NaN;
+	this.profile.right =	NaN;
+	this.profile.top =		NaN;
+	this.profile.bottom =	NaN;
 
 	// Draw - x axis
-	this.xAxis.x =		function() { return self.padding.left; };
-	this.xAxis.y =		function() { return self.padding.top + self.profile.favoriteHeight + self.padding.inner; };
-	this.xAxis.left =	function() { return 0; }; 
-	this.xAxis.right =	function() { return self.width - self.padding.left - self.padding.right; };
+	this.xAxis.x =		NaN;
+	this.xAxis.y =		NaN;
+	this.xAxis.left =	NaN;
+	this.xAxis.right =	NaN;
 
 	// Draw - v axis
-	this.vAxis.x =		function() { return 0; };
-	this.vAxis.y =		this.profile.y;
-	this.vAxis.width =	function() { return self.padding.left; };
-	this.vAxis.height =	this.profile.heigh;
+	this.vAxis.x =		NaN;
+	this.vAxis.y =		[NaN, NaN];
+	this.vAxis.width =	NaN;
+	this.vAxis.height =	NaN;
 
 
 	switch(type) {
@@ -88,6 +76,34 @@ var graphLayout = function(type) {
 			this.profile.favoriteHeight = 40;
 			break;
 	}
+
+	// Compute
+	this.refresh = function(container, profiles, callback) {
+		self.width =	container.clientWidth;
+		self.height	=	self.padding.top + (self.profile.favoriteHeight + self.padding.inner) * profiles.length + self.xAxis.height + self.padding.bottom;
+
+		self.profile.x =		self.padding.left;
+		self.profile.y[0] =		self.padding.top;
+		self.profile.y[1] =		self.padding.top + self.profile.favoriteHeight + self.padding.inner * 2 + self.xAxis.height;
+		self.profile.width =	self.width - self.padding.left - self.padding.right;
+		self.profile.height =	self.profile.favoriteHeight;
+		self.profile.left =		0;
+		self.profile.right =	self.width - self.padding.left - self.padding.right;
+		self.profile.top =		0;
+		self.profile.bottom =	self.profile.favoriteHeight;
+
+		self.xAxis.x =		self.padding.left;
+		self.xAxis.y =		self.padding.top + self.profile.favoriteHeight + self.padding.inner;
+		self.xAxis.left =	0; 
+		self.xAxis.right =	self.width - self.padding.left - self.padding.right;
+
+		self.vAxis.x =		0;
+		self.vAxis.y =		self.profile.y;
+		self.vAxis.width =	self.padding.left;
+		self.vAxis.height =	self.profile.heigh;
+
+		if (callback !== undefined) callback();
+	};
 };
 
 /**
@@ -126,17 +142,13 @@ var graphMeta = function(scope, attributes, vMirror, allowOverflow) {
 
 	// Overflow
 	this.allowOverflow	= (allowOverflow !== undefined) ? allowOverflow : false;
-	this.overflow1		= NaN;		// Possible overflow by first profile
-	this.overflow2		= NaN;		// Possible overflow by second profile
+	this.overflow		= [NaN, NaN];		// Possible overflow by first and second profile
 
 	// On demand
 	['calibration'].forEach(function(a) {
 		if (attributes.hasOwnProperty(a))
 			self[a] = isNaN(attributes[a]) ? attributes[a] : +attributes[a];
 	});
-
-	// Compute
-	this.refresh();
 };
 
 
@@ -173,10 +185,10 @@ function directive_init(scope, element, attrs, layoutType, vMirror, allowOverflo
 
 	// Groups
 	var groupAxisX =	overflow.append("g").attr("class", "svg-axis svg-axis-x");
-	var groupAxisV1 =	overflow.append("g").attr("class", "svg-axis svg-axis-v svg-profile-1");
-	var groupAxisV2 =	overflow.append("g").attr("class", "svg-axis svg-axis-v svg-profile-2");
 	var groupP1 =		overflow.append("g").attr("class", "svg-profile svg-profile-1");
+	var groupAxisV1 =	overflow.append("g").attr("class", "svg-axis svg-axis-v svg-profile-1");
 	var groupP2 =		overflow.append("g").attr("class", "svg-profile svg-profile-2");
+	var groupAxisV2 =	overflow.append("g").attr("class", "svg-axis svg-axis-v svg-profile-2");
 
 
 	return {
@@ -192,28 +204,21 @@ function directive_init(scope, element, attrs, layoutType, vMirror, allowOverflo
 		groupX:		groupAxisX,
 		groupV:		[groupAxisV1, groupAxisV2],
 		groupP:		[groupP1, groupP2],
+		iData:		null,
+		iSelection:	[null, null]
 	};
 }
 
 /**
  * Repaint - container
  */
-function directive_repaint_container(r, vData, vData2) {
+function directive_repaint_container(r) {
 	// Parameters - Data
 	r.meta.refresh();
-
-	// Parameters - Scales
-	r.scaleX.domain([r.meta.begin, r.meta.end]);
-	r.scalesV[0].domain(vData);
-	r.scalesV[1].domain((vData2 !== undefined) ? vData2 : vData);
+	r.iData = [];
 
 	// Sizes
 	r.layout.refresh(r.container, r.profiles);
-
-	// Sizes - Scales
-	r.scaleX.rangeRound([r.layout.profile.left(), r.layout.profile.right()]);
-	r.scalesV[0].rangeRound([r.layout.profile.bottom(), r.layout.profile.top()]);
-	if (r.meta.vMirror) r.scalesV[1].rangeRound([r.layout.profile.top(), r.layout.profile.bottom()]); else r.scalesV[1].rangeRound([r.layout.profile.bottom(), r.layout.profile.top()]);
 
 	// Sizes - container
 	d3.select(r.container)
@@ -222,19 +227,33 @@ function directive_repaint_container(r, vData, vData2) {
 	r.svg.attr({width: r.layout.width, height: r.layout.height});
 
 	// Clean axis
-	r.groupV[0].attr("transform", "translate(" + r.layout.vAxis.x() + "," + r.layout.vAxis.y(0) + ")");
-	r.groupV[1].attr("transform", "translate(" + r.layout.vAxis.x() + "," + r.layout.vAxis.y(1) + ")");
+	r.groupV[0].attr("transform", "translate(" + r.layout.vAxis.x + "," + r.layout.vAxis.y[0] + ")");
+	r.groupV[1].attr("transform", "translate(" + r.layout.vAxis.x + "," + r.layout.vAxis.y[1] + ")");
 
 	// Clean groups
-	r.groupP[0].attr("transform", "translate(" + r.layout.profile.x() + "," + r.layout.profile.y(0) + ")");
-	r.groupP[1].attr("transform", "translate(" + r.layout.profile.x() + "," + r.layout.profile.y(1) + ")");
+	r.groupP[0].attr("transform", "translate(" + r.layout.profile.x + "," + r.layout.profile.y[0] + ")");
+	r.groupP[1].attr("transform", "translate(" + r.layout.profile.x + "," + r.layout.profile.y[1] + ")");
 
 	// Overflow
 	if (r.meta.allowOverflow) {
-		r.meta.overflow1 = [0, 0];
-		r.meta.overflow2 = [0, 0];
+		r.meta.overflow = [0, 0];
 		r.groupO.attr("transform", null);
 	}
+}
+
+/**
+ * Repaint - scales
+ */
+function directive_repaint_scales(r, vData, vData2) {
+	// Scales - domains (data)
+	r.scaleX.domain([r.meta.begin, r.meta.end]);
+	r.scalesV[0].domain(vData);
+	r.scalesV[1].domain((vData2 !== undefined) ? vData2 : vData);
+
+	// Scales - domains (coordinates)
+	r.scaleX.rangeRound([r.layout.profile.left, r.layout.profile.right]);
+	r.scalesV[0].rangeRound([r.layout.profile.bottom, r.layout.profile.top]);
+	if (r.meta.vMirror) r.scalesV[1].rangeRound([r.layout.profile.top, r.layout.profile.bottom]); else r.scalesV[1].rangeRound([r.layout.profile.bottom, r.layout.profile.top]);
 }
 
 /**
@@ -245,15 +264,13 @@ function directive_repaint_post(r) {
 	if (r.meta.allowOverflow) {
 
 		// Top (profile 1)
-		if (r.meta.overflow1 > 0) {
-			r.groupO.attr("transform", "translate(0," + r.meta.overflow + ")");
+		if (r.meta.overflow[0] > 0) {
+			r.groupO.attr("transform", "translate(0," + r.meta.overflow[0] + ")");
 		}
 
-		// Bottom (profile 2)
-		if (r.meta.overflow2 > 0) {
-			d3.select(r.container).style('height', (r.layout.height + r.meta.overflow2) + 'px');
-			r.svg.attr('height', r.layout.height + r.meta.overflow2);
-		}
+		// Top & Bottom (both profiles)
+		d3.select(r.container).style('height', (r.layout.height + r.meta.overflow[0] + r.meta.overflow[1]) + 'px');
+		r.svg.attr('height', r.layout.height + r.meta.overflow[0] + r.meta.overflow[1]);
 	}
 }
 
@@ -262,15 +279,15 @@ function directive_repaint_post(r) {
  */
 function directive_repaint_xAxis(r) {
 	// Clean
-	r.groupX.attr("transform", "translate(" + r.layout.xAxis.x() + "," + r.layout.xAxis.y() + ")");
+	r.groupX.attr("transform", "translate(" + r.layout.xAxis.x + "," + r.layout.xAxis.y + ")");
 	r.groupX.selectAll("text").remove();
 
 	// Box
 	var points = [
 			{"x": -r.layout.xAxis.arrow, "y": 0},
-			{"x": r.layout.xAxis.right(),	"y": 0},
-			{"x": r.layout.xAxis.right() + r.layout.xAxis.arrow, "y": r.layout.xAxis.height / 2},
-			{"x": r.layout.xAxis.right(),	"y": r.layout.xAxis.height},
+			{"x": r.layout.xAxis.right,	"y": 0},
+			{"x": r.layout.xAxis.right + r.layout.xAxis.arrow, "y": r.layout.xAxis.height / 2},
+			{"x": r.layout.xAxis.right,	"y": r.layout.xAxis.height},
 			{"x": -r.layout.xAxis.arrow, "y": r.layout.xAxis.height},
 			{"x": 0, "y": r.layout.xAxis.height / 2},
 	];
@@ -305,6 +322,7 @@ function directive_repaint_xAxis(r) {
 /**
  * Switches and migrations
  */
+
 app.directive('chartSwitches', function() {
 
 	function chart_link(scope, element, attrs, controller) {
@@ -314,42 +332,61 @@ app.directive('chartSwitches', function() {
 		var r = directive_init(scope, element, attrs, 'band', true, true);
 
 		// Enhance meta
+		r.meta.v = r.deck.v[0];
+		
+		// Meta - layout Y (arbitrary)
 		r.meta.expected = 1;
 		r.meta.minLimit = 2;
-		r.meta.pixelGroup = 3;
-		r.meta.calibrations = [];
+		r.meta.d_expected = [];
+		r.meta.d_minLimit = [];
 
-		// Calibration
+		// Meta - layout X
+		r.meta.pixelGroup = 5;
+
+		// Meta - Calibration
+		r.meta.calibrations = [];
 		r.profiles.forEach(function(profile) {
-			r.meta.calibrations.push(profile.hardware.calibration[r.meta.calibration]);
+			r.meta.calibrations.push(profile.hardware.calibration[r.meta.calibration] * profile.hardware.data.threads);
+			r.meta.d_expected.push(profile.hardware.calibration[r.meta.calibration] * profile.hardware.data.threads * r.meta.expected);
+			r.meta.d_minLimit.push(profile.hardware.calibration[r.meta.calibration] * profile.hardware.data.threads * r.meta.minLimit);
 		});
 
 		// Enhance layout
 
 		// Redraw
-		var repaint = function repaint() {
+		function repaint() {
 			// Repaint container
-			directive_repaint_container(r, [0, r.meta.minLimit]);
+			directive_repaint_container(r);
+
+			// Computation
+			var xMax = r.layout.profile.width;
+			var xStep = r.meta.pixelGroup;
+			var tMax = r.meta.duration(); // the max of both profiles
+			var tStep = tMax / (xMax / xStep);
+			
+			// Repaint scales
+			directive_repaint_scales(r, [0, tStep * r.meta.d_minLimit[0]], [0, tStep * r.meta.d_minLimit[1]]);
 
 			// Repaint graphical elements
 			directive_repaint_xAxis(r);
 
-			// Computation
-			var msByBrushstroke =		r.meta.duration() / r.layout.width / r.meta.pixelGroup;
-			
-
 			// Draw
+			var data, dataList, internalData, points;
+			var v_expected, v_minLimit;
 			r.profiles.forEach(function(profile, index) {
+				// vars
+				data = profile.currentData;
+				dataList = data[r.meta.v.cat].list;
+				v_expected = r.scalesV[index](tStep * r.meta.d_expected[index]);
+				v_minLimit = r.scalesV[index](tStep * r.meta.d_minLimit[1]);
+
 				// Clean
 				r.groupV[index].selectAll("text").remove();
 
-				// Computation
-				var limitByBrushstroke = msByBrushstroke * r.meta.calibrations[index];
-
 				// Limit - label
 				r.groupV[index].append("text")
-					.attr("x", r.layout.vAxis.width())
-					.attr("y", r.scalesV[index](r.meta.expected) + 3)
+					.attr("x", r.layout.vAxis.width)
+					.attr("y", v_expected + 3)
 					.attr("text-anchor", "end")
 					.attr("font-size", r.layout.vAxis.fontSize + "px")
 					.attr("font-weight", "bold")
@@ -361,15 +398,19 @@ app.directive('chartSwitches', function() {
 					.attr('stroke', "#000000")
 					.attr('stroke-width', 1)
 					.attr('stroke-dasharray', 3.1)
-					.attr("x1", r.layout.vAxis.width())
-					.attr("x2", r.layout.vAxis.width() + r.layout.profile.width())
-					.attr("y1", r.scalesV[index](r.meta.expected))
-					.attr("y2", r.scalesV[index](r.meta.expected));
+					.attr("x1", r.layout.vAxis.width)
+					.attr("x2", r.layout.vAxis.width + r.layout.profile.width)
+					.attr("y1", v_expected)
+					.attr("y2", v_expected);
+
+				// Data - points
+				points = "0," + r.scalesV[index](0);
 
 				// Data - vars
-				var x = 0;	var xMax = r.layout.width;			var xPad = r.meta.pixelGroup;
-				var d = 0;	var dMax = 0 /* datal length */;	var dPad = msByBrushstroke;
-				var count;
+				var x = 0;
+				var d = 0; var dMax = dataList.length;
+				var count, v_count;
+				internalData = [];
 
 				// Data - loop
 				while (x < xMax) {
@@ -377,28 +418,84 @@ app.directive('chartSwitches', function() {
 					count = 0;
 
 					// Count events
+					while (d < dMax && dataList[d] <= x + xStep) {
+						count++;
+						d++;
+					}
+					internalData.push(count);
 
+					v_count = r.scalesV[index](count);
 
+					points += " " + x + "," + v_count;
+					points += " " + Math.min(x + xStep, xMax) + "," + v_count;
+
+					r.meta.overflow[index] = Math.max(r.meta.overflow[index], Math.pow(-1, index) * (v_minLimit - v_count));
 
 					// Next loop
-					x += xPad;
+					x += xStep;
 				}
+
+				// Data - points
+				points += " " + Math.min(x, xMax) + "," + r.scalesV[index](0);
+				r.iData.push(internalData);
 
 				// Data - draw
 				r.groupP[index].append("polygon")
-					.attr("points",function() { return [{"x": 0, "y": r.scalesV[index](0)}, {"x": r.scaleX(r.meta.duration()), "y": r.scalesV[index](0)}, {"x": r.scaleX(r.meta.duration()), "y": r.scalesV[index](2)}, {"x": 0, "y": r.scalesV[index](2)}].map(function(d) { return [d.x, d.y].join(","); }).join(" "); })
-					.attr("stroke", "#F9F9F9")
-					.attr("stroke-width", 2);
+					.attr("points", points)
+					.attr("fill", r.meta.v.color);
 
 			});
 
 
 			// Post-treatment
 			directive_repaint_post(r);
-		};
+		}
+
+		// Select
+		function select(x) {
+			// Precondition
+			if (x < r.layout.profile.x || x > r.layout.profile.x + r.layout.profile.width) {
+				if (r.iSelection[0] != null) unselect();
+				return;
+			}
+
+			// vars
+			var tID = Math.floor((x - r.layout.profile.x) / r.meta.pixelGroup);
+			var points;
+
+			// Loop
+			for (var index = 0; index < r.profiles.length; index++) {
+				// Compute points
+				points =
+					(tID * r.meta.pixelGroup) + "," + r.scalesV[index](0) + " " +
+					(tID * r.meta.pixelGroup) + "," + r.scalesV[index](r.iData[index][tID]) + " " +
+					Math.min((tID + 1) * r.meta.pixelGroup, r.layout.profile.width) + "," + r.scalesV[index](r.iData[index][tID]) + " " +
+					Math.min((tID + 1) * r.meta.pixelGroup, r.layout.profile.width) + "," + r.scalesV[index](0);
+
+				// Draw points
+				if (r.iSelection[index] != null) {
+					r.iSelection[index].attr("points", points);
+				} else {
+					r.iSelection[index] = r.groupP[index].append("polygon")
+						.attr("class", "svg-selection")
+						.attr("points", points)
+						.attr("fill", r.meta.v.fcolor);
+				}
+			};
+		}
+		
+		// Select
+		function unselect() {
+			r.svg.selectAll(".svg-selection").remove();
+			r.iSelection = [null, null];
+		}
 
 		// Redraw - bind
 		scope.$watch(function() { return r.container.clientWidth; }, repaint);
+
+		console.log(r.container.clientLeft, r.container);
+		element.on('mousemove', function(event) { select(event.clientX - r.container.getBoundingClientRect().x); });
+		element.on('mouseleave', unselect);
 	}
 
 	return {

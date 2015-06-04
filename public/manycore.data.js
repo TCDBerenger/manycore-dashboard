@@ -75,6 +75,7 @@ app.factory('decks', ['colours', function(colours) {
 		},
 		switches: {
 			axis : {
+				v:		[sw],
 				limit:	{ color: colours.list.black },
 				x:		{ color: colours.list.dGrey, colors: [colours.list.eGrey, colours.list.dGrey, colours.list.eRed, colours.list.dRed] }
 			},
@@ -86,6 +87,7 @@ app.factory('decks', ['colours', function(colours) {
 		},
 		migrations: {
 			axis : {
+				v:		[mg],
 				limit:	{ color: colours.list.black },
 				x:		{ color: colours.list.dGrey, colors: [colours.list.eGrey, colours.list.dGrey, colours.list.eRed, colours.list.dRed] }
 			},
