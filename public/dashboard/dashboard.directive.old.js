@@ -274,3 +274,111 @@ app.directive('chartDashDivergence', function() {
 		restrict: 'E'
 	}
 });
+
+
+
+app.directive('chartDashStack', function() {
+
+	function chart_link(scope, element, attrs, controller) {
+		console.log("== directive == chartDashStack ==");
+
+		// Layout
+		var container = element[0];
+		var layout = new widgetDashLayout();
+
+		// Attributes
+		var deck = scope.category.deck;
+		var meta = new widgetDashMeta(attrs);
+
+		// Data
+		var data = scope.data[scope.profile.id];
+
+		meta.begin = 0;
+		meta.end = data.info.duration;
+
+		// Fix column layout
+		var lastElement = angular.copy(data[deck.data[0].cat][data[deck.data[0].cat].length - 1], {});
+		lastElement.t = data.info.duration;
+		data[deck.data[0].cat].push(lastElement);
+
+		// DOM
+		var svg = d3.select(container).append('svg').attr('height', layout.height);
+
+		// Scales
+		var scaleX = d3.scale.linear();
+		var scaleY = d3.scale.linear()
+				.rangeRound([layout.graph.bottom(), layout.graph.top()])
+				.domain([0, 100]);
+
+
+		// Draw
+		var interpolationMethod = "step-after";
+
+		// Draw - compute
+		var scaleYMin = scaleY(0);
+		var scaleYMax = scaleY(100);
+
+		// Draw - ready
+		var deckFunctions = [];
+		var deckElements = [];
+		deck.data.forEach(function(set, i) {
+			// Draw function
+			if (i == 0)
+				deckFunctions.push(
+					d3.svg.area()
+						.x(function(d) { return scaleX(d.t); })
+						.y0(scaleYMin)
+						.y1(function(d) { return scaleY(d[set.attr]); })
+						.interpolate(interpolationMethod)
+				);
+			else
+				deckFunctions.push(
+					d3.svg.area()
+						.x(function(d) { return scaleX(d.t); })
+						.y0(function(d) { return scaleY(100 - d[set.attr]); })
+						.y1(scaleYMax)
+						.interpolate(interpolationMethod)
+				);
+
+			// Draw element
+			deckElements.push(
+				svg.append("g").attr("class", "dataset").append("path")
+					.attr("fill", set.fcolor)
+			);
+		});
+
+
+		// (Re) Paint
+		var redraw = function redraw() {
+				// Layout
+				layout.width = container.clientWidth;
+
+				// Scale X
+				scaleX
+					.rangeRound([layout.graph.left(), layout.graph.right()])
+					.domain([meta.begin, meta.end]);
+				scaleXStep = scaleX(data.info.timeStep);
+
+				// Container
+				d3.select(container)
+					.style('height', layout.height + 'px')
+					.style('background', 'transparent');
+
+				// SVG
+				svg.attr('width', layout.width);
+
+				// Areas
+				for (var i = deck.data.length - 1; i >= 0; i--) {
+					deckElements[i].attr("d", deckFunctions[i](data[deck.data[0].cat]));
+				};
+			};
+
+		// Binds
+		scope.$watch(function() { return container.clientWidth; }, redraw);
+	}
+
+	return {
+		link: chart_link,
+		restrict: 'E'
+	}
+});
