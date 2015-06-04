@@ -25,7 +25,7 @@ app.factory('colours', [function() {
 app.factory('decks', ['colours', function(colours) {
 	var running = 	{ label: 'threads running',	title: 'running',	desc: 'a core executing a thread',					unity: 'ms', cat: 'times', attr: 'r',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
 	var ready = 	{ label: 'threads ready',	title: 'ready',		desc: 'a thread is waiting a core but CPU is full',	unity: 'ms', cat: 'times', attr: 'yb',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
-	var capacity = 	{ label: 'available',		title: 'unused',	desc: 'a core is available but unused',				unity: 'ms', cat: null, attr: null,		color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.gBlue };
+	var capacity = 	{ label: 'unused core',		title: 'unused',	desc: 'a core is available but unused',				unity: 'ms', cat: 'times', attr: 'uu',	color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.gBlue };
 
 	var ipc = 		{ label: 'executing',			title: 'Executing',			desc: 'executing',				unity: '',	cat: 'locality',	attr: 'ipc',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
 	var miss = 		{ label: 'Cache misses',		title: 'Cache misses',		desc: '',						unity: '',	cat: 'locality',	attr: 'miss',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
@@ -42,14 +42,19 @@ app.factory('decks', ['colours', function(colours) {
 	return {
 		tg: {
 			axis: {
+				v: {
+					prefix: 'half_',
+					start: [50, 50],
+					invert: [true, false]
+				},
 				limit: {
 					min: function(data) { return 0;},
 					mid: function(data) { return data.info.cores * data.info.timeStep;},
 					max: function(data) { return 2 * data.info.cores * data.info.timeStep;},
 				}
 			},
-			data: [running, ready],
-			legend: [running, ready]
+			data: [capacity, ready],
+			legend: [capacity, ready]
 		},
 		dl: {
 			data: [miss],

@@ -43,6 +43,51 @@ function addCommon(output, profile) {
 	};
 }
 
+
+/**
+ * Add data-locality data
+ */
+function addTimeProfiling(output, profile) {
+	// Data
+	var data = profile.data;
+
+	// Init vars
+	output.profiling = [];
+
+	// Data
+	var max, f;
+	
+	// Loop
+	for (var time = 0; time <= data.info.timeMax; time += data.info.timeStep) {
+		// Result
+		f = { t: time };
+
+		// uu 	: unused			half for half value (start from the middle)
+		// yb	: ready & standby	half for half value (start from the middle)
+		if (data.frames.hasOwnProperty(time)) {
+			max = data.info.cores * data.info.timeStep;
+
+			f.half_uu =	Math.round(50 - 50 * data.frames[time].running / max);
+			f.half_yb = Math.round(50 * (data.frames[time].ready + data.frames[time].standby) / max);
+		} else {
+			f.half_uu =	NaN;
+			f.half_yb = NaN;
+		}
+
+		// miss	: cache misses
+		if (data.locality.byFrames.hasOwnProperty(time)) {
+			max = data.locality.byFrames[time].ipc + data.locality.byFrames[time].tlb + data.locality.byFrames[time].l1 + data.locality.byFrames[time].l2 + data.locality.byFrames[time].l3 + data.locality.byFrames[time].hpf;
+
+			f.miss =	100 - Math.round(100 * data.locality.byFrames[time].ipc / max);
+		} else {
+			f.miss =	NaN;
+		}
+
+		// Save
+		output.profiling.push(f);
+	}
+}
+
 /**
  * Add cycles
  */
@@ -107,6 +152,7 @@ function addTime(output, profile) {
 		output.times.push({
 			t:	timeID,
 			r:	sumRunning,
+			uu:	data.info.cores * data.info.timeStep - sumRunning,
 			yb:	sumReady + sumStandby
 		});
 
@@ -181,6 +227,9 @@ router.get('/*', function(request, response) {
 	// Common
 	profile.exportInfo(output);
 	addCommon(output, profile);
+
+	// for time profiling
+	addTimeProfiling(output, profile);
 
 	// for potential parallelism
 	addTime(output, profile);
