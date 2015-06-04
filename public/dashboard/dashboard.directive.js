@@ -75,10 +75,10 @@ var indicatorDashLayout = function() {
 };
 
 
-app.directive('chartDashStack', function() {
+app.directive('chartDashProfile', function() {
 
-	function chartThreadDivergence_link(scope, element, attrs, controller) {
-		console.log("== directive == chartDashStack ==");
+	function chart_link(scope, element, attrs, controller) {
+		console.log("== directive == chartDashProfile ==");
 
 		// Layout
 		var container = element[0];
@@ -89,18 +89,20 @@ app.directive('chartDashStack', function() {
 		var meta = new widgetDashMeta(attrs);
 
 		// Data
-		var data = scope.data[scope.profile.id];
+		var profile = scope.profile;
+		var data = profile.data.dash;
+		var dataList = profile.data.dash.profiling;
 
 		meta.begin = 0;
 		meta.end = data.info.duration;
 
 		// Fix column layout
-		var lastElement = angular.copy(data[deck.data[0].cat][data[deck.data[0].cat].length - 1], {});
-		lastElement.t = data.info.duration;
-		data[deck.data[0].cat].push(lastElement);
+		dataList = dataList.slice(0);
+		dataList.push(dataList[dataList.length - 1]);
 
 		// DOM
 		var svg = d3.select(container).append('svg').attr('height', layout.height);
+		var group = svg.append("g").attr("class", "dataset");
 
 		// Scales
 		var scaleX = d3.scale.linear();
@@ -111,36 +113,22 @@ app.directive('chartDashStack', function() {
 
 		// Draw
 		var interpolationMethod = "step-after";
-
-		// Draw - compute
-		var scaleYMin = scaleY(0);
-		var scaleYMax = scaleY(100);
-
-		// Draw - ready
 		var deckFunctions = [];
 		var deckElements = [];
-		deck.data.forEach(function(set, i) {
-			// Draw function
-			if (i == 0)
-				deckFunctions.push(
-					d3.svg.area()
-						.x(function(d) { return scaleX(d.t); })
-						.y0(scaleYMin)
-						.y1(function(d) { return scaleY(d[set.attr]); })
-						.interpolate(interpolationMethod)
-				);
-			else
-				deckFunctions.push(
-					d3.svg.area()
-						.x(function(d) { return scaleX(d.t); })
-						.y0(function(d) { return scaleY(100 - d[set.attr]); })
-						.y1(scaleYMax)
-						.interpolate(interpolationMethod)
-				);
 
-			// Draw element
+		deck.data.forEach(function(set, i) {
+			// Function
+			deckFunctions.push(
+				d3.svg.area()
+					.x(function(d) { return scaleX(d.t); })
+					.y0(scaleY(0))
+					.y1(function(d) { return scaleY(d[set.attr]); })
+					.interpolate(interpolationMethod)
+			);
+
+			// Graphic
 			deckElements.push(
-				svg.append("g").attr("class", "dataset").append("path")
+				group.append("path")
 					.attr("fill", set.fcolor)
 			);
 		});
@@ -151,12 +139,6 @@ app.directive('chartDashStack', function() {
 				// Layout
 				layout.width = container.clientWidth;
 
-				// Scale X
-				scaleX
-					.rangeRound([layout.graph.left(), layout.graph.right()])
-					.domain([meta.begin, meta.end]);
-				scaleXStep = scaleX(data.info.timeStep);
-
 				// Container
 				d3.select(container)
 					.style('height', layout.height + 'px')
@@ -165,10 +147,15 @@ app.directive('chartDashStack', function() {
 				// SVG
 				svg.attr('width', layout.width);
 
+				// Scale X
+				scaleX
+					.rangeRound([layout.graph.left(), layout.graph.right()])
+					.domain([meta.begin, meta.end]);
+
 				// Areas
-				for (var i = deck.data.length - 1; i >= 0; i--) {
-					deckElements[i].attr("d", deckFunctions[i](data[deck.data[0].cat]));
-				};
+				deckElements.forEach(function (element, i) {
+					element.attr("d", deckFunctions[i](dataList));
+				});
 			};
 
 		// Binds
@@ -176,7 +163,7 @@ app.directive('chartDashStack', function() {
 	}
 
 	return {
-		link: chartThreadDivergence_link,
+		link: chart_link,
 		restrict: 'E'
 	}
 });
@@ -184,7 +171,7 @@ app.directive('chartDashStack', function() {
 
 app.directive('chartDashDivergence', function() {
 
-	function chartThreadDivergence_link(scope, element, attrs, controller) {
+	function chart_link(scope, element, attrs, controller) {
 		console.log("== directive == chartDashDivergence ==");
 
 		// Layout
@@ -276,14 +263,14 @@ app.directive('chartDashDivergence', function() {
 	}
 
 	return {
-		link: chartThreadDivergence_link,
+		link: chart_link,
 		restrict: 'E'
 	}
 });
 
 app.directive('widgetDashTrack', function() {
 
-	function chartThreadDivergence_link(scope, element, attrs, controller) {
+	function chart_link(scope, element, attrs, controller) {
 		console.log("== directive == widgetDashTrack ==");
 
 		// Layout
@@ -505,7 +492,7 @@ app.directive('widgetDashTrack', function() {
 	}
 
 	return {
-		link: chartThreadDivergence_link,
+		link: chart_link,
 		restrict: 'E'
 	}
 });
@@ -513,7 +500,7 @@ app.directive('widgetDashTrack', function() {
 
 app.directive('widgetDashDeviation', function() {
 
-	function chartThreadDivergence_link(scope, element, attrs, controller) {
+	function chart_link(scope, element, attrs, controller) {
 		console.log("== directive == widgetDashDeviation ==");
 
 		// Layout
@@ -691,7 +678,7 @@ app.directive('widgetDashDeviation', function() {
 	}
 
 	return {
-		link: chartThreadDivergence_link,
+		link: chart_link,
 		restrict: 'E'
 	}
 });
@@ -700,7 +687,7 @@ app.directive('widgetDashDeviation', function() {
 
 app.directive('widgetDashCompare', function() {
 
-	function chartThreadDivergence_link(scope, element, attrs, controller) {
+	function chart_link(scope, element, attrs, controller) {
 		console.log("== directive == widgetDashCompare ==");
 
 		// Layout
@@ -812,7 +799,7 @@ app.directive('widgetDashCompare', function() {
 	}
 
 	return {
-		link: chartThreadDivergence_link,
+		link: chart_link,
 		restrict: 'E'
 	}
 });

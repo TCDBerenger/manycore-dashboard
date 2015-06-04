@@ -159,7 +159,7 @@ app.factory('categories', ['widgets', 'decks', function(widgets, decks){
 	};
 	var dl = {
 		tag: 'dl', cat: 'dl', label: 'Data locality', title: 'Data locality', icon: 'location-arrow',
-		graph: 'chartDashStack', deck: decks.dl,
+		graph: 'chartDashProfile', deck: decks.dl,
 		widgets: [widgets.cacheMisses]
 	};
 	var rs = {
