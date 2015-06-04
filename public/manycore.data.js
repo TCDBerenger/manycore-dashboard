@@ -35,8 +35,8 @@ app.factory('decks', ['colours', function(colours) {
 	var l3miss = 	{ label: 'loading from RAM',	title: 'L3 misses',			desc: 'loading data from RAM',	unity: '',	cat: 'locality',	attr: 'l3',		color: colours.list.dRed };
 	var swapping = 	{ label: 'Swapping',			title: 'Swapping',			desc: 'hard page faults',		unity: '',	cat: 'locality',	attr: 'hpf',	color: colours.list.black };
 
-	var sw = 		{ label: 'switches',	title: 'switches',		desc: 'switches',		unity: null, cat: 'switches', attr: 's',											color: colours.list.eGrey,		fcolor: colours.list.dGrey,		gcolor: colours.list.gGrey };
-	var mg = 		{ label: 'migrations',	title: 'migrations',	desc: 'migrations',		unity: null, cat: 'migrations', attr: 'm',	colors: [colours.base, colours.alt],	color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.gViolet };
+	var sw = 		{ label: 'switches',	title: 'context switches',	desc: 'cores switching the working thread',		unity: null, cat: 'switches', attr: 's',											color: colours.list.eGrey,		fcolor: colours.list.dGrey,		gcolor: colours.list.gGrey };
+	var mg = 		{ label: 'migrations',	title: 'thread migrations',	desc: 'thread migrate to another core',			unity: null, cat: 'migrations', attr: 'm',	colors: [colours.base, colours.alt],	color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.gViolet };
 	var mg_tmp = 	{ label: 'migrations',	title: 'migrations',	desc: 'migrations',		unity: null, cat: 'migrations', attr: 'm',	color2: colours.alt,	color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.gViolet };
 
 	return {
