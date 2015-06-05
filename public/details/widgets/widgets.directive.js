@@ -253,8 +253,9 @@ function directive_repaint_post(r) {
  */
 function directive_repaint_xAxis(r) {
 	// Clean
-	r.groupX.attr("transform", "translate(" + r.layout.xAxis.x + "," + r.layout.xAxis.y + ")");
-	r.groupX.selectAll("text").remove();
+	r.groupX
+		.attr("transform", "translate(" + r.layout.xAxis.x + "," + r.layout.xAxis.y + ")")
+		.selectAll("text").remove();
 
 	// Box
 	var points = [
@@ -347,36 +348,12 @@ app.directive('chartSwitches', function() {
 
 			// Draw
 			var data, dataList, internalData, points;
-			var v_expected, v_minLimit;
+			var v_currentLimit, v_minLimit;
 			r.profiles.forEach(function(profile, index) {
 				// vars
 				data = profile.currentData;
 				dataList = data[r.meta.v.cat].list;
-				v_expected = r.scalesV[index](tStep * r.meta.d_expected[index]);
 				v_minLimit = r.scalesV[index](tStep * r.meta.d_minLimit[1]);
-
-				// Clean
-				r.groupV[index].selectAll("text").remove();
-
-				// Limit - label
-				r.groupV[index].append("text")
-					.attr("x", r.layout.vAxis.width)
-					.attr("y", v_expected + 3)
-					.attr("text-anchor", "end")
-					.attr("font-size", r.layout.vAxis.fontSize + "px")
-					.attr("font-weight", "bold")
-					.text(r.meta.expected + "×");
-
-				// Limit
-				r.groupV[index].append("line")
-					.attr("class", "line")
-					.attr('stroke', "#000000")
-					.attr('stroke-width', 1)
-					.attr('stroke-dasharray', 3.1)
-					.attr("x1", r.layout.vAxis.width)
-					.attr("x2", r.layout.vAxis.width + r.layout.profile.width)
-					.attr("y1", v_expected)
-					.attr("y2", v_expected);
 
 				// Data - points
 				points = "0," + r.scalesV[index](0);
@@ -419,8 +396,36 @@ app.directive('chartSwitches', function() {
 					.attr("points", points)
 					.attr("fill", r.meta.v.color);
 
-			});
 
+				// Limit - Clean
+				r.groupV[index].selectAll(".svg-limit").remove();
+
+				// Limit - Loop
+				for (var l = Math.floor(2 * (r.layout.profile.height + r.meta.overflow[index]) / r.layout.profile.height); l > 0; l--) {
+					v_currentLimit = r.scalesV[index](tStep * r.meta.d_expected[index] * l);
+
+					// Limit abel
+					r.groupV[index].append("text")
+						.attr("class", "svg-text svg-limit svg-limit-" + l)
+						.attr("x", r.layout.vAxis.width - 4)
+						.attr("y", v_currentLimit + 3)
+						.attr("text-anchor", "end")
+						.attr("font-size", r.layout.vAxis.fontSize + "px")
+						.attr("font-weight", "bold")
+						.text(l + "×");
+
+					// Limit line
+					r.groupV[index].append("line")
+						.attr("class", "svg-line svg-limit svg-limit-" + l)
+						.attr('stroke', "#000000")
+						.attr('stroke-width', 1)
+						.attr('stroke-dasharray', 3.1)
+						.attr("x1", r.layout.vAxis.width - 2)
+						.attr("x2", r.layout.vAxis.width + r.layout.profile.width + 4)
+						.attr("y1", v_currentLimit)
+						.attr("y2", v_currentLimit);
+				};
+			});
 
 			// Post-treatment
 			directive_repaint_post(r);
@@ -471,10 +476,8 @@ app.directive('chartSwitches', function() {
 			r.meta.lastSelectID = null;
 		}
 
-		// Redraw - bind
+		// Bind
 		scope.$watch(function() { return r.container.clientWidth; }, repaint);
-
-		console.log(r.container.clientLeft, r.container);
 		element.on('mousemove', function(event) { select(event.clientX - r.container.getBoundingClientRect().x); });
 		element.on('mouseleave', unselect);
 	}
