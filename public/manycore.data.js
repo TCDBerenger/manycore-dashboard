@@ -49,8 +49,8 @@ app.factory('decks', ['colours', function(colours) {
 				},
 				limit: {
 					min: function(data) { return 0;},
-					mid: function(data) { return data.info.cores * data.info.timeStep;},
-					max: function(data) { return 2 * data.info.cores * data.info.timeStep;},
+					mid: function(data) { return data.info.threads * data.info.timeStep;},
+					max: function(data) { return 2 * data.info.threads * data.info.timeStep;},
 				}
 			},
 			data: [capacity, ready],
@@ -195,9 +195,9 @@ app.factory('indicators', ['colours', 'categories', function(colours, categories
 	function labelPercent(p, getter) {return Math.round(getter(p) * 100) + '%'; }
 	function labelTimes(p, getter) {return '×' + (Math.round(getter(p) * 10) / 10); }
 
-	function timeRunning(dp) {		return dp.stats.r / (dp.info.cores * dp.info.duration); }
-	function timeAvailable(dp) {	return ((dp.info.cores * dp.info.duration) - dp.stats.r) / (dp.info.cores * dp.info.duration); }
-	function timeWaiting(dp) {		return (dp.stats.y + dp.stats.b) / (dp.info.cores * dp.info.duration); }
+	function timeRunning(dp) {		return dp.stats.r / (dp.info.threads * dp.info.duration); }
+	function timeAvailable(dp) {	return ((dp.info.threads * dp.info.duration) - dp.stats.r) / (dp.info.threads * dp.info.duration); }
+	function timeWaiting(dp) {		return (dp.stats.y + dp.stats.b) / (dp.info.threads * dp.info.duration); }
 
 	function evSwCapacity(profile) {	return (profile.hardware.calibration.switches * profile.hardware.data.threads * profile.data.dash.info.duration); }
 	function evMgCapacity(profile) {	return (profile.hardware.calibration.migrations * profile.hardware.data.threads * profile.data.dash.info.duration); }

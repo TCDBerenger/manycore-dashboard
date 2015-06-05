@@ -652,7 +652,7 @@ app.directive('chartThreadDivergence', function() {
 		// Data
 		var data = scope.data[attrs.profileid];
 		var timeMax = data.info.duration;
-		var numberCores = data.info.cores;
+		var numberCores = data.info.threads;
 		var dataValueMax = Math.max(numberCores * 2, data.info.threadCount);
 
 		// Fix column layout

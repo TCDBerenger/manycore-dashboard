@@ -65,14 +65,15 @@ function addTimeProfiling(output, profile) {
 		// uu 	: unused			half for half value (start from the middle)
 		// yb	: ready & standby	half for half value (start from the middle)
 		if (data.frames.hasOwnProperty(time)) {
-			max = data.info.cores * data.info.timeStep;
+			max = data.info.threads * data.info.timeStep;
 
-			f.half_uu =	Math.round(50 - 50 * data.frames[time].running / max);
+			f.half_uu =	Math.max(Math.round(50 - 50 * data.frames[time].running / max), 0);
 			f.half_yb = Math.round(50 * (data.frames[time].ready + data.frames[time].standby) / max);
 		} else {
 			f.half_uu =	NaN;
 			f.half_yb = NaN;
 		}
+		if (time <= 200) console.log(time, data.frames[time].running, max, f.half_uu);
 
 		// miss	: cache misses
 		if (data.locality.byFrames.hasOwnProperty(time)) {
@@ -152,7 +153,7 @@ function addTime(output, profile) {
 		output.times.push({
 			t:	timeID,
 			r:	sumRunning,
-			uu:	data.info.cores * data.info.timeStep - sumRunning,
+			uu:	Math.max(data.info.threads * data.info.timeStep - sumRunning, 0),
 			yb:	sumReady + sumStandby
 		});
 
@@ -164,7 +165,8 @@ function addTime(output, profile) {
 		b:	statSumStandby,
 		w:	statSumWait,
 		y:	statSumReady,
-		yb:	statSumReady + statSumStandby
+		yb:	statSumReady + statSumStandby,
+		uu:	data.info.threads * data.info.duration - statSumRunning
 	};
 }
 
