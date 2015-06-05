@@ -61,13 +61,15 @@ var profileAA =		{ id: 10,	label: 'Account A',		desc: '',							hardware: hardRo
 var profileMSP =	{ id: 11,	label: 'Merge sort P',	desc: 'Merge and sort (parallel)',	hardware: hardRoman, file: 'mergesortp',	pid: 9148,	timeStep: 50 };
 var profileMSS =	{ id: 12,	label: 'Merge sort S',	desc: 'Merge and sort (serial)',	hardware: hardRoman, file: 'mergesorts',	pid: 7272,	timeStep: 50 };
 var profilePP =		{ id: 13,	label: 'Particle P',	desc: 'Particle system (parallel)',	hardware: hardRoman, file: 'particlep',		pid: 4532,	timeStep: 50 };
+var profilePA =		{ id: 14,	label: 'Phase A',		desc: 'Phase A',					hardware: hardRoman, file: 'phasea',		pid: 8580,	timeStep: 50 };
+var profilePB =		{ id: 15,	label: 'Phase B',		desc: 'Phase B',					hardware: hardRoman, file: 'phaseb',		pid: 3324,	timeStep: 50 };
 
 var profileMap = {
 	1: profileIJK,	5: profileAB,	9: profileRT,	13: profilePP,
-	2: profileKIJ,	6: profileCPi,	10: profileAA,
-	3: profileKJI,	7: profileMlb,	11: profileMSP,
+	2: profileKIJ,	6: profileCPi,	10: profileAA,	14: profilePA,
+	3: profileKJI,	7: profileMlb,	11: profileMSP,	15: profilePB,
 	4: profilePS,	8: profileNQ,	12: profileMSS,
-	all: [profileIJK, profileKIJ, profileKJI, profilePS, profileAB, profileCPi, profileMlb, profileNQ, profileRT, profileAA, profileMSP, profileMSS, profilePP]
+	all: [profileIJK, profileKIJ, profileKJI, profilePS, profileAB, profileCPi, profileMlb, profileNQ, profileRT, profileAA, profileMSP, profileMSS, profilePP, profilePA, profilePB]
 };
 
 

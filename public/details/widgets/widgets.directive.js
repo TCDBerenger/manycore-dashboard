@@ -242,6 +242,11 @@ function directive_repaint_post(r) {
 			r.groupO.attr("transform", "translate(0," + r.meta.overflow[0] + ")");
 		}
 
+		// Top (profile 2)
+		if (r.meta.overflow[1] > 0 && ! r.meta.vMirror) {
+			r.group1.attr("transform", "translate(0," + r.meta.overflow[1] + ")");
+		}
+
 		// Top & Bottom (both profiles)
 		d3.select(r.container).style('height', (r.layout.height + r.meta.overflow[0] + r.meta.overflow[1]) + 'px');
 		r.svg.attr('height', r.layout.height + r.meta.overflow[0] + r.meta.overflow[1]);
