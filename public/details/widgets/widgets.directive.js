@@ -401,7 +401,7 @@ app.directive('chartSwitches', function() {
 				r.groupV[index].selectAll(".svg-limit").remove();
 
 				// Limit - Loop
-				for (var l = Math.floor(2 * (r.layout.profile.height + r.meta.overflow[index]) / r.layout.profile.height); l > 0; l--) {
+				for (var l = Math.floor(2 * (r.layout.profile.height + r.meta.overflow[index] - r.layout.vAxis.fontSize) / r.layout.profile.height); l > 0; l--) {
 					v_currentLimit = r.scalesV[index](tStep * r.meta.d_expected[index] * l);
 
 					// Limit abel
