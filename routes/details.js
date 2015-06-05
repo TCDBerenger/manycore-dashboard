@@ -570,6 +570,9 @@ function jsonDS(profile, id) {
 	profile.exportInfo(output);
 	addCommon(output, id);
 
+	// Data
+	addLocality(output, id, false);
+
 	return output;
 }
 
