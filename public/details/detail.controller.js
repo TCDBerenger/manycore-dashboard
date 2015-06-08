@@ -76,6 +76,28 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	function isWaiting() {
 		return waiting;
 	};
+	
+
+	/************************************************/
+	/* Generator - Graphical						*/
+	/************************************************/
+	/**
+	 * Generator - setting
+	 */
+	function createSettings(widget) {
+		var settings = { version: 0 };
+
+		settings.change = function(attr, value) {
+			settings.version++;
+			settings[attr] = value;
+		};
+
+		if (widget.id == 7 || widget.id == 8) {
+			settings.pixelGroup = 5;
+		}
+
+		widget.settings = settings;
+	};
 
 
 
@@ -103,6 +125,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	$scope.ids = ids;
 	$scope.profiles = profiles;
 	$scope.isWaiting = isWaiting;
+	$scope.createSettings = createSettings;
 	$scope.layout = layout;
 	$scope.meta = categories[tag];
 

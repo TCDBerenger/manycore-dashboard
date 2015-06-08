@@ -50,5 +50,10 @@
 	</tab>
 	<tab>
 		<tab-heading><i class="fa fa-sliders"></i> Settings</tab-heading>
+		<div ng-if="widget.id == 7 || widget.id == 8">
+			<button type="button" class="btn btn-primary" ng-click="widget.settings.change('pixelGroup', 3)">group by 3 px</button>
+			<button type="button" class="btn btn-primary" ng-click="widget.settings.change('pixelGroup', 5)">group by 5 px</button>
+			<button type="button" class="btn btn-primary" ng-click="widget.settings.change('pixelGroup', 10)">group by 10 px</button>
+		</div>
 	</tab>
 </tabset>
