@@ -463,7 +463,6 @@ app.directive('chartSwitches', function() {
 		// Settigns changes
 		function settings_change() {
 			if (typeof r.settings.pixelGroup != 'undefined' && r.settings.pixelGroup != r.meta.pixelGroup) {
-				console.log("going to repaint with group of " + r.settings.pixelGroup + " pixels");
 				r.meta.pixelGroup = r.settings.pixelGroup;
 				repaint();
 			}
@@ -538,7 +537,6 @@ app.directive('chartThreadStates', function() {
 		
 		// Settigns changes
 		function settings_change() {
-			console.log('chartThreadStates', r.settings.version);
 		}
 
 		// Bind
