@@ -102,9 +102,9 @@ app.filter('iif', [function () {
 }]);
 
 app.filter('reverse', function() {
-  return function(items) {
-    return items ? items.slice().reverse() : items;
-  };
+	return function(items) {
+		return items ? items.slice().reverse() : items;
+	};
 });
 
 app.filter('range', function() {
@@ -124,6 +124,21 @@ app.filter('cell', function() {
 			val.push(i);
 		};
 		return val;
+	};
+});
+
+app.filter('v3', function() {
+	return function(items) {
+		var results = [];
+		items.forEach(function(item) { if (item.version == 3) results.push(item) })
+		return results;
+	};
+});
+app.filter('v4', function() {
+	return function(items) {
+		var results = [];
+		items.forEach(function(item) { if (item.version == 4) results.push(item) })
+		return results;
 	};
 });
 

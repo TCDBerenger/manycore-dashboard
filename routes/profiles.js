@@ -20,7 +20,8 @@ router.get('/', function(req, res, next) {
 			id:			profile.id,
 			label:		profile.label,
 			desc:		profile.desc,
-			hardware:	profile.hardware
+			hardware:	profile.hardware,
+			version:	profile.v
 		});
 	});
 
