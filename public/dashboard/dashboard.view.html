@@ -105,7 +105,7 @@
 	<div class="col-xs-{{mainColSize()}}"><div class="row">
 
 		<!-- Selection -->
-		<div ng-if="canAddProfile()" class="col-µ ctrl" style="width: 350px"><div class="block block-title">
+		<div ng-if="canAddProfile()" class="col-µ ctrl" style="width: 350px"><div class="block block-title" ng-init="showsV3 = false">
 			<span class="block-icon fa-stack">
 				<i class="fa fa-circle fa-stack-2x"></i>
 				<i class="fa fa-thumb-tack fa-stack-1x fa-inverse"></i>
@@ -114,8 +114,10 @@
 			<div class="btn-group-col btn-group-col-3">
 				<button type="button" class="btn btn-default btn-xs" ng-click="selectProfile(profile)" ng-repeat="profile in availableProfiles | v4 | orderBy : 'label'">{{profile.label}}</button>
 			</div>
-			Incomplete profiles:
-			<div class="btn-group-col btn-group-col-3">
+			<p>
+				<a href ng-click="showsV3 = ! showsV3"><i class="fa fa-eye-slash"></i> {{ showsV3 | iif : 'hide' : 'show also' }} incomplete profiles</a>
+			</p>
+			<div class="btn-group-col btn-group-col-3" ng-if="showsV3">
 				<button type="button" class="btn btn-default btn-xs" ng-click="selectProfile(profile)" ng-repeat="profile in availableProfiles | v3 | orderBy : 'label'">{{profile.label}}</button>
 			</div>
 			<div class="alert alert-info ctrl-element ctrl-add-nomore" ng-show="availableProfiles.length == 0">
