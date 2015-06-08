@@ -1,0 +1,54 @@
+<tabset>
+	<tab>
+		<tab-heading><i class="fa fa-list"></i> Legend</tab-heading>
+		<div class="info-profiles" ng-if="profiles.length > 1">
+			<p class="left"><strong>top:</strong><br/><strong>bottom:</strong></p>
+			<p class="right">{{profiles[0].label}}<br/>{{profiles[1].label}}</p>
+		</div>
+		<ul class="legend-list" style="font-size: 0.85em;">
+			<li id="w{{widget.id}}l{{$index}}" ng-repeat="l in widget.deck.legend">
+				<style>#w{{widget.id}}l{{$index}}:before { content: "▮ "; color: {{l.color}}; }</style>
+				<strong>{{l.title}}</strong>: {{l.desc}}
+			</li>
+		</ul>
+	</tab>
+	<tab>
+		<tab-heading><i class="fa fa-bar-chart"></i> Data</tab-heading>
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th></th>
+					<th colspan="2" ng-repeat="profile in profiles">{{profile.label}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="(i, e) in widget.deck.data | reverse">
+					<td style="text-align: right;">{{e.label}} <font style="color: {{e.color}}">{{e.color2 != null | iif : '◤' : '▮'}}</font><font ng-if="e.color2 != null" style="color: {{e.color2}}; margin-left: -8px;">◢</font></td>
+					<td style="text-align: right;">{{data[profiles[0].id].stats[e.cat][e.attr] | number: 0}}{{e.unity != null | iif : ' ' + e.unity : ''}}</td>
+					<td style="text-align: center;" class="container-graph" rowspan="{{widget.deck.data.length}}" colspan="{{profiles.length}}" ng-if="i == 0">
+						<chart-stats class="integrated-graph"></chart-stats>
+					</td>
+					<td style="text-align: right;" ng-if="profiles.length >= 2">{{data[profiles[1].id].stats[e.cat][e.attr] | number: 0}}{{e.unity != null | iif : ' ' + e.unity : ''}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</tab>
+	<tab>
+		<tab-heading><i class="fa fa-medkit"></i> Help</tab-heading>
+		<p class="clues-label">
+			Clues about troubleshooting:
+		</p>
+		<ul class="legend-list" style="font-size: 0.85em;">
+			<li id="cli{{widget.id}}{{$index}}" ng-repeat="clue in widget.deck.clues">
+				<style>#cli{{widget.id}}{{$index}}:before { content: "▮ "; color: {{clue.color}}; }</style>
+				<strong>{{clue.tax}}</strong>: {{clue.text}}
+			</li>
+		</ul>
+		<p ng-if="widget.deck.clues.length == 0">
+			<i>Sorry, nothing yet.</i>
+		</p>
+	</tab>
+	<tab>
+		<tab-heading><i class="fa fa-sliders"></i> Settings</tab-heading>
+	</tab>
+</tabset>

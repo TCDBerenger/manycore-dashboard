@@ -1,0 +1,34 @@
+/*
+ * Tabs
+ */
+.aside .nav-tabs a {
+	font-size: 0.8em;
+	padding: 8px 10px;
+}
+.aside .tab-pane {
+	padding: 20px 0px 0px 0px;
+}
+
+/*
+ * Legend
+ */
+
+.aside .info-profiles {
+}
+
+.aside .info-profiles p {		display: inline-block;	}
+.aside .info-profiles p.left {	text-align: right;		}
+
+
+/*
+ * Legend list
+ */
+.aside ul.legend-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.aside ul.legend-list li { 
+	padding-left: 1em;
+	text-indent: -1.2em;
+}
