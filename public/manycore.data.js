@@ -60,8 +60,9 @@ app.factory('decks', ['colours', function(colours) {
 			data: [miss],
 			legend: [miss]
 		},
-		cycles: {
+		states: {
 			axis : {
+				v:		[running, ready],
 				limit: { color: colours.list.dBlue, background: colours.list.eBlue }
 			},
 			data : [running, ready],
@@ -134,9 +135,9 @@ app.factory('widgets', ['decks', function(decks) {
 	output.lockContentions	= {id: 9,	file: 'generic-to-delete',	deck: null,					tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
 	output.threadPaths		= {id: 1,	file: 'generic-to-delete',	deck: null,					tag: 'thread-paths',		title: 'Single thread execution phases',						subtitle: 'alternating sequential/parallel execution'};
 	output.threadChains		= {id: 2,	file: 'generic-to-delete',	deck: null,					tag: 'thread-chains',		title: 'Chains of dependencies',								subtitle: 'synchronisations and waiting between threads'};
-	output.threadLifetime	= {id: 3,	file: 'thread-lifetime',	deck: decks.lifetime,		tag: 'thread-running',		title: 'Life cycles of threads',								subtitle: 'creation, running, moving between cores, termination'};
+	output.threadLifetime	= {id: 3,	file: 'thread-lifetime',	deck: decks.lifetime,		tag: 'thread-running',		title: 'Life states of threads',								subtitle: 'creation, running, moving between cores, termination'};
 	output.threadLocks		= {id: 4,	file: 'generic-to-delete',	deck: null,					tag: 'thread-locks',		title: 'Waiting for locks',										subtitle: ''};
-	output.threadDivergence	= {id: 6,	file: 'thread-divergence',	deck: decks.cycles,			tag: 'thread-divergence',	title: 'Potential parallelism',									subtitle: 'number of running threads compared to number of cores'};
+	output.threadStates		= {id: 6,	file: 'thread-states',		deck: decks.states,			tag: 'thread-states',		title: 'Potential parallelism',									subtitle: 'number of running threads compared to number of cores'};
 	output.threadMigrations	= {id: 7,	file: 'thread-migrations',	deck: decks.migrations,		tag: 'thread-migrations',	title: 'Thread switching the core on which it is executing',	subtitle: 'thread migrations'};
 	output.threadSwitchs	= {id: 8,	file: 'thread-switches',	deck: decks.switches,		tag: 'thread-switchs',		title: 'Core swhitching the thread it is executing',			subtitle: 'thread switches'};
 	
@@ -147,7 +148,7 @@ app.factory('categories', ['widgets', 'decks', function(widgets, decks){
 	var tg = {
 		tag: 'tg', cat: 'tg', label: 'Task granularity', title: 'Task granularity', icon: 'tasks',
 		graph: 'chartDashDivergence', deck: decks.tg,
-		widgets: [widgets.threadDivergence, widgets.threadSwitchs, widgets.threadMigrations, widgets.threadLifetime]
+		widgets: [widgets.threadStates, widgets.threadSwitchs, widgets.threadMigrations, widgets.threadLifetime]
 	};
 	var sy = {
 		tag: 'sy', cat: 'sy', label: 'Synchronisation', title: 'Synchronisation', icon: 'cutlery',
@@ -162,7 +163,7 @@ app.factory('categories', ['widgets', 'decks', function(widgets, decks){
 	var lb = {
 		tag: 'lb', cat: 'lb', label: 'Load balancing', title: 'Load balancing', icon: 'code-fork',
 		graph: null, deck: decks.ld,
-		widgets: [widgets.coreInactivity, widgets.lockContentions, widgets.threadMigrations, widgets.threadDivergence, widgets.threadPaths, widgets.threadChains]
+		widgets: [widgets.coreInactivity, widgets.lockContentions, widgets.threadMigrations, widgets.threadStates, widgets.threadPaths, widgets.threadChains]
 	};
 	var dl = {
 		tag: 'dl', cat: 'dl', label: 'Data locality', title: 'Data locality', icon: 'location-arrow',
