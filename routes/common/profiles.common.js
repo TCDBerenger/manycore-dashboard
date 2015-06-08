@@ -48,29 +48,35 @@ var hardRoman = {
 /************************************************/
 /* Variables - profiles							*/
 /************************************************/
-var profileIJK =	{ id: 1,	label: 'Matmul IJK',	desc: 'Matrix multiplication IJK', 	hardware: hardRoman, file: 'matmulijk', 	pid: 6396,	timeStep: 50 };
-var profileKIJ =	{ id: 2,	label: 'Matmul KIJ',	desc: 'Matrix multiplication KIJ', 	hardware: hardRoman, file: 'matmulkij', 	pid: 3904,	timeStep: 50 };
-var profileKJI =	{ id: 3,	label: 'Matmul KJI',	desc: 'Matrix multiplication KJI', 	hardware: hardRoman, file: 'matmulkji', 	pid: 1788,	timeStep: 50 };
-var profilePS =		{ id: 4,	label: 'Particle S',	desc: 'Particle system (serial)', 	hardware: hardRoman, file: 'particles', 	pid: 10460,	timeStep: 50 };
-var profileAB =		{ id: 5,	label: 'Account B',		desc: '',							hardware: hardRoman, file: 'accountb',		pid: 11300,	timeStep: 50 };
-var profileCPi =	{ id: 6,	label: 'Compute Pi',	desc: '',							hardware: hardRoman, file: 'computepi',		pid: 6568,	timeStep: 50 };
-var profileMlb =	{ id: 7,	label: 'Mandelbrot',	desc: '',							hardware: hardRoman, file: 'mandelbrot',	pid: 7484,	timeStep: 50 };
-var profileNQ =		{ id: 8,	label: 'N Queens',		desc: '',							hardware: hardRoman, file: 'nqueens',		pid: 3120,	timeStep: 50 };
-var profileRT =		{ id: 9,	label: 'Ray Tracer',	desc: '',							hardware: hardRoman, file: 'raytracer',		pid: 7500,	timeStep: 50 };
-var profileAA =		{ id: 10,	label: 'Account A',		desc: '',							hardware: hardRoman, file: 'accounta',		pid: 11360,	timeStep: 50 };
-var profileMSP =	{ id: 11,	label: 'Merge sort P',	desc: 'Merge and sort (parallel)',	hardware: hardRoman, file: 'mergesortp',	pid: 9148,	timeStep: 50 };
-var profileMSS =	{ id: 12,	label: 'Merge sort S',	desc: 'Merge and sort (serial)',	hardware: hardRoman, file: 'mergesorts',	pid: 7272,	timeStep: 50 };
-var profilePP =		{ id: 13,	label: 'Particle P',	desc: 'Particle system (parallel)',	hardware: hardRoman, file: 'particlep',		pid: 4532,	timeStep: 50 };
-var profilePA =		{ id: 14,	label: 'Phase A',		desc: 'Phase A',					hardware: hardRoman, file: 'phasea',		pid: 8580,	timeStep: 50 };
-var profilePB =		{ id: 15,	label: 'Phase B',		desc: 'Phase B',					hardware: hardRoman, file: 'phaseb',		pid: 3324,	timeStep: 50 };
-
 var profileMap = {
-	1: profileIJK,	5: profileAB,	9: profileRT,	13: profilePP,
-	2: profileKIJ,	6: profileCPi,	10: profileAA,	14: profilePA,
-	3: profileKJI,	7: profileMlb,	11: profileMSP,	15: profilePB,
-	4: profilePS,	8: profileNQ,	12: profileMSS,
-	all: [profileIJK, profileKIJ, profileKJI, profilePS, profileAB, profileCPi, profileMlb, profileNQ, profileRT, profileAA, profileMSP, profileMSS, profilePP, profilePA, profilePB]
+	all: [
+		{ id: 1,	label: 'Matmul IJK',	desc: 'Matrix multiplication IJK', 	hardware: hardRoman, file: 'matmulijk', 	pid: 6396,	timeStep: 50,	v: 3 },
+		{ id: 2,	label: 'Matmul KIJ',	desc: 'Matrix multiplication KIJ', 	hardware: hardRoman, file: 'matmulkij', 	pid: 3904,	timeStep: 50,	v: 3 },
+		{ id: 3,	label: 'Matmul KJI',	desc: 'Matrix multiplication KJI', 	hardware: hardRoman, file: 'matmulkji', 	pid: 1788,	timeStep: 50,	v: 3 },
+		{ id: 4,	label: 'Particle S',	desc: 'Particle system (serial)', 	hardware: hardRoman, file: 'particles', 	pid: 10460,	timeStep: 50,	v: 3 },
+		{ id: 5,	label: 'Account B',		desc: '',							hardware: hardRoman, file: 'accountb',		pid: 11300,	timeStep: 50,	v: 3 },
+		{ id: 6,	label: 'Compute Pi',	desc: '',							hardware: hardRoman, file: 'computepi',		pid: 6568,	timeStep: 50,	v: 3 },
+		{ id: 7,	label: 'Mandelbrot',	desc: '',							hardware: hardRoman, file: 'mandelbrot',	pid: 7484,	timeStep: 50,	v: 3 },
+		{ id: 8,	label: 'N Queens',		desc: '',							hardware: hardRoman, file: 'nqueens',		pid: 3120,	timeStep: 50,	v: 3 },
+		{ id: 9,	label: 'Ray Tracer',	desc: '',							hardware: hardRoman, file: 'raytracer',		pid: 7500,	timeStep: 50,	v: 3 },
+		{ id: 10,	label: 'Account A',		desc: '',							hardware: hardRoman, file: 'accounta',		pid: 11360,	timeStep: 50,	v: 3 },
+		{ id: 11,	label: 'Merge sort P',	desc: 'Merge and sort (parallel)',	hardware: hardRoman, file: 'mergesortp',	pid: 9148,	timeStep: 50,	v: 3 },
+		{ id: 12,	label: 'Merge sort S',	desc: 'Merge and sort (serial)',	hardware: hardRoman, file: 'mergesorts',	pid: 7272,	timeStep: 50,	v: 3 },
+		{ id: 13,	label: 'Particle P',	desc: 'Particle system (parallel)',	hardware: hardRoman, file: 'particlep',		pid: 4532,	timeStep: 50,	v: 3 },
+		{ id: 14,	label: 'Phase A',		desc: '',							hardware: hardRoman, file: 'phasea',		pid: 8580,	timeStep: 50,	v: 3 },
+		{ id: 15,	label: 'Phase B',		desc: '',							hardware: hardRoman, file: 'phaseb',		pid: 3324,	timeStep: 50,	v: 3 },
+		{ id: 16,	label: 'Bad cache A',	desc: '',							hardware: hardRoman, file: 'badcachea',		pid: 0,	timeStep: 50,	v: 3 },
+		{ id: 17,	label: 'Spike',			desc: '',							hardware: hardRoman, file: 'spike',			pid: 0,	timeStep: 50,	v: 3 },
+		{ id: 18,	label: 'NodeJS',		desc: 'Sample NodeJS server',		hardware: hardRoman, file: 'nodejs',		pid: 0,	timeStep: 50,	v: 3 },
+		{ id: 19,	label: 'Word',			desc: 'Microsoft Word sample',		hardware: hardRoman, file: 'word',			pid: 0,	timeStep: 50,	v: 3 },
+		{ id: 20,	label: 'Excel',			desc: 'Microsoft Excel sample',		hardware: hardRoman, file: 'excel',			pid: 0,	timeStep: 50,	v: 3 },
+
+		{ id: 21,	label: 'Dining ph. 45',	desc: 'Dining philosophers problem 45',	hardware: hardRoman, file: 'philosophers45',	pid: 4168,	timeStep: 50,	v: 4 }
+	]
 };
+
+// Indexing
+profileMap.all.forEach(function (profile) { profileMap[profile.id] = profile; });
 
 
 /************************************************/
@@ -179,6 +185,7 @@ function loadData(profile) {
 	var filenameRaw1 = 'data/' + profile.file + '.states.json';
 	var filenameRaw2 = 'data/' + profile.file + '.switches.json';
 	var filenameRaw3 = 'data/' + profile.file + '.dl.json';
+	var filenameRaw4 = 'data/' + profile.file + '.locks.json';
 	var filenameCache = 'data/' + profile.file + '.cache.json';
 
 	// Load data from cache
@@ -207,10 +214,11 @@ function loadData(profile) {
 		var raw1 = JSON.parse(fs.readFileSync(filenameRaw1, 'utf8'));
 		var raw2 = JSON.parse(fs.readFileSync(filenameRaw2, 'utf8'));
 		var raw3 = JSON.parse(fs.readFileSync(filenameRaw3, 'utf8'));
+		var raw4 = (profile.v >= 4) ? JSON.parse(fs.readFileSync(filenameRaw4, 'utf8')) : null;
 		console.log("[" + profile.id + "] " + profile.file + " raw data loaded");
 
 		// Compute
-		profile.data = computeData(profile, raw1, raw2, raw3);
+		profile.data = computeData(profile, raw1, raw2, raw3, raw4);
 		profileData[profile.id] = profile.data;
 		console.log("[" + profile.id + "] " + profile.file + " raw data computed");
 
@@ -223,7 +231,7 @@ function loadData(profile) {
 /**
  * Compute data
  */
-function computeData(profile, raw1, raw2, raw3) {
+function computeData(profile, raw1, raw2, raw3, raw4) {
 
 	// Create structure
 	var data = {
@@ -492,6 +500,17 @@ function computeData(profile, raw1, raw2, raw3) {
 	data.stats.dzf = +raw3.info.dzf;
 	data.stats.hpf = +raw3.info.hpf;
 
+
+
+	/**
+	 *
+	 *	RAW 4:
+	 *		locks
+	 *
+	 */
+	if (raw4 != null) {
+
+	}
 
 
 

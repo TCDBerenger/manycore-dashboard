@@ -40,7 +40,8 @@ router.get('/*', function(req, res) {
 				id:			profiles[id].id,
 				label:		profiles[id].label,
 				desc:		profiles[id].desc,
-				hardware:	profiles[id].hardware
+				hardware:	profiles[id].hardware,
+				version:	profiles[id].v
 			});
 			selectedMap[id] = true;
 		}
