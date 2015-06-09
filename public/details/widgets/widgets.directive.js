@@ -219,9 +219,9 @@ function directive_repaint_post(r) {
 /**
  * Repaint - Bind
  */
-function directive_bind(r, repaint, select, unselect, settings_change) {
+function directive_bind(r, repaint, select, unselect, settings) {
 	r.scope.$watch(function() { return r.container.clientWidth; }, repaint);
-	r.scope.$watch(function() { return r.settings.version; }, settings_change);
+	r.scope.$watch(function() { return r.settings.version; }, settings);
 }
 
 /**
@@ -314,15 +314,15 @@ app.directive('chartSwitches', function() {
 		// Enhance meta
 		r.meta.v = r.deck.v[0];
 		r.meta.lastSelectID = null;
+
+		// Meta - settings
+		r.meta.pixelGroup = r.settings.pixelGroup;
 		
 		// Meta - layout Y (arbitrary)
 		r.meta.expected = 1;
 		r.meta.minLimit = 2;
 		r.meta.d_expected = [];
 		r.meta.d_minLimit = [];
-
-		// Meta - layout X
-		r.meta.pixelGroup = 5;
 
 		// Meta - Calibration
 		r.meta.calibrations = [];
@@ -486,7 +486,7 @@ app.directive('chartSwitches', function() {
 		}
 		
 		// Settigns changes
-		function settings_change() {
+		function settings() {
 			if (typeof r.settings.pixelGroup != 'undefined' && r.settings.pixelGroup != r.meta.pixelGroup) {
 				r.meta.pixelGroup = r.settings.pixelGroup;
 				repaint();
@@ -494,7 +494,7 @@ app.directive('chartSwitches', function() {
 		}
 
 		// Bind
-		directive_bind(r, repaint, select, unselect, settings_change);
+		directive_bind(r, repaint, select, unselect, settings);
 		element.on('mousemove', function(event) { select(event.clientX - r.container.getBoundingClientRect().x); });
 		element.on('mouseleave', unselect);
 	}
@@ -526,6 +526,9 @@ app.directive('chartThreadStates', function() {
 			r.meta.capacities.push(profile.hardware.data.threads * profile.currentData.info.timeStep);
 			r.meta.minLimits.push((profile.hardware.data.threads + 1) * profile.currentData.info.timeStep);
 		});
+
+		// Meta - settings
+		r.meta.crenellate = r.settings.crenellate;
 
 		// Enhance layout
 
@@ -637,11 +640,15 @@ app.directive('chartThreadStates', function() {
 		}
 		
 		// Settigns changes
-		function settings_change() {
+		function settings() {
+			if (r.meta.crenellate != r.settings.crenellate) {
+				r.meta.crenellate = r.settings.crenellate;
+				repaint();
+			}
 		}
 
 		// Bind
-		directive_bind(r, repaint, select, unselect, settings_change);
+		directive_bind(r, repaint, select, unselect, settings);
 	}
 
 	return {

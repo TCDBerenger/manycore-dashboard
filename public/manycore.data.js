@@ -78,6 +78,7 @@ app.factory('decks', ['colours', function(colours) {
 				{ color: colours.plus,	tax: 'Underscubscription', 							text: 'not enough threads' }
 			],
 			settings: [
+				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core' },
 				{ property: 'vMirror', value: true, type: 'flag', label: 'Vertical mirror' }
 			]
 		},
