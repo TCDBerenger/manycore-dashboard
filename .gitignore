@@ -3,3 +3,4 @@ nohup.out
 npm-debug.log
 *.sublime-*
 data/*.cache.json
+data/tmp
