@@ -76,6 +76,9 @@ app.factory('decks', ['colours', function(colours) {
 				{ color: colours.bad,	tax: 'Thread migrations', 							text: 'too many threads' },
 				{ color: colours.bad,	tax: 'Bad thread to core ratio', 					text: 'too many threads' },
 				{ color: colours.plus,	tax: 'Underscubscription', 							text: 'not enough threads' }
+			],
+			settings: [
+				{ property: 'vMirror', value: true, type: 'flag', label: 'Vertical mirror' }
 			]
 		},
 		switches: {
@@ -87,6 +90,10 @@ app.factory('decks', ['colours', function(colours) {
 			legend : [sw],
 			clues: [
 				{ color: colours.base,	tax: 'Oversubscription',							text: 'high frequency' }
+			],
+			settings: [
+				{ property: 'pixelGroup', value: 5, type: 'range', label: 'Group by', unit: 'pixels', min: 1, max: 15 },
+				{ property: 'vMirror', value: true, type: 'flag', label: 'Vertical mirror' }
 			]
 		},
 		migrations: {
@@ -99,6 +106,10 @@ app.factory('decks', ['colours', function(colours) {
 			clues: [
 				{ color: colours.base,	tax: 'Thread migrations',							text: 'too many migrations' },
 				{ color: colours.base,	tax: 'Alternating sequential/parallel execution',	text: 'alternating period of high and low thread migrations' }
+			],
+			settings: [
+				{ property: 'pixelGroup', value: 5, type: 'range', label: 'Group by', unit: 'pixels', min: 1, max: 15 },
+				{ property: 'vMirror', value: true, type: 'flag', label: 'Vertical mirror' }
 			]
 		},
 		lifetime: {
@@ -113,7 +124,8 @@ app.factory('decks', ['colours', function(colours) {
 				{ color: colours.base,	tax: 'Thread migrations',							text: 'too many threads' },
 				{ color: colours.alt,	tax: 'Thread migrations',							text: 'too many migrations' },
 				{ color: colours.unkn,	tax: 'Task start/stop overhead',					text: 'too short lifetime' }
-			]
+			],
+			settings: []
 		},
 		locality: {
 			axis : {
@@ -121,8 +133,8 @@ app.factory('decks', ['colours', function(colours) {
 			},
 			data : [ipc, tlbmiss, l1miss, l2miss, l3miss, swapping],
 			legend : [ipc, tlbmiss, l1miss, l2miss, l3miss, swapping],
-			clues: [
-			]
+			clues: [],
+			settings: []
 		}
 	};
 }]);

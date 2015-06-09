@@ -87,14 +87,28 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	function createSettings(widget) {
 		var settings = { version: 0 };
 
-		settings.change = function(attr, value) {
-			settings.version++;
-			settings[attr] = value;
-		};
+		if (widget.deck != null && widget.deck.settings != null)
+			widget.deck.settings.forEach(function(setting) {
+				settings["_" + setting.property] = setting.value;
 
-		if (widget.id == 7 || widget.id == 8) {
-			settings.pixelGroup = 5;
-		}
+				settings.__defineGetter__(setting.property, function () {
+					return settings["_" + setting.property];
+				});
+
+				settings.__defineSetter__(setting.property, function (val) {
+					if (settings["_" + setting.property] != val) {
+						try {
+							settings["_" + setting.property] = JSON.parse(val);
+						} catch(e) {
+							settings["_" + setting.property] = val;
+						};
+						settings.version++;
+						console.log("yep!", settings["_" + setting.property], val);
+					} else {
+						console.log("nope!", settings["_" + setting.property], val);
+					}
+				});
+			});
 
 		widget.settings = settings;
 	};

@@ -50,10 +50,16 @@
 	</tab>
 	<tab>
 		<tab-heading><i class="fa fa-sliders"></i> Settings</tab-heading>
-		<div ng-if="widget.id == 7 || widget.id == 8">
-			<button type="button" class="btn btn-primary" ng-click="widget.settings.change('pixelGroup', 3)">group by 3 px</button>
-			<button type="button" class="btn btn-primary" ng-click="widget.settings.change('pixelGroup', 5)">group by 5 px</button>
-			<button type="button" class="btn btn-primary" ng-click="widget.settings.change('pixelGroup', 10)">group by 10 px</button>
+		<div class="settings" ng-repeat="setting in widget.deck.settings">
+			<div class="setting setting-range" ng-if="setting.type == 'range'">
+				<label>{{setting.label}}:</label>
+				<input type="range" ng-model="widget.settings[setting.property]" min="{{::setting.min}}" max="{{::setting.max}}" />
+				[<span>{{widget.settings[setting.property]}}</span>] <span>{{setting.unit}}</span>
+			</div>
+			<div class="setting setting-flag" ng-if="setting.type == 'flag'">
+				<label>{{setting.label}}:</label>
+				<input type="checkbox" ng-model="widget.settings[setting.property]" disabled="disabled">
+			</div>
 		</div>
 	</tab>
 </tabset>

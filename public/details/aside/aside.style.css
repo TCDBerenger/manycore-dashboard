@@ -32,3 +32,16 @@
 	padding-left: 1em;
 	text-indent: -1.2em;
 }
+
+
+/*
+ * Settings
+ */
+.aside .settings label {
+	font-weight: bold;
+	font-size: 15px;
+}
+.aside .settings .setting-range input {
+	display: inline-block;
+	width: auto;
+}
