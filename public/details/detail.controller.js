@@ -103,9 +103,6 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 							settings["_" + setting.property] = val;
 						};
 						settings.version++;
-						console.log("yep!", settings["_" + setting.property], val);
-					} else {
-						console.log("nope!", settings["_" + setting.property], val);
 					}
 				});
 			});
