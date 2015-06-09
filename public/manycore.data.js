@@ -61,9 +61,13 @@ app.factory('decks', ['colours', function(colours) {
 			legend: [miss]
 		},
 		states: {
+			graph : {
+				v:		[running, ready],
+				limit:	capacity
+			},
 			axis : {
 				v:		[running, ready],
-				limit: { color: colours.list.dBlue, background: colours.list.eBlue }
+				limit:	capacity
 			},
 			data : [running, ready],
 			legend : [running, ready, capacity],
@@ -75,10 +79,9 @@ app.factory('decks', ['colours', function(colours) {
 			]
 		},
 		switches: {
-			axis : {
+			graph : {
 				v:		[sw],
 				limit:	{ color: colours.list.black },
-				x:		{ color: colours.list.dGrey, colors: [colours.list.eGrey, colours.list.dGrey, colours.list.eRed, colours.list.dRed] }
 			},
 			data : [sw],
 			legend : [sw],
@@ -87,10 +90,9 @@ app.factory('decks', ['colours', function(colours) {
 			]
 		},
 		migrations: {
-			axis : {
+			graph : {
 				v:		[mg],
 				limit:	{ color: colours.list.black },
-				x:		{ color: colours.list.dGrey, colors: [colours.list.eGrey, colours.list.dGrey, colours.list.eRed, colours.list.dRed] }
 			},
 			data : [mg],
 			legend : [mg],

@@ -102,7 +102,7 @@ function directive_init(scope, element, attrs, layoutType, vMirror, allowOverflo
 	var layout =	new graphLayout(layoutType);
 
 	// Attributes
-	var deck =		scope.widget.deck.axis;
+	var deck =		scope.widget.deck.graph;
 	var meta =		new graphMeta(scope, attrs, vMirror, allowOverflow);
 
 	// Data
@@ -217,6 +217,14 @@ function directive_repaint_post(r) {
 }
 
 /**
+ * Repaint - Bind
+ */
+function directive_bind(r, repaint, select, unselect, settings_change) {
+	r.scope.$watch(function() { return r.container.clientWidth; }, repaint);
+	r.scope.$watch(function() { return r.settings.version; }, settings_change);
+}
+
+/**
  * Repaint - XAxis
  */
 function directive_repaint_xAxis(r) {
@@ -258,15 +266,31 @@ function directive_repaint_xAxis(r) {
  * Repaint - VAxis
  */
 function directive_repaint_VAxis(r, index) {
+	// Limit - Clean
+	r.groupV[index].selectAll("*").remove();
+
+
 }
 
+
+
+/**********************************************************/
+/*														  */
+/*	Utilities											  */
+/*														  */
+/**********************************************************/
+
 /**
- * Repaint - Bind
+ * Points
  */
-function directive_repaint_VAxis(r, repaint, select, unselect, settings_change) {
-	r.scope.$watch(function() { return r.container.clientWidth; }, repaint);
-	r.scope.$watch(function() { return r.settings.version; }, settings_change);
+function p2s(points) {
+	var result = "";
+	for (var i = points.length - 2; i >= 0; i -= 2) {
+		result = points[i] + "," + points[i+1] + " " + result;
+	};
+	return result;
 }
+
 
 
 
@@ -337,7 +361,7 @@ app.directive('chartSwitches', function() {
 				v_minLimit = r.scalesV[index](tStep * r.meta.d_minLimit[1]);
 
 				// Data - Clean
-				r.groupP[index].selectAll("polygon").remove();
+				r.groupP[index].selectAll("*").remove();
 
 				// Data - points
 				points = "0," + r.scalesV[index](0);
@@ -382,17 +406,18 @@ app.directive('chartSwitches', function() {
 
 
 				// Limit - Clean
-				r.groupV[index].selectAll(".svg-limit").remove();
+				r.groupV[index].selectAll("*").remove();
 
 				// Limit - Loop
+				var yPosition;
 				for (var l = Math.floor(2 * (r.layout.profile.height + r.meta.overflow[index] - r.layout.vAxis.fontSize) / r.layout.profile.height); l > 0; l--) {
-					v_currentLimit = r.scalesV[index](tStep * r.meta.d_expected[index] * l);
+					yPosition = r.scalesV[index](tStep * r.meta.d_expected[index] * l);
 
 					// Limit abel
 					r.groupV[index].append("text")
 						.attr("class", "svg-text svg-limit svg-limit-" + l)
 						.attr("x", r.layout.vAxis.width - 4)
-						.attr("y", v_currentLimit + 3)
+						.attr("y", yPosition + 3)
 						.attr("text-anchor", "end")
 						.attr("font-size", r.layout.vAxis.fontSize + "px")
 						.attr("font-weight", "bold")
@@ -406,8 +431,8 @@ app.directive('chartSwitches', function() {
 						.attr('stroke-dasharray', 3.1)
 						.attr("x1", r.layout.vAxis.width - 2)
 						.attr("x2", r.layout.vAxis.width + r.layout.profile.width + 4)
-						.attr("y1", v_currentLimit)
-						.attr("y2", v_currentLimit);
+						.attr("y1", yPosition)
+						.attr("y2", yPosition);
 				};
 			});
 
@@ -469,7 +494,7 @@ app.directive('chartSwitches', function() {
 		}
 
 		// Bind
-		directive_repaint_VAxis(r, repaint, select, unselect, settings_change);
+		directive_bind(r, repaint, select, unselect, settings_change);
 		element.on('mousemove', function(event) { select(event.clientX - r.container.getBoundingClientRect().x); });
 		element.on('mouseleave', unselect);
 	}
@@ -494,33 +519,109 @@ app.directive('chartThreadStates', function() {
 
 		// Enhance meta
 		r.meta.cores = [];
+		r.meta.capacities = [];
+		r.meta.minLimits = [];
 		r.profiles.forEach(function(profile) {
 			r.meta.cores.push(profile.hardware.data.threads);
+			r.meta.capacities.push(profile.hardware.data.threads * profile.currentData.info.timeStep);
+			r.meta.minLimits.push((profile.hardware.data.threads + 1) * profile.currentData.info.timeStep);
 		});
 
 		// Enhance layout
+
+		// Crenellate data
+		function crenellateValue(profile, v) {
+			return Math.round(v / profile.currentData.info.timeStep) * profile.currentData.info.timeStep;
+		}
 
 		// Redraw
 		function repaint() {
 			// Repaint container
 			directive_repaint_container(r);
 
+			// Vars
+			var capacity = r.meta.cores[0]
+
 			// Repaint scales
-			directive_repaint_scales(r, [0, r.meta.cores[0] + 1], [0, r.meta.cores[1] + 1]);
+			directive_repaint_scales(r, [0, r.meta.minLimits[0]], [0, r.meta.minLimits[1]]);
 
 			// Repaint graphical elements
 			directive_repaint_xAxis(r);
 
 			// Main draw
-			var data, dataList;
+			var data, dataList, pointsC, pointsR, pointsBY;
+			var scaleVCurrent;
 			r.profiles.forEach(function(profile, index) {
 				// vars
 				data = profile.currentData;
 				dataList = data[r.deck.v[0].cat];
 
+				// All - points - start
+				pointsC = [r.scaleX(r.meta.begin), r.scalesV[index](0)];
+				pointsR = [r.scaleX(r.meta.begin), r.scalesV[index](0)];
+				pointsBY = [r.scaleX(r.meta.begin), r.scalesV[index](r.meta.capacities[index])];
+
+				// All - points - capacity
+				pointsC.push.apply(pointsC, [r.scaleX(r.meta.begin), r.scalesV[index](r.meta.capacities[index]), r.scaleX(Math.min(r.meta.end, data.info.duration)), r.scalesV[index](r.meta.capacities[index])]);
+
+				// All - points - data
+				dataList.forEach(function(frame) {
+					if (frame.t >= r.meta.begin && frame.t <= r.meta.end) {
+						if (r.meta.crenellate)
+							scaleVCurrent = [r.scalesV[index](crenellateValue(profile, frame.r)), r.scalesV[index](crenellateValue(profile, frame.yb) + r.meta.capacities[index])];
+						else
+							scaleVCurrent = [r.scalesV[index](frame.r), r.scalesV[index](frame.yb + r.meta.capacities[index])];
+
+						pointsR.push.apply(pointsR, [r.scaleX(frame.t), scaleVCurrent[0], r.scaleX(frame.t + data.info.timeStep), scaleVCurrent[0]]);
+						pointsBY.push.apply(pointsBY, [r.scaleX(frame.t), scaleVCurrent[1], r.scaleX(frame.t + data.info.timeStep), scaleVCurrent[1]]);
+
+						if (index == 1 && r.meta.vMirror)
+							r.meta.overflow[index] = Math.max(r.meta.overflow[index], scaleVCurrent[1] - r.layout.profile.height);
+						else
+							r.meta.overflow[index] = Math.max(r.meta.overflow[index], 0 - scaleVCurrent[1]);
+					}
+				});
+				console.log(r.meta.overflow[index]);
+
+				// All - points - end
+				pointsC.push.apply(pointsC, [r.scaleX(Math.min(r.meta.end, data.info.timeMax) + data.info.timeStep), r.scalesV[index](0)]);
+				pointsR.push.apply(pointsR, [r.scaleX(Math.min(r.meta.end, data.info.timeMax) + data.info.timeStep), r.scalesV[index](0)]);
+				pointsBY.push.apply(pointsBY, [r.scaleX(Math.min(r.meta.end, data.info.timeMax) + data.info.timeStep), r.scalesV[index](r.meta.capacities[index])]);
+
+				// Clean
+				r.groupP[index].selectAll("*").remove();
+
+				// Draw - Capacity
+				r.groupP[index].append("polygon")
+					.attr("class", "svg-limit")
+					.attr("points", p2s(pointsC))
+					.attr("fill", r.deck.limit.color);
+
+				// Draw - Running
+				r.groupP[index].append("polygon")
+					.attr("class", "svg-limit")
+					.attr("points", p2s(pointsR))
+					.attr("fill", r.deck.v[0].color);
+				
+				// Draw - Ready
+				r.groupP[index].append("polygon")
+					.attr("class", "svg-limit")
+					.attr("points", p2s(pointsBY))
+					.attr("fill", r.deck.v[1].color);
 
 				// Value axis
 				directive_repaint_VAxis(r, index);
+
+				// Limit line
+				r.groupV[index].append("line")
+					.attr("class", "line")
+					.attr("x1", r.layout.profile.x + r.scaleX(r.meta.begin))
+					.attr("x2", r.layout.profile.x + r.scaleX(Math.min(r.meta.end, data.info.timeMax) + data.info.timeStep))
+					.attr("y1", r.scalesV[index](r.meta.capacities[index]))
+					.attr("y2", r.scalesV[index](r.meta.capacities[index]))
+					.attr('stroke', r.deck.limit.fcolor)
+					.attr('stroke-width', 4)
+					.attr('stroke-dasharray', 5.5);
 			});
 
 			// Post-treatment
@@ -540,7 +641,7 @@ app.directive('chartThreadStates', function() {
 		}
 
 		// Bind
-		directive_repaint_VAxis(r, repaint, select, unselect, settings_change);
+		directive_bind(r, repaint, select, unselect, settings_change);
 	}
 
 	return {
