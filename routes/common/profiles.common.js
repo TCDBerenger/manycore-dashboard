@@ -71,7 +71,8 @@ var profileMap = {
 		{ id: 19,	label: 'Word',			desc: 'Microsoft Word sample',		hardware: hardRoman, file: 'word',			pid: 0,	timeStep: 50,	v: 3 },
 		{ id: 20,	label: 'Excel',			desc: 'Microsoft Excel sample',		hardware: hardRoman, file: 'excel',			pid: 0,	timeStep: 50,	v: 3 },
 
-		{ id: 21,	label: 'Dining ph. 45',	desc: 'Dining philosophers problem 45',	hardware: hardRoman, file: 'philosophers45',	pid: 4168,	timeStep: 50,	v: 4 }
+		{ id: 21,	label: 'Dining ph. 45',	desc: 'Dining philosophers problem 45',	hardware: hardRoman, file: 'philosophers45',	pid: 4168,	timeStep: 50,	v: 4 },
+		{ id: 22,	label: 'pc100x100',	desc: '',	hardware: hardRoman, file: 'pc100x100',	pid: 93496,	timeStep: 50,	v: 4 }
 	]
 };
 
