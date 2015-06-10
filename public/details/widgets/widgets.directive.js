@@ -18,7 +18,7 @@ var graphLayout = function(favoriteHeight) {
 	var self = this;
 
 	// Constants
-	this.padding	= { top: 10, right: 10, bottom: 10, left: 50, inner: 4 };
+	this.padding	= { top: 10, right: 10, bottom: 10, left: 60, inner: 4 };
 	this.profile	= { favoriteHeight: favoriteHeight };
 	this.xAxis		= { height: 10, text: 8, textShift: 8, arrow: 8 };
 	this.vAxis		= { fontSize: 10, profileFontSize: 12 };
@@ -639,14 +639,18 @@ app.directive('chartThreadStates', function() {
 			var capacity = r.meta.cores[0]
 
 			// Crenellate
-			function crenellateLabel(v, index) {
-				var c = v / r.meta.vStep[index];
-				if (c == 4)
-					return 'CPU';
-				else if (c < 4)
-					return 'core';
-				else
-					return (c / 4) + '×';
+			function vAxisLabel(v, index) {
+				if (r.meta.crenellate) {
+					var c = v / r.meta.vStep[index];
+					if (c == 4)
+						return 'CPU';
+					else if (c < 4)
+						return 'core';
+					else
+						return (c / 4) + '×';
+				} else {
+					return v + ' ms'
+				}
 			}
 
 			// Repaint scales
@@ -735,10 +739,7 @@ app.directive('chartThreadStates', function() {
 					.attr('stroke-width', 1)*/;
 
 				// Value axis
-				if (r.meta.crenellate)
-					directive_repaint_VAxis(r, index, crenellateLabel);
-				else
-					directive_repaint_VAxis(r, index);
+				directive_repaint_VAxis(r, index, vAxisLabel);
 
 
 				// Limit line
