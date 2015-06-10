@@ -604,13 +604,17 @@ app.directive('chartThreadStates', function() {
 				r.groupP[index].append("polygon")
 					.attr("class", "svg-limit")
 					.attr("points", p2s(pointsR))
-					.attr("fill", r.deck.v[0].color);
+					.attr("fill", r.deck.v[0].color)
+					.attr('stroke', r.deck.v[0].fcolor)
+					.attr('stroke-width', 1);
 				
 				// Draw - Ready
 				r.groupP[index].append("polygon")
 					.attr("class", "svg-limit")
 					.attr("points", p2s(pointsBY))
-					.attr("fill", r.deck.v[1].color);
+					.attr("fill", r.deck.v[1].color)
+					.attr('stroke', r.deck.v[1].fcolor)
+					.attr('stroke-width', 1);
 
 				// Value axis
 				directive_repaint_VAxis(r, index);

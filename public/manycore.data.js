@@ -78,8 +78,8 @@ app.factory('decks', ['colours', function(colours) {
 				{ color: colours.plus,	tax: 'Underscubscription', 							text: 'not enough threads' }
 			],
 			settings: [
-				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core' },
-				{ property: 'vMirror', value: true, type: 'flag', label: 'Vertical mirror' }
+				{ property: 'crenellate', value: false, type: 'flag', label: 'Round' }/*,
+				{ property: 'vMirror', value: true, type: 'flag', label: 'Vertical mirror' }*/
 			]
 		},
 		switches: {
@@ -93,8 +93,8 @@ app.factory('decks', ['colours', function(colours) {
 				{ color: colours.base,	tax: 'Oversubscription',							text: 'high frequency' }
 			],
 			settings: [
-				{ property: 'pixelGroup', value: 5, type: 'range', label: 'Group by', unit: 'pixels', min: 1, max: 15 },
-				{ property: 'vMirror', value: true, type: 'flag', label: 'Vertical mirror' }
+				{ property: 'pixelGroup', value: 5, type: 'range', label: 'Group by', unit: 'pixels', min: 1, max: 15 }/*,
+				{ property: 'vMirror', value: true, type: 'flag', label: 'Vertical mirror' }*/
 			]
 		},
 		migrations: {
@@ -109,8 +109,8 @@ app.factory('decks', ['colours', function(colours) {
 				{ color: colours.base,	tax: 'Alternating sequential/parallel execution',	text: 'alternating period of high and low thread migrations' }
 			],
 			settings: [
-				{ property: 'pixelGroup', value: 5, type: 'range', label: 'Group by', unit: 'pixels', min: 1, max: 15 },
-				{ property: 'vMirror', value: true, type: 'flag', label: 'Vertical mirror' }
+				{ property: 'pixelGroup', value: 5, type: 'range', label: 'Group by', unit: 'pixels', min: 1, max: 15 }/*,
+				{ property: 'vMirror', value: true, type: 'flag', label: 'Vertical mirror' }*/
 			]
 		},
 		lifetime: {
