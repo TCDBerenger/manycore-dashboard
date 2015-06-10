@@ -48,7 +48,7 @@
 			<i>Sorry, nothing yet.</i>
 		</p>
 	</tab>
-	<tab>
+	<tab disable='widget.deck.settings.length == 0'>
 		<tab-heading><i class="fa fa-sliders"></i> Settings</tab-heading>
 		<div class="settings" ng-repeat="setting in widget.deck.settings">
 			<div class="setting setting-range" ng-if="setting.type == 'range'">
