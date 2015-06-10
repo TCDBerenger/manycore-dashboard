@@ -56,29 +56,32 @@ var graphLayout = function(favoriteHeight) {
 /**
  * Meta (parameters)
  */
-var graphMeta = function(scope, attributes, vMirror, allowOverflow) {
+var graphMeta = function(scope, attributes, mirror, canOverflow) {
 	// Allow seld reference (otherwise this is the caller object)
 	var self = this;
 
 	// Save params
-	this.scope			= scope;
+	this.scope =		scope;
 
 	// Common
-	this.begin			= NaN;		// When the user selection starts
-	this.end			= NaN;		// When the user selection ends (could be before or after timeMax)
-	this.duration		= NaN;		// Duration of the user selection
+	this.begin =		NaN;		// When the user selection starts
+	this.end =			NaN;		// When the user selection ends (could be before or after timeMax)
+	this.duration =		NaN;		// Duration of the user selection
 
 	// Common
-	this.ends			= [NaN, NaN];	// When profiles ends (could be before or after timeMax)
-	this.durations		= [NaN, NaN];	// Duration of profiles
-	this.steps			= [NaN, NaN];	// Time step of profiles
+	this.ends =			[NaN, NaN];	// When profiles ends (could be before or after timeMax)
+	this.durations =	[NaN, NaN];	// Duration of profiles
+	this.steps =		[NaN, NaN];	// Time step of profiles
 
-	// Layout
-	this.vMirror		= (vMirror !== undefined) ? vMirror : false;
+	// Parameters
+	this.mirror =		(mirror !== undefined) ? mirror : false;
+	this.canOverflow =	(canOverflow !== undefined) ? canOverflow : false;
 
-	// Overflow
-	this.allowOverflow	= (allowOverflow !== undefined) ? allowOverflow : false;
-	this.overflow		= [NaN, NaN];		// Possible overflow by first and second profile
+	// Value axis
+	this.vExpected =	[NaN, NaN];		// if there is an expected value, which value ?
+	this.vMinDisplay =	[NaN, NaN];		// which is the minimum value to display ?
+	this.vStep =		[NaN, NaN];		// what is the step to display the ticks on the axis ?
+	this.vOverflow =	[NaN, NaN];		// Possible overflow by first and second profile
 
 	// On demand
 	['calibration', 'crenellate'].forEach(function(a) {
@@ -111,14 +114,14 @@ var graphMeta = function(scope, attributes, vMirror, allowOverflow) {
 /**
  * Init directive
  */
-function directive_init(scope, element, attrs, layoutType, vMirror, allowOverflow) {
+function directive_init(scope, element, attrs, layoutType, mirror, canOverflow) {
 	// Layout
 	var container =	element[0];
 	var layout =	new graphLayout(layoutType);
 
 	// Attributes
 	var deck =		scope.widget.deck.graph;
-	var meta =		new graphMeta(scope, attrs, vMirror, allowOverflow);
+	var meta =		new graphMeta(scope, attrs, mirror, canOverflow);
 
 	// Data
 	var profiles =	scope.profiles;
@@ -131,7 +134,7 @@ function directive_init(scope, element, attrs, layoutType, vMirror, allowOverflo
 	var scalesV =	[d3.scale.linear(), d3.scale.linear()];
 
 	// Overflow
-	var overflow =	(allowOverflow) ? svg.append("g").attr("class", "svg-overflow") : svg;
+	var overflow =	(canOverflow) ? svg.append("g").attr("class", "svg-overflow") : svg;
 
 	// Groups
 	var groupAxisX =	overflow.append("g").attr("class", "svg-axis svg-axis-x");
@@ -187,8 +190,8 @@ function directive_repaint_container(r) {
 	r.groupP[1].attr("transform", "translate(" + r.layout.profile.x + "," + r.layout.profile.y[1] + ")");
 
 	// Overflow
-	if (r.meta.allowOverflow) {
-		r.meta.overflow = [0, 0];
+	if (r.meta.canOverflow) {
+		r.meta.vOverflow = [0, 0];
 		r.groupO.attr("transform", null);
 	}
 }
@@ -205,7 +208,7 @@ function directive_repaint_scales(r, vData, vData2) {
 	// Scales - domains (coordinates)
 	r.scaleX.rangeRound([r.layout.profile.left, r.layout.profile.right]);
 	r.scalesV[0].rangeRound([r.layout.profile.bottom, r.layout.profile.top]);
-	if (r.meta.vMirror) r.scalesV[1].rangeRound([r.layout.profile.top, r.layout.profile.bottom]); else r.scalesV[1].rangeRound([r.layout.profile.bottom, r.layout.profile.top]);
+	if (r.meta.mirror) r.scalesV[1].rangeRound([r.layout.profile.top, r.layout.profile.bottom]); else r.scalesV[1].rangeRound([r.layout.profile.bottom, r.layout.profile.top]);
 }
 
 /**
@@ -213,21 +216,21 @@ function directive_repaint_scales(r, vData, vData2) {
  */
 function directive_repaint_post(r) {
 	// Overflow
-	if (r.meta.allowOverflow) {
+	if (r.meta.canOverflow) {
 
 		// Top (profile 1)
-		if (r.meta.overflow[0] > 0) {
-			r.groupO.attr("transform", "translate(0," + r.meta.overflow[0] + ")");
+		if (r.meta.vOverflow[0] > 0) {
+			r.groupO.attr("transform", "translate(0," + r.meta.vOverflow[0] + ")");
 		}
 
 		// Top (profile 2)
-		if (r.meta.overflow[1] > 0 && ! r.meta.vMirror) {
-			r.group1.attr("transform", "translate(0," + r.meta.overflow[1] + ")");
+		if (r.meta.vOverflow[1] > 0 && ! r.meta.mirror) {
+			r.group1.attr("transform", "translate(0," + r.meta.vOverflow[1] + ")");
 		}
 
 		// Top & Bottom (both profiles)
-		d3.select(r.container).style('height', (r.layout.height + r.meta.overflow[0] + r.meta.overflow[1]) + 'px');
-		r.svg.attr('height', r.layout.height + r.meta.overflow[0] + r.meta.overflow[1]);
+		d3.select(r.container).style('height', (r.layout.height + r.meta.vOverflow[0] + r.meta.vOverflow[1]) + 'px');
+		r.svg.attr('height', r.layout.height + r.meta.vOverflow[0] + r.meta.vOverflow[1]);
 	}
 }
 
@@ -290,11 +293,47 @@ function directive_repaint_xAxis(r) {
 /**
  * Repaint - VAxis
  */
-function directive_repaint_VAxis(r, index) {
+function directive_repaint_VAxis(r, index, valueFunction) {
 	// Limit - Clean
 	r.groupV[index].selectAll("*").remove();
 
+	// Length
+	var vMax;
+	if (index == 1 && r.meta.canOverflow) {
+		vMax = r.scalesV[index].invert(r.layout.profile.height + r.meta.vOverflow[index]);
+	} else {
+		vMax = r.scalesV[index].invert(- r.meta.vOverflow[index]);
+	}
 
+	// Line
+	r.groupV[index].append("line")
+			.attr("class", "svg-line")
+			.attr("x1", r.layout.vAxis.width).attr("x2", r.layout.vAxis.width)
+			.attr("y1", r.scalesV[index](0)).attr("y2", r.scalesV[index](vMax))
+			.attr('stroke', '#000000')
+			.attr('stroke-width', 3)
+			.attr('fill', 'none');
+
+	for (var v = r.meta.vStep[index]; v < vMax; v += r.meta.vStep[index]) {
+		// Tick
+		r.groupV[index].append("line")
+				.attr("class", "svg-line")
+				.attr("x1", r.layout.vAxis.width).attr("x2", r.layout.vAxis.width - 4)
+				.attr("y1", r.scalesV[index](v)).attr("y2", r.scalesV[index](v))
+				.attr('stroke', (v == r.meta.vExpected[index]) ? r.deck.limit.fcolor : '#000000')
+				.attr('stroke-width', (v == r.meta.vExpected[index]) ? 3 : 1)
+				.attr('fill', 'none');
+
+		// Text
+		r.groupV[index].append("text")
+			.attr("class", "svg-text")
+			.attr("y", r.scalesV[index](v) + 3)
+			.attr("x", r.layout.vAxis.width - 4)
+			.attr("text-anchor", "end")
+			.attr("font-size", r.layout.vAxis.fontSize + "px")
+			.attr("fill", (v == r.meta.vExpected[index]) ? r.deck.limit.fcolor : '#000000')
+			.text((valueFunction !== undefined) ? valueFunction(v, index) : v);
+	};
 }
 
 
@@ -316,6 +355,12 @@ function p2s(points) {
 	return result;
 }
 
+/**
+ * Round
+ */
+function rV(v, round) {
+	return Math.round(v / round) * round;
+}
 
 
 
@@ -342,19 +387,22 @@ app.directive('chartSwitches', function() {
 
 		// Meta - settings
 		r.meta.pixelGroup = r.settings.pixelGroup;
+
+		// Meta - settings
+		r.meta.vExpected =		[1, 1];
+		r.meta.vMinDisplay =	[2, 2];
+		r.meta.vStep =			[1, 1];
 		
 		// Meta - layout Y (arbitrary)
-		r.meta.expected = 1;
-		r.meta.minLimit = 2;
 		r.meta.d_expected = [];
 		r.meta.d_minLimit = [];
 
 		// Meta - Calibration
 		r.meta.calibrations = [];
-		r.profiles.forEach(function(profile) {
+		r.profiles.forEach(function(profile, i) {
 			r.meta.calibrations.push(profile.hardware.calibration[r.meta.calibration] * profile.hardware.data.threads);
-			r.meta.d_expected.push(profile.hardware.calibration[r.meta.calibration] * profile.hardware.data.threads * r.meta.expected);
-			r.meta.d_minLimit.push(profile.hardware.calibration[r.meta.calibration] * profile.hardware.data.threads * r.meta.minLimit);
+			r.meta.d_expected.push(profile.hardware.calibration[r.meta.calibration] * profile.hardware.data.threads * r.meta.vExpected[i]);
+			r.meta.d_minLimit.push(profile.hardware.calibration[r.meta.calibration] * profile.hardware.data.threads * r.meta.vMinDisplay[i]);
 		});
 
 		// Enhance layout
@@ -368,6 +416,11 @@ app.directive('chartSwitches', function() {
 			var xMax = r.layout.profile.width;
 			var xStep = r.meta.pixelGroup;
 			var tStep = r.meta.duration / (xMax / xStep);
+
+			// vScale label
+			function vScaleLabel(v) {
+				return v + '×';
+			}
 			
 			// Repaint scales
 			directive_repaint_scales(r, [0, tStep * r.meta.d_minLimit[0]], [0, tStep * r.meta.d_minLimit[1]]);
@@ -412,7 +465,7 @@ app.directive('chartSwitches', function() {
 					points += " " + x + "," + v_count;
 					points += " " + Math.min(x + xStep, xMax) + "," + v_count;
 
-					r.meta.overflow[index] = Math.max(r.meta.overflow[index], Math.pow(-1, index) * (v_minLimit - v_count));
+					r.meta.vOverflow[index] = Math.max(r.meta.vOverflow[index], Math.pow(-1, index) * (v_minLimit - v_count));
 
 					// Next loop
 					x += xStep;
@@ -427,13 +480,15 @@ app.directive('chartSwitches', function() {
 					.attr("points", points)
 					.attr("fill", r.meta.v.color);
 
+				// Value axis
+				//directive_repaint_VAxis(r, index, vScaleLabel);
 
 				// Limit - Clean
 				r.groupV[index].selectAll("*").remove();
 
 				// Limit - Loop
 				var yPosition;
-				for (var l = Math.floor(2 * (r.layout.profile.height + r.meta.overflow[index] - r.layout.vAxis.fontSize) / r.layout.profile.height); l > 0; l--) {
+				for (var l = Math.floor(2 * (r.layout.profile.height + r.meta.vOverflow[index] - r.layout.vAxis.fontSize) / r.layout.profile.height); l > 0; l--) {
 					yPosition = r.scalesV[index](tStep * r.meta.d_expected[index] * l);
 
 					// Limit abel
@@ -534,23 +589,17 @@ app.directive('chartThreadStates', function() {
 
 		// Enhance meta
 		r.meta.cores = [];
-		r.meta.capacities = [];
-		r.meta.minLimits = [];
-		r.profiles.forEach(function(profile) {
+		r.profiles.forEach(function(profile, i) {
 			r.meta.cores.push(profile.hardware.data.threads);
-			r.meta.capacities.push(profile.hardware.data.threads * profile.currentData.info.timeStep);
-			r.meta.minLimits.push((profile.hardware.data.threads + 1) * profile.currentData.info.timeStep);
+			r.meta.vExpected[i] = profile.hardware.data.threads * profile.currentData.info.timeStep;
+			r.meta.vMinDisplay[i] = (profile.hardware.data.threads + 1) * profile.currentData.info.timeStep;
+			r.meta.vStep[i] = r.meta.vExpected[i] / 4; // by 100 for 8 cores ; by 50 for 4 cores
 		});
 
 		// Meta - settings
 		r.meta.crenellate = r.settings.crenellate;
 
 		// Enhance layout
-
-		// Crenellate data
-		function crenellateValue(profile, v) {
-			return Math.round(v / profile.currentData.info.timeStep) * profile.currentData.info.timeStep;
-		}
 
 		// Redraw
 		function repaint() {
@@ -560,8 +609,19 @@ app.directive('chartThreadStates', function() {
 			// Vars
 			var capacity = r.meta.cores[0]
 
+			// Crenellate
+			function crenellateLabel(v, index) {
+				var c = v / r.meta.vStep[index];
+				if (c == 4)
+					return 'CPU';
+				else if (c < 4)
+					return 'core';
+				else
+					return (c / 4) + '×';
+			}
+
 			// Repaint scales
-			directive_repaint_scales(r, [0, r.meta.minLimits[0]], [0, r.meta.minLimits[1]]);
+			directive_repaint_scales(r, [0, r.meta.vMinDisplay[0]], [0, r.meta.vMinDisplay[1]]);
 
 			// Repaint graphical elements
 			directive_repaint_xAxis(r);
@@ -577,28 +637,28 @@ app.directive('chartThreadStates', function() {
 				// All - points - start
 				pointsC = [r.scaleX(r.meta.begin), r.scalesV[index](0)];
 				pointsR = [r.scaleX(r.meta.begin), r.scalesV[index](0)];
-				pointsBY = [r.scaleX(r.meta.begin), r.scalesV[index](r.meta.capacities[index])];
+				pointsBY = [r.scaleX(r.meta.begin), r.scalesV[index](r.meta.vExpected[index])];
 
 				// All - points - capacity
-				pointsC.push.apply(pointsC, [r.scaleX(r.meta.begin), r.scalesV[index](r.meta.capacities[index]), r.scaleX(r.meta.ends[index]), r.scalesV[index](r.meta.capacities[index])]);
+				pointsC.push.apply(pointsC, [r.scaleX(r.meta.begin), r.scalesV[index](r.meta.vExpected[index]), r.scaleX(r.meta.ends[index]), r.scalesV[index](r.meta.vExpected[index])]);
 
 				// All - points - data
 				dataList.forEach(function(frame) {
 					if (frame.t >= r.meta.begin && frame.t < r.meta.ends[index]) {
 						if (r.meta.crenellate) {
-							coordinates = [r.scaleX(frame.t), r.scaleX(frame.t + r.meta.steps[index]), r.scalesV[index](crenellateValue(profile, frame.r)), r.scalesV[index](crenellateValue(profile, frame.yb) + r.meta.capacities[index])];
+							coordinates = [r.scaleX(frame.t), r.scaleX(frame.t + r.meta.steps[index]), r.scalesV[index](rV(frame.r, r.meta.vStep[index])), r.scalesV[index](rV(frame.yb, r.meta.vStep[index]) + r.meta.vExpected[index])];
 						} else {
-							coordinates = [r.scaleX(frame.t), r.scaleX(frame.t + r.meta.steps[index]), r.scalesV[index](frame.r), r.scalesV[index](frame.yb + r.meta.capacities[index])];
+							coordinates = [r.scaleX(frame.t), r.scaleX(frame.t + r.meta.steps[index]), r.scalesV[index](frame.r), r.scalesV[index](frame.yb + r.meta.vExpected[index])];
 						}
 						iData.push(coordinates);
 
 						pointsR.push.apply(pointsR, [coordinates[0], coordinates[2], coordinates[1], coordinates[2]]);
 						pointsBY.push.apply(pointsBY, [coordinates[0], coordinates[3], coordinates[1], coordinates[3]]);
 
-						if (index == 1 && r.meta.vMirror)
-							r.meta.overflow[1] = Math.max(r.meta.overflow[1], coordinates[3] - r.layout.profile.height);
+						if (index == 1 && r.meta.mirror)
+							r.meta.vOverflow[1] = Math.max(r.meta.vOverflow[1], coordinates[3] - r.layout.profile.height);
 						else {
-							r.meta.overflow[index] = Math.max(r.meta.overflow[index], 0 - coordinates[3]);
+							r.meta.vOverflow[index] = Math.max(r.meta.vOverflow[index], 0 - coordinates[3]);
 						}
 					}
 				});
@@ -607,7 +667,7 @@ app.directive('chartThreadStates', function() {
 				// All - points - end
 				pointsC.push.apply(pointsC, [r.scaleX(r.meta.ends[index]), r.scalesV[index](0)]);
 				pointsR.push.apply(pointsR, [r.scaleX(r.meta.ends[index]), r.scalesV[index](0)]);
-				pointsBY.push.apply(pointsBY, [r.scaleX(r.meta.ends[index]), r.scalesV[index](r.meta.capacities[index])]);
+				pointsBY.push.apply(pointsBY, [r.scaleX(r.meta.ends[index]), r.scalesV[index](r.meta.vExpected[index])]);
 
 				// Clean
 				r.groupP[index].selectAll("*").remove();
@@ -635,15 +695,19 @@ app.directive('chartThreadStates', function() {
 					.attr('stroke-width', 1);
 
 				// Value axis
-				directive_repaint_VAxis(r, index);
+				if (r.meta.crenellate)
+					directive_repaint_VAxis(r, index, crenellateLabel);
+				else
+					directive_repaint_VAxis(r, index);
+
 
 				// Limit line
 				r.groupV[index].append("line")
 					.attr("class", "line")
 					.attr("x1", r.layout.profile.x + r.scaleX(r.meta.begin))
 					.attr("x2", r.layout.profile.x + r.scaleX(r.meta.ends[index]))
-					.attr("y1", r.scalesV[index](r.meta.capacities[index]))
-					.attr("y2", r.scalesV[index](r.meta.capacities[index]))
+					.attr("y1", r.scalesV[index](r.meta.vExpected[index]))
+					.attr("y2", r.scalesV[index](r.meta.vExpected[index]))
 					.attr('stroke', r.deck.limit.fcolor)
 					.attr('stroke-width', 4)
 					.attr('stroke-dasharray', 5.5);
@@ -669,9 +733,9 @@ app.directive('chartThreadStates', function() {
 
 				// All - points - start
 				if (r.iData[index].length > tIndex) {
-					pointsC = [r.iData[index][tIndex][0], r.iData[index][tIndex][2], r.iData[index][tIndex][0], r.scalesV[index](r.meta.capacities[index]), r.iData[index][tIndex][1], r.scalesV[index](r.meta.capacities[index]), r.iData[index][tIndex][1], r.iData[index][tIndex][2]];
+					pointsC = [r.iData[index][tIndex][0], r.iData[index][tIndex][2], r.iData[index][tIndex][0], r.scalesV[index](r.meta.vExpected[index]), r.iData[index][tIndex][1], r.scalesV[index](r.meta.vExpected[index]), r.iData[index][tIndex][1], r.iData[index][tIndex][2]];
 					pointsR = [r.iData[index][tIndex][0], r.scalesV[index](0), r.iData[index][tIndex][0], r.iData[index][tIndex][2], r.iData[index][tIndex][1], r.iData[index][tIndex][2], r.iData[index][tIndex][1], r.scalesV[index](0)];
-					pointsBY = [r.iData[index][tIndex][0], r.scalesV[index](r.meta.capacities[index]), r.iData[index][tIndex][0], r.iData[index][tIndex][3], r.iData[index][tIndex][1], r.iData[index][tIndex][3], r.iData[index][tIndex][1], r.scalesV[index](r.meta.capacities[index])];
+					pointsBY = [r.iData[index][tIndex][0], r.scalesV[index](r.meta.vExpected[index]), r.iData[index][tIndex][0], r.iData[index][tIndex][3], r.iData[index][tIndex][1], r.iData[index][tIndex][3], r.iData[index][tIndex][1], r.scalesV[index](r.meta.vExpected[index])];
 				} else {
 					pointsC = [];
 					pointsR = [];
