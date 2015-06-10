@@ -66,11 +66,12 @@ var graphMeta = function(scope, attributes, vMirror, allowOverflow) {
 	// Common
 	this.begin			= NaN;		// When the user selection starts
 	this.end			= NaN;		// When the user selection ends (could be before or after timeMax)
-	this.duration		= function() { return self. end - self.begin; };
-	this.refresh		= function() {
-		self.begin = self.scope.selection.begin;
-		self.end = self.scope.selection.end;
-	}
+	this.duration		= NaN;		// Duration of the user selection
+
+	// Common
+	this.ends			= [NaN, NaN];	// When profiles ends (could be before or after timeMax)
+	this.durations		= [NaN, NaN];	// Duration of profiles
+	this.steps			= [NaN, NaN];	// Time step of profiles
 
 	// Layout
 	this.vMirror		= (vMirror !== undefined) ? vMirror : false;
@@ -84,6 +85,20 @@ var graphMeta = function(scope, attributes, vMirror, allowOverflow) {
 		if (attributes.hasOwnProperty(a))
 			try { self[a] = JSON.parse(attributes[a]) } catch(e) { self[a] = attributes[a] };
 	});
+
+
+	this.refresh		= function(r) {
+		self.begin =	self.scope.selection.begin;
+		self.end =		self.scope.selection.end;
+		self.duration =	self.end - self.begin;
+
+		self.ends[0] =		Math.min(self.scope.selection.end, r.profiles[0].currentData.info.duration);
+		self.ends[1] =		Math.min(self.scope.selection.end, r.profiles[1].currentData.info.duration);
+		self.durations[0] =	Math.max(0, self.ends[0] - self.begin);
+		self.durations[1] =	Math.max(0, self.ends[1] - self.begin);
+		self.steps[0] =	r.profiles[0].currentData.info.timeStep;
+		self.steps[1] =	r.profiles[1].currentData.info.timeStep;
+	}
 };
 
 
@@ -151,7 +166,7 @@ function directive_init(scope, element, attrs, layoutType, vMirror, allowOverflo
  */
 function directive_repaint_container(r) {
 	// Parameters - Data
-	r.meta.refresh();
+	r.meta.refresh(r);
 	r.iData = [];
 
 	// Sizes
@@ -219,9 +234,19 @@ function directive_repaint_post(r) {
 /**
  * Repaint - Bind
  */
-function directive_bind(r, repaint, select, unselect, settings) {
-	r.scope.$watch(function() { return r.container.clientWidth; }, repaint);
-	r.scope.$watch(function() { return r.settings.version; }, settings);
+function directive_bind(scope, element, r, repaint, select, unselect, settings) {
+	scope.$watch(function() { return r.container.clientWidth; }, repaint);
+	scope.$watch(function() { return r.settings.version; }, settings);
+	scope.$on('xEvent', function(event, x) {
+		if (x == NaN) {
+			unselect();
+		} else {
+			select(x);
+		}
+	});
+
+	element.on('mousemove', function(event) { scope.mouseOver(event, r); });
+	element.on('mouseleave', function(event) { scope.mouseLeave(event, r); });
 }
 
 /**
@@ -342,8 +367,7 @@ app.directive('chartSwitches', function() {
 			// Computation
 			var xMax = r.layout.profile.width;
 			var xStep = r.meta.pixelGroup;
-			var tMax = r.meta.duration(); // the max of both profiles
-			var tStep = tMax / (xMax / xStep);
+			var tStep = r.meta.duration / (xMax / xStep);
 			
 			// Repaint scales
 			directive_repaint_scales(r, [0, tStep * r.meta.d_minLimit[0]], [0, tStep * r.meta.d_minLimit[1]]);
@@ -352,12 +376,11 @@ app.directive('chartSwitches', function() {
 			directive_repaint_xAxis(r);
 
 			// Draw
-			var data, dataList, internalData, points;
+			var dataList, internalData, points;
 			var v_currentLimit, v_minLimit;
 			r.profiles.forEach(function(profile, index) {
 				// vars
-				data = profile.currentData;
-				dataList = data[r.meta.v.cat].list;
+				dataList = profile.currentData[r.meta.v.cat].list;
 				v_minLimit = r.scalesV[index](tStep * r.meta.d_minLimit[1]);
 
 				// Data - Clean
@@ -442,14 +465,8 @@ app.directive('chartSwitches', function() {
 
 		// Select
 		function select(x) {
-			// Precondition
-			if (x < r.layout.profile.x || x > r.layout.profile.x + r.layout.profile.width) {
-				if (r.iSelection[0] != null) unselect();
-				return;
-			}
-
 			// Time ID
-			var tID = Math.floor((x - r.layout.profile.x) / r.meta.pixelGroup);
+			var tID = Math.floor(x / r.meta.pixelGroup);
 			if (tID == r.meta.lastSelectID) {
 				return;
 			} else {
@@ -494,9 +511,7 @@ app.directive('chartSwitches', function() {
 		}
 
 		// Bind
-		directive_bind(r, repaint, select, unselect, settings);
-		element.on('mousemove', function(event) { select(event.clientX - r.container.getBoundingClientRect().x); });
-		element.on('mouseleave', unselect);
+		directive_bind(scope, element, r, repaint, select, unselect, settings);
 	}
 
 	return {
@@ -552,12 +567,12 @@ app.directive('chartThreadStates', function() {
 			directive_repaint_xAxis(r);
 
 			// Main draw
-			var data, dataList, pointsC, pointsR, pointsBY;
-			var scaleVCurrent;
+			var dataList, iData, pointsC, pointsR, pointsBY;
+			var coordinates;
 			r.profiles.forEach(function(profile, index) {
 				// vars
-				data = profile.currentData;
-				dataList = data[r.deck.v[0].cat];
+				dataList = profile.currentData[r.deck.v[0].cat];
+				iData = [];
 
 				// All - points - start
 				pointsC = [r.scaleX(r.meta.begin), r.scalesV[index](0)];
@@ -565,31 +580,34 @@ app.directive('chartThreadStates', function() {
 				pointsBY = [r.scaleX(r.meta.begin), r.scalesV[index](r.meta.capacities[index])];
 
 				// All - points - capacity
-				pointsC.push.apply(pointsC, [r.scaleX(r.meta.begin), r.scalesV[index](r.meta.capacities[index]), r.scaleX(Math.min(r.meta.end, data.info.duration)), r.scalesV[index](r.meta.capacities[index])]);
+				pointsC.push.apply(pointsC, [r.scaleX(r.meta.begin), r.scalesV[index](r.meta.capacities[index]), r.scaleX(r.meta.ends[index]), r.scalesV[index](r.meta.capacities[index])]);
 
 				// All - points - data
 				dataList.forEach(function(frame) {
-					if (frame.t >= r.meta.begin && frame.t <= r.meta.end) {
-						if (r.meta.crenellate)
-							scaleVCurrent = [r.scalesV[index](crenellateValue(profile, frame.r)), r.scalesV[index](crenellateValue(profile, frame.yb) + r.meta.capacities[index])];
-						else
-							scaleVCurrent = [r.scalesV[index](frame.r), r.scalesV[index](frame.yb + r.meta.capacities[index])];
+					if (frame.t >= r.meta.begin && frame.t < r.meta.ends[index]) {
+						if (r.meta.crenellate) {
+							coordinates = [r.scaleX(frame.t), r.scaleX(frame.t + r.meta.steps[index]), r.scalesV[index](crenellateValue(profile, frame.r)), r.scalesV[index](crenellateValue(profile, frame.yb) + r.meta.capacities[index])];
+						} else {
+							coordinates = [r.scaleX(frame.t), r.scaleX(frame.t + r.meta.steps[index]), r.scalesV[index](frame.r), r.scalesV[index](frame.yb + r.meta.capacities[index])];
+						}
+						iData.push(coordinates);
 
-						pointsR.push.apply(pointsR, [r.scaleX(frame.t), scaleVCurrent[0], r.scaleX(frame.t + data.info.timeStep), scaleVCurrent[0]]);
-						pointsBY.push.apply(pointsBY, [r.scaleX(frame.t), scaleVCurrent[1], r.scaleX(frame.t + data.info.timeStep), scaleVCurrent[1]]);
+						pointsR.push.apply(pointsR, [coordinates[0], coordinates[2], coordinates[1], coordinates[2]]);
+						pointsBY.push.apply(pointsBY, [coordinates[0], coordinates[3], coordinates[1], coordinates[3]]);
 
 						if (index == 1 && r.meta.vMirror)
-							r.meta.overflow[index] = Math.max(r.meta.overflow[index], scaleVCurrent[1] - r.layout.profile.height);
-						else
-							r.meta.overflow[index] = Math.max(r.meta.overflow[index], 0 - scaleVCurrent[1]);
+							r.meta.overflow[1] = Math.max(r.meta.overflow[1], coordinates[3] - r.layout.profile.height);
+						else {
+							r.meta.overflow[index] = Math.max(r.meta.overflow[index], 0 - coordinates[3]);
+						}
 					}
 				});
-				console.log(r.meta.overflow[index]);
+				r.iData.push(iData);
 
 				// All - points - end
-				pointsC.push.apply(pointsC, [r.scaleX(Math.min(r.meta.end, data.info.timeMax) + data.info.timeStep), r.scalesV[index](0)]);
-				pointsR.push.apply(pointsR, [r.scaleX(Math.min(r.meta.end, data.info.timeMax) + data.info.timeStep), r.scalesV[index](0)]);
-				pointsBY.push.apply(pointsBY, [r.scaleX(Math.min(r.meta.end, data.info.timeMax) + data.info.timeStep), r.scalesV[index](r.meta.capacities[index])]);
+				pointsC.push.apply(pointsC, [r.scaleX(r.meta.ends[index]), r.scalesV[index](0)]);
+				pointsR.push.apply(pointsR, [r.scaleX(r.meta.ends[index]), r.scalesV[index](0)]);
+				pointsBY.push.apply(pointsBY, [r.scaleX(r.meta.ends[index]), r.scalesV[index](r.meta.capacities[index])]);
 
 				// Clean
 				r.groupP[index].selectAll("*").remove();
@@ -602,7 +620,7 @@ app.directive('chartThreadStates', function() {
 
 				// Draw - Running
 				r.groupP[index].append("polygon")
-					.attr("class", "svg-limit")
+					.attr("class", "svg-state-running")
 					.attr("points", p2s(pointsR))
 					.attr("fill", r.deck.v[0].color)
 					.attr('stroke', r.deck.v[0].fcolor)
@@ -610,7 +628,7 @@ app.directive('chartThreadStates', function() {
 				
 				// Draw - Ready
 				r.groupP[index].append("polygon")
-					.attr("class", "svg-limit")
+					.attr("class", "svg-state-ready")
 					.attr("points", p2s(pointsBY))
 					.attr("fill", r.deck.v[1].color)
 					.attr('stroke', r.deck.v[1].fcolor)
@@ -623,7 +641,7 @@ app.directive('chartThreadStates', function() {
 				r.groupV[index].append("line")
 					.attr("class", "line")
 					.attr("x1", r.layout.profile.x + r.scaleX(r.meta.begin))
-					.attr("x2", r.layout.profile.x + r.scaleX(Math.min(r.meta.end, data.info.timeMax) + data.info.timeStep))
+					.attr("x2", r.layout.profile.x + r.scaleX(r.meta.ends[index]))
 					.attr("y1", r.scalesV[index](r.meta.capacities[index]))
 					.attr("y2", r.scalesV[index](r.meta.capacities[index]))
 					.attr('stroke', r.deck.limit.fcolor)
@@ -637,10 +655,65 @@ app.directive('chartThreadStates', function() {
 
 		// Select
 		function select(x) {
+			// Time ID
+			var tIndex = Math.floor(r.scaleX.invert(x) / 50);
+			if (tIndex == r.meta.lastSelectID) {
+				return;
+			} else {
+				r.meta.lastSelectID = tIndex;
+			}
+
+			// Loop
+			var pointsR, pointsBY;
+			for (var index = 0; index < r.profiles.length; index++) {
+
+				// All - points - start
+				if (r.iData[index].length > tIndex) {
+					pointsC = [r.iData[index][tIndex][0], r.iData[index][tIndex][2], r.iData[index][tIndex][0], r.scalesV[index](r.meta.capacities[index]), r.iData[index][tIndex][1], r.scalesV[index](r.meta.capacities[index]), r.iData[index][tIndex][1], r.iData[index][tIndex][2]];
+					pointsR = [r.iData[index][tIndex][0], r.scalesV[index](0), r.iData[index][tIndex][0], r.iData[index][tIndex][2], r.iData[index][tIndex][1], r.iData[index][tIndex][2], r.iData[index][tIndex][1], r.scalesV[index](0)];
+					pointsBY = [r.iData[index][tIndex][0], r.scalesV[index](r.meta.capacities[index]), r.iData[index][tIndex][0], r.iData[index][tIndex][3], r.iData[index][tIndex][1], r.iData[index][tIndex][3], r.iData[index][tIndex][1], r.scalesV[index](r.meta.capacities[index])];
+				} else {
+					pointsC = [];
+					pointsR = [];
+					pointsBY = [];
+				}
+
+				// Draw points
+				if (r.iSelection[index] != null) {
+					r.iSelection[index].select(".svg-limit").attr("points", p2s(pointsC));
+					r.iSelection[index].select(".svg-state-running").attr("points", p2s(pointsR));
+					r.iSelection[index].select(".svg-state-ready").attr("points", p2s(pointsBY));
+				} else {
+					r.iSelection[index] = r.groupP[index].append("g").attr("class", "svg-selection");
+
+					// Draw - Capacity
+					r.iSelection[index].append("polygon")
+						.attr("class", "svg-limit")
+						.attr("points", p2s(pointsC))
+						.attr("fill", r.deck.limit.fcolor);
+
+					// Draw - Running
+					r.iSelection[index].append("polygon")
+						.attr("class", "svg-state-running")
+						.attr("points", p2s(pointsR))
+						.attr("fill", r.deck.v[0].fcolor);
+					
+					// Draw - Ready
+					r.iSelection[index].append("polygon")
+						.attr("class", "svg-state-ready")
+						.attr("points", p2s(pointsBY))
+						.attr("fill", r.deck.v[1].fcolor);
+				}
+			}
+
+
 		}
 		
 		// Select
 		function unselect() {
+			r.svg.selectAll(".svg-selection").remove();
+			r.iSelection = [null, null];
+			r.meta.lastSelectID = null;
 		}
 		
 		// Settigns changes
@@ -652,7 +725,7 @@ app.directive('chartThreadStates', function() {
 		}
 
 		// Bind
-		directive_bind(r, repaint, select, unselect, settings);
+		directive_bind(scope, element, r, repaint, select, unselect, settings);
 	}
 
 	return {

@@ -1,8 +1,18 @@
-<p>New version:</p>
-<chart-thread-states class="widget-graph"></chart-thread-states>
+<dev ng-if="radioModel == 1">
+	<chart-thread-states class="widget-graph"></chart-thread-states>
+</dev>
+<dev ng-if="radioModel == 2">
+	<chart-thread-divergence-with-real-data class="widget-graph widget-detail" profileid="{{ids[0]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" title="{{profiles[0].label}}"></chart-thread-divergence-with-real-data>
+	<chart-thread-divergence-with-real-data class="widget-graph widget-detail" ng-if="ids.length >= 2" profileid="{{ids[1]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" title="{{profiles[1].label}}"></chart-thread-divergence-with-real-data>
+</dev>
+<dev ng-if="radioModel == 3">
+	<chart-thread-divergence class="widget-graph widget-detail" profileid="{{ids[0]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" title="{{profiles[0].label}}"></chart-thread-divergence>
+	<chart-thread-divergence class="widget-graph widget-detail" ng-if="ids.length >= 2" profileid="{{ids[1]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" title="{{profiles[1].label}}"></chart-thread-divergence>
+</dev>
 
-<p>Old version:</p>
-<chart-thread-divergence-with-real-data class="widget-graph widget-detail" profileid="{{ids[0]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" title="{{profiles[0].label}}"></chart-thread-divergence-with-real-data>
-<chart-thread-divergence-with-real-data class="widget-graph widget-detail" ng-if="ids.length >= 2" profileid="{{ids[1]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" title="{{profiles[1].label}}"></chart-thread-divergence-with-real-data>
-<chart-thread-divergence class="widget-graph widget-detail" profileid="{{ids[0]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" title="{{profiles[0].label}}"></chart-thread-divergence>
-<chart-thread-divergence class="widget-graph widget-detail" ng-if="ids.length >= 2" profileid="{{ids[1]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" title="{{profiles[1].label}}"></chart-thread-divergence>
+<p>&nbsp;</p>
+<div class="btn-group" ng-init="radioModel = 1">
+	<label class="btn btn-default" ng-model="radioModel" btn-radio="1" uncheckable>New version</label>
+	<label class="btn btn-default" ng-model="radioModel" btn-radio="2" uncheckable>Previous version</label>
+	<label class="btn btn-default" ng-model="radioModel" btn-radio="3" uncheckable>First version</label>
+</div>

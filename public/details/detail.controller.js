@@ -76,6 +76,21 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	function isWaiting() {
 		return waiting;
 	};
+
+	/**
+	 * Mouse - over
+	 */
+	function mouseOver(event, r) {
+		var x = event.clientX - r.container.getBoundingClientRect().x - r.layout.profile.x;
+		$scope.$broadcast('xEvent', (x < 0 || x > r.layout.profile.width) ? NaN : x);
+	};
+
+	/**
+	 * Mouse - leave
+	 */
+	function mouseLeave(event) {
+		$scope.$broadcast('xEvent', NaN);
+	};
 	
 
 	/************************************************/
@@ -139,6 +154,8 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	$scope.createSettings = createSettings;
 	$scope.layout = layout;
 	$scope.meta = categories[tag];
+	$scope.mouseOver = mouseOver;
+	$scope.mouseLeave = mouseLeave;
 
 	/**
 	 * Old compatibilty
