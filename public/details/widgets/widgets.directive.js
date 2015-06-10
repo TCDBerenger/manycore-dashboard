@@ -18,10 +18,10 @@ var graphLayout = function(favoriteHeight) {
 	var self = this;
 
 	// Constants
-	this.padding	= { top: 0, right: 10, bottom: 0, left: 30, inner: 4 };
+	this.padding	= { top: 10, right: 10, bottom: 10, left: 50, inner: 4 };
 	this.profile	= { favoriteHeight: favoriteHeight };
 	this.xAxis		= { height: 10, text: 8, textShift: 8, arrow: 8 };
-	this.vAxis		= { fontSize: 10 };
+	this.vAxis		= { fontSize: 10, profileFontSize: 12 };
 
 	// Compute
 	this.refresh = function(container, profiles, callback) {
@@ -47,7 +47,7 @@ var graphLayout = function(favoriteHeight) {
 		self.vAxis.x =		0;
 		self.vAxis.y =		self.profile.y;
 		self.vAxis.width =	self.padding.left;
-		self.vAxis.height =	self.profile.heigh;
+		self.vAxis.height =	self.profile.height;
 
 		if (callback !== undefined) callback();
 	};
@@ -189,6 +189,9 @@ function directive_repaint_container(r) {
 	r.groupP[0].attr("transform", "translate(" + r.layout.profile.x + "," + r.layout.profile.y[0] + ")");
 	r.groupP[1].attr("transform", "translate(" + r.layout.profile.x + "," + r.layout.profile.y[1] + ")");
 
+	// Clean selection
+	unselect(r);
+
 	// Overflow
 	if (r.meta.canOverflow) {
 		r.meta.vOverflow = [0, 0];
@@ -237,12 +240,12 @@ function directive_repaint_post(r) {
 /**
  * Repaint - Bind
  */
-function directive_bind(scope, element, r, repaint, select, unselect, settings) {
+function directive_bind(scope, element, r, repaint, select, settings) {
 	scope.$watch(function() { return r.container.clientWidth; }, repaint);
 	scope.$watch(function() { return r.settings.version; }, settings);
 	scope.$on('xEvent', function(event, x) {
-		if (x == NaN) {
-			unselect();
+		if (isNaN(x)) {
+			unselect(r);
 		} else {
 			select(x);
 		}
@@ -305,15 +308,6 @@ function directive_repaint_VAxis(r, index, valueFunction) {
 		vMax = r.scalesV[index].invert(- r.meta.vOverflow[index]);
 	}
 
-	// Line
-	r.groupV[index].append("line")
-			.attr("class", "svg-line")
-			.attr("x1", r.layout.vAxis.width).attr("x2", r.layout.vAxis.width)
-			.attr("y1", r.scalesV[index](0)).attr("y2", r.scalesV[index](vMax))
-			.attr('stroke', '#000000')
-			.attr('stroke-width', 3)
-			.attr('fill', 'none');
-
 	for (var v = r.meta.vStep[index]; v < vMax; v += r.meta.vStep[index]) {
 		// Tick
 		r.groupV[index].append("line")
@@ -328,12 +322,49 @@ function directive_repaint_VAxis(r, index, valueFunction) {
 		r.groupV[index].append("text")
 			.attr("class", "svg-text")
 			.attr("y", r.scalesV[index](v) + 3)
-			.attr("x", r.layout.vAxis.width - 4)
+			.attr("x", r.layout.vAxis.width - 6)
 			.attr("text-anchor", "end")
 			.attr("font-size", r.layout.vAxis.fontSize + "px")
+			.attr("font-weight", (v == r.meta.vExpected[index]) ? 'bold' : 'normal')
 			.attr("fill", (v == r.meta.vExpected[index]) ? r.deck.limit.fcolor : '#000000')
 			.text((valueFunction !== undefined) ? valueFunction(v, index) : v);
 	};
+
+	// Line
+	/*var points = [
+		r.layout.vAxis.width - 4,	r.scalesV[index](vMax) + ((index == 0) ? -2 : 2),
+		r.layout.vAxis.width,		r.scalesV[index](vMax) + ((index == 0) ? -5 : 5),
+		r.layout.vAxis.width + 2,	r.scalesV[index](vMax) + ((index == 0) ? -2 : 2),
+	];*/
+	r.groupV[index].append("line")
+			.attr("class", "svg-line")
+			.attr("x1", r.layout.vAxis.width).attr("x2", r.layout.vAxis.width)
+			.attr("y1", r.scalesV[index](0))
+			.attr("y2", r.scalesV[index](vMax) + ((index == 0) ? -5 : 5))
+			.attr('stroke', '#000000')
+			.attr('stroke-width', 3);
+	r.groupV[index].append("line")
+			.attr("class", "svg-arrow")
+			.attr("x1", r.layout.vAxis.width).attr("x2", r.layout.vAxis.width)
+			.attr("y1", r.scalesV[index](vMax) + ((index == 0) ? -5 : 5))
+			.attr("y2", r.scalesV[index](vMax) + ((index == 0) ? -7 : 7))
+			.attr('stroke', '#000000')
+			.attr('stroke-width', 1);
+	/*r.groupV[index].append("polyline")
+			.attr("class", "svg-arrow")
+			.attr("points", p2s(points))
+			.attr('stroke', '#000000')
+			.attr('stroke-width', 1);*/
+
+	// Profile label
+	r.groupV[index].append("text")
+		.attr("class", "svg-text svg-profile-label")
+		.attr("text-anchor", (index == 0) ? "start" : "end")
+		.attr("font-size", r.layout.vAxis.profileFontSize + "px")
+		.attr("font-weight", "bold")
+		.attr("fill", '#000000')
+		.attr("transform", (index == 0) ? ("translate(" + r.layout.vAxis.profileFontSize + "," + (r.layout.vAxis.height) + ")rotate(270)") : ("translate(" + r.layout.vAxis.profileFontSize + "," + 0 + ")rotate(270)"))
+		.text(r.profiles[index].label);
 }
 
 
@@ -362,6 +393,11 @@ function rV(v, round) {
 	return Math.round(v / round) * round;
 }
 
+function unselect(r) {
+	r.svg.selectAll(".svg-selection").remove();
+	r.iSelection = [null, null];
+	r.meta.lastSelectID = null;
+}
 
 
 /**********************************************************/
@@ -550,13 +586,6 @@ app.directive('chartSwitches', function() {
 			};
 		}
 		
-		// Select
-		function unselect() {
-			r.svg.selectAll(".svg-selection").remove();
-			r.iSelection = [null, null];
-			r.meta.lastSelectID = null;
-		}
-		
 		// Settigns changes
 		function settings() {
 			if (typeof r.settings.pixelGroup != 'undefined' && r.settings.pixelGroup != r.meta.pixelGroup) {
@@ -566,7 +595,7 @@ app.directive('chartSwitches', function() {
 		}
 
 		// Bind
-		directive_bind(scope, element, r, repaint, select, unselect, settings);
+		directive_bind(scope, element, r, repaint, select, settings);
 	}
 
 	return {
@@ -682,17 +711,17 @@ app.directive('chartThreadStates', function() {
 				r.groupP[index].append("polygon")
 					.attr("class", "svg-state-running")
 					.attr("points", p2s(pointsR))
-					.attr("fill", r.deck.v[0].color)
+					.attr("fill", r.deck.v[0].color)/*
 					.attr('stroke', r.deck.v[0].fcolor)
-					.attr('stroke-width', 1);
+					.attr('stroke-width', 1)*/;
 				
 				// Draw - Ready
 				r.groupP[index].append("polygon")
 					.attr("class", "svg-state-ready")
 					.attr("points", p2s(pointsBY))
-					.attr("fill", r.deck.v[1].color)
+					.attr("fill", r.deck.v[1].color)/*
 					.attr('stroke', r.deck.v[1].fcolor)
-					.attr('stroke-width', 1);
+					.attr('stroke-width', 1)*/;
 
 				// Value axis
 				if (r.meta.crenellate)
@@ -710,7 +739,7 @@ app.directive('chartThreadStates', function() {
 					.attr("y2", r.scalesV[index](r.meta.vExpected[index]))
 					.attr('stroke', r.deck.limit.fcolor)
 					.attr('stroke-width', 4)
-					.attr('stroke-dasharray', 5.5);
+					.attr('stroke-dasharray', 7.3);
 			});
 
 			// Post-treatment
@@ -773,13 +802,6 @@ app.directive('chartThreadStates', function() {
 
 		}
 		
-		// Select
-		function unselect() {
-			r.svg.selectAll(".svg-selection").remove();
-			r.iSelection = [null, null];
-			r.meta.lastSelectID = null;
-		}
-		
 		// Settigns changes
 		function settings() {
 			if (r.meta.crenellate != r.settings.crenellate) {
@@ -789,7 +811,7 @@ app.directive('chartThreadStates', function() {
 		}
 
 		// Bind
-		directive_bind(scope, element, r, repaint, select, unselect, settings);
+		directive_bind(scope, element, r, repaint, select, settings);
 	}
 
 	return {
