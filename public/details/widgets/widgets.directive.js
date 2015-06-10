@@ -657,7 +657,7 @@ app.directive('chartThreadStates', function() {
 
 			// Main draw
 			var dataList, iData, pointsC, pointsR, pointsBY;
-			var coordinates;
+			var coordinates, valueR, valueYB;
 			r.profiles.forEach(function(profile, index) {
 				// vars
 				dataList = profile.currentData[r.deck.v[0].cat];
@@ -665,7 +665,7 @@ app.directive('chartThreadStates', function() {
 
 				// All - points - start
 				pointsC = [r.scaleX(r.meta.begin), r.scalesV[index](0)];
-				pointsR = [r.scaleX(r.meta.begin), r.scalesV[index](0)];
+				pointsR = (r.meta.upsidedown) ? [r.scaleX(r.meta.begin), r.scalesV[index](r.meta.vExpected[index])] : [r.scaleX(r.meta.begin), r.scalesV[index](0)];
 				pointsBY = [r.scaleX(r.meta.begin), r.scalesV[index](r.meta.vExpected[index])];
 
 				// All - points - capacity
@@ -674,11 +674,22 @@ app.directive('chartThreadStates', function() {
 				// All - points - data
 				dataList.forEach(function(frame) {
 					if (frame.t >= r.meta.begin && frame.t < r.meta.ends[index]) {
-						if (r.meta.crenellate) {
-							coordinates = [r.scaleX(frame.t), r.scaleX(frame.t + r.meta.steps[index]), r.scalesV[index](rV(frame.r, r.meta.vStep[index])), r.scalesV[index](rV(frame.yb, r.meta.vStep[index]) + r.meta.vExpected[index])];
-						} else {
-							coordinates = [r.scaleX(frame.t), r.scaleX(frame.t + r.meta.steps[index]), r.scalesV[index](frame.r), r.scalesV[index](frame.yb + r.meta.vExpected[index])];
+						// Values
+						valueR = frame.r;
+						valueYB = frame.yb;
+
+						// upsidedown
+						if (r.meta.upsidedown) {
+							valueR = r.meta.vExpected[index] - valueR;
 						}
+
+						// Crenallate
+						if (r.meta.crenellate) {
+							valueR = rV(valueR, r.meta.vStep[index]);
+							valueYB = rV(valueYB, r.meta.vStep[index]);
+						}
+
+						coordinates = [r.scaleX(frame.t), r.scaleX(frame.t + r.meta.steps[index]), r.scalesV[index](valueR), r.scalesV[index](valueYB + r.meta.vExpected[index])];
 						iData.push(coordinates);
 
 						pointsR.push.apply(pointsR, [coordinates[0], coordinates[2], coordinates[1], coordinates[2]]);
@@ -695,7 +706,7 @@ app.directive('chartThreadStates', function() {
 
 				// All - points - end
 				pointsC.push.apply(pointsC, [r.scaleX(r.meta.ends[index]), r.scalesV[index](0)]);
-				pointsR.push.apply(pointsR, [r.scaleX(r.meta.ends[index]), r.scalesV[index](0)]);
+				pointsR.push.apply(pointsR, (r.meta.upsidedown) ? [r.scaleX(r.meta.ends[index]), r.scalesV[index](r.meta.vExpected[index])] : [r.scaleX(r.meta.ends[index]), r.scalesV[index](0)]);
 				pointsBY.push.apply(pointsBY, [r.scaleX(r.meta.ends[index]), r.scalesV[index](r.meta.vExpected[index])]);
 
 				// Clean
@@ -773,8 +784,8 @@ app.directive('chartThreadStates', function() {
 
 				// Draw points
 				if (r.iSelection[index] != null) {
-					r.iSelection[index].select(".svg-limit").attr("points", p2s(pointsC));
-					r.iSelection[index].select(".svg-state-running").attr("points", p2s(pointsR));
+					r.iSelection[index].select(".svg-limit").attr("points", p2s((r.meta.upsidedown) ? pointsR : pointsC));
+					r.iSelection[index].select(".svg-state-running").attr("points", p2s((r.meta.upsidedown) ? pointsC : pointsR));
 					r.iSelection[index].select(".svg-state-ready").attr("points", p2s(pointsBY));
 				} else {
 					r.iSelection[index] = r.groupP[index].append("g").attr("class", "svg-selection");
@@ -782,13 +793,13 @@ app.directive('chartThreadStates', function() {
 					// Draw - Capacity
 					r.iSelection[index].append("polygon")
 						.attr("class", "svg-limit")
-						.attr("points", p2s(pointsC))
+						.attr("points", p2s((r.meta.upsidedown) ? pointsR : pointsC))
 						.attr("fill", r.deck.limit.fcolor);
 
 					// Draw - Running
 					r.iSelection[index].append("polygon")
 						.attr("class", "svg-state-running")
-						.attr("points", p2s(pointsR))
+						.attr("points", p2s((r.meta.upsidedown) ? pointsC : pointsR))
 						.attr("fill", r.deck.v[0].fcolor);
 					
 					// Draw - Ready
@@ -804,10 +815,20 @@ app.directive('chartThreadStates', function() {
 		
 		// Settigns changes
 		function settings() {
+			var needToRepaint = false;
+
 			if (r.meta.crenellate != r.settings.crenellate) {
 				r.meta.crenellate = r.settings.crenellate;
-				repaint();
+				needToRepaint = true;
 			}
+
+			if (r.meta.upsidedown != r.settings.upsidedown) {
+				r.meta.upsidedown = r.settings.upsidedown;
+				needToRepaint = true;
+			}
+
+			if (needToRepaint)
+				repaint();
 		}
 
 		// Bind
