@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 32;
+var VERSION = 34;
 
 /************************************************/
 /* Variables - hardwares						*/
@@ -71,8 +71,17 @@ var profileMap = {
 		{ id: 19,	label: 'Word',			desc: 'Microsoft Word sample',		hardware: hardRoman, file: 'word',			pid: 0,	timeStep: 50,	v: 3 },
 		{ id: 20,	label: 'Excel',			desc: 'Microsoft Excel sample',		hardware: hardRoman, file: 'excel',			pid: 0,	timeStep: 50,	v: 3 },
 
-		{ id: 21,	label: 'Dining ph. 45',	desc: 'Dining philosophers problem 45',	hardware: hardRoman, file: 'philosophers45',	pid: 4168,	timeStep: 50,	v: 4 },
-		{ id: 22,	label: 'pc100x100',	desc: '',	hardware: hardRoman, file: 'pc100x100',	pid: 93496,	timeStep: 50,	v: 4 }
+		{ id: 21,	label: 'Dining ph. 45',	desc: 'Dining philosophers problem 45',		hardware: hardRoman, file: 'philosophers45',	pid: 4168,	timeStep: 50, v: 4 },
+
+		{ id: 31,	label: 'P 1 / C 1',		desc: '100 producers for 100 consumers',	hardware: hardRoman, file: 'pc1x1',		pid: 67380,	timeStep: 50, v: 4 },
+		{ id: 32,	label: 'P 1 / C 10',	desc: '100 producers for 100 consumers',	hardware: hardRoman, file: 'pc1x10',	pid: 73540,	timeStep: 50, v: 4 },
+		{ id: 33,	label: 'P 1 / C 100',	desc: '100 producers for 100 consumers',	hardware: hardRoman, file: 'pc1x100',	pid: 76824,	timeStep: 50, v: 4 },
+		{ id: 34,	label: 'P 10 / C 1',	desc: '100 producers for 100 consumers',	hardware: hardRoman, file: 'pc10x1',	pid: 79828,	timeStep: 50, v: 4 },
+		{ id: 35,	label: 'P 10 / C 10',	desc: '100 producers for 100 consumers',	hardware: hardRoman, file: 'pc10x10',	pid: 81516,	timeStep: 50, v: 4 },
+		{ id: 36,	label: 'P 10 / C 100',	desc: '100 producers for 100 consumers',	hardware: hardRoman, file: 'pc10x100',	pid: 82952,	timeStep: 50, v: 4 },
+		{ id: 37,	label: 'P 100 / C 1',	desc: '100 producers for 100 consumers',	hardware: hardRoman, file: 'pc100x1',	pid: 84696,	timeStep: 50, v: 4 },
+		{ id: 38,	label: 'P 100 / C 10',	desc: '100 producers for 100 consumers',	hardware: hardRoman, file: 'pc100x10',	pid: 90436,	timeStep: 50, v: 4 },
+		{ id: 39,	label: 'P 100 / C 100',	desc: '100 producers for 100 consumers',	hardware: hardRoman, file: 'pc100x100',	pid: 93496,	timeStep: 50, v: 4 }
 	]
 };
 
@@ -168,7 +177,6 @@ profileMap.all.forEach(function (profile) { profileMap[profile.id] = profile; })
 	 │		 ├	...
 	 │		 └	frame<?>
 	 └	stats
-		 ├	timeShift				<float>		time before starting measures (i.e. non interesting computation before this time) /!\ in pico seconds (10⁻¹²s) /!\ need to be divided by 10⁹
 		 └	switch					<integer>	number of switches for all cores during all run
 **/
 var profileData = {};
@@ -240,7 +248,6 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			version:		VERSION,
 			cores:			profile.hardware.data.cores,
 			threads:		profile.hardware.data.threads,
-			timeShift:		raw1[0].time,
 			timeStep:		profile.timeStep,
 			timeMin:		0,
 			timeMax:		0,
@@ -250,7 +257,10 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			switches:		0,
 			migrations:		0,
 			starts:			0,
-			ends:			0
+			ends:			0,
+			lock_success:	0,
+			lock_failure:	0,
+			lock_wait:		0
 		},
 		frames: {},
 		switches: [],
@@ -268,6 +278,8 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 				hpf:		0
 			}
 		},
+		lock_success: [],
+		lock_failure: [],
 		timelist: {
 			switches: [],
 			migrations: []
@@ -291,21 +303,20 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	var statThreads = {};
 	raw1.forEach(function(element) {
 		// Compute time ID
-		timeID = element.time - data.info.timeShift;
-		timeID = Math.round(timeID / 10000);
+		timeEvent = Math.round(element.dtime / 10000);
 
 		// Info
-		data.info.timeMax = Math.max(data.info.timeMax, timeID);
+		data.info.timeMax = Math.max(data.info.timeMax, timeEvent);
 
 		// Thread treatment
 		if (element.pid == profile.pid) {
 			// Auto build structure
-			if (! data.threads.byFrames.hasOwnProperty(timeID)) data.threads.byFrames[timeID] = {};
-			if (! data.threads.byFrames[timeID].hasOwnProperty(element.tid)) data.threads.byFrames[timeID][element.tid] = {};
-			if (! data.threads.byFrames[timeID][element.tid].hasOwnProperty(element.type)) data.threads.byFrames[timeID][element.tid][element.type] = 0;
+			if (! data.threads.byFrames.hasOwnProperty(timeEvent)) data.threads.byFrames[timeEvent] = {};
+			if (! data.threads.byFrames[timeEvent].hasOwnProperty(element.tid)) data.threads.byFrames[timeEvent][element.tid] = {};
+			if (! data.threads.byFrames[timeEvent][element.tid].hasOwnProperty(element.type)) data.threads.byFrames[timeEvent][element.tid][element.type] = 0;
 
 			// Save state
-			data.threads.byFrames[timeID][element.tid][element.type] += element.value;
+			data.threads.byFrames[timeEvent][element.tid][element.type] += element.value;
 
 			// Count threads
 			statThreads[element.tid] = true;
@@ -314,11 +325,11 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 		// Frame treatment
 		if (element.pid == profile.pid) {
 			// Auto build structure
-			if (! data.frames.hasOwnProperty(timeID)) data.frames[timeID] = { t:{}, c:{} };
-			if (! data.frames[timeID].hasOwnProperty(element.type)) data.frames[timeID][element.type] = 0;
+			if (! data.frames.hasOwnProperty(timeEvent)) data.frames[timeEvent] = { t:{}, c:{} };
+			if (! data.frames[timeEvent].hasOwnProperty(element.type)) data.frames[timeEvent][element.type] = 0;
 
 			// Sum by frame
-			data.frames[timeID][element.type] += element.value;
+			data.frames[timeEvent][element.type] += element.value;
 
 			// Auto build structure
 			if (! data.stats.hasOwnProperty(element.type)) data.stats[element.type] = 0;
@@ -329,21 +340,21 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			// By thread
 			if (element.tid >= 0) {
 				// Auto build structure
-				if (! data.frames[timeID].t.hasOwnProperty(element.tid)) data.frames[timeID].t[element.tid] = {};
-				if (! data.frames[timeID].t[element.tid].hasOwnProperty(element.type)) data.frames[timeID].t[element.tid][element.type] = 0;
+				if (! data.frames[timeEvent].t.hasOwnProperty(element.tid)) data.frames[timeEvent].t[element.tid] = {};
+				if (! data.frames[timeEvent].t[element.tid].hasOwnProperty(element.type)) data.frames[timeEvent].t[element.tid][element.type] = 0;
 
 				// Save state
-				data.frames[timeID].t[element.tid][element.type] += element.value;
+				data.frames[timeEvent].t[element.tid][element.type] += element.value;
 			}
 
 			// By core
 			if (element.cid >= 0) {
 				// Auto build structure
-				if (! data.frames[timeID].c.hasOwnProperty(element.cid)) data.frames[timeID].c[element.cid] = {};
-				if (! data.frames[timeID].c[element.cid].hasOwnProperty(element.type)) data.frames[timeID].c[element.cid][element.type] = 0;
+				if (! data.frames[timeEvent].c.hasOwnProperty(element.cid)) data.frames[timeEvent].c[element.cid] = {};
+				if (! data.frames[timeEvent].c[element.cid].hasOwnProperty(element.type)) data.frames[timeEvent].c[element.cid][element.type] = 0;
 
 				// Save state
-				data.frames[timeID].c[element.cid][element.type] += element.value;
+				data.frames[timeEvent].c[element.cid][element.type] += element.value;
 			}
 		}
 	});
@@ -369,8 +380,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	// Loop
 	raw2.forEach(function(element) {
 		// Compute time ID
-		timeEvent = element.time - data.info.timeShift;
-		timeEvent = Math.round(timeEvent / 10000);
+		timeEvent = Math.round(element.dtime / 10000);
 		timeID = Math.floor(timeEvent / data.info.timeStep) * data.info.timeStep;
 
 		// Switch
@@ -509,9 +519,52 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	 *		locks
 	 *
 	 */
-	if (raw4 != null) {
+	// Vars
+	var lock_map = {};	// current owner of a lock
+	var wait_map = {};	// when a thread starts waiting a lock (key: 'thread-lock')
+	var duration;
 
-	}
+	// Loop
+	if (raw4 != null) raw4.forEach(function(element) {
+		// Compute time ID
+		timeEvent = Math.round(element.dtime / 10000);
+		timeID = Math.floor(timeEvent / data.info.timeStep) * data.info.timeStep;
+
+		if (element.type == 'success') {
+			// Compute duration
+			duration = isFinite(wait_map[element.tid + '-' + element.value]) ? wait_map[element.tid + '-' + element.value] - element.dtime : 0;
+
+			// Save the success
+			data.lock_success.push({
+				t: timeEvent,
+				l: element.value,				// which lock
+				d: duration,					// how long does it take to get the lock
+			});
+
+			// Reset
+			wait_map[element.tid + '-' + element.value] = null;		// Thread doesn't wait the lock anymore
+			lock_map[element.value] = element.tid;					// which thread has the lock
+
+			// Stats
+			data.stats.lock_success++;
+			data.stats.lock_wait += duration;
+
+		} else { // if (element.type == 'failure')
+
+			// Save the failure
+			data.lock_failure.push({
+				t: timeEvent,
+				l: element.value,				// which occupied lock
+				h: lock_map[element.value]		// which thread block
+			});
+
+			// Save when a thread fail
+			wait_map[element.tid + '-' + element.value] = element.dtime;
+
+			// Stats
+			data.stats.lock_failure++;
+		}
+	});
 
 
 
@@ -542,7 +595,6 @@ function exportInfo(output, profile) {
 	output.info = {
 		cores:			data.info.cores,
 		threads:		data.info.threads,
-		timeShift:		data.info.timeShift,
 		timeStep:		data.info.timeStep,
 		timeMin:		data.info.timeMin,
 		timeMax:		data.info.timeMax,
