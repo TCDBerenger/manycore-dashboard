@@ -18,9 +18,9 @@ var graphLayout = function(favoriteHeight) {
 	var self = this;
 
 	// Constants
-	this.padding	= { top: 10, right: 10, bottom: 10, left: 60, inner: 4 };
+	this.padding	= { top: 10, right: 20, bottom: 10, left: 60, inner: 4 };
 	this.profile	= { favoriteHeight: favoriteHeight };
-	this.xAxis		= { height: 10, text: 8, textShift: 8, arrow: 8 };
+	this.xAxis		= { height: 10, text: 8, textShift: 8, arrow: 8, arrowShift: 4 };
 	this.vAxis		= { fontSize: 10, profileFontSize: 12 };
 
 	// Compute
@@ -170,7 +170,7 @@ function directive_init(scope, element, attrs, layoutType, mirror, canOverflow) 
 function directive_repaint_container(r) {
 	// Parameters - Data
 	r.meta.refresh(r);
-	r.iData = [];
+	r.iData = [null, null];
 
 	// Sizes
 	r.layout.refresh(r.container, r.profiles);
@@ -266,15 +266,15 @@ function directive_repaint_xAxis(r) {
 
 	// Box
 	var points = [
-			{"x": -r.layout.xAxis.arrow, "y": 0},
-			{"x": r.layout.xAxis.right,	"y": 0},
-			{"x": r.layout.xAxis.right + r.layout.xAxis.arrow, "y": r.layout.xAxis.height / 2},
-			{"x": r.layout.xAxis.right,	"y": r.layout.xAxis.height},
-			{"x": -r.layout.xAxis.arrow, "y": r.layout.xAxis.height},
-			{"x": 0, "y": r.layout.xAxis.height / 2},
+		-r.layout.xAxis.arrowShift - r.layout.xAxis.arrow, 0,
+		r.layout.xAxis.arrowShift + r.layout.xAxis.right, 0,
+		r.layout.xAxis.arrowShift + r.layout.xAxis.right + r.layout.xAxis.arrow, r.layout.xAxis.height / 2,
+		r.layout.xAxis.arrowShift + r.layout.xAxis.right, r.layout.xAxis.height,
+		-r.layout.xAxis.arrowShift - r.layout.xAxis.arrow, r.layout.xAxis.height,
+		-r.layout.xAxis.arrowShift, r.layout.xAxis.height / 2,
 	];
 	r.groupX.append("polygon")
-		.attr("points",function() { return points.map(function(d) { return [d.x, d.y].join(","); }).join(" "); })
+		.attr("points", p2s(points))
 		.attr("stroke","black")
 		.attr("stroke-width", 2);
 
@@ -287,7 +287,7 @@ function directive_repaint_xAxis(r) {
 		.append("text")
 			.attr("y", r.layout.xAxis.textShift)
 			.attr("x", function (d) { return r.scaleX(d)})
-			.attr("text-anchor", function(d, i) { return (i == 0) ? "start" : (i == lastIndex) ? "end" : "middle"; })
+			.attr("text-anchor", function(d, i) { return (i == lastIndex) ? "end" : "middle"; })
 			.attr("font-size", r.layout.xAxis.text + "px")
 			.attr("fill", "#FFFFFF")
 			.text(function (d) { return d});
@@ -468,6 +468,8 @@ app.directive('chartSwitches', function() {
 			var dataList, internalData, points;
 			var v_currentLimit, v_minLimit;
 			r.profiles.forEach(function(profile, index) {
+				if (! profile.currentData.hasOwnProperty(r.meta.v.cat)) console.log("Fail current data", profile, r.meta.v.cat);
+
 				// vars
 				dataList = profile.currentData[r.meta.v.cat].list;
 				v_minLimit = r.scalesV[index](tStep * r.meta.d_minLimit[1]);
@@ -509,7 +511,7 @@ app.directive('chartSwitches', function() {
 
 				// Data - points
 				points += " " + Math.min(x, xMax) + "," + r.scalesV[index](0);
-				r.iData.push(internalData);
+				r.iData[index] = internalData;
 
 				// Data - draw
 				r.groupP[index].append("polygon")
@@ -567,6 +569,9 @@ app.directive('chartSwitches', function() {
 			// Loop
 			var points;
 			for (var index = 0; index < r.profiles.length; index++) {
+				// Precondition (not paint => failure on repaint method)
+				if (r.iData[index] == null) break;
+
 				// Compute points
 				points =
 					(tID * r.meta.pixelGroup) + "," + r.scalesV[index](0) + " " +
@@ -663,6 +668,8 @@ app.directive('chartThreadStates', function() {
 			var dataList, iData, pointsC, pointsR, pointsBY;
 			var coordinates, valueR, valueYB;
 			r.profiles.forEach(function(profile, index) {
+				if (! profile.currentData.hasOwnProperty(r.deck.v[0].cat)) console.log("Fail current data", profile, r.deck.v[0].cat);
+
 				// vars
 				dataList = profile.currentData[r.deck.v[0].cat];
 				iData = [];
@@ -706,7 +713,7 @@ app.directive('chartThreadStates', function() {
 						}
 					}
 				});
-				r.iData.push(iData);
+				r.iData[index] = iData;
 
 				// All - points - end
 				pointsC.push.apply(pointsC, [r.scaleX(r.meta.ends[index]), r.scalesV[index](0)]);
