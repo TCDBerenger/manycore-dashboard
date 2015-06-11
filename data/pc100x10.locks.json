@@ -1,0 +1,10352 @@
+[
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799145514824,
+    "value": 1.0,
+    "tid": 90472,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799145514824,
+    "value": 2.0,
+    "tid": 90472,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799145514857,
+    "value": 3.0,
+    "tid": 90472,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799145514857,
+    "value": 2.0,
+    "tid": 90472,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799145516091,
+    "value": 1.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799145516091,
+    "value": 2.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145516108,
+    "value": 3.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145516108,
+    "value": 2.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145517525,
+    "value": 1.0,
+    "tid": 90480,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145517525,
+    "value": 2.0,
+    "tid": 90480,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145518829,
+    "value": 1.0,
+    "tid": 90484,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145518829,
+    "value": 2.0,
+    "tid": 90484,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145520323,
+    "value": 1.0,
+    "tid": 90488,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145520323,
+    "value": 2.0,
+    "tid": 90488,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145521981,
+    "value": 1.0,
+    "tid": 90492,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145521981,
+    "value": 2.0,
+    "tid": 90492,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145523565,
+    "value": 1.0,
+    "tid": 90496,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145523565,
+    "value": 2.0,
+    "tid": 90496,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145525112,
+    "value": 1.0,
+    "tid": 90500,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145525112,
+    "value": 2.0,
+    "tid": 90500,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145526613,
+    "value": 1.0,
+    "tid": 90504,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145526613,
+    "value": 2.0,
+    "tid": 90504,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145527897,
+    "value": 1.0,
+    "tid": 90508,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145527897,
+    "value": 2.0,
+    "tid": 90508,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145529238,
+    "value": 1.0,
+    "tid": 90512,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145529238,
+    "value": 2.0,
+    "tid": 90512,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145530558,
+    "value": 1.0,
+    "tid": 90516,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145530558,
+    "value": 2.0,
+    "tid": 90516,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145531962,
+    "value": 1.0,
+    "tid": 90520,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145531962,
+    "value": 2.0,
+    "tid": 90520,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145533200,
+    "value": 1.0,
+    "tid": 90524,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145533200,
+    "value": 2.0,
+    "tid": 90524,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145535027,
+    "value": 1.0,
+    "tid": 90528,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145535027,
+    "value": 2.0,
+    "tid": 90528,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145536121,
+    "value": 1.0,
+    "tid": 90532,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145536121,
+    "value": 2.0,
+    "tid": 90532,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145537762,
+    "value": 1.0,
+    "tid": 90536,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145537762,
+    "value": 2.0,
+    "tid": 90536,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145539072,
+    "value": 1.0,
+    "tid": 90540,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145539072,
+    "value": 2.0,
+    "tid": 90540,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145540410,
+    "value": 1.0,
+    "tid": 90544,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145540410,
+    "value": 2.0,
+    "tid": 90544,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145541667,
+    "value": 1.0,
+    "tid": 90548,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145541667,
+    "value": 2.0,
+    "tid": 90548,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145542861,
+    "value": 1.0,
+    "tid": 90552,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145542861,
+    "value": 2.0,
+    "tid": 90552,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145544422,
+    "value": 1.0,
+    "tid": 90556,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145544422,
+    "value": 2.0,
+    "tid": 90556,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145545939,
+    "value": 1.0,
+    "tid": 90560,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145545939,
+    "value": 2.0,
+    "tid": 90560,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145547357,
+    "value": 1.0,
+    "tid": 90564,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145547357,
+    "value": 2.0,
+    "tid": 90564,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145548614,
+    "value": 1.0,
+    "tid": 90568,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145548614,
+    "value": 2.0,
+    "tid": 90568,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145549838,
+    "value": 1.0,
+    "tid": 90572,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145549838,
+    "value": 2.0,
+    "tid": 90572,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145551892,
+    "value": 1.0,
+    "tid": 90576,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145551892,
+    "value": 2.0,
+    "tid": 90576,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145553276,
+    "value": 1.0,
+    "tid": 90580,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145553276,
+    "value": 2.0,
+    "tid": 90580,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145555120,
+    "value": 1.0,
+    "tid": 90584,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145555120,
+    "value": 2.0,
+    "tid": 90584,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145556688,
+    "value": 1.0,
+    "tid": 90588,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145556688,
+    "value": 2.0,
+    "tid": 90588,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145558459,
+    "value": 1.0,
+    "tid": 90592,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145558459,
+    "value": 2.0,
+    "tid": 90592,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145559666,
+    "value": 1.0,
+    "tid": 90596,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145559666,
+    "value": 2.0,
+    "tid": 90596,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145561133,
+    "value": 1.0,
+    "tid": 90600,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145561133,
+    "value": 2.0,
+    "tid": 90600,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145562747,
+    "value": 1.0,
+    "tid": 90604,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145562747,
+    "value": 2.0,
+    "tid": 90604,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145564048,
+    "value": 1.0,
+    "tid": 90608,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145564048,
+    "value": 2.0,
+    "tid": 90608,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145565172,
+    "value": 1.0,
+    "tid": 90612,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145565172,
+    "value": 2.0,
+    "tid": 90612,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145566469,
+    "value": 1.0,
+    "tid": 90616,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145566469,
+    "value": 2.0,
+    "tid": 90616,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145567740,
+    "value": 1.0,
+    "tid": 90620,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145567740,
+    "value": 2.0,
+    "tid": 90620,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145568954,
+    "value": 1.0,
+    "tid": 90624,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145568954,
+    "value": 2.0,
+    "tid": 90624,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145570251,
+    "value": 1.0,
+    "tid": 90628,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145570251,
+    "value": 2.0,
+    "tid": 90628,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145571585,
+    "value": 1.0,
+    "tid": 90632,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145571585,
+    "value": 2.0,
+    "tid": 90632,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145572896,
+    "value": 1.0,
+    "tid": 90636,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145572896,
+    "value": 2.0,
+    "tid": 90636,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145574170,
+    "value": 1.0,
+    "tid": 90640,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145574170,
+    "value": 2.0,
+    "tid": 90640,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145575480,
+    "value": 1.0,
+    "tid": 90644,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145575480,
+    "value": 2.0,
+    "tid": 90644,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145576758,
+    "value": 1.0,
+    "tid": 90648,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145576758,
+    "value": 2.0,
+    "tid": 90648,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145577875,
+    "value": 1.0,
+    "tid": 90652,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145577875,
+    "value": 2.0,
+    "tid": 90652,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145579079,
+    "value": 1.0,
+    "tid": 90656,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145579079,
+    "value": 2.0,
+    "tid": 90656,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145580496,
+    "value": 1.0,
+    "tid": 90660,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145580496,
+    "value": 2.0,
+    "tid": 90660,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145581680,
+    "value": 1.0,
+    "tid": 90664,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145581680,
+    "value": 2.0,
+    "tid": 90664,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145583184,
+    "value": 1.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145583184,
+    "value": 2.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145584358,
+    "value": 1.0,
+    "tid": 90672,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145584358,
+    "value": 2.0,
+    "tid": 90672,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145585542,
+    "value": 1.0,
+    "tid": 90676,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145585542,
+    "value": 2.0,
+    "tid": 90676,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145586802,
+    "value": 1.0,
+    "tid": 90680,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145586802,
+    "value": 2.0,
+    "tid": 90680,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145588467,
+    "value": 1.0,
+    "tid": 90684,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145588467,
+    "value": 2.0,
+    "tid": 90684,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145589637,
+    "value": 1.0,
+    "tid": 90688,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145589637,
+    "value": 2.0,
+    "tid": 90688,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145591141,
+    "value": 1.0,
+    "tid": 90692,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145591141,
+    "value": 2.0,
+    "tid": 90692,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145592228,
+    "value": 1.0,
+    "tid": 90696,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145592228,
+    "value": 2.0,
+    "tid": 90696,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145593492,
+    "value": 1.0,
+    "tid": 90700,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145593492,
+    "value": 2.0,
+    "tid": 90700,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145594803,
+    "value": 1.0,
+    "tid": 90704,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145594803,
+    "value": 2.0,
+    "tid": 90704,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145596647,
+    "value": 1.0,
+    "tid": 90708,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145596647,
+    "value": 2.0,
+    "tid": 90708,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145597871,
+    "value": 1.0,
+    "tid": 90712,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145597871,
+    "value": 2.0,
+    "tid": 90712,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145599115,
+    "value": 1.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145599115,
+    "value": 2.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145600289,
+    "value": 1.0,
+    "tid": 90720,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145600289,
+    "value": 2.0,
+    "tid": 90720,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145601493,
+    "value": 1.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145601493,
+    "value": 2.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145602770,
+    "value": 1.0,
+    "tid": 90728,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145602770,
+    "value": 2.0,
+    "tid": 90728,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145604021,
+    "value": 1.0,
+    "tid": 90732,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145604021,
+    "value": 2.0,
+    "tid": 90732,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145605145,
+    "value": 1.0,
+    "tid": 90736,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145605145,
+    "value": 2.0,
+    "tid": 90736,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145606399,
+    "value": 1.0,
+    "tid": 90740,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145606399,
+    "value": 2.0,
+    "tid": 90740,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145607673,
+    "value": 1.0,
+    "tid": 90744,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145607673,
+    "value": 2.0,
+    "tid": 90744,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145608893,
+    "value": 1.0,
+    "tid": 90748,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145608893,
+    "value": 2.0,
+    "tid": 90748,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145610124,
+    "value": 1.0,
+    "tid": 90752,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145610124,
+    "value": 2.0,
+    "tid": 90752,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145611605,
+    "value": 1.0,
+    "tid": 90756,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145611605,
+    "value": 2.0,
+    "tid": 90756,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145612712,
+    "value": 1.0,
+    "tid": 90760,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145612712,
+    "value": 2.0,
+    "tid": 90760,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145614243,
+    "value": 1.0,
+    "tid": 90764,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145614243,
+    "value": 2.0,
+    "tid": 90764,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145615503,
+    "value": 1.0,
+    "tid": 90768,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145615503,
+    "value": 2.0,
+    "tid": 90768,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145616887,
+    "value": 1.0,
+    "tid": 90772,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145616887,
+    "value": 2.0,
+    "tid": 90772,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145618485,
+    "value": 1.0,
+    "tid": 90776,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145618485,
+    "value": 2.0,
+    "tid": 90776,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145619705,
+    "value": 1.0,
+    "tid": 90780,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145619705,
+    "value": 2.0,
+    "tid": 90780,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145620993,
+    "value": 1.0,
+    "tid": 90472,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145620993,
+    "value": 2.0,
+    "tid": 90472,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799145621103,
+    "value": 3.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799145621103,
+    "value": 2.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145621209,
+    "value": 1.0,
+    "tid": 90788,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145621209,
+    "value": 2.0,
+    "tid": 90788,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145623037,
+    "value": 1.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145623037,
+    "value": 2.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145624671,
+    "value": 1.0,
+    "tid": 90796,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145624671,
+    "value": 2.0,
+    "tid": 90796,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145626132,
+    "value": 1.0,
+    "tid": 90800,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145626132,
+    "value": 2.0,
+    "tid": 90800,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145627386,
+    "value": 1.0,
+    "tid": 90804,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145627386,
+    "value": 2.0,
+    "tid": 90804,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145628583,
+    "value": 1.0,
+    "tid": 90808,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145628583,
+    "value": 2.0,
+    "tid": 90808,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145630040,
+    "value": 1.0,
+    "tid": 90812,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145630040,
+    "value": 2.0,
+    "tid": 90812,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145631558,
+    "value": 1.0,
+    "tid": 90816,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145631558,
+    "value": 2.0,
+    "tid": 90816,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145632955,
+    "value": 1.0,
+    "tid": 90820,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145632955,
+    "value": 2.0,
+    "tid": 90820,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145635236,
+    "value": 1.0,
+    "tid": 90824,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145635236,
+    "value": 2.0,
+    "tid": 90824,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145636563,
+    "value": 1.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145636563,
+    "value": 2.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145638174,
+    "value": 1.0,
+    "tid": 90832,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145638174,
+    "value": 2.0,
+    "tid": 90832,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145639892,
+    "value": 1.0,
+    "tid": 90836,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145639892,
+    "value": 2.0,
+    "tid": 90836,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145641219,
+    "value": 1.0,
+    "tid": 90840,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145641219,
+    "value": 2.0,
+    "tid": 90840,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145643777,
+    "value": 1.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145643777,
+    "value": 2.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145644938,
+    "value": 1.0,
+    "tid": 90848,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145644938,
+    "value": 2.0,
+    "tid": 90848,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145646342,
+    "value": 1.0,
+    "tid": 90852,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145646342,
+    "value": 2.0,
+    "tid": 90852,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145648606,
+    "value": 1.0,
+    "tid": 90856,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145648606,
+    "value": 2.0,
+    "tid": 90856,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145649827,
+    "value": 1.0,
+    "tid": 90860,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145649827,
+    "value": 2.0,
+    "tid": 90860,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145651814,
+    "value": 1.0,
+    "tid": 90864,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145651814,
+    "value": 2.0,
+    "tid": 90864,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145653295,
+    "value": 1.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145653295,
+    "value": 2.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145654642,
+    "value": 1.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145654642,
+    "value": 2.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145655786,
+    "value": 1.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145655786,
+    "value": 2.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145656937,
+    "value": 1.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145656937,
+    "value": 2.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145658221,
+    "value": 1.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145658221,
+    "value": 2.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145659375,
+    "value": 1.0,
+    "tid": 90888,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145659375,
+    "value": 2.0,
+    "tid": 90888,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145660662,
+    "value": 1.0,
+    "tid": 90892,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145660662,
+    "value": 2.0,
+    "tid": 90892,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145661919,
+    "value": 1.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145661919,
+    "value": 2.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145663630,
+    "value": 1.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145663630,
+    "value": 2.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145664864,
+    "value": 1.0,
+    "tid": 90904,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145664864,
+    "value": 2.0,
+    "tid": 90904,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145666098,
+    "value": 1.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145666098,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145667355,
+    "value": 1.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "failure",
+    "program": "Matmul",
+    "time": 635693799145667355,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799145729836,
+    "value": 1.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799145729836,
+    "value": 2.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799145729852,
+    "value": 3.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799145729852,
+    "value": 2.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799145830121,
+    "value": 1.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799145830121,
+    "value": 2.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799145830155,
+    "value": 3.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799145830155,
+    "value": 2.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799145930077,
+    "value": 1.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799145930077,
+    "value": 2.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799145930117,
+    "value": 3.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799145930117,
+    "value": 2.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146039861,
+    "value": 1.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146039861,
+    "value": 2.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146039881,
+    "value": 3.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146039881,
+    "value": 2.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146150104,
+    "value": 1.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146150104,
+    "value": 2.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146150134,
+    "value": 3.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146150134,
+    "value": 2.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146250143,
+    "value": 1.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146250143,
+    "value": 2.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146250177,
+    "value": 3.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146250177,
+    "value": 2.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146350142,
+    "value": 1.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146350142,
+    "value": 2.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146350186,
+    "value": 3.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146350186,
+    "value": 2.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146459896,
+    "value": 1.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146459896,
+    "value": 2.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146459912,
+    "value": 3.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146459912,
+    "value": 2.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146560121,
+    "value": 1.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146560121,
+    "value": 2.0,
+    "tid": 90476,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146560395,
+    "value": 1.0,
+    "tid": 90480,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146560395,
+    "value": 2.0,
+    "tid": 90480,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146560632,
+    "value": 1.0,
+    "tid": 90484,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146560632,
+    "value": 2.0,
+    "tid": 90484,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146560795,
+    "value": 1.0,
+    "tid": 90488,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146560795,
+    "value": 2.0,
+    "tid": 90488,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146560938,
+    "value": 1.0,
+    "tid": 90492,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146560938,
+    "value": 2.0,
+    "tid": 90492,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146561075,
+    "value": 1.0,
+    "tid": 90496,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146561075,
+    "value": 2.0,
+    "tid": 90496,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146561219,
+    "value": 1.0,
+    "tid": 90500,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146561219,
+    "value": 2.0,
+    "tid": 90500,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146561359,
+    "value": 1.0,
+    "tid": 90504,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146561359,
+    "value": 2.0,
+    "tid": 90504,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146561499,
+    "value": 1.0,
+    "tid": 90508,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146561499,
+    "value": 2.0,
+    "tid": 90508,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146561632,
+    "value": 1.0,
+    "tid": 90512,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146561632,
+    "value": 2.0,
+    "tid": 90512,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146561769,
+    "value": 1.0,
+    "tid": 90516,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146561769,
+    "value": 2.0,
+    "tid": 90516,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146561899,
+    "value": 1.0,
+    "tid": 90520,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146561899,
+    "value": 2.0,
+    "tid": 90520,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146562029,
+    "value": 1.0,
+    "tid": 90524,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146562029,
+    "value": 2.0,
+    "tid": 90524,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146562159,
+    "value": 1.0,
+    "tid": 90528,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146562159,
+    "value": 2.0,
+    "tid": 90528,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146562289,
+    "value": 1.0,
+    "tid": 90532,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146562289,
+    "value": 2.0,
+    "tid": 90532,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146562423,
+    "value": 1.0,
+    "tid": 90536,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146562423,
+    "value": 2.0,
+    "tid": 90536,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146562556,
+    "value": 1.0,
+    "tid": 90540,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146562556,
+    "value": 2.0,
+    "tid": 90540,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146562683,
+    "value": 1.0,
+    "tid": 90544,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146562683,
+    "value": 2.0,
+    "tid": 90544,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146562816,
+    "value": 1.0,
+    "tid": 90548,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146562816,
+    "value": 2.0,
+    "tid": 90548,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146562949,
+    "value": 1.0,
+    "tid": 90552,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146562949,
+    "value": 2.0,
+    "tid": 90552,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146563080,
+    "value": 1.0,
+    "tid": 90556,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146563080,
+    "value": 2.0,
+    "tid": 90556,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146563213,
+    "value": 1.0,
+    "tid": 90560,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146563213,
+    "value": 2.0,
+    "tid": 90560,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146563346,
+    "value": 1.0,
+    "tid": 90564,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146563346,
+    "value": 2.0,
+    "tid": 90564,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146563483,
+    "value": 1.0,
+    "tid": 90568,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146563483,
+    "value": 2.0,
+    "tid": 90568,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146563613,
+    "value": 1.0,
+    "tid": 90572,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146563613,
+    "value": 2.0,
+    "tid": 90572,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146563750,
+    "value": 1.0,
+    "tid": 90576,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146563750,
+    "value": 2.0,
+    "tid": 90576,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146563880,
+    "value": 1.0,
+    "tid": 90580,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146563880,
+    "value": 2.0,
+    "tid": 90580,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146564013,
+    "value": 1.0,
+    "tid": 90584,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146564013,
+    "value": 2.0,
+    "tid": 90584,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146564143,
+    "value": 1.0,
+    "tid": 90588,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146564143,
+    "value": 2.0,
+    "tid": 90588,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146564280,
+    "value": 1.0,
+    "tid": 90592,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146564280,
+    "value": 2.0,
+    "tid": 90592,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146564424,
+    "value": 1.0,
+    "tid": 90596,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146564424,
+    "value": 2.0,
+    "tid": 90596,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146564560,
+    "value": 1.0,
+    "tid": 90600,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146564560,
+    "value": 2.0,
+    "tid": 90600,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146564694,
+    "value": 1.0,
+    "tid": 90604,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146564694,
+    "value": 2.0,
+    "tid": 90604,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146564834,
+    "value": 1.0,
+    "tid": 90608,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146564834,
+    "value": 2.0,
+    "tid": 90608,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146564970,
+    "value": 1.0,
+    "tid": 90612,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146564970,
+    "value": 2.0,
+    "tid": 90612,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146565111,
+    "value": 1.0,
+    "tid": 90616,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146565111,
+    "value": 2.0,
+    "tid": 90616,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146565251,
+    "value": 1.0,
+    "tid": 90620,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146565251,
+    "value": 2.0,
+    "tid": 90620,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146565391,
+    "value": 1.0,
+    "tid": 90624,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146565391,
+    "value": 2.0,
+    "tid": 90624,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146565531,
+    "value": 1.0,
+    "tid": 90628,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146565531,
+    "value": 2.0,
+    "tid": 90628,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146565671,
+    "value": 1.0,
+    "tid": 90632,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146565671,
+    "value": 2.0,
+    "tid": 90632,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146565808,
+    "value": 1.0,
+    "tid": 90636,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146565808,
+    "value": 2.0,
+    "tid": 90636,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146565948,
+    "value": 1.0,
+    "tid": 90640,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146565948,
+    "value": 2.0,
+    "tid": 90640,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146566091,
+    "value": 1.0,
+    "tid": 90644,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146566091,
+    "value": 2.0,
+    "tid": 90644,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146566228,
+    "value": 1.0,
+    "tid": 90648,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146566228,
+    "value": 2.0,
+    "tid": 90648,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146566368,
+    "value": 1.0,
+    "tid": 90652,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146566368,
+    "value": 2.0,
+    "tid": 90652,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146566511,
+    "value": 1.0,
+    "tid": 90656,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146566511,
+    "value": 2.0,
+    "tid": 90656,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146566655,
+    "value": 1.0,
+    "tid": 90660,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146566655,
+    "value": 2.0,
+    "tid": 90660,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146566798,
+    "value": 1.0,
+    "tid": 90664,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146566798,
+    "value": 2.0,
+    "tid": 90664,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146566941,
+    "value": 1.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146566941,
+    "value": 2.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146567088,
+    "value": 1.0,
+    "tid": 90672,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146567088,
+    "value": 2.0,
+    "tid": 90672,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146567232,
+    "value": 1.0,
+    "tid": 90676,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146567232,
+    "value": 2.0,
+    "tid": 90676,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146567378,
+    "value": 1.0,
+    "tid": 90680,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146567378,
+    "value": 2.0,
+    "tid": 90680,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146567525,
+    "value": 1.0,
+    "tid": 90684,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146567525,
+    "value": 2.0,
+    "tid": 90684,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146567672,
+    "value": 1.0,
+    "tid": 90688,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146567672,
+    "value": 2.0,
+    "tid": 90688,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146567819,
+    "value": 1.0,
+    "tid": 90692,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146567819,
+    "value": 2.0,
+    "tid": 90692,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146567969,
+    "value": 1.0,
+    "tid": 90696,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146567969,
+    "value": 2.0,
+    "tid": 90696,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146568122,
+    "value": 1.0,
+    "tid": 90700,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146568122,
+    "value": 2.0,
+    "tid": 90700,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146568272,
+    "value": 1.0,
+    "tid": 90704,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146568272,
+    "value": 2.0,
+    "tid": 90704,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146568422,
+    "value": 1.0,
+    "tid": 90708,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146568422,
+    "value": 2.0,
+    "tid": 90708,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146568572,
+    "value": 1.0,
+    "tid": 90712,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146568572,
+    "value": 2.0,
+    "tid": 90712,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146568722,
+    "value": 1.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146568722,
+    "value": 2.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146568876,
+    "value": 1.0,
+    "tid": 90720,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146568876,
+    "value": 2.0,
+    "tid": 90720,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146569029,
+    "value": 1.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146569029,
+    "value": 2.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146569179,
+    "value": 1.0,
+    "tid": 90728,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146569179,
+    "value": 2.0,
+    "tid": 90728,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146569329,
+    "value": 1.0,
+    "tid": 90732,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146569329,
+    "value": 2.0,
+    "tid": 90732,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146569483,
+    "value": 1.0,
+    "tid": 90736,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146569483,
+    "value": 2.0,
+    "tid": 90736,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146569669,
+    "value": 1.0,
+    "tid": 90740,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146569669,
+    "value": 2.0,
+    "tid": 90740,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146569830,
+    "value": 1.0,
+    "tid": 90744,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146569830,
+    "value": 2.0,
+    "tid": 90744,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146569996,
+    "value": 1.0,
+    "tid": 90748,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146569996,
+    "value": 2.0,
+    "tid": 90748,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146570163,
+    "value": 1.0,
+    "tid": 90752,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146570163,
+    "value": 2.0,
+    "tid": 90752,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146570330,
+    "value": 1.0,
+    "tid": 90756,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146570330,
+    "value": 2.0,
+    "tid": 90756,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146570483,
+    "value": 1.0,
+    "tid": 90760,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146570483,
+    "value": 2.0,
+    "tid": 90760,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146570647,
+    "value": 1.0,
+    "tid": 90764,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146570647,
+    "value": 2.0,
+    "tid": 90764,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146570807,
+    "value": 1.0,
+    "tid": 90768,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146570807,
+    "value": 2.0,
+    "tid": 90768,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146570963,
+    "value": 1.0,
+    "tid": 90772,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146570963,
+    "value": 2.0,
+    "tid": 90772,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146571120,
+    "value": 1.0,
+    "tid": 90776,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146571120,
+    "value": 2.0,
+    "tid": 90776,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146571277,
+    "value": 1.0,
+    "tid": 90780,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146571277,
+    "value": 2.0,
+    "tid": 90780,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146571437,
+    "value": 1.0,
+    "tid": 90472,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146571437,
+    "value": 2.0,
+    "tid": 90472,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146571597,
+    "value": 1.0,
+    "tid": 90788,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146571597,
+    "value": 2.0,
+    "tid": 90788,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146571757,
+    "value": 1.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146571757,
+    "value": 2.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146571914,
+    "value": 1.0,
+    "tid": 90796,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146571914,
+    "value": 2.0,
+    "tid": 90796,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146572074,
+    "value": 1.0,
+    "tid": 90800,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146572074,
+    "value": 2.0,
+    "tid": 90800,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146572231,
+    "value": 1.0,
+    "tid": 90804,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146572231,
+    "value": 2.0,
+    "tid": 90804,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146572394,
+    "value": 1.0,
+    "tid": 90808,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146572394,
+    "value": 2.0,
+    "tid": 90808,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146572561,
+    "value": 1.0,
+    "tid": 90812,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146572561,
+    "value": 2.0,
+    "tid": 90812,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146572724,
+    "value": 1.0,
+    "tid": 90816,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146572724,
+    "value": 2.0,
+    "tid": 90816,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146572888,
+    "value": 1.0,
+    "tid": 90820,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146572888,
+    "value": 2.0,
+    "tid": 90820,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146573051,
+    "value": 1.0,
+    "tid": 90824,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146573051,
+    "value": 2.0,
+    "tid": 90824,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146573218,
+    "value": 1.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146573218,
+    "value": 2.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146573385,
+    "value": 1.0,
+    "tid": 90832,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146573385,
+    "value": 2.0,
+    "tid": 90832,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146573555,
+    "value": 1.0,
+    "tid": 90836,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146573555,
+    "value": 2.0,
+    "tid": 90836,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146573718,
+    "value": 1.0,
+    "tid": 90840,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146573718,
+    "value": 2.0,
+    "tid": 90840,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146573881,
+    "value": 1.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146573881,
+    "value": 2.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146574052,
+    "value": 1.0,
+    "tid": 90848,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146574052,
+    "value": 2.0,
+    "tid": 90848,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146574222,
+    "value": 1.0,
+    "tid": 90852,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146574222,
+    "value": 2.0,
+    "tid": 90852,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146574388,
+    "value": 1.0,
+    "tid": 90856,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146574388,
+    "value": 2.0,
+    "tid": 90856,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146574558,
+    "value": 1.0,
+    "tid": 90860,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146574558,
+    "value": 2.0,
+    "tid": 90860,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146574732,
+    "value": 1.0,
+    "tid": 90864,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146574732,
+    "value": 2.0,
+    "tid": 90864,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146574899,
+    "value": 1.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146574899,
+    "value": 2.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146575069,
+    "value": 1.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146575069,
+    "value": 2.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146575239,
+    "value": 1.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146575239,
+    "value": 2.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146575809,
+    "value": 3.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799146575809,
+    "value": 2.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799147090024,
+    "value": 1.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799147090024,
+    "value": 2.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799147090064,
+    "value": 3.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799147090064,
+    "value": 2.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799147590372,
+    "value": 1.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799147590372,
+    "value": 2.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799147590435,
+    "value": 3.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799147590435,
+    "value": 2.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799148090413,
+    "value": 1.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799148090413,
+    "value": 2.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799148090473,
+    "value": 3.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799148090473,
+    "value": 2.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799148590447,
+    "value": 1.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799148590447,
+    "value": 2.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799148590494,
+    "value": 3.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799148590494,
+    "value": 2.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799149100199,
+    "value": 1.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799149100199,
+    "value": 2.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799149100243,
+    "value": 3.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799149100243,
+    "value": 2.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799149600494,
+    "value": 1.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799149600494,
+    "value": 2.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799149600561,
+    "value": 3.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799149600561,
+    "value": 2.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799150100491,
+    "value": 1.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799150100491,
+    "value": 2.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799150100532,
+    "value": 3.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799150100532,
+    "value": 2.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799150610437,
+    "value": 1.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799150610437,
+    "value": 2.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799150610531,
+    "value": 3.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799150610531,
+    "value": 2.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151121927,
+    "value": 1.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151121927,
+    "value": 2.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151121971,
+    "value": 3.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151121971,
+    "value": 2.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151640511,
+    "value": 1.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151640511,
+    "value": 2.0,
+    "tid": 90876,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151640711,
+    "value": 1.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151640711,
+    "value": 2.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151640904,
+    "value": 1.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151640904,
+    "value": 2.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151641088,
+    "value": 1.0,
+    "tid": 90888,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151641088,
+    "value": 2.0,
+    "tid": 90888,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151641268,
+    "value": 1.0,
+    "tid": 90892,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151641268,
+    "value": 2.0,
+    "tid": 90892,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151641438,
+    "value": 1.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151641438,
+    "value": 2.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151641658,
+    "value": 1.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151641658,
+    "value": 2.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151641831,
+    "value": 1.0,
+    "tid": 90904,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151641831,
+    "value": 2.0,
+    "tid": 90904,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151642015,
+    "value": 1.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151642015,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151642178,
+    "value": 1.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151642178,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151642448,
+    "value": 3.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151642448,
+    "value": 2.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151750241,
+    "value": 1.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151750241,
+    "value": 2.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151750261,
+    "value": 3.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151750261,
+    "value": 2.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151860255,
+    "value": 1.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151860255,
+    "value": 2.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151860278,
+    "value": 3.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151860278,
+    "value": 2.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151970499,
+    "value": 1.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151970499,
+    "value": 2.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151970535,
+    "value": 3.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799151970535,
+    "value": 2.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152070284,
+    "value": 1.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152070284,
+    "value": 2.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152070307,
+    "value": 3.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152070307,
+    "value": 2.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152180471,
+    "value": 1.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152180471,
+    "value": 2.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152180501,
+    "value": 3.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152180501,
+    "value": 2.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152290475,
+    "value": 1.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152290475,
+    "value": 2.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152290512,
+    "value": 3.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152290512,
+    "value": 2.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152400265,
+    "value": 1.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152400265,
+    "value": 2.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152400285,
+    "value": 3.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152400285,
+    "value": 2.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152510483,
+    "value": 1.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152510483,
+    "value": 2.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152510513,
+    "value": 3.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152510513,
+    "value": 2.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152610518,
+    "value": 1.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152610518,
+    "value": 2.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152610551,
+    "value": 3.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152610551,
+    "value": 2.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152710227,
+    "value": 1.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152710227,
+    "value": 2.0,
+    "tid": 90872,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152726742,
+    "value": 3.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799152726742,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799153240649,
+    "value": 1.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799153240649,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799153240696,
+    "value": 3.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799153240696,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799153750378,
+    "value": 1.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799153750378,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799153750408,
+    "value": 3.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799153750408,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799154260674,
+    "value": 1.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799154260674,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799154260731,
+    "value": 3.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799154260731,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799154760672,
+    "value": 1.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799154760672,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799154760725,
+    "value": 3.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799154760725,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799155260683,
+    "value": 1.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799155260683,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799155260730,
+    "value": 3.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799155260730,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799155770762,
+    "value": 1.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799155770762,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799155770819,
+    "value": 3.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799155770819,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799156270790,
+    "value": 1.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799156270790,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799156270850,
+    "value": 3.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799156270850,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799156790757,
+    "value": 1.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799156790757,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799156790858,
+    "value": 3.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799156790858,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799157300570,
+    "value": 1.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799157300570,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799157300600,
+    "value": 3.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799157300600,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799157800881,
+    "value": 1.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799157800881,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799157805313,
+    "value": 3.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799157805313,
+    "value": 2.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799157920800,
+    "value": 1.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799157920800,
+    "value": 2.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799157920826,
+    "value": 3.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799157920826,
+    "value": 2.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158040825,
+    "value": 1.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158040825,
+    "value": 2.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158040855,
+    "value": 3.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158040855,
+    "value": 2.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158170792,
+    "value": 1.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158170792,
+    "value": 2.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158170822,
+    "value": 3.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158170822,
+    "value": 2.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158290764,
+    "value": 1.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158290764,
+    "value": 2.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158290794,
+    "value": 3.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158290794,
+    "value": 2.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158400968,
+    "value": 1.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158400968,
+    "value": 2.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158400998,
+    "value": 3.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158400998,
+    "value": 2.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158520893,
+    "value": 1.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158520893,
+    "value": 2.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158520926,
+    "value": 3.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158520926,
+    "value": 2.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158640888,
+    "value": 1.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158640888,
+    "value": 2.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158640922,
+    "value": 3.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158640922,
+    "value": 2.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158750842,
+    "value": 1.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158750842,
+    "value": 2.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158750872,
+    "value": 3.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158750872,
+    "value": 2.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158860889,
+    "value": 1.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158860889,
+    "value": 2.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158860919,
+    "value": 3.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158860919,
+    "value": 2.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158971953,
+    "value": 1.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158971953,
+    "value": 2.0,
+    "tid": 90716,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158999764,
+    "value": 3.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799158999764,
+    "value": 2.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799159521582,
+    "value": 1.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799159521582,
+    "value": 2.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799159521639,
+    "value": 3.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799159521639,
+    "value": 2.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799160040969,
+    "value": 1.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799160040969,
+    "value": 2.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799160041022,
+    "value": 3.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799160041022,
+    "value": 2.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799160551078,
+    "value": 1.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799160551078,
+    "value": 2.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799160551118,
+    "value": 3.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799160551118,
+    "value": 2.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799161061064,
+    "value": 1.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799161061064,
+    "value": 2.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799161061121,
+    "value": 3.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799161061121,
+    "value": 2.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799161571050,
+    "value": 1.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799161571050,
+    "value": 2.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799161571093,
+    "value": 3.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799161571093,
+    "value": 2.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799162081059,
+    "value": 1.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799162081059,
+    "value": 2.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799162081103,
+    "value": 3.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799162081103,
+    "value": 2.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799162591105,
+    "value": 1.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799162591105,
+    "value": 2.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799162591152,
+    "value": 3.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799162591152,
+    "value": 2.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799163101091,
+    "value": 1.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799163101091,
+    "value": 2.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799163101134,
+    "value": 3.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799163101134,
+    "value": 2.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799163611284,
+    "value": 1.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799163611284,
+    "value": 2.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799163611324,
+    "value": 3.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799163611324,
+    "value": 2.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164121226,
+    "value": 1.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164121226,
+    "value": 2.0,
+    "tid": 90900,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164122920,
+    "value": 3.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164122920,
+    "value": 2.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164231190,
+    "value": 1.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164231190,
+    "value": 2.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164231270,
+    "value": 3.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164231270,
+    "value": 2.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164342104,
+    "value": 1.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164342104,
+    "value": 2.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164342131,
+    "value": 3.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164342131,
+    "value": 2.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164461016,
+    "value": 1.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164461016,
+    "value": 2.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164461032,
+    "value": 3.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164461032,
+    "value": 2.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164572220,
+    "value": 1.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164572220,
+    "value": 2.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164572267,
+    "value": 3.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164572267,
+    "value": 2.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164681167,
+    "value": 1.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164681167,
+    "value": 2.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164681197,
+    "value": 3.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164681197,
+    "value": 2.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164791224,
+    "value": 1.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164791224,
+    "value": 2.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164791254,
+    "value": 3.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164791254,
+    "value": 2.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164901021,
+    "value": 1.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164901021,
+    "value": 2.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164901044,
+    "value": 3.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799164901044,
+    "value": 2.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799165011181,
+    "value": 1.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799165011181,
+    "value": 2.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799165011215,
+    "value": 3.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799165011215,
+    "value": 2.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799165121195,
+    "value": 1.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799165121195,
+    "value": 2.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799165121225,
+    "value": 3.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799165121225,
+    "value": 2.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799165231182,
+    "value": 1.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799165231182,
+    "value": 2.0,
+    "tid": 90724,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799165261784,
+    "value": 3.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799165261784,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799165791502,
+    "value": 1.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799165791502,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799165791566,
+    "value": 3.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799165791566,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799166311423,
+    "value": 1.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799166311423,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799166311480,
+    "value": 3.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799166311480,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799166821376,
+    "value": 1.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799166821376,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799166821432,
+    "value": 3.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799166821432,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799167331422,
+    "value": 1.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799167331422,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799167331475,
+    "value": 3.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799167331475,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799167851489,
+    "value": 1.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799167851489,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799167851543,
+    "value": 3.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799167851543,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799168361458,
+    "value": 1.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799168361458,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799168361512,
+    "value": 3.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799168361512,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799168871631,
+    "value": 1.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799168871631,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799168871674,
+    "value": 3.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799168871674,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799169381447,
+    "value": 1.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799169381447,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799169381497,
+    "value": 3.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799169381497,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799169891503,
+    "value": 1.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799169891503,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799169891549,
+    "value": 3.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799169891549,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799170401672,
+    "value": 1.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799170401672,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799170403593,
+    "value": 3.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799170403593,
+    "value": 2.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799170511322,
+    "value": 1.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799170511322,
+    "value": 2.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799170511342,
+    "value": 3.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799170511342,
+    "value": 2.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799170621383,
+    "value": 1.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799170621383,
+    "value": 2.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799170621409,
+    "value": 3.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799170621409,
+    "value": 2.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799170722435,
+    "value": 1.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799170722435,
+    "value": 2.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799170722462,
+    "value": 3.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799170722462,
+    "value": 2.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799170831515,
+    "value": 1.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799170831515,
+    "value": 2.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799170831542,
+    "value": 3.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799170831542,
+    "value": 2.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799170931581,
+    "value": 1.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799170931581,
+    "value": 2.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799170931614,
+    "value": 3.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799170931614,
+    "value": 2.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799171031576,
+    "value": 1.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799171031576,
+    "value": 2.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799171031606,
+    "value": 3.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799171031606,
+    "value": 2.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799171131292,
+    "value": 1.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799171131292,
+    "value": 2.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799171131309,
+    "value": 3.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799171131309,
+    "value": 2.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799171241379,
+    "value": 1.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799171241379,
+    "value": 2.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799171241406,
+    "value": 3.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799171241406,
+    "value": 2.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799171341435,
+    "value": 1.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799171341435,
+    "value": 2.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799171341471,
+    "value": 3.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799171341471,
+    "value": 2.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799171441387,
+    "value": 1.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799171441387,
+    "value": 2.0,
+    "tid": 90844,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799171458135,
+    "value": 3.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799171458135,
+    "value": 2.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799171971492,
+    "value": 1.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799171971492,
+    "value": 2.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799171971542,
+    "value": 3.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799171971542,
+    "value": 2.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799172471513,
+    "value": 1.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799172471513,
+    "value": 2.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799172471553,
+    "value": 3.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799172471553,
+    "value": 2.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799172971561,
+    "value": 1.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799172971561,
+    "value": 2.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799172971625,
+    "value": 3.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799172971625,
+    "value": 2.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799173481874,
+    "value": 1.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799173481874,
+    "value": 2.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799173481931,
+    "value": 3.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799173481931,
+    "value": 2.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799173981798,
+    "value": 1.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799173981798,
+    "value": 2.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799173981845,
+    "value": 3.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799173981845,
+    "value": 2.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799174481909,
+    "value": 1.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799174481909,
+    "value": 2.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799174481969,
+    "value": 3.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799174481969,
+    "value": 2.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799174992129,
+    "value": 1.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799174992129,
+    "value": 2.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799174992179,
+    "value": 3.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799174992179,
+    "value": 2.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799175512009,
+    "value": 1.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799175512009,
+    "value": 2.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799175512069,
+    "value": 3.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799175512069,
+    "value": 2.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799176022012,
+    "value": 1.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799176022012,
+    "value": 2.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799176022068,
+    "value": 3.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799176022068,
+    "value": 2.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799176541919,
+    "value": 1.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799176541919,
+    "value": 2.0,
+    "tid": 90884,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799176543683,
+    "value": 3.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799176543683,
+    "value": 2.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799176661818,
+    "value": 1.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799176661818,
+    "value": 2.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799176661854,
+    "value": 3.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799176661854,
+    "value": 2.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799176771775,
+    "value": 1.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799176771775,
+    "value": 2.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799176771808,
+    "value": 3.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799176771808,
+    "value": 2.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799176881912,
+    "value": 1.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799176881912,
+    "value": 2.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799176881949,
+    "value": 3.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799176881949,
+    "value": 2.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799176991829,
+    "value": 1.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799176991829,
+    "value": 2.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799176991862,
+    "value": 3.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799176991862,
+    "value": 2.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799177101756,
+    "value": 1.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799177101756,
+    "value": 2.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799177101786,
+    "value": 3.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799177101786,
+    "value": 2.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799177201902,
+    "value": 1.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799177201902,
+    "value": 2.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799177201945,
+    "value": 3.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799177201945,
+    "value": 2.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799177321790,
+    "value": 1.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799177321790,
+    "value": 2.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799177321824,
+    "value": 3.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799177321824,
+    "value": 2.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799177422053,
+    "value": 1.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799177422053,
+    "value": 2.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799177422089,
+    "value": 3.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799177422089,
+    "value": 2.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799177532337,
+    "value": 1.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799177532337,
+    "value": 2.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799177532360,
+    "value": 3.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799177532360,
+    "value": 2.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799177641667,
+    "value": 1.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799177641667,
+    "value": 2.0,
+    "tid": 90868,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799177656637,
+    "value": 3.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799177656637,
+    "value": 2.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799178171796,
+    "value": 1.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799178171796,
+    "value": 2.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799178171839,
+    "value": 3.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799178171839,
+    "value": 2.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799178672127,
+    "value": 1.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799178672127,
+    "value": 2.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799178672180,
+    "value": 3.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799178672180,
+    "value": 2.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799179172104,
+    "value": 1.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799179172104,
+    "value": 2.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799179172148,
+    "value": 3.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799179172148,
+    "value": 2.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799179672206,
+    "value": 1.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799179672206,
+    "value": 2.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799179672259,
+    "value": 3.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799179672259,
+    "value": 2.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799180182321,
+    "value": 1.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799180182321,
+    "value": 2.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799180182368,
+    "value": 3.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799180182368,
+    "value": 2.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799180692087,
+    "value": 1.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799180692087,
+    "value": 2.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799180692127,
+    "value": 3.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799180692127,
+    "value": 2.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799181202190,
+    "value": 1.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799181202190,
+    "value": 2.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799181202267,
+    "value": 3.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799181202267,
+    "value": 2.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799181712069,
+    "value": 1.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799181712069,
+    "value": 2.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799181712109,
+    "value": 3.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799181712109,
+    "value": 2.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799182222272,
+    "value": 1.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799182222272,
+    "value": 2.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799182222365,
+    "value": 3.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799182222365,
+    "value": 2.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799182732401,
+    "value": 1.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799182732401,
+    "value": 2.0,
+    "tid": 90880,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799182734569,
+    "value": 3.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799182734569,
+    "value": 2.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799182842345,
+    "value": 1.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799182842345,
+    "value": 2.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799182842375,
+    "value": 3.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799182842375,
+    "value": 2.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799182942280,
+    "value": 1.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799182942280,
+    "value": 2.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799182942317,
+    "value": 3.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799182942317,
+    "value": 2.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183052241,
+    "value": 1.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183052241,
+    "value": 2.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183052271,
+    "value": 3.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183052271,
+    "value": 2.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183162268,
+    "value": 1.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183162268,
+    "value": 2.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183162301,
+    "value": 3.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183162301,
+    "value": 2.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183272268,
+    "value": 1.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183272268,
+    "value": 2.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183272298,
+    "value": 3.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183272298,
+    "value": 2.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183372344,
+    "value": 1.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183372344,
+    "value": 2.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183372380,
+    "value": 3.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183372380,
+    "value": 2.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183482254,
+    "value": 1.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183482254,
+    "value": 2.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183482281,
+    "value": 3.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183482281,
+    "value": 2.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183582286,
+    "value": 1.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183582286,
+    "value": 2.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183582316,
+    "value": 3.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183582316,
+    "value": 2.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183682272,
+    "value": 1.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183682272,
+    "value": 2.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183682302,
+    "value": 3.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183682302,
+    "value": 2.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183792266,
+    "value": 1.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183792266,
+    "value": 2.0,
+    "tid": 90668,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183807173,
+    "value": 3.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799183807173,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799184322448,
+    "value": 1.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799184322448,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799184322498,
+    "value": 3.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799184322498,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799184832447,
+    "value": 1.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799184832447,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799184832497,
+    "value": 3.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799184832497,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799185332588,
+    "value": 1.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799185332588,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799185332648,
+    "value": 3.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799185332648,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799185842541,
+    "value": 1.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799185842541,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799185842591,
+    "value": 3.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799185842591,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799186352307,
+    "value": 1.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799186352307,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799186352343,
+    "value": 3.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799186352343,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799186862519,
+    "value": 1.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799186862519,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799186862573,
+    "value": 3.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799186862573,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799187373075,
+    "value": 1.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799187373075,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799187373132,
+    "value": 3.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799187373132,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799187892729,
+    "value": 1.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799187892729,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799187892789,
+    "value": 3.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799187892789,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799188402685,
+    "value": 1.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799188402685,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799188402745,
+    "value": 3.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799188402745,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799188912791,
+    "value": 1.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799188912791,
+    "value": 2.0,
+    "tid": 90912,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799188914442,
+    "value": 3.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799188914442,
+    "value": 2.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189022425,
+    "value": 1.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189022425,
+    "value": 2.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189022448,
+    "value": 3.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189022448,
+    "value": 2.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189132585,
+    "value": 1.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189132585,
+    "value": 2.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189132612,
+    "value": 3.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189132612,
+    "value": 2.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189242602,
+    "value": 1.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189242602,
+    "value": 2.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189242622,
+    "value": 3.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189242622,
+    "value": 2.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189352723,
+    "value": 1.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189352723,
+    "value": 2.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189352783,
+    "value": 3.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189352783,
+    "value": 2.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189472515,
+    "value": 1.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189472515,
+    "value": 2.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189472545,
+    "value": 3.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189472545,
+    "value": 2.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189582685,
+    "value": 1.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189582685,
+    "value": 2.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189582715,
+    "value": 3.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189582715,
+    "value": 2.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189692682,
+    "value": 1.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189692682,
+    "value": 2.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189692712,
+    "value": 3.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189692712,
+    "value": 2.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189802596,
+    "value": 1.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189802596,
+    "value": 2.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189802626,
+    "value": 3.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189802626,
+    "value": 2.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189913710,
+    "value": 1.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189913710,
+    "value": 2.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189913884,
+    "value": 3.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799189913884,
+    "value": 2.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799190042637,
+    "value": 1.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799190042637,
+    "value": 2.0,
+    "tid": 90792,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799190069616,
+    "value": 3.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799190069616,
+    "value": 2.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799190592945,
+    "value": 1.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799190592945,
+    "value": 2.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799190593005,
+    "value": 3.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799190593005,
+    "value": 2.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799191102761,
+    "value": 1.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799191102761,
+    "value": 2.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799191102808,
+    "value": 3.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799191102808,
+    "value": 2.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799191622622,
+    "value": 1.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799191622622,
+    "value": 2.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799191622669,
+    "value": 3.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799191622669,
+    "value": 2.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799192132761,
+    "value": 1.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799192132761,
+    "value": 2.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799192132805,
+    "value": 3.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799192132805,
+    "value": 2.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 7
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799192642814,
+    "value": 1.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799192642814,
+    "value": 2.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799192642857,
+    "value": 3.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799192642857,
+    "value": 2.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799193152940,
+    "value": 1.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799193152940,
+    "value": 2.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799193152980,
+    "value": 3.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799193152980,
+    "value": 2.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799193663002,
+    "value": 1.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799193663002,
+    "value": 2.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799193663059,
+    "value": 3.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799193663059,
+    "value": 2.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799194172975,
+    "value": 1.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799194172975,
+    "value": 2.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799194173032,
+    "value": 3.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799194173032,
+    "value": 2.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799194683071,
+    "value": 1.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799194683071,
+    "value": 2.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799194683134,
+    "value": 3.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799194683134,
+    "value": 2.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 3
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195192987,
+    "value": 1.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195192987,
+    "value": 2.0,
+    "tid": 90896,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195194708,
+    "value": 3.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195194708,
+    "value": 2.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195302900,
+    "value": 1.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195302900,
+    "value": 2.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195302927,
+    "value": 3.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195302927,
+    "value": 2.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 6
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195412964,
+    "value": 1.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195412964,
+    "value": 2.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195412998,
+    "value": 3.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195412998,
+    "value": 2.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195522795,
+    "value": 1.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195522795,
+    "value": 2.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195522818,
+    "value": 3.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195522818,
+    "value": 2.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 2
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195623010,
+    "value": 1.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195623010,
+    "value": 2.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195623074,
+    "value": 3.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195623074,
+    "value": 2.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195732977,
+    "value": 1.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195732977,
+    "value": 2.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195733007,
+    "value": 3.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195733007,
+    "value": 2.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195842998,
+    "value": 1.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195842998,
+    "value": 2.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195843028,
+    "value": 3.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195843028,
+    "value": 2.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195943040,
+    "value": 1.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195943040,
+    "value": 2.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195943110,
+    "value": 3.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799195943110,
+    "value": 2.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799196052970,
+    "value": 1.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799196052970,
+    "value": 2.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799196052997,
+    "value": 3.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799196052997,
+    "value": 2.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799196152969,
+    "value": 1.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799196152969,
+    "value": 2.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799196152992,
+    "value": 3.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799196152992,
+    "value": 2.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799196263106,
+    "value": 1.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799196263106,
+    "value": 2.0,
+    "tid": 90828,
+    "pid": 90436,
+    "cid": 1
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799196280952,
+    "value": 3.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799196280952,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799196793265,
+    "value": 1.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799196793265,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799196793305,
+    "value": 3.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799196793305,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799197303155,
+    "value": 1.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799197303155,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799197303208,
+    "value": 3.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799197303208,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799197813397,
+    "value": 1.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799197813397,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799197813454,
+    "value": 3.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799197813454,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 5
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799198333308,
+    "value": 1.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799198333308,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799198333375,
+    "value": 3.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799198333375,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799198843120,
+    "value": 1.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799198843120,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799198843167,
+    "value": 3.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799198843167,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799199353150,
+    "value": 1.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799199353150,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799199353620,
+    "value": 3.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799199353620,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 4
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799199863362,
+    "value": 1.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799199863362,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799199863406,
+    "value": 3.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  },
+  {
+    "type": "success",
+    "program": "Matmul",
+    "time": 635693799199863406,
+    "value": 2.0,
+    "tid": 90908,
+    "pid": 90436,
+    "cid": 0
+  }
+]

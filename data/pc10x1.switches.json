@@ -1,0 +1,128 @@
+[
+  {
+    "type": "start",
+    "program": "Matmul",
+    "time": 635693795551728106,
+    "value": 1.0,
+    "tid": 79832,
+    "pid": 79828,
+    "cid": 7
+  },
+  {
+    "type": "start",
+    "program": "Matmul",
+    "time": 635693795552089633,
+    "value": 1.0,
+    "tid": 79864,
+    "pid": 79828,
+    "cid": 0
+  },
+  {
+    "type": "start",
+    "program": "Matmul",
+    "time": 635693795552091120,
+    "value": 1.0,
+    "tid": 79868,
+    "pid": 79828,
+    "cid": 4
+  },
+  {
+    "type": "start",
+    "program": "Matmul",
+    "time": 635693795552092645,
+    "value": 1.0,
+    "tid": 79876,
+    "pid": 79828,
+    "cid": 4
+  },
+  {
+    "type": "start",
+    "program": "Matmul",
+    "time": 635693795552094259,
+    "value": 1.0,
+    "tid": 79880,
+    "pid": 79828,
+    "cid": 6
+  },
+  {
+    "type": "start",
+    "program": "Matmul",
+    "time": 635693795552095723,
+    "value": 1.0,
+    "tid": 79884,
+    "pid": 79828,
+    "cid": 4
+  },
+  {
+    "type": "start",
+    "program": "Matmul",
+    "time": 635693795552097190,
+    "value": 1.0,
+    "tid": 79888,
+    "pid": 79828,
+    "cid": 0
+  },
+  {
+    "type": "start",
+    "program": "Matmul",
+    "time": 635693795552098557,
+    "value": 1.0,
+    "tid": 79892,
+    "pid": 79828,
+    "cid": 6
+  },
+  {
+    "type": "start",
+    "program": "Matmul",
+    "time": 635693795552099885,
+    "value": 1.0,
+    "tid": 79896,
+    "pid": 79828,
+    "cid": 6
+  },
+  {
+    "type": "start",
+    "program": "Matmul",
+    "time": 635693795552101255,
+    "value": 1.0,
+    "tid": 79900,
+    "pid": 79828,
+    "cid": 2
+  },
+  {
+    "type": "start",
+    "program": "Matmul",
+    "time": 635693795552102693,
+    "value": 1.0,
+    "tid": 79904,
+    "pid": 79828,
+    "cid": 4
+  },
+  {
+    "type": "start",
+    "program": "Matmul",
+    "time": 635693795552103943,
+    "value": 1.0,
+    "tid": 79908,
+    "pid": 79828,
+    "cid": 4
+  },
+  {
+    "type": "start",
+    "program": "Matmul",
+    "time": 635693795552194087,
+    "value": 1.0,
+    "tid": 79912,
+    "pid": 79828,
+    "cid": 2
+  },
+  {
+    "type": "end",
+    "program": "Matmul",
+    "time": 635693795610409165,
+    "value": 1.0,
+    "tid": 79908,
+    "pid": 79828,
+    "cid": 2
+  }
+]
