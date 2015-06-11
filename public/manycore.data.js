@@ -23,9 +23,12 @@ app.factory('colours', [function() {
 }]);
 
 app.factory('decks', ['colours', function(colours) {
-	var running = 	{ label: 'threads running',	title: 'running',	desc: 'a core executing a thread',					unity: 'ms', cat: 'times', attr: 'r',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
-	var ready = 	{ label: 'threads ready',	title: 'ready',		desc: 'a thread is waiting a core but CPU is full',	unity: 'ms', cat: 'times', attr: 'yb',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
-	var capacity = 	{ label: 'unused core',		title: 'unused',	desc: 'a core is available but unused',				unity: 'ms', cat: 'times', attr: 'uu',	color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.gBlue };
+	var running = 	{ label: 'threads running',	title: 'running',				desc: 'a core executing a thread',					unity: 'ms', cat: 'times', attr: 'r',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
+	var readySB = 	{ label: 'threads ready',	title: 'ready and stand by',	desc: 'a thread is waiting a core but CPU is full',	unity: 'ms', cat: 'times', attr: 'yb',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
+	var ready = 	{ label: 'threads ready',	title: 'ready',					desc: 'a thread is waiting a core but CPU is full',	unity: 'ms', cat: 'times', attr: 'y',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
+	var standBy = 	{ label: 'threads standBy',	title: 'stand by',				desc: 'a thread is waiting a core but CPU is full',	unity: 'ms', cat: 'times', attr: 'b',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
+	var waiting = 	{ label: 'threads waiting',	title: 'waiting',				desc: 'a thread is waiting in a core',				unity: 'ms', cat: 'times', attr: 'w',	color: colours.list.eOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.gOrange };
+	var capacity = 	{ label: 'unused core',		title: 'unused',				desc: 'a core is available but unused',				unity: 'ms', cat: 'times', attr: 'uu',	color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.gBlue };
 
 	var ipc = 		{ label: 'executing',			title: 'Executing',			desc: 'executing',				unity: '',	cat: 'locality',	attr: 'ipc',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
 	var miss = 		{ label: 'Cache misses',		title: 'Cache misses',		desc: '',						unity: '',	cat: 'locality',	attr: 'miss',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
@@ -53,8 +56,8 @@ app.factory('decks', ['colours', function(colours) {
 					max: function(data) { return 2 * data.info.threads * data.info.timeStep;},
 				}
 			},
-			data: [capacity, ready],
-			legend: [capacity, ready]
+			data: [capacity, readySB],
+			legend: [capacity, readySB]
 		},
 		dl: {
 			data: [miss],
@@ -62,15 +65,15 @@ app.factory('decks', ['colours', function(colours) {
 		},
 		states: {
 			graph : {
-				v:		[running, ready],
+				v:		[running, readySB],
 				limit:	capacity
 			},
 			axis : {
-				v:		[running, ready],
+				v:		[running, readySB],
 				limit:	capacity
 			},
-			data : [running, ready],
-			legend : [running, ready, capacity],
+			data : [running, ready, standBy, waiting],
+			legend : [running, readySB, capacity],
 			clues: [
 				{ color: colours.bad,	tax: 'Oversubscription', 							text: 'too many threads' },
 				{ color: colours.bad,	tax: 'Thread migrations', 							text: 'too many threads' },

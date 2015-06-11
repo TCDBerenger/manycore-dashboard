@@ -39,6 +39,7 @@
 .dashboard .profile .subtitle {
 	margin-top: -10px;
 	margin-bottom: 16px;
+	min-height: 45px;
 }
 
 .dashboard .profile .graphs section {
