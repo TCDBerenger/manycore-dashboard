@@ -262,7 +262,7 @@ function directive_repaint_xAxis(r) {
 	// Clean
 	r.groupX
 		.attr("transform", "translate(" + r.layout.xAxis.x + "," + r.layout.xAxis.y + ")")
-		.selectAll("text").remove();
+		.selectAll("*").remove();
 
 	// Box
 	var points = [
@@ -328,6 +328,18 @@ function directive_repaint_VAxis(r, index, valueFunction) {
 			.attr("font-weight", (v == r.meta.vExpected[index]) ? 'bold' : 'normal')
 			.attr("fill", (v == r.meta.vExpected[index]) ? r.deck.limit.fcolor : '#000000')
 			.text((valueFunction !== undefined) ? valueFunction(v, index) : v);
+
+		// Limit line
+		if (v == r.meta.vExpected[index])
+			r.groupV[index].append("line")
+				.attr("class", "line")
+				.attr("x1", r.layout.profile.x + r.scaleX(r.meta.begin))
+				.attr("x2", r.layout.profile.x + r.scaleX(r.meta.ends[index]))
+				.attr("y1", r.scalesV[index](r.meta.vExpected[index]))
+				.attr("y2", r.scalesV[index](r.meta.vExpected[index]))
+				.attr('stroke', r.deck.limit.fcolor)
+				.attr('stroke-width', 3)
+				.attr('stroke-dasharray', '5, 3');
 	};
 
 	// Line
@@ -760,18 +772,6 @@ app.directive('chartThreadStates', function() {
 
 				// Value axis
 				directive_repaint_VAxis(r, index, vAxisLabel);
-
-
-				// Limit line
-				r.groupV[index].append("line")
-					.attr("class", "line")
-					.attr("x1", r.layout.profile.x + r.scaleX(r.meta.begin))
-					.attr("x2", r.layout.profile.x + r.scaleX(r.meta.ends[index]))
-					.attr("y1", r.scalesV[index](r.meta.vExpected[index]))
-					.attr("y2", r.scalesV[index](r.meta.vExpected[index]))
-					.attr('stroke', r.deck.limit.fcolor)
-					.attr('stroke-width', 4)
-					.attr('stroke-dasharray', 7.3);
 			});
 
 			// Post-treatment
