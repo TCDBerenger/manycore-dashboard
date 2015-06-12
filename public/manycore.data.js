@@ -27,12 +27,15 @@ app.factory('decks', ['colours', function(colours) {
 	var ready_label = 'threads are waiting a core but none available; threads are prepared to run on the next available core';
 	var waiting_label = 'threads are not ready to be processed because they waiting ressource(s)';
 
+	var limit = 	{ color: colours.list.eGrey, fcolor: colours.list.dGrey, gcolor: colours.list.gGrey };
+
 	var running = 	{ label: 'threads running',	title: 'running',	desc: 'processor executing threads',	unity: 'ms', cat: 'times', attr: 'r',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
 	var readySB = 	{ label: 'threads ready',	title: 'ready',		desc: ready_label,						unity: 'ms', cat: 'times', attr: 'yb',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
 	var ready = 	{ label: 'threads ready',	title: 'ready',		desc: ready_label,						unity: 'ms', cat: 'times', attr: 'y',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
 	var standBy = 	{ label: 'threads standBy',	title: 'stand by',	desc: ready_label,						unity: 'ms', cat: 'times', attr: 'b',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
 	var waiting = 	{ label: 'threads waiting',	title: 'waiting',	desc: waiting_label,					unity: 'ms', cat: 'times', attr: 'w',	color: colours.list.eOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.gOrange };
 	var capacity = 	{ label: 'unused core',		title: 'unused',	desc: 'processor is not fully used',	unity: 'ms', cat: 'times', attr: 'uu',	color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.gBlue };
+	var system = 	{ label: 'system',			title: 'system',	desc: 'processor is used by the OS',	unity: 'ms', cat: 'times', attr: '-',	color: colours.list.black,		fcolor: colours.list.black,		gcolor: colours.list.black };
 
 	var ipc = 		{ label: 'executing',			title: 'Executing',			desc: 'executing',				unity: '',	cat: 'locality',	attr: 'ipc',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
 	var miss = 		{ label: 'Cache misses',		title: 'Cache misses',		desc: '',						unity: '',	cat: 'locality',	attr: 'miss',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
@@ -90,6 +93,16 @@ app.factory('decks', ['colours', function(colours) {
 				{ property: 'vMirror', value: true, type: 'flag', label: 'Vertical mirror' }*/
 			]
 		},
+		inactivity: {
+			graph : {
+				v:		[],
+				limit:	capacity
+			},
+			data : [],
+			legend : [running, capacity, system],
+			clues: [],
+			settings: []
+		},
 		switches: {
 			graph : {
 				v:		[sw],
@@ -137,6 +150,10 @@ app.factory('decks', ['colours', function(colours) {
 			settings: []
 		},
 		locality: {
+			graph : {
+				v:		[swapping, l3miss, l2miss, l1miss, tlbmiss, ipc],
+				limit:	limit
+			},
 			axis : {
 				x:		{ colors: [colours.good, colours.list.lGrey, colours.list.lRed, colours.list.eRed, colours.list.dRed, colours.list.black] }
 			},
@@ -154,7 +171,7 @@ app.factory('widgets', ['decks', function(decks) {
 	
 	output.cacheInvalid		= {id: 10,	file: 'generic-to-delete',	deck: null,					tag: 'cache-invalid',		title: 'Cache misses from updating shared data',				subtitle: ''};
 	output.cacheMisses		= {id: 11,	file: 'cache-misses',		deck: decks.locality,		tag: 'cache-misses',		title: 'Cache misses',											subtitle: ''};
-	output.coreInactivity	= {id: 5,	file: 'generic-to-delete',	deck: null,					tag: 'core-idle',			title: 'Idle cores',											subtitle: ''};
+	output.coreInactivity	= {id: 5,	file: 'core-inactivity',	deck: decks.inactivity,		tag: 'core-idle',			title: 'Idle cores',											subtitle: ''};
 	output.lockContentions	= {id: 9,	file: 'generic-to-delete',	deck: null,					tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
 	output.threadPaths		= {id: 1,	file: 'generic-to-delete',	deck: null,					tag: 'thread-paths',		title: 'Single thread execution phases',						subtitle: 'alternating sequential/parallel execution'};
 	output.threadChains		= {id: 2,	file: 'generic-to-delete',	deck: null,					tag: 'thread-chains',		title: 'Chains of dependencies',								subtitle: 'synchronisations and waiting between threads'};

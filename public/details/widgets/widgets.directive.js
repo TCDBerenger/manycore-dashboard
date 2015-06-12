@@ -399,11 +399,19 @@ function directive_unselect(r) {
 /**
  * Array of points to string
  */
-function p2s(points) {
+function p2s(points, returnPoints) {
 	var result = "";
+
 	for (var i = points.length - 2; i >= 0; i -= 2) {
 		result = points[i] + "," + points[i+1] + " " + result;
 	};
+
+	if (returnPoints != undefined) {
+		for (var i = returnPoints.length - 2; i >= 0; i -= 2) {
+			result += returnPoints[i] + "," + returnPoints[i+1] + " ";
+		};
+	}
+
 	return result;
 }
 
@@ -495,7 +503,7 @@ app.directive('chartSwitches', function() {
 			var dataList, internalData, points;
 			var v_currentLimit, v_minLimit;
 			r.profiles.forEach(function(profile, index) {
-				if (! profile.currentData.hasOwnProperty(r.meta.v.cat)) console.log("Fail current data", profile, r.meta.v.cat);
+				if (! profile.currentData.hasOwnProperty(r.meta.v.cat)) console.log("!! -- !! Fail current data !! -- !!", profile, r.meta.v.cat);
 
 				// vars
 				dataList = profile.currentData[r.meta.v.cat].list;
@@ -693,7 +701,7 @@ app.directive('chartThreadStates', function() {
 			var dataList, iData, pointsC, pointsR, pointsBY;
 			var coordinates, valueR, valueYB;
 			r.profiles.forEach(function(profile, index) {
-				if (! profile.currentData.hasOwnProperty(r.deck.v[0].cat)) console.log("Fail current data", profile, r.deck.v[0].cat);
+				if (! profile.currentData.hasOwnProperty(r.deck.v[0].cat)) console.log("!! -- !! Fail current data !! -- !!", profile, r.deck.v[0].cat);
 
 				// vars
 				dataList = profile.currentData[r.deck.v[0].cat];
@@ -832,6 +840,161 @@ app.directive('chartThreadStates', function() {
 			}
 
 
+		}
+		
+		// Settigns changes
+		function settings() {
+			var needToRepaint = false;
+
+			if (r.meta.crenellate != r.settings.crenellate) {
+				r.meta.crenellate = r.settings.crenellate;
+				needToRepaint = true;
+			}
+
+			if (r.meta.upsidedown != r.settings.upsidedown) {
+				r.meta.upsidedown = r.settings.upsidedown;
+				needToRepaint = true;
+			}
+
+			if (needToRepaint)
+				repaint();
+		}
+
+		// Bind
+		directive_bind(scope, element, r, repaint, select, settings);
+	}
+
+	return {
+		link: chart_link,
+		restrict: 'E'
+	}
+});
+
+
+
+
+/**
+ * Percentage
+ */
+
+app.directive('chartPercent', function() {
+
+	function chart_link(scope, element, attrs, controller) {
+		console.log("== directive == chartPercent ==");
+
+		// Init vars
+		var r = directive_init(scope, element, attrs, LAYOUT_FH_NORMAL, true, true);
+
+		// Enhance meta
+		r.meta.vExpected[0] =	100;	r.meta.vExpected[1] =	100;
+		r.meta.vMinDisplay[0] =	110;	r.meta.vMinDisplay[1] =	110;
+		r.meta.vStep[0] =		25;		r.meta.vStep[1] =		25;
+
+
+		// Crenellate
+		function vAxisLabel(v, index) {
+			return v + ' %';
+		}
+
+		// Redraw
+		function repaint() {
+			// Repaint container
+			directive_repaint_container(r);
+
+			// Repaint scales
+			directive_repaint_scales(r, [0, r.meta.vMinDisplay[0]], [0, r.meta.vMinDisplay[1]]);
+
+			// Repaint graphical elements
+			directive_repaint_xAxis(r);
+
+			// Main draw
+			var dataList, iData, yPositions;
+			var tStep, tID, currentV, scaleVZero;
+			r.profiles.forEach(function(profile, index) {
+				if (! profile.currentData.hasOwnProperty(r.deck.v[0].cat)) console.log("!! -- !! Fail current data !! -- !!", profile, r.deck.v[0].cat);
+
+				// Clean
+				r.groupP[index].selectAll("*").remove();
+
+				// vars
+				dataList = profile.currentData[r.deck.v[0].cat];
+
+				// Points
+				yPositions = [];
+				r.iData[index] = [[]];
+				for (var i = r.deck.v.length - 1; i >= 0; i--) {
+					yPositions.push(NaN);
+					r.iData[index].push([]);
+				};
+
+				// All - points - data
+				tStep = profile.currentData.info.timeStep;
+				scaleVZero = r.scalesV[index](0);
+				for (var t = r.meta.begin; t < r.meta.end; t += tStep) {
+					tID = t / tStep;
+
+					for (var v = 0; v < r.deck.v.length; v++) {
+						if (profile.currentData[r.deck.v[v].cat].hasOwnProperty(tID) && profile.currentData[r.deck.v[v].cat][tID].hasOwnProperty(r.deck.v[v].attr))
+							yPositions[v] = profile.currentData[r.deck.v[v].cat][tID][r.deck.v[v].attr];
+						else
+							yPositions[v] = 0;
+
+						if (v > 0)
+							yPositions[v] += yPositions[v-1]; 
+
+						r.iData[index][v + 1].push(r.scaleX(t), r.scalesV[index](yPositions[v]), r.scaleX(t + tStep), r.scalesV[index](yPositions[v]));
+					};
+
+					r.iData[index][0].push(r.scaleX(t), scaleVZero, r.scaleX(t + tStep), scaleVZero);
+				};
+
+				// Draw area
+				for (var v = r.deck.v.length - 1; v >= 0; v--) {
+					r.groupP[index].append("polygon")
+						.attr("class", "svg-data svg-area svg-area-" + v)
+						.attr("points", p2s(r.iData[index][v + 1], r.iData[index][v]))
+						.attr("fill", r.deck.v[v].color);
+				};
+
+				// Value axis
+				directive_repaint_VAxis(r, index, vAxisLabel);
+			});
+
+			// Post-treatment
+			directive_repaint_post(r);
+		}
+
+		// Select
+		function select(x) {
+			// Time ID
+			var tIndex = Math.floor(r.scaleX.invert(x) / 50);
+			if (tIndex == r.meta.lastSelectID) {
+				return;
+			} else {
+				r.meta.lastSelectID = tIndex;
+			}
+
+			// Loop
+			for (var index = 0; index < r.profiles.length; index++) {
+				// Reuse
+				if (r.iSelection[index] != null) {
+					for (var v = r.deck.v.length - 1; v >= 0; v--) {
+						r.iSelection[index].select(".svg-area-" + v).attr("points", p2s(r.iData[index][v + 1].slice(tIndex * 4, tIndex * 4 + 4), r.iData[index][v].slice(tIndex * 4, tIndex * 4 + 4)));
+					}
+				}
+				// Draw
+				else {
+					r.iSelection[index] = r.groupP[index].append("g").attr("class", "svg-selection");
+
+					// Draw
+					for (var v = r.deck.v.length - 1; v >= 0; v--) {
+						r.iSelection[index].append("polygon")
+							.attr("class", "svg-area svg-area-" + v)
+							.attr("points", p2s(r.iData[index][v + 1].slice(tIndex * 4, tIndex * 4 + 4), r.iData[index][v].slice(tIndex * 4, tIndex * 4 + 4)))
+							.attr("fill", r.deck.v[v].fcolor);
+					};
+				}
+			}
 		}
 		
 		// Settigns changes
