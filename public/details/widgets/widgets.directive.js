@@ -190,7 +190,7 @@ function directive_repaint_container(r) {
 	r.groupP[1].attr("transform", "translate(" + r.layout.profile.x + "," + r.layout.profile.y[1] + ")");
 
 	// Clean selection
-	unselect(r);
+	directive_unselect(r);
 
 	// Overflow
 	if (r.meta.canOverflow) {
@@ -245,7 +245,7 @@ function directive_bind(scope, element, r, repaint, select, settings) {
 	scope.$watch(function() { return r.settings.version; }, settings);
 	scope.$on('xEvent', function(event, x) {
 		if (isNaN(x)) {
-			unselect(r);
+			directive_unselect(r);
 		} else {
 			select(x);
 		}
@@ -367,6 +367,15 @@ function directive_repaint_VAxis(r, index, valueFunction) {
 		.text(r.profiles[index].label);
 }
 
+/**
+ * Select - clean and unselect
+ */
+function directive_unselect(r) {
+	r.svg.selectAll(".svg-selection").remove();
+	r.iSelection = [null, null];
+	r.meta.lastSelectID = null;
+}
+
 
 
 /**********************************************************/
@@ -376,7 +385,7 @@ function directive_repaint_VAxis(r, index, valueFunction) {
 /**********************************************************/
 
 /**
- * Points
+ * Array of points to string
  */
 function p2s(points) {
 	var result = "";
@@ -387,16 +396,22 @@ function p2s(points) {
 }
 
 /**
- * Round
+ * Round value by a 'round' pad
  */
 function rV(v, round) {
 	return Math.round(v / round) * round;
 }
 
-function unselect(r) {
-	r.svg.selectAll(".svg-selection").remove();
-	r.iSelection = [null, null];
-	r.meta.lastSelectID = null;
+/**
+ *	Number to factor times
+ */
+function n2ft(v) {
+	switch(v) {
+		case 0.25:	return '¼';
+		case 0.5:	return '½';
+		case 0.75:	return '¾';
+		default:	return v + '×';
+	}
 }
 
 
@@ -623,11 +638,13 @@ app.directive('chartThreadStates', function() {
 
 		// Enhance meta
 		r.meta.cores = [];
+		r.meta.rounds = [];
 		r.profiles.forEach(function(profile, i) {
 			r.meta.cores.push(profile.hardware.data.threads);
 			r.meta.vExpected[i] = profile.hardware.data.threads * profile.currentData.info.timeStep;
 			r.meta.vMinDisplay[i] = (profile.hardware.data.threads + 1) * profile.currentData.info.timeStep;
-			r.meta.vStep[i] = r.meta.vExpected[i] / 4; // by 100 for 8 cores ; by 50 for 4 cores
+			r.meta.vStep[i] = r.meta.vExpected[i] / profile.hardware.data.cores; // by 100 for 8 cores ; by 50 for 4 cores
+			r.meta.rounds[i] = r.meta.vExpected[i] / profile.hardware.data.threads;
 		});
 
 		// Meta - settings
@@ -635,28 +652,24 @@ app.directive('chartThreadStates', function() {
 
 		// Enhance layout
 
+		// Crenellate
+		function vAxisLabel(v, index) {
+			if (v == r.meta.vExpected[index]) {
+				return 'CPU';
+			} else if (r.meta.crenellate && v < r.meta.vExpected[index]) {
+				return 'core';
+			} else {
+				return n2ft(v / r.meta.vExpected[index]);
+			}
+		}
+
 		// Redraw
 		function repaint() {
 			// Repaint container
 			directive_repaint_container(r);
 
 			// Vars
-			var capacity = r.meta.cores[0]
-
-			// Crenellate
-			function vAxisLabel(v, index) {
-				if (r.meta.crenellate) {
-					var c = v / r.meta.vStep[index];
-					if (c == 4)
-						return 'CPU';
-					else if (c < 4)
-						return 'core';
-					else
-						return (c / 4) + '×';
-				} else {
-					return v + ' ms'
-				}
-			}
+			var capacity = r.meta.cores[0];
 
 			// Repaint scales
 			directive_repaint_scales(r, [0, r.meta.vMinDisplay[0]], [0, r.meta.vMinDisplay[1]]);
@@ -696,8 +709,8 @@ app.directive('chartThreadStates', function() {
 
 						// Crenallate
 						if (r.meta.crenellate) {
-							valueR = rV(valueR, r.meta.vStep[index]);
-							valueYB = rV(valueYB, r.meta.vStep[index]);
+							valueR = rV(valueR, r.meta.rounds[index]);
+							valueYB = rV(valueYB, r.meta.rounds[index]);
 						}
 
 						coordinates = [r.scaleX(frame.t), r.scaleX(frame.t + r.meta.steps[index]), r.scalesV[index](valueR), r.scalesV[index](valueYB + r.meta.vExpected[index])];
