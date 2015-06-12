@@ -96,7 +96,7 @@ app.factory('decks', ['colours', function(colours) {
 		inactivity: {
 			graph : {
 				v:		[],
-				limit:	capacity
+				limit:	limit
 			},
 			data : [],
 			legend : [running, capacity, system],

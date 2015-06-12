@@ -908,16 +908,14 @@ app.directive('chartPercent', function() {
 			directive_repaint_xAxis(r);
 
 			// Main draw
-			var dataList, iData, yPositions;
+			var profileData, iData, yPositions;
 			var tStep, tID, currentV, scaleVZero;
 			r.profiles.forEach(function(profile, index) {
-				if (! profile.currentData.hasOwnProperty(r.deck.v[0].cat)) console.log("!! -- !! Fail current data !! -- !!", profile, r.deck.v[0].cat);
-
 				// Clean
 				r.groupP[index].selectAll("*").remove();
 
-				// vars
-				dataList = profile.currentData[r.deck.v[0].cat];
+				// Var
+				profileData = profile.currentData;
 
 				// Points
 				yPositions = [];
@@ -928,14 +926,14 @@ app.directive('chartPercent', function() {
 				};
 
 				// All - points - data
-				tStep = profile.currentData.info.timeStep;
+				tStep = profileData.info.timeStep;
 				scaleVZero = r.scalesV[index](0);
 				for (var t = r.meta.begin; t < r.meta.end; t += tStep) {
 					tID = t / tStep;
 
 					for (var v = 0; v < r.deck.v.length; v++) {
-						if (profile.currentData[r.deck.v[v].cat].hasOwnProperty(tID) && profile.currentData[r.deck.v[v].cat][tID].hasOwnProperty(r.deck.v[v].attr))
-							yPositions[v] = profile.currentData[r.deck.v[v].cat][tID][r.deck.v[v].attr];
+						if (profileData[r.deck.v[v].cat].hasOwnProperty(tID) && profileData[r.deck.v[v].cat][tID].hasOwnProperty(r.deck.v[v].attr))
+							yPositions[v] = profileData[r.deck.v[v].cat][tID][r.deck.v[v].attr];
 						else
 							yPositions[v] = 0;
 
