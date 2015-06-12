@@ -72,7 +72,7 @@ app.directive('chartCacheMisses', function() {
 
 		// Data
 		var data = scope.data[attrs.profileid];
-		var dataList = data.locality;
+		var dataList = data.locality.slice(0);
 		var colors = deck.x.colors;
 
 		// Fix column layout
@@ -212,7 +212,7 @@ app.directive('chartThreadDivergence', function() {
 		var meta = new genericMeta(attrs);
 
 		// Data
-		var data = scope.data[attrs.profileid];
+		var data = scope.data[attrs.profileid].slice(0);
 		var timeMax = data.info.duration;
 		var numberCores = data.info.threads;
 		var dataValueMax = Math.max(numberCores * 2, Math.min(data.info.threadCount, numberCores * 3));
@@ -573,7 +573,7 @@ app.directive('chartThreadDivergenceWithRealData', function() {
 		};
 
 		// Data
-		var data = scope.data[attrs.profileid];
+		var data = scope.data[attrs.profileid].slice(0);
 		var profile = scope.profiles[0];
 		var timeStart = +attrs.begin;			// When the user selection starts
 		var timeEnd = +attrs.end;				// When the user selection ends (could be before or after timeMax)
