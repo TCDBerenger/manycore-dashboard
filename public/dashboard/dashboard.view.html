@@ -112,13 +112,13 @@
 			</span>
 			<h2>{{! hasSelectedProfile() | iif : "Select a sample" : "Compare with"}}</h2>
 			<div class="btn-group-col btn-group-col-3">
-				<button type="button" class="btn btn-default btn-xs" ng-click="selectProfile(profile)" ng-repeat="profile in availableProfiles | v4 | orderBy : 'label'">{{profile.label}}</button>
+				<button type="button" class="btn btn-default btn-xs" ng-click="selectProfile(profile)" ng-repeat="profile in availableProfiles | v4 | orderBy : 'label'" ng-disabled="profile.disabled">{{profile.label}}</button>
 			</div>
 			<p>
 				<a href ng-click="showsV3 = ! showsV3"><i class="fa fa-eye-slash"></i> {{ showsV3 | iif : 'hide' : 'show also' }} incomplete profiles</a>
 			</p>
 			<div class="btn-group-col btn-group-col-3" ng-if="showsV3">
-				<button type="button" class="btn btn-default btn-xs" ng-click="selectProfile(profile)" ng-repeat="profile in availableProfiles | v3 | orderBy : 'label'">{{profile.label}}</button>
+				<button type="button" class="btn btn-default btn-xs" ng-click="selectProfile(profile)" ng-repeat="profile in availableProfiles | v3 | orderBy : 'label'" ng-disabled="profile.disabled">{{profile.label}}</button>
 			</div>
 			<div class="alert alert-info ctrl-element ctrl-add-nomore" ng-show="availableProfiles.length == 0">
 				<i class="fa fa-2x fa-frown-o" style="float: left; margin-right: 8px;"></i>

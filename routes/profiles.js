@@ -21,7 +21,8 @@ router.get('/', function(req, res, next) {
 			label:		profile.label,
 			desc:		profile.desc,
 			hardware:	profile.hardware,
-			version:	profile.v
+			version:	profile.v,
+			disabled:	profile.disabled
 		});
 	});
 
@@ -42,7 +43,8 @@ router.get('/*', function(req, res) {
 				label:		profiles[id].label,
 				desc:		profiles[id].desc,
 				hardware:	profiles[id].hardware,
-				version:	profiles[id].v
+				version:	profiles[id].v,
+				disabled:	profiles[id].disabled
 			});
 			selectedMap[id] = true;
 		}
