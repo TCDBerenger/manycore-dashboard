@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 34;
+var VERSION = 35;
 
 /************************************************/
 /* Variables - hardwares						*/
@@ -50,38 +50,38 @@ var hardRoman = {
 /************************************************/
 var profileMap = {
 	all: [
-		{ id: 1,	label: 'Matmul IJK',	desc: 'Matrix multiplication IJK', 	hardware: hardRoman, file: 'matmulijk', 	pid: 6396,	timeStep: 50,	v: 3 },
-		{ id: 2,	label: 'Matmul KIJ',	desc: 'Matrix multiplication KIJ', 	hardware: hardRoman, file: 'matmulkij', 	pid: 3904,	timeStep: 50,	v: 3 },
-		{ id: 3,	label: 'Matmul KJI',	desc: 'Matrix multiplication KJI', 	hardware: hardRoman, file: 'matmulkji', 	pid: 1788,	timeStep: 50,	v: 3 },
-		{ id: 4,	label: 'Particle S',	desc: 'Particle system (serial)', 	hardware: hardRoman, file: 'particles', 	pid: 10460,	timeStep: 50,	v: 3 },
-		{ id: 5,	label: 'Account B',		desc: '',							hardware: hardRoman, file: 'accountb',		pid: 11300,	timeStep: 50,	v: 3 },
-		{ id: 6,	label: 'Compute Pi',	desc: '',							hardware: hardRoman, file: 'computepi',		pid: 6568,	timeStep: 50,	v: 3 },
-		{ id: 7,	label: 'Mandelbrot',	desc: '',							hardware: hardRoman, file: 'mandelbrot',	pid: 7484,	timeStep: 50,	v: 3 },
-		{ id: 8,	label: 'N Queens',		desc: '',							hardware: hardRoman, file: 'nqueens',		pid: 3120,	timeStep: 50,	v: 3 },
-		{ id: 9,	label: 'Ray Tracer',	desc: '',							hardware: hardRoman, file: 'raytracer',		pid: 7500,	timeStep: 50,	v: 3 },
-		{ id: 10,	label: 'Account A',		desc: '',							hardware: hardRoman, file: 'accounta',		pid: 11360,	timeStep: 50,	v: 3 },
-		{ id: 11,	label: 'Merge sort P',	desc: 'Merge and sort (parallel)',	hardware: hardRoman, file: 'mergesortp',	pid: 9148,	timeStep: 50,	v: 3 },
-		{ id: 12,	label: 'Merge sort S',	desc: 'Merge and sort (serial)',	hardware: hardRoman, file: 'mergesorts',	pid: 7272,	timeStep: 50,	v: 3 },
-		{ id: 13,	label: 'Particle P',	desc: 'Particle system (parallel)',	hardware: hardRoman, file: 'particlep',		pid: 4532,	timeStep: 50,	v: 3 },
-		{ id: 14,	label: 'Phase A',		desc: '',							hardware: hardRoman, file: 'phasea',		pid: 8580,	timeStep: 50,	v: 3 },
-		{ id: 15,	label: 'Phase B',		desc: '',							hardware: hardRoman, file: 'phaseb',		pid: 3324,	timeStep: 50,	v: 3 },
-		{ id: 16,	label: 'Bad cache A',	desc: '',							hardware: hardRoman, file: 'badcachea',		pid: 0,	timeStep: 50,	v: 3 },
-		{ id: 17,	label: 'Spike',			desc: '',							hardware: hardRoman, file: 'spike',			pid: 0,	timeStep: 50,	v: 3 },
-		{ id: 18,	label: 'NodeJS',		desc: 'Sample NodeJS server',		hardware: hardRoman, file: 'nodejs',		pid: 0,	timeStep: 50,	v: 3 },
-		{ id: 19,	label: 'Word',			desc: 'Microsoft Word sample',		hardware: hardRoman, file: 'word',			pid: 0,	timeStep: 50,	v: 3 },
-		{ id: 20,	label: 'Excel',			desc: 'Microsoft Excel sample',		hardware: hardRoman, file: 'excel',			pid: 0,	timeStep: 50,	v: 3 },
+		{ id: 1,	label: 'Matmul IJK',	desc: 'Matrix multiplication IJK', 	hardware: hardRoman, file: 'matmulijk', 	pid: 6396,	timeStep: 50, v: 3 },
+		{ id: 2,	label: 'Matmul KIJ',	desc: 'Matrix multiplication KIJ', 	hardware: hardRoman, file: 'matmulkij', 	pid: 3904,	timeStep: 50, v: 3 },
+		{ id: 3,	label: 'Matmul KJI',	desc: 'Matrix multiplication KJI', 	hardware: hardRoman, file: 'matmulkji', 	pid: 1788,	timeStep: 50, v: 3 },
+		{ id: 4,	label: 'Particle P',	desc: 'Particle system (parallel)',	hardware: hardRoman, file: 'particlep',		pid: 4532,	timeStep: 50, v: 3 },
+		{ id: 5,	label: 'Particle S',	desc: 'Particle system (serial)', 	hardware: hardRoman, file: 'particles', 	pid: 10460,	timeStep: 50, v: 3 },
+		{ id: 6,	label: 'Account A',		desc: '',							hardware: hardRoman, file: 'accounta',		pid: 11360,	timeStep: 50, v: 3 },
+		{ id: 7,	label: 'Account B',		desc: '',							hardware: hardRoman, file: 'accountb',		pid: 11300,	timeStep: 50, v: 3 },
+		{ id: 8,	label: 'Merge sort P',	desc: 'Merge and sort (parallel)',	hardware: hardRoman, file: 'mergesortp',	pid: 9148,	timeStep: 50, v: 3 },
+		{ id: 9,	label: 'Merge sort S',	desc: 'Merge and sort (serial)',	hardware: hardRoman, file: 'mergesorts',	pid: 7272,	timeStep: 50, v: 3 },
+		{ id: 10,	label: 'Phase A',		desc: '',							hardware: hardRoman, file: 'phasea',		pid: 8580,	timeStep: 50, v: 3 },
+		{ id: 11,	label: 'Phase B',		desc: '',							hardware: hardRoman, file: 'phaseb',		pid: 3324,	timeStep: 50, v: 3 },
+		{ id: 12,	label: 'Compute Pi',	desc: '',							hardware: hardRoman, file: 'computepi',		pid: 6568,	timeStep: 50, v: 3 },
+		{ id: 13,	label: 'Mandelbrot',	desc: '',							hardware: hardRoman, file: 'mandelbrot',	pid: 7484,	timeStep: 50, v: 3 },
+		{ id: 14,	label: 'N Queens',		desc: '',							hardware: hardRoman, file: 'nqueens',		pid: 3120,	timeStep: 50, v: 3 },
+		{ id: 15,	label: 'Ray Tracer',	desc: '',							hardware: hardRoman, file: 'raytracer',		pid: 7500,	timeStep: 50, v: 3 },
+		{ id: 16,	label: 'Bad cache A',	desc: '',							hardware: hardRoman, file: 'badcachea',		pid: 4536,	timeStep: 50, v: 3 },
+		{ id: 17,	label: 'Spike',			desc: '',							hardware: hardRoman, file: 'spike',			pid: 8500,	timeStep: 50, v: 3 },
+		{ id: 18,	label: 'NodeJS',		desc: 'Sample NodeJS server',		hardware: hardRoman, file: 'nodejs',		pid: 8792,	timeStep: 50, v: 3, disabled: true },
+		{ id: 19,	label: 'Word',			desc: 'Microsoft Word sample',		hardware: hardRoman, file: 'word',			pid: 2852,	timeStep: 50, v: 3 },
+		{ id: 20,	label: 'Excel',			desc: 'Microsoft Excel sample',		hardware: hardRoman, file: 'excel',			pid: 5176,	timeStep: 50, v: 3 },
 
 		{ id: 21,	label: 'Dining ph. 45',	desc: 'Dining philosophers problem 45',		hardware: hardRoman, file: 'philosophers45',	pid: 4168,	timeStep: 50, v: 4 },
 
-		{ id: 31,	label: 'P 1 / C 1',		desc: '100 producers for 100 consumers',	hardware: hardRoman, file: 'pc1x1',		pid: 67380,	timeStep: 50, v: 4 },
-		{ id: 32,	label: 'P 1 / C 10',	desc: '100 producers for 100 consumers',	hardware: hardRoman, file: 'pc1x10',	pid: 73540,	timeStep: 50, v: 4 },
-		{ id: 33,	label: 'P 1 / C 100',	desc: '100 producers for 100 consumers',	hardware: hardRoman, file: 'pc1x100',	pid: 76824,	timeStep: 50, v: 4 },
-		{ id: 34,	label: 'P 10 / C 1',	desc: '100 producers for 100 consumers',	hardware: hardRoman, file: 'pc10x1',	pid: 79828,	timeStep: 50, v: 4 },
-		{ id: 35,	label: 'P 10 / C 10',	desc: '100 producers for 100 consumers',	hardware: hardRoman, file: 'pc10x10',	pid: 81516,	timeStep: 50, v: 4 },
-		{ id: 36,	label: 'P 10 / C 100',	desc: '100 producers for 100 consumers',	hardware: hardRoman, file: 'pc10x100',	pid: 82952,	timeStep: 50, v: 4 },
-		{ id: 37,	label: 'P 100 / C 1',	desc: '100 producers for 100 consumers',	hardware: hardRoman, file: 'pc100x1',	pid: 84696,	timeStep: 50, v: 4 },
-		{ id: 38,	label: 'P 100 / C 10',	desc: '100 producers for 100 consumers',	hardware: hardRoman, file: 'pc100x10',	pid: 90436,	timeStep: 50, v: 4 },
-		{ id: 39,	label: 'P 100 / C 100',	desc: '100 producers for 100 consumers',	hardware: hardRoman, file: 'pc100x100',	pid: 93496,	timeStep: 50, v: 4 }
+		{ id: 31,	label: 'P 1 / C 1',		desc: '1 producer and 1 consumer',			hardware: hardRoman, file: 'pc1x1',		pid: 67380,	timeStep: 50, v: 4 },
+		{ id: 32,	label: 'P 1 / C 10',	desc: '1 producer and 10 consumers',		hardware: hardRoman, file: 'pc1x10',	pid: 73540,	timeStep: 50, v: 4 },
+		{ id: 33,	label: 'P 1 / C 100',	desc: '1 producer and 100 consumers',		hardware: hardRoman, file: 'pc1x100',	pid: 76824,	timeStep: 50, v: 4 },
+		{ id: 34,	label: 'P 10 / C 1',	desc: '10 producers and 1 consumer',		hardware: hardRoman, file: 'pc10x1',	pid: 79828,	timeStep: 50, v: 4 },
+		{ id: 35,	label: 'P 10 / C 10',	desc: '10 producers and 10 consumers',		hardware: hardRoman, file: 'pc10x10',	pid: 81516,	timeStep: 50, v: 4 },
+		{ id: 36,	label: 'P 10 / C 100',	desc: '10 producers and 100 consumers',		hardware: hardRoman, file: 'pc10x100',	pid: 82952,	timeStep: 50, v: 4 },
+		{ id: 37,	label: 'P 100 / C 1',	desc: '100 producers and 1 consumer',		hardware: hardRoman, file: 'pc100x1',	pid: 84696,	timeStep: 50, v: 4 },
+		{ id: 38,	label: 'P 100 / C 10',	desc: '100 producers and 10 consumers',		hardware: hardRoman, file: 'pc100x10',	pid: 90436,	timeStep: 50, v: 4 },
+		{ id: 39,	label: 'P 100 / C 100',	desc: '100 producers and 100 consumers',	hardware: hardRoman, file: 'pc100x100',	pid: 93496,	timeStep: 50, v: 4 }
 	]
 };
 
