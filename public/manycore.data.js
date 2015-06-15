@@ -28,6 +28,7 @@ app.factory('decks', ['colours', function(colours) {
 	var waiting_label = 'threads are not ready to be processed because they waiting ressource(s)';
 
 	var limit = 	{ color: colours.list.eGrey, fcolor: colours.list.dGrey, gcolor: colours.list.gGrey };
+	var limit_th = 	{ color: limit.color, fcolor: limit.fcolor, gcolor: limit.gcolor, label: 'threads',  value: function(profile) { return profile.currentData.info.threadCount; } };
 
 	var running = 	{ label: 'threads running',	title: 'running',	desc: 'processor executing threads',	unity: 'ms', cat: 'times', attr: 'r',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
 	var readySB = 	{ label: 'threads ready',	title: 'ready',		desc: ready_label,						unity: 'ms', cat: 'times', attr: 'yb',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
@@ -48,6 +49,9 @@ app.factory('decks', ['colours', function(colours) {
 	var sw = 		{ label: 'switches',	title: 'context switches',	desc: 'cores switching the working thread',		unity: null, cat: 'switches', attr: 's',											color: colours.list.eGrey,		fcolor: colours.list.dGrey,		gcolor: colours.list.gGrey };
 	var mg = 		{ label: 'migrations',	title: 'thread migrations',	desc: 'thread migrate to another core',			unity: null, cat: 'migrations', attr: 'm',	colors: [colours.base, colours.alt],	color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.gViolet };
 	var mg_tmp = 	{ label: 'migrations',	title: 'migrations',	desc: 'migrations',		unity: null, cat: 'migrations', attr: 'm',	color2: colours.alt,	color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.gViolet };
+
+	var l_s = 		{ label: 'lock success',	title: 'lock success',	desc: 'number of lock acquisition success',	unity: null, cat: 'locks', attr: 's',	color: colours.list.eGreen,	fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
+	var l_f = 		{ label: 'lock failure',	title: 'lock failure',	desc: 'number of lock acquisition failure',	unity: null, cat: 'locks', attr: 'f',	color: colours.list.eRed,	fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
 
 	return {
 		tg: {
@@ -161,6 +165,18 @@ app.factory('decks', ['colours', function(colours) {
 			legend : [ipc, tlbmiss, l1miss, l2miss, l3miss, swapping],
 			clues: [],
 			settings: []
+		},
+		contentions: {
+			graph : {
+				v:		[],
+				limit:	limit_th
+			},
+			data : [l_s, l_f],
+			legend : [l_s, l_f],
+			clues: [],
+			settings: [
+				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
+			]
 		}
 	};
 }]);
@@ -172,7 +188,7 @@ app.factory('widgets', ['decks', function(decks) {
 	output.cacheInvalid		= {id: 10,	file: 'generic-to-delete',	deck: null,					tag: 'cache-invalid',		title: 'Cache misses from updating shared data',				subtitle: ''};
 	output.cacheMisses		= {id: 11,	file: 'cache-misses',		deck: decks.locality,		tag: 'cache-misses',		title: 'Cache misses',											subtitle: ''};
 	output.coreInactivity	= {id: 5,	file: 'core-inactivity',	deck: decks.inactivity,		tag: 'core-idle',			title: 'Idle cores',											subtitle: ''};
-	output.lockContentions	= {id: 9,	file: 'generic-to-delete',	deck: null,					tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
+	output.lockContentions	= {id: 9,	file: 'lock-contentions',	deck: decks.contentions,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
 	output.threadPaths		= {id: 1,	file: 'generic-to-delete',	deck: null,					tag: 'thread-paths',		title: 'Single thread execution phases',						subtitle: 'alternating sequential/parallel execution'};
 	output.threadChains		= {id: 2,	file: 'generic-to-delete',	deck: null,					tag: 'thread-chains',		title: 'Chains of dependencies',								subtitle: 'synchronisations and waiting between threads'};
 	output.threadLifetime	= {id: 3,	file: 'thread-lifetime',	deck: decks.lifetime,		tag: 'thread-running',		title: 'Life states of threads',								subtitle: 'creation, running, moving between cores, termination'};
