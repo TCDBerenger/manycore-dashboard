@@ -583,7 +583,6 @@ function jsonSY(profile, id) {
 
 	output.id = id;
 	output.cat = 'sy';
-	output.log = "TODO";
 
 	// Common
 	profile.exportInfo(output);
@@ -603,7 +602,6 @@ function jsonDS(profile, id) {
 
 	output.id = id;
 	output.cat = 'ds';
-	output.log = "TODO";
 
 	// Common
 	profile.exportInfo(output);
@@ -646,7 +644,6 @@ function jsonDL(profile, id) {
 
 	output.id = id;
 	output.cat = 'dl';
-	output.log = "TODO";
 
 	// Common
 	profile.exportInfo(output);
@@ -666,7 +663,6 @@ function jsonRS(profile, id) {
 
 	output.id = id;
 	output.cat = 'rs';
-	output.log = "TODO";
 
 	// Common
 	profile.exportInfo(output);
@@ -683,17 +679,10 @@ function jsonIO(profile, id) {
 
 	output.id = id;
 	output.cat = 'io';
-	output.log = "TODO";
 
 	// Common
 	profile.exportInfo(output);
 	addCommon(output, id);
-
-	// for context switches
-	addSwitches(output, id);
-
-	// for migrations
-	addMigrations(output, id);
 
 	return output;
 }
