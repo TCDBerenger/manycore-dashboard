@@ -96,11 +96,14 @@ var graphMeta = function(scope, attributes, mirror, canOverflow) {
 		self.duration =	self.end - self.begin;
 
 		self.ends[0] =		Math.min(self.scope.selection.end, r.profiles[0].currentData.info.duration);
-		self.ends[1] =		Math.min(self.scope.selection.end, r.profiles[1].currentData.info.duration);
 		self.durations[0] =	Math.max(0, self.ends[0] - self.begin);
-		self.durations[1] =	Math.max(0, self.ends[1] - self.begin);
 		self.steps[0] =	r.profiles[0].currentData.info.timeStep;
-		self.steps[1] =	r.profiles[1].currentData.info.timeStep;
+
+		if (r.profiles[1] != null) {
+			self.ends[1] =		Math.min(self.scope.selection.end, r.profiles[1].currentData.info.duration);
+			self.durations[1] =	Math.max(0, self.ends[1] - self.begin);
+			self.steps[1] =	r.profiles[1].currentData.info.timeStep;
+		}
 	}
 };
 
@@ -1011,6 +1014,164 @@ app.directive('chartPercent', function() {
 
 			if (needToRepaint)
 				repaint();
+		}
+
+		// Bind
+		directive_bind(scope, element, r, repaint, select, settings);
+	}
+
+	return {
+		link: chart_link,
+		restrict: 'E'
+	}
+});
+
+
+
+/**
+ * By unit
+ */
+app.directive('chartUnits', function() {
+
+	function chart_link(scope, element, attrs, controller) {
+		console.log("== directive == chartUnits ==");
+
+		// Init vars
+		var r = directive_init(scope, element, attrs, LAYOUT_FH_NORMAL, true, true);
+
+		// Enhance meta
+		r.meta.vExpected[0] =	r.deck.limit.value(r.profiles[0]);
+		r.meta.vMinDisplay[0] =	r.meta.vExpected[0] + 2;
+		r.meta.vStep[0] =		r.meta.vExpected[0];
+		if (r.profiles[1] != null) {
+			r.meta.vExpected[1] =	r.deck.limit.value(r.profiles[1]);
+			r.meta.vMinDisplay[1] =	r.meta.vExpected[1] + 2;
+			r.meta.vStep[1] =		r.meta.vExpected[1];
+		}
+
+		// Axis label
+		function vAxisLabel(v, index) {
+			if (v == r.meta.vExpected[index])
+				return r.deck.limit.label;
+			else
+				return (v / r.meta.vExpected[0]) + '×';
+		}
+
+		// Redraw
+		function repaint() {
+			// Repaint container
+			directive_repaint_container(r);
+
+			// Repaint scales
+			directive_repaint_scales(r, [0, r.meta.vMinDisplay[0]], [0, r.meta.vMinDisplay[1]]);
+
+			// Repaint graphical elements
+			directive_repaint_xAxis(r);
+
+			// Main draw
+			var profileData, iData, yPositions;
+			var tStep, tID, currentV, scaleVZero, currentVIndexes;
+			r.profiles.forEach(function(profile, index) {
+				// Clean
+				r.groupP[index].selectAll("*").remove();
+
+				// Var
+				profileData = profile.currentData;
+
+				// Points
+				dataSource_list = [];
+				dataSource_length = [];
+				dataSource_index = [];
+				yPositions = [];
+				r.iData[index] = [[]];
+				for (var v = 0; v < r.deck.v.length; v++) {
+					dataSource_list.push(profileData[r.deck.v[v].cat][r.deck.v[v].attr+'_list']);
+					dataSource_length.push(profileData[r.deck.v[v].cat][r.deck.v[v].attr+'_list'].length);
+					dataSource_index.push(0);
+					yPositions.push(NaN);
+					r.iData[index].push([]);
+				};
+
+				// All - points - data
+				tStep = r.settings.timeGroup;
+				scaleVZero = r.scalesV[index](0);
+				for (var t = r.meta.begin; t < r.meta.end; t += tStep) {
+					tID = t / tStep;
+
+					for (var v = 0; v < r.deck.v.length; v++) {
+						yPositions[v] = 0;
+
+						while(dataSource_index[v] < dataSource_length[v] && dataSource_list[v][dataSource_index[v]] < (t + tStep)) {
+							yPositions[v]++;
+							dataSource_index[v]++;
+						}
+
+						if (v > 0)
+							yPositions[v] += yPositions[v-1]; 
+
+						r.iData[index][v + 1].push(r.scaleX(t), r.scalesV[index](yPositions[v]), r.scaleX(t + tStep), r.scalesV[index](yPositions[v]));
+					};
+
+					r.iData[index][0].push(r.scaleX(t), scaleVZero, r.scaleX(t + tStep), scaleVZero);
+				};
+
+				// Draw area
+				for (var v = r.deck.v.length - 1; v >= 0; v--) {
+					r.groupP[index].append("polygon")
+						.attr("class", "svg-data svg-area svg-area-" + v)
+						.attr("points", p2s(r.iData[index][v + 1], r.iData[index][v]))
+						.attr("fill", r.deck.v[v].color);
+				};
+
+				// Value axis
+				directive_repaint_VAxis(r, index, vAxisLabel);
+			});
+
+			// Post-treatment
+			directive_repaint_post(r);
+		}
+
+		// Select
+		function select(x) {
+			// Time ID
+			/*
+			var tIndex = Math.floor(r.scaleX.invert(x) / 50);
+			if (tIndex == r.meta.lastSelectID) {
+				return;
+			} else {
+				r.meta.lastSelectID = tIndex;
+			}
+
+			// Loop
+			for (var index = 0; index < r.profiles.length; index++) {
+				// Reuse
+				if (r.iSelection[index] != null) {
+					for (var v = r.deck.v.length - 1; v >= 0; v--) {
+						r.iSelection[index].select(".svg-area-" + v).attr("points", p2s(r.iData[index][v + 1].slice(tIndex * 4, tIndex * 4 + 4), r.iData[index][v].slice(tIndex * 4, tIndex * 4 + 4)));
+					}
+				}
+				// Draw
+				else {
+					r.iSelection[index] = r.groupP[index].append("g").attr("class", "svg-selection");
+
+					// Draw
+					for (var v = r.deck.v.length - 1; v >= 0; v--) {<
+						r.iSelection[index].append("polygon")
+							.attr("class", "svg-area svg-area-" + v)
+							.attr("points", p2s(r.iData[index][v + 1].slice(tIndex * 4, tIndex * 4 + 4), r.iData[index][v].slice(tIndex * 4, tIndex * 4 + 4)))
+							.attr("fill", r.deck.v[v].fcolor);
+					};
+				}
+			}
+			*/
+		}
+		
+		// Settigns changes
+		function settings() {
+			if (r.meta.timeGroup != r.settings.timeGroup) {
+				r.meta.timeGroup = r.settings.timeGroup;
+				repaint();
+			}
 		}
 
 		// Bind

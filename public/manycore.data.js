@@ -168,14 +168,14 @@ app.factory('decks', ['colours', function(colours) {
 		},
 		contentions: {
 			graph : {
-				v:		[],
+				v:		[l_s, l_f],
 				limit:	limit_th
 			},
 			data : [l_s, l_f],
 			legend : [l_s, l_f],
 			clues: [],
 			settings: [
-				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
+				{ property: 'timeGroup', value: 10, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
 			]
 		}
 	};
@@ -234,7 +234,7 @@ app.factory('categories', ['widgets', 'decks', function(widgets, decks){
 	var io = {
 		tag: 'io', cat: 'io', label: 'Input/Output', title: 'Input/Output', icon: 'plug',
 		graph: null, deck: decks.io,
-		widgets: [widgets.threadSwitchs]
+		widgets: []
 	};
 
 	var output = {
