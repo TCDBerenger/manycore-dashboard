@@ -53,7 +53,7 @@
 		<div class="settings" ng-repeat="setting in widget.deck.settings">
 			<div class="setting setting-range" ng-if="setting.type == 'range'">
 				<label>{{setting.label}}:</label>
-				<input type="range" ng-model="widget.settings[setting.property]" min="{{::setting.min}}" max="{{::setting.max}}" />
+				<input type="range" ng-model="widget.settings[setting.property]" min="{{::setting.min}}" max="{{::setting.max}}" step="{{::setting.step}}" />
 				[<span>{{widget.settings[setting.property]}}</span>] <span>{{setting.unit}}</span>
 			</div>
 			<div class="setting setting-flag" ng-if="setting.type == 'flag'">

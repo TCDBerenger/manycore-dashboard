@@ -114,7 +114,7 @@ app.factory('decks', ['colours', function(colours) {
 				{ color: colours.base,	tax: 'Oversubscription',							text: 'high frequency' }
 			],
 			settings: [
-				{ property: 'pixelGroup', value: 5, type: 'range', label: 'Group by', unit: 'pixels', min: 1, max: 15 }/*,
+				{ property: 'pixelGroup', value: 5, type: 'range', label: 'Group by', unit: 'pixels', min: 1, max: 15, step: 1 }/*,
 				{ property: 'vMirror', value: true, type: 'flag', label: 'Vertical mirror' }*/
 			]
 		},
@@ -130,7 +130,7 @@ app.factory('decks', ['colours', function(colours) {
 				{ color: colours.base,	tax: 'Alternating sequential/parallel execution',	text: 'alternating period of high and low thread migrations' }
 			],
 			settings: [
-				{ property: 'pixelGroup', value: 5, type: 'range', label: 'Group by', unit: 'pixels', min: 1, max: 15 }/*,
+				{ property: 'pixelGroup', value: 5, type: 'range', label: 'Group by', unit: 'pixels', min: 1, max: 15, step: 1 }/*,
 				{ property: 'vMirror', value: true, type: 'flag', label: 'Vertical mirror' }*/
 			]
 		},
