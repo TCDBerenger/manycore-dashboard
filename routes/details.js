@@ -505,6 +505,42 @@ function addLocality(output, id, simplified) {
 	output.stats.locality = data.locality.stats;
 }
 
+/**
+ * Add Locks
+ */
+function addLocks(output, id) {
+	// Init vars
+	var data		= profiles[id].data;
+	output.locks	= {
+		byFrame:	{},
+		s_list:		[],
+		f_list:		[]
+	};
+
+	data.lock_success.forEach(function(lock) {
+		output.locks.s_list.push(lock.t);
+	});
+
+	data.lock_failure.forEach(function(lock) {
+		output.locks.f_list.push(lock.t);
+	});
+
+	for (var timeID = 0; timeID <= data.info.timeMax; timeID+= data.info.timeStep) {
+		output.locks.byFrame[timeID] = {
+			s: data.frames[timeID].lock_success,
+			f: data.frames[timeID].lock_failure,
+			w: data.frames[timeID].lock_wait
+		};
+	}
+
+	// Stats
+	output.stats.locks = {
+		s: data.stats.lock_success,
+		f: data.stats.lock_failure,
+		w: data.stats.lock_wait
+	};
+}
+
 
 
 /************************************************/
@@ -552,6 +588,9 @@ function jsonSY(profile, id) {
 	// Common
 	profile.exportInfo(output);
 	addCommon(output, id);
+
+	// Add locks
+	addLocks(output, id);
 
 	return output;
 }

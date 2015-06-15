@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 35;
+var VERSION = 40;
 
 /************************************************/
 /* Variables - hardwares						*/
@@ -292,6 +292,23 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	// Grobal vars
 	var timeID, timeEvent;
 
+	// Global functions
+	function checkFrame(id) {
+		if (! data.frames.hasOwnProperty(id)) {
+			data.frames[id] = {
+				t:				{},
+				c:				{},
+				switches:		0,
+				migrations:		0,
+				starts:			0,
+				ends:			0,
+				lock_success:	0,
+				lock_failure:	0,
+				lock_wait:		0,
+			}
+		}
+	}
+
 	/**
 	 *
 	 *	RAW 1:
@@ -324,8 +341,10 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 
 		// Frame treatment
 		if (element.pid == profile.pid) {
+			// Check time frame existance
+			checkFrame(timeEvent);
+
 			// Auto build structure
-			if (! data.frames.hasOwnProperty(timeEvent)) data.frames[timeEvent] = { t:{}, c:{} };
 			if (! data.frames[timeEvent].hasOwnProperty(element.type)) data.frames[timeEvent][element.type] = 0;
 
 			// Sum by frame
@@ -383,6 +402,9 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 		timeEvent = Math.round(element.dtime / 10000);
 		timeID = Math.floor(timeEvent / data.info.timeStep) * data.info.timeStep;
 
+		// Check time frame existance
+		checkFrame(timeID);
+
 		// Switch
 		if (element.type == "sw" && element.pid == profile.pid) {
 			// Auto build structure
@@ -392,9 +414,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			data.stats.switches++;
 
 			// Add a switch
-			if (! data.frames.hasOwnProperty(timeID)) data.frames[timeID] = { switches: 1 };
-			else if (! data.frames[timeID].hasOwnProperty("switches")) data.frames[timeID].switches = 1;
-			else data.frames[timeID].switches++;
+			data.frames[timeID].switches++;
 
 			// Save switch
 			data.switches.push({
@@ -411,9 +431,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 				data.stats.migrations++;
 
 				// Add a migration
-				if (! data.frames.hasOwnProperty(timeID)) data.frames[timeID] = { migrations: 1 };
-				else if (! data.frames[timeID].hasOwnProperty("migrations")) data.frames[timeID].migrations = 1;
-				else data.frames[timeID].migrations++;
+				data.frames[timeID].migrations++;
 
 				// Save migration
 				data.migrations.push({
@@ -448,9 +466,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			data.stats[property]++;
 
 			// Add a start with auto build structure
-			if (! data.frames.hasOwnProperty(timeID)) data.frames[timeID] = {};
-			if (! data.frames[timeID].hasOwnProperty(property)) data.frames[timeID][property] = 1;
-			else data.frames[timeID][property]++;
+			data.frames[timeID][property]++;
 
 			// Save start
 			data.lifetimes.push({
@@ -522,7 +538,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	// Vars
 	var lock_map = {};	// current owner of a lock
 	var wait_map = {};	// when a thread starts waiting a lock (key: 'thread-lock')
-	var duration;
+	var duration, currentEnd, currentID;
 
 	// Loop
 	if (raw4 != null) raw4.forEach(function(element) {
@@ -530,24 +546,49 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 		timeEvent = Math.round(element.dtime / 10000);
 		timeID = Math.floor(timeEvent / data.info.timeStep) * data.info.timeStep;
 
+		// Check time frame existance
+		checkFrame(timeID);
+
 		if (element.type == 'success') {
 			// Compute duration
-			duration = isFinite(wait_map[element.tid + '-' + element.value]) ? wait_map[element.tid + '-' + element.value] - element.dtime : 0;
+			//	only if a failure appends before a success
+			//	convert (and round) from nanodeconds to milliseconds
+			duration = isFinite(wait_map[element.tid + '-' + element.value]) ? Math.round((element.dtime - wait_map[element.tid + '-' + element.value]) / 10000) : 0;
 
 			// Save the success
 			data.lock_success.push({
 				t: timeEvent,
-				l: element.value,				// which lock
-				d: duration,					// how long does it take to get the lock
+				h: element.tid,			// which thread success
+				l: element.value,		// which lock
+				d: duration				// how long does it take to get the lock
 			});
-
-			// Reset
-			wait_map[element.tid + '-' + element.value] = null;		// Thread doesn't wait the lock anymore
-			lock_map[element.value] = element.tid;					// which thread has the lock
 
 			// Stats
 			data.stats.lock_success++;
 			data.stats.lock_wait += duration;
+
+			// Stats by frame
+			data.frames[timeID].lock_success++;
+
+
+			// Save the failure duration by frame
+			if (duration > 0) {
+				currentID = timeID;
+				currentEnd = element.dtime;
+				while (currentEnd >= wait_map[element.tid + '-' + element.value]) {
+					console.log(currentID, currentEnd, Math.max(currentEnd - currentID, currentEnd - wait_map[element.tid + '-' + element.value]));
+					// Stats
+					data.frames[currentID].lock_wait += Math.max(currentEnd - currentID, currentEnd - wait_map[element.tid + '-' + element.value]);
+
+					// Next loop
+					currentEnd = currentID;
+					currentID -= data.info.timeStep;
+				}
+			}
+
+			// Reset
+			wait_map[element.tid + '-' + element.value] = null;		// Thread doesn't wait the lock anymore
+			lock_map[element.value] = element.tid;					// which thread has the lock
 
 		} else { // if (element.type == 'failure')
 
@@ -555,7 +596,8 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			data.lock_failure.push({
 				t: timeEvent,
 				l: element.value,				// which occupied lock
-				h: lock_map[element.value]		// which thread block
+				h: element.tid,					// which thread fails
+				hl: lock_map[element.value]		// which thread owns the lock
 			});
 
 			// Save when a thread fail
@@ -563,6 +605,9 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 
 			// Stats
 			data.stats.lock_failure++;
+
+			// Stats by frame
+			data.frames[timeID].lock_failure++;
 		}
 	});
 
