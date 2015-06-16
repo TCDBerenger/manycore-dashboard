@@ -26,9 +26,10 @@ app.factory('decks', ['colours', function(colours) {
 
 	var ready_label = 'threads are waiting a core but none available; threads are prepared to run on the next available core';
 	var waiting_label = 'threads are not ready to be processed because they waiting ressource(s)';
+	var l_wait_label = 'threads are not ready to be processed because they waiting lock(s)';
 
 	var limit = 	{ color: colours.list.eGrey, fcolor: colours.list.dGrey, gcolor: colours.list.gGrey };
-	var limit_th = 	{ color: limit.color, fcolor: limit.fcolor, gcolor: limit.gcolor, label: 'threads',  value: function(profile) { return profile.currentData.info.threadCount; } };
+	var limit_th = 	{ color: limit.color, fcolor: limit.fcolor, gcolor: limit.gcolor, label: 'threads',  value: function(profile) { return profile.currentData.stats.h; } };
 
 	var running = 	{ label: 'threads running',	title: 'running',	desc: 'processor executing threads',	unity: 'ms', cat: 'times', attr: 'r',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
 	var readySB = 	{ label: 'threads ready',	title: 'ready',		desc: ready_label,						unity: 'ms', cat: 'times', attr: 'yb',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
@@ -46,12 +47,13 @@ app.factory('decks', ['colours', function(colours) {
 	var l3miss = 	{ label: 'loading from RAM',	title: 'L3 misses',			desc: 'loading data from RAM',	unity: '',	cat: 'locality',	attr: 'l3',		color: colours.list.dRed };
 	var swapping = 	{ label: 'Swapping',			title: 'Swapping',			desc: 'hard page faults',		unity: '',	cat: 'locality',	attr: 'hpf',	color: colours.list.black };
 
-	var sw = 		{ label: 'switches',	title: 'context switches',	desc: 'cores switching the working thread',		unity: null, cat: 'switches', attr: 's',											color: colours.list.eGrey,		fcolor: colours.list.dGrey,		gcolor: colours.list.gGrey };
-	var mg = 		{ label: 'migrations',	title: 'thread migrations',	desc: 'thread migrate to another core',			unity: null, cat: 'migrations', attr: 'm',	colors: [colours.base, colours.alt],	color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.gViolet };
-	var mg_tmp = 	{ label: 'migrations',	title: 'migrations',	desc: 'migrations',		unity: null, cat: 'migrations', attr: 'm',	color2: colours.alt,	color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.gViolet };
+	var sw = 		{ label: 'switches',	title: 'context switches',	desc: 'cores switching the working thread',	list: 'switches',	cat: 'switches',	attr: 's',											color: colours.list.eGrey,		fcolor: colours.list.dGrey,		gcolor: colours.list.gGrey };
+	var mg = 		{ label: 'migrations',	title: 'thread migrations',	desc: 'thread migrate to another core',		list: 'migrations',	cat: 'migrations',	attr: 'm',	colors: [colours.base, colours.alt],	color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.gViolet };
+	var mg_tmp = 	{ label: 'migrations',	title: 'migrations',		desc: 'migrations',												cat: 'migrations',	attr: 'm',	color2: colours.alt,	color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.gViolet };
 
-	var l_s = 		{ label: 'lock success',	title: 'lock success',	desc: 'number of lock acquisition success',	unity: null, cat: 'locks', attr: 's',	color: colours.list.eGreen,	fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
-	var l_f = 		{ label: 'lock failure',	title: 'lock failure',	desc: 'number of lock acquisition failure',	unity: null, cat: 'locks', attr: 'f',	color: colours.list.eRed,	fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
+	var l_success = { label: 'lock success',	title: 'lock success',	desc: 'number of lock acquisition success',					list: 'slocks', cat: 'locks', attr: 's',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
+	var l_failure = { label: 'lock failure',	title: 'lock failure',	desc: 'number of lock acquisition failure',					list: 'flocks', cat: 'locks', attr: 'f',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
+	var l_wait = 	{ label: 'threads waiting',	title: 'waiting',		desc: l_wait_label,							unity: 'ms',					cat: 'times', attr: 'lw',	color: colours.list.eYellow,	fcolor: colours.list.dYellow,	gcolor: colours.list.gYellow };
 
 	return {
 		tg: {
@@ -80,7 +82,8 @@ app.factory('decks', ['colours', function(colours) {
 				limit:	capacity
 			},
 			axis : {
-				v:		[running, readySB],
+				v:		[readySB],
+				r:		running,
 				limit:	capacity
 			},
 			data : [running, ready, standBy, waiting],
@@ -168,16 +171,40 @@ app.factory('decks', ['colours', function(colours) {
 		},
 		counts: {
 			graph : {
-				v:		[l_s, l_f],
+				v:		[l_success, l_failure],
 				limit:	limit_th
 			},
-			data : [l_s, l_f],
-			legend : [l_s, l_f],
+			data : [l_success, l_failure],
+			legend : [l_success, l_failure],
 			clues: [],
 			settings: [
-				{ property: 'timeGroup', value: 10, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
+				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
 			]
-		}
+		},
+		contentions_old: {
+			graph : {
+				v:		[capacity, running, l_wait],
+				limit:	limit
+			},
+			data : [capacity, running, waiting, l_wait],
+			legend : [capacity, running, waiting, l_wait],
+			clues: [],
+			settings: []
+		},
+		contentions: {
+			graph : {
+				v:		[running, l_wait],
+				r:		running,
+				limit:	capacity
+			},
+			data : [running, l_wait, waiting],
+			legend : [running, capacity, l_wait],
+			clues: [],
+			settings: [
+				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core' },
+				{ property: 'upsidedown', value: true, type: 'flag', label: 'Upsidedown running' }
+			]
+		},
 	};
 }]);
 
@@ -189,7 +216,7 @@ app.factory('widgets', ['decks', function(decks) {
 	output.cacheMisses		= {id: 11,	file: 'cache-misses',		deck: decks.locality,		tag: 'cache-misses',		title: 'Cache misses',											subtitle: ''};
 	output.coreInactivity	= {id: 5,	file: 'core-inactivity',	deck: decks.inactivity,		tag: 'core-idle',			title: 'Idle cores',											subtitle: ''};
 	output.lockCounts		= {id: 12,	file: 'lock-counts',		deck: decks.counts,			tag: 'lock-counts',			title: 'Lock contentions',										subtitle: 'lock failure versus lock acquisition'};
-	output.lockContentions	= {id: 9,	file: 'lock-contentions',	deck: null,					tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
+	output.lockContentions	= {id: 9,	file: 'lock-contentions',	deck: decks.contentions,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
 	output.threadPaths		= {id: 1,	file: 'generic-to-delete',	deck: null,					tag: 'thread-paths',		title: 'Single thread execution phases',						subtitle: 'alternating sequential/parallel execution'};
 	output.threadChains		= {id: 2,	file: 'generic-to-delete',	deck: null,					tag: 'thread-chains',		title: 'Chains of dependencies',								subtitle: 'synchronisations and waiting between threads'};
 	output.threadLifetime	= {id: 3,	file: 'thread-lifetime',	deck: decks.lifetime,		tag: 'thread-running',		title: 'Life states of threads',								subtitle: 'creation, running, moving between cores, termination'};

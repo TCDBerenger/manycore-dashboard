@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 40;
+var VERSION = 42;
 
 /************************************************/
 /* Variables - hardwares						*/
@@ -250,8 +250,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			threads:		profile.hardware.data.threads,
 			timeStep:		profile.timeStep,
 			timeMin:		0,
-			timeMax:		0,
-			threadCount:	NaN
+			timeMax:		0
 		},
 		stats: {
 			switches:		0,
@@ -260,7 +259,8 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			ends:			0,
 			lock_success:	0,
 			lock_failure:	0,
-			lock_wait:		0
+			lock_wait:		0,
+			threads:		0
 		},
 		frames: {},
 		switches: [],
@@ -298,13 +298,21 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			data.frames[id] = {
 				t:				{},
 				c:				{},
-				switches:		0,
-				migrations:		0,
+
+				cycles: 		0,
 				starts:			0,
 				ends:			0,
+				
+				ready: 			0,
+				running: 		0,
+				standby: 		0,
+				wait: 			0,
+				lock_wait:		0,
+
+				switches:		0,
+				migrations:		0,
 				lock_success:	0,
 				lock_failure:	0,
-				lock_wait:		0,
 			}
 		}
 	}
@@ -325,8 +333,11 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 		// Info
 		data.info.timeMax = Math.max(data.info.timeMax, timeEvent);
 
-		// Thread treatment
 		if (element.pid == profile.pid) {
+			//
+			// Thread treatment
+			//
+
 			// Auto build structure
 			if (! data.threads.byFrames.hasOwnProperty(timeEvent)) data.threads.byFrames[timeEvent] = {};
 			if (! data.threads.byFrames[timeEvent].hasOwnProperty(element.tid)) data.threads.byFrames[timeEvent][element.tid] = {};
@@ -337,15 +348,14 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 
 			// Count threads
 			statThreads[element.tid] = true;
-		}
 
-		// Frame treatment
-		if (element.pid == profile.pid) {
+
+			//
+			// Frame treatment
+			//
+
 			// Check time frame existance
 			checkFrame(timeEvent);
-
-			// Auto build structure
-			if (! data.frames[timeEvent].hasOwnProperty(element.type)) data.frames[timeEvent][element.type] = 0;
 
 			// Sum by frame
 			data.frames[timeEvent][element.type] += element.value;
@@ -379,9 +389,10 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	});
 
 	// Count threads
-	var countThreads = 0;
-	for (var t in statThreads) { if (statThreads.hasOwnProperty(t) && t) countThreads++; };
-	data.info.threadCount = countThreads;
+	for (var t in statThreads) {
+		if (statThreads.hasOwnProperty(t) && t)
+			data.stats.threads++;
+	};
 
 
 
@@ -576,7 +587,6 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 				currentID = timeID;
 				currentEnd = element.dtime;
 				while (currentEnd >= wait_map[element.tid + '-' + element.value]) {
-					console.log(currentID, currentEnd, Math.max(currentEnd - currentID, currentEnd - wait_map[element.tid + '-' + element.value]));
 					// Stats
 					data.frames[currentID].lock_wait += Math.max(currentEnd - currentID, currentEnd - wait_map[element.tid + '-' + element.value]);
 
@@ -643,8 +653,7 @@ function exportInfo(output, profile) {
 		timeStep:		data.info.timeStep,
 		timeMin:		data.info.timeMin,
 		timeMax:		data.info.timeMax,
-		duration:		data.info.timeMax + data.info.timeStep,
-		threadCount:	data.info.threadCount
+		duration:		data.info.timeMax + data.info.timeStep
 	};
 }
 

@@ -216,7 +216,7 @@ app.directive('chartThreadDivergence', function() {
 		var dataList = data.states.slice(0);
 		var timeMax = data.info.duration;
 		var numberCores = data.info.threads;
-		var dataValueMax = Math.max(numberCores * 2, Math.min(data.info.threadCount, numberCores * 3));
+		var dataValueMax = Math.max(numberCores * 2, Math.min(data.stats.h, numberCores * 3));
 
 		// Fix column layout
 		var lastElement = angular.copy(data.states[dataList.length - 1], {});
@@ -380,7 +380,7 @@ app.directive('chartThreadLifetime', function() {
 		var dataList = data.lifetimes.list
 		var timeMin = 0;
 		var timeMax = data.info.duration;
-		var threadCount = data.info.threadCount;
+		var threadCount = data.stats.h;
 		var colors = scope.widget.deck.axis.x.colors;
 
 		// Container

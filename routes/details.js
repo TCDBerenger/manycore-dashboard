@@ -118,13 +118,17 @@ function addCommon(output, id) {
 
 	// Stats
 	output.stats = {
+		h:	data.stats.threads,
+		
 	    s:	data.stats.switches,
 	    m:	data.stats.migrations,
 		c:	data.stats.cycles,
-		r:	data.stats.running,
-		y:	data.stats.ready,
-		b:	data.stats.standby,
-		w:	data.stats.wait,
+
+		r:	Math.round(data.stats.running),
+		y:	Math.round(data.stats.ready),
+		b:	Math.round(data.stats.standby),
+		w:	Math.round(data.stats.wait),
+
 		l1:		data.stats.l1miss,
 		l2:		data.stats.l2miss,
 		l3:		data.stats.l3miss,
@@ -511,33 +515,40 @@ function addLocality(output, id, simplified) {
 function addLocks(output, id) {
 	// Init vars
 	var data		= profiles[id].data;
-	output.locks	= {
-		byFrame:	{},
-		s_list:		[],
-		f_list:		[]
-	};
+	output.slocks	= [];
+	output.flocks	= [];
+
+	if (! output.hasOwnProperty('times'))
+		output.times = {};
 
 	data.lock_success.forEach(function(lock) {
-		output.locks.s_list.push(lock.t);
+		output.slocks.push(lock.t);
 	});
 
 	data.lock_failure.forEach(function(lock) {
-		output.locks.f_list.push(lock.t);
+		output.flocks.push(lock.t);
 	});
 
 	for (var timeID = 0; timeID <= data.info.timeMax; timeID+= data.info.timeStep) {
-		output.locks.byFrame[timeID] = {
-			s: data.frames[timeID].lock_success,
-			f: data.frames[timeID].lock_failure,
-			w: data.frames[timeID].lock_wait
+		output.times[timeID] = {
+			r:	Math.round(data.frames[timeID].running),
+			w:	Math.round(data.frames[timeID].wait),
+			lw:	data.frames[timeID].lock_wait
 		};
 	}
 
 	// Stats
 	output.stats.locks = {
-		s: data.stats.lock_success,
-		f: data.stats.lock_failure,
-		w: data.stats.lock_wait
+		s:	data.stats.lock_success,
+		f:	data.stats.lock_failure,
+		w:	data.stats.lock_wait
+	};
+	// Stats
+	output.stats.times = {
+		r:	Math.round(data.stats.running),
+		uu:	data.info.threads * (data.info.timeMax + data.info.timeStep) - Math.round(data.stats.running),
+		w:	Math.round(data.stats.wait),
+		lw:	data.stats.lock_wait
 	};
 }
 

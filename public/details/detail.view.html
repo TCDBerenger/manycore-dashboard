@@ -28,9 +28,9 @@
 						<td ng-if="profiles.length == 2"><span>ms</span>{{data[profiles[1].id].info.duration}}</td>
 					</tr>
 					<tr>
-						<td>{{data[profiles[0].id].info.threadCount}}</td>
+						<td>{{data[profiles[0].id].stats.h}}</td>
 						<td>threads</td>
-						<td ng-if="profiles.length == 2">{{data[profiles[1].id].info.threadCount}}</td>
+						<td ng-if="profiles.length == 2">{{data[profiles[1].id].stats.h}}</td>
 					</tr>
 					<tr>
 						<td><span>10⁶</span><span>&nbsp;</span><span>×</span>{{data[profiles[0].id].stats.c / 1000000000 | number: 0}}</td>

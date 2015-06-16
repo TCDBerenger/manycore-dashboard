@@ -24,6 +24,8 @@ function addCommon(output, profile) {
 
 	// Stats
 	output.stats = {
+		h:	data.stats.threads,
+		
 	    s:	data.stats.switches,
 	    m:	data.stats.migrations,
 		c:	data.stats.cycles,
