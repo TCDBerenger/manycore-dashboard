@@ -301,7 +301,20 @@ function addCycles(output, id) {
 function addTime(output, id) {
 	// Init vars
 	var data		= profiles[id].data;
-	output.times	= [];
+	output.times	= {};
+	output.times2	= [];
+
+	// Add times
+	for (var timeID = 0; timeID <= data.info.timeMax; timeID+= data.info.timeStep) {
+		output.times[timeID] = {
+			r:	Math.round(data.frames[timeID].running),
+			yb:	Math.round(data.frames[timeID].ready + data.frames[timeID].standby),
+		};
+	}
+
+	//
+	// OLD WAY
+	//
 
 	// Loop vars
 	var thread;
@@ -354,7 +367,7 @@ function addTime(output, id) {
 		statSumReady		+= sumReady;
 
 		// Output
-		output.times.push({
+		output.times2.push({
 			t:	timeID,
 			r:	sumRunning,
 			yb:	sumReady + sumStandby

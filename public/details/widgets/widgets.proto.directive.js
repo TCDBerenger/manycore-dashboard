@@ -575,7 +575,7 @@ app.directive('chartThreadDivergenceWithRealData', function() {
 
 		// Data
 		var data = scope.data[attrs.profileid];
-		var dataList = data.times.slice(0);
+		var dataList = data.times2.slice(0);
 		var profile = scope.profiles[0];
 		var timeStart = +attrs.begin;			// When the user selection starts
 		var timeEnd = +attrs.end;				// When the user selection ends (could be before or after timeMax)
@@ -584,7 +584,7 @@ app.directive('chartThreadDivergenceWithRealData', function() {
 		var dataValueMax = numberCores * data.info.timeStep;
 
 		// Fix column layout
-		var lastElement = angular.copy(data.times[dataList.length - 1], {});
+		var lastElement = angular.copy(data.times2[dataList.length - 1], {});
 		lastElement.t = timeMax;
 		dataList.push(lastElement);
 
