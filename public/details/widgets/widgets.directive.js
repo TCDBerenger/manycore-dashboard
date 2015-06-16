@@ -911,7 +911,7 @@ app.directive('chartPercent', function() {
 			directive_repaint_xAxis(r);
 
 			// Main draw
-			var profileData, iData, yPositions;
+			var profileData, iData, yPositions, yScaledPosition;
 			var tStep, tID, currentV, scaleVZero;
 			r.profiles.forEach(function(profile, index) {
 				// Clean
@@ -940,10 +940,19 @@ app.directive('chartPercent', function() {
 						else
 							yPositions[v] = 0;
 
+						// Stack positions
 						if (v > 0)
-							yPositions[v] += yPositions[v-1]; 
+							yPositions[v] += yPositions[v-1];
 
-						r.iData[index][v + 1].push(r.scaleX(t), r.scalesV[index](yPositions[v]), r.scaleX(t + tStep), r.scalesV[index](yPositions[v]));
+						yScaledPosition = r.scalesV[index](yPositions[v]);
+
+						// Add points to shape (x, y, x, y)
+						//	=> twice for the boxing effect
+						r.iData[index][v + 1].push(r.scaleX(t), yScaledPosition, r.scaleX(t + tStep), yScaledPosition);
+
+						// Overflow (only the higher)
+						if (v == r.deck.v.length - 1)
+							r.meta.vOverflow[index] = Math.max(r.meta.vOverflow[index], 0 - yScaledPosition, yScaledPosition - r.layout.profile.height);
 					};
 
 					r.iData[index][0].push(r.scaleX(t), scaleVZero, r.scaleX(t + tStep), scaleVZero);
@@ -1069,7 +1078,7 @@ app.directive('chartUnits', function() {
 			directive_repaint_xAxis(r);
 
 			// Main draw
-			var profileData, iData, yPositions;
+			var profileData, iData, yPositions, yScaledPosition;
 			var tID, currentV, scaleVZero, currentVIndexes;
 			var tStep = r.settings.timeGroup;
 			r.profiles.forEach(function(profile, index) {
@@ -1086,8 +1095,8 @@ app.directive('chartUnits', function() {
 				yPositions = [];
 				r.iData[index] = [[]];
 				for (var v = 0; v < r.deck.v.length; v++) {
-					dataSource_list.push(profileData[r.deck.v[v].cat][r.deck.v[v].attr+'_list']);
-					dataSource_length.push(profileData[r.deck.v[v].cat][r.deck.v[v].attr+'_list'].length);
+					dataSource_list.push(profileData[r.deck.v[v].list]);
+					dataSource_length.push(profileData[r.deck.v[v].list].length);
 					dataSource_index.push(0);
 					yPositions.push(NaN);
 					r.iData[index].push([]);
@@ -1101,15 +1110,25 @@ app.directive('chartUnits', function() {
 					for (var v = 0; v < r.deck.v.length; v++) {
 						yPositions[v] = 0;
 
+						// Count all values inside the time frame
 						while(dataSource_index[v] < dataSource_length[v] && dataSource_list[v][dataSource_index[v]] < (t + tStep)) {
 							yPositions[v]++;
 							dataSource_index[v]++;
 						}
 
+						// Stack positions
 						if (v > 0)
-							yPositions[v] += yPositions[v-1]; 
+							yPositions[v] += yPositions[v-1];
 
-						r.iData[index][v + 1].push(r.scaleX(t), r.scalesV[index](yPositions[v]), r.scaleX(t + tStep), r.scalesV[index](yPositions[v]));
+						yScaledPosition = r.scalesV[index](yPositions[v]);
+
+						// Add points to shape (x, y, x, y)
+						//	=> twice for the boxing effect
+						r.iData[index][v + 1].push(r.scaleX(t), yScaledPosition, r.scaleX(t + tStep), yScaledPosition);
+
+						// Overflow (only the higher)
+						if (v == r.deck.v.length - 1)
+							r.meta.vOverflow[index] = Math.max(r.meta.vOverflow[index], 0 - yScaledPosition, yScaledPosition - r.layout.profile.height);
 					};
 
 					r.iData[index][0].push(r.scaleX(t), scaleVZero, r.scaleX(t + tStep), scaleVZero);
