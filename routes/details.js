@@ -631,7 +631,10 @@ function jsonDS(profile, id) {
 	profile.exportInfo(output);
 	addCommon(output, id);
 
-	// Data
+	// Add locks
+	addLocks(output, id);
+
+	// Add locality
 	addLocality(output, id, false);
 
 	return output;
