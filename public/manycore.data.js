@@ -166,7 +166,7 @@ app.factory('decks', ['colours', function(colours) {
 			clues: [],
 			settings: []
 		},
-		contentions: {
+		counts: {
 			graph : {
 				v:		[l_s, l_f],
 				limit:	limit_th
@@ -188,7 +188,8 @@ app.factory('widgets', ['decks', function(decks) {
 	output.cacheInvalid		= {id: 10,	file: 'generic-to-delete',	deck: null,					tag: 'cache-invalid',		title: 'Cache misses from updating shared data',				subtitle: ''};
 	output.cacheMisses		= {id: 11,	file: 'cache-misses',		deck: decks.locality,		tag: 'cache-misses',		title: 'Cache misses',											subtitle: ''};
 	output.coreInactivity	= {id: 5,	file: 'core-inactivity',	deck: decks.inactivity,		tag: 'core-idle',			title: 'Idle cores',											subtitle: ''};
-	output.lockContentions	= {id: 9,	file: 'lock-contentions',	deck: decks.contentions,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
+	output.lockCounts		= {id: 12,	file: 'lock-counts',		deck: decks.counts,			tag: 'lock-counts',			title: 'Lock contentions',										subtitle: 'lock failure versus lock acquisition'};
+	output.lockContentions	= {id: 9,	file: 'lock-contentions',	deck: null,					tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
 	output.threadPaths		= {id: 1,	file: 'generic-to-delete',	deck: null,					tag: 'thread-paths',		title: 'Single thread execution phases',						subtitle: 'alternating sequential/parallel execution'};
 	output.threadChains		= {id: 2,	file: 'generic-to-delete',	deck: null,					tag: 'thread-chains',		title: 'Chains of dependencies',								subtitle: 'synchronisations and waiting between threads'};
 	output.threadLifetime	= {id: 3,	file: 'thread-lifetime',	deck: decks.lifetime,		tag: 'thread-running',		title: 'Life states of threads',								subtitle: 'creation, running, moving between cores, termination'};
@@ -209,7 +210,7 @@ app.factory('categories', ['widgets', 'decks', function(widgets, decks){
 	var sy = {
 		tag: 'sy', cat: 'sy', label: 'Synchronisation', title: 'Synchronisation', icon: 'cutlery',
 		graph: null, deck: decks.sy,
-		widgets: [widgets.lockContentions, widgets.threadLocks]
+		widgets: [widgets.lockCounts, widgets.lockContentions, widgets.threadLocks]
 	};
 	var ds = {
 		tag: 'ds', cat: 'ds', label: 'Data sharing', title: 'Data sharing', icon: 'share-alt',

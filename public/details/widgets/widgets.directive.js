@@ -1037,7 +1037,7 @@ app.directive('chartUnits', function() {
 		console.log("== directive == chartUnits ==");
 
 		// Init vars
-		var r = directive_init(scope, element, attrs, LAYOUT_FH_NORMAL, true, true);
+		var r = directive_init(scope, element, attrs, LAYOUT_FH_BAND, true, true);
 
 		// Enhance meta
 		r.meta.vExpected[0] =	r.deck.limit.value(r.profiles[0]);
@@ -1070,7 +1070,8 @@ app.directive('chartUnits', function() {
 
 			// Main draw
 			var profileData, iData, yPositions;
-			var tStep, tID, currentV, scaleVZero, currentVIndexes;
+			var tID, currentV, scaleVZero, currentVIndexes;
+			var tStep = r.settings.timeGroup;
 			r.profiles.forEach(function(profile, index) {
 				// Clean
 				r.groupP[index].selectAll("*").remove();
@@ -1093,7 +1094,6 @@ app.directive('chartUnits', function() {
 				};
 
 				// All - points - data
-				tStep = r.settings.timeGroup;
 				scaleVZero = r.scalesV[index](0);
 				for (var t = r.meta.begin; t < r.meta.end; t += tStep) {
 					tID = t / tStep;
@@ -1134,8 +1134,7 @@ app.directive('chartUnits', function() {
 		// Select
 		function select(x) {
 			// Time ID
-			/*
-			var tIndex = Math.floor(r.scaleX.invert(x) / 50);
+			var tIndex = Math.floor(r.scaleX.invert(x) / r.settings.timeGroup);
 			if (tIndex == r.meta.lastSelectID) {
 				return;
 			} else {
@@ -1155,7 +1154,7 @@ app.directive('chartUnits', function() {
 					r.iSelection[index] = r.groupP[index].append("g").attr("class", "svg-selection");
 
 					// Draw
-					for (var v = r.deck.v.length - 1; v >= 0; v--) {<
+					for (var v = r.deck.v.length - 1; v >= 0; v--) {
 						r.iSelection[index].append("polygon")
 							.attr("class", "svg-area svg-area-" + v)
 							.attr("points", p2s(r.iData[index][v + 1].slice(tIndex * 4, tIndex * 4 + 4), r.iData[index][v].slice(tIndex * 4, tIndex * 4 + 4)))
@@ -1163,7 +1162,6 @@ app.directive('chartUnits', function() {
 					};
 				}
 			}
-			*/
 		}
 		
 		// Settigns changes
