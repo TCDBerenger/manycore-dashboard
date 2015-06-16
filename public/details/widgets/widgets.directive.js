@@ -1054,7 +1054,7 @@ app.directive('chartUnits', function() {
 			if (v == r.meta.vExpected[index])
 				return r.deck.limit.label;
 			else
-				return (v / r.meta.vExpected[0]) + '×';
+				return (v / r.meta.vExpected[index]) + '×';
 		}
 
 		// Redraw
