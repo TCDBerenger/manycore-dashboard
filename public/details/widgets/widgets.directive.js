@@ -651,10 +651,10 @@ app.directive('chartSwitches', function() {
 /**
  * Thread states
  */
-app.directive('chartThreadStates', function() {
+app.directive('chartCapacity', function() {
 
 	function chart_link(scope, element, attrs, controller) {
-		console.log("== directive == chartThreadStates ==");
+		console.log("== directive == chartCapacity ==");
 
 		// Init vars
 		var r = directive_init(scope, element, attrs, LAYOUT_FH_NORMAL, true, true);
@@ -701,60 +701,68 @@ app.directive('chartThreadStates', function() {
 			directive_repaint_xAxis(r);
 
 			// Main draw
-			var dataList, iData, pointsC, pointsR, pointsBY;
-			var coordinates, valueR, valueYB;
+			var profileData, pointsC, pointsR, pointsOver;
+			var coordinates, valueR, valuesOver, scaleLimit;
+			var tStep, tID;
 			r.profiles.forEach(function(profile, index) {
-				if (! profile.currentData.hasOwnProperty(r.deck.v[0].cat)) console.log("!! -- !! Fail current data !! -- !!", profile, r.deck.v[0].cat);
-
 				// vars
-				dataList = profile.currentData[r.deck.v[0].cat];
-				iData = [];
+				profileData = profile.currentData;
+				r.iData[index] = [];
 
 				// All - points - start
 				pointsC = [r.scaleX(r.meta.begin), r.scalesV[index](0)];
 				pointsR = (r.meta.upsidedown) ? [r.scaleX(r.meta.begin), r.scalesV[index](r.meta.vExpected[index])] : [r.scaleX(r.meta.begin), r.scalesV[index](0)];
-				pointsBY = [r.scaleX(r.meta.begin), r.scalesV[index](r.meta.vExpected[index])];
+				pointsOver = [[r.scaleX(r.meta.begin), r.scalesV[index](r.meta.vExpected[index])]];
+				valuesOver = [r.meta.vExpected[index]];
+				scaleLimit = r.scalesV[index](r.meta.vExpected[index])
+
+				r.deck.v.forEach(function(v) {
+					pointsOver.push([]);
+					valuesOver.push(NaN);
+				})
 
 				// All - points - capacity
-				pointsC.push.apply(pointsC, [r.scaleX(r.meta.begin), r.scalesV[index](r.meta.vExpected[index]), r.scaleX(r.meta.ends[index]), r.scalesV[index](r.meta.vExpected[index])]);
+				pointsC.push.apply(pointsC, [r.scaleX(r.meta.begin), scaleLimit, r.scaleX(r.meta.ends[index]), scaleLimit]);
 
 				// All - points - data
-				dataList.forEach(function(frame) {
-					if (frame.t >= r.meta.begin && frame.t < r.meta.ends[index]) {
-						// Values
-						valueR = frame.r;
-						valueYB = frame.yb;
+				tStep = profileData.info.timeStep;
+				for (var t = r.meta.begin; t < r.meta.ends[index]; t += tStep) {
+					tID = t / tStep;
 
-						// upsidedown
-						if (r.meta.upsidedown) {
-							valueR = r.meta.vExpected[index] - valueR;
-						}
+					// Referencial
+					valueR = profileData[r.deck.r.cat][t][r.deck.r.attr];
+					if (r.meta.upsidedown)	valueR = r.meta.vExpected[index] - valueR;
+					if (r.meta.crenellate)	valueR = rV(valueR, r.meta.rounds[index]);
 
-						// Crenallate
-						if (r.meta.crenellate) {
-							valueR = rV(valueR, r.meta.rounds[index]);
-							valueYB = rV(valueYB, r.meta.rounds[index]);
-						}
+					// Build for selection
+					coordinates = [r.scaleX(t), r.scaleX(t + tStep), r.scalesV[index](valueR), scaleLimit];
 
-						coordinates = [r.scaleX(frame.t), r.scaleX(frame.t + r.meta.steps[index]), r.scalesV[index](valueR), r.scalesV[index](valueYB + r.meta.vExpected[index])];
-						iData.push(coordinates);
+					// Save referencial shape
+					pointsR.push.apply(pointsR, [coordinates[0], coordinates[2], coordinates[1], coordinates[2]]);
 
-						pointsR.push.apply(pointsR, [coordinates[0], coordinates[2], coordinates[1], coordinates[2]]);
-						pointsBY.push.apply(pointsBY, [coordinates[0], coordinates[3], coordinates[1], coordinates[3]]);
+					for (var v = 0; v < r.deck.v.length; v++) {
+						// Value
+						valuesOver[v+1] = profileData[r.deck.v[v].cat][t][r.deck.v[v].attr] + valuesOver[v];
+						if (r.meta.crenellate) valuesOver[v+1] = rV(valuesOver[v+1], r.meta.rounds[index]);
 
-						if (index == 1 && r.meta.mirror)
-							r.meta.vOverflow[1] = Math.max(r.meta.vOverflow[1], coordinates[3] - r.layout.profile.height);
-						else {
-							r.meta.vOverflow[index] = Math.max(r.meta.vOverflow[index], 0 - coordinates[3]);
-						}
-					}
-				});
-				r.iData[index] = iData;
+						// Build for selection
+						coordinates.push(r.scalesV[index](valuesOver[v+1]));
+
+						// Save value shape
+						pointsOver[v+1].push.apply(pointsOver[v+1], [coordinates[0], coordinates[4 + v], coordinates[1], coordinates[4 + v]]);
+
+						if (v == r.deck.v.length - 1)
+							r.meta.vOverflow[index] = Math.max(r.meta.vOverflow[index], 0 - coordinates[4 + v], coordinates[4 + v] - r.layout.profile.height);
+					};
+
+					// Save for selection
+					r.iData[index].push(coordinates);
+				}
 
 				// All - points - end
 				pointsC.push.apply(pointsC, [r.scaleX(r.meta.ends[index]), r.scalesV[index](0)]);
-				pointsR.push.apply(pointsR, (r.meta.upsidedown) ? [r.scaleX(r.meta.ends[index]), r.scalesV[index](r.meta.vExpected[index])] : [r.scaleX(r.meta.ends[index]), r.scalesV[index](0)]);
-				pointsBY.push.apply(pointsBY, [r.scaleX(r.meta.ends[index]), r.scalesV[index](r.meta.vExpected[index])]);
+				pointsR.push.apply(pointsR, (r.meta.upsidedown) ? [r.scaleX(r.meta.ends[index]), scaleLimit] : [r.scaleX(r.meta.ends[index]), r.scalesV[index](0)]);
+				pointsOver[0].push.apply(pointsOver[0], [r.scaleX(r.meta.ends[index]), scaleLimit]);
 
 				// Clean
 				r.groupP[index].selectAll("*").remove();
@@ -769,17 +777,15 @@ app.directive('chartThreadStates', function() {
 				r.groupP[index].append("polygon")
 					.attr("class", "svg-state-running")
 					.attr("points", p2s(pointsR))
-					.attr("fill", r.deck.v[0].color)/*
-					.attr('stroke', r.deck.v[0].fcolor)
-					.attr('stroke-width', 1)*/;
+					.attr("fill", r.deck.r.color);
 				
-				// Draw - Ready
-				r.groupP[index].append("polygon")
-					.attr("class", "svg-state-ready")
-					.attr("points", p2s(pointsBY))
-					.attr("fill", r.deck.v[1].color)/*
-					.attr('stroke', r.deck.v[1].fcolor)
-					.attr('stroke-width', 1)*/;
+				// Draw - Over
+				for (var v = 0; v < r.deck.v.length; v++) {
+					r.groupP[index].append("polygon")
+						.attr("class", "svg-state-ready")
+						.attr("points", p2s(pointsOver[v+1], pointsOver[v]))
+						.attr("fill", r.deck.v[v].color);
+				};
 
 				// Value axis
 				directive_repaint_VAxis(r, index, vAxisLabel);
@@ -800,25 +806,28 @@ app.directive('chartThreadStates', function() {
 			}
 
 			// Loop
-			var pointsR, pointsBY;
+			var pointsC, pointsR, pointsOver;
 			for (var index = 0; index < r.profiles.length; index++) {
 
-				// All - points - start
-				if (r.iData[index].length > tIndex) {
+				// Points of shapes
+				if (tIndex < r.meta.ends[index] / r.profiles[index].currentData.info.timeStep) {
 					pointsC = [r.iData[index][tIndex][0], r.iData[index][tIndex][2], r.iData[index][tIndex][0], r.scalesV[index](r.meta.vExpected[index]), r.iData[index][tIndex][1], r.scalesV[index](r.meta.vExpected[index]), r.iData[index][tIndex][1], r.iData[index][tIndex][2]];
 					pointsR = [r.iData[index][tIndex][0], r.scalesV[index](0), r.iData[index][tIndex][0], r.iData[index][tIndex][2], r.iData[index][tIndex][1], r.iData[index][tIndex][2], r.iData[index][tIndex][1], r.scalesV[index](0)];
-					pointsBY = [r.iData[index][tIndex][0], r.scalesV[index](r.meta.vExpected[index]), r.iData[index][tIndex][0], r.iData[index][tIndex][3], r.iData[index][tIndex][1], r.iData[index][tIndex][3], r.iData[index][tIndex][1], r.scalesV[index](r.meta.vExpected[index])];
+					pointsOver = [];
+					for (var v = 0; v < r.deck.v.length; v++) pointsOver.push([r.iData[index][tIndex][0], r.iData[index][tIndex][3 + v], r.iData[index][tIndex][0], r.iData[index][tIndex][4 + v], r.iData[index][tIndex][1], r.iData[index][tIndex][4 + v], r.iData[index][tIndex][1], r.iData[index][tIndex][3 + v]]);
+
 				} else {
 					pointsC = [];
 					pointsR = [];
-					pointsBY = [];
+					pointsOver = [];
+					for (var v = 0; v < r.deck.v.length; v++) pointsOver.push([]);
 				}
 
 				// Draw points
 				if (r.iSelection[index] != null) {
 					r.iSelection[index].select(".svg-limit").attr("points", p2s((r.meta.upsidedown) ? pointsR : pointsC));
 					r.iSelection[index].select(".svg-state-running").attr("points", p2s((r.meta.upsidedown) ? pointsC : pointsR));
-					r.iSelection[index].select(".svg-state-ready").attr("points", p2s(pointsBY));
+					for (var v = r.deck.v.length - 1; v >= 0; v--) r.iSelection[index].select(".svg-area-" + v).attr("points", p2s(pointsOver[v]));
 				} else {
 					r.iSelection[index] = r.groupP[index].append("g").attr("class", "svg-selection");
 
@@ -832,17 +841,17 @@ app.directive('chartThreadStates', function() {
 					r.iSelection[index].append("polygon")
 						.attr("class", "svg-state-running")
 						.attr("points", p2s((r.meta.upsidedown) ? pointsC : pointsR))
-						.attr("fill", r.deck.v[0].fcolor);
-					
-					// Draw - Ready
-					r.iSelection[index].append("polygon")
-						.attr("class", "svg-state-ready")
-						.attr("points", p2s(pointsBY))
-						.attr("fill", r.deck.v[1].fcolor);
+						.attr("fill", r.deck.r.fcolor);
+
+					// Draw - OVer
+					for (var v = r.deck.v.length - 1; v >= 0; v--) {
+						r.iSelection[index].append("polygon")
+							.attr("class", "svg-area svg-area-" + v)
+							.attr("points", p2s(pointsOver[v]))
+							.attr("fill", r.deck.v[v].fcolor);
+					};
 				}
 			}
-
-
 		}
 		
 		// Settigns changes

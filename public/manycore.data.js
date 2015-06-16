@@ -78,12 +78,12 @@ app.factory('decks', ['colours', function(colours) {
 		},
 		states: {
 			graph : {
-				v:		[running, readySB],
+				v:		[readySB],
+				r:		running,
 				limit:	capacity
 			},
 			axis : {
-				v:		[readySB],
-				r:		running,
+				v:		[running, readySB],
 				limit:	capacity
 			},
 			data : [running, ready, standBy, waiting],
@@ -193,12 +193,12 @@ app.factory('decks', ['colours', function(colours) {
 		},
 		contentions: {
 			graph : {
-				v:		[running, l_wait],
+				v:		[waiting],
 				r:		running,
 				limit:	capacity
 			},
 			data : [running, l_wait, waiting],
-			legend : [running, capacity, l_wait],
+			legend : [running, capacity, waiting],
 			clues: [],
 			settings: [
 				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core' },
