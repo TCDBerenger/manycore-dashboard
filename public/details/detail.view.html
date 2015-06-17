@@ -90,7 +90,14 @@
 					<h4>{{widget.title}}</h4>
 					{{widget.subtitle}}<br />
 				</div>
-				<div class="profile-body" ng-include="'/details/widgets/' + widget.file + '.widget.html'"></div>
+				<div ng-if="widget.v > profiles[0].version || widget.v > profiles[1].version">
+					<span class="fa-stack fa-lg fa-2x">
+						<i class="fa fa-database fa-stack-1x"></i>
+						<i class="fa fa-ban fa-stack-2x text-info"></i>
+					</span>
+					<strong>Data missing !</strong>
+				</div>
+				<div class="profile-body" ng-include="'/details/widgets/' + widget.file + '.widget.html'" ng-if="! (widget.v > profiles[0].version || widget.v > profiles[1].version)"></div>
 			</div>
 			<div class="col-xs-{{layout.colXS.data}} col-sm-{{layout.colSM.data}} col-md-{{layout.comMD.data}} col-lg-{{layout.colLG.data}} profile-data aside">
 				<div ng-include="'/details/aside/aside.view.html'"></div>

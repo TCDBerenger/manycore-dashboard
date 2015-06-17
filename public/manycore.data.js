@@ -37,7 +37,7 @@ app.factory('decks', ['colours', function(colours) {
 		}
 	}
 	function n2p(v) {
-		return (v * 100) + ' %';
+		return (Math.round(v * 1000) / 10) + ' %';
 	}
 	function n2fp(v) {
 		switch(v) {
@@ -253,29 +253,42 @@ app.factory('decks', ['colours', function(colours) {
 			clues: [],
 			settings: []
 		},
+		contentions4: {
+			graph : {
+				v:		[l_wait],
+				limit:	limit,
+				expected:	function(profile) { return profile.currentData.info.threads * profile.currentData.info.timeStep; },
+				displayed:	function(profile) { return (profile.currentData.info.threads + 1) * profile.currentData.info.timeStep; },
+				vStep:		function(profile) { return profile.currentData.info.threads * profile.currentData.info.timeStep / 4; },
+				vLabel:		function(v, i, r) { var c = r.profiles[i].currentData.stats.h * r.profiles[i].currentData.info.timeStep; if (v == r.meta.vExpected[i]) return '[CPU]'; else return n2p(v / c); }
+			},
+			data : [l_wait, waiting],
+			legend : [l_wait],
+			clues: [],
+			settings: []
+		},
 	};
 }]);
 
 
 app.factory('widgets', ['decks', function(decks) {
-	var output = {};
-	
-	output.cacheInvalid		= {id: 10,	file: 'generic-to-delete',	deck: null,					tag: 'cache-invalid',		title: 'Cache misses from updating shared data',				subtitle: ''};
-	output.cacheMisses		= {id: 11,	file: 'chart-percent',		deck: decks.locality,		tag: 'cache-misses',		title: 'Cache misses',											subtitle: ''};
-	output.coreInactivity	= {id: 5,	file: 'core-inactivity',	deck: decks.inactivity,		tag: 'core-idle',			title: 'Idle cores',											subtitle: ''};
-	output.lockCounts		= {id: 12,	file: 'chart-units',		deck: decks.counts,			tag: 'lock-counts',			title: 'Lock contentions',										subtitle: 'lock failure versus lock acquisition'};
-	output.lockContentions	= {id: 9,	file: 'chart-capacity',		deck: decks.contentions,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
-	output.lockContentions2	= {id: 13,	file: 'chart-stack',		deck: decks.contentions2,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
-	output.lockContentions3	= {id: 14,	file: 'chart-stack',		deck: decks.contentions3,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
-	output.threadPaths		= {id: 1,	file: 'generic-to-delete',	deck: null,					tag: 'thread-paths',		title: 'Single thread execution phases',						subtitle: 'alternating sequential/parallel execution'};
-	output.threadChains		= {id: 2,	file: 'generic-to-delete',	deck: null,					tag: 'thread-chains',		title: 'Chains of dependencies',								subtitle: 'synchronisations and waiting between threads'};
-	output.threadLifetime	= {id: 3,	file: 'thread-lifetime',	deck: decks.lifetime,		tag: 'thread-running',		title: 'Life states of threads',								subtitle: 'creation, running, moving between cores, termination'};
-	output.threadLocks		= {id: 4,	file: 'generic-to-delete',	deck: null,					tag: 'thread-locks',		title: 'Waiting for locks',										subtitle: ''};
-	output.threadStates		= {id: 6,	file: 'thread-states',		deck: decks.states,			tag: 'thread-states',		title: 'Potential parallelism',									subtitle: 'number of running threads compared to number of cores'};
-	output.threadMigrations	= {id: 7,	file: 'thread-migrations',	deck: decks.migrations,		tag: 'thread-migrations',	title: 'Thread switching the core on which it is executing',	subtitle: 'thread migrations'};
-	output.threadSwitchs	= {id: 8,	file: 'thread-switches',	deck: decks.switches,		tag: 'thread-switchs',		title: 'Core swhitching the thread it is executing',			subtitle: 'thread switches'};
-	
-	return output;
+	return {
+		cacheInvalid:		{ id: 10,	v: 3, file: 'generic-to-delete',	deck: null,					tag: 'cache-invalid',		title: 'Cache misses from updating shared data',				subtitle: ''},
+		cacheMisses:		{ id: 11,	v: 3, file: 'chart-percent',		deck: decks.locality,		tag: 'cache-misses',		title: 'Cache misses',											subtitle: ''},
+		coreInactivity:		{ id: 5,	v: 3, file: 'core-inactivity',		deck: decks.inactivity,		tag: 'core-idle',			title: 'Idle cores',											subtitle: ''},
+		lockCounts:			{ id: 12,	v: 4, file: 'chart-units',			deck: decks.counts,			tag: 'lock-counts',			title: 'Lock contentions',										subtitle: 'lock failure versus lock acquisition'},
+		lockContentions:	{ id: 9,	v: 4, file: 'chart-capacity',		deck: decks.contentions,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'},
+		lockContentions2:	{ id: 13,	v: 4, file: 'chart-stack',			deck: decks.contentions2,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'},
+		lockContentions3:	{ id: 14,	v: 4, file: 'chart-stack',			deck: decks.contentions3,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'},
+		lockContentions4:	{ id: 15,	v: 4, file: 'chart-stack',			deck: decks.contentions4,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'},
+		threadPaths:		{ id: 1,	v: 3, file: 'generic-to-delete',	deck: null,					tag: 'thread-paths',		title: 'Single thread execution phases',						subtitle: 'alternating sequential/parallel execution'},
+		threadChains:		{ id: 2,	v: 3, file: 'generic-to-delete',	deck: null,					tag: 'thread-chains',		title: 'Chains of dependencies',								subtitle: 'synchronisations and waiting between threads'},
+		threadLifetime:		{ id: 3,	v: 3, file: 'thread-lifetime',		deck: decks.lifetime,		tag: 'thread-running',		title: 'Life states of threads',								subtitle: 'creation, running, moving between cores, termination'},
+		threadLocks:		{ id: 4,	v: 3, file: 'generic-to-delete',	deck: null,					tag: 'thread-locks',		title: 'Waiting for locks',										subtitle: ''},
+		threadStates:		{ id: 6,	v: 3, file: 'thread-states',		deck: decks.states,			tag: 'thread-states',		title: 'Potential parallelism',									subtitle: 'number of running threads compared to number of cores'},
+		threadMigrations:	{ id: 7,	v: 3, file: 'thread-migrations',	deck: decks.migrations,		tag: 'thread-migrations',	title: 'Thread switching the core on which it is executing',	subtitle: 'thread migrations'},
+		threadSwitchs:		{ id: 8,	v: 3, file: 'thread-switches',		deck: decks.switches,		tag: 'thread-switchs',		title: 'Core swhitching the thread it is executing',			subtitle: 'thread switches'},
+	};
 }]);
 
 app.factory('categories', ['widgets', 'decks', function(widgets, decks){
@@ -287,7 +300,7 @@ app.factory('categories', ['widgets', 'decks', function(widgets, decks){
 	var sy = {
 		tag: 'sy', cat: 'sy', label: 'Synchronisation', title: 'Synchronisation', icon: 'cutlery',
 		graph: null, deck: decks.sy,
-		widgets: [widgets.lockCounts, widgets.lockContentions, widgets.lockContentions2, widgets.lockContentions3, widgets.threadLocks]
+		widgets: [widgets.lockCounts, widgets.lockContentions, widgets.lockContentions2, widgets.lockContentions3, widgets.lockContentions4, widgets.threadLocks]
 	};
 	var ds = {
 		tag: 'ds', cat: 'ds', label: 'Data sharing', title: 'Data sharing', icon: 'share-alt',
