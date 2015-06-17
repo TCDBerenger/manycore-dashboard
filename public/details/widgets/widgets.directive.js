@@ -883,12 +883,9 @@ app.directive('chartCapacity', function() {
 });
 
 
-
-
 /**
  * Percentage
  */
-
 app.directive('chartPercent', function() {
 
 	function chart_link(scope, element, attrs, controller) {
@@ -921,7 +918,7 @@ app.directive('chartPercent', function() {
 
 			// Main draw
 			var profileData, iData, yPositions, yScaledPosition;
-			var tStep, tID, currentV, scaleVZero;
+			var tStep, currentV, scaleVZero;
 			r.profiles.forEach(function(profile, index) {
 				// Clean
 				r.groupP[index].selectAll("*").remove();
@@ -941,11 +938,19 @@ app.directive('chartPercent', function() {
 				tStep = profileData.info.timeStep;
 				scaleVZero = r.scalesV[index](0);
 				for (var t = r.meta.begin; t < r.meta.end; t += tStep) {
-					tID = t / tStep;
-
 					for (var v = 0; v < r.deck.v.length; v++) {
-						if (profileData[r.deck.v[v].cat].hasOwnProperty(tID) && profileData[r.deck.v[v].cat][tID].hasOwnProperty(r.deck.v[v].attr))
-							yPositions[v] = profileData[r.deck.v[v].cat][tID][r.deck.v[v].attr];
+						console.log(t,
+							yPositions[v],
+							profileData,
+							r.deck.v[v].cat,
+
+							/*profileData[r.deck.v[v].cat].hasOwnProperty(tID),
+							/*profileData[r.deck.v[v].cat][tID].hasOwnProperty(r.deck.v[v].attr),*/
+							true
+						);
+
+						if (profileData[r.deck.v[v].cat].hasOwnProperty(t) && profileData[r.deck.v[v].cat][t].hasOwnProperty(r.deck.v[v].attr))
+							yPositions[v] = profileData[r.deck.v[v].cat][t][r.deck.v[v].attr];
 						else
 							yPositions[v] = 0;
 

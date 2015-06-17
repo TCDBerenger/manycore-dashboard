@@ -490,7 +490,7 @@ function addStates(output, id) {
 function addLocality(output, id, simplified) {
 	// Init vars
 	var data		= profiles[id].data;
-	output.locality	= [];
+	output.locality	= {};
 
 	// Data
 	var max;
@@ -498,21 +498,19 @@ function addLocality(output, id, simplified) {
 		if (data.locality.byFrames.hasOwnProperty(frameID)) {
 			max = data.locality.byFrames[frameID].ipc + data.locality.byFrames[frameID].tlb + data.locality.byFrames[frameID].l1 + data.locality.byFrames[frameID].l2 + data.locality.byFrames[frameID].l3 + data.locality.byFrames[frameID].hpf
 			if (simplified)
-				output.locality.push({
-					t:		data.locality.byFrames[frameID].t,
+				output.locality[data.locality.byFrames[frameID].t] = {
 					ipc:	Math.round(100 * data.locality.byFrames[frameID].ipc / max),
 					miss:	100 - Math.round(100 * data.locality.byFrames[frameID].ipc / max)
-				});
+				};
 			else
-				output.locality.push({
-					t:		data.locality.byFrames[frameID].t,
+				output.locality[data.locality.byFrames[frameID].t] = {
 					ipc:	(100 * data.locality.byFrames[frameID].ipc / max),
 					tlb:	(100 * data.locality.byFrames[frameID].tlb / max),
 					l1:		(100 * data.locality.byFrames[frameID].l1 / max),
 					l2:		(100 * data.locality.byFrames[frameID].l2 / max),
 					l3:		(100 * data.locality.byFrames[frameID].l3 / max),
 					hpf:	(100 * data.locality.byFrames[frameID].hpf / max)
-				});
+				};
 		}
 	}
 	output.locality.sort(function(a, b){return a.t - b.t});
@@ -542,11 +540,14 @@ function addLocks(output, id) {
 		output.flocks.push(lock.t);
 	});
 
+	var capacity = data.info.timeStep * data.stats.threads;
+
 	for (var timeID = 0; timeID <= data.info.timeMax; timeID+= data.info.timeStep) {
 		output.times[timeID] = {
 			r:	Math.round(data.frames[timeID].running),
 			w:	Math.round(data.frames[timeID].wait),
-			lw:	data.frames[timeID].lock_wait
+			lw:	data.frames[timeID].lock_wait,
+			pw:	Math.round(100 * data.frames[timeID].lock_wait / capacity)
 		};
 	}
 

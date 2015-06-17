@@ -30,6 +30,7 @@ app.factory('decks', ['colours', function(colours) {
 
 	var limit = 	{ color: colours.list.eGrey, fcolor: colours.list.dGrey, gcolor: colours.list.gGrey };
 	var limit_th = 	{ color: limit.color, fcolor: limit.fcolor, gcolor: limit.gcolor, label: 'threads',  value: function(profile) { return profile.currentData.stats.h; } };
+	var limit_thc = { color: limit.color, fcolor: limit.fcolor, gcolor: limit.gcolor, label: 'threads',  value: function(profile) { return profile.currentData.stats.h * profile.currentData.info.timeStep; } };
 
 	var running = 	{ label: 'threads running',	title: 'running',	desc: 'processor executing threads',	unity: 'ms', cat: 'times', attr: 'r',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
 	var readySB = 	{ label: 'threads ready',	title: 'ready',		desc: ready_label,						unity: 'ms', cat: 'times', attr: 'yb',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
@@ -53,7 +54,8 @@ app.factory('decks', ['colours', function(colours) {
 
 	var l_success = { label: 'lock success',	title: 'lock success',	desc: 'number of lock acquisition success',					list: 'slocks', cat: 'locks', attr: 's',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
 	var l_failure = { label: 'lock failure',	title: 'lock failure',	desc: 'number of lock acquisition failure',					list: 'flocks', cat: 'locks', attr: 'f',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
-	var l_wait = 	{ label: 'threads waiting',	title: 'waiting',		desc: l_wait_label,							unity: 'ms',					cat: 'times', attr: 'lw',	color: colours.list.eYellow,	fcolor: colours.list.dYellow,	gcolor: colours.list.gYellow };
+	var l_wait = 	{ label: 'lock waiting',	title: 'waiting',		desc: l_wait_label,							unity: 'ms',					cat: 'times', attr: 'lw',	color: colours.list.eYellow,	fcolor: colours.list.dYellow,	gcolor: colours.list.gYellow };
+	var l_wait_p = 	{ label: 'lock waiting',	title: 'waiting',		desc: l_wait_label,							unity: 'ms',					cat: 'times', attr: 'pw',	color: colours.list.eYellow,	fcolor: colours.list.dYellow,	gcolor: colours.list.gYellow };
 
 	return {
 		tg: {
@@ -193,17 +195,37 @@ app.factory('decks', ['colours', function(colours) {
 		},
 		contentions: {
 			graph : {
-				v:		[waiting],
+				v:		[l_wait],
 				r:		running,
 				limit:	capacity
 			},
 			data : [running, l_wait, waiting],
-			legend : [running, capacity, waiting],
+			legend : [running, capacity, waiting, l_wait],
 			clues: [],
 			settings: [
 				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core' },
 				{ property: 'upsidedown', value: true, type: 'flag', label: 'Upsidedown running' }
 			]
+		},
+		contentions3: {
+			graph : {
+				v:		[l_wait_p],
+				limit:	limit
+			},
+			data : [running, l_wait, waiting],
+			legend : [running, capacity, waiting, l_wait],
+			clues: [],
+			settings: []
+		},
+		contentions2: {
+			graph : {
+				v:		[l_wait],
+				limit:	limit_thc
+			},
+			data : [l_wait, waiting],
+			legend : [l_wait],
+			clues: [],
+			settings: []
 		},
 	};
 }]);
@@ -213,10 +235,12 @@ app.factory('widgets', ['decks', function(decks) {
 	var output = {};
 	
 	output.cacheInvalid		= {id: 10,	file: 'generic-to-delete',	deck: null,					tag: 'cache-invalid',		title: 'Cache misses from updating shared data',				subtitle: ''};
-	output.cacheMisses		= {id: 11,	file: 'cache-misses',		deck: decks.locality,		tag: 'cache-misses',		title: 'Cache misses',											subtitle: ''};
+	output.cacheMisses		= {id: 11,	file: 'chart-percent',		deck: decks.locality,		tag: 'cache-misses',		title: 'Cache misses',											subtitle: ''};
 	output.coreInactivity	= {id: 5,	file: 'core-inactivity',	deck: decks.inactivity,		tag: 'core-idle',			title: 'Idle cores',											subtitle: ''};
-	output.lockCounts		= {id: 12,	file: 'lock-counts',		deck: decks.counts,			tag: 'lock-counts',			title: 'Lock contentions',										subtitle: 'lock failure versus lock acquisition'};
-	output.lockContentions	= {id: 9,	file: 'lock-contentions',	deck: decks.contentions,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
+	output.lockCounts		= {id: 12,	file: 'chart-units',		deck: decks.counts,			tag: 'lock-counts',			title: 'Lock contentions',										subtitle: 'lock failure versus lock acquisition'};
+	output.lockContentions	= {id: 9,	file: 'chart-capacity',		deck: decks.contentions,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
+	output.lockContentions3	= {id: 14,	file: 'chart-percent',		deck: decks.contentions3,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
+	output.lockContentions2	= {id: 13,	file: 'chart-percent',		deck: decks.contentions2,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
 	output.threadPaths		= {id: 1,	file: 'generic-to-delete',	deck: null,					tag: 'thread-paths',		title: 'Single thread execution phases',						subtitle: 'alternating sequential/parallel execution'};
 	output.threadChains		= {id: 2,	file: 'generic-to-delete',	deck: null,					tag: 'thread-chains',		title: 'Chains of dependencies',								subtitle: 'synchronisations and waiting between threads'};
 	output.threadLifetime	= {id: 3,	file: 'thread-lifetime',	deck: decks.lifetime,		tag: 'thread-running',		title: 'Life states of threads',								subtitle: 'creation, running, moving between cores, termination'};
@@ -237,7 +261,7 @@ app.factory('categories', ['widgets', 'decks', function(widgets, decks){
 	var sy = {
 		tag: 'sy', cat: 'sy', label: 'Synchronisation', title: 'Synchronisation', icon: 'cutlery',
 		graph: null, deck: decks.sy,
-		widgets: [widgets.lockCounts, widgets.lockContentions, widgets.threadLocks]
+		widgets: [widgets.lockCounts, widgets.lockContentions, widgets.lockContentions3, widgets.lockContentions2, widgets.threadLocks]
 	};
 	var ds = {
 		tag: 'ds', cat: 'ds', label: 'Data sharing', title: 'Data sharing', icon: 'share-alt',
