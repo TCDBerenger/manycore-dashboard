@@ -28,9 +28,28 @@ app.factory('decks', ['colours', function(colours) {
 	var waiting_label = 'threads are not ready to be processed because they waiting ressource(s)';
 	var l_wait_label = 'threads are not ready to be processed because they waiting lock(s)';
 
-	var limit = 	{ color: colours.list.eGrey, fcolor: colours.list.dGrey, gcolor: colours.list.gGrey };
-	var limit_th = 	{ color: limit.color, fcolor: limit.fcolor, gcolor: limit.gcolor, label: 'threads',  value: function(profile) { return profile.currentData.stats.h; } };
-	var limit_thc = { color: limit.color, fcolor: limit.fcolor, gcolor: limit.gcolor, label: 'threads',  value: function(profile) { return profile.currentData.stats.h * profile.currentData.info.timeStep; } };
+	function n2ft(v) {
+		switch(v) {
+			case 0.25:	return '¼';
+			case 0.5:	return '½';
+			case 0.75:	return '¾';
+			default:	return v + '×';
+		}
+	}
+	function n2p(v) {
+		return (v * 100) + ' %';
+	}
+	function n2fp(v) {
+		switch(v) {
+			case 0.25:	return '¼';
+			case 0.5:	return '½';
+			case 0.75:	return '¾';
+			default:	return (v * 100) + ' %';
+		}
+	}
+
+	var limit = 	{ color: colours.list.eGrey, fcolor: colours.list.dGrey, gcolor: colours.list.gGrey,	expected: function(profile) { return 100; },																displayed: function(profile) { return 110; } };
+	var limit_th = 	{ color: limit.color, fcolor: limit.fcolor, gcolor: limit.gcolor, label: 'threads',		expected: function(profile) { return profile.currentData.stats.h; },										displayed: function(profile) { return profile.currentData.stats.h + 2; } };
 
 	var running = 	{ label: 'threads running',	title: 'running',	desc: 'processor executing threads',	unity: 'ms', cat: 'times', attr: 'r',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
 	var readySB = 	{ label: 'threads ready',	title: 'ready',		desc: ready_label,						unity: 'ms', cat: 'times', attr: 'yb',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
@@ -55,7 +74,6 @@ app.factory('decks', ['colours', function(colours) {
 	var l_success = { label: 'lock success',	title: 'lock success',	desc: 'number of lock acquisition success',					list: 'slocks', cat: 'locks', attr: 's',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
 	var l_failure = { label: 'lock failure',	title: 'lock failure',	desc: 'number of lock acquisition failure',					list: 'flocks', cat: 'locks', attr: 'f',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
 	var l_wait = 	{ label: 'lock waiting',	title: 'waiting',		desc: l_wait_label,							unity: 'ms',					cat: 'times', attr: 'lw',	color: colours.list.eYellow,	fcolor: colours.list.dYellow,	gcolor: colours.list.gYellow };
-	var l_wait_p = 	{ label: 'lock waiting',	title: 'waiting',		desc: l_wait_label,							unity: 'ms',					cat: 'times', attr: 'pw',	color: colours.list.eYellow,	fcolor: colours.list.dYellow,	gcolor: colours.list.gYellow };
 
 	return {
 		tg: {
@@ -207,23 +225,31 @@ app.factory('decks', ['colours', function(colours) {
 				{ property: 'upsidedown', value: true, type: 'flag', label: 'Upsidedown running' }
 			]
 		},
-		contentions3: {
-			graph : {
-				v:		[l_wait_p],
-				limit:	limit
-			},
-			data : [running, l_wait, waiting],
-			legend : [running, capacity, waiting, l_wait],
-			clues: [],
-			settings: []
-		},
 		contentions2: {
 			graph : {
 				v:		[l_wait],
-				limit:	limit_thc
+				limit:	limit,
+				expected:	function(profile) { return profile.currentData.stats.h * profile.currentData.info.timeStep; },
+				displayed:	function(profile) { return (profile.currentData.stats.h + 1) * profile.currentData.info.timeStep; },
+				vStep:		function(profile) { return profile.currentData.stats.h * profile.currentData.info.timeStep / 4; },
+				vLabel:		function(v, i, r) { if (v == r.meta.vExpected[i]) return 'all threads'; else return n2p(v / r.meta.vExpected[i]); }
 			},
 			data : [l_wait, waiting],
 			legend : [l_wait],
+			clues: [],
+			settings: []
+		},
+		contentions3: {
+			graph : {
+				v:		[waiting],
+				limit:	limit,
+				expected:	function(profile) { return profile.currentData.stats.h * profile.currentData.info.timeStep; },
+				displayed:	function(profile) { return (profile.currentData.stats.h + 1) * profile.currentData.info.timeStep; },
+				vStep:		function(profile) { return profile.currentData.stats.h * profile.currentData.info.timeStep / 4; },
+				vLabel:		function(v, i, r) { if (v == r.meta.vExpected[i]) return 'all threads'; else return n2p(v / r.meta.vExpected[i]); }
+			},
+			data : [l_wait, waiting],
+			legend : [waiting],
 			clues: [],
 			settings: []
 		},
@@ -239,8 +265,8 @@ app.factory('widgets', ['decks', function(decks) {
 	output.coreInactivity	= {id: 5,	file: 'core-inactivity',	deck: decks.inactivity,		tag: 'core-idle',			title: 'Idle cores',											subtitle: ''};
 	output.lockCounts		= {id: 12,	file: 'chart-units',		deck: decks.counts,			tag: 'lock-counts',			title: 'Lock contentions',										subtitle: 'lock failure versus lock acquisition'};
 	output.lockContentions	= {id: 9,	file: 'chart-capacity',		deck: decks.contentions,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
-	output.lockContentions3	= {id: 14,	file: 'chart-percent',		deck: decks.contentions3,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
-	output.lockContentions2	= {id: 13,	file: 'chart-percent',		deck: decks.contentions2,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
+	output.lockContentions2	= {id: 13,	file: 'chart-stack',		deck: decks.contentions2,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
+	output.lockContentions3	= {id: 14,	file: 'chart-stack',		deck: decks.contentions3,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'};
 	output.threadPaths		= {id: 1,	file: 'generic-to-delete',	deck: null,					tag: 'thread-paths',		title: 'Single thread execution phases',						subtitle: 'alternating sequential/parallel execution'};
 	output.threadChains		= {id: 2,	file: 'generic-to-delete',	deck: null,					tag: 'thread-chains',		title: 'Chains of dependencies',								subtitle: 'synchronisations and waiting between threads'};
 	output.threadLifetime	= {id: 3,	file: 'thread-lifetime',	deck: decks.lifetime,		tag: 'thread-running',		title: 'Life states of threads',								subtitle: 'creation, running, moving between cores, termination'};
@@ -261,7 +287,7 @@ app.factory('categories', ['widgets', 'decks', function(widgets, decks){
 	var sy = {
 		tag: 'sy', cat: 'sy', label: 'Synchronisation', title: 'Synchronisation', icon: 'cutlery',
 		graph: null, deck: decks.sy,
-		widgets: [widgets.lockCounts, widgets.lockContentions, widgets.lockContentions3, widgets.lockContentions2, widgets.threadLocks]
+		widgets: [widgets.lockCounts, widgets.lockContentions, widgets.lockContentions2, widgets.lockContentions3, widgets.threadLocks]
 	};
 	var ds = {
 		tag: 'ds', cat: 'ds', label: 'Data sharing', title: 'Data sharing', icon: 'share-alt',

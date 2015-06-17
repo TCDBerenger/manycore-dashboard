@@ -330,7 +330,7 @@ function directive_repaint_VAxis(r, index, valueFunction) {
 			.attr("font-size", r.layout.vAxis.fontSize + "px")
 			.attr("font-weight", (v == r.meta.vExpected[index]) ? 'bold' : 'normal')
 			.attr("fill", (v == r.meta.vExpected[index]) ? r.deck.limit.fcolor : '#000000')
-			.text((valueFunction !== undefined) ? valueFunction(v, index) : v);
+			.text((valueFunction !== undefined) ? valueFunction(v, index, r) : v);
 
 		// Limit line
 		if (v == r.meta.vExpected[index])
@@ -883,6 +883,7 @@ app.directive('chartCapacity', function() {
 });
 
 
+
 /**
  * Percentage
  */
@@ -939,16 +940,6 @@ app.directive('chartPercent', function() {
 				scaleVZero = r.scalesV[index](0);
 				for (var t = r.meta.begin; t < r.meta.end; t += tStep) {
 					for (var v = 0; v < r.deck.v.length; v++) {
-						console.log(t,
-							yPositions[v],
-							profileData,
-							r.deck.v[v].cat,
-
-							/*profileData[r.deck.v[v].cat].hasOwnProperty(tID),
-							/*profileData[r.deck.v[v].cat][tID].hasOwnProperty(r.deck.v[v].attr),*/
-							true
-						);
-
 						if (profileData[r.deck.v[v].cat].hasOwnProperty(t) && profileData[r.deck.v[v].cat][t].hasOwnProperty(r.deck.v[v].attr))
 							yPositions[v] = profileData[r.deck.v[v].cat][t][r.deck.v[v].attr];
 						else
@@ -1063,11 +1054,11 @@ app.directive('chartUnits', function() {
 		var r = directive_init(scope, element, attrs, LAYOUT_FH_BAND, true, true);
 
 		// Enhance meta
-		r.meta.vExpected[0] =	r.deck.limit.value(r.profiles[0]);
+		r.meta.vExpected[0] =	r.deck.limit.expected(r.profiles[0]);
 		r.meta.vMinDisplay[0] =	r.meta.vExpected[0] + 2;
 		r.meta.vStep[0] =		r.meta.vExpected[0];
 		if (r.profiles[1] != null) {
-			r.meta.vExpected[1] =	r.deck.limit.value(r.profiles[1]);
+			r.meta.vExpected[1] =	r.deck.limit.expected(r.profiles[1]);
 			r.meta.vMinDisplay[1] =	r.meta.vExpected[1] + 2;
 			r.meta.vStep[1] =		r.meta.vExpected[1];
 		}
@@ -1203,6 +1194,163 @@ app.directive('chartUnits', function() {
 				r.meta.timeGroup = r.settings.timeGroup;
 				repaint();
 			}
+		}
+
+		// Bind
+		directive_bind(scope, element, r, repaint, select, settings);
+	}
+
+	return {
+		link: chart_link,
+		restrict: 'E'
+	}
+});
+
+
+
+/**
+ * Stack
+ */
+app.directive('chartStack', function() {
+
+	function chart_link(scope, element, attrs, controller) {
+		console.log("== directive == chartStack ==");
+
+		// Init vars
+		var r = directive_init(scope, element, attrs, LAYOUT_FH_NORMAL, true, true);
+
+		// Enhance meta
+		r.meta.vExpected[0] =	r.deck.expected(r.profiles[0]);
+		r.meta.vMinDisplay[0] =	r.deck.displayed(r.profiles[0]);
+		r.meta.vStep[0] =		r.deck.vStep(r.profiles[0]);
+		if (r.profiles[1] != null) {
+			r.meta.vExpected[1] =	r.deck.expected(r.profiles[1]);
+			r.meta.vMinDisplay[1] =	r.deck.displayed(r.profiles[1]);
+			r.meta.vStep[1] =		r.deck.vStep(r.profiles[1]);
+		}
+
+		// Redraw
+		function repaint() {
+			// Repaint container
+			directive_repaint_container(r);
+
+			// Repaint scales
+			directive_repaint_scales(r, [0, r.meta.vMinDisplay[0]], [0, r.meta.vMinDisplay[1]]);
+
+			// Repaint graphical elements
+			directive_repaint_xAxis(r);
+
+			// Main draw
+			var profileData, iData, yPositions, yScaledPosition;
+			var tStep, currentV, scaleVZero;
+			r.profiles.forEach(function(profile, index) {
+				// Clean
+				r.groupP[index].selectAll("*").remove();
+
+				// Var
+				profileData = profile.currentData;
+
+				// Points
+				yPositions = [];
+				r.iData[index] = [[]];
+				for (var i = r.deck.v.length - 1; i >= 0; i--) {
+					yPositions.push(NaN);
+					r.iData[index].push([]);
+				};
+
+				// All - points - data
+				tStep = profileData.info.timeStep;
+				scaleVZero = r.scalesV[index](0);
+				for (var t = r.meta.begin; t < r.meta.end; t += tStep) {
+					for (var v = 0; v < r.deck.v.length; v++) {
+						if (profileData[r.deck.v[v].cat].hasOwnProperty(t) && profileData[r.deck.v[v].cat][t].hasOwnProperty(r.deck.v[v].attr))
+							yPositions[v] = profileData[r.deck.v[v].cat][t][r.deck.v[v].attr];
+						else
+							yPositions[v] = 0;
+
+						// Stack positions
+						if (v > 0)
+							yPositions[v] += yPositions[v-1];
+
+						yScaledPosition = r.scalesV[index](yPositions[v]);
+
+						// Add points to shape (x, y, x, y)
+						//	=> twice for the boxing effect
+						r.iData[index][v + 1].push(r.scaleX(t), yScaledPosition, r.scaleX(t + tStep), yScaledPosition);
+
+						// Overflow (only the higher)
+						if (v == r.deck.v.length - 1)
+							r.meta.vOverflow[index] = Math.max(r.meta.vOverflow[index], 0 - yScaledPosition, yScaledPosition - r.layout.profile.height);
+					};
+
+					r.iData[index][0].push(r.scaleX(t), scaleVZero, r.scaleX(t + tStep), scaleVZero);
+				};
+
+				// Draw area
+				for (var v = r.deck.v.length - 1; v >= 0; v--) {
+					r.groupP[index].append("polygon")
+						.attr("class", "svg-data svg-area svg-area-" + v)
+						.attr("points", p2s(r.iData[index][v + 1], r.iData[index][v]))
+						.attr("fill", r.deck.v[v].color);
+				};
+
+				// Value axis
+				directive_repaint_VAxis(r, index, r.deck.vLabel);
+			});
+
+			// Post-treatment
+			directive_repaint_post(r);
+		}
+
+		// Select
+		function select(x) {
+			// Time ID
+			var tIndex = Math.floor(r.scaleX.invert(x) / 50);
+			if (tIndex == r.meta.lastSelectID) {
+				return;
+			} else {
+				r.meta.lastSelectID = tIndex;
+			}
+
+			// Loop
+			for (var index = 0; index < r.profiles.length; index++) {
+				// Reuse
+				if (r.iSelection[index] != null) {
+					for (var v = r.deck.v.length - 1; v >= 0; v--) {
+						r.iSelection[index].select(".svg-area-" + v).attr("points", p2s(r.iData[index][v + 1].slice(tIndex * 4, tIndex * 4 + 4), r.iData[index][v].slice(tIndex * 4, tIndex * 4 + 4)));
+					}
+				}
+				// Draw
+				else {
+					r.iSelection[index] = r.groupP[index].append("g").attr("class", "svg-selection");
+
+					// Draw
+					for (var v = r.deck.v.length - 1; v >= 0; v--) {
+						r.iSelection[index].append("polygon")
+							.attr("class", "svg-area svg-area-" + v)
+							.attr("points", p2s(r.iData[index][v + 1].slice(tIndex * 4, tIndex * 4 + 4), r.iData[index][v].slice(tIndex * 4, tIndex * 4 + 4)))
+							.attr("fill", r.deck.v[v].fcolor);
+					};
+				}
+			}
+		}
+		
+		// Settigns changes
+		function settings() {
+			var needToRepaint = false;
+
+			if (r.meta.crenellate != r.settings.crenellate) {
+				r.meta.crenellate = r.settings.crenellate;
+				needToRepaint = true;
+			}
+
+			if (r.meta.upsidedown != r.settings.upsidedown) {
+				r.meta.upsidedown = r.settings.upsidedown;
+				needToRepaint = true;
+			}
+
+			if (needToRepaint)
+				repaint();
 		}
 
 		// Bind
