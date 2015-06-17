@@ -540,14 +540,11 @@ function addLocks(output, id) {
 		output.flocks.push(lock.t);
 	});
 
-	var capacity = data.info.timeStep * data.stats.threads;
-
 	for (var timeID = 0; timeID <= data.info.timeMax; timeID+= data.info.timeStep) {
 		output.times[timeID] = {
 			r:	Math.round(data.frames[timeID].running),
 			w:	Math.round(data.frames[timeID].wait),
-			lw:	data.frames[timeID].lock_wait,
-			pw:	Math.round(100 * data.frames[timeID].lock_wait / capacity)
+			lw:	data.frames[timeID].lock_wait
 		};
 	}
 
