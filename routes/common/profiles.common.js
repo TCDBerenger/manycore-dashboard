@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 42;
+var VERSION = 49;
 
 /************************************************/
 /* Variables - hardwares						*/
@@ -564,7 +564,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			// Compute duration
 			//	only if a failure appends before a success
 			//	convert (and round) from nanodeconds to milliseconds
-			duration = isFinite(wait_map[element.tid + '-' + element.value]) ? Math.round((element.dtime - wait_map[element.tid + '-' + element.value]) / 10000) : 0;
+			duration = isFinite(wait_map[element.tid]) ? (element.dtime - wait_map[element.tid]) / 10000 : 0;
 
 			// Save the success
 			data.lock_success.push({
@@ -584,21 +584,23 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 
 			// Save the failure duration by frame
 			if (duration > 0) {
+				if (wait_map[element.tid] == null || ! wait_map.hasOwnProperty(element.tid)) console.log('incoherent: duration positive but no starting time', duration, wait_map[element.tid]);
+
 				currentID = timeID;
 				currentEnd = element.dtime;
-				while (currentEnd >= wait_map[element.tid + '-' + element.value]) {
+				while (currentEnd >= wait_map[element.tid]) {
 					// Stats
-					data.frames[currentID].lock_wait += Math.max(currentEnd - currentID, currentEnd - wait_map[element.tid + '-' + element.value]);
+					data.frames[currentID].lock_wait += Math.min(currentEnd - (currentID * 10000), currentEnd - wait_map[element.tid]) / 10000;
 
 					// Next loop
-					currentEnd = currentID;
+					currentEnd = currentID * 10000;
 					currentID -= data.info.timeStep;
 				}
 			}
 
 			// Reset
-			wait_map[element.tid + '-' + element.value] = null;		// Thread doesn't wait the lock anymore
-			lock_map[element.value] = element.tid;					// which thread has the lock
+			wait_map[element.tid] = undefined;			// Thread doesn't wait the lock anymore
+			lock_map[element.value] = element.tid;		// which thread has the lock
 
 		} else { // if (element.type == 'failure')
 
@@ -611,7 +613,9 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			});
 
 			// Save when a thread fail
-			wait_map[element.tid + '-' + element.value] = element.dtime;
+
+			if (wait_map[element.tid] != null && wait_map[element.tid] != element.dtime) console.log("incoherent: thread already waiting", wait_map[element.tid], element.dtime);
+			wait_map[element.tid] = element.dtime;
 
 			// Stats
 			data.stats.lock_failure++;
