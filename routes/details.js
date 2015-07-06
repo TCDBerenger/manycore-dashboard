@@ -480,7 +480,7 @@ function addStates(output, id) {
 		r:	statCountRunning,
 		b:	statCountStandby,
 		w:	statCountWait,
-		r:	statCountReady
+		y:	statCountReady
 	};
 }
 
@@ -513,8 +513,6 @@ function addLocality(output, id, simplified) {
 				};
 		}
 	}
-	output.locality.sort(function(a, b){return a.t - b.t});
-	
 
 	// Stats
 	output.stats.locality = data.locality.stats;

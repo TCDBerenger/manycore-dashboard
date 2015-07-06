@@ -25,6 +25,7 @@ app.factory('colours', [function() {
 app.factory('decks', ['colours', function(colours) {
 
 	var ready_label = 'threads are waiting a core but none available; threads are prepared to run on the next available core';
+	var standby_label = 'threads exiting the ready stack to run on an available core';
 	var waiting_label = 'threads are not ready to be processed because they waiting ressource(s)';
 	var l_wait_label = 'threads are not ready to be processed because they waiting lock(s)';
 
@@ -54,21 +55,22 @@ app.factory('decks', ['colours', function(colours) {
 	var running = 	{ label: 'threads running',	title: 'running',	desc: 'processor executing threads',	unity: 'ms', cat: 'times', attr: 'r',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
 	var readySB = 	{ label: 'threads ready',	title: 'ready',		desc: ready_label,						unity: 'ms', cat: 'times', attr: 'yb',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
 	var ready = 	{ label: 'threads ready',	title: 'ready',		desc: ready_label,						unity: 'ms', cat: 'times', attr: 'y',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
-	var standBy = 	{ label: 'threads standBy',	title: 'stand by',	desc: ready_label,						unity: 'ms', cat: 'times', attr: 'b',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
+	var standBy = 	{ label: 'threads standBy',	title: 'stand by',	desc: standby_label,					unity: 'ms', cat: 'times', attr: 'b',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
 	var waiting = 	{ label: 'threads waiting',	title: 'waiting',	desc: waiting_label,					unity: 'ms', cat: 'times', attr: 'w',	color: colours.list.eOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.gOrange };
-	var capacity = 	{ label: 'unused core',		title: 'unused',	desc: 'processor is not fully used',	unity: 'ms', cat: 'times', attr: 'uu',	color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.gBlue };
-	var system = 	{ label: 'system',			title: 'system',	desc: 'processor is used by the OS',	unity: 'ms', cat: 'times', attr: '-',	color: colours.list.black,		fcolor: colours.list.black,		gcolor: colours.list.black };
+	var capacity = 	{ label: 'unused core',		title: 'capacity',	desc: 'processor is not fully used',	unity: 'ms', cat: 'times', attr: 'uu',	color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.gBlue };
+	var system = 	{ label: 'system',			title: 'system',	desc: 'processor is used by the OS (soon)',	unity: 'ms', cat: 'times', attr: '-',	color: colours.list.black,		fcolor: colours.list.black,		gcolor: colours.list.black };
 
-	var ipc = 		{ label: 'executing',			title: 'Executing',			desc: 'executing',				unity: '',	cat: 'locality',	attr: 'ipc',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
-	var miss = 		{ label: 'Cache misses',		title: 'Cache misses',		desc: '',						unity: '',	cat: 'locality',	attr: 'miss',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
-	var tlbmiss = 	{ label: 'address translation',	title: 'TLB misses',		desc: 'address translation',	unity: '',	cat: 'locality',	attr: 'tlb',	color: colours.list.lGrey };
-	var l1miss = 	{ label: 'loading from L2',		title: 'L1 misses',			desc: 'loading data from L2',	unity: '',	cat: 'locality',	attr: 'l1',		color: colours.list.lRed };
-	var l2miss = 	{ label: 'loading from L3',		title: 'L2 misses',			desc: 'loading data from L3',	unity: '',	cat: 'locality',	attr: 'l2',		color: colours.list.eRed };
-	var l3miss = 	{ label: 'loading from RAM',	title: 'L3 misses',			desc: 'loading data from RAM',	unity: '',	cat: 'locality',	attr: 'l3',		color: colours.list.dRed };
-	var swapping = 	{ label: 'Swapping',			title: 'Swapping',			desc: 'hard page faults',		unity: '',	cat: 'locality',	attr: 'hpf',	color: colours.list.black };
+	var ipc = 		{ label: 'executing',			title: 'Executing',			desc: 'executing',				unity: 'ms', cat: 'locality',	attr: 'ipc',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
+	var miss = 		{ label: 'Cache misses',		title: 'Cache misses',		desc: '',						unity: 'ms', cat: 'locality',	attr: 'miss',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
+	var tlbmiss = 	{ label: 'address translation',	title: 'TLB misses',		desc: 'address translation',	unity: 'ms', cat: 'locality',	attr: 'tlb',	color: colours.list.lGrey };
+	var l1miss = 	{ label: 'loading from L2',		title: 'L1 misses',			desc: 'loading data from L2',	unity: 'ms', cat: 'locality',	attr: 'l1',		color: colours.list.lRed };
+	var l2miss = 	{ label: 'loading from L3',		title: 'L2 misses',			desc: 'loading data from L3',	unity: 'ms', cat: 'locality',	attr: 'l2',		color: colours.list.eRed };
+	var l3miss = 	{ label: 'loading from RAM',	title: 'L3 misses',			desc: 'loading data from RAM',	unity: 'ms', cat: 'locality',	attr: 'l3',		color: colours.list.dRed };
+	var swapping = 	{ label: 'Swapping',			title: 'Swapping',			desc: 'hard page faults',		unity: 'ms', cat: 'locality',	attr: 'hpf',	color: colours.list.black };
 
 	var sw = 		{ label: 'switches',	title: 'context switches',	desc: 'cores switching the working thread',	list: 'switches',	cat: 'switches',	attr: 's',											color: colours.list.eGrey,		fcolor: colours.list.dGrey,		gcolor: colours.list.gGrey };
-	var mg = 		{ label: 'migrations',	title: 'thread migrations',	desc: 'thread migrate to another core',		list: 'migrations',	cat: 'migrations',	attr: 'm',	colors: [colours.base, colours.alt],	color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.gViolet };
+	var mg = 		{ label: 'migrations',	title: 'thread migrations',	desc: 'thread migrate to another core',		list: 'migrations',	cat: 'migrations',	attr: 'm',											color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.gViolet };
+	var mg2 = 		{ label: 'migrations',	title: 'thread migrations',	desc: mg.desc,								list: 'migrations',	cat: 'migrations',	attr: 'm',	colors: [colours.base, colours.alt],	color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.gViolet };
 	var mg_tmp = 	{ label: 'migrations',	title: 'migrations',		desc: 'migrations',												cat: 'migrations',	attr: 'm',	color2: colours.alt,	color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.gViolet };
 
 	var l_success = { label: 'lock success',	title: 'lock success',	desc: 'number of lock acquisition success',					list: 'slocks', cat: 'locks', attr: 's',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
@@ -106,8 +108,8 @@ app.factory('decks', ['colours', function(colours) {
 				v:		[running, readySB],
 				limit:	capacity
 			},
-			data : [running, ready, standBy, waiting],
-			legend : [running, readySB, capacity],
+			data : [running, ready, standBy],
+			legend : [capacity, system],
 			clues: [
 				{ color: colours.bad,	tax: 'Oversubscription', 							text: 'too many threads' },
 				{ color: colours.bad,	tax: 'Thread migrations', 							text: 'too many threads' },
@@ -136,7 +138,7 @@ app.factory('decks', ['colours', function(colours) {
 				limit:	{ color: colours.list.black },
 			},
 			data : [sw],
-			legend : [sw],
+			legend : [],
 			clues: [
 				{ color: colours.base,	tax: 'Oversubscription',							text: 'high frequency' }
 			],
@@ -151,7 +153,7 @@ app.factory('decks', ['colours', function(colours) {
 				limit:	{ color: colours.list.black },
 			},
 			data : [mg],
-			legend : [mg],
+			legend : [],
 			clues: [
 				{ color: colours.base,	tax: 'Thread migrations',							text: 'too many migrations' },
 				{ color: colours.base,	tax: 'Alternating sequential/parallel execution',	text: 'alternating period of high and low thread migrations' }
@@ -165,8 +167,8 @@ app.factory('decks', ['colours', function(colours) {
 			axis : {
 				x:		{ color: colours.base, colors: [colours.base, colours.alt] }
 			},
-			data : [mg_tmp],
-			legend : [mg],
+			data : [mg2],
+			legend : [],
 			clues: [
 				{ color: colours.unkn,	tax: 'Task start/stop overhead',					text: 'too many creations' },
 				{ color: colours.alt,	tax: 'Oversubscription',							text: 'too many threads' },
@@ -185,7 +187,7 @@ app.factory('decks', ['colours', function(colours) {
 				x:		{ colors: [colours.good, colours.list.lGrey, colours.list.lRed, colours.list.eRed, colours.list.dRed, colours.list.black] }
 			},
 			data : [ipc, tlbmiss, l1miss, l2miss, l3miss, swapping],
-			legend : [ipc, tlbmiss, l1miss, l2miss, l3miss, swapping],
+			legend : [],
 			clues: [],
 			settings: []
 		},
@@ -195,7 +197,7 @@ app.factory('decks', ['colours', function(colours) {
 				limit:	limit_th
 			},
 			data : [l_success, l_failure],
-			legend : [l_success, l_failure],
+			legend : [],
 			clues: [],
 			settings: [
 				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
@@ -207,7 +209,7 @@ app.factory('decks', ['colours', function(colours) {
 				limit:	limit
 			},
 			data : [capacity, running, waiting, l_wait],
-			legend : [capacity, running, waiting, l_wait],
+			legend : [],
 			clues: [],
 			settings: []
 		},
@@ -218,7 +220,7 @@ app.factory('decks', ['colours', function(colours) {
 				limit:	capacity
 			},
 			data : [running, l_wait, waiting],
-			legend : [running, capacity, waiting, l_wait],
+			legend : [capacity, system],
 			clues: [],
 			settings: [
 				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core' },
@@ -235,7 +237,7 @@ app.factory('decks', ['colours', function(colours) {
 				vLabel:		function(v, i, r) { if (v == r.meta.vExpected[i]) return 'all threads'; else return n2p(v / r.meta.vExpected[i]); }
 			},
 			data : [l_wait, waiting],
-			legend : [l_wait],
+			legend : [],
 			clues: [],
 			settings: []
 		},
@@ -249,7 +251,7 @@ app.factory('decks', ['colours', function(colours) {
 				vLabel:		function(v, i, r) { if (v == r.meta.vExpected[i]) return 'all threads'; else return n2p(v / r.meta.vExpected[i]); }
 			},
 			data : [l_wait, waiting],
-			legend : [waiting],
+			legend : [],
 			clues: [],
 			settings: []
 		},
@@ -263,7 +265,7 @@ app.factory('decks', ['colours', function(colours) {
 				vLabel:		function(v, i, r) { var c = r.profiles[i].currentData.stats.h * r.profiles[i].currentData.info.timeStep; if (v == r.meta.vExpected[i]) return '[CPU]'; else return n2p(v / c); }
 			},
 			data : [l_wait, waiting],
-			legend : [l_wait],
+			legend : [],
 			clues: [],
 			settings: []
 		},
