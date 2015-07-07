@@ -280,20 +280,30 @@ function directive_repaint_xAxis(r) {
 		.attr("points", p2s(points))
 		.attr("stroke","black")
 		.attr("stroke-width", 2);
-
+	
+	// Clock symbol
+	r.groupX.append("text")
+		.attr("class", "svg-text")
+		.attr("y", r.layout.xAxis.textShift + 2)
+		.attr("x", -16)
+		.attr("text-anchor", "end")
+		.attr("font-size", (r.layout.xAxis.text + 4) + "px")
+		.text('🕓'); // ⌛
+	
 	// Labels
 	var texts = r.scaleX.ticks();
 	var lastIndex = texts.length - 1;
 	r.groupX
-		.selectAll(".svg-text")
+		.selectAll(".svg-text-scale")
 		.data(texts).enter()
 		.append("text")
+			.attr("class", "svg-text")
 			.attr("y", r.layout.xAxis.textShift)
 			.attr("x", function (d) { return r.scaleX(d)})
 			.attr("text-anchor", function(d, i) { return (i == lastIndex) ? "end" : "middle"; })
 			.attr("font-size", r.layout.xAxis.text + "px")
 			.attr("fill", "#FFFFFF")
-			.text(function (d) { return d});
+			.text(function (d) { return (d == 0) ? 0 : (d / 1000) + ' s'; });
 }
 
 /**
@@ -443,210 +453,6 @@ function n2ft(v) {
 /*	Directives											  */
 /*														  */
 /**********************************************************/
-
-/**
- * Switches and migrations
- */
-app.directive('chartSwitches', function() {
-
-	function chart_link(scope, element, attrs, controller) {
-		console.log("== directive == chartSwitches ==");
-
-		// Init vars
-		var r = directive_init(scope, element, attrs, LAYOUT_FH_BAND, true, true);
-
-		// Enhance meta
-		r.meta.v = r.deck.v[0];
-		r.meta.lastSelectID = null;
-
-		// Meta - settings
-		r.meta.pixelGroup = r.settings.pixelGroup;
-
-		// Meta - settings
-		r.meta.vExpected =		[1, 1];
-		r.meta.vMinDisplay =	[2, 2];
-		r.meta.vStep =			[1, 1];
-		
-		// Meta - layout Y (arbitrary)
-		r.meta.d_expected = [];
-		r.meta.d_minLimit = [];
-
-		// Meta - Calibration
-		r.meta.calibrations = [];
-		r.profiles.forEach(function(profile, i) {
-			r.meta.calibrations.push(profile.hardware.calibration[r.meta.calibration] * profile.hardware.data.threads);
-			r.meta.d_expected.push(profile.hardware.calibration[r.meta.calibration] * profile.hardware.data.threads * r.meta.vExpected[i]);
-			r.meta.d_minLimit.push(profile.hardware.calibration[r.meta.calibration] * profile.hardware.data.threads * r.meta.vMinDisplay[i]);
-		});
-
-		// Enhance layout
-
-		// Redraw
-		function repaint() {
-			// Repaint container
-			directive_repaint_container(r);
-
-			// Computation
-			var xMax = r.layout.profile.width;
-			var xStep = r.meta.pixelGroup;
-			var tStep = r.meta.duration / (xMax / xStep);
-
-			// vScale label
-			function vScaleLabel(v) {
-				return v + '×';
-			}
-			
-			// Repaint scales
-			directive_repaint_scales(r, [0, tStep * r.meta.d_minLimit[0]], [0, tStep * r.meta.d_minLimit[1]]);
-
-			// Repaint graphical elements
-			directive_repaint_xAxis(r);
-
-			// Draw
-			var dataList, internalData, points;
-			var v_currentLimit, v_minLimit;
-			r.profiles.forEach(function(profile, index) {
-				if (! profile.currentData.hasOwnProperty(r.meta.v.cat)) console.log("!! -- !! Fail current data !! -- !!", profile, r.meta.v.cat);
-
-				// vars
-				dataList = profile.currentData[r.meta.v.cat].list;
-				v_minLimit = r.scalesV[index](tStep * r.meta.d_minLimit[1]);
-
-				// Data - Clean
-				r.groupP[index].selectAll("*").remove();
-
-				// Data - points
-				points = "0," + r.scalesV[index](0);
-
-				// Data - vars
-				var x = 0;
-				var d = 0; var dMax = dataList.length;
-				var count, v_count;
-				internalData = [];
-
-				// Data - loop
-				while (x < xMax) {
-					// Reset
-					count = 0;
-
-					// Count events
-					while (d < dMax && dataList[d] <= x + xStep) {
-						count++;
-						d++;
-					}
-					internalData.push(count);
-
-					v_count = r.scalesV[index](count);
-
-					points += " " + x + "," + v_count;
-					points += " " + Math.min(x + xStep, xMax) + "," + v_count;
-
-					r.meta.vOverflow[index] = Math.max(r.meta.vOverflow[index], Math.pow(-1, index) * (v_minLimit - v_count));
-
-					// Next loop
-					x += xStep;
-				}
-
-				// Data - points
-				points += " " + Math.min(x, xMax) + "," + r.scalesV[index](0);
-				r.iData[index] = internalData;
-
-				// Data - draw
-				r.groupP[index].append("polygon")
-					.attr("points", points)
-					.attr("fill", r.meta.v.color);
-
-				// Value axis
-				//directive_repaint_VAxis(r, index, vScaleLabel);
-
-				// Limit - Clean
-				r.groupV[index].selectAll("*").remove();
-
-				// Limit - Loop
-				var yPosition;
-				for (var l = Math.floor(2 * (r.layout.profile.height + r.meta.vOverflow[index] - r.layout.vAxis.fontSize) / r.layout.profile.height); l > 0; l--) {
-					yPosition = r.scalesV[index](tStep * r.meta.d_expected[index] * l);
-
-					// Limit abel
-					r.groupV[index].append("text")
-						.attr("class", "svg-text svg-limit svg-limit-" + l)
-						.attr("x", r.layout.vAxis.width - 4)
-						.attr("y", yPosition + 3)
-						.attr("text-anchor", "end")
-						.attr("font-size", r.layout.vAxis.fontSize + "px")
-						.attr("font-weight", "bold")
-						.text(l + "×");
-
-					// Limit line
-					r.groupV[index].append("line")
-						.attr("class", "svg-line svg-limit svg-limit-" + l)
-						.attr('stroke', "#000000")
-						.attr('stroke-width', 1)
-						.attr('stroke-dasharray', 3.1)
-						.attr("x1", r.layout.vAxis.width - 2)
-						.attr("x2", r.layout.vAxis.width + r.layout.profile.width + 4)
-						.attr("y1", yPosition)
-						.attr("y2", yPosition);
-				};
-			});
-
-			// Post-treatment
-			directive_repaint_post(r);
-		}
-
-		// Select
-		function select(x) {
-			// Time ID
-			var tID = Math.floor(x / r.meta.pixelGroup);
-			if (tID == r.meta.lastSelectID) {
-				return;
-			} else {
-				r.meta.lastSelectID = tID;
-			}
-
-			// Loop
-			var points;
-			for (var index = 0; index < r.profiles.length; index++) {
-				// Precondition (not paint => failure on repaint method)
-				if (r.iData[index] == null) break;
-
-				// Compute points
-				points =
-					(tID * r.meta.pixelGroup) + "," + r.scalesV[index](0) + " " +
-					(tID * r.meta.pixelGroup) + "," + r.scalesV[index](r.iData[index][tID]) + " " +
-					Math.min((tID + 1) * r.meta.pixelGroup, r.layout.profile.width) + "," + r.scalesV[index](r.iData[index][tID]) + " " +
-					Math.min((tID + 1) * r.meta.pixelGroup, r.layout.profile.width) + "," + r.scalesV[index](0);
-
-				// Draw points
-				if (r.iSelection[index] != null) {
-					r.iSelection[index].attr("points", points);
-				} else {
-					r.iSelection[index] = r.groupP[index].append("polygon")
-						.attr("class", "svg-selection")
-						.attr("points", points)
-						.attr("fill", r.meta.v.fcolor);
-				}
-			};
-		}
-		
-		// Settigns changes
-		function settings() {
-			if (typeof r.settings.pixelGroup != 'undefined' && r.settings.pixelGroup != r.meta.pixelGroup) {
-				r.meta.pixelGroup = r.settings.pixelGroup;
-				repaint();
-			}
-		}
-
-		// Bind
-		directive_bind(scope, element, r, repaint, select, settings);
-	}
-
-	return {
-		link: chart_link,
-		restrict: 'E'
-	}
-});
-
 
 /**
  * Thread states
@@ -1053,20 +859,10 @@ app.directive('chartUnits', function() {
 		// Init vars
 		var r = directive_init(scope, element, attrs, LAYOUT_FH_BAND, true, true);
 
-		// Enhance meta
-		r.meta.vExpected[0] =	r.deck.limit.expected(r.profiles[0]);
-		r.meta.vMinDisplay[0] =	r.meta.vExpected[0] + 2;
-		r.meta.vStep[0] =		r.meta.vExpected[0];
-		if (r.profiles[1] != null) {
-			r.meta.vExpected[1] =	r.deck.limit.expected(r.profiles[1]);
-			r.meta.vMinDisplay[1] =	r.meta.vExpected[1] + 2;
-			r.meta.vStep[1] =		r.meta.vExpected[1];
-		}
-
 		// Axis label
 		function vAxisLabel(v, index) {
 			if (v == r.meta.vExpected[index])
-				return r.deck.limit.label;
+				return r.deck.limitLabel;
 			else
 				return (v / r.meta.vExpected[index]) + '×';
 		}
@@ -1075,6 +871,16 @@ app.directive('chartUnits', function() {
 		function repaint() {
 			// Repaint container
 			directive_repaint_container(r);
+			
+			// Enhance meta
+			r.meta.vExpected[0] =	r.deck.expected(r.profiles[0], r.settings.timeGroup);
+			r.meta.vMinDisplay[0] =	r.deck.displayed(r.profiles[0], r.settings.timeGroup);
+			r.meta.vStep[0] =		r.deck.vStep(r.profiles[0], r.settings.timeGroup);
+			if (r.profiles[1] != null) {
+				r.meta.vExpected[1] =	r.deck.expected(r.profiles[1], r.settings.timeGroup);
+				r.meta.vMinDisplay[1] =	r.deck.displayed(r.profiles[1], r.settings.timeGroup);
+				r.meta.vStep[1] =		r.deck.vStep(r.profiles[1], r.settings.timeGroup);
+			}
 
 			// Repaint scales
 			directive_repaint_scales(r, [0, r.meta.vMinDisplay[0]], [0, r.meta.vMinDisplay[1]]);
@@ -1083,9 +889,10 @@ app.directive('chartUnits', function() {
 			directive_repaint_xAxis(r);
 
 			// Main draw
-			var profileData, iData, yPositions, yScaledPosition;
-			var tID, currentV, scaleVZero, currentVIndexes;
+			var profileData, yPositions, yScaledPosition;
+			var tID, scaleVZero;
 			var tStep = r.settings.timeGroup;
+			var dataSource_list, dataSource_length, dataSource_index;
 			r.profiles.forEach(function(profile, index) {
 				// Clean
 				r.groupP[index].selectAll("*").remove();

@@ -100,12 +100,8 @@ app.factory('decks', ['colours', function(colours) {
 		},
 		states: {
 			graph : {
-				v:		[readySB],
-				r:		running,
-				limit:	capacity
-			},
-			axis : {
-				v:		[running, readySB],
+				v:		[readySB],	// data over the limit (like other graphs)
+				r:		running,	// data under the limit (specials)
 				limit:	capacity
 			},
 			data : [running, ready, standBy],
@@ -134,8 +130,12 @@ app.factory('decks', ['colours', function(colours) {
 		},
 		switches: {
 			graph : {
-				v:		[sw],
-				limit:	{ color: colours.list.black },
+				v:			[sw],
+				limit:		limit,
+				limitLabel:	'calib.',
+				expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.switches; },
+				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.switches * 2; },
+				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.switches; }
 			},
 			data : [sw],
 			legend : [],
@@ -143,14 +143,17 @@ app.factory('decks', ['colours', function(colours) {
 				{ color: colours.base,	tax: 'Oversubscription',							text: 'high frequency' }
 			],
 			settings: [
-				{ property: 'pixelGroup', value: 5, type: 'range', label: 'Group by', unit: 'pixels', min: 1, max: 15, step: 1 }/*,
-				{ property: 'vMirror', value: true, type: 'flag', label: 'Vertical mirror' }*/
+				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
 			]
 		},
 		migrations: {
 			graph : {
 				v:		[mg],
-				limit:	{ color: colours.list.black },
+				limit:		limit,
+				limitLabel:	'calib.',
+				expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.migrations; },
+				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.migrations * 2; },
+				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.migrations; }
 			},
 			data : [mg],
 			legend : [],
@@ -159,8 +162,7 @@ app.factory('decks', ['colours', function(colours) {
 				{ color: colours.base,	tax: 'Alternating sequential/parallel execution',	text: 'alternating period of high and low thread migrations' }
 			],
 			settings: [
-				{ property: 'pixelGroup', value: 5, type: 'range', label: 'Group by', unit: 'pixels', min: 1, max: 15, step: 1 }/*,
-				{ property: 'vMirror', value: true, type: 'flag', label: 'Vertical mirror' }*/
+				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
 			]
 		},
 		lifetime: {
@@ -193,8 +195,12 @@ app.factory('decks', ['colours', function(colours) {
 		},
 		counts: {
 			graph : {
-				v:		[l_success, l_failure],
-				limit:	limit_th
+				v:			[l_success, l_failure],
+				limit:		limit_th,
+				limitLabel:	'threads',
+				expected:	function(profile) { return profile.currentData.stats.h; },
+				displayed:	function(profile) { return profile.currentData.stats.h + 2; },
+				vStep:		function(profile) { return profile.currentData.stats.h; }
 			},
 			data : [l_success, l_failure],
 			legend : [],
@@ -203,20 +209,10 @@ app.factory('decks', ['colours', function(colours) {
 				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
 			]
 		},
-		contentions_old: {
-			graph : {
-				v:		[capacity, running, l_wait],
-				limit:	limit
-			},
-			data : [capacity, running, waiting, l_wait],
-			legend : [],
-			clues: [],
-			settings: []
-		},
 		contentions: {
 			graph : {
-				v:		[l_wait],
-				r:		running,
+				v:		[l_wait],	// data over the limit (like other graphs)
+				r:		running,	// data under the limit (specials)
 				limit:	capacity
 			},
 			data : [running, l_wait, waiting],
@@ -226,48 +222,6 @@ app.factory('decks', ['colours', function(colours) {
 				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core' },
 				{ property: 'upsidedown', value: true, type: 'flag', label: 'Upsidedown running' }
 			]
-		},
-		contentions2: {
-			graph : {
-				v:		[l_wait],
-				limit:	limit,
-				expected:	function(profile) { return profile.currentData.stats.h * profile.currentData.info.timeStep; },
-				displayed:	function(profile) { return (profile.currentData.stats.h + 1) * profile.currentData.info.timeStep; },
-				vStep:		function(profile) { return profile.currentData.stats.h * profile.currentData.info.timeStep / 4; },
-				vLabel:		function(v, i, r) { if (v == r.meta.vExpected[i]) return 'all threads'; else return n2p(v / r.meta.vExpected[i]); }
-			},
-			data : [l_wait, waiting],
-			legend : [],
-			clues: [],
-			settings: []
-		},
-		contentions3: {
-			graph : {
-				v:		[waiting],
-				limit:	limit,
-				expected:	function(profile) { return profile.currentData.stats.h * profile.currentData.info.timeStep; },
-				displayed:	function(profile) { return (profile.currentData.stats.h + 1) * profile.currentData.info.timeStep; },
-				vStep:		function(profile) { return profile.currentData.stats.h * profile.currentData.info.timeStep / 4; },
-				vLabel:		function(v, i, r) { if (v == r.meta.vExpected[i]) return 'all threads'; else return n2p(v / r.meta.vExpected[i]); }
-			},
-			data : [l_wait, waiting],
-			legend : [],
-			clues: [],
-			settings: []
-		},
-		contentions4: {
-			graph : {
-				v:		[l_wait],
-				limit:	limit,
-				expected:	function(profile) { return profile.currentData.info.threads * profile.currentData.info.timeStep; },
-				displayed:	function(profile) { return (profile.currentData.info.threads + 1) * profile.currentData.info.timeStep; },
-				vStep:		function(profile) { return profile.currentData.info.threads * profile.currentData.info.timeStep / 4; },
-				vLabel:		function(v, i, r) { var c = r.profiles[i].currentData.stats.h * r.profiles[i].currentData.info.timeStep; if (v == r.meta.vExpected[i]) return '[CPU]'; else return n2p(v / c); }
-			},
-			data : [l_wait, waiting],
-			legend : [],
-			clues: [],
-			settings: []
 		},
 	};
 }]);
@@ -280,16 +234,13 @@ app.factory('widgets', ['decks', function(decks) {
 		coreInactivity:		{ id: 5,	v: 3, file: 'core-inactivity',		deck: decks.inactivity,		tag: 'core-idle',			title: 'Idle cores',											subtitle: ''},
 		lockCounts:			{ id: 12,	v: 4, file: 'chart-units',			deck: decks.counts,			tag: 'lock-counts',			title: 'Lock contentions',										subtitle: 'lock failure versus lock acquisition'},
 		lockContentions:	{ id: 9,	v: 4, file: 'chart-capacity',		deck: decks.contentions,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'},
-		lockContentions2:	{ id: 13,	v: 4, file: 'chart-stack',			deck: decks.contentions2,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'},
-		lockContentions3:	{ id: 14,	v: 4, file: 'chart-stack',			deck: decks.contentions3,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'},
-		lockContentions4:	{ id: 15,	v: 4, file: 'chart-stack',			deck: decks.contentions4,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'},
 		threadPaths:		{ id: 1,	v: 3, file: 'generic-to-delete',	deck: null,					tag: 'thread-paths',		title: 'Single thread execution phases',						subtitle: 'alternating sequential/parallel execution'},
 		threadChains:		{ id: 2,	v: 3, file: 'generic-to-delete',	deck: null,					tag: 'thread-chains',		title: 'Chains of dependencies',								subtitle: 'synchronisations and waiting between threads'},
 		threadLifetime:		{ id: 3,	v: 3, file: 'thread-lifetime',		deck: decks.lifetime,		tag: 'thread-running',		title: 'Life states of threads',								subtitle: 'creation, running, moving between cores, termination'},
 		threadLocks:		{ id: 4,	v: 3, file: 'generic-to-delete',	deck: null,					tag: 'thread-locks',		title: 'Waiting for locks',										subtitle: ''},
-		threadStates:		{ id: 6,	v: 3, file: 'thread-states',		deck: decks.states,			tag: 'thread-states',		title: 'Potential parallelism',									subtitle: 'number of running threads compared to number of cores'},
-		threadMigrations:	{ id: 7,	v: 3, file: 'thread-migrations',	deck: decks.migrations,		tag: 'thread-migrations',	title: 'Thread switching the core on which it is executing',	subtitle: 'thread migrations'},
-		threadSwitchs:		{ id: 8,	v: 3, file: 'thread-switches',		deck: decks.switches,		tag: 'thread-switchs',		title: 'Core swhitching the thread it is executing',			subtitle: 'thread switches'},
+		threadStates:		{ id: 6,	v: 3, file: 'chart-capacity',		deck: decks.states,			tag: 'thread-states',		title: 'Potential parallelism',									subtitle: 'number of running threads compared to number of cores'},
+		threadMigrations:	{ id: 7,	v: 3, file: 'chart-units',			deck: decks.migrations,		tag: 'thread-migrations',	title: 'Thread switching the core on which it is executing',	subtitle: 'thread migrations'},
+		threadSwitchs:		{ id: 8,	v: 3, file: 'chart-units',			deck: decks.switches,		tag: 'thread-switchs',		title: 'Core swhitching the thread it is executing',			subtitle: 'thread switches'},
 	};
 }]);
 
@@ -302,7 +253,7 @@ app.factory('categories', ['widgets', 'decks', function(widgets, decks){
 	var sy = {
 		tag: 'sy', cat: 'sy', label: 'Synchronisation', title: 'Synchronisation', icon: 'cutlery',
 		graph: null, deck: decks.sy,
-		widgets: [widgets.lockCounts, widgets.lockContentions, widgets.lockContentions2, widgets.lockContentions3, widgets.lockContentions4, widgets.threadLocks]
+		widgets: [widgets.lockCounts, widgets.lockContentions, widgets.threadLocks]
 	};
 	var ds = {
 		tag: 'ds', cat: 'ds', label: 'Data sharing', title: 'Data sharing', icon: 'share-alt',

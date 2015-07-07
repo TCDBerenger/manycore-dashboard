@@ -158,29 +158,15 @@ function addCommon(output, id) {
  * Add switches
  */
 function addSwitches(output, id) {
-	// Init vars
-	var data		= profiles[id].data;
-	output.switches	= {
-		list: data.timelist.switches,
-		frames: []
-	};
+	// Data
+	output.switches = profiles[id].data.timelist.switches;
 
-	// calib
+	// Calibration
 	output.calibration.switches = profiles[id].hardware.calibration.switches;
-
-	// Build frame in the right order
-	for (var timeID = 0; timeID <= data.info.timeMax; timeID+= data.info.timeStep) {
-
-		// Output
-		output.switches.frames.push({
-			t:	timeID,
-			s:	(data.frames.hasOwnProperty(timeID)) ? data.frames[timeID].switches : NaN
-		});
-	}
 
 	// Stats
 	output.stats.switches = {
-		s: data.stats.switches
+		s: profiles[id].data.stats.switches
 	};
 }
 
@@ -188,18 +174,15 @@ function addSwitches(output, id) {
  * Add migrations
  */
 function addMigrations(output, id) {
-	// Init vars
-	var data			= profiles[id].data;
-	output.migrations	= {
-		list: data.timelist.migrations
-	};
+	// Data
+	output.migrations = profiles[id].data.timelist.migrations;
 
-	// calib
+	// Calibration
 	output.calibration.migrations = profiles[id].hardware.calibration.migrations;
 
 	// Stats
 	output.stats.migrations = {
-		m: data.stats.migrations
+		m: profiles[id].data.stats.migrations
 	};
 }
 
