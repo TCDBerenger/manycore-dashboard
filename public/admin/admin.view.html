@@ -1,1 +1,64 @@
-admin
+<style>
+	.admin .tab-title {
+		float: left;
+		padding: 0px 20px;
+		line-height: 40px;
+		color: #222222;
+		font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+		font-size: 32px;
+		font-weight: 300;
+		cursor: default;
+	}
+	.admin .tab-content {
+		padding-top: 20px;
+	}
+</style>
+<div class="row admin"><div class="col-xs-12">
+<tabset>
+	<span class="tab-title">Admin area</span>
+	<tab>
+		<tab-heading><i class="fa fa-history"></i> Changelog</tab-heading>
+		<accordion close-others="false">
+			<accordion-group heading="0.7 - July 2015" is-open="true">
+				<p><span class="label label-success">Synchronisation</span><ul>
+					<li>select graphs: success/failures and the first lock contentions</li>
+					<li></li>
+				</ul></p>
+				<p><span class="label label-warning">Graphs</span> replace switches and migrations graphs by a new better one (correct a graphical bug, less code to maintain ^^)</p>
+				<p><span class="label label-primary">Graphs</span><ul>
+					<li><b>X axis:</b> display in seconds with the time unit</li>
+					<li><b>legend:</b> merge legend and data tabs (aside part)</li>
+				</ul></p>
+				<p><span class="label label-default">General</span><ul>
+					<li>add changelog</li>
+					<li>add a disclaimer in the dashboard</li>
+					<li>add a link to 'motivations' document</li>
+				</ul></p>
+			</accordion-group>
+			<accordion-group heading="0.6 - June 2015">
+				<p><span class="label label-success">Task granularity</span> new potential parallelism graph (running and ready)</p>
+				<p><span class="label label-success">Synchronisation</span> new graphs</p>
+				<p><span class="label label-primary">brushing</span> basic cross selection (among all graphs)</p>
+				<p><span class="label label-primary">Graphs</span> add settings for some graphs</p>
+				<p><span class="label label-default">profiles</span><ul>
+					<li>new profiles : Philosopher dinner and Producers/Consumers</li>
+					<li>old profiles are hidden but still accessible</li>
+				</ul></p>
+			</accordion-group>
+		</accordion>
+	</tab>
+	<tab>
+		<tab-heading><i class="fa fa-sliders"></i> Global Settings</tab-heading>
+		TODO
+	</tab>
+	<tab>
+		<tab-heading><i class="fa fa-database"></i> Cache versions</tab-heading>
+		TODO
+	</tab>
+	<tab>
+		<tab-heading><i class="fa fa-table"></i> Raw data</tab-heading>
+		TODO
+	</tab>
+</tabset>
+
+</div></div>
