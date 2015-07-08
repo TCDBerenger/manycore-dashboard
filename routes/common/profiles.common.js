@@ -73,15 +73,15 @@ var profileMap = {
 
 		{ id: 21,	label: 'Dining ph. 45',	desc: 'Dining philosophers problem 45',		hardware: hardRoman, file: 'philosophers45',	pid: 4168,	timeStep: 50, v: 4 },
 
-		{ id: 31,	label: 'P 1 / C 1',		desc: '1 producer and 1 consumer',			hardware: hardRoman, file: 'pc1x1',		pid: 67380,	timeStep: 50, v: 4 },
-		{ id: 32,	label: 'P 1 / C 10',	desc: '1 producer and 10 consumers',		hardware: hardRoman, file: 'pc1x10',	pid: 73540,	timeStep: 50, v: 4 },
-		{ id: 33,	label: 'P 1 / C 100',	desc: '1 producer and 100 consumers',		hardware: hardRoman, file: 'pc1x100',	pid: 76824,	timeStep: 50, v: 4 },
-		{ id: 34,	label: 'P 10 / C 1',	desc: '10 producers and 1 consumer',		hardware: hardRoman, file: 'pc10x1',	pid: 79828,	timeStep: 50, v: 4 },
-		{ id: 35,	label: 'P 10 / C 10',	desc: '10 producers and 10 consumers',		hardware: hardRoman, file: 'pc10x10',	pid: 81516,	timeStep: 50, v: 4 },
-		{ id: 36,	label: 'P 10 / C 100',	desc: '10 producers and 100 consumers',		hardware: hardRoman, file: 'pc10x100',	pid: 82952,	timeStep: 50, v: 4 },
-		{ id: 37,	label: 'P 100 / C 1',	desc: '100 producers and 1 consumer',		hardware: hardRoman, file: 'pc100x1',	pid: 84696,	timeStep: 50, v: 4 },
-		{ id: 38,	label: 'P 100 / C 10',	desc: '100 producers and 10 consumers',		hardware: hardRoman, file: 'pc100x10',	pid: 90436,	timeStep: 50, v: 4 },
-		{ id: 39,	label: 'P 100 / C 100',	desc: '100 producers and 100 consumers',	hardware: hardRoman, file: 'pc100x100',	pid: 93496,	timeStep: 50, v: 4 }
+		{ id: 31,	label: 'P/C 1/1',		desc: '1 producer and 1 consumer',			hardware: hardRoman, file: 'pc1x1',		pid: 67380,	timeStep: 50, v: 4 },
+		{ id: 32,	label: 'P/C 1/10',		desc: '1 producer and 10 consumers',		hardware: hardRoman, file: 'pc1x10',	pid: 73540,	timeStep: 50, v: 4 },
+		{ id: 33,	label: 'P/C 1/100',		desc: '1 producer and 100 consumers',		hardware: hardRoman, file: 'pc1x100',	pid: 76824,	timeStep: 50, v: 4 },
+		{ id: 34,	label: 'P/C 10/1',		desc: '10 producers and 1 consumer',		hardware: hardRoman, file: 'pc10x1',	pid: 79828,	timeStep: 50, v: 4 },
+		{ id: 35,	label: 'P/C 10/10',		desc: '10 producers and 10 consumers',		hardware: hardRoman, file: 'pc10x10',	pid: 81516,	timeStep: 50, v: 4 },
+		{ id: 36,	label: 'P/C 10/100',	desc: '10 producers and 100 consumers',		hardware: hardRoman, file: 'pc10x100',	pid: 82952,	timeStep: 50, v: 4 },
+		{ id: 37,	label: 'P/C 100/1',		desc: '100 producers and 1 consumer',		hardware: hardRoman, file: 'pc100x1',	pid: 84696,	timeStep: 50, v: 4 },
+		{ id: 38,	label: 'P/C 100/10',	desc: '100 producers and 10 consumers',		hardware: hardRoman, file: 'pc100x10',	pid: 90436,	timeStep: 50, v: 4 },
+		{ id: 39,	label: 'P/C 100/100',	desc: '100 producers and 100 consumers',	hardware: hardRoman, file: 'pc100x100',	pid: 93496,	timeStep: 50, v: 4 }
 	]
 };
 
