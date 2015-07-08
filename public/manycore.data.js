@@ -233,7 +233,7 @@ app.factory('widgets', ['decks', function(decks) {
 		cacheMisses:		{ id: 11,	v: 3, file: 'chart-percent',		deck: decks.locality,		tag: 'cache-misses',		title: 'Cache misses',											subtitle: ''},
 		coreInactivity:		{ id: 5,	v: 3, file: 'core-inactivity',		deck: decks.inactivity,		tag: 'core-idle',			title: 'Idle cores',											subtitle: ''},
 		lockCounts:			{ id: 12,	v: 4, file: 'chart-units',			deck: decks.counts,			tag: 'lock-counts',			title: 'Lock contentions',										subtitle: 'lock failure versus lock acquisition'},
-		lockContentions:	{ id: 9,	v: 4, file: 'chart-capacity',		deck: decks.contentions,	tag: 'lock-contentions',	title: 'Lock contentions',										subtitle: 'cost and waiting time of lock acquisition'},
+		lockContentions:	{ id: 9,	v: 4, file: 'chart-capacity',		deck: decks.contentions,	tag: 'lock-contentions',	title: 'Time waiting for a lock',								subtitle: 'waiting for ressources'},
 		threadPaths:		{ id: 1,	v: 3, file: 'generic-to-delete',	deck: null,					tag: 'thread-paths',		title: 'Single thread execution phases',						subtitle: 'alternating sequential/parallel execution'},
 		threadChains:		{ id: 2,	v: 3, file: 'generic-to-delete',	deck: null,					tag: 'thread-chains',		title: 'Chains of dependencies',								subtitle: 'synchronisations and waiting between threads'},
 		threadLifetime:		{ id: 3,	v: 3, file: 'thread-lifetime',		deck: decks.lifetime,		tag: 'thread-running',		title: 'Life states of threads',								subtitle: 'creation, running, moving between cores, termination'},
