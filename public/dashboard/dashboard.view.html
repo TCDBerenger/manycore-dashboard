@@ -170,24 +170,30 @@
 
 
 	<!-- Other - line 2 - indicators -->
-	</div><div class="row" ng-if="hasProfiles()">
+	</div><div class="row {{needToBlur | iif : ' blured' : ''}}" ng-if="hasProfiles()">
 
-		<div class="col-auto" ng-repeat="indicator in indicators"><div class="panel panel-default category">
+		<div class="col-auto" ng-repeat="indicator in indicators"><div class="panel panel-default category" ng-mouseenter="blur()" ng-mouseleave="unblur()">
 			<div class="panel-heading">
 				<h3 class="panel-title">{{indicator.title}}</h3>
+			</div>
+			<div class="panel-expected">
+				<h4>Expected</h4>
+			</div>
+			<div class="panel-legend">
+				<h4>Legend</h4>
+				<p ng-repeat="l in indicator.legend">
+					<span style="color: {{l.color}}">{{l.icon | iif : l.icon : '▮'}}</span>
+					<strong>{{l.label}}:</strong>
+				</p>
 			</div>
 			<div class="panel-body">
 				<proxy-link-directive ng-attr-graph="{{indicator.graph}}" class="indicator-graph"></proxy-link-directive>
 			</div>
-			<div class="panel-footer legend">
-				<span ng-repeat="l in indicator.legend" style="color: {{l.color}}">
-					<span class="icon">{{l.icon | iif : l.icon : '▮'}}</span>
-					<span class="text">{{l.label}}</span>
-					<br ng-if="! $last" />
-				</span>
-			</div>
-			<div class="panel-footer links">
-				<a href ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})' ng-repeat-start="category in indicator.links">{{category.label}} <i class="fa fa-arrow-circle-o-right"></i></a><br ng-repeat-end ng-if="! $last" />
+			<div class="panel-links">
+				<h4>Figure it out</h4>
+				<div class="links">
+					<a href ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})' ng-repeat-start="category in indicator.links">{{category.label}} <i class="fa fa-arrow-circle-o-right"></i></a><br ng-repeat-end ng-if="! $last" />
+				</div>
 			</div>
 		</div></div>
 

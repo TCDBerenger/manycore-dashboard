@@ -101,6 +101,21 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 
 		return output;
 	};
+	
+	/**
+	 * Blur - var
+	 */
+	$scope.needToBlur = false;
+	
+	/**
+	 * Blur - handlers
+	 */
+	$scope.blur = function() {
+		$scope.needToBlur = true;
+	}
+	$scope.unblur = function() {
+		$scope.needToBlur = false;
+	}
 
 	
 
