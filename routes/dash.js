@@ -49,7 +49,7 @@ function addCommon(output, profile) {
 /**
  * Add data-locality data
  */
-function addTimeProfiling(output, profile) {
+function addProfiling(output, profile) {
 	// Data
 	var data = profile.data;
 
@@ -63,27 +63,32 @@ function addTimeProfiling(output, profile) {
 	for (var time = 0; time <= data.info.timeMax; time += data.info.timeStep) {
 		// Result
 		f = { t: time };
-
-		// uu 	: unused			half for half value (start from the middle)
-		// yb	: ready & standby	half for half value (start from the middle)
+		
 		if (data.frames.hasOwnProperty(time)) {
+		
+		
+			// uu 	: unused
+			// yb	: ready & standby
 			max = data.info.threads * data.info.timeStep;
-
+			
+			f.uu = Math.round(100 * data.frames[time].running / max);
+			f.yb = Math.min(100, Math.round(100 * (data.frames[time].ready + data.frames[time].standby) / max));
+			f.lw = Math.min(100, Math.round(100 * data.frames[time].lock_wait / max));
+			
+			// TO DELETE
 			f.half_uu =	Math.max(Math.round(50 - 50 * data.frames[time].running / max), 0);
 			f.half_yb = Math.round(50 * (data.frames[time].ready + data.frames[time].standby) / max);
-		} else {
-			f.half_uu =	NaN;
-			f.half_yb = NaN;
-		}
-		if (time <= 200) console.log(time, data.frames[time].running, max, f.half_uu);
-
-		// miss	: cache misses
-		if (data.locality.byFrames.hasOwnProperty(time)) {
+			
+			// miss	: cache misses
 			max = data.locality.byFrames[time].ipc + data.locality.byFrames[time].tlb + data.locality.byFrames[time].l1 + data.locality.byFrames[time].l2 + data.locality.byFrames[time].l3 + data.locality.byFrames[time].hpf;
-
+			
 			f.miss =	100 - Math.round(100 * data.locality.byFrames[time].ipc / max);
+			
 		} else {
-			f.miss =	NaN;
+			f.uu = NaN;
+			f.yb = NaN;
+			f.lw = NaN;
+			f.miss = NaN;
 		}
 
 		// Save
@@ -233,7 +238,7 @@ router.get('/*', function(request, response) {
 	addCommon(output, profile);
 
 	// for time profiling
-	addTimeProfiling(output, profile);
+	addProfiling(output, profile);
 
 	// for potential parallelism
 	addTime(output, profile);
