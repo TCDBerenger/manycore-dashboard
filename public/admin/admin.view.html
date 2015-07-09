@@ -18,6 +18,39 @@
 	<span class="tab-title">Admin area</span>
 	<tab>
 		<tab-heading><i class="fa fa-history"></i> Changelog</tab-heading>
+		<div class="row">
+		
+		<div class="col-sm-3">
+		<div class="panel panel-primary">
+			<div class="panel-heading"><h3 class="panel-title">Roadmap</h3></div>
+			<div class="panel-body">
+				<h4>Soon</h4>
+				<ul>
+					<li><b>Dashboard:</b> new profile graph</li>
+					<li><b>Dashboard:</b> new little indicators</li>
+					<li><b>SY:</b> last graph : lock lifetime</li>
+					<li><b>DS:</b> last graph : cache line invalidation</li>
+					<li><b>LB:</b> non-sequential graph</li>
+					<li><b>LB:</b> chain of data dependencies graph</li>
+					<li><b>DL:</b> last graph : parrallel coordinates</li>
+					<li><b>RS:</b> everything</li>
+				</ul>
+				<h4>Postponed</h4>
+				<ul>
+					<li><b>TG:</b> rework the life states of threads</li>
+					<li>sequence selection (choose starting and ending time for each profile)</li>
+					<li>refine by threads (unselect)</li>
+				</ul>
+				<h4>Abandoned</h4>
+				<ul>
+					<li>I/O category ⇐ no data</li>
+					<li>drill-down option for graphs<br/>i.e. overview → by core/threads</li>
+				</ul>
+			</div>
+		</div>
+		</div>
+		
+		<div class="col-sm-9">
 		<accordion close-others="false">
 			<accordion-group heading="0.7 - July 2015" is-open="true">
 				<p><span class="label label-success">Synchronisation</span><ul>
@@ -47,6 +80,9 @@
 				</ul></p>
 			</accordion-group>
 		</accordion>
+		</div>
+		
+		</div>
 	</tab>
 	<tab>
 		<tab-heading><i class="fa fa-sliders"></i> Global Settings</tab-heading>
