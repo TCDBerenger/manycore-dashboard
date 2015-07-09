@@ -67,6 +67,29 @@
 
 
 /**
+ * Dashboard Section
+ */
+
+.dashboard .profile .section .title {
+	display: flex;
+	font-size: 0.8em;
+	font-weight: bold;
+}
+.dashboard .profile .section .title:before {
+	content:'';
+	width: 5px;
+	margin: auto 0.25em;
+	border-bottom: 2px dashed #797979;
+}
+.dashboard .profile .section .title:after {
+	flex: 1;
+	content:'';
+	margin: auto 0.25em;
+	border-bottom: 2px dashed #797979;
+}
+
+
+/**
  * Dashboard Legend
  */
 .dashboard .ctrl-legend {
@@ -266,3 +289,9 @@
 	min-width: 40px;
 	min-height: 40px;
 }
+
+
+
+/**
+ * Dashboard experiments
+ */

@@ -51,6 +51,7 @@
 
 		<!-- categories -->
 		<div id="section{{profile_index}}{{category_index}}" class="section" ng-repeat="(category_index, category) in categories">
+			<!-- <span class="title">Test of title</span> -->
 			<a href ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})'><proxy-link-directive ng-attr-graph="{{category.graph}}" class="widget-graph"></proxy-link-directive></a>
 		</div>
 	</div></div>
