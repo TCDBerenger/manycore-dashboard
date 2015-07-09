@@ -192,7 +192,7 @@
 			<div class="panel-links">
 				<h4>Figure it out</h4>
 				<div class="links">
-					<a href ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})' ng-repeat-start="category in indicator.links">{{category.label}} <i class="fa fa-arrow-circle-o-right"></i></a><br ng-repeat-end ng-if="! $last" />
+					<a href ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})' ng-repeat-start="category in indicator.links"><i class="fa fa-arrow-circle-o-right"></i>{{category.label}}</a><br ng-repeat-end ng-if="! $last" />
 				</div>
 			</div>
 		</div></div>
