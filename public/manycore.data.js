@@ -289,6 +289,20 @@ app.factory('categories', ['widgets', 'decks', function(widgets, decks){
 	return output;
 }]);
 
+
+app.factory('strips', ['decks', 'categories', function(decks, categories) {
+	return [
+		{ title: 'Unused core',			deck: null,	links: [categories.tg, categories.sy] },
+		{ title: 'Waiting a core',		deck: null,	links: [categories.tg] },
+		{ title: 'Waiting a ressource',	deck: null,	links: [categories.sy] },
+		
+		{ title: 'DS',					deck: null, links: []},
+		{ title: 'LB',					deck: null, links: []},
+		{ title: 'Cache misses',		deck: null, links: [categories.dl]},
+		{ title: 'RS',					deck: null, links: []}
+	];
+}]);
+
 app.factory('indicators', ['colours', 'categories', function(colours, categories) {
 	//
 	//	Getter function

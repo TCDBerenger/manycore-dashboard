@@ -1,4 +1,4 @@
-app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http', 'profileService', 'categories', 'indicators' , function($scope, $rootScope, $window, $http, profileService, categories, indicators) {
+app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http', 'profileService', 'categories', 'strips', 'indicators' , function($scope, $rootScope, $window, $http, profileService, categories, strips, indicators) {
 	/************************************************/
 	/* Constructor - Init							*/
 	/************************************************/
@@ -11,6 +11,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 
 	// Details
 	$scope.categories = categories.all;
+	$scope.strips = strips;
 	$scope.indicators = indicators.all;
 
 	// References

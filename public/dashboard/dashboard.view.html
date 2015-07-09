@@ -48,9 +48,17 @@
 			<!-- stat -->
 			<p><i class="fa fa-bar-chart"></i> <strong>duration:</strong> {{data[profile.id].info.duration}} ms</p>
 		</div>
+		
+		<!-- Strips -->
+		<div class="section section-strip" ng-repeat="strip in strips">
+			<span class="title">{{strip.title}}</span>
+			<a href ui-sref='detail({cat: strip.links[0].tag, ids: encodeSelectedProfile()})'><chart-strip class="widget-graph"></chart-strip></a>
+		</div>
+		
+		<br /><br /><br />
 
 		<!-- categories -->
-		<div id="section{{profile_index}}{{category_index}}" class="section" ng-repeat="(category_index, category) in categories">
+		<div id="section{{profile_index}}{{category_index}}" class="section section-category" ng-repeat="(category_index, category) in categories">
 			<!-- <span class="title">Test of title</span> -->
 			<a href ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})'><proxy-link-directive ng-attr-graph="{{category.graph}}" class="widget-graph"></proxy-link-directive></a>
 		</div>
@@ -129,24 +137,24 @@
 		</div></div>
 
 		<!-- Control -->
-		<!-- <div ng-if="hasProfiles()" class="col-auto ctrl"><div class="block">
+		<div ng-if="has2Profiles()" class="col-auto ctrl"><div class="block">
 			<span class="block-icon fa-stack">
 				<i class="fa fa-circle fa-stack-2x"></i>
 				<i class="fa fa-wrench fa-stack-1x fa-inverse"></i>
 			</span>
-			<p ng-if="hasProfiles()"><a class="action" href ng-click="unselectAllProfiles()">
+			<p><a class="action" href ng-click="unselectAllProfiles()">
 				<span class="fa-stack icon">
 					<i class="fa fa-thumb-tack fa-stack-1x"></i>
 					<i class="fa fa-ban fa-stack-2x"></i>
 				</span><span class="text">deselect all</span>
 			</a></p>
-			<p ng-if="has2Profiles()"><a class="action" href ng-click="invertProfiles()">
+			<p><a class="action" href ng-click="invertProfiles()">
 				<span class="fa-stack icon">
 					<i class="fa fa-circle fa-stack-2x"></i>
 					<i class="fa fa-exchange fa-stack-1x fa-inverse"></i>
 				</span><span class="text">invert</span>
 			</a></p>
-		</div></div> -->
+		</div></div>
 
 		<!-- Disclamer -->
 		<div class="col-µ" style="min-width: 280px"><div class="block block-title">
@@ -159,15 +167,15 @@
 			Graphs could contain some mistakes and data could be miscomputed.
 		</div></div>
 
-		<!-- Stats -->
-		<div ng-if="hasProfiles()" class="col-µ" style="min-width: 280px"><div class="block block-imp block-title">
+		<!-- Sequence -->
+		<!-- <div ng-if="hasProfiles()" class="col-µ" style="min-width: 280px"><div class="block block-imp block-title">
 			<span class="block-icon fa-stack">
 				<i class="fa fa-circle fa-stack-2x"></i>
 				<i class="fa fa-text-width fa-stack-1x fa-inverse"></i>
 			</span>
 			<h2>Sequence</h2>
 			TODO
-		</div></div>
+		</div></div> -->
 
 
 	<!-- Other - line 2 - indicators -->
