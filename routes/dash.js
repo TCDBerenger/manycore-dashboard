@@ -11,6 +11,12 @@ var router = express.Router();
 var profiles = require('./common/profiles.common.js');
 
 
+/************************************************/
+/* Constants									*/
+/************************************************/
+var STRIP_HEIGHT = 60;
+
+
 
 /************************************************/
 /* Functions - Add								*/
@@ -71,20 +77,18 @@ function addProfiling(output, profile) {
 			// yb	: ready & standby
 			max = data.info.threads * data.info.timeStep;
 			
-			f.uu = Math.round(100 * data.frames[time].running / max);
-			f.yb = Math.min(100, Math.round(100 * (data.frames[time].ready + data.frames[time].standby) / max));
-			f.lw = Math.min(100, Math.round(100 * data.frames[time].lock_wait / max));
-			
-			// TO DELETE
-			f.half_uu =	Math.max(Math.round(50 - 50 * data.frames[time].running / max), 0);
-			f.half_yb = Math.round(50 * (data.frames[time].ready + data.frames[time].standby) / max);
+			f.r = Math.round(STRIP_HEIGHT * data.frames[time].running / max);
+			f.uu = Math.round(STRIP_HEIGHT * (max - data.frames[time].running) / max);
+			f.yb = Math.min(STRIP_HEIGHT, Math.round(STRIP_HEIGHT * (data.frames[time].ready + data.frames[time].standby) / max));
+			f.lw = Math.min(STRIP_HEIGHT, Math.round(STRIP_HEIGHT * data.frames[time].lock_wait / max));
 			
 			// miss	: cache misses
 			max = data.locality.byFrames[time].ipc + data.locality.byFrames[time].tlb + data.locality.byFrames[time].l1 + data.locality.byFrames[time].l2 + data.locality.byFrames[time].l3 + data.locality.byFrames[time].hpf;
 			
-			f.miss =	100 - Math.round(100 * data.locality.byFrames[time].ipc / max);
+			f.miss =	STRIP_HEIGHT - Math.round(STRIP_HEIGHT * data.locality.byFrames[time].ipc / max);
 			
 		} else {
+			f.r = NaN;
 			f.uu = NaN;
 			f.yb = NaN;
 			f.lw = NaN;

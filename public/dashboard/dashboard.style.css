@@ -33,7 +33,7 @@
 	padding: 20px 20px 10px 20px;
 }
 .dashboard .profile .tile .section-strip {
-	margin-bottom: 10px;
+	border-top: 1px solid #DDD;
 }
 .dashboard .profile .tile .section-category {
 	border-top: 2px dashed #797979;
@@ -73,20 +73,30 @@
  * Dashboard Section
  */
 
-.dashboard .profile .section .title {
+.dashboard .profile .section-strip .title {
 	display: flex;
+	color: #222;
 	font-size: 1em;
 }
-.dashboard .profile .section .title:before {
+.dashboard .profile .section-strip .title:before {
 	font-family: FontAwesome;
 	content: "\f063\00a0";
 	cursor: default;
 }
-.dashboard .profile .section .title:after {
+.dashboard .profile .section-strip .title:after {
 	flex: 1;
 	content:'';
 	margin: auto 0.25em;
 	border-bottom: 2px dashed #797979;
+}
+.dashboard .profile .section-strip a:hover, .dashboard .profile .section-strip a:visited, .dashboard .profile .section-strip a:link, .dashboard .profile .section-strip a:active {
+	text-decoration: none !important;
+}
+.dashboard .profile .section-strip:hover .title {
+	color: #008CBA;
+}
+.dashboard .profile .section-strip:hover .title:after {
+	border-bottom-color: #008CBA;
 }
 
 
@@ -291,6 +301,16 @@
 	min-height: 40px;
 }
 
+
+.dashboard .widget-graph .svg-title {
+	font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 16px;
+}
+.dashboard .widget-graph:hover .svg-title {
+	/*text-shadow: 0 0 10px #FFF, 0 0 20px #FFF, 0 0 30px #FFF, 0 0 40px #FFF, 0 0 50px #FFF;*/
+	text-shadow: 0 0 10px #FFF, 0 0 10px #FFF, 0 0 10px #FFF, 0 0 20px #FFF, 0 0 30px #FFF;
+	fill: #222;
+}
 
 
 /**

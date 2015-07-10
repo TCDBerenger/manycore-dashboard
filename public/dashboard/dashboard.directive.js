@@ -1,3 +1,174 @@
+/**********************************************************/
+/*														  */
+/*	Common smart objects								  */
+/*														  */
+/**********************************************************/
+
+/**
+ * Layout for strip chart
+ */
+var stripLayout = function() {
+	// Allow seld reference (otherwise this is the caller object)
+	var self = this;
+
+	this.margin		= { top: 0, right: 0, bottom: 0, left: 0 };
+	this.height		= 60;
+	this.width		= 0;
+	this.graph		= {};
+	
+	this.compute	= function(width) {
+		self.width			= width;
+		self.graph.width	= width - self.margin.left - self.margin.right;
+		self.graph.height	= self.height - self.margin.top - self.margin.bottom;
+		self.graph.top		= self.margin.top;
+		self.graph.right	= width - self.margin.right;
+		self.graph.bottom	= self.height - self.margin.bottom;
+		self.graph.left		= self.margin.left;
+	};
+};
+
+
+
+/**********************************************************/
+/*														  */
+/*	Utilities											  */
+/*														  */
+/**********************************************************/
+
+/**
+ * Array of points to string
+ */
+function p2s(points) {
+	var result = "";
+
+	for (var i = points.length - 2; i >= 0; i -= 2) {
+		result = points[i] + "," + points[i+1] + " " + result;
+	};
+
+	return result;
+}
+
+
+/**********************************************************/
+/*														  */
+/*	Directives											  */
+/*														  */
+/**********************************************************/
+
+/**
+ * Strip charts (profiling)
+ */
+app.directive('chartStrip', function() {
+
+	function chart_link(scope, element, attrs, controller) {
+		console.log("== directive == chartStrip ==");
+
+		// Layout
+		var container = element[0];
+		var layout = new stripLayout();
+
+		// Attributes
+		var deck = scope.strip.deck;
+		var v = deck.data[0];
+		var profile = scope.profile;
+		
+		// Data
+		var data = profile.data.dash;
+		var dataList = profile.data.dash.profiling;
+
+		// Meta
+		var title = scope.strip.title;
+		var timeStep = data.info.timeStep;
+		
+		// DOM
+		d3.select(container).style('height', layout.height + 'px');
+		var svg = d3.select(container).append('svg').attr('height', layout.height);
+		var group = svg.append("g").attr("class", "dataset");
+		
+		// Scales
+		var scaleX = d3.scale.linear().domain([0, data.info.duration]);
+		
+		// Title
+		svg.append("text")
+			.attr("class", "svg-title")
+			.attr("x", 0)
+			.attr("y", layout.height - 4)
+			.attr("text-anchor", "start")
+			.attr("fill", v.fcolor)
+			.text(title);
+
+		// (Re) Paint
+		var redraw = function redraw() {
+			
+			// Layout
+			layout.compute(container.clientWidth);
+			
+			// Container (remove background stripes)
+			d3.select(container).style('background', 'transparent');
+
+			// SVG
+			svg.attr('width', layout.width);
+			
+			// Scale X
+			scaleX.rangeRound([layout.graph.left, layout.graph.right]);
+			
+			// Clean
+			group.selectAll("*").remove();
+			
+			// Points
+			var points = [scaleX(0), layout.graph.bottom];
+			dataList.forEach(function(p) {
+				points.push.apply(points, [scaleX(p.t), layout.graph.bottom - p[v.attr], scaleX(p.t + timeStep), layout.graph.bottom - p[v.attr]]);
+			});
+			points.push.apply(points, [scaleX(data.info.duration), layout.graph.bottom]);
+			
+			// Draw
+			group.append("polygon")
+				.attr("class", "svg-data")
+				.attr("points", p2s(points))
+				.attr("fill", v.color)
+				//.attr('stroke', v.fcolor)
+				.attr('stroke-width', 1);
+		}
+		
+		// Select
+		var enter = function enter() {
+			//svg.select('.svg-title').attr("fill", '#222');
+			svg.select('.svg-data').attr("fill", v.fcolor);
+		}
+		
+		// Unselect
+		var leave = function leave() {
+			//svg.select('.svg-title').attr("fill", v.fcolor);
+			svg.select('.svg-data').attr("fill", v.color);
+		}
+		
+		
+		// Binds
+		scope.$watch(function() { return container.clientWidth; }, redraw);
+		element.on('mouseenter', enter);
+		element.on('mouseleave', leave);
+	}
+
+	return {
+		link: chart_link,
+		restrict: 'E'
+	}
+});
+
+
+
+
+
+
+
+/**********************************************************/
+/*														  */
+/*	TO REWORK											  */
+/*														  */
+/**********************************************************/
+
+
 var widgetDashLayout = function() {
 	// Allow seld reference (otherwise this is the caller object)
 	var self = this;

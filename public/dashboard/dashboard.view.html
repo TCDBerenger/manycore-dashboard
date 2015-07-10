@@ -1,6 +1,6 @@
 <div class="row dashboard">
 	<!-- Profiles -->
-	<div class="col-xs-2 profile" ng-repeat-start="(profile_index, profile) in selectedProfiles"><div class="tile">
+	<div class="col-xs-2 profile" ng-repeat="(profile_index, profile) in selectedProfiles"><div class="tile">
 
 		<!-- main -->
 		<div class="section">
@@ -51,55 +51,12 @@
 		
 		<!-- Strips -->
 		<div class="section section-strip" ng-repeat="strip in strips">
-			<span class="title">{{strip.title}}</span>
-			<a href ui-sref='detail({cat: strip.links[0].tag, ids: encodeSelectedProfile()})'><chart-strip class="widget-graph"></chart-strip></a>
-		</div>
-		
-		<br /><br /><br />
-
-		<!-- categories -->
-		<div id="section{{profile_index}}{{category_index}}" class="section section-category" ng-repeat="(category_index, category) in categories">
-			<!-- <span class="title">Test of title</span> -->
-			<a href ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})'><proxy-link-directive ng-attr-graph="{{category.graph}}" class="widget-graph"></proxy-link-directive></a>
+			<a ui-sref='detail({cat: strip.links[0].tag, ids: encodeSelectedProfile()})'>
+				<!-- <span class="title">{{strip.title}}</span><!-- style="color: {{strip.deck.data[0].fcolor}}" -->
+				<chart-strip class="widget-graph"></chart-strip>
+			</a>
 		</div>
 	</div></div>
-
-	<!-- Control and Legend -->
-	<div id="ctrl-legend" class="col-xs-1 ctrl ctrl-legend" ng-repeat-end ng-if="$index == 0" ng-class="(will2Profiles()) ? 'center' : ''">
-
-		<!-- Control -->
-		<div class="ctrl-box" ng-if="has2Profiles()">
-			<p>
-				<a class="action" href ng-click="unselectAllProfiles()">
-					<span class="fa-stack icon">
-						<i class="fa fa-thumb-tack fa-stack-1x"></i>
-						<i class="fa fa-ban fa-stack-2x"></i>
-					</span><span class="text">deselect all</span>
-				</a>
-			</p><p>
-				<a class="action" href ng-click="invertProfiles()">
-					<span class="fa-stack icon">
-						<i class="fa fa-circle fa-stack-2x"></i>
-						<i class="fa fa-exchange fa-stack-1x fa-inverse"></i>
-					</span><span class="text">invert</span>
-				</a>
-			</p>
-		</div>
-
-
-		<!-- legend -->
-		<div class="section" ng-repeat="category in categories" ng-style="{top: sectionY($index) + 'px'}" ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})'>
-			<p class="title"><!-- <i class="fa fa-{{category.icon}}"></i>  -->{{category.title}}</p>
-			<p class="legend">
-				<span ng-repeat="legend in category.deck.legend | reverse" style="color: {{legend.fcolor}}">
-					<span class="icon left">▮</span>
-					<span class="icon right" ng-if="will2Profiles()">▮</span>
-					<span class="text">{{legend.label}}</span>
-					<br ng-if="! $last" />
-				</span>
-			</p>
-		</div>
-	</div>
 
 	<!-- Waiting -->
 	<div ng-if="waitingData()" class="col-xs-2 ctrl"><div class="block">
@@ -157,13 +114,13 @@
 		</div></div>
 
 		<!-- Disclamer -->
-		<div class="col-µ" style="min-width: 280px"><div class="block block-title">
+		<div class="col-µ" style="min-width: 280px; max-width: 500px;"><div class="block block-title">
 			<span class="block-icon fa-stack">
 				<i class="fa fa-circle fa-stack-2x"></i>
 				<i class="fa fa-info fa-stack-1x fa-inverse"></i>
 			</span>
-			<h2>Be careful</h2>
-			This tool is created for a research purpose and is in constant evolution.<br />
+			<h2>Information</h2>
+			<strong>Be careful.</strong> This tool is created for a research purpose and is in constant evolution.
 			Graphs could contain some mistakes and data could be miscomputed.
 		</div></div>
 

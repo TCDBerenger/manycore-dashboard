@@ -78,26 +78,11 @@ app.factory('decks', ['colours', function(colours) {
 	var l_wait = 	{ label: 'lock waiting',	title: 'waiting',		desc: l_wait_label,							unity: 'ms',					cat: 'times', attr: 'lw',	color: colours.list.eYellow,	fcolor: colours.list.dYellow,	gcolor: colours.list.gYellow };
 
 	return {
-		tg: {
-			axis: {
-				v: {
-					prefix: 'half_',
-					start: [50, 50],
-					invert: [true, false]
-				},
-				limit: {
-					min: function(data) { return 0;},
-					mid: function(data) { return data.info.threads * data.info.timeStep;},
-					max: function(data) { return 2 * data.info.threads * data.info.timeStep;},
-				}
-			},
-			data: [capacity, readySB],
-			legend: [capacity, readySB]
-		},
-		dl: {
-			data: [miss],
-			legend: [miss]
-		},
+		r:		{ data: [running] },
+		uu:		{ data: [capacity] },
+		yb:		{ data: [readySB] },
+		lw:		{ data: [l_wait] },
+		miss:	{ data: [miss] },
 		states: {
 			graph : {
 				v:		[readySB],	// data over the limit (like other graphs)
@@ -247,37 +232,30 @@ app.factory('widgets', ['decks', function(decks) {
 app.factory('categories', ['widgets', 'decks', function(widgets, decks){
 	var tg = {
 		tag: 'tg', cat: 'tg', label: 'Task granularity', title: 'Task granularity', icon: 'tasks',
-		graph: 'chartDashDivergence', deck: decks.tg,
 		widgets: [widgets.threadStates, widgets.threadSwitchs, widgets.threadMigrations, widgets.threadLifetime]
 	};
 	var sy = {
 		tag: 'sy', cat: 'sy', label: 'Synchronisation', title: 'Synchronisation', icon: 'cutlery',
-		graph: null, deck: decks.sy,
 		widgets: [widgets.lockCounts, widgets.lockContentions, widgets.threadLocks]
 	};
 	var ds = {
 		tag: 'ds', cat: 'ds', label: 'Data sharing', title: 'Data sharing', icon: 'share-alt',
-		graph: null, deck: decks.ds,
 		widgets: [widgets.lockContentions, widgets.cacheInvalid, widgets.cacheMisses]
 	};
 	var lb = {
 		tag: 'lb', cat: 'lb', label: 'Load balancing', title: 'Load balancing', icon: 'code-fork',
-		graph: null, deck: decks.ld,
 		widgets: [widgets.coreInactivity, widgets.lockContentions, widgets.threadMigrations, widgets.threadStates, widgets.threadPaths, widgets.threadChains]
 	};
 	var dl = {
 		tag: 'dl', cat: 'dl', label: 'Data locality', title: 'Data locality', icon: 'location-arrow',
-		graph: 'chartDashProfile', deck: decks.dl,
 		widgets: [widgets.cacheMisses]
 	};
 	var rs = {
 		tag: 'rs', cat: 'rs', label: 'Resource sharing', title: 'Resource sharing', icon: 'exchange',
-		graph: null, deck: decks.rs,
 		widgets: []
 	};
 	var io = {
 		tag: 'io', cat: 'io', label: 'Input/Output', title: 'Input/Output', icon: 'plug',
-		graph: null, deck: decks.io,
 		widgets: []
 	};
 
@@ -292,14 +270,14 @@ app.factory('categories', ['widgets', 'decks', function(widgets, decks){
 
 app.factory('strips', ['decks', 'categories', function(decks, categories) {
 	return [
-		{ title: 'Unused core',			deck: null,	links: [categories.tg, categories.sy] },
-		{ title: 'Waiting a core',		deck: null,	links: [categories.tg] },
-		{ title: 'Waiting a ressource',	deck: null,	links: [categories.sy] },
-		
-		{ title: 'DS',					deck: null, links: []},
-		{ title: 'LB',					deck: null, links: []},
-		{ title: 'Cache misses',		deck: null, links: [categories.dl]},
-		{ title: 'RS',					deck: null, links: []}
+		{ title: 'Running',				deck: decks.r,		links: [categories.tg, categories.sy] },
+		{ title: 'Unused core',			deck: decks.uu,		links: [categories.tg, categories.sy] },
+		{ title: 'Waiting a core',		deck: decks.yb,		links: [categories.tg] },
+		{ title: 'Waiting a ressource',	deck: decks.lw,		links: [categories.sy] },
+	//	{ title: 'DS',					deck: null,			links: []},
+	//	{ title: 'LB',					deck: null,			links: []},
+		{ title: 'Cache misses',		deck: decks.miss,	links: [categories.dl]},
+	//	{ title: 'RS',					deck: null,			links: []}
 	];
 }]);
 
