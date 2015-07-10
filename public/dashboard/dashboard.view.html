@@ -2,7 +2,7 @@
 	<div class="modalbg" ng-if="needModalBG" ng-animate="'animate'" ng-mouseenter="unblur()"></div>
 	
 	<!-- Profiles -->
-	<div class="col-xs-2 profile hovermodal" ng-repeat="(profile_index, profile) in selectedProfiles" ng-mouseenter="blur(1)" ng-mouseleave="unblur()"><div class="tile">
+	<div class="col-xs-2 profile hovermodal" ng-repeat="(profile_index, profile) in selectedProfiles"><div class="tile">
 
 		<!-- main -->
 		<div class="section">
@@ -58,11 +58,6 @@
 			</a>
 		</div>
 	</div></div>
-	
-	<!-- Fake profile -->
-	<div class="fake-profile" ng-show="modalStrip">
-		TODO
-	</div>
 
 	<!-- Waiting -->
 	<div ng-if="waitingData()" class="col-xs-2 ctrl"><div class="block">

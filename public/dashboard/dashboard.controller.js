@@ -107,18 +107,15 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	 * Blur - var
 	 */
 	$scope.needModalBG = false;
-	$scope.modalStrip = false;
 	
 	/**
 	 * Blur - handlers
 	 */
-	$scope.blur = function(zone) {
+	$scope.blur = function() {
 		$scope.needModalBG = true;
-		// $scope.modalStrip = (zone == 1);
 	}
 	$scope.unblur = function() {
 		$scope.needModalBG = false;
-		$scope.modalStrip = false;
 	}
 
 	
