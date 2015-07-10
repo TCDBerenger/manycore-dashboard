@@ -304,7 +304,8 @@
 
 .dashboard .widget-graph .svg-title {
 	font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-	font-size: 16px;
+	font-size: 26px;
+	font-weight: 300;
 }
 .dashboard .widget-graph:hover .svg-title {
 	/*text-shadow: 0 0 10px #FFF, 0 0 20px #FFF, 0 0 30px #FFF, 0 0 40px #FFF, 0 0 50px #FFF;*/

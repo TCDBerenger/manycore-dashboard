@@ -49,33 +49,33 @@ app.factory('decks', ['colours', function(colours) {
 		}
 	}
 
-	var limit = 	{ color: colours.list.eGrey, fcolor: colours.list.dGrey, gcolor: colours.list.gGrey,	expected: function(profile) { return 100; },																displayed: function(profile) { return 110; } };
+	var limit = 	{ color: colours.list.eGrey, fcolor: colours.list.dGrey, gcolor: colours.list.lGrey,	expected: function(profile) { return 100; },																displayed: function(profile) { return 110; } };
 	var limit_th = 	{ color: limit.color, fcolor: limit.fcolor, gcolor: limit.gcolor, label: 'threads',		expected: function(profile) { return profile.currentData.stats.h; },										displayed: function(profile) { return profile.currentData.stats.h + 2; } };
 
-	var running = 	{ label: 'threads running',	title: 'running',	desc: 'processor executing threads',	unity: 'ms', cat: 'times', attr: 'r',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
-	var readySB = 	{ label: 'threads ready',	title: 'ready',		desc: ready_label,						unity: 'ms', cat: 'times', attr: 'yb',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
-	var ready = 	{ label: 'threads ready',	title: 'ready',		desc: ready_label,						unity: 'ms', cat: 'times', attr: 'y',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
-	var standBy = 	{ label: 'threads standBy',	title: 'stand by',	desc: standby_label,					unity: 'ms', cat: 'times', attr: 'b',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
-	var waiting = 	{ label: 'threads waiting',	title: 'waiting',	desc: waiting_label,					unity: 'ms', cat: 'times', attr: 'w',	color: colours.list.eOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.gOrange };
-	var capacity = 	{ label: 'unused core',		title: 'capacity',	desc: 'processor is not fully used',	unity: 'ms', cat: 'times', attr: 'uu',	color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.gBlue };
+	var running = 	{ label: 'threads running',	title: 'running',	desc: 'processor executing threads',	unity: 'ms', cat: 'times', attr: 'r',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen };
+	var readySB = 	{ label: 'threads ready',	title: 'ready',		desc: ready_label,						unity: 'ms', cat: 'times', attr: 'yb',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed };
+	var ready = 	{ label: 'threads ready',	title: 'ready',		desc: ready_label,						unity: 'ms', cat: 'times', attr: 'y',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed };
+	var standBy = 	{ label: 'threads standBy',	title: 'stand by',	desc: standby_label,					unity: 'ms', cat: 'times', attr: 'b',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed };
+	var waiting = 	{ label: 'threads waiting',	title: 'waiting',	desc: waiting_label,					unity: 'ms', cat: 'times', attr: 'w',	color: colours.list.eOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange };
+	var capacity = 	{ label: 'unused core',		title: 'capacity',	desc: 'processor is not fully used',	unity: 'ms', cat: 'times', attr: 'uu',	color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.lBlue };
 	var system = 	{ label: 'system',			title: 'system',	desc: 'processor is used by the OS (soon)',	unity: 'ms', cat: 'times', attr: '-',	color: colours.list.black,		fcolor: colours.list.black,		gcolor: colours.list.black };
 
-	var ipc = 		{ label: 'executing',			title: 'Executing',			desc: 'executing',				unity: 'ms', cat: 'locality',	attr: 'ipc',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
-	var miss = 		{ label: 'Cache misses',		title: 'Cache misses',		desc: '',						unity: 'ms', cat: 'locality',	attr: 'miss',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
+	var ipc = 		{ label: 'executing',			title: 'Executing',			desc: 'executing',				unity: 'ms', cat: 'locality',	attr: 'ipc',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen };
+	var miss = 		{ label: 'Cache misses',		title: 'Cache misses',		desc: '',						unity: 'ms', cat: 'locality',	attr: 'miss',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed };
 	var tlbmiss = 	{ label: 'address translation',	title: 'TLB misses',		desc: 'address translation',	unity: 'ms', cat: 'locality',	attr: 'tlb',	color: colours.list.lGrey };
 	var l1miss = 	{ label: 'loading from L2',		title: 'L1 misses',			desc: 'loading data from L2',	unity: 'ms', cat: 'locality',	attr: 'l1',		color: colours.list.lRed };
 	var l2miss = 	{ label: 'loading from L3',		title: 'L2 misses',			desc: 'loading data from L3',	unity: 'ms', cat: 'locality',	attr: 'l2',		color: colours.list.eRed };
 	var l3miss = 	{ label: 'loading from RAM',	title: 'L3 misses',			desc: 'loading data from RAM',	unity: 'ms', cat: 'locality',	attr: 'l3',		color: colours.list.dRed };
 	var swapping = 	{ label: 'Swapping',			title: 'Swapping',			desc: 'hard page faults',		unity: 'ms', cat: 'locality',	attr: 'hpf',	color: colours.list.black };
 
-	var sw = 		{ label: 'switches',	title: 'context switches',	desc: 'cores switching the working thread',	list: 'switches',	cat: 'switches',	attr: 's',											color: colours.list.eGrey,		fcolor: colours.list.dGrey,		gcolor: colours.list.gGrey };
-	var mg = 		{ label: 'migrations',	title: 'thread migrations',	desc: 'thread migrate to another core',		list: 'migrations',	cat: 'migrations',	attr: 'm',											color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.gViolet };
-	var mg2 = 		{ label: 'migrations',	title: 'thread migrations',	desc: mg.desc,								list: 'migrations',	cat: 'migrations',	attr: 'm',	colors: [colours.base, colours.alt],	color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.gViolet };
-	var mg_tmp = 	{ label: 'migrations',	title: 'migrations',		desc: 'migrations',												cat: 'migrations',	attr: 'm',	color2: colours.alt,	color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.gViolet };
+	var sw = 		{ label: 'switches',	title: 'context switches',	desc: 'cores switching the working thread',	list: 'switches',	cat: 'switches',	attr: 's',											color: colours.list.eGrey,		fcolor: colours.list.dGrey,		gcolor: colours.list.lGrey };
+	var mg = 		{ label: 'migrations',	title: 'thread migrations',	desc: 'thread migrate to another core',		list: 'migrations',	cat: 'migrations',	attr: 'm',											color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.lViolet };
+	var mg2 = 		{ label: 'migrations',	title: 'thread migrations',	desc: mg.desc,								list: 'migrations',	cat: 'migrations',	attr: 'm',	colors: [colours.base, colours.alt],	color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.lViolet };
+	var mg_tmp = 	{ label: 'migrations',	title: 'migrations',		desc: 'migrations',												cat: 'migrations',	attr: 'm',	color2: colours.alt,	color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.lViolet };
 
-	var l_success = { label: 'lock success',	title: 'lock success',	desc: 'number of lock acquisition success',					list: 'slocks', cat: 'locks', attr: 's',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.gGreen };
-	var l_failure = { label: 'lock failure',	title: 'lock failure',	desc: 'number of lock acquisition failure',					list: 'flocks', cat: 'locks', attr: 'f',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.gRed };
-	var l_wait = 	{ label: 'lock waiting',	title: 'waiting',		desc: l_wait_label,							unity: 'ms',					cat: 'times', attr: 'lw',	color: colours.list.eYellow,	fcolor: colours.list.dYellow,	gcolor: colours.list.gYellow };
+	var l_success = { label: 'lock success',	title: 'lock success',	desc: 'number of lock acquisition success',					list: 'slocks', cat: 'locks', attr: 's',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen };
+	var l_failure = { label: 'lock failure',	title: 'lock failure',	desc: 'number of lock acquisition failure',					list: 'flocks', cat: 'locks', attr: 'f',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed };
+	var l_wait = 	{ label: 'lock waiting',	title: 'waiting',		desc: l_wait_label,							unity: 'ms',					cat: 'times', attr: 'lw',	color: colours.list.eYellow,	fcolor: colours.list.dYellow,	gcolor: colours.list.lYellow };
 
 	return {
 		r:		{ data: [running] },
@@ -272,8 +272,8 @@ app.factory('strips', ['decks', 'categories', function(decks, categories) {
 	return [
 		{ title: 'Running',				deck: decks.r,		links: [categories.tg, categories.sy] },
 		{ title: 'Unused core',			deck: decks.uu,		links: [categories.tg, categories.sy] },
-		{ title: 'Waiting a core',		deck: decks.yb,		links: [categories.tg] },
-		{ title: 'Waiting a ressource',	deck: decks.lw,		links: [categories.sy] },
+		{ title: 'Waiting cores',		deck: decks.yb,		links: [categories.tg] },
+		{ title: 'Waiting ressources',	deck: decks.lw,		links: [categories.sy] },
 	//	{ title: 'DS',					deck: null,			links: []},
 	//	{ title: 'LB',					deck: null,			links: []},
 		{ title: 'Cache misses',		deck: decks.miss,	links: [categories.dl]},

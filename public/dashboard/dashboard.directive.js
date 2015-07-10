@@ -91,10 +91,10 @@ app.directive('chartStrip', function() {
 		// Title
 		svg.append("text")
 			.attr("class", "svg-title")
-			.attr("x", 0)
-			.attr("y", layout.height - 4)
+			.attr("x", 4)
+			.attr("y", layout.height - 6)
 			.attr("text-anchor", "start")
-			.attr("fill", v.fcolor)
+			.attr("fill", v.gcolor)
 			.text(title);
 
 		// (Re) Paint
@@ -126,21 +126,18 @@ app.directive('chartStrip', function() {
 			group.append("polygon")
 				.attr("class", "svg-data")
 				.attr("points", p2s(points))
-				.attr("fill", v.color)
-				//.attr('stroke', v.fcolor)
+				.attr("fill", v.fcolor)
 				.attr('stroke-width', 1);
 		}
 		
 		// Select
 		var enter = function enter() {
-			//svg.select('.svg-title').attr("fill", '#222');
-			svg.select('.svg-data').attr("fill", v.fcolor);
+			group.select('.svg-data').attr("fill", v.color);
 		}
 		
 		// Unselect
 		var leave = function leave() {
-			//svg.select('.svg-title').attr("fill", v.fcolor);
-			svg.select('.svg-data').attr("fill", v.color);
+			group.select('.svg-data').attr("fill", v.fcolor);
 		}
 		
 		
