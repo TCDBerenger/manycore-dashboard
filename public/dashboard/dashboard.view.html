@@ -1,6 +1,8 @@
 <div class="row dashboard">
+	<div class="modalbg" ng-if="needModalBG" ng-animate="'animate'" ng-mouseenter="unblur()"></div>
+	
 	<!-- Profiles -->
-	<div class="col-xs-2 profile" ng-repeat="(profile_index, profile) in selectedProfiles"><div class="tile">
+	<div class="col-xs-2 profile hovermodal" ng-repeat="(profile_index, profile) in selectedProfiles" ng-mouseenter="blur(1)" ng-mouseleave="unblur()"><div class="tile">
 
 		<!-- main -->
 		<div class="section">
@@ -52,11 +54,15 @@
 		<!-- Strips -->
 		<div class="section section-strip" ng-repeat="strip in strips">
 			<a ui-sref='detail({cat: strip.links[0].tag, ids: encodeSelectedProfile()})'>
-				<!-- <span class="title">{{strip.title}}</span><!-- style="color: {{strip.deck.data[0].fcolor}}" -->
 				<chart-strip class="widget-graph"></chart-strip>
 			</a>
 		</div>
 	</div></div>
+	
+	<!-- Fake profile -->
+	<div class="fake-profile" ng-show="modalStrip">
+		TODO
+	</div>
 
 	<!-- Waiting -->
 	<div ng-if="waitingData()" class="col-xs-2 ctrl"><div class="block">
@@ -136,9 +142,9 @@
 
 
 	<!-- Other - line 2 - indicators -->
-	</div><div class="row {{needToBlur | iif : ' blured' : ''}}" ng-if="hasProfiles()">
+	</div><div class="row" ng-if="hasProfiles()">
 
-		<div class="col-auto" ng-repeat="indicator in indicators"><div class="panel panel-default category" ng-mouseenter="blur()" ng-mouseleave="unblur()">
+		<div class="col-auto hovermodal" ng-repeat="indicator in indicators"><div class="panel panel-default category" ng-mouseenter="blur()" ng-mouseleave="unblur()">
 			<div class="panel-heading">
 				<h3 class="panel-title">{{indicator.title}}</h3>
 			</div>

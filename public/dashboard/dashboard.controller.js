@@ -106,16 +106,19 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	/**
 	 * Blur - var
 	 */
-	$scope.needToBlur = false;
+	$scope.needModalBG = false;
+	$scope.modalStrip = false;
 	
 	/**
 	 * Blur - handlers
 	 */
-	$scope.blur = function() {
-		$scope.needToBlur = true;
+	$scope.blur = function(zone) {
+		$scope.needModalBG = true;
+		// $scope.modalStrip = (zone == 1);
 	}
 	$scope.unblur = function() {
-		$scope.needToBlur = false;
+		$scope.needModalBG = false;
+		$scope.modalStrip = false;
 	}
 
 	
