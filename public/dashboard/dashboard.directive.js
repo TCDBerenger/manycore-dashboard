@@ -180,20 +180,13 @@ app.directive('gaugeProportion', function() {
 		layout.arcOuter = Math.ceil(Math.hypot(layout.middle, layout.middle));
 
 		// Attributes
-		var deck = scope.gauge.deck;
-		var vs = deck.data;
+		var vs = scope.gauge.deck.data;
 		var profile = scope.profile;
 		
 		// Data
-		var data = profile.data.dash;
 		var dataList = profile.data.dash.gauges;
 
 		// DOM
-		/*
-		d3.select(container)
-			.style('background', 'transparent')
-			.style('height', layout.height + 'px')
-			.style('width', layout.width + 'px');*/
 		var svg = d3.select(container).append('svg')
 			.attr('height', layout.height)
 			.attr('width', layout.width);
@@ -202,9 +195,9 @@ app.directive('gaugeProportion', function() {
 			.attr("transform", "translate(" + (layout.height / 2) + "," + (layout.width / 2) + ")");
 		
 		// Data
-		var maxValue = 0;
+		var sumValues = 0;
 		vs.forEach(function(v) {
-			maxValue += dataList[v.attr];
+			sumValues += dataList[v.attr];
 		});
 		
 		// Draw
@@ -212,7 +205,7 @@ app.directive('gaugeProportion', function() {
 		var precedingAngle = 0;
 		vs.forEach(function(v, i) {
 			// Data
-			nextAngle = precedingAngle + 2 * Math.PI * dataList[v.attr] / maxValue;
+			nextAngle = precedingAngle + 2 * Math.PI * dataList[v.attr] / sumValues;
 			
 			// Draw
 			group.append("path")
@@ -236,7 +229,7 @@ app.directive('gaugeProportion', function() {
 			.attr("text-anchor", "middle")
 			.attr("alignment-baseline", "central")
 			.attr("fill", vs[0].gcolor)
-			.text(Math.round(100 * dataList[vs[0].attr] / maxValue) + ' %');
+			.text(Math.round(100 * dataList[vs[0].attr] / sumValues) + ' %');
 		
 		
 		// Select
@@ -257,6 +250,113 @@ app.directive('gaugeProportion', function() {
 		// Binds
 		element.on('mouseenter', enter);
 		element.on('mouseleave', leave);
+	}
+
+	return {
+		link: chart_link,
+		restrict: 'E'
+	}
+});
+
+
+/**
+ * Gauge chart: compare
+ */
+app.directive('gaugeCompare', function() {
+
+	function chart_link(scope, element, attrs, controller) {
+		console.log("== directive == gaugeProportion ==");
+		
+		// Layout
+		var container = element[0];
+		var layout = new gaugeLayout(LAYOUT_GAUGE_BIG);
+		layout.middle = LAYOUT_GAUGE_BIG / 2;
+		layout.arcInner = 0;
+		layout.arcOuter = Math.ceil(Math.hypot(layout.middle, layout.middle));
+
+		// Attributes
+		var vs = scope.gauge.deck.data;
+		var profile = scope.profile;
+		
+		// Data
+		var dataList = profile.data.dash.gauges;
+
+		// DOM
+		var svg = d3.select(container).append('svg')
+			.attr('height', layout.height)
+			.attr('width', layout.width);
+		var group = svg.append("g")
+			.attr("class", "dataset")
+			.attr("transform", "translate(" + (layout.height / 2) + "," + (layout.width / 2) + ")");
+		
+		// Data
+		var sumValues = 0;
+		var maxValue = 0;
+		var selectedV = vs[0];
+		vs.forEach(function(v) {
+			sumValues += dataList[v.attr];
+			
+			// Select max value
+			if (maxValue < dataList[v.attr]) {
+				maxValue = dataList[v.attr];
+				selectedV = v;
+			}
+		});
+		
+		// Draw
+		var nextAngle;
+		var precedingAngle = 0;
+		vs.forEach(function(v, i) {
+			// Data
+			nextAngle = precedingAngle + 2 * Math.PI * dataList[v.attr] / sumValues;
+			
+			// Draw
+			var shape = group.append("path")
+				.attr("class", "svg-data svg-data-" + i)
+				.attr("d", d3.svg.arc()
+							.innerRadius(layout.arcInner)
+							.outerRadius(layout.arcOuter)
+							.startAngle(precedingAngle)
+							.endAngle(nextAngle))
+				.attr("fill", v.fcolor)
+				.on("mouseenter", function() { mouseEnter(v, shape); })
+				.on("mouseleave", function() { mouseLeave(v, shape); });
+			
+			// Next loop
+			precedingAngle = nextAngle;
+		});
+		
+		
+		// Text
+		var text = svg.append("text")
+			.attr("class", "svg-title")
+			.attr("fill", vs[0].gcolor)
+		var line1 = text.append('tspan')
+			.attr("x", layout.middle)
+			.attr("y", layout.middle - 13)
+			.attr("text-anchor", "middle")
+			.attr("alignment-baseline", "central")
+			.text(selectedV.title);
+		var line2 = text.append('tspan')
+			.attr("x", layout.middle)
+			.attr("y", layout.middle + 13)
+			.attr("text-anchor", "middle")
+			.attr("alignment-baseline", "central")
+			.text(Math.round(100 * dataList[selectedV.attr] / sumValues) + ' %');
+		
+		
+		// Select
+		function mouseEnter(v, shape) {
+			shape.attr("fill", v.color);
+			text.attr("fill", v.color);
+			line1.text(v.title);
+			line2.text(Math.round(100 * dataList[v.attr] / sumValues) + ' %');
+		}
+		
+		// Unselect
+		function mouseLeave(v, shape) {
+			shape.attr("fill", v.fcolor);
+		}
 	}
 
 	return {
@@ -538,235 +638,6 @@ app.directive('chartDashDivergence', function() {
 
 		// Binds
 		scope.$watch(function() { return container.clientWidth; }, redraw);
-	}
-
-	return {
-		link: chart_link,
-		restrict: 'E'
-	}
-});
-
-app.directive('widgetDashTrack', function() {
-
-	function chart_link(scope, element, attrs, controller) {
-		console.log("== directive == widgetDashTrack ==");
-
-		// Layout
-		var container = element[0];
-		var layout = new indicatorDashLayout();
-
-		// Attributes
-		var deck = scope.indicator.deck;
-		var meta = {
-		};
-
-		// Data
-		var profiles = scope.selectedProfiles;
-		var data;
-
-		// DOM
-		var svg = d3.select(container).append('svg');
-
-		// Groups
-		var donutSupergroup = svg.append("g")
-			.attr("transform", "translate(" + layout.donut.size + "," + layout.donut.size + ")")
-			.attr("class", "svg-dataset");
-		var donutGroups = [[
-				donutSupergroup.append("g").attr("class", "svg-donut svg-donut-top svg-donut-left"),
-				donutSupergroup.append("g").attr("class", "svg-donut svg-donut-bottom svg-donut-left")
-					.attr("transform", "translate(0," + (layout.texts.values.height * 2 + layout.texts.app.height) + ")")
-			], [
-				donutSupergroup.append("g").attr("class", "svg-donut svg-donut-top svg-donut-right")
-					.attr("transform", "translate(" + layout.donut.padding + ",0)"),
-				donutSupergroup.append("g").attr("class", "svg-donut svg-donut-bottom svg-donut-right")
-					.attr("transform", "translate(" + layout.donut.padding + "," + (layout.texts.values.height * 2 + layout.texts.app.height) + ")")
-			]];
-
-		var valueSupergroup = svg.append("g")
-			.attr("transform", "translate(0," + (layout.donut.size + 14 ) + ")")
-			.attr("class", "svg-label");
-		var valueGroups = [[
-				valueSupergroup.append("g").attr("class", "svg-donut-top svg-donut-left"),
-				valueSupergroup.append("g").attr("class", "svg-donut-bottom svg-donut-left")
-					.attr("transform", "translate(" + 0 + "," + (layout.texts.values.height + layout.texts.app.height) + ")")
-			], [
-				valueSupergroup.append("g").attr("class", "svg-donut-top svg-donut-right")
-					.attr("transform", "translate(" + (layout.donut.size + layout.donut.padding) + ",0)"),
-				valueSupergroup.append("g").attr("class", "svg-donut-bottom svg-donut-right")
-					.attr("transform", "translate(" + (layout.donut.size + layout.donut.padding) + "," + (layout.texts.values.height + layout.texts.app.height)  + ")")
-			]];
-		
-		var appGroup = svg.append("g").attr("class", "svg-text svg-text-app")
-				.attr("transform", "translate(" + 0 + "," + (layout.donut.size + layout.texts.values.height) + ")");
-
-
-		function getArcLayoutData(c, r, v) {
-			dpi = Math.PI / 2;
-			v = Math.max(0, Math.min(1, v));
-			var d = { c: { s: 0, e: 0 }, b: { s: 0, e: 0 } };
-
-			if (c == 0 && r == 0) {
-				d.c.s = dpi * 3;
-				d.c.e = dpi * (3 + v);
-				d.b.s = dpi * (3 + v);
-				d.b.e = dpi * 4;
-			}
-			else if (c == 0 && r == 1) {
-				d.c.s = dpi * (3 - v);
-				d.c.e = dpi * 3;
-				d.b.s = dpi * 2;
-				d.b.e = dpi * (3 - v);
-			}
-			else if (c == 1 && r == 0) {
-				d.c.s = dpi * (1 - v);
-				d.c.e = dpi;
-				d.b.s = 0;
-				d.b.e = dpi * (1 - v);
-			}
-			else if (c == 1 && r == 1) {
-				d.c.s = dpi;
-				d.c.e = dpi * (v + 1);
-				d.b.s = dpi * (v + 1);
-				d.b.e = dpi * 2;
-			}
-
-			return d;
-		}
-
-
-		// Big painting function
-		function redraw() {
-			// Retrieve data
-			data = scope.getIndicatorData();
-
-			// Precomputation
-			layout.donut.compute(profiles.length, (deck.length > 1 && deck[1].length > 0) ? 2 : 1);
-
-			// DOM
-			svg.attr({width: layout.width, height: layout.height});
-			d3.select(container)
-				.style('width', layout.width + 'px')
-				.style('height', layout.height + 'px')
-				.style('background', 'transparent');
-
-			// Clean
-			donutSupergroup.selectAll("path").remove();
-			valueSupergroup.selectAll("text").remove();
-			appGroup.selectAll("text").remove();
-
-
-			// Draw
-			// c: column : profile
-			// r: row
-			// d: donut : one arc
-			var arc_layout, arc_precedingRadius, arc_precedingEnd, arc_value;
-			var indicator_onLeft = profiles.length == 1;
-			var inGroup = 0;
-			data.forEach(function(col_data, col_index) {
-				deck.forEach(function(row_data, row_index) {
-					row_data.forEach(function(arc_data, arc_index) {
-						// Data
-						arc_layout = getArcLayoutData(col_index, row_index, arc_data.v(col_data));
-
-						// Are we in a group ?
-						if (inGroup > 0) {
-							inGroup--;
-							arc_precedingRadius--;
-							arc_value = Math.max(0, Math.min(1, arc_data.v(col_data))) * Math.PI / 2;
-
-							// Value
-							if (arc_data.v(col_data) >= 0.005) {
-
-								if (col_index + row_index != 1) {
-									donutGroups[col_index][row_index].append("path")
-										.attr("d", d3.svg.arc()
-													.innerRadius(layout.donuts[arc_index + arc_precedingRadius].inner)
-													.outerRadius(layout.donuts[arc_index + inGroup].outer)
-													.startAngle(arc_precedingEnd)
-													.endAngle(arc_precedingEnd + arc_value))
-										.attr("fill", arc_data.c);
-									arc_precedingEnd += arc_value;
-								} else {
-									donutGroups[col_index][row_index].append("path")
-										.attr("d", d3.svg.arc()
-													.innerRadius(layout.donuts[arc_index + arc_precedingRadius].inner)
-													.outerRadius(layout.donuts[arc_index + inGroup].outer)
-													.startAngle(arc_precedingEnd - arc_value)
-													.endAngle(arc_precedingEnd))
-										.attr("fill", arc_data.c);
-									arc_precedingEnd -= arc_value;
-								}
-
-							}
-
-
-						} else {
-							// Do we start a new group ?
-							if (arc_data.hasOwnProperty('g')) {
-								inGroup = arc_data.g - 1;
-								arc_precedingRadius = 0;
-
-								if (col_index + row_index != 1) {
-									arc_precedingEnd = arc_layout.c.e;
-								} else {
-									arc_precedingEnd = arc_layout.c.s;
-								}
-
-							} else {
-								inGroup = 0;
-								arc_precedingRadius = null;
-								arc_precedingEnd = null;
-
-								// Background (useless in a group)
-								donutGroups[col_index][row_index].append("path")
-									.attr("d", d3.svg.arc()
-												.innerRadius(layout.donuts[arc_index].inner)
-												.outerRadius(layout.donuts[arc_index].outer)
-												.startAngle(arc_layout.b.s)
-												.endAngle(arc_layout.b.e))
-									.attr("fill", arc_data.b);
-							}
-
-
-							// Value
-							if (arc_data.v(col_data) >= 0.005) {
-								donutGroups[col_index][row_index].append("path")
-									.attr("d", d3.svg.arc()
-												.innerRadius(layout.donuts[arc_index].inner)
-												.outerRadius(layout.donuts[arc_index + inGroup].outer)
-												.startAngle(arc_layout.c.s)
-												.endAngle(arc_layout.c.e))
-									.attr("fill", arc_data.c);
-							}
-						}
-
-						// Value label
-						valueGroups[col_index][row_index].append("text")
-							.attr("x", (col_index == 0) ? layout.donut.size - layout.donuts[arc_index].text : layout.donuts[arc_index].text)
-							.attr("y", 0)
-							.attr("text-anchor", "middle")
-							.style("fill", arc_data.c)
-							.text(arc_data.l(col_data));
-					});
-				});
-
-
-				// App text
-				if (profiles.length > 1) {
-					appGroup.append("text")
-						.attr("x", (layout.donut.size / 2) + col_index * (layout.donut.size + layout.donut.padding))
-						.attr("y", layout.texts.app.size + 1)
-						.attr("text-anchor", "middle")
-						.attr("font-size", layout.texts.app.size + "px")
-						.attr("font-weight", "bold")
-						.text(profiles[col_index].label);
-				}
-			});
-
-		}
-
-
-		scope.$watch(function() { return scope.selectedProfiles.length * scope.selectedProfiles[0].id; }, redraw);
 	}
 
 	return {

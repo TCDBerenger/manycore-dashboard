@@ -106,6 +106,9 @@ function addProfiling(output, profile) {
 function addGauges(output, profile) {
 	// Data
 	var data = profile.data;
+	
+	// Computation
+	var maxStates = data.info.threads * (data.info.timeMax + data.info.timeStep);
 
 	// Stats
 	output.gauges = {
@@ -113,9 +116,8 @@ function addGauges(output, profile) {
 	    m:	data.stats.migrations,
 		
 		r:	Math.round(data.stats.running),
-		y:	Math.round(data.stats.ready),
-		b:	Math.round(data.stats.standby),
-		w:	Math.round(data.stats.wait),
+		yb:	Math.round(data.stats.ready + data.stats.standby),
+		uu: Math.round(maxStates - data.stats.running),
 		
 		ls: data.stats.lock_success,
 		lf: data.stats.lock_failure,

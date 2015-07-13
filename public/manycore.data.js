@@ -57,7 +57,7 @@ app.factory('decks', ['colours', function(colours) {
 	var ready = 	{ label: 'threads ready',	title: 'ready',		desc: ready_label,						unity: 'ms', cat: 'times', attr: 'y',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed };
 	var standBy = 	{ label: 'threads standBy',	title: 'stand by',	desc: standby_label,					unity: 'ms', cat: 'times', attr: 'b',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed };
 	var waiting = 	{ label: 'threads waiting',	title: 'waiting',	desc: waiting_label,					unity: 'ms', cat: 'times', attr: 'w',	color: colours.list.eOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange };
-	var capacity = 	{ label: 'unused core',		title: 'capacity',	desc: 'processor is not fully used',	unity: 'ms', cat: 'times', attr: 'uu',	color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.lBlue };
+	var capacity = 	{ label: 'unused core',		title: 'unused',	desc: 'processor is not fully used',	unity: 'ms', cat: 'times', attr: 'uu',	color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.lBlue };
 	var system = 	{ label: 'system',			title: 'system',	desc: 'processor is used by the OS (soon)',	unity: 'ms', cat: 'times', attr: '-',	color: colours.list.black,		fcolor: colours.list.black,		gcolor: colours.list.black };
 
 	var ipc = 		{ label: 'executing',			title: 'Executing',			desc: 'executing',				unity: 'ms', cat: 'locality',	attr: 'ipc',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen };
@@ -288,10 +288,10 @@ app.factory('strips', ['decks', 'categories', function(decks, categories) {
 
 app.factory('gauges', ['decks', 'categories', function(decks, categories) {
 	return [
-		{ title: 'States',			deck: decks.gauge_states,	graph: '', isBig: true,		links: [categories.tg, categories.sy] },
+		{ title: 'States',			deck: decks.gauge_states,	graph: 'gaugeCompare',		isBig: true,		links: [categories.tg, categories.sy] },
 		{ title: 'Switches',		deck: decks.sw,				graph: '', isBig: false,	links: [categories.tg] },
 		{ title: 'Migrations',		deck: decks.mg,				graph: '', isBig: false,	links: [categories.tg] },
-		{ title: 'Cache misses',	deck: decks.gauge_miss,		graph: 'gaugeProportion', isBig: false,	links: [categories.dl]},
+		{ title: 'Cache misses',	deck: decks.gauge_miss,		graph: 'gaugeProportion',	isBig: false,	links: [categories.dl]},
 	];
 }]);
 
