@@ -52,7 +52,7 @@
 		</div>
 		
 		<!-- Strips -->
-		<div class="section section-strip" ng-repeat="strip in strips">
+		<div class="section section-strip strip" ng-repeat="strip in strips">
 			<a ui-sref='detail({cat: strip.links[0].tag, ids: encodeSelectedProfile()})'>
 				<chart-strip class="widget-graph"></chart-strip>
 			</a>
@@ -138,7 +138,8 @@
 
 	<!-- Other - line 2 - indicators -->
 	</div><div class="row" ng-if="hasProfiles()">
-
+		
+		<!--
 		<div class="col-auto hovermodal" ng-repeat="indicator in indicators"><div class="panel panel-default category" ng-mouseenter="blur()" ng-mouseleave="unblur()">
 			<div class="panel-heading">
 				<h3 class="panel-title">{{indicator.title}}</h3>
@@ -163,7 +164,18 @@
 				</div>
 			</div>
 		</div></div>
-
+		-->
+		
+		<div class="col-auto gauge" ng-repeat="gauge in gauges">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h3 class="panel-title">{{gauge.title}}</h3></div>
+				<div class="panel-body">
+					<div class="panel-section" ng-repeat="profile in selectedProfiles">
+						<proxy-link-directive ng-attr-graph="{{gauge.graph}}" class="widget-graph{{ gauge.isBig | iif : ' big' : ''}}"></proxy-link-directive>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 </div>

@@ -83,6 +83,10 @@ app.factory('decks', ['colours', function(colours) {
 		yb:		{ data: [readySB] },
 		lw:		{ data: [l_wait] },
 		miss:	{ data: [miss] },
+		sw:		{ data: [sw] },
+		mg:		{ data: [mg] },
+		gauge_states:	{ data: [running, capacity, readySB, l_wait] },
+		gauge_miss:		{ data: [ipc, miss] },
 		states: {
 			graph : {
 				v:		[readySB],	// data over the limit (like other graphs)
@@ -271,13 +275,23 @@ app.factory('categories', ['widgets', 'decks', function(widgets, decks){
 app.factory('strips', ['decks', 'categories', function(decks, categories) {
 	return [
 		{ title: 'Running',				deck: decks.r,		links: [categories.tg, categories.sy] },
-		{ title: 'Unused core',			deck: decks.uu,		links: [categories.tg, categories.sy] },
+		{ title: 'Unused cores',		deck: decks.uu,		links: [categories.tg, categories.sy] },
 		{ title: 'Waiting cores',		deck: decks.yb,		links: [categories.tg] },
 		{ title: 'Waiting ressources',	deck: decks.lw,		links: [categories.sy] },
 	//	{ title: 'DS',					deck: null,			links: []},
 	//	{ title: 'LB',					deck: null,			links: []},
 		{ title: 'Cache misses',		deck: decks.miss,	links: [categories.dl]},
 	//	{ title: 'RS',					deck: null,			links: []}
+	];
+}]);
+
+
+app.factory('gauges', ['decks', 'categories', function(decks, categories) {
+	return [
+		{ title: 'States',			deck: decks.gauge_states,	graph: '', isBig: true,		links: [categories.tg, categories.sy] },
+		{ title: 'Switches',		deck: decks.sw,				graph: '', isBig: false,	links: [categories.tg] },
+		{ title: 'Migrations',		deck: decks.mg,				graph: '', isBig: false,	links: [categories.tg] },
+		{ title: 'Cache misses',	deck: decks.gauge_miss,		graph: '', isBig: false,	links: [categories.dl]},
 	];
 }]);
 

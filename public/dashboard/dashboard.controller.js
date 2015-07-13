@@ -1,4 +1,6 @@
-app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http', 'profileService', 'categories', 'strips', 'indicators' , function($scope, $rootScope, $window, $http, profileService, categories, strips, indicators) {
+/* global app */
+/* global angular */
+app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http', 'profileService', 'categories', 'strips', 'gauges' , function($scope, $rootScope, $window, $http, profileService, categories, strips, gauges) {
 	/************************************************/
 	/* Constructor - Init							*/
 	/************************************************/
@@ -12,7 +14,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	// Details
 	$scope.categories = categories.all;
 	$scope.strips = strips;
-	$scope.indicators = indicators.all;
+	$scope.gauges = gauges;
 
 	// References
 	$scope.encodeSelectedProfile = $rootScope.encodeSelectedProfile;

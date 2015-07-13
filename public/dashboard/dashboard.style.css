@@ -56,6 +56,10 @@
 	width: 100%;
 }
 
+
+/**
+ * Dashboard profile hardware
+ */
 .dashboard .profile-hardware-menu {
 	min-width: 280px;
 	margin-top: 2px;
@@ -72,11 +76,13 @@
 /**
  * Dashboard fake profile
  */
+/*
 .dashboard .fake-profile {
 	position: absolute;
 	z-index: 950;
 	left: 33.3333%;
 }
+*/
 /*
 .dashboard .profile:nth-child(2).fake-profile {
 	left: 16.6667%;
@@ -100,6 +106,22 @@
 .dashboard .profile .section-strip:hover .title:after {
 	border-bottom-color: #008CBA;
 }
+
+
+/**
+ * Dashboard gauge section
+ */
+.dashboard .gauge .panel-body {
+	padding: 0px;
+	text-align: center;
+}
+.dashboard .gauge .panel-section {
+	display: inline-block;
+}
+.dashboard .gauge .panel-section + .panel-section {
+	border-left: 1px solid #DDD;
+}
+
 
 
 /**
@@ -228,6 +250,7 @@
 
 	background-color: #FAFAFA;
 }*/
+/*
 .dashboard .category {
 	box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
@@ -279,36 +302,48 @@
 .dashboard .category .panel-links i {
 	padding-right: 4px;
 }
+*/
 
-
-
-/**
- * Dashboard widget
- */
-.dashboard .widget-graph {
-	margin: 0px !important;
-	min-width: 40px;
-	height: 60px;
-}
+/*
 .dashboard .indicator-graph {
 	margin: 0px !important;
 	min-width: 40px;
 	min-height: 40px;
 }
+*/
 
 
-.dashboard .widget-graph .svg-title {
+
+/**
+ * Dashboard chart strip
+ */
+.dashboard .strip .widget-graph {
+	min-width: 40px;
+	height: 60px;
+}
+.dashboard .strip .widget-graph .svg-title {
 	font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-size: 26px;
 	font-weight: 300;
 }
-.dashboard .widget-graph:hover .svg-title {
+.dashboard .strip .widget-graph:hover .svg-title {
 	/*text-shadow: 0 0 10px #FFF, 0 0 20px #FFF, 0 0 30px #FFF, 0 0 40px #FFF, 0 0 50px #FFF;*/
 	text-shadow: 0 0 10px #FFF, 0 0 10px #FFF, 0 0 10px #FFF, 0 0 20px #FFF, 0 0 30px #FFF;
 	fill: #222;
 	/* transition: .2s linear all; */
 }
 
+/**
+ * Dashboard chart gauge
+ */
+.dashboard .gauge .widget-graph {
+	width: 100px;
+	height: 100px;
+}
+.dashboard .gauge .widget-graph.big {
+	width: 140px;
+	height: 140px;
+}
 
 /**
  * Dashboard blur

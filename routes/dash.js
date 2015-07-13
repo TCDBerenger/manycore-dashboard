@@ -22,9 +22,9 @@ var STRIP_HEIGHT = 60;
 /* Functions - Add								*/
 /************************************************/
 /**
- * Add common stats
+ * Add stats
  */
-function addCommon(output, profile) {
+function addStats(output, profile) {
 	// Data
 	var data = profile.data;
 
@@ -32,22 +32,22 @@ function addCommon(output, profile) {
 	output.stats = {
 		h:	data.stats.threads,
 		
-	    s:	data.stats.switches,
-	    m:	data.stats.migrations,
-		c:	data.stats.cycles,
-		r:	data.stats.running,
-		y:	data.stats.ready,
-		b:	data.stats.standby,
-		w:	data.stats.wait,
+	    // s:	data.stats.switches,
+	    // m:	data.stats.migrations,
+		// c:	data.stats.cycles,
+		// r:	data.stats.running,
+		// y:	data.stats.ready,
+		// b:	data.stats.standby,
+		// w:	data.stats.wait,
+		
+		// l1:		data.stats.l1miss,
+		// l2:		data.stats.l2miss,
+		// l3:		data.stats.l3miss,
+		// tlb:	data.stats.tlbmiss,
+		// dzf:	data.stats.dzf,
+		// hpf:	data.stats.hpf,
 
-		l1:		data.stats.l1miss,
-		l2:		data.stats.l2miss,
-		l3:		data.stats.l3miss,
-		tlb:	data.stats.tlbmiss,
-		dzf:	data.stats.dzf,
-		hpf:	data.stats.hpf,
-
-		locality: data.locality.stats,
+		// locality: data.locality.stats,
 	};
 }
 
@@ -98,6 +98,32 @@ function addProfiling(output, profile) {
 		// Save
 		output.profiling.push(f);
 	}
+}
+
+/**
+ * Add gauges data
+ */
+function addGauges(output, profile) {
+	// Data
+	var data = profile.data;
+
+	// Stats
+	output.gauges = {
+	    s:	data.stats.switches,
+	    m:	data.stats.migrations,
+		
+		r:	Math.round(data.stats.running),
+		y:	Math.round(data.stats.ready),
+		b:	Math.round(data.stats.standby),
+		w:	Math.round(data.stats.wait),
+		
+		ls: data.stats.lock_success,
+		lf: data.stats.lock_failure,
+		lw: Math.round(data.stats.lock_wait),
+
+		ipc:	Math.round(data.locality.stats.ipc),
+		miss:	Math.round(data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf),
+	};
 }
 
 /**
@@ -239,16 +265,19 @@ router.get('/*', function(request, response) {
 
 	// Common
 	profile.exportInfo(output);
-	addCommon(output, profile);
+	addStats(output, profile);
 
 	// for time profiling
 	addProfiling(output, profile);
+	
+	// for gauges
+	addGauges(output, profile);
 
 	// for potential parallelism
-	addTime(output, profile);
+	//addTime(output, profile);
 
 	// Data locality
-	addLocality(output, profile);
+	//addLocality(output, profile);
 
 
 	// Unload data
