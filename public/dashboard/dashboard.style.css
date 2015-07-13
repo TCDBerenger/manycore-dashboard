@@ -111,10 +111,20 @@
 /**
  * Dashboard gauge section
  */
+.dashboard .gauge .panel-heading {
+	width: 100px;
+}
 .dashboard .gauge .panel-body {
 	padding: 0px;
-	text-align: center;
 }
+.dashboard .gauge			.panel-heading { width: 100px; }
+.dashboard .gauge .for2		.panel-heading { width: 201px; }
+.dashboard .gauge .big		.panel-heading { width: 140px; }
+.dashboard .gauge .big.for2 .panel-heading { width: 281px; }
+
+.dashboard .gauge	   .panel-body { height: 100px; }
+.dashboard .gauge .big .panel-body { height: 140px; }
+
 .dashboard .gauge .panel-section {
 	display: inline-block;
 }
@@ -321,17 +331,6 @@
 	min-width: 40px;
 	height: 60px;
 }
-.dashboard .strip .widget-graph .svg-title {
-	font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-	font-size: 26px;
-	font-weight: 300;
-}
-.dashboard .strip .widget-graph:hover .svg-title {
-	/*text-shadow: 0 0 10px #FFF, 0 0 20px #FFF, 0 0 30px #FFF, 0 0 40px #FFF, 0 0 50px #FFF;*/
-	text-shadow: 0 0 10px #FFF, 0 0 10px #FFF, 0 0 10px #FFF, 0 0 20px #FFF, 0 0 30px #FFF;
-	fill: #222;
-	/* transition: .2s linear all; */
-}
 
 /**
  * Dashboard chart gauge
@@ -344,6 +343,24 @@
 	width: 140px;
 	height: 140px;
 }
+
+/**
+ * Dashboard chart styles
+ */
+.dashboard .widget-graph .svg-title {
+	font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 26px;
+	font-weight: 300;
+}
+.dashboard .widget-graph:hover .svg-title {
+	/*text-shadow: 0 0 10px #FFF, 0 0 20px #FFF, 0 0 30px #FFF, 0 0 40px #FFF, 0 0 50px #FFF;*/
+	text-shadow: 0 0 10px #FFF, 0 0 10px #FFF, 0 0 10px #FFF, 0 0 20px #FFF, 0 0 30px #FFF;
+	fill: #222;
+	/* transition: .2s linear all; */
+}
+
+
+
 
 /**
  * Dashboard blur

@@ -382,3 +382,123 @@ app.directive('chartDashStack', function() {
 		restrict: 'E'
 	}
 });
+
+
+app.directive('widgetDashCompare', function() {
+
+	function chart_link(scope, element, attrs, controller) {
+		console.log("== directive == widgetDashCompare ==");
+
+		// Layout
+		var container = element[0];
+		var layout = new indicatorDashLayout();
+
+		// Attributes
+		var deck = scope.indicator.deck;
+		var meta = {};
+
+		// Data
+		var profiles = scope.selectedProfiles;
+		var data;
+		var startAngle = 1.5 * Math.PI;
+
+		// DOM
+		var svg = d3.select(container).append('svg');
+
+		// Groups
+		var donutSupergroup = svg.append("g")
+			.attr("transform", "translate(" + layout.arc.arc + "," + layout.arc.arc + ")")
+			.attr("class", "svg-dataset");
+		var donutGroups = [
+				donutSupergroup.append("g").attr("class", "svg-donut svg-donut-top svg-donut-left"),
+				donutSupergroup.append("g").attr("class", "svg-donut svg-donut-top svg-donut-right")
+					.attr("transform", "translate(" + (layout.arc.width + layout.arc.padding) + ",0)")
+			];
+
+		var valueSupergroup = svg.append("g")
+			.attr("transform", "translate(0," + (layout.arc.height + 14 ) + ")")
+			.attr("class", "svg-label");
+		var valueGroups = [
+				valueSupergroup.append("g").attr("class", "svg-donut-top svg-donut-left"),
+				valueSupergroup.append("g").attr("class", "svg-donut-top svg-donut-right")
+					.attr("transform", "translate(" + (layout.arc.width + layout.arc.padding) + ",0)")
+			];
+		
+		var appGroup = svg.append("g").attr("class", "svg-text svg-text-app")
+				.attr("transform", "translate(" + 0 + "," + (layout.arc.height + layout.texts.values.height) + ")");
+
+
+		// Big painting function
+		function redraw() {
+			// Precomputation
+			layout.arc.compute(profiles.length);
+
+			// DOM
+			svg.attr({width: layout.width, height: layout.height});
+			d3.select(container)
+				.style('width', layout.width + 'px')
+				.style('height', layout.height + 'px')
+				.style('background', 'transparent');
+
+			// Clean
+			donutSupergroup.selectAll("path").remove();
+			valueSupergroup.selectAll("text").remove();
+			appGroup.selectAll("text").remove();
+
+
+			// Draw
+			var precedingAngle, arc_endAngle;
+			profiles.forEach(function(profile, col_index) {
+				// Reset position
+				precedingAngle = startAngle;
+
+				deck.forEach(function(arc_data, arc_index) {
+					// Values
+					arc_endAngle = precedingAngle + Math.PI * arc_data.v(profile);
+
+					// Arc
+					if (arc_data.v(profile) >= 0.005) {
+						donutGroups[col_index].append("path")
+							.attr("d", d3.svg.arc()
+										.innerRadius(layout.arc.arc - layout.arc.size)
+										.outerRadius(layout.arc.arc)
+										.startAngle(precedingAngle)
+										.endAngle(arc_endAngle))
+							.attr("fill", arc_data.c);
+
+						precedingAngle = arc_endAngle;
+					}
+
+					// Value label
+					valueGroups[col_index].append("text")
+						.attr("x", (arc_index == 0) ? layout.arc.size / 2 : layout.arc.width - layout.arc.size / 2)
+						.attr("y", 0)
+						.attr("text-anchor", "middle")
+						.style("fill", arc_data.c)
+						.text(arc_data.l(profile));
+
+				});
+
+
+				// App text
+				if (profiles.length > 1) {
+					appGroup.append("text")
+						.attr("x", layout.arc.arc + col_index * (layout.arc.width + layout.arc.padding))
+						.attr("y", layout.texts.app.size + 1)
+						.attr("text-anchor", "middle")
+						.attr("font-size", layout.texts.app.size + "px")
+						.attr("font-weight", "bold")
+						.text(profiles[col_index].label);
+				}
+			});
+		}
+
+
+		scope.$watch(function() { return scope.selectedProfiles.length * scope.selectedProfiles[0].id; }, redraw);
+	}
+
+	return {
+		link: chart_link,
+		restrict: 'E'
+	}
+});

@@ -86,7 +86,7 @@ app.factory('decks', ['colours', function(colours) {
 		sw:		{ data: [sw] },
 		mg:		{ data: [mg] },
 		gauge_states:	{ data: [running, capacity, readySB, l_wait] },
-		gauge_miss:		{ data: [ipc, miss] },
+		gauge_miss:		{ data: [miss, ipc] },
 		states: {
 			graph : {
 				v:		[readySB],	// data over the limit (like other graphs)
@@ -291,7 +291,7 @@ app.factory('gauges', ['decks', 'categories', function(decks, categories) {
 		{ title: 'States',			deck: decks.gauge_states,	graph: '', isBig: true,		links: [categories.tg, categories.sy] },
 		{ title: 'Switches',		deck: decks.sw,				graph: '', isBig: false,	links: [categories.tg] },
 		{ title: 'Migrations',		deck: decks.mg,				graph: '', isBig: false,	links: [categories.tg] },
-		{ title: 'Cache misses',	deck: decks.gauge_miss,		graph: '', isBig: false,	links: [categories.dl]},
+		{ title: 'Cache misses',	deck: decks.gauge_miss,		graph: 'gaugeProportion', isBig: false,	links: [categories.dl]},
 	];
 }]);
 
