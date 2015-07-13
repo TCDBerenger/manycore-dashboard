@@ -85,7 +85,8 @@ app.factory('decks', ['colours', function(colours) {
 		miss:	{ data: [miss] },
 		sw:		{ data: [sw] },
 		mg:		{ data: [mg] },
-		gauge_states:	{ data: [running, capacity, readySB, l_wait] },
+		gauge_states:	{ data: [running, readySB, l_wait] },
+		gauge_unused:	{ data: [running, capacity] },
 		gauge_miss:		{ data: [miss, ipc] },
 		states: {
 			graph : {
@@ -289,6 +290,7 @@ app.factory('strips', ['decks', 'categories', function(decks, categories) {
 app.factory('gauges', ['decks', 'categories', function(decks, categories) {
 	return [
 		{ title: 'States',			deck: decks.gauge_states,	graph: 'gaugeCompare',		isBig: true,		links: [categories.tg, categories.sy] },
+		{ title: 'CPU usage',		deck: decks.gauge_unused,	graph: 'gaugeProportion',	isBig: false,	links: [categories.tg]},
 		{ title: 'Switches',		deck: decks.sw,				graph: '', isBig: false,	links: [categories.tg] },
 		{ title: 'Migrations',		deck: decks.mg,				graph: '', isBig: false,	links: [categories.tg] },
 		{ title: 'Cache misses',	deck: decks.gauge_miss,		graph: 'gaugeProportion',	isBig: false,	links: [categories.dl]},
