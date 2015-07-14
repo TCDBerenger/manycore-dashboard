@@ -67,7 +67,7 @@ function gauge_n2ft(v) {
 			case 0.25:	return '¼';
 			case 0.5:	return '½';
 			case 0.75:	return '¾';
-			default:	Math.round(v) + '×';
+			default:	return Math.round(v) + '×';
 		}
 	} else {
 		return (Math.ceil(v / .5) * .5) + '×';
