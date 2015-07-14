@@ -49,6 +49,7 @@
 
 			<!-- stat -->
 			<p><i class="fa fa-bar-chart"></i> <strong>duration:</strong> {{data[profile.id].info.duration}} ms</p>
+			<div class="progress progress-striped" ng-if="has2Profiles()" style="margin-top: -10px;"><div class="progress-bar progress-bar-info" style="width: {{durationPercent(profile)}}%;"></div></div>
 		</div>
 		
 		<!-- Strips -->

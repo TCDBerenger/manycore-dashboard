@@ -84,6 +84,13 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	$scope.will2Profiles = function() {
 		return ($scope.selectedProfiles.length + $scope.waitingDataCounter) == 2;
 	};
+
+	/**
+	 * Profile - duration percent
+	 */
+	$scope.durationPercent = function(profile) {
+		return Math.round(100 * profile.data.dash.info.duration / Math.max($scope.selectedProfiles[0].data.dash.info.duration, $scope.selectedProfiles[1].data.dash.info.duration));
+	};
 	
 	/**
 	 * Profile - data not loaded
