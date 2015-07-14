@@ -115,17 +115,20 @@
 	box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
 .dashboard .gauge .panel-heading {
-	width: 100px;
+	padding: 5px 10px;
+	text-align: center;
+	word-wrap: break-word;
+	word-break: keep-all;
 }
 .dashboard .gauge .panel-body {
 	padding: 0px;
 }
-.dashboard .gauge			.panel-heading { width: 100px; }
-.dashboard .gauge .for2		.panel-heading { width: 201px; }
+.dashboard .gauge			.panel-heading { width: 80px; }
+.dashboard .gauge .for2		.panel-heading { width: 161px; }
 .dashboard .gauge .big		.panel-heading { width: 140px; }
 .dashboard .gauge .big.for2 .panel-heading { width: 281px; }
 
-.dashboard .gauge	   .panel-body { height: 100px; }
+.dashboard .gauge	   .panel-body { height: 80px; }
 .dashboard .gauge .big .panel-body { height: 140px; }
 
 .dashboard .gauge .panel-section {
@@ -339,8 +342,8 @@
  * Dashboard chart gauge
  */
 .dashboard .gauge .widget-graph {
-	width: 100px;
-	height: 100px;
+	width: 80px;
+	height: 80px;
 }
 .dashboard .gauge .widget-graph.big {
 	width: 140px;
