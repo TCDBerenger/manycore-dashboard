@@ -64,10 +64,10 @@ span.link:hover {
 	-moz-column-gap: 8px; /* Firefox */
 	column-gap: 8px;
 }
-.btn-group-col-3 {
-	-webkit-column-count: 3; /* Chrome, Safari, Opera */
-	-moz-column-count: 3; /* Firefox */
-	column-count: 3;
+.btn-group-col-5 {
+	-webkit-column-count: 5; /* Chrome, Safari, Opera */
+	-moz-column-count: 5; /* Firefox */
+	column-count: 5;
 }
 .btn-group-col .btn {
 	width: 100%;
