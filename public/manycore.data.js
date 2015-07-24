@@ -236,67 +236,90 @@ app.factory('widgets', ['decks', function(decks) {
 	};
 }]);
 
-app.factory('categories', ['widgets', 'decks', function(widgets, decks){
+
+app.factory('strips', ['decks', function(decks) {
+	var r		= { title: 'Running',				deck: decks.r};
+	var uu		= { title: 'Unused cores',			deck: decks.uu};
+	var yb		= { title: 'Waiting cores',			deck: decks.yb};
+	var lw		= { title: 'Waiting ressources',	deck: decks.lw};
+	var miss	= { title: 'Cache misses',			deck: decks.miss};
+	
+	return {
+		r: r, uu: uu, yb: yb, lw: lw, miss: miss,
+		all: [r, uu, yb, lw, lw, miss]
+	}
+}]);
+
+
+app.factory('gauges', ['decks', function(decks) {
+	var states	= { title: 'States',		deck: decks.gauge_states,	graph: 'gaugeCompare',		isBig: true};
+	var uu		= { title: 'CPU usage',		deck: decks.gauge_unused,	graph: 'gaugeProportion',	isBig: false};
+	var sw		= { title: 'Switches',		deck: decks.sw,				graph: 'gaugeUnits',		isBig: false};
+	var mg		= { title: 'Migrations',	deck: decks.mg,				graph: 'gaugeUnits',		isBig: false};
+	var miss	= { title: 'Cache misses',	deck: decks.gauge_miss,		graph: 'gaugeProportion',	isBig: false};
+	
+	return {
+		states: states, uu: uu, sw: sw, mg: mg, miss: miss, 
+		all: [states, uu, sw, mg, miss]
+	}
+}]);
+
+app.factory('categories', ['widgets', 'strips', 'gauges',  function(widgets, strips, gauges) {
+	var common = {
+		label: 'Profile', title: 'Profile', icon: 'heartbeat',
+		strips: [strips.r],
+		gauges: [gauges.states],
+		widgets: [widgets.threadStates, widgets.threadSwitchs, widgets.threadMigrations, widgets.threadLifetime]
+	};
 	var tg = {
-		tag: 'tg', cat: 'tg', label: 'Task granularity', title: 'Task granularity', icon: 'tasks',
+		tag: 'tg', cat: 'tg', label: 'Task granularity', title: 'Task granularity', icon: 'tasks', enabled: true,
+		strips: [strips.yb, strips.uu],
+		gauges: [gauges.uu, gauges.sw, gauges.mg],
 		widgets: [widgets.threadStates, widgets.threadSwitchs, widgets.threadMigrations, widgets.threadLifetime]
 	};
 	var sy = {
-		tag: 'sy', cat: 'sy', label: 'Synchronisation', title: 'Synchronisation', icon: 'cutlery',
+		tag: 'sy', cat: 'sy', label: 'Synchronisation', title: 'Synchronisation', icon: 'cutlery', enabled: true,
+		strips: [strips.lw, strips.uu],
+		gauges: [],
 		widgets: [widgets.lockCounts, widgets.lockContentions, widgets.threadLocks]
 	};
 	var ds = {
-		tag: 'ds', cat: 'ds', label: 'Data sharing', title: 'Data sharing', icon: 'share-alt',
+		tag: 'ds', cat: 'ds', label: 'Data sharing', title: 'Data sharing', icon: 'share-alt', enabled: true,
+		strips: [],
+		gauges: [],
 		widgets: [widgets.lockContentions, widgets.cacheInvalid, widgets.cacheMisses]
 	};
 	var lb = {
-		tag: 'lb', cat: 'lb', label: 'Load balancing', title: 'Load balancing', icon: 'code-fork',
+		tag: 'lb', cat: 'lb', label: 'Load balancing', title: 'Load balancing', icon: 'code-fork', enabled: true,
+		strips: [],
+		gauges: [],
 		widgets: [widgets.coreInactivity, widgets.lockContentions, widgets.threadMigrations, widgets.threadStates, widgets.threadPaths, widgets.threadChains]
 	};
 	var dl = {
-		tag: 'dl', cat: 'dl', label: 'Data locality', title: 'Data locality', icon: 'location-arrow',
+		tag: 'dl', cat: 'dl', label: 'Data locality', title: 'Data locality', icon: 'location-arrow', enabled: true,
+		strips: [strips.miss],
+		gauges: [strips.miss],
 		widgets: [widgets.cacheMisses]
 	};
 	var rs = {
-		tag: 'rs', cat: 'rs', label: 'Resource sharing', title: 'Resource sharing', icon: 'exchange',
+		tag: 'rs', cat: 'rs', label: 'Resource sharing', title: 'Resource sharing', icon: 'exchange', enabled: true,
+		strips: [],
+		gauges: [],
 		widgets: []
 	};
 	var io = {
-		tag: 'io', cat: 'io', label: 'Input/Output', title: 'Input/Output', icon: 'plug',
+		tag: 'io', cat: 'io', label: 'Input/Output', title: 'Input/Output', icon: 'plug', enabled: false,
+		strips: [],
+		gauges: [],
 		widgets: []
 	};
 
 	var output = {
-		'all': [tg, sy, ds, lb, dl, rs, io],
-		'tg': tg, 'sy': sy, 'ds': ds, 'lb': lb, 'dl': dl, 'rs': rs, 'io': io
+		all: [tg, sy, ds, lb, dl, rs, io],
+		tg: tg, sy: sy, ds: ds, lb: lb, dl: dl, rs: rs, io: io, common: common
 	};
 	
 	return output;
-}]);
-
-
-app.factory('strips', ['decks', 'categories', function(decks, categories) {
-	return [
-		{ title: 'Running',				deck: decks.r,		links: [categories.tg, categories.sy] },
-		{ title: 'Unused cores',		deck: decks.uu,		links: [categories.tg, categories.sy] },
-		{ title: 'Waiting cores',		deck: decks.yb,		links: [categories.tg] },
-		{ title: 'Waiting ressources',	deck: decks.lw,		links: [categories.sy] },
-	//	{ title: 'DS',					deck: null,			links: []},
-	//	{ title: 'LB',					deck: null,			links: []},
-		{ title: 'Cache misses',		deck: decks.miss,	links: [categories.dl]},
-	//	{ title: 'RS',					deck: null,			links: []}
-	];
-}]);
-
-
-app.factory('gauges', ['decks', 'categories', function(decks, categories) {
-	return [
-		{ title: 'States',			deck: decks.gauge_states,	graph: 'gaugeCompare',		isBig: true,		links: [categories.tg, categories.sy] },
-		{ title: 'CPU usage',		deck: decks.gauge_unused,	graph: 'gaugeProportion',	isBig: false,	links: [categories.tg]},
-		{ title: 'Switches',		deck: decks.sw,				graph: 'gaugeUnits',		isBig: false,	links: [categories.tg] },
-		{ title: 'Migrations',		deck: decks.mg,				graph: 'gaugeUnits',		isBig: false,	links: [categories.tg] },
-		{ title: 'Cache misses',	deck: decks.gauge_miss,		graph: 'gaugeProportion',	isBig: false,	links: [categories.dl]},
-	];
 }]);
 
 app.factory('indicators', ['colours', 'categories', function(colours, categories) {

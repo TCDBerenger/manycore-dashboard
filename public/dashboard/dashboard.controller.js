@@ -12,9 +12,10 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	$scope.waitingDataCounter = 0;
 
 	// Details
+	$scope.catCommon = categories.common;
 	$scope.categories = categories.all;
-	$scope.strips = strips;
-	$scope.gauges = gauges;
+	//$scope.strips = strips;
+	//$scope.gauges = gauges;
 
 	// References
 	$scope.encodeSelectedProfile = $rootScope.encodeSelectedProfile;
