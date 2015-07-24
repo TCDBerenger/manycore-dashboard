@@ -71,14 +71,15 @@
 	</div>
 </div>
 
-<div class="row dashboard" ng-if="hasProfiles()" ng-repeat="category in categories | enabled">
+<div class="row dashboard category" ng-if="hasProfiles()" ng-repeat="category in categories | enabled">
 	<!-- Strips (profile 1) -->
 	<ng-include src="'/template_profile_strips.html'" ng-init="profile = selectedProfiles[0]"></ng-include>
 	
 	<!-- Main -->
-	<div ng-class="{'col-xs-4': has1Profile(), 'col-xs-8': has2Profiles()}">
+	<div ng-class="{'col-xs-4': has1Profile(), 'col-xs-8': has2Profiles(), 'for1': has1Profile(), 'for2': has2Profiles()}">
 		<!-- Title -->
-		{{category.title}}
+		<!--<span class="title"><i class="fa fa-{{category.icon}}"></i>{{category.title}}<i class="fa fa-{{category.icon}}"></i></span>--> 
+		<span class="title">{{category.title}}</span> 
 		
 		<!-- Gauges -->
 	
@@ -115,7 +116,7 @@
 			
 			<!-- stat -->
 			<p><i class="fa fa-bar-chart"></i> <strong>duration:</strong> {{data[profile.id].info.duration}} ms</p>
-			<div class="progress progress-striped" ng-if="has2Profiles()" style="margin-top: -10px;"><div class="progress-bar progress-bar-info" style="width: {{durationPercent(profile)}}%;"></div></div>
+			<!--<div class="progress progress-striped" ng-if="has2Profiles()" style="margin-top: -10px;"><div class="progress-bar progress-bar-info" style="width: {{durationPercent(profile)}}%;"></div></div>-->
 		</div>
 		
 		<!-- <div class="section">
