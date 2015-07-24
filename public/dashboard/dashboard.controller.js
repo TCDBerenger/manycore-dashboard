@@ -66,10 +66,24 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	};
 
 	/**
+	 * Profile - has a specified profile
+	 */
+	$scope.hasProfile = function(pindex) {
+		return $scope.selectedProfiles.length > pindex;
+	};
+
+	/**
 	 * Profile - has at least one selected
 	 */
 	$scope.hasProfiles = function() {
 		return $scope.selectedProfiles.length > 0;
+	};
+
+	/**
+	 * Profile - has a half selection
+	 */
+	$scope.has1Profile = function() {
+		return $scope.selectedProfiles.length == 1;
 	};
 
 	/**
@@ -80,10 +94,17 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	};
 
 	/**
-	 * Profile - has a complete selection even without loaded data
+	 * Profile - loading a specific profile
 	 */
-	$scope.will2Profiles = function() {
-		return ($scope.selectedProfiles.length + $scope.waitingDataCounter) == 2;
+	$scope.waitProfile = function(pindex) {
+		return ($scope.selectedProfiles.length + $scope.waitingDataCounter) == pindex + 1 && $scope.waitingDataCounter > 0;
+	};
+
+	/**
+	 * Profile - will add or has already a specific profile
+	 */
+	$scope.willProfile = function(pindex) {
+		return ($scope.selectedProfiles.length + $scope.waitingDataCounter) > pindex;
 	};
 
 	/**

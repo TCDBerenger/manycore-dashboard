@@ -1,27 +1,74 @@
 <div class="row dashboard">
-	<ng-include src="'/template_profile.html'" ng-if="hasProfiles()" ng-init="profile = selectedProfiles[0]"></ng-include>
+	<ng-include src="'/template_profile.html'" ng-if="willProfile(0)" ng-init="pindex = 0"></ng-include>
 	
 	<!-- Main -->
-	<div class="col-xs-8 profile"><div class="row">
+	<div ng-class="{'col-xs-4': has1Profile(), 'col-xs-8': has2Profiles()}"><div class="row">
+		<!-- Category -->
+		<div ng-if="hasProfiles()" class="col-auto"><div class="block block-title"><!-- block-imp -->
+			<span class="block-icon fa-stack">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-eye fa-stack-1x fa-inverse"></i>
+			</span>
+			<h2>Quick access</h2>
+			<div class="category-group">
+				<a ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})' ng-repeat="category in categories"><button type="button" class="btn btn-link btn-xs"><i class="fa fa-{{category.icon}}"></i>{{category.title}}</button></a>
+			</div>
+		</div></div>
+		
+		<!-- Control -->
+		<div ng-if="has2Profiles()" class="col-auto ctrl"><div class="block">
+			<span class="block-icon fa-stack">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-wrench fa-stack-1x fa-inverse"></i>
+			</span>
+			<p><a class="action" href ng-click="unselectAllProfiles()">
+				<span class="fa-stack icon">
+					<i class="fa fa-thumb-tack fa-stack-1x"></i>
+					<i class="fa fa-ban fa-stack-2x"></i>
+				</span><span class="text">deselect all</span>
+			</a></p>
+			<p><a class="action" href ng-click="invertProfiles()">
+				<span class="fa-stack icon">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-exchange fa-stack-1x fa-inverse"></i>
+				</span><span class="text">invert</span>
+			</a></p>
+		</div></div>
+	</div></div>
+	
+	<ng-include src="'/template_profile.html'" ng-if="willProfile(1)" ng-init="pindex = 1"></ng-include>
+	
+	<!-- Control -->
+	<div class="col-xs-5 col-over" ng-class="{'col-xs-offset-6': has1Profile()}" ng-if="canAddProfile()">
+
+		<!-- Disclamer -->
+		<div class="block block-title">
+			<span class="block-icon fa-stack">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-info fa-stack-1x fa-inverse"></i>
+			</span>
+			<h2>Information</h2>
+			<strong>Be careful.</strong> This tool is created for a research purpose and is in constant evolution.
+			Graphs could contain some mistakes and data could be miscomputed.
+		</div>
+		
 		<!-- Selection -->
-		<div ng-if="canAddProfile()" class="col-µ ctrl" style="width: 550px"><div class="block block-title">
+		<div class="block block-title">
 			<span class="block-icon fa-stack">
 				<i class="fa fa-circle fa-stack-2x"></i>
 				<i class="fa fa-thumb-tack fa-stack-1x fa-inverse"></i>
 			</span>
 			<h2>{{! hasSelectedProfile() | iif : "Select a sample" : "Compare with"}}</h2>
-			<div class="btn-group-col btn-group-col-5">
+			<p class="profile-group">
 				<button type="button" class="btn {{ profile.version < 4 | iif : 'btn-default' : 'btn-primary'}} btn-xs" ng-click="selectProfile(profile)" ng-repeat="profile in availableProfiles | orderBy : 'label'" ng-disabled="profile.disabled">{{profile.label}}</button>
-			</div>
-			<p ng-hide="hasProfiles()">
-				<button type="button" class="btn btn-default btn-xs"></button> missing data<br />
+			</p>
+			<p>
+				<button type="button" class="btn btn-default btn-xs"></button> some data are missing<br />
 				<button type="button" class="btn btn-primary btn-xs"></button> in accordance with last data revision
 			</p>
-		</div></div>
-	
-	</div></div>
-	
-	<ng-include src="'/template_profile.html'" ng-if="has2Profiles()" ng-init="profile = selectedProfiles[1]"></ng-include>
+		</div>
+		
+	</div>
 </div>
 
 <div class="row dashboard" ng-if="hasProfiles()" ng-repeat="category in categories | enabled">
@@ -29,7 +76,7 @@
 	<ng-include src="'/template_profile_strips.html'" ng-init="profile = selectedProfiles[0]"></ng-include>
 	
 	<!-- Main -->
-	<div class="col-xs-8 profile">
+	<div ng-class="{'col-xs-4': has1Profile(), 'col-xs-8': has2Profiles()}">
 		<!-- Title -->
 		{{category.title}}
 		
@@ -43,10 +90,20 @@
 
 <!-- Profiles -->
 <script type="text/ng-template" id="/template_profile.html">
-	<div class="col-xs-2 profile hovermodal"><div class="tile">
+	<!-- Waiting -->
+	<div ng-if="waitProfile(pindex)" class="col-xs-2 ctrl"><div class="block">
+		<span class="block-icon fa-stack">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-spinner fa-pulse fa-stack-1x fa-inverse"></i>
+		</span>
+		<strong>Retrieving data...</strong>
+	</div></div>
+	
+	<!-- Profile -->
+	<div ng-if="hasProfile(pindex)" class="col-xs-2 profile hovermodal"><div class="tile"  ng-init="profile = selectedProfiles[pindex]">
 
 		<!-- main -->
-		<div class="section">
+		<div class="section section-title">
 			<a class="pin hover-text" href ng-click="unselectProfile(profile)">
 				<span class="text">deselect</span><span class="fa-stack fa-lg icon">
 					<i class="fa fa-thumb-tack fa-stack-1x"></i>
@@ -55,12 +112,15 @@
 			</a>
 			<h2>{{profile.label}}</h2>
 			<p class="subtitle">{{profile.desc != null && profile.desc.length > 0 | iif : profile.desc : '&nbsp;' }}</p>
+			
+			<!-- stat -->
+			<p><i class="fa fa-bar-chart"></i> <strong>duration:</strong> {{data[profile.id].info.duration}} ms</p>
+			<div class="progress progress-striped" ng-if="has2Profiles()" style="margin-top: -10px;"><div class="progress-bar progress-bar-info" style="width: {{durationPercent(profile)}}%;"></div></div>
 		</div>
 		
-		<div class="section">
+		<!-- <div class="section">
 			TODO: sequence
-			<!-- <div class="progress progress-striped" style="margin-top: -10px;"><div class="progress-bar progress-bar-info" style="width: {{durationPercent(profile)}}%;"></div></div> -->
-		</div>
+		</div> -->
 		
 		<div class="section section-strip strip" ng-repeat="strip in catCommon.strips">
 			<chart-strip class="widget-graph"></chart-strip>
@@ -73,7 +133,7 @@
 <script type="text/ng-template" id="/template_profile_strips.html">
 	<div class="col-xs-2 profile"><div class="tile">
 		<div class="section-strip strip" ng-repeat="strip in category.strips">
-			<a ui-sref='detail({cat: strip.links[0].tag, ids: encodeSelectedProfile()})'>
+			<a ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})'>
 				<chart-strip class="widget-graph"></chart-strip>
 			</a>
 		</div>
