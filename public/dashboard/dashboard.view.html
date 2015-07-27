@@ -112,7 +112,12 @@
 				</span>
 			</a>
 			<h2>{{profile.label}}</h2>
-			<p class="subtitle">{{profile.desc != null && profile.desc.length > 0 | iif : profile.desc : '&nbsp;' }}</p>
+			<p class="subtitle"
+			   tooltip="{{profile.desc}}"
+			   tooltip-placement="bottom"
+			   tooltip-trigger="mouseenter">
+				{{profile.desc != null && profile.desc.length > 0 | iif : profile.desc : '&nbsp;' }}
+			</p>
 			
 			<!-- stat -->
 			<p><i class="fa fa-bar-chart"></i> <strong>duration:</strong> {{data[profile.id].info.duration}} ms</p>

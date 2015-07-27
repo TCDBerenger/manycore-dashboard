@@ -46,6 +46,10 @@
 	margin-top: -10px;
 	margin-bottom: 6px;
 	height: 25px;
+	
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .dashboard .profile .graphs section {
