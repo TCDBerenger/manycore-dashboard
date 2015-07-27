@@ -33,6 +33,7 @@
 		</div>
 		
 		<!-- Control -->
+		<!--
 		<div ng-if="has2Profiles()" class="col-auto ctrl"><div class="block">
 			<span class="block-icon fa-stack">
 				<i class="fa fa-circle fa-stack-2x"></i>
@@ -51,6 +52,7 @@
 				</span><span class="text">invert</span>
 			</a></p>
 		</div></div>
+		-->
 	</div></div>
 	
 	<ng-include src="'/template_profile.html'" ng-if="willProfile(1)" ng-init="pindex = 1"></ng-include>
@@ -139,6 +141,12 @@
 					<i class="fa fa-ban fa-stack-2x"></i>
 				</span>
 			</a>
+			<!--<a class="pin hover-text" href ng-click="invertProfiles()" ng-if="has2Profiles()">
+				<span class="text">invert</span><span class="fa-stack fa-lg icon">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-exchange fa-stack-1x fa-inverse"></i>
+				</span>
+			</a>-->
 			<h2>{{profile.label}}</h2>
 			<p class="subtitle" tooltip="{{profile.desc}}" tooltip-placement="bottom" tooltip-trigger="mouseenter">
 				{{profile.desc != null && profile.desc.length > 0 | iif : profile.desc : '&nbsp;' }}

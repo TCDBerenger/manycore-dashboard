@@ -226,6 +226,9 @@
 	right: 17px;
 	z-index: 100;
 }
+.dashboard .pin:nth-child(2) {
+	top: 26px;
+}
 .dashboard .pin .text		{ padding-right: 2px; }
 .dashboard .pin > .fa		{ font-size: 1.1em !important; }
 .dashboard .pin .fa-stack	{ font-size: 0.8em !important; }
