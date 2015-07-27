@@ -7,8 +7,8 @@
 /**
  * Constants
  */
-var LAYOUT_GAUGE_REGULAR = 80;
-var LAYOUT_GAUGE_BIG = 140;
+var LAYOUT_GAUGE_REGULAR = 50;
+var LAYOUT_GAUGE_BIG = 100;
 
 /**
  * Layout for strip chart
@@ -17,7 +17,7 @@ var stripLayout = function() {
 	// Allow seld reference (otherwise this is the caller object)
 	var self = this;
 	
-	this.height		= 60;
+	this.height		= 50;
 	this.width		= 0;
 	this.graph		= { top: 0, bottom: 60, left: 0, height: 60 };
 	
@@ -119,8 +119,10 @@ app.directive('chartStrip', function() {
 		svg.append("text")
 			.attr("class", "svg-title")
 			.attr("x", 4)
-			.attr("y", (reverseData) ? 32 : layout.height - 6)
+			.attr("y", layout.height / 2)
 			.attr("text-anchor", "start")
+			.attr("alignment-baseline", "central")
+			.attr("dominant-baseline", "central")
 			.attr("fill", v.gcolor)
 			.text(title);
 
@@ -255,6 +257,7 @@ app.directive('gaugeProportion', function() {
 			.attr("y", layout.middle)
 			.attr("text-anchor", "middle")
 			.attr("alignment-baseline", "central")
+			.attr("dominant-baseline", "central")
 			.attr("fill", vs[0].gcolor)
 			.text(Math.round(100 * dataList[vs[0].attr] / sumValues) + ' %');
 		
@@ -363,12 +366,14 @@ app.directive('gaugeCompare', function() {
 			.attr("y", layout.middle - 13)
 			.attr("text-anchor", "middle")
 			.attr("alignment-baseline", "central")
+			.attr("dominant-baseline", "central")
 			.text(selectedV.title);
 		var line2 = text.append('tspan')
 			.attr("x", layout.middle)
 			.attr("y", layout.middle + 13)
 			.attr("text-anchor", "middle")
 			.attr("alignment-baseline", "central")
+			.attr("dominant-baseline", "central")
 			.text(Math.round(100 * dataList[selectedV.attr] / sumValues) + ' %');
 		
 		
@@ -405,7 +410,7 @@ app.directive('gaugeUnits', function() {
 		var container = element[0];
 		var layout = new gaugeLayout(LAYOUT_GAUGE_REGULAR);
 		layout.middle = LAYOUT_GAUGE_REGULAR / 2;
-		layout.radius = LAYOUT_GAUGE_REGULAR / 2 - 10;
+		layout.radius = LAYOUT_GAUGE_REGULAR / 2 - Math.round(LAYOUT_GAUGE_REGULAR / 6);
 
 		// Attributes
 		var v = scope.gauge.deck.data[0];
@@ -447,6 +452,7 @@ app.directive('gaugeUnits', function() {
 			.attr("y", layout.middle)
 			.attr("text-anchor", "middle")
 			.attr("alignment-baseline", "central")
+			.attr("dominant-baseline", "central")
 			.attr("fill", v.gcolor)
 			.text(gauge_n2ft(ratio));
 		
