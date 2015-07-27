@@ -252,7 +252,7 @@ app.factory('strips', ['decks', function(decks) {
 
 
 app.factory('gauges', ['decks', function(decks) {
-	var states	= { title: 'States',		deck: decks.gauge_states,	graph: 'gaugeCompare',		isBig: true};
+	var states	= { title: 'Thread states',	deck: decks.gauge_states,	graph: 'gaugeCompare',		isBig: true};
 	var uu		= { title: 'CPU usage',		deck: decks.gauge_unused,	graph: 'gaugeProportion',	isBig: false};
 	var sw		= { title: 'Switches',		deck: decks.sw,				graph: 'gaugeUnits',		isBig: false};
 	var mg		= { title: 'Migrations',	deck: decks.mg,				graph: 'gaugeUnits',		isBig: false};
