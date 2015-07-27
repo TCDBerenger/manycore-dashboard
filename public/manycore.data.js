@@ -238,11 +238,11 @@ app.factory('widgets', ['decks', function(decks) {
 
 
 app.factory('strips', ['decks', function(decks) {
-	var r		= { title: 'Running',				deck: decks.r};
-	var uu		= { title: 'Unused cores',			deck: decks.uu};
-	var yb		= { title: 'Waiting cores',			deck: decks.yb};
-	var lw		= { title: 'Waiting ressources',	deck: decks.lw};
-	var miss	= { title: 'Cache misses',			deck: decks.miss};
+	var r		= { title: 'Running',				deck: decks.r,		reverse: false };
+	var uu		= { title: 'Unused cores',			deck: decks.uu,		reverse: true };
+	var yb		= { title: 'Waiting cores',			deck: decks.yb,		reverse: false };
+	var lw		= { title: 'Waiting ressources',	deck: decks.lw,		reverse: false };
+	var miss	= { title: 'Cache misses',			deck: decks.miss,	reverse: false };
 	
 	return {
 		r: r, uu: uu, yb: yb, lw: lw, miss: miss,

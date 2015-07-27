@@ -101,6 +101,7 @@ app.directive('chartStrip', function() {
 		// Data
 		var data = profile.data.dash;
 		var dataList = profile.data.dash.profiling;
+		var reverseData = scope.strip.reverse;
 
 		// Meta
 		var title = scope.strip.title;
@@ -118,7 +119,7 @@ app.directive('chartStrip', function() {
 		svg.append("text")
 			.attr("class", "svg-title")
 			.attr("x", 4)
-			.attr("y", layout.height - 6)
+			.attr("y", (reverseData) ? 32 : layout.height - 6)
 			.attr("text-anchor", "start")
 			.attr("fill", v.gcolor)
 			.text(title);
@@ -142,11 +143,20 @@ app.directive('chartStrip', function() {
 			group.selectAll("*").remove();
 			
 			// Points
-			var points = [scaleX(0), layout.graph.bottom];
-			dataList.forEach(function(p) {
-				points.push.apply(points, [scaleX(p.t), layout.graph.bottom - p[v.attr], scaleX(p.t + timeStep), layout.graph.bottom - p[v.attr]]);
-			});
-			points.push.apply(points, [scaleX(data.info.duration), layout.graph.bottom]);
+			var points;
+			if (reverseData) {
+				points = [scaleX(0), layout.graph.top];
+				dataList.forEach(function(p) {
+					points.push.apply(points, [scaleX(p.t), p[v.attr], scaleX(p.t + timeStep), p[v.attr]]);
+				});
+				points.push.apply(points, [scaleX(data.info.duration), layout.graph.top]);
+			} else {
+				points = [scaleX(0), layout.graph.bottom];
+				dataList.forEach(function(p) {
+					points.push.apply(points, [scaleX(p.t), layout.graph.bottom - p[v.attr], scaleX(p.t + timeStep), layout.graph.bottom - p[v.attr]]);
+				});
+				points.push.apply(points, [scaleX(data.info.duration), layout.graph.bottom]);
+			}
 			
 			// Draw
 			group.append("polygon")
