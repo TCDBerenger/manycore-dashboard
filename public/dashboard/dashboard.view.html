@@ -15,6 +15,23 @@
 			</div>
 		</div></div>
 		
+		<!-- States -->
+		<div ng-if="hasProfiles()" class="col-auto gauge" ng-repeat="gauge in catCommon.gauges">
+			<div class="panel panel-default"  ng-class="{for2: has2Profiles(), big: gauge.isBig}">
+				<div class="panel-heading"><h3 class="panel-title">{{gauge.title}}</h3></div>
+				<div class="panel-body panel-body-gauge">
+					<div class="panel-section" ng-repeat="profile in selectedProfiles">
+						<proxy-link-directive ng-attr-graph="{{gauge.graph}}" class="widget-graph{{ gauge.isBig | iif : ' big' : ''}}"></proxy-link-directive>
+					</div>
+				</div>
+				<div class="panel-body panel-body-title" ng-if="has2Profiles()">
+					<div class="panel-section" ng-repeat="profile in selectedProfiles">
+						{{profile.label}}
+					</div>
+				</div>
+			</div>
+		</div>
+		
 		<!-- Control -->
 		<div ng-if="has2Profiles()" class="col-auto ctrl"><div class="block">
 			<span class="block-icon fa-stack">
@@ -67,7 +84,6 @@
 				<button type="button" class="btn btn-primary btn-xs"></button> in accordance with last data revision
 			</p>
 		</div>
-		
 	</div>
 </div>
 
@@ -81,7 +97,22 @@
 		<!--<span class="title"><i class="fa fa-{{category.icon}}"></i>{{category.title}}<i class="fa fa-{{category.icon}}"></i></span>--> 
 		<span class="title">{{category.title}}</span> 
 		
-		<!-- Gauges -->
+		<!-- Indicators -->
+		<div class="row"><div class="profile{{$index+1}}" ng-class="{'col-xs-12': has1Profile(), 'col-xs-6': has2Profiles()}" ng-repeat="profile in selectedProfiles">
+			<!-- Legend -->
+			<div class="legend">
+				<span ng-repeat="strip in category.strips" style="color: {{legend.fcolor}}" ng-init="legend = strip.deck.data[0]">
+					<span class="icon">▮</span>
+					<span class="text">{{legend.label}}</span>
+					<br ng-if="! $last" />
+				</span>
+			</div>
+			
+			<!-- Gauges -->
+			<div class="gauge">
+				<ng-include src="'/template_profile_gauges.html'"></ng-include>
+			</div>
+		</div></div>
 	
 	</div>
 		
@@ -144,4 +175,16 @@
 			</a>
 		</div>
 	</div></div>
+</script>
+
+<!-- Profiles - gauges -->
+<script type="text/ng-template" id="/template_profile_gauges.html">
+	<div class="col-auto gauge" ng-repeat="gauge in category.gauges">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<proxy-link-directive ng-attr-graph="{{gauge.graph}}" class="widget-graph{{ gauge.isBig | iif : ' big' : ''}}"></proxy-link-directive>
+			</div>
+			<div class="panel-footer">{{gauge.title}}</div>
+		</div>
+	</div>
 </script>

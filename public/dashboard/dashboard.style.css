@@ -106,6 +106,13 @@
 	word-wrap: break-word;
 	word-break: keep-all;
 }
+.dashboard .gauge .panel-footer {
+	padding: 5px 0px;
+	text-align: center;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
 .dashboard .gauge .panel-body {
 	padding: 0px;
 }
@@ -114,11 +121,18 @@
 .dashboard .gauge .big		.panel-heading { width: 140px; }
 .dashboard .gauge .big.for2 .panel-heading { width: 281px; }
 
-.dashboard .gauge	   .panel-body { height: 80px; }
-.dashboard .gauge .big .panel-body { height: 140px; }
+.dashboard .gauge			.panel-footer { width: 80px; }
+.dashboard .gauge .for2		.panel-footer { width: 161px; }
+
+.dashboard .gauge	   .panel-body-gauge { height: 80px; }
+.dashboard .gauge .big .panel-body-gauge { height: 140px; }
 
 .dashboard .gauge .panel-section {
 	display: inline-block;
+}
+.dashboard .gauge .panel-body-title .panel-section {
+	width: 50%;
+	text-align: center;
 }
 .dashboard .gauge .panel-section + .panel-section {
 	border-left: 1px solid #DDD;
@@ -129,30 +143,36 @@
 /**
  * Dashboard Legend
  */
-.dashboard .ctrl-legend {
+.dashboard .legend {
+	/*
 	padding: 0px;
 	font-size: 0.8em;
+	*/
 }
-
-.dashboard .ctrl-legend .section {
+.dashboard .profile1 .legend {	float: left;	text-align: left; }
+.dashboard .profile2 .legend {	float: right;	text-align: right; }
+.dashboard .profile1 .legend .icon {	float: left; }
+.dashboard .profile2 .legend .icon {	float: right; }
+.dashboard .profile1 .gauge {	float: left; }
+.dashboard .profile2 .gauge {	float: right; }
+/*
+.dashboard .legend .section {
 	min-height: 60px;
 	width: 100%;
 	position: absolute;
 	cursor: pointer;
 	border-top: 1px dashed #797979;
 }
-.dashboard .ctrl-legend .section + .section {
+.dashboard .legend .section + .section {
 	border-top: 1px dashed #797979;
 }
-.dashboard .ctrl-legend p.title {
+.dashboard .legend p.title {
 	margin: 0px;
 	font-weight: bold;
 }
-
-.dashboard .ctrl-legend.left {		text-align: left; }
-.dashboard .ctrl-legend.center {	text-align: center; }
-.dashboard .ctrl-legend .icon.left {	float: left; }
-.dashboard .ctrl-legend .icon.right {	float: right; }
+.dashboard .legend.left {	text-align: left; }
+.dashboard .legend.center {	text-align: center; }
+*/
 
 
 
@@ -411,7 +431,7 @@
 	margin-bottom: 6px;
 }
 .dashboard .category-group {
-	max-width: 350px;
+	max-width: 341px;
 }
 .dashboard .category-group button i {
 	width: 12px;
