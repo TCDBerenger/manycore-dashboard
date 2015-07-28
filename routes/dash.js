@@ -77,9 +77,10 @@ function addProfiling(output, profile) {
 			max = data.info.threads * data.info.timeStep;
 			
 			f.r = Math.round(STRIP_HEIGHT * data.frames[time].running / max);
-			f.uu = Math.round(STRIP_HEIGHT * (max - data.frames[time].running) / max);
+			f.uu = Math.round(STRIP_HEIGHT * data.frames[time].idle / max);
 			f.yb = Math.min(STRIP_HEIGHT, Math.round(STRIP_HEIGHT * (data.frames[time].ready + data.frames[time].standby) / max));
 			f.lw = Math.min(STRIP_HEIGHT, Math.round(STRIP_HEIGHT * data.frames[time].lock_wait / max));
+			f.sys = Math.round(STRIP_HEIGHT * (max - data.frames[time].running - data.frames[time].idle) / max);
 			
 			// miss	: cache misses
 			max = data.locality.byFrames[time].ipc + data.locality.byFrames[time].tlb + data.locality.byFrames[time].l1 + data.locality.byFrames[time].l2 + data.locality.byFrames[time].l3 + data.locality.byFrames[time].hpf;
@@ -116,7 +117,7 @@ function addGauges(output, profile) {
 		
 		r:	Math.round(data.stats.running),
 		yb:	Math.round(data.stats.ready + data.stats.standby),
-		uu: Math.round(maxStates - data.stats.running),
+		uu: Math.round(data.stats.idle),
 		
 		ls: data.stats.lock_success,
 		lf: data.stats.lock_failure,

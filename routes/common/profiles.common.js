@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 49;
+var VERSION = 50;
 
 /************************************************/
 /* Variables - hardwares						*/
@@ -296,23 +296,24 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	function checkFrame(id) {
 		if (! data.frames.hasOwnProperty(id)) {
 			data.frames[id] = {
-				t:				{},
-				c:				{},
+				t:				{},	// by thread
+				c:				{},	// by code
 
-				cycles: 		0,
-				starts:			0,
-				ends:			0,
+				cycles: 		0,	// in cycles
 				
-				ready: 			0,
-				running: 		0,
-				standby: 		0,
-				wait: 			0,
-				lock_wait:		0,
+				idle:			0,	// in ms, idle process
+				ready: 			0,	// in ms
+				running: 		0,	// in ms
+				standby: 		0,	// in ms
+				wait: 			0,	// in ms
+				lock_wait:		0,	// in ms, how long threads waiting for a lock acquisition
 
-				switches:		0,
-				migrations:		0,
-				lock_success:	0,
-				lock_failure:	0,
+				starts:			0,	// how many threads starting
+				ends:			0,	// how many threads ending
+				switches:		0,	// how many threads switching
+				migrations:		0,	// how many threads migrating
+				lock_success:	0,	// how many threads successing lock acquisition
+				lock_failure:	0,	// how many threads failing lock acquisition
 			}
 		}
 	}
@@ -385,6 +386,23 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 				// Save state
 				data.frames[timeEvent].c[element.cid][element.type] += element.value;
 			}
+		}
+		
+		// IDLE
+		else if (element.pid == 1 && element.type == 'running') {
+
+			// Check time frame existance
+			checkFrame(timeEvent);
+
+			// Sum by frame
+			data.frames[timeEvent].idle += element.value;
+
+			// Auto build structure
+			if (! data.stats.hasOwnProperty('idle')) data.stats.idle = 0;
+
+			// Sum by stat (with auto build structure)
+			data.stats.idle += element.value;
+			
 		}
 	});
 
