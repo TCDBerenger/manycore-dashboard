@@ -52,13 +52,13 @@ app.factory('decks', ['colours', function(colours) {
 	var limit = 	{ color: colours.list.eGrey, fcolor: colours.list.dGrey, gcolor: colours.list.lGrey,	expected: function(profile) { return 100; },																displayed: function(profile) { return 110; } };
 	var limit_th = 	{ color: limit.color, fcolor: limit.fcolor, gcolor: limit.gcolor, label: 'threads',		expected: function(profile) { return profile.currentData.stats.h; },										displayed: function(profile) { return profile.currentData.stats.h + 2; } };
 
-	var running = 	{ label: 'threads running',	title: 'running',	desc: 'processor executing threads',	unity: 'ms', cat: 'times', attr: 'r',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen };
+	var running = 	{ label: 'threads running',	title: 'running',	desc: 'threads are excuted',			unity: 'ms', cat: 'times', attr: 'r',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen };
 	var readySB = 	{ label: 'threads ready',	title: 'ready',		desc: ready_label,						unity: 'ms', cat: 'times', attr: 'yb',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed };
 	var ready = 	{ label: 'threads ready',	title: 'ready',		desc: ready_label,						unity: 'ms', cat: 'times', attr: 'y',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed };
 	var standBy = 	{ label: 'threads standBy',	title: 'stand by',	desc: standby_label,					unity: 'ms', cat: 'times', attr: 'b',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed };
 	var waiting = 	{ label: 'threads waiting',	title: 'waiting',	desc: waiting_label,					unity: 'ms', cat: 'times', attr: 'w',	color: colours.list.eOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange };
-	var capacity = 	{ label: 'unused core',		title: 'unused',	desc: 'processor is not fully used',	unity: 'ms', cat: 'times', attr: 'uu',	color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.lBlue };
-	var system = 	{ label: 'system',			title: 'system',	desc: 'processor is used by the OS (soon)',	unity: 'ms', cat: 'times', attr: '-',	color: colours.list.black,		fcolor: colours.list.black,		gcolor: colours.list.black };
+	var capacity = 	{ label: 'unused core',		title: 'unused',	desc: 'processor is available (idle)',	unity: 'ms', cat: 'times', attr: 'uu',	color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.lBlue };
+	var system = 	{ label: 'system',			title: 'system',	desc: 'processor is used by the OS',	unity: 'ms', cat: 'times', attr: 'sys',	color: colours.list.white,		fcolor: colours.list.lGrey,		gcolor: colours.list.white };
 
 	var ipc = 		{ label: 'executing',			title: 'Executing',			desc: 'executing',				unity: 'ms', cat: 'locality',	attr: 'ipc',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen };
 	var miss = 		{ label: 'Cache misses',		title: 'Cache misses',		desc: '',						unity: 'ms', cat: 'locality',	attr: 'miss',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed };
@@ -93,11 +93,12 @@ app.factory('decks', ['colours', function(colours) {
 		states: {
 			graph : {
 				v:		[readySB],	// data over the limit (like other graphs)
-				r:		running,	// data under the limit (specials)
+				r:		running,	// data under the limit
+				s:		system,		// data amputated by the system, under the limit
 				limit:	capacity
 			},
-			data : [running, ready, standBy],
-			legend : [capacity, system],
+			data : [running, capacity, ready, standBy],
+			legend : [system],
 			clues: [
 				{ color: colours.bad,	tax: 'Oversubscription', 							text: 'too many threads' },
 				{ color: colours.bad,	tax: 'Thread migrations', 							text: 'too many threads' },
@@ -105,9 +106,7 @@ app.factory('decks', ['colours', function(colours) {
 				{ color: colours.plus,	tax: 'Underscubscription', 							text: 'not enough threads' }
 			],
 			settings: [
-				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core' },
-				{ property: 'upsidedown', value: true, type: 'flag', label: 'Upsidedown running' }/*,
-				{ property: 'vMirror', value: true, type: 'flag', label: 'Vertical mirror' }*/
+				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core' }
 			]
 		},
 		inactivity: {
@@ -204,15 +203,15 @@ app.factory('decks', ['colours', function(colours) {
 		contentions: {
 			graph : {
 				v:		[l_wait],	// data over the limit (like other graphs)
-				r:		running,	// data under the limit (specials)
+				r:		running,	// data under the limit
+				s:		system,		// data amputated by the system, under the limit
 				limit:	capacity
 			},
 			data : [running, l_wait, waiting],
 			legend : [capacity, system],
 			clues: [],
 			settings: [
-				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core' },
-				{ property: 'upsidedown', value: true, type: 'flag', label: 'Upsidedown running' }
+				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core' }
 			]
 		},
 	};

@@ -507,8 +507,8 @@ app.directive('chartCapacity', function() {
 			directive_repaint_xAxis(r);
 
 			// Main draw
-			var profileData, pointsC, pointsR, pointsOver;
-			var coordinates, valueR, valuesOver, scaleLimit;
+			var profileData, pointsC, pointsS, pointsR, pointsOver;
+			var coordinates, valueS, valueR, valuesOver, scaleLimit;
 			var tStep, tID;
 			r.profiles.forEach(function(profile, index) {
 				// vars
@@ -517,7 +517,8 @@ app.directive('chartCapacity', function() {
 
 				// All - points - start
 				pointsC = [r.scaleX(r.meta.begin), r.scalesV[index](0)];
-				pointsR = (r.meta.upsidedown) ? [r.scaleX(r.meta.begin), r.scalesV[index](r.meta.vExpected[index])] : [r.scaleX(r.meta.begin), r.scalesV[index](0)];
+				pointsS = [r.scaleX(r.meta.begin), r.scalesV[index](0)];
+				pointsR = [r.scaleX(r.meta.begin), r.scalesV[index](r.meta.vExpected[index])];
 				pointsOver = [[r.scaleX(r.meta.begin), r.scalesV[index](r.meta.vExpected[index])]];
 				valuesOver = [r.meta.vExpected[index]];
 				scaleLimit = r.scalesV[index](r.meta.vExpected[index])
@@ -536,15 +537,21 @@ app.directive('chartCapacity', function() {
 					tID = t / tStep;
 
 					// Referencial
-					valueR = profileData[r.deck.r.cat][t][r.deck.r.attr];
-					if (r.meta.upsidedown)	valueR = r.meta.vExpected[index] - valueR;
-					if (r.meta.crenellate)	valueR = rV(valueR, r.meta.rounds[index]);
+					valueS = profileData[r.deck.s.cat][t][r.deck.s.attr];
+					valueR = r.meta.vExpected[index] - profileData[r.deck.r.cat][t][r.deck.r.attr];
+					
+					// options
+					if (r.meta.crenellate) {
+						valueS = rV(valueS, r.meta.rounds[index]);
+						valueR = rV(valueR, r.meta.rounds[index]);
+					}
 
 					// Build for selection
-					coordinates = [r.scaleX(t), r.scaleX(t + tStep), r.scalesV[index](valueR), scaleLimit];
+					coordinates = [r.scaleX(t), r.scaleX(t + tStep), r.scalesV[index](valueS), r.scalesV[index](valueR), scaleLimit];
 
 					// Save referencial shape
-					pointsR.push.apply(pointsR, [coordinates[0], coordinates[2], coordinates[1], coordinates[2]]);
+					pointsS.push.apply(pointsS, [coordinates[0], coordinates[2], coordinates[1], coordinates[2]]);
+					pointsR.push.apply(pointsR, [coordinates[0], coordinates[3], coordinates[1], coordinates[3]]);
 
 					for (var v = 0; v < r.deck.v.length; v++) {
 						// Value
@@ -555,10 +562,10 @@ app.directive('chartCapacity', function() {
 						coordinates.push(r.scalesV[index](valuesOver[v+1]));
 
 						// Save value shape
-						pointsOver[v+1].push.apply(pointsOver[v+1], [coordinates[0], coordinates[4 + v], coordinates[1], coordinates[4 + v]]);
+						pointsOver[v+1].push.apply(pointsOver[v+1], [coordinates[0], coordinates[5 + v], coordinates[1], coordinates[5 + v]]);
 
 						if (v == r.deck.v.length - 1)
-							r.meta.vOverflow[index] = Math.max(r.meta.vOverflow[index], 0 - coordinates[4 + v], coordinates[4 + v] - r.layout.profile.height);
+							r.meta.vOverflow[index] = Math.max(r.meta.vOverflow[index], 0 - coordinates[5 + v], coordinates[5 + v] - r.layout.profile.height);
 					};
 
 					// Save for selection
@@ -567,7 +574,8 @@ app.directive('chartCapacity', function() {
 
 				// All - points - end
 				pointsC.push.apply(pointsC, [r.scaleX(r.meta.ends[index]), r.scalesV[index](0)]);
-				pointsR.push.apply(pointsR, (r.meta.upsidedown) ? [r.scaleX(r.meta.ends[index]), scaleLimit] : [r.scaleX(r.meta.ends[index]), r.scalesV[index](0)]);
+				pointsS.push.apply(pointsS, [r.scaleX(r.meta.ends[index]), r.scalesV[index](0)]);
+				pointsR.push.apply(pointsR, [r.scaleX(r.meta.ends[index]), scaleLimit]);
 				pointsOver[0].push.apply(pointsOver[0], [r.scaleX(r.meta.ends[index]), scaleLimit]);
 
 				// Clean
@@ -578,6 +586,12 @@ app.directive('chartCapacity', function() {
 					.attr("class", "svg-limit")
 					.attr("points", p2s(pointsC))
 					.attr("fill", r.deck.limit.color);
+
+				// Draw - System
+				r.groupP[index].append("polygon")
+					.attr("class", "svg-state-system")
+					.attr("points", p2s(pointsS))
+					.attr("fill", r.deck.s.color);
 
 				// Draw - Running
 				r.groupP[index].append("polygon")
@@ -612,17 +626,19 @@ app.directive('chartCapacity', function() {
 			}
 
 			// Loop
-			var pointsC, pointsR, pointsOver;
+			var pointsC, pointsS, pointsR, pointsOver;
 			for (var index = 0; index < r.profiles.length; index++) {
 
 				// Points of shapes
 				if (tIndex < r.meta.ends[index] / r.profiles[index].currentData.info.timeStep) {
-					pointsC = [r.iData[index][tIndex][0], r.iData[index][tIndex][2], r.iData[index][tIndex][0], r.scalesV[index](r.meta.vExpected[index]), r.iData[index][tIndex][1], r.scalesV[index](r.meta.vExpected[index]), r.iData[index][tIndex][1], r.iData[index][tIndex][2]];
-					pointsR = [r.iData[index][tIndex][0], r.scalesV[index](0), r.iData[index][tIndex][0], r.iData[index][tIndex][2], r.iData[index][tIndex][1], r.iData[index][tIndex][2], r.iData[index][tIndex][1], r.scalesV[index](0)];
+					pointsS = [r.iData[index][tIndex][0], r.scalesV[index](0), r.iData[index][tIndex][0], r.iData[index][tIndex][2], r.iData[index][tIndex][1], r.iData[index][tIndex][2], r.iData[index][tIndex][1], r.scalesV[index](0)];
+					pointsC = [r.iData[index][tIndex][0], r.iData[index][tIndex][2], r.iData[index][tIndex][0], r.iData[index][tIndex][3], r.iData[index][tIndex][1], r.iData[index][tIndex][3], r.iData[index][tIndex][1], r.iData[index][tIndex][2]];
+					pointsR = [r.iData[index][tIndex][0], r.iData[index][tIndex][3], r.iData[index][tIndex][0], r.iData[index][tIndex][4], r.iData[index][tIndex][1], r.iData[index][tIndex][4], r.iData[index][tIndex][1], r.iData[index][tIndex][3]];
 					pointsOver = [];
-					for (var v = 0; v < r.deck.v.length; v++) pointsOver.push([r.iData[index][tIndex][0], r.iData[index][tIndex][3 + v], r.iData[index][tIndex][0], r.iData[index][tIndex][4 + v], r.iData[index][tIndex][1], r.iData[index][tIndex][4 + v], r.iData[index][tIndex][1], r.iData[index][tIndex][3 + v]]);
+					for (var v = 0; v < r.deck.v.length; v++) pointsOver.push([r.iData[index][tIndex][0], r.iData[index][tIndex][4 + v], r.iData[index][tIndex][0], r.iData[index][tIndex][5 + v], r.iData[index][tIndex][1], r.iData[index][tIndex][5 + v], r.iData[index][tIndex][1], r.iData[index][tIndex][4 + v]]);
 
 				} else {
+					pointsS = [];
 					pointsC = [];
 					pointsR = [];
 					pointsOver = [];
@@ -631,22 +647,29 @@ app.directive('chartCapacity', function() {
 
 				// Draw points
 				if (r.iSelection[index] != null) {
-					r.iSelection[index].select(".svg-limit").attr("points", p2s((r.meta.upsidedown) ? pointsR : pointsC));
-					r.iSelection[index].select(".svg-state-running").attr("points", p2s((r.meta.upsidedown) ? pointsC : pointsR));
+					r.iSelection[index].select(".svg-state-system").attr("points", p2s(pointsS));
+					r.iSelection[index].select(".svg-limit").attr("points", p2s(pointsC));
+					r.iSelection[index].select(".svg-state-running").attr("points", p2s(pointsR));
 					for (var v = r.deck.v.length - 1; v >= 0; v--) r.iSelection[index].select(".svg-area-" + v).attr("points", p2s(pointsOver[v]));
 				} else {
 					r.iSelection[index] = r.groupP[index].append("g").attr("class", "svg-selection");
 
+					// Draw - System
+					r.iSelection[index].append("polygon")
+						.attr("class", "svg-state-system")
+						.attr("points", p2s(pointsS))
+						.attr("fill", r.deck.s.fcolor);
+
 					// Draw - Capacity
 					r.iSelection[index].append("polygon")
 						.attr("class", "svg-limit")
-						.attr("points", p2s((r.meta.upsidedown) ? pointsR : pointsC))
+						.attr("points", p2s(pointsC))
 						.attr("fill", r.deck.limit.fcolor);
 
 					// Draw - Running
 					r.iSelection[index].append("polygon")
 						.attr("class", "svg-state-running")
-						.attr("points", p2s((r.meta.upsidedown) ? pointsC : pointsR))
+						.attr("points", p2s(pointsR))
 						.attr("fill", r.deck.r.fcolor);
 
 					// Draw - OVer
