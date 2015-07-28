@@ -14,7 +14,7 @@ var profiles = require('./common/profiles.common.js');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var STRIP_HEIGHT = 60;
+var STRIP_HEIGHT = 50;
 
 
 
