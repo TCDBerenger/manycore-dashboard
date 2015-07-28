@@ -283,88 +283,32 @@ function addCycles(output, id) {
  */
 function addTime(output, id) {
 	// Init vars
-	var data		= profiles[id].data;
-	output.times	= {};
-	output.times2	= [];
+	var data = profiles[id].data;
+	var max;
+	
+	// Init return
+	output.times = {};
 
 	// Add times
+	max = data.info.threads * data.info.timeStep;
 	for (var timeID = 0; timeID <= data.info.timeMax; timeID+= data.info.timeStep) {
 		output.times[timeID] = {
 			r:	Math.round(data.frames[timeID].running),
 			yb:	Math.round(data.frames[timeID].ready + data.frames[timeID].standby),
+//			uu:	Math.round(data.frames[timeID].idle),
+			sys:	Math.round(max - data.frames[timeID].running - data.frames[timeID].idle)
 		};
 	}
 
-	//
-	// OLD WAY
-	//
-
-	// Loop vars
-	var thread;
-	var sumRunning, sumStandby, sumWait, sumReady;
-	var statSumRunning, statSumStandby, statSumWait, statSumReady;
-
-	// Init stats vars
-	statCountThreads = 0;
-	statSumRunning = 0; statSumStandby = 0; statSumWait = 0; statSumReady = 0;
-	
-	// Count threads availables
-	for (var timeID = 0; timeID <= data.info.timeMax; timeID+= data.info.timeStep) {
-
-		// If the time frame exists
-		if (data.threads.byFrames.hasOwnProperty(timeID)) {
-
-			// Reinit counters
-			sumRunning = 0; sumStandby = 0; sumWait = 0; sumReady = 0;
-			countThread = 0;
-
-			// Count among all threads
-			for (var threadID in data.threads.byFrames[timeID]) {
-				if (data.threads.byFrames[timeID].hasOwnProperty(threadID)) {
-					// Get data by thread
-					thread = data.threads.byFrames[timeID][threadID];
-					countThread++;
-
-					// Sum cycles by time frame
-					sumRunning		+= thread.running;
-					sumStandby		+= thread.standby;
-					sumWait			+= thread.wait;
-					sumReady		+= thread.ready;
-				}
-			}
-
-			statCountThreads = Math.max(statCountThreads, countThread);
-
-		} else {
-			// Failed sums
-			sumRunning		= NaN;
-			sumStandby		= NaN;
-			sumWait			= NaN;
-			sumReady		= NaN;
-		}
-
-		// Sum time globally
-		statSumRunning		+= sumRunning;
-		statSumStandby		+= sumStandby;
-		statSumWait			+= sumWait;
-		statSumReady		+= sumReady;
-
-		// Output
-		output.times2.push({
-			t:	timeID,
-			r:	sumRunning,
-			yb:	sumReady + sumStandby
-		});
-
-	};
-
 	// Stats
+	max = data.info.threads * (data.info.timeMax + data.info.timeStep);
 	output.stats.times = {
-		r:	statSumRunning,
-		b:	statSumStandby,
-		w:	statSumWait,
-		y:	statSumReady,
-		yb:	statSumReady + statSumStandby
+		r:	Math.round(data.stats.running),
+		y:	Math.round(data.stats.ready),
+		b:	Math.round(data.stats.standby),
+		yb:	Math.round(data.stats.ready + data.stats.standby),
+		uu:	Math.round(data.stats.idle),
+		sys:	Math.round(max - data.stats.running - data.stats.idle)
 	};
 }
 
@@ -507,25 +451,32 @@ function addLocality(output, id, simplified) {
 function addLocks(output, id) {
 	// Init vars
 	var data		= profiles[id].data;
+	var max;
+	
+	// Init return
 	output.slocks	= [];
 	output.flocks	= [];
+	if (! output.hasOwnProperty('times')) output.times = {};
 
-	if (! output.hasOwnProperty('times'))
-		output.times = {};
-
+	// List lock success
 	data.lock_success.forEach(function(lock) {
 		output.slocks.push(lock.t);
 	});
 
+	// List lock failure
 	data.lock_failure.forEach(function(lock) {
 		output.flocks.push(lock.t);
 	});
 
+	// Add times
+	max = data.info.threads * data.info.timeStep;
 	for (var timeID = 0; timeID <= data.info.timeMax; timeID+= data.info.timeStep) {
 		output.times[timeID] = {
 			r:	Math.round(data.frames[timeID].running),
 			w:	Math.round(data.frames[timeID].wait),
-			lw:	data.frames[timeID].lock_wait
+			lw:	Math.round(data.frames[timeID].lock_wait),
+//			uu:	Math.round(data.frames[timeID].idle),
+			sys:	Math.round(max - data.frames[timeID].running - data.frames[timeID].idle)
 		};
 	}
 
@@ -536,11 +487,13 @@ function addLocks(output, id) {
 		w:	data.stats.lock_wait
 	};
 	// Stats
+	max = data.info.threads * (data.info.timeMax + data.info.timeStep);
 	output.stats.times = {
 		r:	Math.round(data.stats.running),
-		uu:	data.info.threads * (data.info.timeMax + data.info.timeStep) - Math.round(data.stats.running),
 		w:	Math.round(data.stats.wait),
-		lw:	data.stats.lock_wait
+		lw:	data.stats.lock_wait,
+		uu:	Math.round(data.stats.idle),
+		sys:	Math.round(max - data.stats.running - data.stats.idle)
 	};
 }
 
@@ -562,6 +515,9 @@ function jsonTG(profile, id) {
 	profile.exportInfo(output);
 	addCommon(output, id);
 
+	// for potential parallelism
+	addTime(output, id);
+
 	// for context switches
 	addSwitches(output, id);
 
@@ -570,10 +526,6 @@ function jsonTG(profile, id) {
 
 	// for lifetimes
 	addLifetimes(output, id);
-
-	// for potential parallelism
-	addTime(output, id);
-	addStates(output, id);
 
 	return output;
 }
