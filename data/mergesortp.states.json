@@ -4,7 +4,7 @@
     "program": "system",
     "time": 635604792757219077,
     "dtime": 0,
-    "value": 44193174.0,
+    "value": 14820525.0,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -24,7 +24,7 @@
     "program": "system",
     "time": 635604792757219077,
     "dtime": 0,
-    "value": 44.9836,
+    "value": 15.0856,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -47,6 +47,56 @@
     "value": 293.8335,
     "tid": 0,
     "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 29372650.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 29.898,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 0
   },
   {
@@ -104,7 +154,7 @@
     "program": "system",
     "time": 635604792757219077,
     "dtime": 0,
-    "value": 16604556.0,
+    "value": 2451863.0,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -124,7 +174,7 @@
     "program": "system",
     "time": 635604792757219077,
     "dtime": 0,
-    "value": 44.2314,
+    "value": 6.5313,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -147,6 +197,56 @@
     "value": 160.1688,
     "tid": 0,
     "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 14152693.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 37.7001,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 1
   },
   {
@@ -204,7 +304,7 @@
     "program": "system",
     "time": 635604792757219077,
     "dtime": 0,
-    "value": 61138622.0,
+    "value": 26379316.0,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -224,7 +324,7 @@
     "program": "system",
     "time": 635604792757219077,
     "dtime": 0,
-    "value": 29.9886,
+    "value": 12.9391,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -247,6 +347,56 @@
     "value": 305.0684,
     "tid": 0,
     "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 34759306.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 17.0495,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 2
   },
   {
@@ -304,7 +454,7 @@
     "program": "system",
     "time": 635604792757219077,
     "dtime": 0,
-    "value": 49070607.0,
+    "value": 16156221.0,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -324,7 +474,7 @@
     "program": "system",
     "time": 635604792757219077,
     "dtime": 0,
-    "value": 46.7437,
+    "value": 15.3901,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -347,6 +497,56 @@
     "value": 160.5038,
     "tid": 0,
     "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 32914386.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 31.3536,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 3
   },
   {
@@ -404,7 +604,7 @@
     "program": "system",
     "time": 635604792757219077,
     "dtime": 0,
-    "value": 41209823.0,
+    "value": 11951197.0,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -424,7 +624,7 @@
     "program": "system",
     "time": 635604792757219077,
     "dtime": 0,
-    "value": 48.511,
+    "value": 14.0686,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -447,6 +647,56 @@
     "value": 524.5241,
     "tid": 0,
     "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 29258626.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 34.4424,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 4
   },
   {
@@ -504,7 +754,7 @@
     "program": "system",
     "time": 635604792757219077,
     "dtime": 0,
-    "value": 16040342.0,
+    "value": 3151158.0,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -524,7 +774,7 @@
     "program": "system",
     "time": 635604792757219077,
     "dtime": 0,
-    "value": 46.8608,
+    "value": 9.2059,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -547,6 +797,56 @@
     "value": 277.2093,
     "tid": 0,
     "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 12889184.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 37.6549,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 5
   },
   {
@@ -604,7 +904,7 @@
     "program": "system",
     "time": 635604792757219077,
     "dtime": 0,
-    "value": 49402598.0,
+    "value": 19539342.0,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -624,7 +924,7 @@
     "program": "system",
     "time": 635604792757219077,
     "dtime": 0,
-    "value": 47.2104,
+    "value": 18.6723,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -647,6 +947,56 @@
     "value": 279.6201,
     "tid": 0,
     "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 29863257.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 28.5381,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 6
   },
   {
@@ -704,7 +1054,7 @@
     "program": "system",
     "time": 635604792757219077,
     "dtime": 0,
-    "value": 30155306.0,
+    "value": 8489591.0,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -724,7 +1074,7 @@
     "program": "system",
     "time": 635604792757219077,
     "dtime": 0,
-    "value": 46.4407,
+    "value": 13.0744,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -747,6 +1097,56 @@
     "value": 189.0449,
     "tid": 0,
     "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 21665716.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 33.3663,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792757219077,
+    "dtime": 0,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 7
   },
   {
@@ -804,7 +1204,7 @@
     "program": "system",
     "time": 635604792757719077,
     "dtime": 500000,
-    "value": 37996868.0,
+    "value": 6414050.0,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -824,7 +1224,7 @@
     "program": "system",
     "time": 635604792757719077,
     "dtime": 500000,
-    "value": 43.1937,
+    "value": 7.2913,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -847,6 +1247,56 @@
     "value": 299.6394,
     "tid": 0,
     "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 31582818.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 35.9024,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 0
   },
   {
@@ -904,7 +1354,7 @@
     "program": "system",
     "time": 635604792757719077,
     "dtime": 500000,
-    "value": 2544191.0,
+    "value": 105796.0,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -924,7 +1374,7 @@
     "program": "system",
     "time": 635604792757719077,
     "dtime": 500000,
-    "value": 49.4238,
+    "value": 2.0552,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -947,6 +1397,56 @@
     "value": 45.833,
     "tid": 0,
     "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 2438395.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 47.3686,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 1
   },
   {
@@ -1004,7 +1504,7 @@
     "program": "system",
     "time": 635604792757719077,
     "dtime": 500000,
-    "value": 41532806.0,
+    "value": 5593208.0,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -1024,7 +1524,7 @@
     "program": "system",
     "time": 635604792757719077,
     "dtime": 500000,
-    "value": 23.4329,
+    "value": 3.1557,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -1047,6 +1547,56 @@
     "value": 164.2088,
     "tid": 0,
     "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 35939598.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 20.2772,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 2
   },
   {
@@ -1104,7 +1654,7 @@
     "program": "system",
     "time": 635604792757719077,
     "dtime": 500000,
-    "value": 2930106.0,
+    "value": 150893.0,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -1124,7 +1674,7 @@
     "program": "system",
     "time": 635604792757719077,
     "dtime": 500000,
-    "value": 44.1166,
+    "value": 2.2719,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -1151,10 +1701,60 @@
   },
   {
     "type": "cycles",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 2779213.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 41.8447,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "cycles",
     "program": "system",
     "time": 635604792757719077,
     "dtime": 500000,
-    "value": 13909090.0,
+    "value": 1486415.0,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -1174,7 +1774,7 @@
     "program": "system",
     "time": 635604792757719077,
     "dtime": 500000,
-    "value": 46.8482,
+    "value": 5.0065,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -1201,10 +1801,60 @@
   },
   {
     "type": "cycles",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 12422675.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 41.8417,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "cycles",
     "program": "system",
     "time": 635604792757719077,
     "dtime": 500000,
-    "value": 8943604.0,
+    "value": 610073.0,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -1224,7 +1874,7 @@
     "program": "system",
     "time": 635604792757719077,
     "dtime": 500000,
-    "value": 47.8924,
+    "value": 3.2669,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -1251,10 +1901,60 @@
   },
   {
     "type": "cycles",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 8333531.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 44.6255,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "cycles",
     "program": "system",
     "time": 635604792757719077,
     "dtime": 500000,
-    "value": 42925677.0,
+    "value": 5388290.0,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -1274,7 +1974,7 @@
     "program": "system",
     "time": 635604792757719077,
     "dtime": 500000,
-    "value": 33.1015,
+    "value": 4.1551,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -1297,6 +1997,56 @@
     "value": 266.7289,
     "tid": 0,
     "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 37537387.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 28.9464,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 6
   },
   {
@@ -1354,7 +2104,7 @@
     "program": "system",
     "time": 635604792757719077,
     "dtime": 500000,
-    "value": 21212246.0,
+    "value": 3275496.0,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -1374,7 +2124,7 @@
     "program": "system",
     "time": 635604792757719077,
     "dtime": 500000,
-    "value": 49.8694,
+    "value": 7.7006,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -1401,10 +2151,60 @@
   },
   {
     "type": "cycles",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 17936750.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 42.1688,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792757719077,
+    "dtime": 500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "cycles",
     "program": "system",
     "time": 635604792758219077,
     "dtime": 1000000,
-    "value": 35813445.0,
+    "value": 33519430.0,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -1424,7 +2224,7 @@
     "program": "system",
     "time": 635604792758219077,
     "dtime": 1000000,
-    "value": 10.2319,
+    "value": 9.5765,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -1447,6 +2247,56 @@
     "value": 183.35,
     "tid": 0,
     "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 2294015.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.6554,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 0
   },
   {
@@ -1854,7 +2704,7 @@
     "program": "system",
     "time": 635604792758219077,
     "dtime": 1000000,
-    "value": 39601063.0,
+    "value": 5572838.0,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -1874,7 +2724,7 @@
     "program": "system",
     "time": 635604792758219077,
     "dtime": 1000000,
-    "value": 17.6437,
+    "value": 2.4829,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -1897,6 +2747,56 @@
     "value": 62.9002,
     "tid": 0,
     "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 34028225.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 15.1608,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 1
   },
   {
@@ -2154,7 +3054,7 @@
     "program": "system",
     "time": 635604792758219077,
     "dtime": 1000000,
-    "value": 39154138.0,
+    "value": 11521158.0,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -2174,7 +3074,7 @@
     "program": "system",
     "time": 635604792758219077,
     "dtime": 1000000,
-    "value": 14.8713,
+    "value": 4.3759,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -2197,6 +3097,56 @@
     "value": 147.4175,
     "tid": 0,
     "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 27632981.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 10.4954,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 2
   },
   {
@@ -2504,7 +3454,7 @@
     "program": "system",
     "time": 635604792758219077,
     "dtime": 1000000,
-    "value": 44847027.0,
+    "value": 10619244.0,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -2524,7 +3474,7 @@
     "program": "system",
     "time": 635604792758219077,
     "dtime": 1000000,
-    "value": 17.261,
+    "value": 4.0872,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -2547,6 +3497,56 @@
     "value": 23.7489,
     "tid": 0,
     "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 34227783.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 13.1738,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 3
   },
   {
@@ -2854,7 +3854,7 @@
     "program": "system",
     "time": 635604792758219077,
     "dtime": 1000000,
-    "value": 56990834.0,
+    "value": 25551672.0,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -2874,7 +3874,7 @@
     "program": "system",
     "time": 635604792758219077,
     "dtime": 1000000,
-    "value": 24.562,
+    "value": 11.0123,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -2897,6 +3897,56 @@
     "value": 497.7025,
     "tid": 0,
     "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 31439162.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 13.5497,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 4
   },
   {
@@ -3304,7 +4354,7 @@
     "program": "system",
     "time": 635604792758219077,
     "dtime": 1000000,
-    "value": 45023286.0,
+    "value": 12177558.0,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -3324,7 +4374,7 @@
     "program": "system",
     "time": 635604792758219077,
     "dtime": 1000000,
-    "value": 18.5945,
+    "value": 5.0293,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -3347,6 +4397,56 @@
     "value": 365.0385,
     "tid": 0,
     "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 32845727.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 13.5652,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 5
   },
   {
@@ -3654,7 +4754,7 @@
     "program": "system",
     "time": 635604792758219077,
     "dtime": 1000000,
-    "value": 39975749.0,
+    "value": 7484764.0,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -3674,7 +4774,7 @@
     "program": "system",
     "time": 635604792758219077,
     "dtime": 1000000,
-    "value": 16.0816,
+    "value": 3.011,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -3697,6 +4797,56 @@
     "value": 192.1847,
     "tid": 0,
     "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 32490985.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 13.0706,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 6
   },
   {
@@ -3954,7 +5104,7 @@
     "program": "system",
     "time": 635604792758219077,
     "dtime": 1000000,
-    "value": 47705061.0,
+    "value": 13815465.0,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -3974,7 +5124,7 @@
     "program": "system",
     "time": 635604792758219077,
     "dtime": 1000000,
-    "value": 18.753,
+    "value": 5.4309,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -3997,6 +5147,56 @@
     "value": 54.5531,
     "tid": 0,
     "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 33889596.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 13.3221,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792758219077,
+    "dtime": 1000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 7
   },
   {
@@ -4204,7 +5404,7 @@
     "program": "system",
     "time": 635604792758719077,
     "dtime": 1500000,
-    "value": 9082451.0,
+    "value": 8880420.0,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -4224,7 +5424,7 @@
     "program": "system",
     "time": 635604792758719077,
     "dtime": 1500000,
-    "value": 2.8367,
+    "value": 2.7736,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -4247,6 +5447,56 @@
     "value": 164.5919,
     "tid": 0,
     "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 202031.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0631,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 0
   },
   {
@@ -4604,7 +5854,7 @@
     "program": "system",
     "time": 635604792758719077,
     "dtime": 1500000,
-    "value": 11042253.0,
+    "value": 10975017.0,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -4624,7 +5874,7 @@
     "program": "system",
     "time": 635604792758719077,
     "dtime": 1500000,
-    "value": 3.4653,
+    "value": 3.4442,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -4647,6 +5897,56 @@
     "value": 218.7851,
     "tid": 0,
     "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 67236.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0211,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 1
   },
   {
@@ -4954,7 +6254,7 @@
     "program": "system",
     "time": 635604792758719077,
     "dtime": 1500000,
-    "value": 7309557.0,
+    "value": 7256128.0,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -4974,7 +6274,7 @@
     "program": "system",
     "time": 635604792758719077,
     "dtime": 1500000,
-    "value": 2.2847,
+    "value": 2.268,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -4997,6 +6297,56 @@
     "value": 47.0581,
     "tid": 0,
     "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 53429.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0167,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 2
   },
   {
@@ -5304,7 +6654,7 @@
     "program": "system",
     "time": 635604792758719077,
     "dtime": 1500000,
-    "value": 13837773.0,
+    "value": 13659701.0,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -5324,7 +6674,7 @@
     "program": "system",
     "time": 635604792758719077,
     "dtime": 1500000,
-    "value": 4.3206,
+    "value": 4.265,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -5347,6 +6697,56 @@
     "value": 102.7248,
     "tid": 0,
     "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 178073.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0556,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 3
   },
   {
@@ -5654,7 +7054,7 @@
     "program": "system",
     "time": 635604792758719077,
     "dtime": 1500000,
-    "value": 26332868.0,
+    "value": 26287437.0,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -5674,7 +7074,7 @@
     "program": "system",
     "time": 635604792758719077,
     "dtime": 1500000,
-    "value": 8.2307,
+    "value": 8.2165,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -5697,6 +7097,56 @@
     "value": 371.6211,
     "tid": 0,
     "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 45431.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0142,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 4
   },
   {
@@ -6004,7 +7454,7 @@
     "program": "system",
     "time": 635604792758719077,
     "dtime": 1500000,
-    "value": 25166889.0,
+    "value": 25108956.0,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -6024,7 +7474,7 @@
     "program": "system",
     "time": 635604792758719077,
     "dtime": 1500000,
-    "value": 7.9064,
+    "value": 7.8882,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -6047,6 +7497,56 @@
     "value": 307.5772,
     "tid": 0,
     "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 57932.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0182,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 5
   },
   {
@@ -6354,7 +7854,7 @@
     "program": "system",
     "time": 635604792758719077,
     "dtime": 1500000,
-    "value": 13460208.0,
+    "value": 13431770.0,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -6374,7 +7874,7 @@
     "program": "system",
     "time": 635604792758719077,
     "dtime": 1500000,
-    "value": 4.2125,
+    "value": 4.2036,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -6397,6 +7897,56 @@
     "value": 323.1636,
     "tid": 0,
     "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 28438.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0089,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 6
   },
   {
@@ -6704,7 +8254,7 @@
     "program": "system",
     "time": 635604792758719077,
     "dtime": 1500000,
-    "value": 16086314.0,
+    "value": 16063368.0,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -6724,7 +8274,7 @@
     "program": "system",
     "time": 635604792758719077,
     "dtime": 1500000,
-    "value": 5.0474,
+    "value": 5.0402,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -6747,6 +8297,56 @@
     "value": 100.5484,
     "tid": 0,
     "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 22947.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0072,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792758719077,
+    "dtime": 1500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 7
   },
   {
@@ -7054,7 +8654,7 @@
     "program": "system",
     "time": 635604792759219077,
     "dtime": 2000000,
-    "value": 11640285.0,
+    "value": 11602223.0,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -7074,7 +8674,7 @@
     "program": "system",
     "time": 635604792759219077,
     "dtime": 2000000,
-    "value": 3.3641,
+    "value": 3.3531,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -7097,6 +8697,56 @@
     "value": 107.284,
     "tid": 0,
     "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 38062.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.011,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 0
   },
   {
@@ -7304,7 +8954,7 @@
     "program": "system",
     "time": 635604792759219077,
     "dtime": 2000000,
-    "value": 8259255.0,
+    "value": 7444029.0,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -7324,7 +8974,7 @@
     "program": "system",
     "time": 635604792759219077,
     "dtime": 2000000,
-    "value": 2.5784,
+    "value": 2.3239,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -7347,6 +8997,56 @@
     "value": 125.9961,
     "tid": 0,
     "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 815227.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.2545,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 1
   },
   {
@@ -7654,7 +9354,7 @@
     "program": "system",
     "time": 635604792759219077,
     "dtime": 2000000,
-    "value": 11322735.0,
+    "value": 10933163.0,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -7674,7 +9374,7 @@
     "program": "system",
     "time": 635604792759219077,
     "dtime": 2000000,
-    "value": 3.3308,
+    "value": 3.2162,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -7697,6 +9397,56 @@
     "value": 40.7588,
     "tid": 0,
     "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 389572.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.1146,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 2
   },
   {
@@ -7954,7 +9704,7 @@
     "program": "system",
     "time": 635604792759219077,
     "dtime": 2000000,
-    "value": 6308794.0,
+    "value": 6300618.0,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -7974,7 +9724,7 @@
     "program": "system",
     "time": 635604792759219077,
     "dtime": 2000000,
-    "value": 1.852,
+    "value": 1.8496,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -7997,6 +9747,56 @@
     "value": 73.567,
     "tid": 0,
     "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 8176.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0024,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 3
   },
   {
@@ -8254,7 +10054,7 @@
     "program": "system",
     "time": 635604792759219077,
     "dtime": 2000000,
-    "value": 29654982.0,
+    "value": 29519489.0,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -8274,7 +10074,7 @@
     "program": "system",
     "time": 635604792759219077,
     "dtime": 2000000,
-    "value": 9.083,
+    "value": 9.0415,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -8297,6 +10097,56 @@
     "value": 411.4239,
     "tid": 0,
     "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 135493.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0415,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 4
   },
   {
@@ -8654,7 +10504,7 @@
     "program": "system",
     "time": 635604792759219077,
     "dtime": 2000000,
-    "value": 20191941.0,
+    "value": 19199432.0,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -8674,7 +10524,7 @@
     "program": "system",
     "time": 635604792759219077,
     "dtime": 2000000,
-    "value": 5.6659,
+    "value": 5.3874,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -8697,6 +10547,56 @@
     "value": 297.5892,
     "tid": 0,
     "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 992509.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.2785,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 5
   },
   {
@@ -8954,7 +10854,7 @@
     "program": "system",
     "time": 635604792759219077,
     "dtime": 2000000,
-    "value": 38952524.0,
+    "value": 38409232.0,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -8974,7 +10874,7 @@
     "program": "system",
     "time": 635604792759219077,
     "dtime": 2000000,
-    "value": 11.5289,
+    "value": 11.3681,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -8997,6 +10897,56 @@
     "value": 164.441,
     "tid": 0,
     "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 543293.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.1608,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 6
   },
   {
@@ -9354,7 +11304,7 @@
     "program": "system",
     "time": 635604792759219077,
     "dtime": 2000000,
-    "value": 28591209.0,
+    "value": 27678671.0,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -9374,7 +11324,7 @@
     "program": "system",
     "time": 635604792759219077,
     "dtime": 2000000,
-    "value": 8.0334,
+    "value": 7.777,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -9397,6 +11347,56 @@
     "value": 237.5352,
     "tid": 0,
     "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 912538.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.2564,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792759219077,
+    "dtime": 2000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 7
   },
   {
@@ -9704,7 +11704,7 @@
     "program": "system",
     "time": 635604792759719077,
     "dtime": 2500000,
-    "value": 14033009.0,
+    "value": 12485544.0,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -9724,7 +11724,7 @@
     "program": "system",
     "time": 635604792759719077,
     "dtime": 2500000,
-    "value": 4.3229,
+    "value": 3.8462,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -9747,6 +11747,56 @@
     "value": 118.4256,
     "tid": 0,
     "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 1547465.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.4767,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 0
   },
   {
@@ -10054,7 +12104,7 @@
     "program": "system",
     "time": 635604792759719077,
     "dtime": 2500000,
-    "value": 10754650.0,
+    "value": 10673136.0,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -10074,7 +12124,7 @@
     "program": "system",
     "time": 635604792759719077,
     "dtime": 2500000,
-    "value": 3.272,
+    "value": 3.2472,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -10097,6 +12147,56 @@
     "value": 87.3328,
     "tid": 0,
     "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 81514.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0248,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 1
   },
   {
@@ -10404,7 +12504,7 @@
     "program": "system",
     "time": 635604792759719077,
     "dtime": 2500000,
-    "value": 8461044.0,
+    "value": 7834953.0,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -10424,7 +12524,7 @@
     "program": "system",
     "time": 635604792759719077,
     "dtime": 2500000,
-    "value": 2.592,
+    "value": 2.4002,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -10447,6 +12547,56 @@
     "value": 81.0418,
     "tid": 0,
     "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 626091.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.1918,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 2
   },
   {
@@ -10754,7 +12904,7 @@
     "program": "system",
     "time": 635604792759719077,
     "dtime": 2500000,
-    "value": 10737784.0,
+    "value": 10733525.0,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -10774,7 +12924,7 @@
     "program": "system",
     "time": 635604792759719077,
     "dtime": 2500000,
-    "value": 3.2777,
+    "value": 3.2764,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -10797,6 +12947,56 @@
     "value": 86.0769,
     "tid": 0,
     "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 4259.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0013,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 3
   },
   {
@@ -11054,7 +13254,7 @@
     "program": "system",
     "time": 635604792759719077,
     "dtime": 2500000,
-    "value": 27310058.0,
+    "value": 27274886.0,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -11074,7 +13274,7 @@
     "program": "system",
     "time": 635604792759719077,
     "dtime": 2500000,
-    "value": 8.5414,
+    "value": 8.5304,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -11097,6 +13297,56 @@
     "value": 452.1741,
     "tid": 0,
     "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 35171.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.011,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 4
   },
   {
@@ -11354,7 +13604,7 @@
     "program": "system",
     "time": 635604792759719077,
     "dtime": 2500000,
-    "value": 19871119.0,
+    "value": 19809711.0,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -11374,7 +13624,7 @@
     "program": "system",
     "time": 635604792759719077,
     "dtime": 2500000,
-    "value": 6.0835,
+    "value": 6.0647,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -11397,6 +13647,56 @@
     "value": 228.1105,
     "tid": 0,
     "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 61408.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0188,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 5
   },
   {
@@ -11654,7 +13954,7 @@
     "program": "system",
     "time": 635604792759719077,
     "dtime": 2500000,
-    "value": 24142916.0,
+    "value": 24113540.0,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -11674,7 +13974,7 @@
     "program": "system",
     "time": 635604792759719077,
     "dtime": 2500000,
-    "value": 7.3968,
+    "value": 7.3878,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -11697,6 +13997,56 @@
     "value": 189.8909,
     "tid": 0,
     "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 29376.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.009,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 6
   },
   {
@@ -11904,7 +14254,7 @@
     "program": "system",
     "time": 635604792759719077,
     "dtime": 2500000,
-    "value": 19140693.0,
+    "value": 19101246.0,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -11924,7 +14274,7 @@
     "program": "system",
     "time": 635604792759719077,
     "dtime": 2500000,
-    "value": 5.9683,
+    "value": 5.956,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -11947,6 +14297,56 @@
     "value": 134.3147,
     "tid": 0,
     "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 39447.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0123,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792759719077,
+    "dtime": 2500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 7
   },
   {
@@ -12154,7 +14554,7 @@
     "program": "system",
     "time": 635604792760219077,
     "dtime": 3000000,
-    "value": 17910462.0,
+    "value": 17874981.0,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -12174,7 +14574,7 @@
     "program": "system",
     "time": 635604792760219077,
     "dtime": 3000000,
-    "value": 5.6031,
+    "value": 5.592,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -12197,6 +14597,56 @@
     "value": 165.0924,
     "tid": 0,
     "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 35481.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0111,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 0
   },
   {
@@ -12454,7 +14904,7 @@
     "program": "system",
     "time": 635604792760219077,
     "dtime": 3000000,
-    "value": 7062819.0,
+    "value": 7016164.0,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -12474,7 +14924,7 @@
     "program": "system",
     "time": 635604792760219077,
     "dtime": 3000000,
-    "value": 2.2102,
+    "value": 2.1956,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -12497,6 +14947,56 @@
     "value": 193.2979,
     "tid": 0,
     "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 46655.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0146,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 1
   },
   {
@@ -12754,7 +15254,7 @@
     "program": "system",
     "time": 635604792760219077,
     "dtime": 3000000,
-    "value": 8456748.0,
+    "value": 7764052.0,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -12774,7 +15274,7 @@
     "program": "system",
     "time": 635604792760219077,
     "dtime": 3000000,
-    "value": 2.3953,
+    "value": 2.1991,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -12797,6 +15297,56 @@
     "value": 59.2741,
     "tid": 0,
     "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 692696.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.1962,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 2
   },
   {
@@ -13101,6 +15651,56 @@
   },
   {
     "type": "cycles",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "cycles",
     "program": "Matmul",
     "time": 635604792760219077,
     "dtime": 3000000,
@@ -13354,7 +15954,7 @@
     "program": "system",
     "time": 635604792760219077,
     "dtime": 3000000,
-    "value": 24624070.0,
+    "value": 24574130.0,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -13374,7 +15974,7 @@
     "program": "system",
     "time": 635604792760219077,
     "dtime": 3000000,
-    "value": 7.6919,
+    "value": 7.6763,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -13397,6 +15997,56 @@
     "value": 280.9732,
     "tid": 0,
     "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 49940.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0156,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 4
   },
   {
@@ -13654,7 +16304,7 @@
     "program": "system",
     "time": 635604792760219077,
     "dtime": 3000000,
-    "value": 60423195.0,
+    "value": 60355005.0,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -13674,7 +16324,7 @@
     "program": "system",
     "time": 635604792760219077,
     "dtime": 3000000,
-    "value": 17.8991,
+    "value": 17.8789,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -13697,6 +16347,56 @@
     "value": 291.6964,
     "tid": 0,
     "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 68190.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0202,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 5
   },
   {
@@ -13954,7 +16654,7 @@
     "program": "system",
     "time": 635604792760219077,
     "dtime": 3000000,
-    "value": 23515747.0,
+    "value": 23486673.0,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -13974,7 +16674,7 @@
     "program": "system",
     "time": 635604792760219077,
     "dtime": 3000000,
-    "value": 6.4705,
+    "value": 6.4625,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -13997,6 +16697,56 @@
     "value": 310.8494,
     "tid": 0,
     "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 29074.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.008,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 6
   },
   {
@@ -14254,7 +17004,7 @@
     "program": "system",
     "time": 635604792760219077,
     "dtime": 3000000,
-    "value": 18303695.0,
+    "value": 18285508.0,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -14274,7 +17024,7 @@
     "program": "system",
     "time": 635604792760219077,
     "dtime": 3000000,
-    "value": 5.0321,
+    "value": 5.0271,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -14297,6 +17047,56 @@
     "value": 159.1711,
     "tid": 0,
     "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 18187.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.005,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792760219077,
+    "dtime": 3000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 7
   },
   {
@@ -14504,7 +17304,7 @@
     "program": "system",
     "time": 635604792760719077,
     "dtime": 3500000,
-    "value": 19401332.0,
+    "value": 19317403.0,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -14524,7 +17324,7 @@
     "program": "system",
     "time": 635604792760719077,
     "dtime": 3500000,
-    "value": 5.756,
+    "value": 5.7311,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -14547,6 +17347,56 @@
     "value": 198.5436,
     "tid": 0,
     "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 83929.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0249,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 0
   },
   {
@@ -14854,7 +17704,7 @@
     "program": "system",
     "time": 635604792760719077,
     "dtime": 3500000,
-    "value": 8964490.0,
+    "value": 8766302.0,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -14874,7 +17724,7 @@
     "program": "system",
     "time": 635604792760719077,
     "dtime": 3500000,
-    "value": 2.6687,
+    "value": 2.6097,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -14897,6 +17747,56 @@
     "value": 144.0112,
     "tid": 0,
     "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 198188.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.059,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 1
   },
   {
@@ -15254,7 +18154,7 @@
     "program": "system",
     "time": 635604792760719077,
     "dtime": 3500000,
-    "value": 7305863.0,
+    "value": 7301153.0,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -15274,7 +18174,7 @@
     "program": "system",
     "time": 635604792760719077,
     "dtime": 3500000,
-    "value": 2.1719,
+    "value": 2.1705,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -15297,6 +18197,56 @@
     "value": 20.5046,
     "tid": 0,
     "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 4709.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0014,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 2
   },
   {
@@ -15454,7 +18404,7 @@
     "program": "system",
     "time": 635604792760719077,
     "dtime": 3500000,
-    "value": 8058698.0,
+    "value": 7846398.0,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -15474,7 +18424,7 @@
     "program": "system",
     "time": 635604792760719077,
     "dtime": 3500000,
-    "value": 2.4028,
+    "value": 2.3395,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -15497,6 +18447,56 @@
     "value": 84.0301,
     "tid": 0,
     "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 212300.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0633,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 3
   },
   {
@@ -15704,7 +18704,7 @@
     "program": "system",
     "time": 635604792760719077,
     "dtime": 3500000,
-    "value": 36111692.0,
+    "value": 36010875.0,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -15724,7 +18724,7 @@
     "program": "system",
     "time": 635604792760719077,
     "dtime": 3500000,
-    "value": 10.7815,
+    "value": 10.7514,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -15747,6 +18747,56 @@
     "value": 332.1964,
     "tid": 0,
     "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 100817.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0301,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 4
   },
   {
@@ -16054,7 +19104,7 @@
     "program": "system",
     "time": 635604792760719077,
     "dtime": 3500000,
-    "value": 18554990.0,
+    "value": 18512048.0,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -16074,7 +19124,7 @@
     "program": "system",
     "time": 635604792760719077,
     "dtime": 3500000,
-    "value": 5.7901,
+    "value": 5.7767,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -16097,6 +19147,56 @@
     "value": 314.2385,
     "tid": 0,
     "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 42942.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0134,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 5
   },
   {
@@ -16354,7 +19454,7 @@
     "program": "system",
     "time": 635604792760719077,
     "dtime": 3500000,
-    "value": 20505788.0,
+    "value": 20462015.0,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -16374,7 +19474,7 @@
     "program": "system",
     "time": 635604792760719077,
     "dtime": 3500000,
-    "value": 6.1369,
+    "value": 6.1238,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -16397,6 +19497,56 @@
     "value": 198.3837,
     "tid": 0,
     "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 43772.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0131,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 6
   },
   {
@@ -16654,7 +19804,7 @@
     "program": "system",
     "time": 635604792760719077,
     "dtime": 3500000,
-    "value": 10589601.0,
+    "value": 10586264.0,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -16674,7 +19824,7 @@
     "program": "system",
     "time": 635604792760719077,
     "dtime": 3500000,
-    "value": 3.1735,
+    "value": 3.1725,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -16697,6 +19847,56 @@
     "value": 77.7457,
     "tid": 0,
     "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 3337.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.001,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792760719077,
+    "dtime": 3500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 7
   },
   {
@@ -16954,7 +20154,7 @@
     "program": "system",
     "time": 635604792761219077,
     "dtime": 4000000,
-    "value": 14275853.0,
+    "value": 14256634.0,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -16974,7 +20174,7 @@
     "program": "system",
     "time": 635604792761219077,
     "dtime": 4000000,
-    "value": 4.4569,
+    "value": 4.4509,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -16997,6 +20197,56 @@
     "value": 117.3897,
     "tid": 0,
     "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 19219.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.006,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 0
   },
   {
@@ -17304,7 +20554,7 @@
     "program": "system",
     "time": 635604792761219077,
     "dtime": 4000000,
-    "value": 9184061.0,
+    "value": 9116510.0,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -17324,7 +20574,7 @@
     "program": "system",
     "time": 635604792761219077,
     "dtime": 4000000,
-    "value": 2.8687,
+    "value": 2.8476,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -17347,6 +20597,56 @@
     "value": 217.372,
     "tid": 0,
     "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 67551.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0211,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 1
   },
   {
@@ -17604,7 +20904,7 @@
     "program": "system",
     "time": 635604792761219077,
     "dtime": 4000000,
-    "value": 10233001.0,
+    "value": 10200038.0,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -17624,7 +20924,7 @@
     "program": "system",
     "time": 635604792761219077,
     "dtime": 4000000,
-    "value": 3.1975,
+    "value": 3.1872,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -17647,6 +20947,56 @@
     "value": 66.6381,
     "tid": 0,
     "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 32963.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0103,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 2
   },
   {
@@ -17854,7 +21204,7 @@
     "program": "system",
     "time": 635604792761219077,
     "dtime": 4000000,
-    "value": 6256997.0,
+    "value": 6243242.0,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -17874,7 +21224,7 @@
     "program": "system",
     "time": 635604792761219077,
     "dtime": 4000000,
-    "value": 1.9561,
+    "value": 1.9518,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -17897,6 +21247,56 @@
     "value": 60.3362,
     "tid": 0,
     "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 13754.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0043,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 3
   },
   {
@@ -18154,7 +21554,7 @@
     "program": "system",
     "time": 635604792761219077,
     "dtime": 4000000,
-    "value": 32721846.0,
+    "value": 32650462.0,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -18174,7 +21574,7 @@
     "program": "system",
     "time": 635604792761219077,
     "dtime": 4000000,
-    "value": 10.1762,
+    "value": 10.154,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -18197,6 +21597,56 @@
     "value": 529.6176,
     "tid": 0,
     "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 71385.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0222,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 4
   },
   {
@@ -18454,7 +21904,7 @@
     "program": "system",
     "time": 635604792761219077,
     "dtime": 4000000,
-    "value": 40117762.0,
+    "value": 40091101.0,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -18474,7 +21924,7 @@
     "program": "system",
     "time": 635604792761219077,
     "dtime": 4000000,
-    "value": 12.4897,
+    "value": 12.4814,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -18497,6 +21947,56 @@
     "value": 144.3004,
     "tid": 0,
     "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 26660.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0083,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 5
   },
   {
@@ -18804,7 +22304,7 @@
     "program": "system",
     "time": 635604792761219077,
     "dtime": 4000000,
-    "value": 21635267.0,
+    "value": 21577157.0,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -18824,7 +22324,7 @@
     "program": "system",
     "time": 635604792761219077,
     "dtime": 4000000,
-    "value": 6.739,
+    "value": 6.7209,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -18847,6 +22347,56 @@
     "value": 205.3098,
     "tid": 0,
     "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 58109.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0181,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 6
   },
   {
@@ -19104,7 +22654,7 @@
     "program": "system",
     "time": 635604792761219077,
     "dtime": 4000000,
-    "value": 10266180.0,
+    "value": 10242454.0,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -19124,7 +22674,7 @@
     "program": "system",
     "time": 635604792761219077,
     "dtime": 4000000,
-    "value": 3.202,
+    "value": 3.1946,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -19147,6 +22697,56 @@
     "value": 185.0315,
     "tid": 0,
     "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 23726.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0074,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792761219077,
+    "dtime": 4000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 7
   },
   {
@@ -19454,7 +23054,7 @@
     "program": "system",
     "time": 635604792761719077,
     "dtime": 4500000,
-    "value": 19542359.0,
+    "value": 17972792.0,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -19474,7 +23074,7 @@
     "program": "system",
     "time": 635604792761719077,
     "dtime": 4500000,
-    "value": 5.7311,
+    "value": 5.2708,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -19497,6 +23097,56 @@
     "value": 130.0307,
     "tid": 0,
     "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 1569567.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.4603,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 0
   },
   {
@@ -20004,7 +23654,7 @@
     "program": "system",
     "time": 635604792761719077,
     "dtime": 4500000,
-    "value": 17722060.0,
+    "value": 15427531.0,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -20024,7 +23674,7 @@
     "program": "system",
     "time": 635604792761719077,
     "dtime": 4500000,
-    "value": 5.5108,
+    "value": 4.7973,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -20047,6 +23697,56 @@
     "value": 151.6273,
     "tid": 0,
     "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 2294529.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.7135,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 1
   },
   {
@@ -20554,7 +24254,7 @@
     "program": "system",
     "time": 635604792761719077,
     "dtime": 4500000,
-    "value": 7527784.0,
+    "value": 7345157.0,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -20574,7 +24274,7 @@
     "program": "system",
     "time": 635604792761719077,
     "dtime": 4500000,
-    "value": 2.197,
+    "value": 2.1437,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -20597,6 +24297,56 @@
     "value": 54.3394,
     "tid": 0,
     "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 182627.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0533,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 2
   },
   {
@@ -20854,7 +24604,7 @@
     "program": "system",
     "time": 635604792761719077,
     "dtime": 4500000,
-    "value": 10882147.0,
+    "value": 9323399.0,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -20874,7 +24624,7 @@
     "program": "system",
     "time": 635604792761719077,
     "dtime": 4500000,
-    "value": 3.217,
+    "value": 2.7562,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -20897,6 +24647,56 @@
     "value": 188.2373,
     "tid": 0,
     "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 1558748.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.4608,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 3
   },
   {
@@ -21254,7 +25054,7 @@
     "program": "system",
     "time": 635604792761719077,
     "dtime": 4500000,
-    "value": 22086534.0,
+    "value": 22005780.0,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -21274,7 +25074,7 @@
     "program": "system",
     "time": 635604792761719077,
     "dtime": 4500000,
-    "value": 6.8923,
+    "value": 6.8671,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -21297,6 +25097,56 @@
     "value": 367.0781,
     "tid": 0,
     "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 80754.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0252,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 4
   },
   {
@@ -21704,7 +25554,7 @@
     "program": "system",
     "time": 635604792761719077,
     "dtime": 4500000,
-    "value": 17325063.0,
+    "value": 17248243.0,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -21724,7 +25574,7 @@
     "program": "system",
     "time": 635604792761719077,
     "dtime": 4500000,
-    "value": 5.1872,
+    "value": 5.1642,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -21747,6 +25597,56 @@
     "value": 270.5894,
     "tid": 0,
     "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 76819.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.023,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 5
   },
   {
@@ -22154,7 +26054,7 @@
     "program": "system",
     "time": 635604792761719077,
     "dtime": 4500000,
-    "value": 25606443.0,
+    "value": 25485149.0,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -22174,7 +26074,7 @@
     "program": "system",
     "time": 635604792761719077,
     "dtime": 4500000,
-    "value": 7.6632999999999996,
+    "value": 7.627,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -22197,6 +26097,56 @@
     "value": 308.2615,
     "tid": 0,
     "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 121294.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0363,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 6
   },
   {
@@ -22604,7 +26554,7 @@
     "program": "system",
     "time": 635604792761719077,
     "dtime": 4500000,
-    "value": 19020134.0,
+    "value": 18800351.0,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -22624,7 +26574,7 @@
     "program": "system",
     "time": 635604792761719077,
     "dtime": 4500000,
-    "value": 5.5905,
+    "value": 5.5259,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -22647,6 +26597,56 @@
     "value": 154.1641,
     "tid": 0,
     "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 219784.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0646,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792761719077,
+    "dtime": 4500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 7
   },
   {
@@ -23054,7 +27054,7 @@
     "program": "system",
     "time": 635604792762219077,
     "dtime": 5000000,
-    "value": 12419969.0,
+    "value": 12306685.0,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -23074,7 +27074,7 @@
     "program": "system",
     "time": 635604792762219077,
     "dtime": 5000000,
-    "value": 3.8811,
+    "value": 3.8457,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -23097,6 +27097,56 @@
     "value": 113.8767,
     "tid": 0,
     "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 113284.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0354,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 0
   },
   {
@@ -23454,7 +27504,7 @@
     "program": "system",
     "time": 635604792762219077,
     "dtime": 5000000,
-    "value": 11945016.0,
+    "value": 11586183.0,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -23474,7 +27524,7 @@
     "program": "system",
     "time": 635604792762219077,
     "dtime": 5000000,
-    "value": 3.7383,
+    "value": 3.626,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -23497,6 +27547,56 @@
     "value": 117.5435,
     "tid": 0,
     "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 358833.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.1123,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 1
   },
   {
@@ -23754,7 +27854,7 @@
     "program": "system",
     "time": 635604792762219077,
     "dtime": 5000000,
-    "value": 10542319.0,
+    "value": 10141811.0,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -23774,7 +27874,7 @@
     "program": "system",
     "time": 635604792762219077,
     "dtime": 5000000,
-    "value": 3.2982,
+    "value": 3.1729,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -23797,6 +27897,56 @@
     "value": 24.9138,
     "tid": 0,
     "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 400507.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.1253,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 2
   },
   {
@@ -23954,7 +28104,7 @@
     "program": "system",
     "time": 635604792762219077,
     "dtime": 5000000,
-    "value": 7334342.0,
+    "value": 6911164.0,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -23974,7 +28124,7 @@
     "program": "system",
     "time": 635604792762219077,
     "dtime": 5000000,
-    "value": 2.2895,
+    "value": 2.1574,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -23997,6 +28147,56 @@
     "value": 48.7007,
     "tid": 0,
     "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 423178.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.1321,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 3
   },
   {
@@ -24204,7 +28404,7 @@
     "program": "system",
     "time": 635604792762219077,
     "dtime": 5000000,
-    "value": 25875910.0,
+    "value": 25794168.0,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -24224,7 +28424,7 @@
     "program": "system",
     "time": 635604792762219077,
     "dtime": 5000000,
-    "value": 8.0722,
+    "value": 8.0467,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -24247,6 +28447,56 @@
     "value": 580.9229,
     "tid": 0,
     "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 81742.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0255,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 4
   },
   {
@@ -24704,7 +28954,7 @@
     "program": "system",
     "time": 635604792762219077,
     "dtime": 5000000,
-    "value": 11811609.0,
+    "value": 11654638.0,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -24724,7 +28974,7 @@
     "program": "system",
     "time": 635604792762219077,
     "dtime": 5000000,
-    "value": 3.6871,
+    "value": 3.6381,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -24747,6 +28997,56 @@
     "value": 212.221,
     "tid": 0,
     "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 156971.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.049,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 5
   },
   {
@@ -25154,7 +29454,7 @@
     "program": "system",
     "time": 635604792762219077,
     "dtime": 5000000,
-    "value": 42655703.0,
+    "value": 42637141.0,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -25174,7 +29474,7 @@
     "program": "system",
     "time": 635604792762219077,
     "dtime": 5000000,
-    "value": 13.0983,
+    "value": 13.0926,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -25197,6 +29497,56 @@
     "value": 155.682,
     "tid": 0,
     "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 18563.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0057,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 6
   },
   {
@@ -25554,7 +29904,7 @@
     "program": "system",
     "time": 635604792762219077,
     "dtime": 5000000,
-    "value": 14451294.0,
+    "value": 14433717.0,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -25574,7 +29924,7 @@
     "program": "system",
     "time": 635604792762219077,
     "dtime": 5000000,
-    "value": 4.4397,
+    "value": 4.4343,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -25597,6 +29947,56 @@
     "value": 61.3888,
     "tid": 0,
     "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 17577.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0054,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792762219077,
+    "dtime": 5000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 7
   },
   {
@@ -26004,7 +30404,7 @@
     "program": "system",
     "time": 635604792762719077,
     "dtime": 5500000,
-    "value": 17439306.0,
+    "value": 17399091.0,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -26024,7 +30424,7 @@
     "program": "system",
     "time": 635604792762719077,
     "dtime": 5500000,
-    "value": 5.334,
+    "value": 5.3217,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -26047,6 +30447,56 @@
     "value": 230.1844,
     "tid": 0,
     "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 40214.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0123,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 0
   },
   {
@@ -26354,7 +30804,7 @@
     "program": "system",
     "time": 635604792762719077,
     "dtime": 5500000,
-    "value": 8044712.0,
+    "value": 8023258.0,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -26374,7 +30824,7 @@
     "program": "system",
     "time": 635604792762719077,
     "dtime": 5500000,
-    "value": 2.3623,
+    "value": 2.356,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -26397,6 +30847,56 @@
     "value": 191.3984,
     "tid": 0,
     "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 21454.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0063,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 1
   },
   {
@@ -26754,7 +31254,7 @@
     "program": "system",
     "time": 635604792762719077,
     "dtime": 5500000,
-    "value": 7315245.0,
+    "value": 7298769.0,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -26774,7 +31274,7 @@
     "program": "system",
     "time": 635604792762719077,
     "dtime": 5500000,
-    "value": 2.0868,
+    "value": 2.0821,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -26797,6 +31297,56 @@
     "value": 98.7208,
     "tid": 0,
     "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 16476.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0047,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 2
   },
   {
@@ -27004,7 +31554,7 @@
     "program": "system",
     "time": 635604792762719077,
     "dtime": 5500000,
-    "value": 6610069.0,
+    "value": 6549915.0,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -27024,7 +31574,7 @@
     "program": "system",
     "time": 635604792762719077,
     "dtime": 5500000,
-    "value": 1.945,
+    "value": 1.9273,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -27047,6 +31597,56 @@
     "value": 61.3211,
     "tid": 0,
     "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 60153.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0177,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 3
   },
   {
@@ -27354,7 +31954,7 @@
     "program": "system",
     "time": 635604792762719077,
     "dtime": 5500000,
-    "value": 21286724.0,
+    "value": 21230784.0,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -27374,7 +31974,7 @@
     "program": "system",
     "time": 635604792762719077,
     "dtime": 5500000,
-    "value": 6.0884,
+    "value": 6.0724,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -27397,6 +31997,56 @@
     "value": 306.0124,
     "tid": 0,
     "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 55940.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.016,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 4
   },
   {
@@ -27804,7 +32454,7 @@
     "program": "system",
     "time": 635604792762719077,
     "dtime": 5500000,
-    "value": 15557571.0,
+    "value": 15503887.0,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -27824,7 +32474,7 @@
     "program": "system",
     "time": 635604792762719077,
     "dtime": 5500000,
-    "value": 4.7527,
+    "value": 4.7363,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -27847,6 +32497,56 @@
     "value": 275.6147,
     "tid": 0,
     "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 53684.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0164,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 5
   },
   {
@@ -28104,7 +32804,7 @@
     "program": "system",
     "time": 635604792762719077,
     "dtime": 5500000,
-    "value": 10104725.0,
+    "value": 10084518.0,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -28124,7 +32824,7 @@
     "program": "system",
     "time": 635604792762719077,
     "dtime": 5500000,
-    "value": 3.1505,
+    "value": 3.1442,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -28147,6 +32847,56 @@
     "value": 163.8672,
     "tid": 0,
     "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 20206.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0063,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 6
   },
   {
@@ -28454,7 +33204,7 @@
     "program": "system",
     "time": 635604792762719077,
     "dtime": 5500000,
-    "value": 15868178.0,
+    "value": 15829876.0,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -28474,7 +33224,7 @@
     "program": "system",
     "time": 635604792762719077,
     "dtime": 5500000,
-    "value": 4.5573,
+    "value": 4.5463,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -28497,6 +33247,56 @@
     "value": 283.1162,
     "tid": 0,
     "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 38301.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.011,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792762719077,
+    "dtime": 5500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 7
   },
   {
@@ -28854,7 +33654,7 @@
     "program": "system",
     "time": 635604792763219077,
     "dtime": 6000000,
-    "value": 11302234.0,
+    "value": 11026224.0,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -28874,7 +33674,7 @@
     "program": "system",
     "time": 635604792763219077,
     "dtime": 6000000,
-    "value": 3.5052,
+    "value": 3.4196,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -28897,6 +33697,56 @@
     "value": 54.8089,
     "tid": 0,
     "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 276010.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0856,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 0
   },
   {
@@ -29254,7 +34104,7 @@
     "program": "system",
     "time": 635604792763219077,
     "dtime": 6000000,
-    "value": 10982379.0,
+    "value": 10950383.0,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -29274,7 +34124,7 @@
     "program": "system",
     "time": 635604792763219077,
     "dtime": 6000000,
-    "value": 3.4324,
+    "value": 3.4224,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -29297,6 +34147,56 @@
     "value": 169.7121,
     "tid": 0,
     "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 31996.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.01,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 1
   },
   {
@@ -29654,7 +34554,7 @@
     "program": "system",
     "time": 635604792763219077,
     "dtime": 6000000,
-    "value": 7934736.0,
+    "value": 7711331.0,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -29674,7 +34574,7 @@
     "program": "system",
     "time": 635604792763219077,
     "dtime": 6000000,
-    "value": 2.4649,
+    "value": 2.3955,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -29697,6 +34597,56 @@
     "value": 49.9286,
     "tid": 0,
     "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 223405.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0694,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 2
   },
   {
@@ -29854,7 +34804,7 @@
     "program": "system",
     "time": 635604792763219077,
     "dtime": 6000000,
-    "value": 7481586.0,
+    "value": 7000093.0,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -29874,7 +34824,7 @@
     "program": "system",
     "time": 635604792763219077,
     "dtime": 6000000,
-    "value": 2.3323,
+    "value": 2.1822,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -29897,6 +34847,56 @@
     "value": 36.7739,
     "tid": 0,
     "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 481493.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.1501,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 3
   },
   {
@@ -30054,7 +35054,7 @@
     "program": "system",
     "time": 635604792763219077,
     "dtime": 6000000,
-    "value": 43596637.0,
+    "value": 43563485.0,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -30074,7 +35074,7 @@
     "program": "system",
     "time": 635604792763219077,
     "dtime": 6000000,
-    "value": 13.5452,
+    "value": 13.5349,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -30097,6 +35097,56 @@
     "value": 195.5702,
     "tid": 0,
     "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 33152.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0103,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 4
   },
   {
@@ -30354,7 +35404,7 @@
     "program": "system",
     "time": 635604792763219077,
     "dtime": 6000000,
-    "value": 19484689.0,
+    "value": 19428424.0,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -30374,7 +35424,7 @@
     "program": "system",
     "time": 635604792763219077,
     "dtime": 6000000,
-    "value": 6.0603,
+    "value": 6.0428,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -30397,6 +35447,56 @@
     "value": 268.4754,
     "tid": 0,
     "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 56265.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0175,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 5
   },
   {
@@ -30704,7 +35804,7 @@
     "program": "system",
     "time": 635604792763219077,
     "dtime": 6000000,
-    "value": 18235383.0,
+    "value": 18189469.0,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -30724,7 +35824,7 @@
     "program": "system",
     "time": 635604792763219077,
     "dtime": 6000000,
-    "value": 5.6795,
+    "value": 5.6652,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -30747,6 +35847,56 @@
     "value": 340.6906,
     "tid": 0,
     "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 45914.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0143,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 6
   },
   {
@@ -31054,7 +36204,7 @@
     "program": "system",
     "time": 635604792763219077,
     "dtime": 6000000,
-    "value": 10696231.0,
+    "value": 10665456.0,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -31074,7 +36224,7 @@
     "program": "system",
     "time": 635604792763219077,
     "dtime": 6000000,
-    "value": 3.3367,
+    "value": 3.3271,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -31097,6 +36247,56 @@
     "value": 56.936,
     "tid": 0,
     "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 30774.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0096,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792763219077,
+    "dtime": 6000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 7
   },
   {
@@ -31404,7 +36604,7 @@
     "program": "system",
     "time": 635604792763719077,
     "dtime": 6500000,
-    "value": 15250194.0,
+    "value": 14746508.0,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -31424,7 +36624,7 @@
     "program": "system",
     "time": 635604792763719077,
     "dtime": 6500000,
-    "value": 4.7626,
+    "value": 4.6053,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -31447,6 +36647,56 @@
     "value": 182.9725,
     "tid": 0,
     "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 503686.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.1573,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 0
   },
   {
@@ -31854,7 +37104,7 @@
     "program": "system",
     "time": 635604792763719077,
     "dtime": 6500000,
-    "value": 9733223.0,
+    "value": 9656544.0,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -31874,7 +37124,7 @@
     "program": "system",
     "time": 635604792763719077,
     "dtime": 6500000,
-    "value": 2.8814,
+    "value": 2.8587,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -31897,6 +37147,56 @@
     "value": 89.9141,
     "tid": 0,
     "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 76679.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0227,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 1
   },
   {
@@ -32304,7 +37604,7 @@
     "program": "system",
     "time": 635604792763719077,
     "dtime": 6500000,
-    "value": 7505992.0,
+    "value": 7403453.0,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -32324,7 +37624,7 @@
     "program": "system",
     "time": 635604792763719077,
     "dtime": 6500000,
-    "value": 2.2546,
+    "value": 2.2238,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -32347,6 +37647,56 @@
     "value": 165.0184,
     "tid": 0,
     "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 102539.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0308,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 2
   },
   {
@@ -32704,7 +38054,7 @@
     "program": "system",
     "time": 635604792763719077,
     "dtime": 6500000,
-    "value": 6535374.0,
+    "value": 6241746.0,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -32724,7 +38074,7 @@
     "program": "system",
     "time": 635604792763719077,
     "dtime": 6500000,
-    "value": 2.0499,
+    "value": 1.9578,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -32747,6 +38097,56 @@
     "value": 54.0578,
     "tid": 0,
     "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 293628.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0921,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 3
   },
   {
@@ -33054,7 +38454,7 @@
     "program": "system",
     "time": 635604792763719077,
     "dtime": 6500000,
-    "value": 23479067.0,
+    "value": 23135387.0,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -33074,7 +38474,7 @@
     "program": "system",
     "time": 635604792763719077,
     "dtime": 6500000,
-    "value": 6.9683,
+    "value": 6.8663,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -33097,6 +38497,56 @@
     "value": 314.0982,
     "tid": 0,
     "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 343680.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.102,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 4
   },
   {
@@ -33504,7 +38954,7 @@
     "program": "system",
     "time": 635604792763719077,
     "dtime": 6500000,
-    "value": 15395426.0,
+    "value": 15350457.0,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -33524,7 +38974,7 @@
     "program": "system",
     "time": 635604792763719077,
     "dtime": 6500000,
-    "value": 4.7245,
+    "value": 4.7107,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -33547,6 +38997,56 @@
     "value": 250.2266,
     "tid": 0,
     "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 44969.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0138,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 5
   },
   {
@@ -34004,7 +39504,7 @@
     "program": "system",
     "time": 635604792763719077,
     "dtime": 6500000,
-    "value": 18627252.0,
+    "value": 18269411.0,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -34024,7 +39524,7 @@
     "program": "system",
     "time": 635604792763719077,
     "dtime": 6500000,
-    "value": 5.8145,
+    "value": 5.7028,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -34047,6 +39547,56 @@
     "value": 277.2561,
     "tid": 0,
     "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 357841.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.1117,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 6
   },
   {
@@ -34454,7 +40004,7 @@
     "program": "system",
     "time": 635604792763719077,
     "dtime": 6500000,
-    "value": 20107229.0,
+    "value": 19747877.0,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -34474,7 +40024,7 @@
     "program": "system",
     "time": 635604792763719077,
     "dtime": 6500000,
-    "value": 6.2277,
+    "value": 6.1164,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -34497,6 +40047,56 @@
     "value": 110.811,
     "tid": 0,
     "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 359352.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.1113,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792763719077,
+    "dtime": 6500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 7
   },
   {
@@ -34954,7 +40554,7 @@
     "program": "system",
     "time": 635604792764219077,
     "dtime": 7000000,
-    "value": 13261374.0,
+    "value": 13127604.0,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -34974,7 +40574,7 @@
     "program": "system",
     "time": 635604792764219077,
     "dtime": 7000000,
-    "value": 4.0348,
+    "value": 3.9941,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -34997,6 +40597,56 @@
     "value": 220.0315,
     "tid": 0,
     "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 133771.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0407,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 0
   },
   {
@@ -35354,7 +41004,7 @@
     "program": "system",
     "time": 635604792764219077,
     "dtime": 7000000,
-    "value": 12352642.0,
+    "value": 11758536.0,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -35374,7 +41024,7 @@
     "program": "system",
     "time": 635604792764219077,
     "dtime": 7000000,
-    "value": 3.7779,
+    "value": 3.5962,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -35397,6 +41047,56 @@
     "value": 37.074,
     "tid": 0,
     "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 594107.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.1817,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 1
   },
   {
@@ -35704,7 +41404,7 @@
     "program": "system",
     "time": 635604792764219077,
     "dtime": 7000000,
-    "value": 11296489.0,
+    "value": 11271554.0,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -35724,7 +41424,7 @@
     "program": "system",
     "time": 635604792764219077,
     "dtime": 7000000,
-    "value": 3.4431,
+    "value": 3.4355,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -35747,6 +41447,56 @@
     "value": 61.8184,
     "tid": 0,
     "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 24935.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0076,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 2
   },
   {
@@ -36054,7 +41804,7 @@
     "program": "system",
     "time": 635604792764219077,
     "dtime": 7000000,
-    "value": 9437461.0,
+    "value": 8799253.0,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -36074,7 +41824,7 @@
     "program": "system",
     "time": 635604792764219077,
     "dtime": 7000000,
-    "value": 2.8939,
+    "value": 2.6982,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -36097,6 +41847,56 @@
     "value": 109.8533,
     "tid": 0,
     "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 638208.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.1957,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 3
   },
   {
@@ -36354,7 +42154,7 @@
     "program": "system",
     "time": 635604792764219077,
     "dtime": 7000000,
-    "value": 20813329.0,
+    "value": 20795974.0,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -36374,7 +42174,7 @@
     "program": "system",
     "time": 635604792764219077,
     "dtime": 7000000,
-    "value": 6.3558,
+    "value": 6.3505,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -36397,6 +42197,56 @@
     "value": 220.823,
     "tid": 0,
     "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 17356.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0053,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 4
   },
   {
@@ -36804,7 +42654,7 @@
     "program": "system",
     "time": 635604792764219077,
     "dtime": 7000000,
-    "value": 23396931.0,
+    "value": 23173465.0,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -36824,7 +42674,7 @@
     "program": "system",
     "time": 635604792764219077,
     "dtime": 7000000,
-    "value": 7.1615,
+    "value": 7.0931,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -36847,6 +42697,56 @@
     "value": 280.3851,
     "tid": 0,
     "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 223466.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0684,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 5
   },
   {
@@ -37304,7 +43204,7 @@
     "program": "system",
     "time": 635604792764219077,
     "dtime": 7000000,
-    "value": 45863840.0,
+    "value": 45831836.0,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -37324,7 +43224,7 @@
     "program": "system",
     "time": 635604792764219077,
     "dtime": 7000000,
-    "value": 14.0442,
+    "value": 14.0344,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -37347,6 +43247,56 @@
     "value": 433.7228,
     "tid": 0,
     "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 32004.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0098,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 6
   },
   {
@@ -37704,7 +43654,7 @@
     "program": "system",
     "time": 635604792764219077,
     "dtime": 7000000,
-    "value": 19684147.0,
+    "value": 19665865.0,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -37724,7 +43674,7 @@
     "program": "system",
     "time": 635604792764219077,
     "dtime": 7000000,
-    "value": 6.1371,
+    "value": 6.1314,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -37747,6 +43697,56 @@
     "value": 82.9319,
     "tid": 0,
     "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 18282.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0057,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792764219077,
+    "dtime": 7000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 7
   },
   {
@@ -38204,7 +44204,7 @@
     "program": "system",
     "time": 635604792764719077,
     "dtime": 7500000,
-    "value": 15720668.0,
+    "value": 15250263.0,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -38224,7 +44224,7 @@
     "program": "system",
     "time": 635604792764719077,
     "dtime": 7500000,
-    "value": 4.9561,
+    "value": 4.8078,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -38247,6 +44247,56 @@
     "value": 222.1907,
     "tid": 0,
     "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 470405.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.1483,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 0
   },
   {
@@ -38854,7 +44904,7 @@
     "program": "system",
     "time": 635604792764719077,
     "dtime": 7500000,
-    "value": 10665759.0,
+    "value": 10567257.0,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -38874,7 +44924,7 @@
     "program": "system",
     "time": 635604792764719077,
     "dtime": 7500000,
-    "value": 3.2809,
+    "value": 3.2506,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -38897,6 +44947,56 @@
     "value": 126.4343,
     "tid": 0,
     "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 98501.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0303,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 1
   },
   {
@@ -39654,7 +45754,7 @@
     "program": "system",
     "time": 635604792764719077,
     "dtime": 7500000,
-    "value": 7851804.0,
+    "value": 7534646.0,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -39674,7 +45774,7 @@
     "program": "system",
     "time": 635604792764719077,
     "dtime": 7500000,
-    "value": 2.3816,
+    "value": 2.2854,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -39697,6 +45797,56 @@
     "value": 132.5754,
     "tid": 0,
     "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 317158.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0962,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 2
   },
   {
@@ -40204,7 +46354,7 @@
     "program": "system",
     "time": 635604792764719077,
     "dtime": 7500000,
-    "value": 6835368.0,
+    "value": 6792557.0,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -40224,7 +46374,7 @@
     "program": "system",
     "time": 635604792764719077,
     "dtime": 7500000,
-    "value": 2.1235,
+    "value": 2.1102,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -40247,6 +46397,56 @@
     "value": 127.4244,
     "tid": 0,
     "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 42812.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0133,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 3
   },
   {
@@ -40754,7 +46954,7 @@
     "program": "system",
     "time": 635604792764719077,
     "dtime": 7500000,
-    "value": 27698744.0,
+    "value": 27645618.0,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -40774,7 +46974,7 @@
     "program": "system",
     "time": 635604792764719077,
     "dtime": 7500000,
-    "value": 7.6122,
+    "value": 7.5976,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -40797,6 +46997,56 @@
     "value": 356.4837,
     "tid": 0,
     "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 53125.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0146,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 4
   },
   {
@@ -41404,7 +47654,7 @@
     "program": "system",
     "time": 635604792764719077,
     "dtime": 7500000,
-    "value": 23997550.0,
+    "value": 23935685.0,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -41424,7 +47674,7 @@
     "program": "system",
     "time": 635604792764719077,
     "dtime": 7500000,
-    "value": 7.4865,
+    "value": 7.4672,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -41447,6 +47697,56 @@
     "value": 133.6666,
     "tid": 0,
     "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 61865.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0193,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 5
   },
   {
@@ -42104,7 +48404,7 @@
     "program": "system",
     "time": 635604792764719077,
     "dtime": 7500000,
-    "value": 10335984.0,
+    "value": 10328628.0,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -42124,7 +48424,7 @@
     "program": "system",
     "time": 635604792764719077,
     "dtime": 7500000,
-    "value": 3.2321,
+    "value": 3.2298,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -42147,6 +48447,56 @@
     "value": 260.3949,
     "tid": 0,
     "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 7355.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0023,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 6
   },
   {
@@ -42704,7 +49054,7 @@
     "program": "system",
     "time": 635604792764719077,
     "dtime": 7500000,
-    "value": 16312311.0,
+    "value": 16283821.0,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -42724,7 +49074,7 @@
     "program": "system",
     "time": 635604792764719077,
     "dtime": 7500000,
-    "value": 5.0959,
+    "value": 5.087,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -42747,6 +49097,56 @@
     "value": 248.2317,
     "tid": 0,
     "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 28489.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0089,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792764719077,
+    "dtime": 7500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 7
   },
   {
@@ -43254,7 +49654,7 @@
     "program": "system",
     "time": 635604792765219077,
     "dtime": 8000000,
-    "value": 55768469.0,
+    "value": 12022406.0,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -43274,7 +49674,7 @@
     "program": "system",
     "time": 635604792765219077,
     "dtime": 8000000,
-    "value": 23.1917,
+    "value": 4.9996,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -43297,6 +49697,56 @@
     "value": 202.3749,
     "tid": 0,
     "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 43746063.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 18.1921,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 0
   },
   {
@@ -44154,7 +50604,7 @@
     "program": "system",
     "time": 635604792765219077,
     "dtime": 8000000,
-    "value": 46944947.0,
+    "value": 5058948.0,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -44174,7 +50624,7 @@
     "program": "system",
     "time": 635604792765219077,
     "dtime": 8000000,
-    "value": 24.4712,
+    "value": 2.6371,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -44197,6 +50647,56 @@
     "value": 11.1155,
     "tid": 0,
     "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 41886000.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 21.8341,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 1
   },
   {
@@ -44954,7 +51454,7 @@
     "program": "system",
     "time": 635604792765219077,
     "dtime": 8000000,
-    "value": 48881228.0,
+    "value": 8633580.0,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -44974,7 +51474,7 @@
     "program": "system",
     "time": 635604792765219077,
     "dtime": 8000000,
-    "value": 22.1788,
+    "value": 3.9173,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -44997,6 +51497,56 @@
     "value": 198.4352,
     "tid": 0,
     "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 40247648.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 18.2615,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 2
   },
   {
@@ -45954,7 +52504,7 @@
     "program": "system",
     "time": 635604792765219077,
     "dtime": 8000000,
-    "value": 37045501.0,
+    "value": 9155821.0,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -45974,7 +52524,7 @@
     "program": "system",
     "time": 635604792765219077,
     "dtime": 8000000,
-    "value": 12.3714,
+    "value": 3.0576,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -45997,6 +52547,56 @@
     "value": 18.0525,
     "tid": 0,
     "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 27889680.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 9.3138,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 3
   },
   {
@@ -46954,7 +53554,7 @@
     "program": "system",
     "time": 635604792765219077,
     "dtime": 8000000,
-    "value": 76269348.0,
+    "value": 39278564.0,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -46974,7 +53574,7 @@
     "program": "system",
     "time": 635604792765219077,
     "dtime": 8000000,
-    "value": 28.2137,
+    "value": 14.53,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -46997,6 +53597,56 @@
     "value": 326.8761,
     "tid": 0,
     "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 36990784.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 13.6837,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 4
   },
   {
@@ -47604,7 +54254,7 @@
     "program": "system",
     "time": 635604792765219077,
     "dtime": 8000000,
-    "value": 61773369.0,
+    "value": 18307452.0,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -47624,7 +54274,7 @@
     "program": "system",
     "time": 635604792765219077,
     "dtime": 8000000,
-    "value": 29.3051,
+    "value": 8.685,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -47647,6 +54297,56 @@
     "value": 188.945,
     "tid": 0,
     "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 43465917.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 20.6201,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 5
   },
   {
@@ -48354,7 +55054,7 @@
     "program": "system",
     "time": 635604792765219077,
     "dtime": 8000000,
-    "value": 51676528.0,
+    "value": 17023976.0,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -48374,7 +55074,7 @@
     "program": "system",
     "time": 635604792765219077,
     "dtime": 8000000,
-    "value": 23.7784,
+    "value": 7.8334,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -48397,6 +55097,56 @@
     "value": 262.664,
     "tid": 0,
     "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 34652552.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 15.945,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 6
   },
   {
@@ -49354,7 +56104,7 @@
     "program": "system",
     "time": 635604792765219077,
     "dtime": 8000000,
-    "value": 52588418.0,
+    "value": 16415560.0,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -49374,7 +56124,7 @@
     "program": "system",
     "time": 635604792765219077,
     "dtime": 8000000,
-    "value": 26.2286,
+    "value": 8.1873,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -49397,6 +56147,56 @@
     "value": 122.5433,
     "tid": 0,
     "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 36172858.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 18.0413,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792765219077,
+    "dtime": 8000000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 7
   },
   {
@@ -50004,7 +56804,7 @@
     "program": "system",
     "time": 635604792765719077,
     "dtime": 8500000,
-    "value": 54292276.0,
+    "value": 15173038.0,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -50024,7 +56824,7 @@
     "program": "system",
     "time": 635604792765719077,
     "dtime": 8500000,
-    "value": 34.0538,
+    "value": 9.517,
     "tid": 0,
     "pid": 0,
     "cid": 0
@@ -50047,6 +56847,56 @@
     "value": 414.6736,
     "tid": 0,
     "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 39119238.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 24.5368,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 0
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 0
   },
   {
@@ -50354,7 +57204,7 @@
     "program": "system",
     "time": 635604792765719077,
     "dtime": 8500000,
-    "value": 11253790.0,
+    "value": 573095.0,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -50374,7 +57224,7 @@
     "program": "system",
     "time": 635604792765719077,
     "dtime": 8500000,
-    "value": 48.4088,
+    "value": 2.4652,
     "tid": 0,
     "pid": 0,
     "cid": 1
@@ -50397,6 +57247,56 @@
     "value": 312.0036,
     "tid": 0,
     "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 10680695.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 45.9436,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 1
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 1
   },
   {
@@ -50804,7 +57704,7 @@
     "program": "system",
     "time": 635604792765719077,
     "dtime": 8500000,
-    "value": 22357408.0,
+    "value": 2317558.0,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -50824,7 +57724,7 @@
     "program": "system",
     "time": 635604792765719077,
     "dtime": 8500000,
-    "value": 46.1019,
+    "value": 4.7789,
     "tid": 0,
     "pid": 0,
     "cid": 2
@@ -50847,6 +57747,56 @@
     "value": 661.1407,
     "tid": 0,
     "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 20039850.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 41.323,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 2
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 2
   },
   {
@@ -51254,7 +58204,7 @@
     "program": "system",
     "time": 635604792765719077,
     "dtime": 8500000,
-    "value": 7577209.0,
+    "value": 424942.0,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -51274,7 +58224,7 @@
     "program": "system",
     "time": 635604792765719077,
     "dtime": 8500000,
-    "value": 49.7222,
+    "value": 2.7885,
     "tid": 0,
     "pid": 0,
     "cid": 3
@@ -51297,6 +58247,56 @@
     "value": 393.5512,
     "tid": 0,
     "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 7152267.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 46.9337,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 3
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 3
   },
   {
@@ -51504,7 +58504,7 @@
     "program": "system",
     "time": 635604792765719077,
     "dtime": 8500000,
-    "value": 23546862.0,
+    "value": 5126317.0,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -51524,7 +58524,7 @@
     "program": "system",
     "time": 635604792765719077,
     "dtime": 8500000,
-    "value": 49.7531,
+    "value": 10.8316,
     "tid": 0,
     "pid": 0,
     "cid": 4
@@ -51547,6 +58547,56 @@
     "value": 457.0285,
     "tid": 0,
     "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 18420544.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 38.9215,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 4
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 4
   },
   {
@@ -51954,7 +59004,7 @@
     "program": "system",
     "time": 635604792765719077,
     "dtime": 8500000,
-    "value": 12279577.0,
+    "value": 1022532.0,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -51974,7 +59024,7 @@
     "program": "system",
     "time": 635604792765719077,
     "dtime": 8500000,
-    "value": 49.8349,
+    "value": 4.1498,
     "tid": 0,
     "pid": 0,
     "cid": 5
@@ -51997,6 +59047,56 @@
     "value": 385.3518,
     "tid": 0,
     "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 11257045.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 45.6851,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 5
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 5
   },
   {
@@ -52454,7 +59554,7 @@
     "program": "system",
     "time": 635604792765719077,
     "dtime": 8500000,
-    "value": 55963548.0,
+    "value": 18208380.0,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -52474,7 +59574,7 @@
     "program": "system",
     "time": 635604792765719077,
     "dtime": 8500000,
-    "value": 26.631,
+    "value": 8.6647,
     "tid": 0,
     "pid": 0,
     "cid": 6
@@ -52497,6 +59597,56 @@
     "value": 197.9566,
     "tid": 0,
     "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 37755169.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 17.9663,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 6
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 6
   },
   {
@@ -52854,7 +60004,7 @@
     "program": "system",
     "time": 635604792765719077,
     "dtime": 8500000,
-    "value": 37461941.0,
+    "value": 6375451.0,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -52874,7 +60024,7 @@
     "program": "system",
     "time": 635604792765719077,
     "dtime": 8500000,
-    "value": 46.6258,
+    "value": 7.935,
     "tid": 0,
     "pid": 0,
     "cid": 7
@@ -52897,6 +60047,56 @@
     "value": 197.7171,
     "tid": 0,
     "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "cycles",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 31086490.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "ready",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "running",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 38.6908,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "standby",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
+    "cid": 7
+  },
+  {
+    "type": "wait",
+    "program": "Idle",
+    "time": 635604792765719077,
+    "dtime": 8500000,
+    "value": 0.0,
+    "tid": 1,
+    "pid": 1,
     "cid": 7
   },
   {
