@@ -45,6 +45,7 @@ function jsonStats() {
 /**
  * Get admin data
  */
+/*
 router.get('/*', function(request, response) {
 	
 	var params = request.params[0].split('/');
@@ -78,6 +79,27 @@ router.get('/*', function(request, response) {
 	profiles.all.forEach(function(profile) {
 		profile.unloadData();
 	});
+});
+*/
+
+/**
+ * Get admin data
+ */
+router.get('/caches', function(request, response) {
+
+	// Result
+	var output = {
+		expected: profiles.expected,
+		versions: {}
+	};
+
+	// Load data
+	profiles.all.forEach(function(profile) {
+		output.versions[profile.id] = profile.getVersion();
+	});
+
+	// Result
+	response.json(output);
 });
 
 module.exports = router;

@@ -66,7 +66,7 @@ var profileMap = {
 		{ id: 14,	label: 'N Queens',		desc: '',							hardware: hardRoman, file: 'nqueens',		pid: 3120,	timeStep: 50, v: 3 },
 		{ id: 15,	label: 'Ray Tracer',	desc: '',							hardware: hardRoman, file: 'raytracer',		pid: 7500,	timeStep: 50, v: 3 },
 		{ id: 16,	label: 'Bad cache A',	desc: '',							hardware: hardRoman, file: 'badcachea',		pid: 4536,	timeStep: 50, v: 3 },
-		{ id: 17,	label: 'Spike',			desc: '',							hardware: hardRoman, file: 'spike',			pid: 8500,	timeStep: 50, v: 3 },
+		{ id: 17,	label: 'Spike',			desc: '',							hardware: hardRoman, file: 'spike',			pid: 8500,	timeStep: 50, v: 3, disabled: true },
 		{ id: 18,	label: 'NodeJS',		desc: 'Sample NodeJS server',		hardware: hardRoman, file: 'nodejs',		pid: 8792,	timeStep: 50, v: 3, disabled: true },
 		{ id: 19,	label: 'Word',			desc: 'Microsoft Word sample',		hardware: hardRoman, file: 'word',			pid: 2852,	timeStep: 50, v: 3 },
 		{ id: 20,	label: 'Excel',			desc: 'Microsoft Excel sample',		hardware: hardRoman, file: 'excel',			pid: 5176,	timeStep: 50, v: 3, disabled: true },
@@ -180,6 +180,23 @@ profileMap.all.forEach(function (profile) { profileMap[profile.id] = profile; })
 		 └	switch					<integer>	number of switches for all cores during all run
 **/
 var profileData = {};
+
+/**
+ * Load raw data
+ */
+function getVersion(profile) {
+	// Vars
+	var v = NaN;
+
+	try {
+		// Get version
+		v = JSON.parse(fs.readFileSync('data/' + profile.file + '.cache.json', 'utf8')).info.version;
+
+	} catch (e) { }
+	
+	console.log("[" + profile.id + "] cache revision: " + v);
+	return v;
+}
 
 /**
  * Load raw data
@@ -685,13 +702,18 @@ function exportInfo(output, profile) {
 /************************************************/
 var profileExport = {
 	data:		profileData,
+	getVersion:	function(id) { getVersion(profileMap[id]) },
 	loadData:	function(id) { loadData(profileMap[id]) },
 	unloadData:	function(id) { unloadData(profileMap[id]) },
+	expected:	VERSION,
 	exportInfo:	exportInfo
 };
 
 // Add load/unload function
 profileMap.all.forEach(function(profile) {
+	profile.getVersion = function() {
+		return getVersion(profile);
+	};
 	profile.loadData = function() {
 		loadData(profile);
 	};

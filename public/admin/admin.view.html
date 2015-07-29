@@ -56,6 +56,9 @@
 				<!--<p><span class="label label-success">Synchronisation</span> new lock lifetime graph</p>-->
 				<p><span class="label label-primary">Graphs</span> add handling Idle core state</p>
 				<p><span class="label label-primary">Data</span> add handling Idle core state</p>
+				<p><span class="label label-default">General</span><ul>
+					<li>add cache version display</li>
+				</ul></p>
 			</accordion-group>
 			<accordion-group heading="0.7 - July 2015">
 				<p><span class="label label-success">Dashboard</span><ul>
@@ -95,9 +98,39 @@
 		<tab-heading><i class="fa fa-sliders"></i> Global Settings</tab-heading>
 		TODO
 	</tab>
-	<tab>
+	<tab select="loadCacheVersions()">
 		<tab-heading><i class="fa fa-database"></i> Cache versions</tab-heading>
-		TODO
+		<div ng-if="! versions_loaded" class="jumbotron"><p>
+			<span class="block-icon fa-stack">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-spinner fa-pulse fa-stack-1x fa-inverse"></i>
+			</span>
+			<strong>Retrieving data...</strong>
+		</p></div>
+		<div ng-if="versions_loaded" class="row">
+			<div class="col-sm-3">
+				<div class="jumbotron"><p>Expected version: <span class="text-primary">{{versions_expected}}</span></p></div>
+				<button type="button" class="btn btn-default" ng-click="reloadCacheVersions()" ng-disabled="waiting"><i class="fa fa-refresh"></i> reload data</button>
+			</div>
+			
+			<div class="col-sm-3">
+				<table class="table table-striped table-hover" style="width: auto;">
+					<thead><tr>
+						<th>#</th>
+						<th>title</th>
+						<th>cache version</th>
+						<th>rebuild cache</th>
+					</tr></thead>
+					<tbody style="text-align: center;"><tr ng-repeat="profile in profiles" ng-class="{success: versions[profile.id] == versions_expected}">
+						<td>{{profile.id}}</td>
+						<td>{{profile.label}}</td>
+						<td>{{renderVersion(profile)}}</td>
+						<td ng-if="profile.disabled">non-working profile</td>
+						<td ng-if="!profile.disabled">TODO</td>
+					</tr></tbody>
+				</table>
+			</div>
+		</div>
 	</tab>
 	<tab>
 		<tab-heading><i class="fa fa-table"></i> Raw data</tab-heading>
@@ -111,6 +144,9 @@
 		</div>
 	</tab>
 	-->
+	<div ng-if="isWaiting()" style="display: inline-block; margin-left: 5px; margin-top: 5px;">
+		<i class="fa fa-spinner fa-pulse fa-2x"></i>
+	</div>
 </tabset>
 
 </div></div>
