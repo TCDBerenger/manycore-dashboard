@@ -207,8 +207,8 @@ app.factory('decks', ['colours', function(colours) {
 				s:		system,		// data amputated by the system, under the limit
 				limit:	capacity
 			},
-			data : [running, l_wait, waiting],
-			legend : [capacity, system],
+			data : [running, capacity, l_wait],
+			legend : [system],
 			clues: [],
 			settings: [
 				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core' }
