@@ -83,9 +83,9 @@ router.get('/*', function(request, response) {
 */
 
 /**
- * Get admin data
+ * Get CACHE - get all cache versions
  */
-router.get('/caches', function(request, response) {
+router.get('/cache-versions', function(request, response) {
 
 	// Result
 	var output = {
@@ -97,6 +97,47 @@ router.get('/caches', function(request, response) {
 	profiles.all.forEach(function(profile) {
 		output.versions[profile.id] = profile.getVersion();
 	});
+
+	// Result
+	response.json(output);
+});
+
+/**
+ * Get CACHE - reload caches (all or ID)
+ */
+router.get('/cache-reload/*', function(request, response) {
+	
+	var param = request.params[0];
+	console.log(param);
+
+	// Check preconditions
+	var isProfileID = false;
+	profiles.all.forEach(function(profile) {
+		isProfileID = isProfileID || profile.id == param;
+	});
+	if (param != 'all' && ! isProfileID) {
+		response.send("Illegal parameter");
+		return;
+	}
+
+	// Result
+	var output = {
+		expected: profiles.expected,
+		versions: {}
+	};
+	
+	// Reload cache
+	if (param == 'all') {
+		profiles.all.forEach(function(profile) {
+			if (! profile.hasOwnProperty('disabled') || ! profile.disabled) {
+				profile.reloadCache();
+				output.versions[profile.id] = profile.getVersion();
+			}
+		});
+	} else {
+		profiles.reloadCache(param);
+		output.versions[param] = profiles.getVersion(param);
+	}
 
 	// Result
 	response.json(output);

@@ -58,11 +58,12 @@
 				<p><span class="label label-primary">Data</span> add handling Idle core state</p>
 				<p><span class="label label-default">General</span><ul>
 					<li>add cache version display</li>
+					<li>can rebuild cache of profiles</li>
 				</ul></p>
 			</accordion-group>
 			<accordion-group heading="0.7 - July 2015">
 				<p><span class="label label-success">Dashboard</span><ul>
-					<li>New stip graphs for profiling</li>
+					<li>New strip graphs for profiling</li>
 					<li>New gauge graphs for indicators</li>
 				</ul></p>
 				<p><span class="label label-success">Synchronisation</span> select graphs: success/failures and the first lock contentions</p>
@@ -108,25 +109,28 @@
 			<strong>Retrieving data...</strong>
 		</p></div>
 		<div ng-if="versions_loaded" class="row">
-			<div class="col-sm-3">
-				<div class="jumbotron"><p>Expected version: <span class="text-primary">{{versions_expected}}</span></p></div>
-				<button type="button" class="btn btn-default" ng-click="reloadCacheVersions()" ng-disabled="waiting"><i class="fa fa-refresh"></i> reload data</button>
+			<div class="col-sm-4">
+				<div class="jumbotron">
+					<p>Expected data version: <span class="text-primary">{{versions_expected}}</span></p>
+					<p><button type="button" class="btn btn-default" ng-click="reloadCacheVersions()" ng-disabled="waiting"><i class="fa fa-refresh"></i> refresh data</button></p>
+				</div>
+				<button type="button" class="btn btn-danger" ng-click="resetCache('all')" ng-disabled="waiting"><i class="fa fa-refresh"></i> Force rebuild all caches</button>
 			</div>
 			
-			<div class="col-sm-3">
+			<div class="col-sm-8">
 				<table class="table table-striped table-hover" style="width: auto;">
 					<thead><tr>
 						<th>#</th>
-						<th>title</th>
+						<th></th>
 						<th>cache version</th>
 						<th>rebuild cache</th>
 					</tr></thead>
 					<tbody style="text-align: center;"><tr ng-repeat="profile in profiles" ng-class="{success: versions[profile.id] == versions_expected}">
 						<td>{{profile.id}}</td>
-						<td>{{profile.label}}</td>
-						<td>{{renderVersion(profile)}}</td>
+						<td>{{profile.label}}<span ng-if="profile.disabled"> <span class="text-muted">[disabled]</span></span></td>
+						<td>{{renderVersion(profile)}}<span ng-if="versions[profile.id] == versions_expected"> ✔</span></td>
 						<td ng-if="profile.disabled">non-working profile</td>
-						<td ng-if="!profile.disabled">TODO</td>
+						<td ng-if="!profile.disabled"><button type="button" class="btn btn-xs" ng-class="{'btn-danger': versions[profile.id] == versions_expected, 'btn-success': versions[profile.id] != versions_expected}" ng-disabled="waiting" ng-click="resetCache(profile.id)">force rebuild</button></td>
 					</tr></tbody>
 				</table>
 			</div>

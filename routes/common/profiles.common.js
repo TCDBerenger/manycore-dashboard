@@ -255,6 +255,33 @@ function loadData(profile) {
 }
 
 /**
+ * Reload raw data
+ */
+function reloadCache(profile) {
+	// Vars
+	var filenameRaw1 = 'data/' + profile.file + '.states.json';
+	var filenameRaw2 = 'data/' + profile.file + '.switches.json';
+	var filenameRaw3 = 'data/' + profile.file + '.dl.json';
+	var filenameRaw4 = 'data/' + profile.file + '.locks.json';
+	var filenameCache = 'data/' + profile.file + '.cache.json';
+
+	// Load raw
+	var raw1 = JSON.parse(fs.readFileSync(filenameRaw1, 'utf8'));
+	var raw2 = JSON.parse(fs.readFileSync(filenameRaw2, 'utf8'));
+	var raw3 = JSON.parse(fs.readFileSync(filenameRaw3, 'utf8'));
+	var raw4 = (profile.v >= 4) ? JSON.parse(fs.readFileSync(filenameRaw4, 'utf8')) : null;
+	console.log("[" + profile.id + "] " + profile.file + " raw data loaded");
+
+	// Compute
+	var data = computeData(profile, raw1, raw2, raw3, raw4);
+	console.log("[" + profile.id + "] " + profile.file + " raw data computed");
+
+	// Save to cache
+	fs.writeFileSync(filenameCache, JSON.stringify(data));
+	console.log("[" + profile.id + "] " + profile.file + " raw data cached");
+}
+
+/**
  * Compute data
  */
 function computeData(profile, raw1, raw2, raw3, raw4) {
@@ -702,9 +729,10 @@ function exportInfo(output, profile) {
 /************************************************/
 var profileExport = {
 	data:		profileData,
-	getVersion:	function(id) { getVersion(profileMap[id]) },
-	loadData:	function(id) { loadData(profileMap[id]) },
-	unloadData:	function(id) { unloadData(profileMap[id]) },
+	getVersion:		function(id) { return getVersion(profileMap[id]) },
+	loadData:		function(id) { loadData(profileMap[id]) },
+	unloadData:		function(id) { unloadData(profileMap[id]) },
+	reloadCache:	function(id) { return reloadCache(profileMap[id]) },
 	expected:	VERSION,
 	exportInfo:	exportInfo
 };
@@ -719,6 +747,9 @@ profileMap.all.forEach(function(profile) {
 	};
 	profile.unloadData = function() {
 		unloadData(profile);
+	};
+	profile.reloadCache = function() {
+		return reloadCache(profile);
 	};
 	profile.exportInfo = function(output) {
 		exportInfo(output, profile);

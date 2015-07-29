@@ -64,10 +64,27 @@ app.controller('AdminController', ['$scope', '$rootScope', '$http', 'profileServ
 		loadProfiles(loadCacheVersions);
 	};
 	function loadCacheVersions() {
-		$http.get('/service/admin/caches').success(function(data) {
+		$http.get('/service/admin/cache-versions').success(function(data) {
 			$scope.versions = data.versions;
 			$scope.versions_expected = data.expected;
 			$scope.versions_loaded = true;
+			$scope.waiting--;
+		});
+	};
+	 
+	 
+	/**
+	 * Reset cache
+	 */
+	$scope.resetCache = function(id) {
+		if ($scope.isWaiting()) return;
+		console.log('click');
+		$scope.waiting++;
+		$http.get('/service/admin/cache-reload/' + id).success(function(data) {
+			for(var i in data.versions){
+				$scope.versions[i] = data.versions[i];
+				console.log(i, data.versions[i], $scope.versions[i], $scope.versions);
+			}
 			$scope.waiting--;
 		});
 	};
