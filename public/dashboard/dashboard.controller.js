@@ -7,15 +7,11 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	// Profiles
 	$scope.profiles = profileService.all;
 	$scope.selectedProfiles = []
-	$scope.availableProfiles = [];
-	$scope.data = {};					// to delete : already replaced by profile.data.dash
-	$scope.waitingDataCounter = 0;
+	$scope.howWaiting = 0;
 
 	// Details
-	$scope.catCommon = categories.common;
+	$scope.commonCategory = categories.common;
 	$scope.categories = categories.all;
-	//$scope.strips = strips;
-	//$scope.gauges = gauges;
 
 	// References
 	$scope.encodeSelectedProfile = $rootScope.encodeSelectedProfile;
@@ -47,7 +43,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	 * Layout - main col
 	 */
 	$scope.mainColSize = function() {
-		return 12 - Math.ceil(($scope.selectedProfiles.length + Math.min(1, $scope.waitingDataCounter)) * 2.5);
+		return 12 - Math.ceil(($scope.selectedProfiles.length + Math.min(1, $scope.howWaiting)) * 2.5);
 	};
 
 	/**
@@ -69,7 +65,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	 * Profile - can add
 	 */
 	$scope.canAddProfile = function() {
-		return ($scope.selectedProfiles.length + $scope.waitingDataCounter) < 2;
+		return ($scope.selectedProfiles.length + $scope.howWaiting) < 2;
 	};
 
 	/**
@@ -104,14 +100,14 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	 * Profile - loading a specific profile
 	 */
 	$scope.waitProfile = function(pindex) {
-		return ($scope.selectedProfiles.length + $scope.waitingDataCounter) == pindex + 1 && $scope.waitingDataCounter > 0;
+		return ($scope.selectedProfiles.length + $scope.howWaiting) == pindex + 1 && $scope.howWaiting > 0;
 	};
 
 	/**
 	 * Profile - will add or has already a specific profile
 	 */
 	$scope.willProfile = function(pindex) {
-		return ($scope.selectedProfiles.length + $scope.waitingDataCounter) > pindex;
+		return ($scope.selectedProfiles.length + $scope.howWaiting) > pindex;
 	};
 
 	/**
@@ -125,7 +121,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	 * Profile - data not loaded
 	 */
 	$scope.waitingData = function() {
-		return $scope.waitingDataCounter > 0;
+		return $scope.howWaiting > 0;
 	};
 	
 
@@ -133,9 +129,16 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	 * Wizard - step 1
 	 */
 	$scope.isStep1 = function() {
-		return $scope.selectedProfiles.length + $scope.waitingDataCounter == 0;
+		return $scope.selectedProfiles.length + $scope.howWaiting == 0;
 	};
 
+	/**
+	 * Wizard - step 1 compare
+	 */
+	$scope.isStep1Compare = function() {
+		return $scope.selectedProfiles.length + $scope.howWaiting == 1;
+	};
+	
 	/**
 	 * Wizard - step 2
 	 */
@@ -143,26 +146,6 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 		return $scope.selectedProfiles.length > 0;
 	};
 
-	/**
-	 * Wizard - step compare
-	 */
-	$scope.isStepCompare = function() {
-		return $scope.selectedProfiles.length + $scope.waitingDataCounter == 1;
-	};
-	
-
-	/**
-	 * Data - main col
-	 */
-	$scope.getIndicatorData = function() {
-		var output = [];
-
-		$scope.selectedProfiles.forEach(function(profile) {
-			output.push($scope.data[profile.id]);
-		})
-
-		return output;
-	};
 	
 	/**
 	 * Blur - var
@@ -189,9 +172,6 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	 * Select
 	 */
 	$scope.selectProfile = function(profile) {
-		// remove to available
-		$scope.availableProfiles.splice($scope.availableProfiles.indexOf(profile), 1);
-
 		// Download data for graphs
 		if (profile.data.hasOwnProperty('dash')) {
 			$scope._selectProfile_withData(profile);
@@ -212,7 +192,6 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	 */
 	$scope.unselectProfile = function(profile) {
 		$scope.selectedProfiles.splice($scope.selectedProfiles.indexOf(profile), 1);
-		$scope.availableProfiles.push(profile);
 		
 		// Save new selection
 		$rootScope.saveSelectedProfiles($scope.selectedProfiles);
@@ -222,10 +201,6 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	 * Unselect all
 	 */
 	$scope.unselectAllProfiles = function() {
-		while($scope.selectedProfiles.length > 0) {
-			$scope.availableProfiles.push($scope.selectedProfiles.pop());
-		}
-		
 		// Save new selection
 		$rootScope.saveSelectedProfiles($scope.selectedProfiles);
 	};
@@ -248,9 +223,6 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	 * Restore
 	 */
 	$scope.restoreSelectedProfiles = function() {
-		// Init: all profiles are available
-		$scope.availableProfiles = $scope.profiles.slice(0);
-
 		// retreive ids
 		var ids = $rootScope.selectedIDs.slice(0);
 
@@ -275,30 +247,17 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	 * Load
 	 */
 	$scope.downloadData = function(profile) {
-		$scope.waitingDataCounter++;
+		$scope.howWaiting++;
 
 		$http.get('/service/dash/'+ profile.id).success(function(data) {
 			profile.data.dash = data;
-			$scope.data[profile.id] = data;
-			$scope.data[profile.id].profile = profile;
 
 			$scope.brushing.timeMax = Math.max($scope.brushing.timeMax, data.info.duration);
 
 			$scope._selectProfile_withData(profile);
 
-			$scope.waitingDataCounter--;
+			$scope.howWaiting--;
 		});
-	};
-	
-	/**
-	 * Get data
-	 */
-	$scope.getprofileData = function() {
-		var datap = [];
-		$scope.selectedProfiles.forEach(function(profile) {
-			datap.push($scope.data[profile.id]);
-		});
-		return datap;
 	};
 
 	

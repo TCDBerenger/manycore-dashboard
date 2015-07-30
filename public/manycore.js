@@ -135,6 +135,14 @@ app.filter('enabled', function() {
 	};
 });
 
+app.filter('notin', function() {
+	return function(items, excluded) {
+		var results = [];
+		items.forEach(function(item) { if (excluded.indexOf(item) < 0) results.push(item) });
+		return results;
+	};
+});
+
 app.filter('v3', function() {
 	return function(items) {
 		var results = [];

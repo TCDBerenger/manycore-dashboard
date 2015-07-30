@@ -9,13 +9,13 @@
 				<i class="fa fa-circle fa-stack-2x"></i>
 				<i class="fa fa-hand-o-right fa-stack-1x fa-inverse"></i>
 			</span>
-			<h2>Step 2</h2>
-			<p>Check all the indicators. <span class="label label-info" tooltip-html="stepTooltipAnalyse">help</span></p>
+			<h2>Step 2: find Waldo</h2>
+			<p>Check all the indicators. <i class="text-info fa fa-question-circle" style="cursor: help;" tooltip-html="stepTooltipAnalyse"></i></p>
 			<p>If an indicator seems dubious, click on it to automatically show the relevant problem category and follow the investigation.</p>
 		</div></div>
 		
 		<!-- States -->
-		<!--<div ng-if="hasProfiles()" class="col-auto gauge" ng-repeat="gauge in catCommon.gauges">
+		<!--<div ng-if="hasProfiles()" class="col-auto gauge" ng-repeat="gauge in commonCategory.gauges">
 			<div class="panel panel-default"  ng-class="{for2: has2Profiles(), big: gauge.isBig}">
 				<div class="panel-heading"><h3 class="panel-title">{{gauge.title}}</h3></div>
 				<div class="panel-body panel-body-gauge">
@@ -71,27 +71,49 @@
 	<!-- Control -->
 	<div class="col-xs-5 col-over" ng-class="{'col-xs-offset-6': has1Profile()}" ng-if="canAddProfile()">
 
-		<!-- Step 1 -->
+		<!-- Step 1 (welcome message) -->
 		<div class="block block-title" ng-if="isStep1()">
+			<span class="block-icon fa-stack">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-hand-spock-o fa-stack-1x fa-inverse"></i>
+			</span>
+			<h2>Welcome</h2>
+			<p>
+				TODO
+			</p>
+			<p><strong class="text-warning">Be careful.</strong> This tool is created for a research purpose and is in constant evolution.
+			Graphs could contain some mistakes and data could be miscomputed.</p>
+		</div>
+		
+		<!-- Step 1 and 1bis (selection) -->
+		<div class="block block-title">
 			<span class="block-icon fa-stack">
 				<i class="fa fa-circle fa-stack-2x"></i>
 				<i class="fa fa-hand-o-right fa-stack-1x fa-inverse"></i>
 			</span>
-			<h2>Step 1</h2>
-			<p>Select the sample you want to analyse.</p>
-			<p><strong>Be careful.</strong> This tool is created for a research purpose and is in constant evolution.
-			Graphs could contain some mistakes and data could be miscomputed.</p>
+			<h2 ng-if="isStep1()">Step 1: select a sample</h2>
+			<h2 ng-if="isStep1Compare()">Step 1 bis: compare</h2>
+			<p ng-if="isStep1()">Select the sample you want to analyse:</p>
+			<p ng-if="isStep1Compare()">Select another sample to compare with the first one:</p>
+			<p class="profile-group">
+				<button type="button" class="btn {{ profile.version < 4 | iif : 'btn-default' : 'btn-primary'}} btn-xs" ng-click="selectProfile(profile)" ng-repeat="profile in profiles | enabled | notin : selectedProfiles | orderBy : 'label'" tooltip="{{profile.desc}}">{{profile.label}}</button>
+			</p>
+			<p>
+				<button type="button" class="btn btn-primary btn-xs"></button> in accordance with last data revision<br />
+				<button type="button" class="btn btn-default btn-xs"></button> some data are missing (thread locks)<br />
+				<button type="button" class="btn btn-link btn-xs" tooltip="description" tooltip-enable="true"></button> description of the sample is in tooltip (when available)
+			</p>
 		</div>
 		
 		<!-- Step compare -->
-		<div class="block block-title" ng-if="isStepCompare()">
+		<!--<div class="block block-title" ng-if="isStepCompare()">
 			<span class="block-icon fa-stack">
 				<i class="fa fa-circle fa-stack-2x"></i>
 				<i class="fa fa-hand-o-right fa-stack-1x fa-inverse"></i>
 			</span>
 			<h2>Step 1 bis</h2>
 			<p>Select another sample to compare with the first one.</p>
-		</div>
+		</div>-->
 		
 		<!-- Disclamer -->
 		<!--<div class="block block-title">
@@ -105,20 +127,13 @@
 		</div>-->
 		
 		<!-- Selection -->
-		<div class="block block-title">
+		<!--<div class="block block-title">
 			<span class="block-icon fa-stack">
 				<i class="fa fa-circle fa-stack-2x"></i>
 				<i class="fa fa-thumb-tack fa-stack-1x fa-inverse"></i>
 			</span>
 			<h2>{{! hasSelectedProfile() | iif : "Select a sample" : "Compare with"}}</h2>
-			<p class="profile-group">
-				<button type="button" class="btn {{ profile.version < 4 | iif : 'btn-default' : 'btn-primary'}} btn-xs" ng-click="selectProfile(profile)" ng-repeat="profile in availableProfiles | enabled | orderBy : 'label'">{{profile.label}}</button>
-			</p>
-			<p>
-				<button type="button" class="btn btn-default btn-xs"></button> some data are missing<br />
-				<button type="button" class="btn btn-primary btn-xs"></button> in accordance with last data revision
-			</p>
-		</div>
+		</div>-->
 	</div>
 </div>
 
@@ -193,7 +208,7 @@
 			TODO: sequence
 		</div> -->
 		
-		<div class="section section-strip strip" ng-repeat="strip in catCommon.strips">
+		<div class="section section-strip strip" ng-repeat="strip in commonCategory.strips">
 			<chart-strip class="widget-graph"></chart-strip>
 		</div>
 		
