@@ -3,20 +3,19 @@
 	
 	<!-- Main -->
 	<div ng-class="{'col-xs-4': has1Profile(), 'col-xs-8': has2Profiles()}"><div class="row">
-		<!-- Category -->
-		<div ng-if="hasProfiles()" class="col-auto"><div class="block block-title"><!-- block-imp -->
+		<!-- Step analyse -->
+		<div ng-if="isStepAnalyse()" class="col-auto" style="max-width: 510px;"><div class="block block-title">
 			<span class="block-icon fa-stack">
 				<i class="fa fa-circle fa-stack-2x"></i>
-				<i class="fa fa-eye fa-stack-1x fa-inverse"></i>
+				<i class="fa fa-hand-o-right fa-stack-1x fa-inverse"></i>
 			</span>
-			<h2>Quick access</h2>
-			<div class="category-group">
-				<a ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})' ng-repeat="category in categories"><button type="button" class="btn btn-link btn-xs"><i class="fa fa-{{category.icon}}"></i>{{category.title}}</button></a>
-			</div>
+			<h2>Step 2</h2>
+			<p>Check all the indicators. <span class="label label-info" tooltip-html="stepTooltipAnalyse">help</span></p>
+			<p>If an indicator seems dubious, click on it to automatically show the relevant problem category and follow the investigation.</p>
 		</div></div>
 		
 		<!-- States -->
-		<div ng-if="hasProfiles()" class="col-auto gauge" ng-repeat="gauge in catCommon.gauges">
+		<!--<div ng-if="hasProfiles()" class="col-auto gauge" ng-repeat="gauge in catCommon.gauges">
 			<div class="panel panel-default"  ng-class="{for2: has2Profiles(), big: gauge.isBig}">
 				<div class="panel-heading"><h3 class="panel-title">{{gauge.title}}</h3></div>
 				<div class="panel-body panel-body-gauge">
@@ -30,7 +29,19 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div>-->
+		
+		<!-- Category -->
+		<div ng-if="has2Profiles()" class="col-auto"><div class="block block-title"><!-- block-imp -->
+			<span class="block-icon fa-stack">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-eye fa-stack-1x fa-inverse"></i>
+			</span>
+			<h2>Quick access</h2>
+			<div class="category-group">
+				<a ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})' ng-repeat="category in categories"><button type="button" class="btn btn-link btn-xs"><i class="fa fa-{{category.icon}}"></i>{{category.title}}</button></a>
+			</div>
+		</div></div>
 		
 		<!-- Control -->
 		<!--
@@ -60,8 +71,30 @@
 	<!-- Control -->
 	<div class="col-xs-5 col-over" ng-class="{'col-xs-offset-6': has1Profile()}" ng-if="canAddProfile()">
 
+		<!-- Step 1 -->
+		<div class="block block-title" ng-if="isStep1()">
+			<span class="block-icon fa-stack">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-hand-o-right fa-stack-1x fa-inverse"></i>
+			</span>
+			<h2>Step 1</h2>
+			<p>Select the sample you want to analyse.</p>
+			<p><strong>Be careful.</strong> This tool is created for a research purpose and is in constant evolution.
+			Graphs could contain some mistakes and data could be miscomputed.</p>
+		</div>
+		
+		<!-- Step compare -->
+		<div class="block block-title" ng-if="isStepCompare()">
+			<span class="block-icon fa-stack">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-hand-o-right fa-stack-1x fa-inverse"></i>
+			</span>
+			<h2>Step 1 bis</h2>
+			<p>Select another sample to compare with the first one.</p>
+		</div>
+		
 		<!-- Disclamer -->
-		<div class="block block-title">
+		<!--<div class="block block-title">
 			<span class="block-icon fa-stack">
 				<i class="fa fa-circle fa-stack-2x"></i>
 				<i class="fa fa-info fa-stack-1x fa-inverse"></i>
@@ -69,7 +102,7 @@
 			<h2>Information</h2>
 			<strong>Be careful.</strong> This tool is created for a research purpose and is in constant evolution.
 			Graphs could contain some mistakes and data could be miscomputed.
-		</div>
+		</div>-->
 		
 		<!-- Selection -->
 		<div class="block block-title">

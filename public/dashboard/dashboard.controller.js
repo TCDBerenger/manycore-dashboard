@@ -1,6 +1,6 @@
 /* global app */
 /* global angular */
-app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http', 'profileService', 'categories', 'strips', 'gauges' , function($scope, $rootScope, $window, $http, profileService, categories, strips, gauges) {
+app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http', '$sce', 'profileService', 'categories', 'strips', 'gauges' , function($scope, $rootScope, $window, $http, $sce, profileService, categories, strips, gauges) {
 	/************************************************/
 	/* Constructor - Init							*/
 	/************************************************/
@@ -32,6 +32,13 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 		selectMin:	NaN,
 		selectMax:	NaN
 	}
+	
+	// Steps
+	$scope.stepTooltipAnalyse = $sce.trustAsHtml(
+		'<span class="text-success">green</span> for working well,<br />' +
+		'<span class="text-primary">blue</span> for improvement,<br />' +
+		'<span class="text-danger">red</span>, <span class="text-warning">yellow</span> and <span class="text-muted">all other colours</span> for possible problem'
+	);
 	
 	/************************************************/
 	/* Functions - Graphical						*/
@@ -120,6 +127,29 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	$scope.waitingData = function() {
 		return $scope.waitingDataCounter > 0;
 	};
+	
+
+	/**
+	 * Wizard - step 1
+	 */
+	$scope.isStep1 = function() {
+		return $scope.selectedProfiles.length + $scope.waitingDataCounter == 0;
+	};
+
+	/**
+	 * Wizard - step 2
+	 */
+	$scope.isStepAnalyse = function() {
+		return $scope.selectedProfiles.length > 0;
+	};
+
+	/**
+	 * Wizard - step compare
+	 */
+	$scope.isStepCompare = function() {
+		return $scope.selectedProfiles.length + $scope.waitingDataCounter == 1;
+	};
+	
 
 	/**
 	 * Data - main col
