@@ -130,7 +130,7 @@ app.filter('cell', function() {
 app.filter('enabled', function() {
 	return function(items) {
 		var results = [];
-		items.forEach(function(item) { if (item.enabled) results.push(item) })
+		items.forEach(function(item) { if ((item.enabled || ! ('enabled' in item)) && ! item.disabled) results.push(item) });
 		return results;
 	};
 });

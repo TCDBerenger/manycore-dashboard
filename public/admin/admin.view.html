@@ -130,10 +130,10 @@
 						<td>{{profile.id}}</td>
 						<td>{{profile.label}}<span ng-if="profile.disabled"> <span class="text-muted">[disabled]</span></span></td>
 						<td>{{renderVersion(profile)}}<span ng-if="versions[profile.id] == versions_expected"> ✔</span></td>
-						<td ng-if="profile.disabled">non-working profile</td>
+						<td ng-if="profile.disabled">raw data missing</td>
 						<td ng-if="!profile.disabled">
 							<button ng-if="versions[profile.id] != versions_expected" type="button" class="btn btn-xs btn-success" ng-disabled="waiting" ng-click="resetCache(profile.id)">build cache</button>
-							<button ng-if="versions[profile.id] == versions_expected" type="button" class="btn btn-xs btn-danger" ng-disabled="waiting" ng-click="resetCache(profile.id)">force rebuild</button>
+							<button ng-if="versions[profile.id] == versions_expected" type="button" class="btn btn-xs btn-warning" ng-disabled="waiting" ng-click="resetCache(profile.id)">force rebuild</button>
 						</td>
 					</tr></tbody>
 				</table>
@@ -152,10 +152,10 @@
 						<td>{{profile.id}}</td>
 						<td>{{profile.label}}<span ng-if="profile.disabled"> <span class="text-muted">[disabled]</span></span></td>
 						<td>{{renderVersion(profile)}}<span ng-if="versions[profile.id] == versions_expected"> ✔</span></td>
-						<td ng-if="profile.disabled">non-working profile</td>
+						<td ng-if="profile.disabled">raw data missing</td>
 						<td ng-if="!profile.disabled">
 							<button ng-if="versions[profile.id] != versions_expected" type="button" class="btn btn-xs btn-success" ng-disabled="waiting" ng-click="resetCache(profile.id)">build cache</button>
-							<button ng-if="versions[profile.id] == versions_expected" type="button" class="btn btn-xs btn-danger" ng-disabled="waiting" ng-click="resetCache(profile.id)">force rebuild</button>
+							<button ng-if="versions[profile.id] == versions_expected" type="button" class="btn btn-xs btn-warning" ng-disabled="waiting" ng-click="resetCache(profile.id)">force rebuild</button>
 						</td>
 					</tr></tbody>
 				</table>
