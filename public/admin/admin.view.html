@@ -114,23 +114,49 @@
 					<p>Expected data version: <span class="text-primary">{{versions_expected}}</span></p>
 					<p><button type="button" class="btn btn-default" ng-click="reloadCacheVersions()" ng-disabled="waiting"><i class="fa fa-refresh"></i> refresh data</button></p>
 				</div>
-				<button type="button" class="btn btn-danger" ng-click="resetCache('all')" ng-disabled="waiting"><i class="fa fa-refresh"></i> Force rebuild all caches</button>
+				<button type="button" class="btn btn-danger" ng-click="resetCache('all')" ng-disabled="waiting"><i class="fa fa-eraser"></i> Force rebuild all caches</button>
 			</div>
 			
-			<div class="col-sm-8">
-				<table class="table table-striped table-hover" style="width: auto;">
+			<div class="col-sm-4">
+				<h2>Profiles with locks <span class="text-muted">(v4)</span></h2>
+				<table class="table table-striped table-hover">
 					<thead><tr>
 						<th>#</th>
 						<th></th>
 						<th>cache version</th>
 						<th>rebuild cache</th>
 					</tr></thead>
-					<tbody style="text-align: center;"><tr ng-repeat="profile in profiles" ng-class="{success: versions[profile.id] == versions_expected}">
+					<tbody style="text-align: center;"><tr ng-repeat="profile in profiles | v4" ng-class="{success: versions[profile.id] == versions_expected}">
 						<td>{{profile.id}}</td>
 						<td>{{profile.label}}<span ng-if="profile.disabled"> <span class="text-muted">[disabled]</span></span></td>
 						<td>{{renderVersion(profile)}}<span ng-if="versions[profile.id] == versions_expected"> ✔</span></td>
 						<td ng-if="profile.disabled">non-working profile</td>
-						<td ng-if="!profile.disabled"><button type="button" class="btn btn-xs" ng-class="{'btn-danger': versions[profile.id] == versions_expected, 'btn-success': versions[profile.id] != versions_expected}" ng-disabled="waiting" ng-click="resetCache(profile.id)">force rebuild</button></td>
+						<td ng-if="!profile.disabled">
+							<button ng-if="versions[profile.id] != versions_expected" type="button" class="btn btn-xs btn-success" ng-disabled="waiting" ng-click="resetCache(profile.id)">build cache</button>
+							<button ng-if="versions[profile.id] == versions_expected" type="button" class="btn btn-xs btn-danger" ng-disabled="waiting" ng-click="resetCache(profile.id)">force rebuild</button>
+						</td>
+					</tr></tbody>
+				</table>
+			</div>
+			
+			<div class="col-sm-4">
+				<h2>Profiles without locks <span class="text-muted">(v3)</span></h2>
+				<table class="table table-striped table-hover">
+					<thead><tr>
+						<th>#</th>
+						<th></th>
+						<th>cache version</th>
+						<th>rebuild cache</th>
+					</tr></thead>
+					<tbody style="text-align: center;"><tr ng-repeat="profile in profiles | v3" ng-class="{success: versions[profile.id] == versions_expected}">
+						<td>{{profile.id}}</td>
+						<td>{{profile.label}}<span ng-if="profile.disabled"> <span class="text-muted">[disabled]</span></span></td>
+						<td>{{renderVersion(profile)}}<span ng-if="versions[profile.id] == versions_expected"> ✔</span></td>
+						<td ng-if="profile.disabled">non-working profile</td>
+						<td ng-if="!profile.disabled">
+							<button ng-if="versions[profile.id] != versions_expected" type="button" class="btn btn-xs btn-success" ng-disabled="waiting" ng-click="resetCache(profile.id)">build cache</button>
+							<button ng-if="versions[profile.id] == versions_expected" type="button" class="btn btn-xs btn-danger" ng-disabled="waiting" ng-click="resetCache(profile.id)">force rebuild</button>
+						</td>
 					</tr></tbody>
 				</table>
 			</div>

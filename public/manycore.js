@@ -135,7 +135,6 @@ app.filter('enabled', function() {
 	};
 });
 
-/*
 app.filter('v3', function() {
 	return function(items) {
 		var results = [];
@@ -150,7 +149,6 @@ app.filter('v4', function() {
 		return results;
 	};
 });
-*/
 
 app.directive('proxyLinkDirective', ['$parse', '$injector', '$compile', function ($parse, $injector, $compile) {
 	return {
