@@ -1,0 +1,175 @@
+<div class="row dashboard">
+	<div class="modalbg" ng-if="needModalBG" ng-animate="'animate'" ng-mouseenter="unblur()"></div>
+	
+	<!-- Profiles -->
+	<div class="col-xs-2 profile hovermodal" ng-repeat="(profile_index, profile) in selectedProfiles"><div class="tile">
+
+		<!-- main -->
+		<div class="section">
+			<a class="pin hover-text" href ng-click="unselectProfile(profile)">
+				<span class="text">deselect</span><span class="fa-stack fa-lg icon">
+					<i class="fa fa-thumb-tack fa-stack-1x"></i>
+					<i class="fa fa-ban fa-stack-2x"></i>
+				</span>
+			</a>
+			<h2>{{profile.label}}</h2>
+			<p class="subtitle">{{profile.desc != null && profile.desc.length > 0 | iif : profile.desc : '&nbsp;' }}</p>
+
+			<!-- hardware -->
+			<div class="dropdown" dropdown on-toggle="toggled(open)"><p class="profile-hardware">
+				<i class="fa fa-laptop"></i>
+				<span class="dropdown-toggle link" dropdown-toggle>
+					{{profile.hardware.info.cpu.label}}
+					<a href><i class="fa fa-caret-square-o-down"></i></a>
+				</span>
+				<div class="panel panel-primary dropdown-menu profile-hardware-menu">
+					<div class="panel-heading"><h3 class="panel-title">Hardware details</h3></div>
+					<ul class="list-group">
+						<li class="list-group-item">
+							<h5 class="list-group-item-heading">
+								<a href="{{profile.hardware.info.cpu.link}}" class="pull-right">specs</a>
+								<span class="label label-primary">CPU</span> {{profile.hardware.info.cpu.label}}
+							</h5>
+							<p class="list-group-item-text">
+								<b>Model :</b> {{profile.hardware.info.cpu.model}}<br />
+								<b>Type :</b> {{profile.hardware.info.cpu.type}}<br />
+								<b>Cores :</b> {{profile.hardware.info.cpu.cores}}<br />
+								<b>Clock :</b> {{profile.hardware.info.cpu.clock}}<br />
+								<b>Cache L1 :</b> {{profile.hardware.info.cpu.l1}}<br />
+								<b>Cache L2 :</b> {{profile.hardware.info.cpu.l2}}<br />
+								<b>Cache L3 :</b> {{profile.hardware.info.cpu.l3}}
+							</p>
+						</li>
+						<li class="list-group-item">
+							<h5 class="list-group-item-heading"><span class="label label-primary">RAM</span> {{profile.hardware.info.ram}}</h5>
+						</li>
+					</ul>
+				</div>
+			</p></div>
+
+			<!-- stat -->
+			<p><i class="fa fa-bar-chart"></i> <strong>duration:</strong> {{data[profile.id].info.duration}} ms</p>
+			<div class="progress progress-striped" ng-if="has2Profiles()" style="margin-top: -10px;"><div class="progress-bar progress-bar-info" style="width: {{durationPercent(profile)}}%;"></div></div>
+		</div>
+		
+		<!-- Strips -->
+		<div class="section section-strip strip" ng-repeat="strip in strips">
+			<a ui-sref='detail({cat: strip.links[0].tag, ids: encodeSelectedProfile()})'>
+				<chart-strip class="widget-graph"></chart-strip>
+			</a>
+		</div>
+	</div></div>
+
+	<!-- Waiting -->
+	<div ng-if="waitingData()" class="col-xs-2 ctrl"><div class="block">
+		<span class="block-icon fa-stack">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-spinner fa-pulse fa-stack-1x fa-inverse"></i>
+		</span>
+		<strong>Retrieving data...</strong>
+	</div></div>
+
+	<!-- Other - line 1 - tools -->
+	<div class="col-xs-{{mainColSize()}}"><div class="row">
+
+		<!-- Selection -->
+		<div ng-if="canAddProfile()" class="col-µ ctrl" style="width: 550px"><div class="block block-title">
+			<span class="block-icon fa-stack">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-thumb-tack fa-stack-1x fa-inverse"></i>
+			</span>
+			<h2>{{! hasSelectedProfile() | iif : "Select a sample" : "Compare with"}}</h2>
+			<div class="btn-group-col btn-group-col-5">
+				<button type="button" class="btn {{ profile.version < 4 | iif : 'btn-default' : 'btn-primary'}} btn-xs" ng-click="selectProfile(profile)" ng-repeat="profile in availableProfiles | orderBy : 'label'" ng-disabled="profile.disabled">{{profile.label}}</button>
+			</div>
+			<p ng-hide="hasProfiles()">
+				<button type="button" class="btn btn-default btn-xs"></button> missing data<br />
+				<button type="button" class="btn btn-primary btn-xs"></button> in accordance with last data revision
+			</p>
+		</div></div>
+
+		<!-- Control -->
+		<div ng-if="has2Profiles()" class="col-auto ctrl"><div class="block">
+			<span class="block-icon fa-stack">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-wrench fa-stack-1x fa-inverse"></i>
+			</span>
+			<p><a class="action" href ng-click="unselectAllProfiles()">
+				<span class="fa-stack icon">
+					<i class="fa fa-thumb-tack fa-stack-1x"></i>
+					<i class="fa fa-ban fa-stack-2x"></i>
+				</span><span class="text">deselect all</span>
+			</a></p>
+			<p><a class="action" href ng-click="invertProfiles()">
+				<span class="fa-stack icon">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-exchange fa-stack-1x fa-inverse"></i>
+				</span><span class="text">invert</span>
+			</a></p>
+		</div></div>
+
+		<!-- Disclamer -->
+		<div class="col-µ" style="min-width: 280px; max-width: 500px;"><div class="block block-title">
+			<span class="block-icon fa-stack">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-info fa-stack-1x fa-inverse"></i>
+			</span>
+			<h2>Information</h2>
+			<strong>Be careful.</strong> This tool is created for a research purpose and is in constant evolution.
+			Graphs could contain some mistakes and data could be miscomputed.
+		</div></div>
+
+		<!-- Sequence -->
+		<!-- <div ng-if="hasProfiles()" class="col-µ" style="min-width: 280px"><div class="block block-imp block-title">
+			<span class="block-icon fa-stack">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-text-width fa-stack-1x fa-inverse"></i>
+			</span>
+			<h2>Sequence</h2>
+			TODO
+		</div></div> -->
+
+
+	<!-- Other - line 2 - indicators -->
+	</div><div class="row" ng-if="hasProfiles()">
+		
+		<!--
+		<div class="col-auto hovermodal" ng-repeat="indicator in indicators"><div class="panel panel-default category" ng-mouseenter="blur()" ng-mouseleave="unblur()">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{indicator.title}}</h3>
+			</div>
+			<div class="panel-expected">
+				<h4>Expected</h4>
+			</div>
+			<div class="panel-legend">
+				<h4>Legend</h4>
+				<p ng-repeat="l in indicator.legend">
+					<span style="color: {{l.color}}">{{l.icon | iif : l.icon : '▮'}}</span>
+					<strong>{{l.label}}:</strong>
+				</p>
+			</div>
+			<div class="panel-body">
+				<proxy-link-directive ng-attr-graph="{{indicator.graph}}" class="indicator-graph"></proxy-link-directive>
+			</div>
+			<div class="panel-links">
+				<h4>Figure it out</h4>
+				<div class="links">
+					<a href ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})' ng-repeat-start="category in indicator.links"><i class="fa fa-arrow-circle-o-right"></i>{{category.label}}</a><br ng-repeat-end ng-if="! $last" />
+				</div>
+			</div>
+		</div></div>
+		-->
+		
+		<div class="col-auto gauge" ng-repeat="gauge in gauges">
+			<div class="panel panel-default"  ng-class="{for2: has2Profiles(), big: gauge.isBig}">
+				<div class="panel-heading"><h3 class="panel-title">{{gauge.title}}</h3></div>
+				<div class="panel-body">
+					<div class="panel-section" ng-repeat="profile in selectedProfiles">
+						<proxy-link-directive ng-attr-graph="{{gauge.graph}}" class="widget-graph{{ gauge.isBig | iif : ' big' : ''}}"></proxy-link-directive>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

@@ -127,6 +127,14 @@ app.filter('cell', function() {
 	};
 });
 
+app.filter('enabled', function() {
+	return function(items) {
+		var results = [];
+		items.forEach(function(item) { if (item.enabled) results.push(item) })
+		return results;
+	};
+});
+
 /*
 app.filter('v3', function() {
 	return function(items) {

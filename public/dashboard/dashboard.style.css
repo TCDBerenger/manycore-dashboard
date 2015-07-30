@@ -5,6 +5,12 @@
 	margin-top: 0px;
 }
 
+.dashboard .col-over {
+	position: absolute;
+	transition: all .2s ease;
+	background-color: #FFF
+}
+
 
 
 /**
@@ -27,28 +33,31 @@
 	padding: 0px;
 }
 .dashboard .profile .tile .section {
-	min-height: 60px;
+	/*
+	min-height: 40px;
+	*/
 }
-.dashboard .profile .tile .section:first-child {
+.dashboard .profile .tile .section-title {
 	padding: 20px 20px 10px 20px;
 }
 .dashboard .profile .tile .section-strip {
 	border-top: 1px solid #DDD;
 }
-.dashboard .profile .tile .section-category {
-	border-top: 2px dashed #797979;
-}
 
 .dashboard .profile .subtitle {
 	margin-top: -10px;
-	margin-bottom: 16px;
-	min-height: 45px;
+	margin-bottom: 6px;
+	height: 25px;
+	
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .dashboard .profile .graphs section {
 	margin: 0px;
 	padding: 0px;
-	height: 60px;
+	height: 40px;
 	width: 100%;
 }
 .dashboard .profile .graphs svg {
@@ -74,27 +83,6 @@
 
 
 /**
- * Dashboard fake profile
- */
-/*
-.dashboard .fake-profile {
-	position: absolute;
-	z-index: 950;
-	left: 33.3333%;
-}
-*/
-/*
-.dashboard .profile:nth-child(2).fake-profile {
-	left: 16.6667%;
-}
-.dashboard .profile:nth-child(3).fake-profile {
-	left: 33.3333%;
-}
-*/
-
-
-
-/**
  * Dashboard Section
  */
 .dashboard .profile .section-strip a:hover, .dashboard .profile .section-strip a:visited, .dashboard .profile .section-strip a:link, .dashboard .profile .section-strip a:active {
@@ -111,8 +99,9 @@
 /**
  * Dashboard gauge section
  */
-.dashboard .gauge .panel {
+.dashboard .gauge.panel {
 	box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+	margin: 0px 10px 10px 10px;
 }
 .dashboard .gauge .panel-heading {
 	padding: 5px 10px;
@@ -120,19 +109,33 @@
 	word-wrap: break-word;
 	word-break: keep-all;
 }
+.dashboard .gauge .panel-footer {
+	padding: 5px 0px;
+	text-align: center;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
 .dashboard .gauge .panel-body {
 	padding: 0px;
 }
-.dashboard .gauge			.panel-heading { width: 80px; }
-.dashboard .gauge .for2		.panel-heading { width: 161px; }
-.dashboard .gauge .big		.panel-heading { width: 140px; }
-.dashboard .gauge .big.for2 .panel-heading { width: 281px; }
+.dashboard .gauge			.panel-heading { width: 50px; }
+.dashboard .gauge .for2		.panel-heading { width: 101px; }
+.dashboard .gauge .big		.panel-heading { width: 100px; }
+.dashboard .gauge .big.for2 .panel-heading { width: 201px; }
 
-.dashboard .gauge	   .panel-body { height: 80px; }
-.dashboard .gauge .big .panel-body { height: 140px; }
+.dashboard .gauge			.panel-footer { width: 50px; }
+.dashboard .gauge .for2		.panel-footer { width: 101px; }
+
+.dashboard .gauge	   .panel-body-gauge { height: 50px; }
+.dashboard .gauge .big .panel-body-gauge { height: 100px; }
 
 .dashboard .gauge .panel-section {
 	display: inline-block;
+}
+.dashboard .gauge .panel-body-title .panel-section {
+	width: 50%;
+	text-align: center;
 }
 .dashboard .gauge .panel-section + .panel-section {
 	border-left: 1px solid #DDD;
@@ -143,30 +146,37 @@
 /**
  * Dashboard Legend
  */
-.dashboard .ctrl-legend {
-	padding: 0px;
-	font-size: 0.8em;
+.dashboard .legend p {
+	margin: 0px 0px 4px 0px;
 }
+.dashboard .profile1 .legend {	float: left;	text-align: left;	margin-right: 15px; }
+.dashboard .profile2 .legend {	float: right;	text-align: right;	margin-left: 15px; }
+.dashboard .profile1 .legend .icon {	float: left; }
+.dashboard .profile2 .legend .icon {	float: right; }
+.dashboard .profile1 .gauge {	float: left; }
+.dashboard .profile2 .gauge {	float: right; }
 
-.dashboard .ctrl-legend .section {
+.dashboard .profile1 .legend p .legend-data { padding-left: 16px; }
+.dashboard .profile2 .legend p .legend-data { padding-right: 16px; }
+
+/*
+.dashboard .legend .section {
 	min-height: 60px;
 	width: 100%;
 	position: absolute;
 	cursor: pointer;
 	border-top: 1px dashed #797979;
 }
-.dashboard .ctrl-legend .section + .section {
+.dashboard .legend .section + .section {
 	border-top: 1px dashed #797979;
 }
-.dashboard .ctrl-legend p.title {
+.dashboard .legend p.title {
 	margin: 0px;
 	font-weight: bold;
 }
-
-.dashboard .ctrl-legend.left {		text-align: left; }
-.dashboard .ctrl-legend.center {	text-align: center; }
-.dashboard .ctrl-legend .icon.left {	float: left; }
-.dashboard .ctrl-legend .icon.right {	float: right; }
+.dashboard .legend.left {	text-align: left; }
+.dashboard .legend.center {	text-align: center; }
+*/
 
 
 
@@ -216,6 +226,9 @@
 	right: 17px;
 	z-index: 100;
 }
+.dashboard .pin:nth-child(2) {
+	top: 26px;
+}
 .dashboard .pin .text		{ padding-right: 2px; }
 .dashboard .pin > .fa		{ font-size: 1.1em !important; }
 .dashboard .pin .fa-stack	{ font-size: 0.8em !important; }
@@ -249,6 +262,37 @@
 	margin: 0px;
 }
 
+/**
+ * Dashboard category - title
+ */
+.dashboard.category .title {
+	display: flex;
+	margin-bottom: 8px;
+	margin-top: -8px;
+}
+.dashboard.category .title hr {
+	flex: 1;
+	content: '';
+	margin: auto 0.25em;
+	border: none;
+	border-bottom: 2px dashed #DDD;
+}
+.dashboard.category .for1 .title hr:first-child { flex: none; width: 25px; }
+.dashboard.category .title span {
+	margin: 0px 6px 0px 6px;
+}
+.dashboard.category .title i {
+	text-align: center;
+	margin-top: 4px;
+}
+.dashboard.category .title i:first-of-type { margin-left: 6px; }
+.dashboard.category .title i:last-of-type { margin-right: 6px; }
+.dashboard.category .for1 .title i:last-of-type { display: none; }
+
+
+.dashboard .category-main {
+	padding: 0px;
+}
 
 
 /*
@@ -320,34 +364,24 @@
 }
 */
 
-/*
-.dashboard .indicator-graph {
-	margin: 0px !important;
-	min-width: 40px;
-	min-height: 40px;
-}
-*/
-
 
 
 /**
- * Dashboard chart strip
+ * Dashboard charts
  */
+/*
 .dashboard .strip .widget-graph {
 	min-width: 40px;
-	height: 60px;
+	height: 40px;
 }
-
-/**
- * Dashboard chart gauge
- */
+*/
 .dashboard .gauge .widget-graph {
-	width: 80px;
-	height: 80px;
+	width: 50px;
+	height: 50px;
 }
 .dashboard .gauge .widget-graph.big {
-	width: 140px;
-	height: 140px;
+	width: 100px;
+	height: 100px;
 }
 
 /**
@@ -365,11 +399,6 @@
 	fill: #222;
 	/* transition: .2s linear all; */
 }
-/*
-.dashboard .widget-grap .svg-background {
-	fill: #FFF;
-}
-*/
 
 
 
@@ -396,6 +425,27 @@
 .animate-enter.animate-enter-active {
 	opacity: 1;
 }
+
+
+
+/**
+ * Dashboard groups
+ */
+.dashboard .profile-group button {
+	width: 90px;
+	margin-right: 8px;
+	margin-bottom: 6px;
+}
+.dashboard .category-group {
+	max-width: 341px;
+}
+.dashboard .category-group button i {
+	width: 12px;
+	text-align: 12px;
+	margin-right: 4px;
+}
+
+
 
 
 /**
