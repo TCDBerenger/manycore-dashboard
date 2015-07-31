@@ -40,7 +40,9 @@ var hardRoman = {
 	},
 	calibration: {
 		switches:	1,		// number of switches by ms by core
-		migrations: 0.3		// number of migrations by ms by core
+		migrations: 0.3,	// number of migrations by ms by core
+		lock_success: 0.01,	// number of success lock acquisition by ms by core
+		lock_failure: 0.01	// number of failure lock acquisition by ms by core
 	}
 };
 
