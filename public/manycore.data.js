@@ -97,14 +97,6 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 
 
 	return {
-		r:		{ data: [facets.r] },
-		uu:		{ data: [facets.uu] },
-		yb:		{ data: [facets.yb] },
-		lw:		{ data: [facets.lw] },
-		ipc:	{ data: [facets.ipc] },
-		miss:	{ data: [facets.miss] },
-		sw:		{ data: [facets.s],		graph : { expected:	function(profile) { return profile.data.dash.info.duration * profile.hardware.data.threads * profile.hardware.calibration.switches; }} },
-		mg:		{ data: [facets.m],		graph : { expected:	function(profile) { return profile.data.dash.info.duration * profile.hardware.data.threads * profile.hardware.calibration.migrations; }} },
 		states: {
 			graph : {
 				v:		[facets.yb],	// data over the limit (like other graphs)
@@ -251,16 +243,13 @@ app.factory('widgets', ['decks', function(decks) {
 }]);
 
 
-app.factory('strips', ['decks', function(decks) {
-	var r		= { title: 'Running',				deck: decks.r,		reverse: false };
-	var uu		= { title: 'Unused cores',			deck: decks.uu,		reverse: true };
-	var yb		= { title: 'Waiting cores',			deck: decks.yb,		reverse: false };
-	var lw		= { title: 'Waiting ressources',	deck: decks.lw,		reverse: false };
-	var miss	= { title: 'Cache misses',			deck: decks.miss,	reverse: false };
-	
+app.factory('strips', ['facets', function(facets) {
 	return {
-		r: r, uu: uu, yb: yb, lw: lw, miss: miss,
-		all: [r, uu, yb, lw, lw, miss]
+		r:		{ title: 'Running',				facet: facets.r,	reverse: false },
+		uu:		{ title: 'Unused cores',		facet: facets.uu,	reverse: true },
+		yb:		{ title: 'Waiting cores',		facet: facets.yb,	reverse: false },
+		lw:		{ title: 'Waiting ressources',	facet: facets.lw,	reverse: false },
+		miss:	{ title: 'Cache misses',		facet: facets.miss,	reverse: false }
 	};
 }]);
 
