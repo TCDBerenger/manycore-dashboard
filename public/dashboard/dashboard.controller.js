@@ -1,6 +1,6 @@
 /* global app */
 /* global angular */
-app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http', '$sce', 'profileService', 'categories', 'strips', 'gauges' , function($scope, $rootScope, $window, $http, $sce, profileService, categories, strips, gauges) {
+app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http', '$sce', 'profileService', 'categories' , function($scope, $rootScope, $window, $http, $sce, profileService, categories) {
 	/************************************************/
 	/* Constructor - Init							*/
 	/************************************************/

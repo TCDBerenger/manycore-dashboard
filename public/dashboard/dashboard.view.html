@@ -108,6 +108,11 @@
 </div>
 
 <div class="row dashboard category" ng-if="hasProfiles()" ng-repeat="category in categories | enabled">
+	<!-- Title -->
+	<!--<div class="title" ng-class="{'col-xs-6': has1Profile(), 'col-xs-12': has2Profiles(), 'for1': has1Profile(), 'for2': has2Profiles()}">
+		<hr/><i class="fa fa-{{category.icon}}"></i><span>{{category.title}}</span><i class="fa fa-{{category.icon}}"></i><hr/>
+	</div><div class="clearfix"></div>-->
+	
 	<!-- Strips (profile 1) -->
 	<ng-include src="'/template_profile_strips.html'" ng-init="profile = selectedProfiles[0]"></ng-include>
 	
@@ -116,20 +121,8 @@
 		<!-- Title -->
 		<div class="title"><hr/><i class="fa fa-{{category.icon}}"></i><span>{{category.title}}</span><i class="fa fa-{{category.icon}}"></i><hr/></div>
 		
-		<!-- Indicators -->
-		<div class="row"><div class="profile{{$index+1}}" ng-class="{'col-xs-12': has1Profile(), 'col-xs-6': has2Profiles()}" ng-repeat="profile in selectedProfiles">
-			<!-- Legend -->
-			<div class="legend">
-				<p ng-repeat="strip in category.strips" ng-init="legend = strip.deck.data[0]">
-					<span class="legend-title" style="color: {{legend.fcolor}}"><span class="icon">▮</span><span class="text">{{legend.label}}</span></span><br />
-					<span class="legend-data">XX % (YY s)</span>
-				</p>
-			</div>
-			
-			<!-- Gauges -->
-			<ng-include src="'/template_profile_gauges.html'"></ng-include>
-		</div></div>
-	
+		<!-- Gauges -->
+		<chart-gauges class="widget-graph"></chart-gauges>
 	</div>
 		
 	<!-- Strips (profile 2) -->
@@ -194,14 +187,4 @@
 			</a>
 		</div>
 	</div></div>
-</script>
-
-<!-- Profiles - gauges -->
-<script type="text/ng-template" id="/template_profile_gauges.html">
-	<div class="gauge panel panel-default" ng-repeat="gauge in category.gauges" tooltip="{{gauge.title}}">
-		<div class="panel-body">
-			<proxy-link-directive ng-attr-graph="{{gauge.graph}}" class="widget-graph{{ gauge.isBig | iif : ' big' : ''}}"></proxy-link-directive>
-		</div>
-		<div class="panel-footer">{{gauge.title}}</div>
-	</div>
 </script>

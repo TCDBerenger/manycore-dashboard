@@ -106,26 +106,50 @@ function addProfiling(output, profile) {
 function addGauges(output, profile) {
 	// Data
 	var data = profile.data;
+	var max;
 	
-	// Computation
-	var maxStates = data.info.threads * (data.info.timeMax + data.info.timeStep);
-
+	// Computation - Cache misses
+	max = data.locality.stats.ipc + data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf;
+	var ipc = Math.round(100 * data.locality.stats.ipc / max);
+	var miss = Math.round(100 * (data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf) / max);
+	
 	// Stats
 	output.gauges = {
-	    s:	data.stats.switches,
-	    m:	data.stats.migrations,
-		
-		r:	Math.round(data.stats.running),
-		yb:	Math.round(data.stats.ready + data.stats.standby),
-		uu: Math.round(data.stats.idle),
-		
-		ls: data.stats.lock_success,
-		lf: data.stats.lock_failure,
-		lw: Math.round(data.stats.lock_wait),
-
-		ipc:	Math.round(data.locality.stats.ipc),
-		miss:	Math.round(data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf),
+		ipc: {	g: ipc,
+				l: ipc + '%',
+				u: Math.round(data.locality.stats.ipc) },
+		miss: {	g: miss,
+				l: miss + '%',
+				u: Math.round(data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf) },
 	};
+	
+	// Add states
+	max = data.info.threads * (data.info.timeMax + data.info.timeStep);
+	[	{ l: 'r', v: data.stats.running },
+		{ l: 'yb', v: data.stats.ready + data.stats.standby },
+		{ l: 'uu', v: data.stats.idle },
+		{ l: 'lw', v: data.stats.lock_wait }
+	].forEach(function(item) {
+		output.gauges[item.l] = {
+			g: Math.round(100 * item.v / max),
+			l: Math.round(100 * item.v / max) + '%',
+			u: Math.round(item.v)
+		};
+	});
+	
+	// Add calibrations
+	[	{ l: 's', v: data.stats.switches, c: profile.hardware.calibration.switches },
+		{ l: 'm', v: data.stats.switches, c: profile.hardware.calibration.migrations },
+		{ l: 'ls', v: data.stats.lock_success, c: profile.hardware.calibration.lock_success },
+		{ l: 'lf', v: data.stats.lock_failure, c: profile.hardware.calibration.lock_failure },
+	].forEach(function(item) {
+		max = (data.info.timeMax + data.info.timeStep) * data.info.threads * item.c;
+		output.gauges[item.l] = {
+			g: Math.round(100 * item.v / max),
+			l: Math.round(10 * item.v / max) / 10 + '×',
+			u: item.v
+		};
+	});
 }
 
 
