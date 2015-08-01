@@ -40,18 +40,8 @@
 <!-- NAVBAR -->
 <nav class="navbar navbar-default navbar-fixed-top" ng-include="'/navbar/navbar.view.html'" ng-controller="NavbarController"></nav>
 
-<!-- GLOBAL -->
-<div id="wrapper" class="expanded">
-
-	<!-- SIDEBAR -->
-	<!-- <div id="sidebar" class="sidebar" ng-include="'/sidebar/sidebar.view.html'" ng-controller="SidebarController"></div> <!-- {{isExpanded | iif : ' expanded' : ''}} -->
-
-	<!-- CONTENT -->
-	<div id="content" class="container-fluid content">
-		<div ui-view></div>
-	</div>
-
-</div>
+<!-- CONTENT -->
+<div id="content" class="container-fluid"><ui-view /></div>
 
 </body>
 </html>

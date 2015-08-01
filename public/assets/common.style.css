@@ -75,19 +75,6 @@ span.link:hover {
 }
 
 
-
-/*
- * Wrapper
- */
-#wrapper {
-	transition: all 0.2s ease;
-	margin-top: -25px;
-}
-
-#wrapper.min {
-}
-
-
 /*
  * Navbar
  */
@@ -96,39 +83,13 @@ span.link:hover {
 
 
 /*
- * Sidebar
- */
-#sidebar {
-	z-index: 1000;
-	position: fixed;
-	left: 220px;
-	width: 220px;
-	height: 100%;
-	margin-left: -220px;
-}
-#wrapper.min #sidebar {
-	width: 60px;
-}
-
-/*
  * Content
  */
- /*
-#content {
-	width: 100%;
-	position: absolute;
-	padding: 30px;
-}*/
-
 #content {
 	width: 100%;
 	padding: 40px 20px 0px 20px;
+	transition: all 0.2s ease;
 }
-
-#wrapper.min #content {
-	margin-right: 0px;
-}
-
 
 
 /*
@@ -153,11 +114,3 @@ span.link:hover {
 	background-image: url("../assets/blank.jpg");
 	
 }
-
-
-
-
-/*
- *	Experiments
- */
-.experiments {}

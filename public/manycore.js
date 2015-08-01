@@ -42,10 +42,17 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 /**********************************************************/
 app.run(function($rootScope) {
 	/**
+	 * Handlers - states
+	 */
+	var initialContentClasses = document.getElementById('content').className;
+	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) { 
+		document.getElementById('content').className = initialContentClasses + ' ' + toState.name;
+	});
+	
+	/**
 	 * Selected profiles
 	 */
 	$rootScope.selectedIDs = [];
-    //$rootScope.selectedProfiles = [];
 
 	/**
 	 * Join
