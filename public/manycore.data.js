@@ -247,8 +247,8 @@ app.factory('strips', ['facets', function(facets) {
 	return {
 		r:		{ title: 'Running',				facet: facets.r,	reverse: false },
 		uu:		{ title: 'Unused cores',		facet: facets.uu,	reverse: true },
-		yb:		{ title: 'Waiting cores',		facet: facets.yb,	reverse: false },
-		lw:		{ title: 'Waiting ressources',	facet: facets.lw,	reverse: false },
+		yb:		{ title: 'Waiting a core',		facet: facets.yb,	reverse: false },
+		lw:		{ title: 'Waiting a ressource',	facet: facets.lw,	reverse: false },
 		miss:	{ title: 'Cache misses',		facet: facets.miss,	reverse: false }
 	};
 }]);
