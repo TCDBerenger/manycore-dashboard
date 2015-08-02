@@ -93,7 +93,7 @@ app.directive('chartStrip', function() {
 
 		// Attributes
 		var v = scope.strip.facet;
-		var profile = scope.profile;
+		var profile = scope.selectedProfiles[scope.pindex];
 		
 		// Data
 		var data = profile.data.dash;

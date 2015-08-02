@@ -165,6 +165,18 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	
 
 	/************************************************/
+	/* Functions - Handle data						*/
+	/************************************************/
+	
+	/**
+	 * Get
+	 */
+	$scope.iProfile = function() {
+		return $scope.selectedProfiles[this.pindex];
+	};
+	
+
+	/************************************************/
 	/* Functions - Select data						*/
 	/************************************************/
 	

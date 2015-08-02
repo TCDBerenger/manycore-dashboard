@@ -1,38 +1,83 @@
-<div class="row dashboard">
+
+<!-- -- -- -- -- -- -- -- -- -- -- -- -->
+<!--	Wizard						  -->
+<!-- -- -- -- -- -- -- -- -- -- -- -- -->
+<div class="wizard alert alert-info" ng-class="{'hidden': ! canAddProfile()}">
+	
+	<!-- Step analyse -->
+	<div class="tile" ng-if="isStepAnalyse()">
+		<span class="tile-icon fa-stack">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-hand-o-right fa-stack-1x text-info"></i>
+		</span>
+		<h2><strong>Step 2</strong> find Waldo</h2>
+		<p>Check all the indicators. <i class="fa fa-question-circle" style="cursor: help;" tooltip-html="stepTooltipAnalyse"></i></p>
+		<!--<div>
+			<span class="label label-info" style="margin-right: 6px;">info</span>
+			<p style="display: inline-block; vertical-align: text-top;">
+				<span class="text-success">green</span>: it works!<br />
+				<span class="text-primary">blue</span>: area for improvement<br />
+				<span class="text-danger">red</span>, <span class="text-warning">yellow</span> and <span class="text-muted">all other colours</span>: possible problem
+			</p>
+		</div>-->
+		<p>If an indicator seems dubious, click on it to show detailled information and follow the investigation.</p>
+	</div>
+	
+	<!-- Step 1 and 1bis (selection) -->
+	<div class="tile">
+		<span class="tile-icon fa-stack">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-hand-o-right fa-stack-1x text-info"></i>
+		</span>
+		<h2 ng-if="isStep1()"><strong>Step 1</strong> select a sample</h2>
+		<h2 ng-if="isStep1Compare()"><strong>Step 1 bis</strong> compare</h2>
+		<p>&nbsp;</p>
+		<p class="profile-group">
+			<button type="button" class="btn {{ profile.version < 4 | iif : 'btn-default' : 'btn-primary'}} btn-xs" ng-click="selectProfile(profile)" ng-repeat="profile in profiles | enabled | notin : selectedProfiles | orderBy : 'label'" tooltip="{{profile.desc}}">{{profile.label}}</button>
+		</p>
+		<p>
+			<button type="button" class="btn btn-primary btn-xs"></button> in accordance with last data revision<br />
+			<button type="button" class="btn btn-default btn-xs"></button> some data are missing (thread locks)<br />
+			<button type="button" class="btn btn-info btn-xs" tooltip="description" tooltip-enable="true"></button> description of the sample is in tooltip (when available)
+		</p>
+	</div>
+</div>
+
+<!-- -- -- -- -- -- -- -- -- -- -- -- -->
+<!--	Profiles & categories		  -->
+<!-- -- -- -- -- -- -- -- -- -- -- -- -->
+<div class="row heading">
 	<ng-include src="'/template_profile.html'" ng-if="willProfile(0)" ng-init="pindex = 0"></ng-include>
 	
 	<!-- Main -->
-	<div ng-class="{'col-xs-4': !has2Profiles(), 'col-xs-8': has2Profiles()}"><div class="row">
+	<div class="col-xs-6"><div class="row">
+		<!-- Step 1 (welcome message) -->
+		<div ng-if="isStep1()" class="col-xs-8 col-xs-offset-2"><div class="block block-imp block-title">
+			<span class="block-icon fa-stack">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-hand-spock-o fa-stack-1x fa-inverse"></i>
+			</span>
+			<h2>Welcome</h2>
+			<p>
+				TODO
+			</p>
+			<p><strong class="text-warning">Be careful.</strong> This tool is created for a research purpose and is in constant evolution.
+			Graphs could contain some mistakes and data could be miscomputed.</p>
+		</div></div>
+		
 		<!-- Step analyse -->
 		<div ng-if="has2Profiles()" class="col-auto" style="max-width: 425px;"><div class="block block-title">
 			<span class="block-icon fa-stack text-info">
 				<i class="fa fa-circle fa-stack-2x"></i>
 				<i class="fa fa-hand-o-right fa-stack-1x fa-inverse"></i>
 			</span>
-			<h2><span class="text-info">Step 2:</span> find Waldo</h2>
+			<h2><strong class="text-info">Step 2</strong> find Waldo</h2>
 			<p>Check all the indicators. <i class="text-info fa fa-question-circle" style="cursor: help;" tooltip-html="stepTooltipAnalyse"></i></p>
 			<p>If an indicator seems dubious, click on it to show detailled information and follow the investigation.</p>
 		</div></div>
 		
-		<!-- States -->
-		<!--<div ng-if="hasProfiles()" class="col-auto gauge" ng-repeat="gauge in commonCategory.gauges">
-			<div class="panel panel-default"  ng-class="{for2: has2Profiles(), big: gauge.isBig}">
-				<div class="panel-heading"><h3 class="panel-title">{{gauge.title}}</h3></div>
-				<div class="panel-body panel-body-gauge">
-					<div class="panel-section" ng-repeat="profile in selectedProfiles">
-						<proxy-link-directive ng-attr-graph="{{gauge.graph}}" class="widget-graph{{ gauge.isBig | iif : ' big' : ''}}"></proxy-link-directive>
-					</div>
-				</div>
-				<div class="panel-body panel-body-title" ng-if="has2Profiles()">
-					<div class="panel-section" ng-repeat="profile in selectedProfiles">
-						{{profile.label}}
-					</div>
-				</div>
-			</div>
-		</div>-->
-		
 		<!-- Category -->
-		<div ng-if="has2Profiles()" class="col-auto"><div class="block block-title"><!-- block-imp -->
+		<!--<div ng-if="has2Profiles()" class="col-auto"><div class="block block-title">
 			<span class="block-icon fa-stack">
 				<i class="fa fa-circle fa-stack-2x"></i>
 				<i class="fa fa-eye fa-stack-1x fa-inverse"></i>
@@ -41,7 +86,7 @@
 			<div class="category-group">
 				<a ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})' ng-repeat="category in categories | enabled"><button type="button" class="btn btn-link btn-xs"><i class="fa fa-{{category.icon}}"></i>{{category.title}}</button></a>
 			</div>
-		</div></div>
+		</div></div>-->
 		
 		<!-- Control -->
 		<!--
@@ -67,94 +112,31 @@
 	</div></div>
 	
 	<ng-include src="'/template_profile.html'" ng-if="willProfile(1)" ng-init="pindex = 1"></ng-include>
-	
-	<!-- Step 1 (welcome message) -->
-	<div class="col-xs-4 col-xs-offset-2" ng-if="isStep1()">
-		<div class="block block-title">
-			<span class="block-icon fa-stack">
-				<i class="fa fa-circle fa-stack-2x"></i>
-				<i class="fa fa-hand-spock-o fa-stack-1x fa-inverse"></i>
-			</span>
-			<h2>Welcome</h2>
-			<p>
-				TODO
-			</p>
-			<p><strong class="text-warning">Be careful.</strong> This tool is created for a research purpose and is in constant evolution.
-			Graphs could contain some mistakes and data could be miscomputed.</p>
-		</div>
-	</div>
-	
-	
-	<!-- Aside (right) -->
-	<div class="col-xs-6 col-xs-offset-6 col-over" style="width: calc(50% - 20px);" ng-if="canAddProfile()">
-		
-		<!-- Step analyse -->
-		<div class="block block-title" ng-if="isStepAnalyse()">
-			<span class="block-icon fa-stack text-info">
-				<i class="fa fa-circle fa-stack-2x"></i>
-				<i class="fa fa-hand-o-right fa-stack-1x fa-inverse"></i>
-			</span>
-			<h2><span class="text-info">Step 2:</span> find Waldo</h2>
-			<p>Check all the indicators.</p>
-			<div>
-				<span class="label label-info" style="margin-right: 6px;">info</span>
-				<p style="display: inline-block; vertical-align: text-top;">
-					<span class="text-success">green</span>: it works!<br />
-					<span class="text-primary">blue</span>: area for improvement<br />
-					<span class="text-danger">red</span>, <span class="text-warning">yellow</span> and <span class="text-muted">all other colours</span>: possible problem
-				</p>
-			</div>
-			<p>If an indicator seems dubious, click on it to show detailled information and follow the investigation.</p>
-		</div>
-		
-		<!-- Step 1 and 1bis (selection) -->
-		<div class="block block-title">
-			<span class="block-icon fa-stack text-info">
-				<i class="fa fa-circle fa-stack-2x"></i>
-				<i class="fa fa-hand-o-right fa-stack-1x fa-inverse"></i>
-			</span>
-			<h2 ng-if="isStep1()"><span class="text-info">Step 1:</span> select a sample</h2>
-			<h2 ng-if="isStep1Compare()"><span class="text-info">Step 1 bis:</span> compare</h2>
-			<p ng-if="isStep1()">Select the sample you want to analyse:</p>
-			<p ng-if="isStep1Compare()">Select another sample to compare with the first one:</p>
-			<p class="profile-group">
-				<button type="button" class="btn {{ profile.version < 4 | iif : 'btn-default' : 'btn-info'}} btn-xs" ng-click="selectProfile(profile)" ng-repeat="profile in profiles | enabled | notin : selectedProfiles | orderBy : 'label'" tooltip="{{profile.desc}}">{{profile.label}}</button>
-			</p>
-			<p>
-				<button type="button" class="btn btn-info btn-xs"></button> in accordance with last data revision<br />
-				<button type="button" class="btn btn-default btn-xs"></button> some data are missing (thread locks)<br />
-				<button type="button" class="btn btn-link btn-xs" tooltip="description" tooltip-enable="true"></button> description of the sample is in tooltip (when available)
-			</p>
-		</div>
-	</div>
 </div>
 
-<div class="row dashboard category" ng-if="hasProfiles()" ng-repeat="category in categories | enabled">
-	<!-- Title -->
-	<!--<div class="title" ng-class="{'col-xs-6': has1Profile(), 'col-xs-12': has2Profiles(), 'for1': has1Profile(), 'for2': has2Profiles()}">
-		<hr/><i class="fa fa-{{category.icon}}"></i><span>{{category.title}}</span><i class="fa fa-{{category.icon}}"></i><hr/>
-	</div><div class="clearfix"></div>-->
-	
+<div class="row category" ng-if="hasProfiles()" ng-repeat="category in categories | enabled">
 	<!-- Strips (profile 1) -->
-	<ng-include src="'/template_profile_strips.html'" ng-init="profile = selectedProfiles[0]"></ng-include>
+	<ng-include src="'/template_profile_strips.html'" ng-init="pindex = 0"></ng-include>
 	
 	<!-- Main -->
-	<div class="category-main" ng-class="{'col-xs-4': !has2Profiles(), 'col-xs-8': has2Profiles(), 'for1': has1Profile(), 'for2': has2Profiles()}">
+	<div class="col-xs-6 category-main">
 		<!-- Title -->
-		<div class="title"><hr/><i class="fa fa-{{category.icon}}"></i><span>{{category.title}}</span><i class="fa fa-{{category.icon}}"></i><hr/></div>
+		<div class="title" ng-class="{'for1': has1Profile(), 'for2': has2Profiles()}">
+			<hr/><i class="fa fa-{{category.icon}} text-muted"></i><span>{{category.title}}</span><i class="fa fa-{{category.icon}} text-muted"></i><hr/>
+		</div>
 		
 		<!-- Gauges -->
 		<chart-gauges class="widget-graph"></chart-gauges>
 	</div>
 		
 	<!-- Strips (profile 2) -->
-	<ng-include src="'/template_profile_strips.html'" ng-if="has2Profiles()" ng-init="profile = selectedProfiles[1]"></ng-include>
+	<ng-include src="'/template_profile_strips.html'" ng-if="has2Profiles()" ng-init="pindex = 1"></ng-include>
 </div>
 
 <!-- Profiles -->
 <script type="text/ng-template" id="/template_profile.html">
 	<!-- Waiting -->
-	<div ng-if="waitProfile(pindex)" class="col-xs-2 ctrl"><div class="block">
+	<div ng-if="waitProfile(pindex)" class="col-xs-3 ctrl"><div class="block">
 		<span class="block-icon fa-stack">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-spinner fa-pulse fa-stack-1x fa-inverse"></i>
@@ -163,50 +145,53 @@
 	</div></div>
 	
 	<!-- Profile -->
-	<div ng-if="hasProfile(pindex)" class="col-xs-2 profile hovermodal"><div class="tile"  ng-init="profile = selectedProfiles[pindex]">
-
-		<!-- main -->
-		<div class="section section-title">
-			<a class="pin hover-text" href ng-click="unselectProfile(profile)">
+	<div ng-if="hasProfile(pindex)" class="col-xs-3 profile hovermodal"><div class="tile" ng-init="profile = selectedProfiles[pindex]">
+		
+		<!-- pin -->
+		<aside class="hover-text">
+			<a href ng-click="unselectProfile(profile)">
 				<span class="text">deselect</span><span class="fa-stack fa-lg icon">
 					<i class="fa fa-thumb-tack fa-stack-1x"></i>
 					<i class="fa fa-ban fa-stack-2x"></i>
 				</span>
-			</a>
-			<!--<a class="pin hover-text" href ng-click="invertProfiles()" ng-if="has2Profiles()">
+			</a><br />
+			<a href ng-click="invertProfiles()" ng-if="has2Profiles()">
 				<span class="text">invert</span><span class="fa-stack fa-lg icon">
 					<i class="fa fa-circle fa-stack-2x"></i>
 					<i class="fa fa-exchange fa-stack-1x fa-inverse"></i>
 				</span>
-			</a>-->
-			<h2>{{profile.label}}</h2>
-			<p class="subtitle" tooltip="{{profile.desc}}" tooltip-placement="bottom" tooltip-trigger="mouseenter">
-				{{profile.desc != null && profile.desc.length > 0 | iif : profile.desc : '&nbsp;' }}
+			</a>
+		</aside>
+		
+		<!-- main -->
+		<section class="title">
+			<h2>{{iProfile().label}}</h2>
+			<p class="subtitle" tooltip="{{iProfile().desc}}" tooltip-placement="bottom">
+				{{iProfile().desc}}
 			</p>
-			
-			<!-- stat -->
-			<p><i class="fa fa-bar-chart"></i> <strong>duration:</strong> {{data[profile.id].info.duration}} ms</p>
-			<!--<div class="progress progress-striped" ng-if="has2Profiles()" style="margin-top: -10px;"><div class="progress-bar progress-bar-info" style="width: {{durationPercent(profile)}}%;"></div></div>-->
-		</div>
-		
-		<!-- <div class="section">
-			TODO: sequence
-		</div> -->
-		
-		<div class="section section-strip strip" ng-repeat="strip in commonCategory.strips">
+		</section>
+	</div>
+	
+	<!-- Sequence -->
+	<section class="sequence">
+		TODO: sequence
+	</section>
+
+	<!-- Running -->
+	<div class="tile">
+		<section class="strip" ng-repeat="strip in commonCategory.strips">
 			<chart-strip class="widget-graph"></chart-strip>
-		</div>
-		
+		</section>
 	</div></div>
 </script>
 
 <!-- Profiles - strips -->
 <script type="text/ng-template" id="/template_profile_strips.html">
-	<div class="col-xs-2 profile"><div class="tile">
-		<div class="section-strip strip" ng-repeat="strip in category.strips">
+	<div class="col-xs-3 profile"><div class="tile">
+		<section class="strip" ng-repeat="strip in category.strips">
 			<a ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})'>
 				<chart-strip class="widget-graph"></chart-strip>
 			</a>
-		</div>
+		</section>
 	</div></div>
 </script>
