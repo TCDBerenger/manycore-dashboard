@@ -162,33 +162,98 @@
 			</div>
 		</div>
 	</tab>
-	<tab>
+	<tab select="loadStats()">
 		<tab-heading><i class="fa fa-table"></i> Raw data</tab-heading>
-		<div class="btn-group" ng-init="radioModel = 'sm'">
-			<label class="btn btn-default" ng-model="radioModel" btn-radio="'sm'" uncheckable>switches &amp; migrations</label>
-			<label class="btn btn-default" ng-model="radioModel" btn-radio="'l'" uncheckable>locks</label>
-		</div>
-		<span> <!-- ng-if="! stats_loaded"  -->
+		<div ng-if="! stats_loaded" class="jumbotron"><p>
 			<span class="block-icon fa-stack">
 				<i class="fa fa-circle fa-stack-2x"></i>
 				<i class="fa fa-spinner fa-pulse fa-stack-1x fa-inverse"></i>
 			</span>
 			<strong>Retrieving data...</strong>
-		</span>
-		
-<!--<dev ng-if="radioModel == 3">
-	<chart-thread-divergence class="widget-graph widget-detail" profileid="{{ids[0]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" title="{{profiles[0].label}}"></chart-thread-divergence>
-	<chart-thread-divergence class="widget-graph widget-detail" ng-if="ids.length >= 2" profileid="{{ids[1]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" title="{{profiles[1].label}}"></chart-thread-divergence>
-</dev>-->
-	</tab>
-	<!--
-	<tab active='true'>
-		<tab-heading><i class="fa fa-flask"></i> Experiments</tab-heading>
-		<div class="experiments{{needToBlur | iif : ' blur' : ''}}" ng-init="needToBlur = false">
-		
+		</p></div>
+		<div ng-if="stats_loaded" class="row">
+			<div class="col-sm-12">
+				<button type="button" class="btn btn-info" ng-click="reloadStats()" ng-disabled="waiting"><i class="fa fa-refresh"></i> refresh statistics</button>
+				<button type="button" class="btn btn-danger" ng-click="resetCache('all')" ng-disabled="waiting"><i class="fa fa-eraser"></i> Force rebuild all caches</button>
+			</div>
+			<div class="col-sm-6">
+				<h2>Context switches &amp; migrations</h2>
+				<table class="table table-striped table-hover">
+					<thead><tr>
+						<th>#</th>
+						<th></th>
+						<th>cache version</th>
+						<th># switches</th>
+						<th>switches / core / ms</th>
+						<th># migrations</th>
+						<th>migrations / core / ms</th>
+					</tr></thead>
+					<tbody style="text-align: center;"><tr ng-repeat="profile in profiles | enabled">
+						<td>{{profile.id}}</td>
+						<td>
+							{{profile.label}}
+							<span ng-if="isExclude(profile, p_exclude_sm)" class="text-danger">✘</span>
+							<span ng-if="profile.disabled" class="text-muted">[disabled]</span>
+						</td>
+						<td>{{renderVersion_stats(profile)}}</td>
+						<td>{{stats.s[profile.id]}}</td>
+						<td>{{mean(profile, 's', 100)}}</td>
+						<td>{{stats.m[profile.id]}}</td>
+						<td>{{mean(profile, 'm', 100)}}</td>
+					</tr><tr class="info" style="font-weight: bold;">
+						<td colspan="4">average</td>
+						<td>{{average('s', 1000)}}</td>
+						<td></td>
+						<td>{{average('m', 1000)}}</td>
+					</tr><tr class="info" style="font-weight: bold;">
+						<td colspan="4">average without serials, P/C</td>
+						<td>{{average('s', 1000, p_exclude_sm)}}</td>
+						<td></td>
+						<td>{{average('m', 1000, p_exclude_sm)}}</td>
+					</tr><tr class="success" style="font-weight: bold;">
+						<td colspan="4">choosen calibration</td>
+						<td>{{profiles[0].hardware.calibration.switches}}</td>
+						<td></td>
+						<td>{{profiles[0].hardware.calibration.migrations}}</td>
+					</tr></tbody>
+				</table>
+			</div>
+			
+			<div class="col-sm-6">
+				<h2>Lock aquisitions</h2>
+				<table class="table table-striped table-hover">
+					<thead><tr>
+						<th>#</th>
+						<th></th>
+						<th>cache version</th>
+						<th># success</th>
+						<th>success / core / ms</th>
+						<th># failure</th>
+						<th>failure / core / ms</th>
+					</tr></thead>
+					<tbody style="text-align: center;"><tr ng-repeat="profile in profiles | v4">
+						<td>{{profile.id}}</td>
+						<td>{{profile.label}}<span ng-if="profile.disabled"> <span class="text-muted">[disabled]</span></span></td>
+						<td>{{renderVersion_stats(profile)}}</td>
+						<td>{{stats.ls[profile.id]}}</td>
+						<td>{{mean(profile, 'ls', 100)}}</td>
+						<td>{{stats.lf[profile.id]}}</td>
+						<td>{{mean(profile, 'lf', 100)}}</td>
+					</tr><tr class="info" style="font-weight: bold;">
+						<td colspan="4">average</td>
+						<td>{{average('ls', 10000)}}</td>
+						<td></td>
+						<td>{{average('lf', 10000)}}</td>
+					</tr><tr class="success" style="font-weight: bold;">
+						<td colspan="4">choosen calibration</td>
+						<td>{{profiles[0].hardware.calibration.lock_success}}</td>
+						<td></td>
+						<td>{{profiles[0].hardware.calibration.lock_failure}}</td>
+					</tr></tbody>
+				</table>
+			</div>
 		</div>
 	</tab>
-	-->
 	<div ng-if="isWaiting()" style="display: inline-block; margin-left: 5px; margin-top: 5px;">
 		<i class="fa fa-spinner fa-pulse fa-2x"></i>
 	</div>

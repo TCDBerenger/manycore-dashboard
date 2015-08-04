@@ -79,32 +79,21 @@ router.get('/cache-reload/*', function(request, response) {
 /**
  * Get admin data
  */
-router.get('/stats/*', function(request, response) {
+router.get('/stats', function(request, response) {
 	
 	var param = request.params[0];
 
-	// Check preconditions
-	if (param != 'sm' && param != 'l') {
-		response.send("Illegal parameter");
-		return;
-	}
 
 	// Result
 	var output = {
-		param: param,
-		versions: {}
+		versions: {},
+		durations: {},
+		s: {},
+		m: {},
+		ls: {},
+		lf: {}
 	};
 	
-	// Create lists
-	var properties;
-	if (param == 'sm') {
-		output.s = {};
-		output.m = {};
-	} else if (param == 'l') {
-		output.ls = {};
-		output.lf = {};
-	}
-
 	// Load data
 	profiles.all.forEach(function(profile) {
 		profile.loadData(true);
@@ -114,21 +103,20 @@ router.get('/stats/*', function(request, response) {
 	profiles.all.forEach(function(profile) {
 		if (! profile.hasOwnProperty('disabled') || ! profile.disabled) {
 			if (! profile.hasOwnProperty('data')) {
-				if (param == 'sm') {
-					output.s[profile.id] = null;
-					output.m[profile.id] = null;
-				} else if (param == 'l' && profile.v >= 4) {
+				output.s[profile.id] = null;
+				output.m[profile.id] = null;
+				if (profile.v >= 4) {
 					output.ls[profile.id] = null;
 					output.lf[profile.id] = null;
 				}
 			} else {
-				if (param == 'sm') {
-					output.s[profile.id] = profile.data.stats.switches;
-					output.m[profile.id] = profile.data.stats.migrations;
-				} else if (param == 'l' && profile.v >= 4) {
+				output.s[profile.id] = profile.data.stats.switches;
+				output.m[profile.id] = profile.data.stats.migrations;
+				if (profile.v >= 4) {
 					output.ls[profile.id] = profile.data.stats.lock_success;
 					output.lf[profile.id] = profile.data.stats.lock_failure;
 				}
+				output.durations[profile.id] = profile.data.info.timeMax + profile.data.info.timeStep;
 			}
 			output.versions[profile.id] = profile.getVersion();
 		}
