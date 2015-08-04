@@ -270,7 +270,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 	var sy = {
 		tag: 'sy', cat: 'sy', label: 'Synchronisation', title: 'Synchronisation', icon: 'cutlery', enabled: true,
 		strips: [strips.lw],
-		gauges: [[facets.r, facets.uu, facets.lw], [facets.ls, facets.lf]],
+		gauges: [[facets.lw], [facets.ls, facets.lf]],
 		widgets: [widgets.lockCounts, widgets.lockContentions, widgets.threadLocks]
 	};
 	var ds = {

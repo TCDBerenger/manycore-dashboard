@@ -100,7 +100,7 @@ var gaugeLayout = function() {
 /**
  * Array of points to string
  */
-function gauge_p2s(points) {
+function dash_p2s(points) {
 	var result = "";
 
 	for (var i = points.length - 2; i >= 0; i -= 2) {
@@ -113,16 +113,13 @@ function gauge_p2s(points) {
 /**
  *	Number to factor times
  */
-function gauge_n2ft(v) {
-	if (v < 1) {
-		switch(Math.ceil(v / .25) * .25) {
-			case 0.25:	return '¼';
-			case 0.5:	return '½';
-			case 0.75:	return '¾';
-			default:	return Math.round(v) + '×';
-		}
+function dash_unit(f, u) {
+	if (f.unity == 'ms')
+		return Math.round(u /100) / 10 + ' s';
+	else if (f.unity) {
+		return u + ' ' + f.unity;
 	} else {
-		return (Math.ceil(v / .5) * .5) + '×';
+		return u;
 	}
 }
 
@@ -155,22 +152,22 @@ app.directive('chartSequence', function() {
 			.attr('height', layout.height);
 		var svg = d3.select(container).append('svg')
 			.attr('height', layout.height)
-			.attr("class", "svg-sequence");
+			.attr('class', "svg-sequence");
 		var group = svg.append("g");
 		
 		// Items
 		var itemProfile = group.append("rect")
-			.attr("class", "svg-duration")
+			.attr('class', "svg-duration")
 			.attr("y", 0)
 			.attr("height", layout.graph.height -1);
 		var itemGap = group.append("polygon")
-			.attr("class", "svg-gap");
+			.attr('class', "svg-gap");
 		var itemLabel = group.append("text")
-			.attr("class", "svg-text-hover svg-label")
+			.attr('class', "svg-text-hover svg-label")
 			.attr("y", layout.graph.height / 2)
-			.attr("text-anchor", "middle")
-			.attr("alignment-baseline", "central")
-			.attr("dominant-baseline", "central");
+			.attr("text-anchor", 'middle')
+			.attr("alignment-baseline", 'central')
+			.attr("dominant-baseline", 'central');
 		
 		// Redraw
 		function repaint() {
@@ -231,20 +228,20 @@ app.directive('chartStrip', function() {
 			.style('height', layout.height + 'px');
 		var svg = d3.select(container).append('svg')
 			.attr('height', layout.height)
-			.attr("class", "svg-profiling");
-		var group = svg.append("g").attr("class", "svg-dataset");
+			.attr('class', "svg-profiling");
+		var group = svg.append("g").attr('class', "svg-dataset");
 		
 		// Scales
 		var scaleX = d3.scale.linear();
 		
 		// Title
 		svg.append("text")
-			.attr("class", "svg-text-hover svg-title")
+			.attr('class', "svg-text-hover svg-title")
 			.attr("x", 4)
 			.attr("y", layout.height / 2)
 			.attr("text-anchor", "start")
-			.attr("alignment-baseline", "central")
-			.attr("dominant-baseline", "central")
+			.attr("alignment-baseline", 'central')
+			.attr("dominant-baseline", 'central')
 			.attr("fill", v.gcolor)
 			.text(title);
 
@@ -289,8 +286,8 @@ app.directive('chartStrip', function() {
 			
 			// Draw
 			group.append("polygon")
-				.attr("class", "svg-data")
-				.attr("points", gauge_p2s(points))
+				.attr('class', "svg-data")
+				.attr("points", dash_p2s(points))
 				.attr("fill", v.fcolor)
 				.attr('stroke-width', 1);
 		}
@@ -341,31 +338,31 @@ app.directive('chartGauges', function() {
 		// DOM
 		d3.select(container).style('background', 'transparent');
 		var svg = d3.select(container).append('svg')
-			.attr("class", "svg-gauges")
+			.attr('class', "svg-gauges")
 			.attr('height', layout.height);
-		var group1 = svg.append("g").attr("class", "svg-dataset");
-		var group2 = svg.append("g").attr("class", "svg-dataset svg-item-2");
-		var groupC = svg.append("g").attr("class", "svg-labels");
+		var group1 = svg.append("g").attr('class', "svg-dataset");
+		var group2 = svg.append("g").attr('class', "svg-dataset svg-item-2");
+		var groupC = svg.append("g").attr('class', "svg-labels");
 		
 		// Scales
-		var scales = [d3.scale.linear().rangeRound([0, 100]), d3.scale.linear().rangeRound([0, 100])];
+		var scales = [d3.scale.linear().domain([0, 100, 1000]), d3.scale.linear().domain([0, 100, 1000])];
 		
 		// Draw
 		gauges.forEach(function(gauge, gauge_index) {
 			// Starting point
 			groupC.append("line")
-				.attr("class", "svg-line")
+				.attr('class', "svg-line")
 				.attr("x1", 0).attr("x2", 0)
 				.attr("y1", layout.gauge[gauge_index].top).attr("y2", layout.gauge[gauge_index].bottom);
 			groupC.append("line")
-				.attr("class", "svg-line svg-item-2")
+				.attr('class', "svg-line svg-item-2")
 				.attr("x1", layout.groups.column_width).attr("x2", layout.groups.column_width)
 				.attr("y1", layout.gauge[gauge_index].top).attr("y2", layout.gauge[gauge_index].bottom);
 			
 			// Threshold
 			[group1, group2].forEach(function(group) {
 				group.append("line")
-					.attr("class", "svg-line svg-threshold")
+					.attr('class', "svg-line svg-threshold")
 					.attr("y1", layout.gauge[gauge_index].top).attr("y2", layout.gauge[gauge_index].bottom);
 			});
 			
@@ -373,23 +370,42 @@ app.directive('chartGauges', function() {
 			gauge.forEach(function(facet, facet_index) {
 				// Label
 				groupC.append("text")
-					.attr("class", "svg-label")
+					.attr('class', "svg-label")
 					.attr("x", layout.groups.column_width / 2)
 					.attr("y", layout.gauge[gauge_index].facet[facet_index] + layout.groups.row_height / 2)
-					.attr("text-anchor", "middle")
-					.attr("alignment-baseline", "central")
-					.attr("dominant-baseline", "central")
+					.attr("text-anchor", 'middle')
+					.attr("alignment-baseline", 'central')
+					.attr("dominant-baseline", 'central')
 					.attr("fill", facet.fcolor)
-					.text(facet.title);
+					.text(facet.label);
 				
 				// Indicators
-				[group1, group2].forEach(function(group) {
+				[group1, group2].forEach(function(group, group_index) {
+					// Bar
 					group.append("rect")
-						.attr("class", "svg-data svg-data-" + gauge_index + "-" + facet_index)
+						.attr('class', "svg-data svg-data-" + gauge_index + "-" + facet_index)
 						.attr('x', 0)
 						.attr("y", layout.gauge[gauge_index].facet[facet_index] + 1)
 						.attr("height", layout.groups.row_height - 2)
 						.attr("fill", facet.fcolor);
+					
+					// Label - title
+					group.append("text")
+						.attr('class', "svg-label svg-label-title svg-data-" + gauge_index + "-" + facet_index)
+						.attr("y", layout.gauge[gauge_index].facet[facet_index] + layout.groups.row_height / 2)
+						.attr("text-anchor", group_index == 0 ? 'end' : 'start')
+						.attr("alignment-baseline", 'central')
+						.attr("dominant-baseline", 'central')
+						.attr("fill", facet.fcolor);
+					
+					// Label - unit
+					group.append("text")
+						.attr('class', "svg-label svg-label-unit svg-data-" + gauge_index + "-" + facet_index)
+						.attr("y", layout.gauge[gauge_index].facet[facet_index] + layout.groups.row_height / 2)
+						.attr("text-anchor", 'middle')
+						.attr("alignment-baseline", 'central')
+						.attr("dominant-baseline", 'central')
+						.attr("fill", facet.gcolor);
 				});
 			});
 		});
@@ -401,8 +417,8 @@ app.directive('chartGauges', function() {
 			
 			// Sizes
 			layout.compute(container.clientWidth, profiles);
-			scales[0].domain([layout.column.left, layout.column.left - layout.column.threshold]);
-			if (has2Profiles) scales[1].domain([0, layout.column.threshold]);
+			scales[0].rangeRound([layout.column.left, layout.column.left - layout.column.threshold, 0]);
+			if (has2Profiles) scales[1].rangeRound([0, layout.column.threshold, layout.column.left]);
 
 			// SVG
 			svg.attr('width', layout.width);
@@ -416,16 +432,31 @@ app.directive('chartGauges', function() {
 			group1.selectAll(".svg-threshold").attr("x1", layout.column.left - layout.column.threshold).attr("x2", layout.column.left - layout.column.threshold)
 			if (has2Profiles) group2.selectAll(".svg-threshold").attr("x1", layout.column.threshold).attr("x2", layout.column.threshold)
 			
-			// Resize
+			// Adapt
 			gauges.forEach(function(gauge, gauge_index) {
 				gauge.forEach(function(facet, facet_index) {
-					group1.selectAll('.svg-data-' + gauge_index + '-' + facet_index)
+					// Bars
+					group1.selectAll('.svg-data.svg-data-' + gauge_index + '-' + facet_index)
 						.attr('x', scales[0](profiles[0].data.dash.gauges[facet.attr].g))
 						.attr("width", layout.column.left - scales[0](profiles[0].data.dash.gauges[facet.attr].g));
-					if (has2Profiles)
-						group2.selectAll('.svg-data-' + gauge_index + '-' + facet_index)
-							.attr("width", scales[1](profiles[1].data.dash.gauges[facet.attr].g));
-					console.log(gauge_index, facet_index, group1.selectAll('.svg-data-' + gauge_index + '-' + facet_index).length, profiles[0].data.dash.gauges[facet.attr].g, scales[0](profiles[0].data.dash.gauges[facet.attr].g));
+					if (has2Profiles) group2.selectAll('.svg-data.svg-data-' + gauge_index + '-' + facet_index)
+						.attr("width", scales[1](profiles[1].data.dash.gauges[facet.attr].g));
+					
+					// Label - title
+					group1.selectAll('.svg-label-title.svg-data-' + gauge_index + '-' + facet_index)
+						.attr('x', Math.min(layout.column.left - layout.column.threshold, scales[0](profiles[0].data.dash.gauges[facet.attr].g)) - 2)
+						.text(profiles[0].data.dash.gauges[facet.attr].l);
+					if (has2Profiles) group2.selectAll('.svg-label-title.svg-data-' + gauge_index + '-' + facet_index)
+						.attr('x', Math.max(layout.column.threshold, scales[1](profiles[1].data.dash.gauges[facet.attr].g)) + 2)
+						.text(profiles[1].data.dash.gauges[facet.attr].l);
+					
+					// Label - unit
+					group1.selectAll('.svg-label-unit.svg-data-' + gauge_index + '-' + facet_index)
+						.attr('x', (scales[0](profiles[0].data.dash.gauges[facet.attr].g) + layout.column.left) / 2)
+						.text(dash_unit(facet, profiles[0].data.dash.gauges[facet.attr].u));
+					if (has2Profiles) group2.selectAll('.svg-label-unit.svg-data-' + gauge_index + '-' + facet_index)
+						.attr('x', scales[1](profiles[1].data.dash.gauges[facet.attr].g) / 2)
+						.text(dash_unit(facet, profiles[1].data.dash.gauges[facet.attr].u));
 				});
 			});
 		}
