@@ -66,7 +66,7 @@
 		</div></div>
 		
 		<!-- Step analyse -->
-		<div ng-if="has2Profiles()" class="col-auto" style="max-width: 425px;"><div class="block block-title">
+		<!--<div ng-if="has2Profiles()" class="col-auto" style="max-width: 425px;"><div class="block block-title">
 			<span class="block-icon fa-stack text-info">
 				<i class="fa fa-circle fa-stack-2x"></i>
 				<i class="fa fa-hand-o-right fa-stack-1x fa-inverse"></i>
@@ -74,7 +74,7 @@
 			<h2><strong class="text-info">Step 2</strong> find Waldo</h2>
 			<p>Check all the indicators. <i class="text-info fa fa-question-circle" style="cursor: help;" tooltip-html="stepTooltipAnalyse"></i></p>
 			<p>If an indicator seems dubious, click on it to show detailled information and follow the investigation.</p>
-		</div></div>
+		</div></div>-->
 		
 		<!-- Category -->
 		<!--<div ng-if="has2Profiles()" class="col-auto"><div class="block block-title">
@@ -121,9 +121,10 @@
 	<!-- Main -->
 	<div class="col-xs-6 category-main">
 		<!-- Title -->
-		<div class="title" ng-class="{'for1': has1Profile(), 'for2': has2Profiles()}">
+		<!--<div class="title" ng-class="{'for1': has1Profile(), 'for2': has2Profiles()}">
 			<hr/><i class="fa fa-{{category.icon}} text-muted"></i><span>{{category.title}}</span><i class="fa fa-{{category.icon}} text-muted"></i><hr/>
-		</div>
+		</div>-->
+		<div class="title" ng-class="{'for1': has1Profile(), 'for2': has2Profiles()}"><hr/><span>{{category.title}}</span><hr/></div>
 		
 		<!-- Gauges -->
 		<chart-gauges class="widget-graph"></chart-gauges>
