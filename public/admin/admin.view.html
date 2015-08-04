@@ -164,7 +164,22 @@
 	</tab>
 	<tab>
 		<tab-heading><i class="fa fa-table"></i> Raw data</tab-heading>
-		TODO
+		<div class="btn-group" ng-init="radioModel = 'sm'">
+			<label class="btn btn-default" ng-model="radioModel" btn-radio="'sm'" uncheckable>switches &amp; migrations</label>
+			<label class="btn btn-default" ng-model="radioModel" btn-radio="'l'" uncheckable>locks</label>
+		</div>
+		<span> <!-- ng-if="! stats_loaded"  -->
+			<span class="block-icon fa-stack">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-spinner fa-pulse fa-stack-1x fa-inverse"></i>
+			</span>
+			<strong>Retrieving data...</strong>
+		</span>
+		
+<!--<dev ng-if="radioModel == 3">
+	<chart-thread-divergence class="widget-graph widget-detail" profileid="{{ids[0]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" title="{{profiles[0].label}}"></chart-thread-divergence>
+	<chart-thread-divergence class="widget-graph widget-detail" ng-if="ids.length >= 2" profileid="{{ids[1]}}" begin="{{data.c.timeMin}}" end="{{data.c.duration}}" title="{{profiles[1].label}}"></chart-thread-divergence>
+</dev>-->
 	</tab>
 	<!--
 	<tab active='true'>
