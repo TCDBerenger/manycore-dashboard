@@ -119,6 +119,9 @@
 /**
  * Dashboard category title
  */
+.dashboard .category-main {
+	padding-bottom: 6px;
+}
 .dashboard .category .title {
 	display: flex;
 	margin-top: -8px;
