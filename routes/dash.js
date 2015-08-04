@@ -106,6 +106,7 @@ function addProfiling(output, profile) {
 function addGauges(output, profile) {
 	// Data
 	var data = profile.data;
+	var pv = profile.v;
 	var max;
 	
 	// Computation - Cache misses
@@ -125,28 +126,28 @@ function addGauges(output, profile) {
 	
 	// Add states
 	max = data.info.threads * (data.info.timeMax + data.info.timeStep);
-	[	{ l: 'r', v: data.stats.running },
-		{ l: 'yb', v: data.stats.ready + data.stats.standby },
-		{ l: 'uu', v: data.stats.idle },
-		{ l: 'lw', v: data.stats.lock_wait }
+	[	{ l: 'r', v: data.stats.running, n: 3 },
+		{ l: 'yb', v: data.stats.ready + data.stats.standby, n: 3 },
+		{ l: 'uu', v: data.stats.idle, n: 3 },
+		{ l: 'lw', v: data.stats.lock_wait, n: 4 }
 	].forEach(function(item) {
 		output.gauges[item.l] = {
 			g: Math.round(100 * item.v / max),
-			l: Math.round(100 * item.v / max) + '%',
+			l: (item.n <= pv) ? Math.round(100 * item.v / max) + '%' : '?',
 			u: Math.round(item.v)
 		};
 	});
 	
 	// Add calibrations
-	[	{ l: 's', v: data.stats.switches, c: profile.hardware.calibration.switches },
-		{ l: 'm', v: data.stats.switches, c: profile.hardware.calibration.migrations },
-		{ l: 'ls', v: data.stats.lock_success, c: profile.hardware.calibration.lock_success },
-		{ l: 'lf', v: data.stats.lock_failure, c: profile.hardware.calibration.lock_failure },
+	[	{ l: 's', v: data.stats.switches, c: profile.hardware.calibration.switches, n: 3 },
+		{ l: 'm', v: data.stats.switches, c: profile.hardware.calibration.migrations, n: 3 },
+		{ l: 'ls', v: data.stats.lock_success, c: profile.hardware.calibration.lock_success, n: 4 },
+		{ l: 'lf', v: data.stats.lock_failure, c: profile.hardware.calibration.lock_failure, n: 4 },
 	].forEach(function(item) {
 		max = (data.info.timeMax + data.info.timeStep) * data.info.threads * item.c;
 		output.gauges[item.l] = {
 			g: Math.round(100 * item.v / max),
-			l: Math.round(10 * item.v / max) / 10 + '×',
+			l: (item.n <= pv) ? Math.round(10 * item.v / max) / 10 + '×' : '?',
 			u: item.v
 		};
 	});
