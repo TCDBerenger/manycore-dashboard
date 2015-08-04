@@ -121,7 +121,6 @@
  */
 .dashboard .category .title {
 	display: flex;
-	margin-bottom: 8px;
 	margin-top: -8px;
 }
 .dashboard .category .title hr {
@@ -130,6 +129,7 @@
 	margin: auto 0.25em;
 	border: none;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+	transition: .1s linear all;
 }
 .dashboard .category .title.for1 hr:first-child { flex: none; width: 25px; }
 .dashboard .category .title span {
@@ -148,6 +148,7 @@
 /**
  * Dashboard chart styles
  */
+.dashboard svg .svg-label,
 .dashboard svg .svg-text-hover {
 	font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-weight: 300;
@@ -191,6 +192,25 @@
  */
 .dashboard .svg-profiling .svg-title {
 	font-size: 18px;
+}
+
+
+
+/**
+ * Dashboard profile profiling
+ */
+.dashboard .svg-gauges .svg-line {
+	stroke: rgba(0, 0, 0, 0.4);
+	stroke-width: 1;
+}
+.dashboard .svg-gauges .svg-line.svg-threshold {
+	stroke-dasharray: 2,2;
+}
+.dashboard .svg-gauges .svg-label {
+	font-size: 10px;
+}
+.dashboard .svg-gauges .svg-test {
+	fill: rgba(0, 0, 0, 0.2);
 }
 
 

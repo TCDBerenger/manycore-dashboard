@@ -51,9 +51,41 @@ var gaugeLayout = function() {
 	// Allow seld reference (otherwise this is the caller object)
 	var self = this;
 	
-	this.compute	= function(width) {
-		self.width			= width;
-		self.height			= 0;
+	this.groups		= { gap: 4, padding: 4, row_height: 14, column_width: 100 };
+	this.gauge		= [];
+	
+	this.initialize = function(gauges) {
+		var g_previous = 0;
+		var g_height;
+		gauges.forEach(function(gauge, gauge_index) {
+			g_height = self.groups.padding * 2 + self.groups.row_height * gauge.length;
+			
+			self.gauge.push({
+				top:	g_previous,
+				bottom:	g_previous + g_height,
+				facet:	[]
+			});
+			
+			gauge.forEach(function(facet, facet_index) {
+				self.gauge[gauge_index].facet.push(g_previous + self.groups.padding + self.groups.row_height * facet_index);
+			});
+			
+			self.height += g_height;
+			g_previous += g_height + self.groups.gap;
+		});
+		
+		self.height = g_previous;
+	};
+	
+	this.compute = function(width, profiles) {
+		self.width		= width;
+		self.middle 	= Math.round(width / 2);
+		
+		self.column = {
+			left:		self.middle - self.groups.column_width / 2,
+			right:		self.middle + self.groups.column_width / 2,
+			threshold:	Math.round(3 * width / 16) // ⅜ width + ¼
+		};
 	};
 };
 
@@ -200,7 +232,7 @@ app.directive('chartStrip', function() {
 		var svg = d3.select(container).append('svg')
 			.attr('height', layout.height)
 			.attr("class", "svg-profiling");
-		var group = svg.append("g").attr("class", "dataset");
+		var group = svg.append("g").attr("class", "svg-dataset");
 		
 		// Scales
 		var scaleX = d3.scale.linear();
@@ -300,79 +332,105 @@ app.directive('chartGauges', function() {
 		var layout = new gaugeLayout();
 
 		// Attributes
-		var groups = scope.category.gauges;
+		var gauges = scope.category.gauges;
 		var profiles = scope.selectedProfiles;
 		
-		/*
-		// Data
-		var dataList = profile.data.dash.gauges;
+		// Initialize
+		layout.initialize(gauges);
 		
 		// DOM
 		d3.select(container).style('background', 'transparent');
 		var svg = d3.select(container).append('svg')
-			.attr('height', layout.height)
-			.attr('width', layout.width);
-		var group = svg.append("g")
-			.attr("class", "dataset")
-			.attr("transform", "translate(" + (layout.height / 2) + "," + (layout.width / 2) + ")");
+			.attr("class", "svg-gauges")
+			.attr('height', layout.height);
+		var group1 = svg.append("g").attr("class", "svg-dataset");
+		var group2 = svg.append("g").attr("class", "svg-dataset svg-item-2");
+		var groupC = svg.append("g").attr("class", "svg-labels");
 		
-		// Data
-		var sumValues = 0;
-		vs.forEach(function(v) {
-			sumValues += dataList[v.attr];
-		});
+		// Scales
+		var scales = [d3.scale.linear().rangeRound([0, 100]), d3.scale.linear().rangeRound([0, 100])];
 		
 		// Draw
-		var nextAngle;
-		var precedingAngle = 0;
-		vs.forEach(function(v, i) {
-			// Data
-			nextAngle = precedingAngle + 2 * Math.PI * dataList[v.attr] / sumValues;
+		gauges.forEach(function(gauge, gauge_index) {
+			// Starting point
+			groupC.append("line")
+				.attr("class", "svg-line")
+				.attr("x1", 0).attr("x2", 0)
+				.attr("y1", layout.gauge[gauge_index].top).attr("y2", layout.gauge[gauge_index].bottom);
+			groupC.append("line")
+				.attr("class", "svg-line svg-item-2")
+				.attr("x1", layout.groups.column_width).attr("x2", layout.groups.column_width)
+				.attr("y1", layout.gauge[gauge_index].top).attr("y2", layout.gauge[gauge_index].bottom);
 			
-			// Draw
-			group.append("path")
-				.attr("class", "svg-data svg-data-" + i)
-				.attr("d", d3.svg.arc()
-							.innerRadius(layout.arcInner)
-							.outerRadius(layout.arcOuter)
-							.startAngle(precedingAngle)
-							.endAngle(nextAngle))
-				.attr("fill", v.fcolor);
+			// Threshold
+			[group1, group2].forEach(function(group) {
+				group.append("line")
+					.attr("class", "svg-line svg-threshold")
+					.attr("y1", layout.gauge[gauge_index].top).attr("y2", layout.gauge[gauge_index].bottom);
+			});
 			
-			// Next loop
-			precedingAngle = nextAngle;
+			// Facets
+			gauge.forEach(function(facet, facet_index) {
+				// Label
+				groupC.append("text")
+					.attr("class", "svg-label")
+					.attr("x", layout.groups.column_width / 2)
+					.attr("y", layout.gauge[gauge_index].facet[facet_index] + layout.groups.row_height / 2)
+					.attr("text-anchor", "middle")
+					.attr("alignment-baseline", "central")
+					.attr("dominant-baseline", "central")
+					.attr("fill", facet.fcolor)
+					.text(facet.title);
+				
+				// Indicators
+				[group1, group2].forEach(function(group) {
+					group.append("rect")
+						.attr("class", "svg-data svg-data-" + gauge_index + "-" + facet_index)
+						.attr('x', 0)
+						.attr("y", layout.gauge[gauge_index].facet[facet_index] + 1)
+						.attr("height", layout.groups.row_height - 2)
+						.attr("fill", facet.fcolor);
+				});
+			});
 		});
 		
-		// Text
-		svg.append("text")
-			.attr("class", "svg-title")
-			.attr("x", layout.middle)
-			.attr("y", layout.middle)
-			.attr("text-anchor", "middle")
-			.attr("alignment-baseline", "central")
-			.attr("dominant-baseline", "central")
-			.attr("fill", vs[0].gcolor)
-			.text(Math.round(100 * dataList[vs[0].attr] / sumValues) + ' %');
-		
-		
-		// Select
-		var enter = function enter() {
-			vs.forEach(function(v, i) {
-				group.select('.svg-data-' + i).attr("fill", v.color);
+		// Redraw
+		function repaint() {
+			// Params
+			var has2Profiles = profiles.length == 2;
+			
+			// Sizes
+			layout.compute(container.clientWidth, profiles);
+			scales[0].domain([layout.column.left, layout.column.left - layout.column.threshold]);
+			if (has2Profiles) scales[1].domain([0, layout.column.threshold]);
+
+			// SVG
+			svg.attr('width', layout.width);
+			
+			// Handle profiles
+			svg.selectAll(".svg-item-2").attr("visibility", has2Profiles ? 'visible' : 'hidden');
+			
+			// Moves
+			groupC.attr("transform", "translate(" + layout.column.left + ",0)");
+			group2.attr("transform", "translate(" + layout.column.right + ",0)");
+			group1.selectAll(".svg-threshold").attr("x1", layout.column.left - layout.column.threshold).attr("x2", layout.column.left - layout.column.threshold)
+			if (has2Profiles) group2.selectAll(".svg-threshold").attr("x1", layout.column.threshold).attr("x2", layout.column.threshold)
+			
+			// Resize
+			gauges.forEach(function(gauge, gauge_index) {
+				gauge.forEach(function(facet, facet_index) {
+					group1.selectAll('.svg-data-' + gauge_index + '-' + facet_index)
+						.attr('x', scales[0](profiles[0].data.dash.gauges[facet.attr].g))
+						.attr("width", layout.column.left - scales[0](profiles[0].data.dash.gauges[facet.attr].g));
+					if (has2Profiles)
+						group2.selectAll('.svg-data-' + gauge_index + '-' + facet_index)
+							.attr("width", scales[1](profiles[1].data.dash.gauges[facet.attr].g));
+					console.log(gauge_index, facet_index, group1.selectAll('.svg-data-' + gauge_index + '-' + facet_index).length, profiles[0].data.dash.gauges[facet.attr].g, scales[0](profiles[0].data.dash.gauges[facet.attr].g));
+				});
 			});
 		}
 		
-		// Unselect
-		var leave = function leave() {
-			vs.forEach(function(v, i) {
-				group.select('.svg-data-' + i).attr("fill", v.fcolor);
-			});
-		}
-		
-		// Binds
-		element.on('mouseenter', enter);
-		element.on('mouseleave', leave);
-		*/
+		scope.$watch(function() { return container.clientWidth * profiles.length * profiles[0].id; }, repaint);
 	}
 
 	return {

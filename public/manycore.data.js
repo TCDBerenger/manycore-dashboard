@@ -63,8 +63,8 @@ app.factory('facets', ['colours', function(colours) {
 		
 		s:		{ label: 'switches',			title: 'context switches',	desc: desc_s,		list: 'switches',	cat: 'switches',	attr: 's',		color: colours.list.eGrey,		fcolor: colours.list.dGrey,		gcolor: colours.list.lGrey },
 		m:		{ label: 'migrations',			title: 'thread migrations',	desc: desc_m,		list: 'migrations',	cat: 'migrations',	attr: 'm',		color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.lViolet },
-		ls:		{ label: 'lock success',		title: 'lock success',		desc: desc_ls,		list: 'slocks',		cat: 'locks',		attr: 's',		color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
-		lf:		{ label: 'lock failure',		title: 'lock failure',		desc: desc_lf,		list: 'flocks',		cat: 'locks',		attr: 'f',		color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed }
+		ls:		{ label: 'lock success',		title: 'lock success',		desc: desc_ls,		list: 'slocks',		cat: 'locks',		attr: 'ls',		color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
+		lf:		{ label: 'lock failure',		title: 'lock failure',		desc: desc_lf,		list: 'flocks',		cat: 'locks',		attr: 'lf',		color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed }
 	};
 }]);
 
