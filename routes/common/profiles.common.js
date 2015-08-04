@@ -203,17 +203,13 @@ function getVersion(profile) {
 /**
  * Load raw data
  */
-function loadData(profile) {
+function loadData(profile, notCreateCache) {
 	// Check if data are already loaded
 	if (profile.hasOwnProperty('data')) {
 		return;
 	}
 
 	// Vars
-	var filenameRaw1 = 'data/' + profile.file + '.states.json';
-	var filenameRaw2 = 'data/' + profile.file + '.switches.json';
-	var filenameRaw3 = 'data/' + profile.file + '.dl.json';
-	var filenameRaw4 = 'data/' + profile.file + '.locks.json';
 	var filenameCache = 'data/' + profile.file + '.cache.json';
 
 	// Load data from cache
@@ -236,23 +232,9 @@ function loadData(profile) {
 	} catch (e) { }
 
 	// Load from raw data
-	if (! profile.hasOwnProperty('data')) {
-
-		// Load raw
-		var raw1 = JSON.parse(fs.readFileSync(filenameRaw1, 'utf8'));
-		var raw2 = JSON.parse(fs.readFileSync(filenameRaw2, 'utf8'));
-		var raw3 = JSON.parse(fs.readFileSync(filenameRaw3, 'utf8'));
-		var raw4 = (profile.v >= 4) ? JSON.parse(fs.readFileSync(filenameRaw4, 'utf8')) : null;
-		console.log("[" + profile.id + "] " + profile.file + " raw data loaded");
-
-		// Compute
-		profile.data = computeData(profile, raw1, raw2, raw3, raw4);
+	if (! profile.hasOwnProperty('data') && ! notCreateCache) {
+		profile.data = reloadCache(profile);
 		profileData[profile.id] = profile.data;
-		console.log("[" + profile.id + "] " + profile.file + " raw data computed");
-
-		// Save to cache
-		fs.writeFileSync(filenameCache, JSON.stringify(profile.data));
-		console.log("[" + profile.id + "] " + profile.file + " raw data cached");
 	}
 }
 
@@ -281,6 +263,8 @@ function reloadCache(profile) {
 	// Save to cache
 	fs.writeFileSync(filenameCache, JSON.stringify(data));
 	console.log("[" + profile.id + "] " + profile.file + " raw data cached");
+	
+	return data;
 }
 
 /**
@@ -732,7 +716,7 @@ function exportInfo(output, profile) {
 var profileExport = {
 	data:		profileData,
 	getVersion:		function(id) { return getVersion(profileMap[id]) },
-	loadData:		function(id) { loadData(profileMap[id]) },
+	loadData:		function(id, notCreateCache) { loadData(profileMap[id], notCreateCache) },
 	unloadData:		function(id) { unloadData(profileMap[id]) },
 	reloadCache:	function(id) { return reloadCache(profileMap[id]) },
 	expected:	VERSION,
@@ -744,8 +728,8 @@ profileMap.all.forEach(function(profile) {
 	profile.getVersion = function() {
 		return getVersion(profile);
 	};
-	profile.loadData = function() {
-		loadData(profile);
+	profile.loadData = function(notCreateCache) {
+		loadData(profile, notCreateCache);
 	};
 	profile.unloadData = function() {
 		unloadData(profile);

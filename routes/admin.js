@@ -12,75 +12,8 @@ var profiles = require('./common/profiles.common.js');
 
 
 /************************************************/
-/* Functions - For each category				*/
-/************************************************/
-/**
- * Test
- */
-function jsonStats() {
-	var output = [];
-
-	var data;
-	profiles.all.forEach(function(profile) {
-		data = profiles.data[profile.id];
-
-		output.push({
-			version:	data.info.version,
-			id:			profile.id,
-			label:		profile.label,
-			duration:	data.info.timeMax + data.info.timeStep,
-			switches:	data.stats.switches,
-			migrations:	data.stats.migrations
-		});
-	});
-
-	return output;
-}
-
-
-
-/************************************************/
 /* Functions - Global							*/
 /************************************************/
-/**
- * Get admin data
- */
-/*
-router.get('/*', function(request, response) {
-	
-	var params = request.params[0].split('/');
-
-	// Check preconditions
-	params.forEach(function(param) {
-		if (param != 'stats') {
-			response.send("Illegal parameter");
-			return;
-		}
-	});
-
-	// Result
-	var output = {};
-
-	// Load data
-	profiles.all.forEach(function(profile) {
-		profile.loadData();
-	});
-
-	// Compute
-	params.forEach(function(param) {
-		if (param == 'stats')
-			output.stats = jsonStats();
-	});
-
-	// Result
-	response.json(output);
-
-	// Unload data
-	profiles.all.forEach(function(profile) {
-		profile.unloadData();
-	});
-});
-*/
 
 /**
  * Get CACHE - get all cache versions
@@ -142,6 +75,75 @@ router.get('/cache-reload/*', function(request, response) {
 	// Result
 	response.json(output);
 });
+
+/**
+ * Get admin data
+ */
+router.get('/stats/*', function(request, response) {
+	
+	var param = request.params[0];
+
+	// Check preconditions
+	if (param != 'sm' && param != 'l') {
+		response.send("Illegal parameter");
+		return;
+	}
+
+	// Result
+	var output = {
+		param: param,
+		versions: {}
+	};
+	
+	// Create lists
+	var properties;
+	if (param == 'sm') {
+		output.s = {};
+		output.m = {};
+	} else if (param == 'l') {
+		output.ls = {};
+		output.lf = {};
+	}
+
+	// Load data
+	profiles.all.forEach(function(profile) {
+		profile.loadData(true);
+	});
+
+	// Compute
+	profiles.all.forEach(function(profile) {
+		if (! profile.hasOwnProperty('disabled') || ! profile.disabled) {
+			if (! profile.hasOwnProperty('data')) {
+				if (param == 'sm') {
+					output.s[profile.id] = null;
+					output.m[profile.id] = null;
+				} else if (param == 'l' && profile.v >= 4) {
+					output.ls[profile.id] = null;
+					output.lf[profile.id] = null;
+				}
+			} else {
+				if (param == 'sm') {
+					output.s[profile.id] = profile.data.stats.switches;
+					output.m[profile.id] = profile.data.stats.migrations;
+				} else if (param == 'l' && profile.v >= 4) {
+					output.ls[profile.id] = profile.data.stats.lock_success;
+					output.lf[profile.id] = profile.data.stats.lock_failure;
+				}
+			}
+			output.versions[profile.id] = profile.getVersion();
+		}
+	});
+
+	// Result
+	response.json(output);
+
+	// Unload data
+	profiles.all.forEach(function(profile) {
+		profile.unloadData();
+	});
+});
+
+
 
 module.exports = router;
 
