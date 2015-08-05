@@ -159,7 +159,7 @@ function addCommon(output, id) {
  */
 function addSwitches(output, id) {
 	// Data
-	output.switches = profiles[id].data.timelist.switches;
+	output.switches = profiles[id].data.events.s;
 
 	// Calibration
 	output.calibration.switches = profiles[id].hardware.calibration.switches;
@@ -175,7 +175,7 @@ function addSwitches(output, id) {
  */
 function addMigrations(output, id) {
 	// Data
-	output.migrations = profiles[id].data.timelist.migrations;
+	output.migrations = profiles[id].data.events.m;
 
 	// Calibration
 	output.calibration.migrations = profiles[id].hardware.calibration.migrations;
@@ -497,6 +497,52 @@ function addLocks(output, id) {
 	};
 }
 
+/**
+ * Add thread ticks - migrations
+ */
+function addThreadTicks_migrations(output, id) {
+	// Init output
+	if (! output.threads.hasOwnProperty('ticks')) output.threads.ticks = {};
+	
+	// Init vars
+	var data = profiles[id].data;
+
+	// Add migrations 
+	for (var h in data.lifecycle) {
+		if (! output.threads.ticks.hasOwnProperty(h)) output.threads.ticks[h] = {};
+		
+		// Duplicate array
+		output.threads.ticks[h].m = data.lifecycle[h].m.slice(0); 
+		
+		// Remove start
+		if (output.threads.ticks[h].m[0] ==  data.lifecycle[h].s)
+			output.threads.ticks[h].m.shift();
+		// Remove end
+		if (output.threads.ticks[h].m[output.threads.ticks[h].m.length - 1] ==  data.lifecycle[h].e)
+			output.threads.ticks[h].m.pop();
+	};
+}
+
+/**
+ * Add thread ticks
+ */
+function addThreadTicks(output, id, properties) {
+	// Init vars
+	var data = profiles[id].data;
+
+	// Init output
+	output.threads.ticks = {};
+	
+	// Add lists
+	for (var h in data.events.threads) {
+		output.threads.ticks[h] = {};
+		
+		properties.forEach(function(p) {
+			output.threads.ticks[h][p] = data.events.threads[h][p];
+		});
+	}
+}
+
 
 
 /************************************************/
@@ -525,7 +571,8 @@ function jsonTG(profile, id) {
 	addMigrations(output, id);
 
 	// for lifetimes
-	addLifetimes(output, id);
+	addLifetimes(output, id); // TO REMOVE
+	addThreadTicks(output, id, ['m']);
 
 	return output;
 }
@@ -545,6 +592,9 @@ function jsonSY(profile, id) {
 
 	// Add locks
 	addLocks(output, id);
+	
+	// Add ticks
+	addThreadTicks(output, id, ['ls', 'lf']);
 
 	return output;
 }
