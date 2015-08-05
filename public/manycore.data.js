@@ -163,21 +163,6 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
 			]
 		},
-		lifetime: {
-			axis : {
-				x:		{ color: colours.base, colors: [colours.base, colours.alt] }
-			},
-			data : [mg2],
-			legend : [],
-			clues: [
-				{ color: colours.unkn,	tax: 'Task start/stop overhead',					text: 'too many creations' },
-				{ color: colours.alt,	tax: 'Oversubscription',							text: 'too many threads' },
-				{ color: colours.base,	tax: 'Thread migrations',							text: 'too many threads' },
-				{ color: colours.alt,	tax: 'Thread migrations',							text: 'too many migrations' },
-				{ color: colours.unkn,	tax: 'Task start/stop overhead',					text: 'too short lifetime' }
-			],
-			settings: []
-		},
 		locality: {
 			graph : {
 				v:		[facets.hpf, facets.l3, facets.l2, facets.l1, facets.tlb, facets.ipc],
@@ -221,6 +206,35 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core' }
 			]
 		},
+		migrationLT: {
+			axis : {
+				x:		{ color: colours.base, colors: [colours.base, colours.alt] }
+			},
+			graph : {
+				h:		limit,		// threads (color)
+				ticks:	[facets.m],
+			},
+			data : [mg2],
+			legend : [],
+			clues: [
+				{ color: colours.unkn,	tax: 'Task start/stop overhead',					text: 'too many creations' },
+				{ color: colours.alt,	tax: 'Oversubscription',							text: 'too many threads' },
+				{ color: colours.base,	tax: 'Thread migrations',							text: 'too many threads' },
+				{ color: colours.alt,	tax: 'Thread migrations',							text: 'too many migrations' },
+				{ color: colours.unkn,	tax: 'Task start/stop overhead',					text: 'too short lifetime' }
+			],
+			settings: []
+		},
+		lockLT: {
+			graph : {
+				h:	limit,		// threads (color)
+				ticks:	[facets.ls, facets.lf],
+			},
+			data : [],
+			legend : [],
+			clues: [],
+			settings: []
+		},
 	};
 }]);
 
@@ -234,8 +248,8 @@ app.factory('widgets', ['decks', function(decks) {
 		lockContentions:	{ id: 9,	v: 4, file: 'chart-capacity',		deck: decks.contentions,	tag: 'lock-contentions',	title: 'Time waiting for a lock',								subtitle: 'waiting for ressources'},
 		threadPaths:		{ id: 1,	v: 3, file: 'generic-to-delete',	deck: null,					tag: 'thread-paths',		title: 'Single thread execution phases',						subtitle: 'alternating sequential/parallel execution'},
 		threadChains:		{ id: 2,	v: 3, file: 'generic-to-delete',	deck: null,					tag: 'thread-chains',		title: 'Chains of dependencies',								subtitle: 'synchronisations and waiting between threads'},
-		threadLifetime:		{ id: 3,	v: 3, file: 'thread-lifetime',		deck: decks.lifetime,		tag: 'thread-facets.r',		title: 'Life states of threads',								subtitle: 'creation, running, moving between cores, termination'},
-		threadLocks:		{ id: 4,	v: 3, file: 'generic-to-delete',	deck: null,					tag: 'thread-locks',		title: 'Waiting for locks',										subtitle: ''},
+		threadLifetime:		{ id: 3,	v: 3, file: 'thread-lifetime',	/*'chart-threads'*/	deck: decks.migrationLT,		tag: 'thread-facets.r',		title: 'Life states of threads',								subtitle: 'creation, running, moving between cores, termination'},
+		threadLocks:		{ id: 4,	v: 4, file: 'chart-threads',		deck: decks.lockLT,					tag: 'thread-locks',		title: 'Waiting for locks',										subtitle: ''},
 		threadStates:		{ id: 6,	v: 3, file: 'chart-capacity',		deck: decks.states,			tag: 'thread-states',		title: 'Potential parallelism',									subtitle: 'number of running threads compared to number of cores'},
 		threadMigrations:	{ id: 7,	v: 3, file: 'chart-units',			deck: decks.migrations,		tag: 'thread-migrations',	title: 'Thread switching the core on which it is executing',	subtitle: 'thread migrations'},
 		threadSwitchs:		{ id: 8,	v: 3, file: 'chart-units',			deck: decks.switches,		tag: 'thread-switchs',		title: 'Core swhitching the thread it is executing',			subtitle: 'thread switches'},
