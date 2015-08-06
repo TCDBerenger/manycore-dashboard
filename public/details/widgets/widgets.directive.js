@@ -1210,8 +1210,9 @@ app.directive('chartThreads', function() {
 		var r = directive_init(scope, element, attrs, LAYOUT_FH_NULL, true, true);
 
 		// Enhance meta
-		r.meta.th_Height = 12;
+		r.meta.thread_Height = 12;
 		r.meta.tick_Height = 8;
+		r.meta.period_Height = 6;
 
 		// Redraw
 		function repaint() {
@@ -1225,9 +1226,8 @@ app.directive('chartThreads', function() {
 			directive_repaint_xAxis(r);
 
 			// Main draw
-			var threadData, tickData, ticksData, vLabels;
+			var threadData, profileData, vLabels;
 			var groupHeight, threadY;
-			var lastTick;
 			r.profiles.forEach(function(profile, index) {
 				// Clean
 				r.groupP[index].selectAll('*').remove();
@@ -1236,12 +1236,11 @@ app.directive('chartThreads', function() {
 				// Data
 				profileData = profile.currentData;
 				threadData = profile.currentData.threads.info;
-				ticksData = profile.currentData.threads.ticks;
-				groupHeight = threadData.length * r.meta.th_Height;
+				groupHeight = threadData.length * r.meta.thread_Height;
 				
 				// Draw threads
 				threadData.forEach(function(thread, position) {
-					threadY = (index == 0) ? (position + .5) * r.meta.th_Height - groupHeight : (position + .5) * r.meta.th_Height;
+					threadY = (index == 0) ? (position + .5) * r.meta.thread_Height - groupHeight : (position + .5) * r.meta.thread_Height;
 					
 					// Draw basic thread
 					r.groupP[index].append('line')
@@ -1255,24 +1254,48 @@ app.directive('chartThreads', function() {
 					// Save label
 					vLabels.push({ l: thread.h, v: threadY });
 					
+					// Draw periods
+					if (r.deck.periods && ! r.meta.disablePeriods) {
+						var periodsData = profile.currentData.threads.periods;
+						r.deck.periods.forEach(function(deck) {
+							if (periodsData[thread.h] && periodsData[thread.h][deck.attr]) {
+								periodsData[thread.h][deck.attr].forEach(function (p) {
+									if (p.s >= r.meta.begin || p.e <= r.meta.end) {
+										r.groupP[index].append("rect")
+											.attr('class', 'svg-thread svg-thread-period')
+											.attr('x', r.scaleX(Math.max(p.s, r.meta.begin)))
+											.attr('y', threadY - r.meta.period_Height / 2)
+											.attr("width", r.scaleX(Math.min(p.e, r.meta.end)) - r.scaleX(Math.max(p.s, r.meta.begin)))
+											.attr("height", r.meta.period_Height)
+											.attr("fill", deck.fcolor);
+									}
+								});
+							}
+						});
+					}
+					
 					// Draw ticks
-					if (r.deck.ticks && ! r.meta.disableTicks) r.deck.ticks.forEach(function(deck) {
-						if (ticksData[thread.h] && ticksData[thread.h][deck.attr]) {
-							lastTick = -1;
-							ticksData[thread.h][deck.attr].forEach(function (t) {
-								if (t != lastTick && t >= r.meta.begin && t <= r.meta.end) {
-									r.groupP[index].append('line')
-										.attr('class', "svg-thread svg-thread-line")
-										.attr('x1', r.scaleX(t)).attr('x2', r.scaleX(t))
-										.attr('y1', threadY - r.meta.tick_Height / 2)
-										.attr('y2', threadY + r.meta.tick_Height / 2)
-										.attr('stroke', deck.color)
-										.attr('stroke-width', 1);
-									lastTick = t;
-								}
-							});
-						}
-					});
+					if (r.deck.ticks && ! r.meta.disableTicks) {
+						var ticksData = profile.currentData.threads.ticks;
+						var lastTick;
+						r.deck.ticks.forEach(function(deck) {
+							if (ticksData[thread.h] && ticksData[thread.h][deck.attr]) {
+								lastTick = -1;
+								ticksData[thread.h][deck.attr].forEach(function (t) {
+									if (t != lastTick && t >= r.meta.begin && t <= r.meta.end) {
+										r.groupP[index].append('line')
+											.attr('class', 'svg-thread svg-thread-tick')
+											.attr('x1', r.scaleX(t)).attr('x2', r.scaleX(t))
+											.attr('y1', threadY - r.meta.tick_Height / 2)
+											.attr('y2', threadY + r.meta.tick_Height / 2)
+											.attr('stroke', deck.color)
+											.attr('stroke-width', 1);
+										lastTick = t;
+									}
+								});
+							}
+						});
+					}
 				});
 				r.meta.vOverflow[index] = groupHeight;
 
