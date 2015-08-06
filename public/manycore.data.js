@@ -254,7 +254,7 @@ app.factory('widgets', ['decks', function(decks) {
 		lockContentions:	{ id: 9,	v: 4, file: 'chart-capacity',		deck: decks.contentions,	tag: 'lock-contentions',	title: 'Time waiting for a lock',								subtitle: 'waiting for ressources'},
 		threadPaths:		{ id: 1,	v: 3, file: 'generic-to-delete',	deck: null,					tag: 'thread-paths',		title: 'Single thread execution phases',						subtitle: 'alternating sequential/parallel execution'},
 		threadChains:		{ id: 2,	v: 3, file: 'generic-to-delete',	deck: null,					tag: 'thread-chains',		title: 'Chains of dependencies',								subtitle: 'synchronisations and waiting between threads'},
-		threadLifetime:		{ id: 3,	v: 3, file: 'thread-lifetime',	/*'chart-threads'*/	deck: decks.migrationLT,		tag: 'thread-facets.r',		title: 'Life states of threads',								subtitle: 'creation, running, moving between cores, termination'},
+		threadLifetime:		{ id: 3,	v: 3, file: 'chart-threads',		deck: decks.migrationLT,		tag: 'thread-facets.r',		title: 'Life states of threads',								subtitle: 'creation, running, moving between cores, termination'},
 		threadLocks:		{ id: 4,	v: 4, file: 'chart-threads',		deck: decks.lockLT,					tag: 'thread-locks',		title: 'Waiting for locks',										subtitle: ''},
 		threadStates:		{ id: 6,	v: 3, file: 'chart-capacity',		deck: decks.states,			tag: 'thread-states',		title: 'Potential parallelism',									subtitle: 'number of running threads compared to number of cores'},
 		threadMigrations:	{ id: 7,	v: 3, file: 'chart-units',			deck: decks.migrations,		tag: 'thread-migrations',	title: 'Thread switching the core on which it is executing',	subtitle: 'thread migrations'},

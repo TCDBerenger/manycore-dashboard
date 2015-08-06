@@ -413,6 +413,59 @@ function directive_repaint_VAxis(r, index, valueFunction) {
 }
 
 /**
+ * Repaint - VAxis
+ */
+function directive_repaint_VCustomAxis(r, index, facet, values) {
+	// Limit - Clean
+	r.groupV[index].selectAll('*').remove();
+
+	// Length
+	var vMax = (index == 0) ? - r.meta.vOverflow[index] : r.meta.vOverflow[index];
+
+	values.forEach(function(value) {
+		// Tick
+		r.groupV[index].append('line')
+				.attr('class', "svg-line")
+				.attr('x1', r.layout.vAxis.width).attr('x2', r.layout.vAxis.width - 4)
+				.attr('y1', value.v).attr('y2', value.v)
+				.attr('stroke', facet.fcolor)
+				.attr('stroke-width', 1);
+
+		// Text
+		r.groupV[index].append("text")
+			.attr('class', "svg-text")
+			.attr("y", value.v)
+			.attr("x", r.layout.vAxis.width - 6)
+			.attr("text-anchor", "end")
+			.attr("alignment-baseline", 'central')
+			.attr("dominant-baseline", 'central')
+			.attr("font-size", r.layout.vAxis.fontSize + "px")
+			.attr("font-weight", 'normal')
+			.attr("fill", facet.fcolor)
+			.text(value.l);
+	});
+
+	// Line
+	r.groupV[index].append('line')
+			.attr('class', "svg-line")
+			.attr('x1', r.layout.vAxis.width).attr('x2', r.layout.vAxis.width)
+			.attr('y1', 0)
+			.attr('y2', vMax)
+			.attr('stroke', '#000000')
+			.attr('stroke-width', 3);
+
+	// Profile label
+	r.groupV[index].append("text")
+		.attr('class', "svg-text svg-profile-label")
+		.attr("text-anchor", (index == 0) ? "start" : "end")
+		.attr("font-size", r.layout.vAxis.profileFontSize + "px")
+		.attr("font-weight", "bold")
+		.attr("fill", '#000000')
+		.attr("transform", (index == 0) ? ("translate(" + r.layout.vAxis.profileFontSize + "," + (r.layout.vAxis.height) + ")rotate(270)") : ("translate(" + r.layout.vAxis.profileFontSize + "," + 0 + ")rotate(270)"))
+		.text(r.profiles[index].label);
+}
+
+/**
  * Select - clean and unselect
  */
 function directive_unselect(r) {
@@ -1165,7 +1218,8 @@ app.directive('chartThreads', function() {
 		var r = directive_init(scope, element, attrs, LAYOUT_FH_NULL, true, true);
 
 		// Enhance meta
-		r.meta.tHeight = 5;
+		r.meta.th_Height = 12;
+		r.meta.tick_Height = 8;
 
 		// Redraw
 		function repaint() {
@@ -1179,31 +1233,36 @@ app.directive('chartThreads', function() {
 			directive_repaint_xAxis(r);
 
 			// Main draw
-			var threadData, tickData, ticksData;
+			var threadData, tickData, ticksData, vLabels;
 			var groupHeight, threadY;
 			var lastTick;
 			r.profiles.forEach(function(profile, index) {
 				// Clean
 				r.groupP[index].selectAll('*').remove();
+				vLabels = [];
 
 				// Data
 				profileData = profile.currentData;
 				threadData = profile.currentData.threads.info;
 				ticksData = profile.currentData.threads.ticks;
-				groupHeight = threadData.length * r.meta.tHeight;
+				groupHeight = threadData.length * r.meta.th_Height;
 				
 				// Draw threads
 				threadData.forEach(function(thread, position) {
-					threadY = (index == 0) ? (position + .5) * r.meta.tHeight - groupHeight : (position + .5) * r.meta.tHeight;
+					threadY = (index == 0) ? (position + .5) * r.meta.th_Height - groupHeight : (position + .5) * r.meta.th_Height;
 					
+					// Draw basic thread
 					r.groupP[index].append('line')
 						.attr('class', "svg-thread svg-thread-line")
 						.attr('x1', r.scaleX(Math.max(thread.s, r.meta.begin)))
-						.attr('x2', r.scaleX(Math.min(thread.e, r.meta.end)))
+						.attr('x2', r.scaleX((thread.e) ? Math.min(thread.e, r.meta.end) : r.meta.end))
 						.attr('y1', threadY).attr('y2', threadY)
 						.attr('stroke', r.deck.h.color)
 						.attr('stroke-width', 1);
-				
+					
+					// Save label
+					vLabels.push({ l: thread.h, v: threadY });
+					
 					// Draw ticks
 					if (r.deck.ticks && ! r.meta.disableTicks) r.deck.ticks.forEach(function(deck) {
 						if (ticksData[thread.h] && ticksData[thread.h][deck.attr]) {
@@ -1213,8 +1272,8 @@ app.directive('chartThreads', function() {
 									r.groupP[index].append('line')
 										.attr('class', "svg-thread svg-thread-line")
 										.attr('x1', r.scaleX(t)).attr('x2', r.scaleX(t))
-										.attr('y1', threadY - 1.5)
-										.attr('y2', threadY + 1.5)
+										.attr('y1', threadY - r.meta.tick_Height / 2)
+										.attr('y2', threadY + r.meta.tick_Height / 2)
 										.attr('stroke', deck.color)
 										.attr('stroke-width', 1);
 									lastTick = t;
@@ -1224,7 +1283,9 @@ app.directive('chartThreads', function() {
 					});
 				});
 				r.meta.vOverflow[index] = groupHeight;
-				
+
+				// Value axis
+				directive_repaint_VCustomAxis(r, index, r.deck.h, vLabels);
 			});
 
 			// Post-treatment
