@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 52;
+var VERSION = 54;
 
 /************************************************/
 /* Variables - hardwares						*/
@@ -657,10 +657,20 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			data.frames[timeID].lock_success++;
 
 
-			// Save the failure duration by frame
+			// Save the failure duration
 			if (duration > 0) {
 				if (wait_map[element.tid] == null || ! wait_map.hasOwnProperty(element.tid)) console.log('incoherent: duration positive but no starting time', duration, wait_map[element.tid]);
 
+				// Check event list existance
+				if (! data.events.threads.hasOwnProperty(element.tid))
+					data.events.threads[element.tid] = { lw: [] };
+				else if (! data.events.threads[element.tid].hasOwnProperty('lw'))
+					data.events.threads[element.tid].lw = [];
+				
+				// Save the success
+				data.events.threads[element.tid].lw.push({ s: Math.round(wait_map[element.tid] / 10000), e: timeEvent});
+
+				// Save the failure duration by frame
 				currentID = timeID;
 				currentEnd = element.dtime;
 				while (currentEnd >= wait_map[element.tid]) {

@@ -498,32 +498,6 @@ function addLocks(output, id) {
 }
 
 /**
- * Add thread ticks - migrations
- */
-function addThreadTicks_migrations(output, id) {
-	// Init output
-	if (! output.threads.hasOwnProperty('ticks')) output.threads.ticks = {};
-	
-	// Init vars
-	var data = profiles[id].data;
-
-	// Add migrations 
-	for (var h in data.lifecycle) {
-		if (! output.threads.ticks.hasOwnProperty(h)) output.threads.ticks[h] = {};
-		
-		// Duplicate array
-		output.threads.ticks[h].m = data.lifecycle[h].m.slice(0); 
-		
-		// Remove start
-		if (output.threads.ticks[h].m[0] ==  data.lifecycle[h].s)
-			output.threads.ticks[h].m.shift();
-		// Remove end
-		if (output.threads.ticks[h].m[output.threads.ticks[h].m.length - 1] ==  data.lifecycle[h].e)
-			output.threads.ticks[h].m.pop();
-	};
-}
-
-/**
  * Add thread ticks
  */
 function addThreadTicks(output, id, properties) {
@@ -539,6 +513,26 @@ function addThreadTicks(output, id, properties) {
 		
 		properties.forEach(function(p) {
 			output.threads.ticks[h][p] = data.events.threads[h][p];
+		});
+	}
+}
+
+/**
+ * Add thread periods
+ */
+function addThreadPeriods(output, id, properties) {
+	// Init vars
+	var data = profiles[id].data;
+
+	// Init output
+	output.threads.periods = {};
+	
+	// Add lists
+	for (var h in data.events.threads) {
+		output.threads.periods[h] = {};
+		
+		properties.forEach(function(p) {
+			output.threads.periods[h][p] = data.events.threads[h][p];
 		});
 	}
 }
@@ -595,6 +589,9 @@ function jsonSY(profile, id) {
 	
 	// Add ticks
 	addThreadTicks(output, id, ['ls', 'lf']);
+	
+	// Add ticks
+	addThreadPeriods(output, id, ['lw']);
 
 	return output;
 }
