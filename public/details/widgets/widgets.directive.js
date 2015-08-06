@@ -57,7 +57,7 @@ var graphLayout = function(favoriteHeight) {
 /**
  * Meta (parameters)
  */
-var graphMeta = function(scope, attributes, mirror, canOverflow) {
+var graphMeta = function(scope, attributes, mirror, canOverflow, properties) {
 	// Allow seld reference (otherwise this is the caller object)
 	var self = this;
 
@@ -85,7 +85,7 @@ var graphMeta = function(scope, attributes, mirror, canOverflow) {
 	this.vOverflow =	[NaN, NaN];		// Possible overflow by first and second profile
 
 	// On demand
-	['calibration', 'crenellate'].forEach(function(a) {
+	properties.forEach(function(a) {
 		if (attributes.hasOwnProperty(a))
 			try { self[a] = JSON.parse(attributes[a]) } catch(e) { self[a] = attributes[a] };
 	});
@@ -122,10 +122,17 @@ function directive_init(scope, element, attrs, layoutType, mirror, canOverflow) 
 	// Layout
 	var container =	element[0];
 	var layout =	new graphLayout(layoutType);
+	
+	// Properties
+	var settings =	scope.widget.settings;
+	var properties = [];
+	if (settings) settings.forEach(function(setting) {
+		properties.push(setting.property);
+	});
 
 	// Attributes
 	var deck =		scope.widget.deck.graph;
-	var meta =		new graphMeta(scope, attrs, mirror, canOverflow);
+	var meta =		new graphMeta(scope, attrs, mirror, canOverflow, properties);
 
 	// Data
 	var profiles =	scope.profiles;
@@ -153,7 +160,8 @@ function directive_init(scope, element, attrs, layoutType, mirror, canOverflow) 
 		container:	container,
 		layout:		layout,
 		deck:		deck,
-		settings:	scope.widget.settings,
+		settings:	settings,
+		properties:	properties,
 		meta:		meta,
 		profiles:	profiles,
 		svg:		svg,
@@ -244,9 +252,21 @@ function directive_repaint_post(r) {
 /**
  * Repaint - Bind
  */
-function directive_bind(scope, element, r, repaint, select, settings) {
+function directive_bind(scope, element, r, repaint, select) {
 	scope.$watch(function() { return r.container.clientWidth; }, repaint);
-	scope.$watch(function() { return r.settings.version; }, settings);
+	scope.$watch(function() { return r.settings.version; }, function() {
+		var needToRepaint = false;
+
+		r.properties.forEach(function(property) {
+			if (r.meta[property] != r.settings[property]) {
+				r.meta[property] = r.settings[property];
+				needToRepaint = true;
+			}
+		});
+
+		if (needToRepaint)
+			repaint();
+	});
 	scope.$on('xEvent', function(event, x) {
 		if (isNaN(x)) {
 			directive_unselect(r);
@@ -464,7 +484,7 @@ app.directive('chartCapacity', function() {
 		console.log("== directive == chartCapacity ==");
 
 		// Init vars
-		var r = directive_init(scope, element, attrs, LAYOUT_FH_NORMAL, true, true);
+		var r = directive_init(scope, element, attrs, LAYOUT_FH_NORMAL, true, true, ['crenellate']);
 
 		// Enhance meta
 		r.meta.cores = [];
@@ -683,27 +703,9 @@ app.directive('chartCapacity', function() {
 				}
 			}
 		}
-		
-		// Settigns changes
-		function settings() {
-			var needToRepaint = false;
-
-			if (r.meta.crenellate != r.settings.crenellate) {
-				r.meta.crenellate = r.settings.crenellate;
-				needToRepaint = true;
-			}
-
-			if (r.meta.upsidedown != r.settings.upsidedown) {
-				r.meta.upsidedown = r.settings.upsidedown;
-				needToRepaint = true;
-			}
-
-			if (needToRepaint)
-				repaint();
-		}
 
 		// Bind
-		directive_bind(scope, element, r, repaint, select, settings);
+		directive_bind(scope, element, r, repaint, select);
 	}
 
 	return {
@@ -723,7 +725,7 @@ app.directive('chartPercent', function() {
 		console.log("== directive == chartPercent ==");
 
 		// Init vars
-		var r = directive_init(scope, element, attrs, LAYOUT_FH_NORMAL, true, true);
+		var r = directive_init(scope, element, attrs, LAYOUT_FH_NORMAL, true, true, ['crenellate']);
 
 		// Enhance meta
 		r.meta.vExpected[0] =	100;	r.meta.vExpected[1] =	100;
@@ -841,27 +843,9 @@ app.directive('chartPercent', function() {
 				}
 			}
 		}
-		
-		// Settigns changes
-		function settings() {
-			var needToRepaint = false;
-
-			if (r.meta.crenellate != r.settings.crenellate) {
-				r.meta.crenellate = r.settings.crenellate;
-				needToRepaint = true;
-			}
-
-			if (r.meta.upsidedown != r.settings.upsidedown) {
-				r.meta.upsidedown = r.settings.upsidedown;
-				needToRepaint = true;
-			}
-
-			if (needToRepaint)
-				repaint();
-		}
 
 		// Bind
-		directive_bind(scope, element, r, repaint, select, settings);
+		directive_bind(scope, element, r, repaint, select);
 	}
 
 	return {
@@ -881,7 +865,7 @@ app.directive('chartUnits', function() {
 		console.log("== directive == chartUnits ==");
 
 		// Init vars
-		var r = directive_init(scope, element, attrs, LAYOUT_FH_BAND, true, true);
+		var r = directive_init(scope, element, attrs, LAYOUT_FH_BAND, true, true, ['timeGroup']);
 
 		// Axis label
 		function vAxisLabel(v, index) {
@@ -1018,17 +1002,9 @@ app.directive('chartUnits', function() {
 				}
 			}
 		}
-		
-		// Settigns changes
-		function settings() {
-			if (r.meta.timeGroup != r.settings.timeGroup) {
-				r.meta.timeGroup = r.settings.timeGroup;
-				repaint();
-			}
-		}
 
 		// Bind
-		directive_bind(scope, element, r, repaint, select, settings);
+		directive_bind(scope, element, r, repaint, select);
 	}
 
 	return {
@@ -1048,7 +1024,7 @@ app.directive('chartStack', function() {
 		console.log("== directive == chartStack ==");
 
 		// Init vars
-		var r = directive_init(scope, element, attrs, LAYOUT_FH_NORMAL, true, true);
+		var r = directive_init(scope, element, attrs, LAYOUT_FH_NORMAL, true, true, ['crenellate']);
 
 		// Enhance meta
 		r.meta.vExpected[0] =	r.deck.expected(r.profiles[0]);
@@ -1165,27 +1141,9 @@ app.directive('chartStack', function() {
 				}
 			}
 		}
-		
-		// Settigns changes
-		function settings() {
-			var needToRepaint = false;
-
-			if (r.meta.crenellate != r.settings.crenellate) {
-				r.meta.crenellate = r.settings.crenellate;
-				needToRepaint = true;
-			}
-
-			if (r.meta.upsidedown != r.settings.upsidedown) {
-				r.meta.upsidedown = r.settings.upsidedown;
-				needToRepaint = true;
-			}
-
-			if (needToRepaint)
-				repaint();
-		}
 
 		// Bind
-		directive_bind(scope, element, r, repaint, select, settings);
+		directive_bind(scope, element, r, repaint, select);
 	}
 
 	return {
@@ -1205,7 +1163,7 @@ app.directive('chartThreads', function() {
 		console.log("== directive == chartThreads ==");
 
 		// Init vars
-		var r = directive_init(scope, element, attrs, LAYOUT_FH_NULL, true, true);
+		var r = directive_init(scope, element, attrs, LAYOUT_FH_NULL, true, true, ['disableTicks']);
 
 		// Enhance meta
 		r.meta.tHeight = 5;
@@ -1248,7 +1206,7 @@ app.directive('chartThreads', function() {
 						.attr('stroke-width', 1);
 				
 					// Draw ticks
-					if (r.deck.ticks) r.deck.ticks.forEach(function(deck) {
+					if (r.deck.ticks && ! r.meta.disableTicks) r.deck.ticks.forEach(function(deck) {
 						if (ticksData[thread.h] && ticksData[thread.h][deck.attr]) {
 							lastTick = -1;
 							ticksData[thread.h][deck.attr].forEach(function (t) {
@@ -1277,17 +1235,9 @@ app.directive('chartThreads', function() {
 		// Select
 		function select(x) {
 		}
-		
-		// Settigns changes
-		function settings() {
-			var needToRepaint = false;
-
-			if (needToRepaint)
-				repaint();
-		}
 
 		// Bind
-		directive_bind(scope, element, r, repaint, select, settings);
+		directive_bind(scope, element, r, repaint, select);
 	}
 
 	return {

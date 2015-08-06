@@ -223,7 +223,9 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ color: colours.alt,	tax: 'Thread migrations',							text: 'too many migrations' },
 				{ color: colours.unkn,	tax: 'Task start/stop overhead',					text: 'too short lifetime' }
 			],
-			settings: []
+			settings: [
+				{ property: 'disableTicks', value: false, type: 'flag', label: 'Disable ticks' }
+			]
 		},
 		lockLT: {
 			graph : {
@@ -233,7 +235,9 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			data : [],
 			legend : [],
 			clues: [],
-			settings: []
+			settings: [
+				{ property: 'disableTicks', value: false, type: 'flag', label: 'Disable ticks' }
+			]
 		},
 	};
 }]);
