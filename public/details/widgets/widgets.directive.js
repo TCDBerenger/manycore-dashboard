@@ -124,9 +124,8 @@ function directive_init(scope, element, attrs, layoutType, mirror, canOverflow) 
 	var layout =	new graphLayout(layoutType);
 	
 	// Properties
-	var settings =	scope.widget.settings;
 	var properties = [];
-	if (settings) settings.forEach(function(setting) {
+	if (scope.widget.deck.settings) scope.widget.deck.settings.forEach(function(setting) {
 		properties.push(setting.property);
 	});
 
@@ -160,7 +159,7 @@ function directive_init(scope, element, attrs, layoutType, mirror, canOverflow) 
 		container:	container,
 		layout:		layout,
 		deck:		deck,
-		settings:	settings,
+		settings:	scope.widget.settings,
 		properties:	properties,
 		meta:		meta,
 		profiles:	profiles,
@@ -484,7 +483,7 @@ app.directive('chartCapacity', function() {
 		console.log("== directive == chartCapacity ==");
 
 		// Init vars
-		var r = directive_init(scope, element, attrs, LAYOUT_FH_NORMAL, true, true, ['crenellate']);
+		var r = directive_init(scope, element, attrs, LAYOUT_FH_NORMAL, true, true);
 
 		// Enhance meta
 		r.meta.cores = [];
@@ -725,7 +724,7 @@ app.directive('chartPercent', function() {
 		console.log("== directive == chartPercent ==");
 
 		// Init vars
-		var r = directive_init(scope, element, attrs, LAYOUT_FH_NORMAL, true, true, ['crenellate']);
+		var r = directive_init(scope, element, attrs, LAYOUT_FH_NORMAL, true, true);
 
 		// Enhance meta
 		r.meta.vExpected[0] =	100;	r.meta.vExpected[1] =	100;
@@ -865,7 +864,7 @@ app.directive('chartUnits', function() {
 		console.log("== directive == chartUnits ==");
 
 		// Init vars
-		var r = directive_init(scope, element, attrs, LAYOUT_FH_BAND, true, true, ['timeGroup']);
+		var r = directive_init(scope, element, attrs, LAYOUT_FH_BAND, true, true);
 
 		// Axis label
 		function vAxisLabel(v, index) {
@@ -1024,7 +1023,7 @@ app.directive('chartStack', function() {
 		console.log("== directive == chartStack ==");
 
 		// Init vars
-		var r = directive_init(scope, element, attrs, LAYOUT_FH_NORMAL, true, true, ['crenellate']);
+		var r = directive_init(scope, element, attrs, LAYOUT_FH_NORMAL, true, true);
 
 		// Enhance meta
 		r.meta.vExpected[0] =	r.deck.expected(r.profiles[0]);
@@ -1163,7 +1162,7 @@ app.directive('chartThreads', function() {
 		console.log("== directive == chartThreads ==");
 
 		// Init vars
-		var r = directive_init(scope, element, attrs, LAYOUT_FH_NULL, true, true, ['disableTicks']);
+		var r = directive_init(scope, element, attrs, LAYOUT_FH_NULL, true, true);
 
 		// Enhance meta
 		r.meta.tHeight = 5;

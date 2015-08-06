@@ -57,12 +57,12 @@
 		<div class="settings" ng-repeat="setting in widget.deck.settings">
 			<div class="setting setting-range" ng-if="setting.type == 'range'">
 				<label>{{setting.label}}:</label>
-				<input type="range" ng-model="widget.settings[setting.property]" min="{{::setting.min}}" max="{{::setting.max}}" step="{{::setting.step}}" />
+				<input type="range" ng-model="widget.settings[setting.property]" min="{{::setting.min}}" max="{{::setting.max}}" step="{{::setting.step}}" ng-disabled="widget.settings[setting.depends] === false" />
 				[<span>{{widget.settings[setting.property]}}</span>] <span>{{setting.unit}}</span>
 			</div>
 			<div class="setting setting-flag" ng-if="setting.type == 'flag'">
 				<label>{{setting.label}}:</label>
-				<input type="checkbox" ng-model="widget.settings[setting.property]">
+				<input type="checkbox" ng-model="widget.settings[setting.property]" ng-disabled="widget.settings[setting.depends] === false" />
 			</div>
 		</div>
 	</tab>

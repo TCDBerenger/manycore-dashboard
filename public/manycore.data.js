@@ -224,7 +224,9 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ color: colours.unkn,	tax: 'Task start/stop overhead',					text: 'too short lifetime' }
 			],
 			settings: [
-				{ property: 'disableTicks', value: false, type: 'flag', label: 'Disable ticks' }
+				{ property: 'disableTicks', value: false, type: 'flag', label: 'Disable ticks' },
+				{ property: 'groupTicks', value: false, type: 'flag', label: 'Group ticks' },
+				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10, depends: 'groupTicks' }
 			]
 		},
 		lockLT: {
