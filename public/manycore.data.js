@@ -9,6 +9,8 @@ app.factory('colours', [function() {
 		dMagenta:	'#AF46B4',		eMagenta:	'#CE8AD2',		lMagenta:	'#ECD0ED',
 		dViolet:	'#7846B4',		eViolet:	'#AB8AD2',		lViolet:	'#DDD0ED',
 		dYellow:	'#b4a646',		eYellow:	'#D2C88A',		lYellow:	'#EDE9D0',
+		dTurquoise:	'#5EB8C0',		eTurquoise:	'#9ad3d8',		lTurquoise:	'#d7edef',
+		dFuschia:	'#812559',		eFuschia:	'#cf589b',		lFuschia:	'#ecbcd7',
 	};
 
 	return {
@@ -63,8 +65,8 @@ app.factory('facets', ['colours', function(colours) {
 		
 		s:		{ label: 'switches',			title: 'context switches',	desc: desc_s,		list: 'switches',	cat: 'switches',	attr: 's',		color: colours.list.eGrey,		fcolor: colours.list.dGrey,		gcolor: colours.list.lGrey },
 		m:		{ label: 'migrations',			title: 'thread migrations',	desc: desc_m,		list: 'migrations',	cat: 'migrations',	attr: 'm',		color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.lViolet },
-		ls:		{ label: 'lock success',		title: 'lock success',		desc: desc_ls,		list: 'slocks',		cat: 'locks',		attr: 'ls',		color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
-		lf:		{ label: 'lock failure',		title: 'lock failure',		desc: desc_lf,		list: 'flocks',		cat: 'locks',		attr: 'lf',		color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed }
+		ls:		{ label: 'lock success',		title: 'lock success',		desc: desc_ls,		list: 'slocks',		cat: 'locks',		attr: 'ls',		color: colours.list.eTurquoise,	fcolor: colours.list.dTurquoise,gcolor: colours.list.lTurquoise },
+		lf:		{ label: 'lock failure',		title: 'lock failure',		desc: desc_lf,		list: 'flocks',		cat: 'locks',		attr: 'lf',		color: colours.list.eFuschia,	fcolor: colours.list.dFuschia,	gcolor: colours.list.lFuschia },
 	};
 }]);
 
@@ -229,13 +231,15 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		lockLT: {
 			graph : {
 				h:	limit,		// threads (color)
-				ticks:	[facets.ls, facets.lf],
+				ticks:		[facets.ls, facets.lf],
+				periods:	[facets.lw],
 			},
 			data : [],
 			legend : [],
 			clues: [],
 			settings: [
-				{ property: 'disableTicks', value: false, type: 'flag', label: 'Disable ticks' }
+				{ property: 'disableTicks', value: false, type: 'flag', label: 'Disable ticks' },
+				{ property: 'disablePeriods', value: false, type: 'flag', label: 'Disable periods' }
 			]
 		},
 	};
