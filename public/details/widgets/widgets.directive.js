@@ -229,6 +229,18 @@ function directive_repaint_scales(r, vData, vData2) {
  * Repaint - container
  */
 function directive_repaint_post(r) {
+	// Profile label
+	r.profiles.forEach(function(profile, index) {
+		r.groupV[index].append("text")
+			.attr('class', "svg-text svg-profile-label")
+			.attr("text-anchor", (index == 0) ? "start" : "end")
+			.attr("font-size", r.layout.vAxis.profileFontSize + "px")
+			.attr("font-weight", "bold")
+			.attr("fill", '#000000')
+			.attr("transform", (index == 0) ? ("translate(" + r.layout.vAxis.profileFontSize + "," + (r.layout.vAxis.height) + ")rotate(270)") : ("translate(" + r.layout.vAxis.profileFontSize + "," + 0 + ")rotate(270)"))
+			.text(profile.label);
+	});
+		
 	// Overflow
 	if (r.meta.canOverflow) {
 
@@ -400,16 +412,6 @@ function directive_repaint_VAxis(r, index, valueFunction) {
 			.attr("points", p2s(points))
 			.attr('stroke', '#000000')
 			.attr('stroke-width', 1);*/
-
-	// Profile label
-	r.groupV[index].append("text")
-		.attr('class', "svg-text svg-profile-label")
-		.attr("text-anchor", (index == 0) ? "start" : "end")
-		.attr("font-size", r.layout.vAxis.profileFontSize + "px")
-		.attr("font-weight", "bold")
-		.attr("fill", '#000000')
-		.attr("transform", (index == 0) ? ("translate(" + r.layout.vAxis.profileFontSize + "," + (r.layout.vAxis.height) + ")rotate(270)") : ("translate(" + r.layout.vAxis.profileFontSize + "," + 0 + ")rotate(270)"))
-		.text(r.profiles[index].label);
 }
 
 /**
@@ -453,16 +455,6 @@ function directive_repaint_VCustomAxis(r, index, facet, values) {
 			.attr('y2', vMax)
 			.attr('stroke', '#000000')
 			.attr('stroke-width', 3);
-
-	// Profile label
-	r.groupV[index].append("text")
-		.attr('class', "svg-text svg-profile-label")
-		.attr("text-anchor", (index == 0) ? "start" : "end")
-		.attr("font-size", r.layout.vAxis.profileFontSize + "px")
-		.attr("font-weight", "bold")
-		.attr("fill", '#000000')
-		.attr("transform", (index == 0) ? ("translate(" + r.layout.vAxis.profileFontSize + "," + (r.layout.vAxis.height) + ")rotate(270)") : ("translate(" + r.layout.vAxis.profileFontSize + "," + 0 + ")rotate(270)"))
-		.text(r.profiles[index].label);
 }
 
 /**

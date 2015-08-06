@@ -39,7 +39,7 @@ app.factory('facets', ['colours', function(colours) {
 	var desc_l3 = 'loading data from RAM';
 	var desc_hpf = 'hard page faults';
 	var desc_s = 'cores switching the working thread';
-	var desc_m = 'thread migrate to another core';
+	var desc_m = 'thread migrates to another core';
 	var desc_ls = 'number of lock acquisition success';
 	var desc_lf = 'number of lock acquisition failure';
 
@@ -207,14 +207,11 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			]
 		},
 		migrationLT: {
-			axis : {
-				x:		{ color: colours.base, colors: [colours.base, colours.alt] }
-			},
 			graph : {
 				h:		limit,		// threads (color)
 				ticks:	[facets.m],
 			},
-			data : [mg2],
+			data : [facets.m],
 			legend : [],
 			clues: [
 				{ color: colours.unkn,	tax: 'Task start/stop overhead',					text: 'too many creations' },
