@@ -1256,19 +1256,22 @@ app.directive('chartThreads', function() {
 					vLabels.push({ l: thread.h, v: threadY });
 					
 					// Draw periods
+					var x1Period, x2Period;
 					if (r.deck.periods && ! r.meta.disablePeriods) {
 						var periodsData = profile.currentData.threads.periods;
 						r.deck.periods.forEach(function(deck) {
 							if (periodsData[thread.h] && periodsData[thread.h][deck.attr]) {
 								periodsData[thread.h][deck.attr].forEach(function (p) {
 									if (p.s >= r.meta.begin || p.e <= r.meta.end) {
+										x1Period = (p.s) ? r.scaleX(Math.max(p.s, r.meta.begin)) : r.scaleX(Math.max(thread.s, r.meta.begin));
+										x2Period = (p.e) ? r.scaleX(Math.min(p.e, r.meta.end)) : r.scaleX(Math.min(thread.e, r.meta.end));
 										r.groupP[index].append("rect")
 											.attr('class', 'svg-thread svg-thread-period')
-											.attr('x', r.scaleX(Math.max(p.s, r.meta.begin)))
+											.attr('x', x1Period)
 											.attr('y', threadY - r.meta.period_Height / 2)
-											.attr("width", r.scaleX(Math.min(p.e, r.meta.end)) - r.scaleX(Math.max(p.s, r.meta.begin)))
+											.attr("width", x2Period - x1Period)
 											.attr("height", r.meta.period_Height)
-											.attr("fill", deck.fcolor);
+											.attr("fill", (p.hasOwnProperty('c')) ? deck.colors[p.c] : deck.fcolor);
 									}
 								});
 							}

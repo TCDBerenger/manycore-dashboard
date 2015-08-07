@@ -95,8 +95,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 	var limit = 	{ color: colours.list.eGrey, fcolor: colours.list.dGrey, gcolor: colours.list.lGrey,	expected: function(profile) { return 100; },																displayed: function(profile) { return 110; } };
 	var limit_th = 	{ color: limit.color, fcolor: limit.fcolor, gcolor: limit.gcolor, label: 'threads',		expected: function(profile) { return profile.currentData.stats.h; },										displayed: function(profile) { return profile.currentData.stats.h + 2; } };
 
-	var mg2 = 		{ label: facets.m.label,   title: facets.m.title,	desc: facets.m.desc,							cat: facets.m.cat,	 attr: facets.m.attr,	colors: [colours.base, colours.alt], color: colours.list.eViolet, fcolor: colours.list.dViolet,	gcolor: colours.list.lViolet };
-
+	var mg2 =		JSON.parse(JSON.stringify(facets.m));
+	mg2.colors = ['#b6e3bc', '#b6e3da', '#b6cee3', '#bcb6e3', '#dab6e3', '#e3b6ce', '#e3bcb6', '#e3dab6'];
 
 	return {
 		states: {
@@ -210,8 +210,9 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		},
 		migrationLT: {
 			graph : {
-				h:		limit,		// threads (color)
-				ticks:	[facets.m],
+				h:			limit,		// threads (color)
+				ticks:		[facets.m],
+				periods:	[mg2],
 			},
 			data : [facets.m],
 			legend : [],
@@ -225,7 +226,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			settings: [
 				{ property: 'disableTicks', value: false, type: 'flag', label: 'Disable ticks' },
 				{ property: 'groupTicks', value: false, type: 'flag', label: 'Group ticks' },
-				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10, depends: 'groupTicks' }
+				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10, depends: 'groupTicks' },
+				{ property: 'disablePeriods', value: true, type: 'flag', label: 'Disable fruit salad' },
 			]
 		},
 		lockLT: {

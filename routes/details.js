@@ -528,11 +528,11 @@ function addThreadPeriods(output, id, properties) {
 	output.threads.periods = {};
 	
 	// Add lists
-	for (var h in data.events.threads) {
+	for (var h in data.periods.threads) {
 		output.threads.periods[h] = {};
 		
 		properties.forEach(function(p) {
-			output.threads.periods[h][p] = data.events.threads[h][p];
+			output.threads.periods[h][p] = data.periods.threads[h][p];
 		});
 	}
 }
@@ -567,6 +567,7 @@ function jsonTG(profile, id) {
 	// for lifetimes
 	addLifetimes(output, id); // TO REMOVE
 	addThreadTicks(output, id, ['m']);
+	addThreadPeriods(output, id, ['m']);
 
 	return output;
 }

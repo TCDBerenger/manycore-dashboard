@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 54;
+var VERSION = 56;
 
 /************************************************/
 /* Variables - hardwares						*/
@@ -144,11 +144,18 @@ profileMap.all.forEach(function (profile) { profileMap[profile.id] = profile; })
 	 │	 │	 ├	0
 	 │	 │	 │	 ├	m				[]			array of migration event time (real, not corresponding to a time frame), in the increasing time order
 	 │	 │	 │	 ├	ls				[]			array of lock success aquisition event time (real, not corresponding to a time frame), in the increasing time order
-	 │	 │	 │	 ├	lf				[]			array of lock failure aquisition event time (real, not corresponding to a time frame), in the increasing time order
+	 │	 │	 │	 └	lf				[]			array of lock failure aquisition event time (real, not corresponding to a time frame), in the increasing time order
 	 │	 │	 ├	...
 	 │	 │	 └	<?>
 	 │	 ├	m						[]			array of migration event time (real, not corresponding to a time frame), in the increasing time order
 	 │	 └	s						[]			array of switches event time (real, not corresponding to a time frame), in the increasing time order
+	 ├	periods
+	 │	 └	threads								list of threads (object with key)
+	 │	 	 ├	0
+	 │	 	 │	 ├	m				[]			array of migration periods, aka core attachment (real, not corresponding to a time frame), in the increasing time order
+	 │	 	 │	 └	lw				[]			array of lock waiting periods (real, not corresponding to a time frame), in the increasing time order
+	 │	 	 ├	...
+	 │	 	 └	<?>
 	 │
 	 ├	lifecycles					[]			array of thread lifecycle events
 	 │	 ├	<thread0>
@@ -310,6 +317,9 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			s:				[],
 			m:				[]
 		},
+		periods: {
+			threads:		{}
+		},
 		switches: [],
 		migrations: [],
 		lifetimes: [],
@@ -466,6 +476,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	 */
 	// Vars
 	var coreThreads = {};
+	var migrationMap = {};
 	var property;
 
 	// Loop
@@ -523,6 +534,10 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 				
 				// Save the migration
 				data.events.threads[element.tid].m.push(timeEvent);
+				
+				// Save the migration core attachement
+				if (! migrationMap.hasOwnProperty(element.tid)) migrationMap[element.tid] = {};
+				migrationMap[element.tid][timeEvent] = element.cid;
 
 				// TO DELETE - Save lifecycle
 				if (! data.lifecycle.hasOwnProperty(element.tid)) data.lifecycle[element.tid] = { s: null, e: null, m: []};
@@ -568,7 +583,24 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	data.migrations.sort(function(a, b){return a.t - b.t});
 	data.events.s.sort(function(a, b){return a - b});
 	data.events.m.sort(function(a, b){return a - b});
-
+	
+	// Build migration periods
+	Object.keys(migrationMap).forEach(function(h) {
+		// Check event list existance
+		if (! data.periods.threads.hasOwnProperty(h))
+			data.periods.threads[h] = { m: [] };
+		else if (! data.periods.threads[h].hasOwnProperty('m'))
+			data.periods.threads[h].m = [];
+		
+		Object.keys(migrationMap[h]).forEach(function(t) {
+			if (data.periods.threads[h].m.length == 0) {
+				data.periods.threads[h].m.push({ s: +t, c: migrationMap[h][t], e: null });
+			} else if (data.periods.threads[h].m[data.periods.threads[h].m.length - 1].c != migrationMap[h][t]) {
+				data.periods.threads[h].m[data.periods.threads[h].m.length - 1].e = +t;
+				data.periods.threads[h].m.push({ s: +t, c: migrationMap[h][t], e: null });
+			}
+		});
+	});
 
 
 	/**
@@ -666,13 +698,13 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 				if (wait_map[element.tid] == null || ! wait_map.hasOwnProperty(element.tid)) console.log('incoherent: duration positive but no starting time', duration, wait_map[element.tid]);
 
 				// Check event list existance
-				if (! data.events.threads.hasOwnProperty(element.tid))
-					data.events.threads[element.tid] = { lw: [] };
-				else if (! data.events.threads[element.tid].hasOwnProperty('lw'))
-					data.events.threads[element.tid].lw = [];
+				if (! data.periods.threads.hasOwnProperty(element.tid))
+					data.periods.threads[element.tid] = { lw: [] };
+				else if (! data.periods.threads[element.tid].hasOwnProperty('lw'))
+					data.periods.threads[element.tid].lw = [];
 				
 				// Save the success
-				data.events.threads[element.tid].lw.push({ s: Math.round(wait_map[element.tid] / 10000), e: timeEvent});
+				data.periods.threads[element.tid].lw.push({ s: Math.round(wait_map[element.tid] / 10000), e: timeEvent});
 
 				// Save the failure duration by frame
 				currentID = timeID;
