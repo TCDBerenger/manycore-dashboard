@@ -56,11 +56,11 @@ app.factory('facets', ['colours', function(colours) {
 		sys: 	{ label: 'system',				title: 'system',			desc: desc_sys,		unity: 'ms',		cat: 'times',		attr: 'sys',	color: colours.list.white,		fcolor: colours.list.lGrey,		gcolor: colours.list.white },
 	
 		ipc:	{ label: 'executing',			title: 'Executing',			desc: desc_ipc,		unity: 'ms',		cat: 'locality',	attr: 'ipc',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
-		miss:	{ label: 'Cache misses',		title: 'Cache misses',		desc: desc_miss,	unity: 'ms',		cat: 'locality',	attr: 'miss',	color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed },
+		miss:	{ label: 'Cache misses',		title: 'Cache misses',		desc: desc_miss,	unity: 'ms',		cat: 'locality',	attr: 'miss',	color: colours.list.eOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange },
 		tlb:	{ label: 'address translation',	title: 'TLB misses',		desc: desc_tlb,		unity: 'ms',		cat: 'locality',	attr: 'tlb',	color: colours.list.lGrey },
-		l1:		{ label: 'loading from L2',		title: 'L1 misses',			desc: desc_l1,		unity: 'ms',		cat: 'locality',	attr: 'l1',		color: colours.list.lRed },
-		l2:		{ label: 'loading from L3',		title: 'L2 misses',			desc: desc_l2,		unity: 'ms',		cat: 'locality',	attr: 'l2',		color: colours.list.eRed },
-		l3:		{ label: 'loading from RAM',	title: 'L3 misses',			desc: desc_l3,		unity: 'ms',		cat: 'locality',	attr: 'l3',		color: colours.list.dRed },
+		l1:		{ label: 'loading from L2',		title: 'L1 misses',			desc: desc_l1,		unity: 'ms',		cat: 'locality',	attr: 'l1',		color: colours.list.lOrange },
+		l2:		{ label: 'loading from L3',		title: 'L2 misses',			desc: desc_l2,		unity: 'ms',		cat: 'locality',	attr: 'l2',		color: colours.list.eOrange },
+		l3:		{ label: 'loading from RAM',	title: 'L3 misses',			desc: desc_l3,		unity: 'ms',		cat: 'locality',	attr: 'l3',		color: colours.list.dOrange },
 		hpf:	{ label: 'Swapping',			title: 'Swapping',			desc: desc_hpf,		unity: 'ms',		cat: 'locality',	attr: 'hpf',	color: colours.list.black },
 		
 		s:		{ label: 'switches',			title: 'context switches',	desc: desc_s,		list: 'switches',	cat: 'switches',	attr: 's',		color: colours.list.eGrey,		fcolor: colours.list.dGrey,		gcolor: colours.list.lGrey },
