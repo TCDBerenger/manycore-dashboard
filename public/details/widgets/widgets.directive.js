@@ -1213,6 +1213,7 @@ app.directive('chartThreads', function() {
 		r.meta.thread_Height = 12;
 		r.meta.tick_Height = 8;
 		r.meta.period_Height = 6;
+		r.meta.tickgroup_halfHeight = 1;
 
 		// Redraw
 		function repaint() {
@@ -1274,14 +1275,49 @@ app.directive('chartThreads', function() {
 						});
 					}
 					
+					// Draw group ticks
+					if (r.deck.ticks && r.meta.groupTicks) {
+						r.deck.ticks.forEach(function(deck) {
+							if (profile.currentData.threads.ticks[thread.h] && profile.currentData.threads.ticks[thread.h][deck.attr]) {
+								var ticksData = profile.currentData.threads.ticks[thread.h][deck.attr];
+								var points = [[], []];
+								
+								// Init the tick position
+								var tickIndex = 0;
+								while (tickIndex < ticksData.length && ticksData[tickIndex] < r.meta.begin) tickIndex++;
+								
+								if (tickIndex < ticksData.length) {
+									var capacity = profile.hardware.calibration[deck.attr] * r.meta.timeGroup;
+									
+									var tickCount, delta;
+									for (var t = r.meta.begin; t <= r.meta.end; t += r.meta.timeGroup) {
+										tickCount = 0;
+										while (tickIndex < ticksData.length && ticksData[tickIndex] < (t + r.meta.timeGroup)) {
+											tickCount++;
+											tickIndex++;
+										}
+										delta = tickCount * r.meta.tickgroup_halfHeight / capacity;
+										points[0].push.apply(points[0], [r.scaleX(t), threadY + delta, r.scaleX(t + r.meta.timeGroup), threadY + delta]);
+										points[1].push.apply(points[1], [r.scaleX(t), threadY - delta, r.scaleX(t + r.meta.timeGroup), threadY - delta]);
+									}
+									
+									r.groupP[index].append("polygon")
+										.attr('class', "svg-limit")
+										.attr("points", p2s(points[0], points[1]))
+										.attr("fill", deck.color);
+								}
+							}
+						});
+					}
+					
 					// Draw ticks
 					if (r.deck.ticks && ! r.meta.disableTicks) {
-						var ticksData = profile.currentData.threads.ticks;
+						var ticksData = profile.currentData.threads.ticks[thread.h];
 						var lastTick;
 						r.deck.ticks.forEach(function(deck) {
-							if (ticksData[thread.h] && ticksData[thread.h][deck.attr]) {
+							if (ticksData && ticksData[deck.attr]) {
 								lastTick = -1;
-								ticksData[thread.h][deck.attr].forEach(function (t) {
+								ticksData[deck.attr].forEach(function (t) {
 									if (t != lastTick && t >= r.meta.begin && t <= r.meta.end) {
 										r.groupP[index].append('line')
 											.attr('class', 'svg-thread svg-thread-tick')
