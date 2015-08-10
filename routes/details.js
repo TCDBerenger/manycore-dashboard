@@ -17,37 +17,25 @@ var profiles = require('./common/profiles.common.js');
 /************************************************/
 /**
 	output
-	 ├	frames					<array>		list of time frames
+	 ├	info
+	 │	 ├	cores				<integer>	number of cores
+	 │	 ├	threads				<integer>	number of threads handlable by CPU (i.e. in hyperthreading: twice cores)
+	 │	 ├	timeStep			<integer>	time between each frame in ms (10⁻³s) (probably: 50 ms)
+	 │	 ├	timeMin				<integer>	first time frame in ms (10⁻³s)
+	 │	 ├	timeMax				<integer>	last time frame in ms (10⁻³s)
+	 │	 └	duration			<integer>	how long is the run
+	 ├	times					<array>		list of time frames
 	 │	 ├	0
-	 │	 │	 ├	timeRelative	<integer>	time in ms (10⁻³s), identiral to frame<id>
-	 │	 │	 ├	sumCycles		<integer>	number of cycles
-	 │	 │	 ├	sumRunning		<integer>	number of cycles for running state
-	 │	 │	 ├	sumReady		<integer>	number of cycles for ready state
-	 │	 │	 ├	countRunning	<integer>	number of threads in running state
-	 │	 │	 └	countReady		<integer>	number of threads in ready state
+	 │	 │	 ├	r				<integer>	time (in ms) spending in state running
+	 │	 │	 ├	yb				<integer>	time (in ms) spending in states ready and standby
+	 │	 │	 ├	w				<integer>	time (in ms) spending in state waiting (all reasons)
+	 │	 │	 ├	lw				<integer>	time (in ms) spending in state waiting for a lock aquisition
+	 │	 │	 ├	uu				<integer>	time (in ms) idle (cores)
+	 │	 │	 └	sys				<integer>	time (in ms) keeping by the OS
 	 │	 │	...
 	 │	 └	<timeMax>
-	 ├	cycles					<array>		list of cycles by frams
-	 │	 ├	0
-	 │	 │	 ├	t				<integer>	time in ms (10⁻³s), identiral to frame<id>
-	 │	 │	 └	c				<integer>	number of cycles
-	 │	 │	...
-	 │	 └	<timeMax>
-	 ├	lifetimes
-	 │	 ├	list				<array>		list of migrations, ordered by start time
-	 │	 │	 ├	0
-	 │	 │	 │	 └	h			ID	thread ID
-	 │	 │	 │	 └	s			<integer>	start time in ms (10⁻³s), real time, not a time frame
-	 │	 │	 │	 └	m			[]			array of time migrations, ordered by time, real time, not a time frame
-	 │	 │	 │	 └	e			<integer>	end time in ms (10⁻³s), real time, not a time frame
-	 │	 │	 │	...
-	 │	 │	 └	<info.threadCount * 2>
-	 ├	migrations
-	 │	 └	list				<array>		list of migrations
-	 │		 ├	0
-	 │		 │	 └	t			<integer>	time in ms (10⁻³s), real time, not a frame time
-	 │		 │	...
-	 │		 └	<stats.migrations.m>
+	 ├	switches				<array>		list of switch event times (in ms)
+	 ├	migrations				<array>		list of migration event times (in ms)
 	 ├	states					<array>		list of states by frams
 	 │	 ├	0
 	 │	 │	 ├	t				<integer>	time in ms (10⁻³s), identiral to frame<id>
@@ -55,33 +43,33 @@ var profiles = require('./common/profiles.common.js');
 	 │	 │	 └	yb				<integer>	number of threads in ready or standby state /!\ false state /!\
 	 │	 │	...
 	 │	 └	<timeMax>
-	 ├	switches
-	 │	 ├	frames				<array>		switches by frames, ordered by start time
+	 ├	threads
+	 │	 ├	info
 	 │	 │	 ├	0
-	 │	 │	 │	 ├	t				<integer>	time in ms (10⁻³s), identiral to frame<id>
-	 │	 │	 │	 └	s				<integer>	number of switches
+	 │	 │	 │	 ├ h			<integer>	thread id
+	 │	 │	 │	 ├ s			<integer>	time (in ms) thread starts
+	 │	 │	 │	 └ e			<integer>	time (in ms) thread ends
 	 │	 │	 │	...
-	 │	 │	 └	<timeMax>
-	 │	 └	list				<array>		list of switches
-	 │		 ├	0
-	 │		 │	 └	t			<integer>	time in ms (10⁻³s), real time, not a frame time
-	 │		 │	...
-	 │		 └	<stats.migrations.m>
-	 ├	times					<array>		list of state times by frams
-	 │	 ├	0
-	 │	 │	 ├	t				<integer>	time in ms (10⁻³s), identiral to frame<id>
-	 │	 │	 ├	r				<integer>	duration in ms for running state
-	 │	 │	 └	yb				<integer>	duration in ms for ready and standby state
+	 │	 │	 └	<thread max>
 	 │	 │	...
-	 │	 └	<timeMax>
-	 ├	info
-	 │	 ├	cores				<integer>	number of cores (not physically in hyper threading case)
-	 │	 ├	timeShift			<integer>	time before starting measures (i.e. non interesting computation before this time) /!\ in pico seconds (10⁻¹²s) /!\ need to be divided by 10⁹
-	 │	 ├	timeStep			<integer>	time between each frame in ms (10⁻³s) (probably: 50 ms)
-	 │	 ├	timeMin				<integer>	first time frame in ms (10⁻³s)
-	 │	 ├	timeMax				<integer>	last time frame in ms (10⁻³s)
-	 │	 ├	duration			<integer>	how long is the run
-	 │	 └	threadCount			<integer>	number of (unique) threads
+	 │	 ├	ticks
+	 │	 │	 ├	<h>				<integer>	thread id
+	 │	 │	 │	 ├ m			<array>		list of migration event times (in ms)
+	 │	 │	 │	 ├ ls			<array>		list of lock acquisition success event times (in ms)
+	 │	 │	 │	 └ lf			<array>		list of lock acquisition failure event times (in ms)
+	 │	 │	 │	...
+	 │	 │	 └	<thread max>
+	 │	 └	periods
+	 │		 ├	<h>				<integer>	thread id
+	 │		 │	 ├ m			<array>		list of migration periods (core attachment)
+	 │		 │	 │	 ├ s		<integer>	time (in ms) thread starts
+	 │		 │	 │	 ├ c		<integer>	color id (core id)
+	 │		 │	 │	 └ e		<integer>	time (in ms) thread ends
+	 │		 │	 └ lw			<array>		list of lock acquisition waiting periods
+	 │		 │		 ├ s		<integer>	time (in ms) thread starts
+	 │		 │		 └ e		<integer>	time (in ms) thread ends
+	 │		 │	...
+	 │		 └	<thread max>
 	 └	stats
 		 ├	
 		 ├	s					<interger>	number of switches
@@ -97,18 +85,15 @@ var profiles = require('./common/profiles.common.js');
 		 │	 └	m				<integer>	number of migrations
 		 ├	switches
 		 │	 └	s				<integer>	number of switches
-		 ├	times
-		 │	 ├	r				<integer>	duration in ms for running state
-		 │	 ├	y				<integer>	duration in ms for ready state
-		 │	 ├	w				<integer>	duration in ms for waiting state
-		 │	 ├	b				<integer>	duration in ms for standby state
-		 │	 └	yb				<integer>	duration in ms for ready or standby state /!\ false state /!\
-		 └	states
-			 ├	r				<integer>	number of cycles for running state
-			 ├	y				<integer>	number of cycles for ready state
-			 ├	w				<integer>	number of cycles for waiting state
-			 └	b				<integer>	number of cycles for standby state
+		 └	times
+		 	 ├	r				<integer>	duration in ms for running state
+		 	 ├	y				<integer>	duration in ms for ready state
+		 	 ├	w				<integer>	duration in ms for waiting state
+		 	 ├	b				<integer>	duration in ms for standby state
+		 	 └	yb				<integer>	duration in ms for ready or standby state /!\ false state /!\
  */
+
+
 /**
  * Add common stats
  */
@@ -177,105 +162,20 @@ function addMigrations(output, id) {
 	};
 }
 
-/**
- * Add lifetimes
- */
-function addLifetimes(output, id) {
-	// Init vars
-	var data			= profiles[id].data;
-	output.lifetimes	= {
-		list: []
-	};
-
-	var m_complete;
-	for(var h in data.lifecycle) {
-		m_complete = data.lifecycle[h].m.slice(0);
-		// Remove start
-		if (m_complete[0] ==  data.lifecycle[h].s)						m_complete.shift();
-		// Remove end
-		if (m_complete[m_complete.length - 1] ==  data.lifecycle[h].e)	m_complete.pop();
-
-		// Add start
-		// if (m_complete[0] !=  data.lifecycle[h].s)						m_complete.unshift(data.lifecycle[h].s);
-		// Add end
-		// if (m_complete[m_complete.length - 1] !=  data.lifecycle[h].e)	m_complete.push(data.lifecycle[h].e);
-
-		output.lifetimes.list.push({
-			h: +h,
-			s: data.lifecycle[h].s,
-			m: m_complete,
-			e: data.lifecycle[h].e,
-		});
-	};
-
-	// Sort - by start time
-	output.lifetimes.list.sort(function(a, b){return a.s - b.s});
-
-	// Stats
-	output.stats.lifetimes = {
-	};
-}
 
 /**
- * Add cycles
+ * Add times spending in thread of core states
  */
-function addCycles(output, id) {
+function addTimes(output, id, properties) {
 	// Init vars
-	var data		= profiles[id].data;
-	output.cycles	= [];
-
-	// Loop vars
-	var statSumCycles, sumCycles;
-
-	// Init stats vars
-	statSumCycles = 0;
-	
-	// Count threads availables
-	for (var timeID = 0; timeID <= data.info.timeMax; timeID+= data.info.timeStep) {
-
-		// If the time frame exists
-		if (data.threads.byFrames.hasOwnProperty(timeID)) {
-
-			// Reinit counters
-			sumCycles = 0;
-
-			// Count among all threads
-			for (var threadID in data.threads.byFrames[timeID]) {
-				if (data.threads.byFrames[timeID].hasOwnProperty(threadID)) {
-					// Sum cycles by time frame
-					sumCycles += data.threads.byFrames[timeID][threadID].cycles;
-				}
-			}
-
-		} else {
-			// Failed sums
-			sumCycles = NaN;
-		}
-
-		// Sum cycles globally
-		statSumCycles += sumCycles;
-
-		// Output
-		output.cycles.push({
-			t:		timeID,
-			c:		sumCycles,
-		});
-
-	};
-
-	// Stats
-	output.stats.cycles = {
-		cycles:		statSumCycles,
-	};
-}
-
-/**
- * Add cycles
- */
-function addTime(output, id) {
-	// Init vars
-	var data = profiles[id].data;
 	var max;
+	var data =	profiles[id].data;
+	var isR =	properties.indexOf('r') >= 0;
+	var isYB =	properties.indexOf('yb') >= 0;
+	var isW =	properties.indexOf('w') >= 0;
+	var isLW =	properties.indexOf('lw') >= 0;
+	var isUU =	properties.indexOf('uu') >= 0;
+	var isSYS =	properties.indexOf('sys') >= 0;
 	
 	// Init return
 	output.times = {};
@@ -283,22 +183,25 @@ function addTime(output, id) {
 	// Add times
 	max = data.info.threads * data.info.timeStep;
 	for (var timeID = 0; timeID <= data.info.timeMax; timeID+= data.info.timeStep) {
-		output.times[timeID] = {
-			r:	Math.round(data.frames[timeID].running),
-			yb:	Math.round(data.frames[timeID].ready + data.frames[timeID].standby),
-//			uu:	Math.round(data.frames[timeID].idle),
-			sys:	Math.round(max - data.frames[timeID].running - data.frames[timeID].idle)
-		};
+		output.times[timeID] = {};
+		if (isR)	output.times[timeID].r =	Math.round(data.frames[timeID].running);
+		if (isYB)	output.times[timeID].yb =	Math.round(data.frames[timeID].ready + data.frames[timeID].standby);
+		if (isW)	output.times[timeID].w =	Math.round(data.frames[timeID].wait);
+		if (isLW)	output.times[timeID].lw =	Math.round(data.frames[timeID].lock_wait);
+		if (isUU)	output.times[timeID].uu =	Math.round(data.frames[timeID].idle);
+		if (isSYS)	output.times[timeID].sys =	Math.round(max - data.frames[timeID].running - data.frames[timeID].idle);
 	}
 
 	// Stats
 	max = data.info.threads * (data.info.timeMax + data.info.timeStep);
 	output.stats.times = {
-		r:	Math.round(data.stats.running),
-		y:	Math.round(data.stats.ready),
-		b:	Math.round(data.stats.standby),
-		yb:	Math.round(data.stats.ready + data.stats.standby),
-		uu:	Math.round(data.stats.idle),
+		r:		Math.round(data.stats.running),
+		y:		Math.round(data.stats.ready),
+		b:		Math.round(data.stats.standby),
+		yb:		Math.round(data.stats.ready + data.stats.standby),
+		w:		Math.round(data.stats.wait),
+		lw:		data.stats.lock_wait,
+		uu:		Math.round(data.stats.idle),
 		sys:	Math.round(max - data.stats.running - data.stats.idle)
 	};
 }
@@ -441,13 +344,11 @@ function addLocality(output, id, simplified) {
  */
 function addLocks(output, id) {
 	// Init vars
-	var data		= profiles[id].data;
-	var max;
+	var data = profiles[id].data;
 	
 	// Init return
 	output.slocks	= [];
 	output.flocks	= [];
-	if (! output.hasOwnProperty('times')) output.times = {};
 
 	// List lock success
 	data.lock_success.forEach(function(lock) {
@@ -459,32 +360,11 @@ function addLocks(output, id) {
 		output.flocks.push(lock.t);
 	});
 
-	// Add times
-	max = data.info.threads * data.info.timeStep;
-	for (var timeID = 0; timeID <= data.info.timeMax; timeID+= data.info.timeStep) {
-		output.times[timeID] = {
-			r:	Math.round(data.frames[timeID].running),
-			w:	Math.round(data.frames[timeID].wait),
-			lw:	Math.round(data.frames[timeID].lock_wait),
-//			uu:	Math.round(data.frames[timeID].idle),
-			sys:	Math.round(max - data.frames[timeID].running - data.frames[timeID].idle)
-		};
-	}
-
 	// Stats
 	output.stats.locks = {
 		ls:	data.stats.lock_success,
 		lf:	data.stats.lock_failure,
 		lw:	data.stats.lock_wait
-	};
-	// Stats
-	max = data.info.threads * (data.info.timeMax + data.info.timeStep);
-	output.stats.times = {
-		r:	Math.round(data.stats.running),
-		w:	Math.round(data.stats.wait),
-		lw:	data.stats.lock_wait,
-		uu:	Math.round(data.stats.idle),
-		sys:	Math.round(max - data.stats.running - data.stats.idle)
 	};
 }
 
@@ -547,7 +427,7 @@ function jsonTG(profile, id) {
 	addCommon(output, id);
 
 	// for potential parallelism
-	addTime(output, id);
+	addTimes(output, id, ['r', 'yb', 'sys']);
 
 	// for context switches
 	addSwitches(output, id);
@@ -556,7 +436,6 @@ function jsonTG(profile, id) {
 	addMigrations(output, id);
 
 	// for lifetimes
-	addLifetimes(output, id); // TO REMOVE
 	addThreadTicks(output, id, ['m']);
 	addThreadPeriods(output, id, ['m']);
 
@@ -578,6 +457,7 @@ function jsonSY(profile, id) {
 
 	// Add locks
 	addLocks(output, id);
+	addTimes(output, id, ['r', 'lw', 'sys']);
 	
 	// Add ticks
 	addThreadTicks(output, id, ['ls', 'lf']);
@@ -627,8 +507,10 @@ function jsonLB(profile, id) {
 	addMigrations(output, id);
 
 	// for potential parallelism
-	addTime(output, id);
-	addStates(output, id);
+	addTimes(output, id, ['r', 'yb', 'lw', 'sys']);
+
+	// Add locks
+	addLocks(output, id);
 
 	return output;
 }
