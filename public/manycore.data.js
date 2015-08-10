@@ -236,8 +236,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				ticks:		[facets.ls, facets.lf],
 				periods:	[facets.lw],
 			},
-			data : [],
-			legend : [],
+			data : [facets.lw],
+			legend : [facets.ls, facets.lf],
 			clues: [],
 			settings: [
 				{ property: 'disableTicks', value: false, type: 'flag', label: 'Disable ticks' },
