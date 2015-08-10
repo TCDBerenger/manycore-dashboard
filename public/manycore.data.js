@@ -287,7 +287,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 	var tg = {
 		tag: 'tg', cat: 'tg', label: 'Task granularity', title: 'Task granularity', icon: 'tasks', enabled: true,
 		strips: [strips.yb, strips.uu],
-		gauges: [[facets.r, facets.uu, facets.yb], [facets.s, facets.m]],
+		gauges: [[facets.uu, facets.yb], [facets.s, facets.m]], /* facets.r, */
 		widgets: [widgets.threadStates, widgets.threadSwitchs, widgets.threadMigrations, widgets.threadLifetime]
 	};
 	var sy = {
@@ -311,7 +311,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 	var dl = {
 		tag: 'dl', cat: 'dl', label: 'Data locality', title: 'Data locality', icon: 'location-arrow', enabled: true,
 		strips: [strips.miss],
-		gauges: [[facets.ipc, facets.miss]],
+		gauges: [[facets.miss]], /* facets.ipc, */
 		widgets: [widgets.cacheMisses]
 	};
 	var rs = {
