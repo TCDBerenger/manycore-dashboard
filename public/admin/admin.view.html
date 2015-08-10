@@ -16,7 +16,7 @@
 <div class="row admin"><div class="col-xs-12">
 <tabset>
 	<span class="tab-title">Admin area</span>
-	<tab>
+	<tab disable="isWaiting()">
 		<tab-heading><i class="fa fa-history"></i> Changelog</tab-heading>
 		<div class="row">
 		
@@ -100,11 +100,11 @@
 		
 		</div>
 	</tab>
-	<tab>
+	<tab disable="isWaiting()">
 		<tab-heading><i class="fa fa-sliders"></i> Global Settings</tab-heading>
 		TODO
 	</tab>
-	<tab select="loadCacheVersions()">
+	<tab disable="isWaiting()" select="loadCacheVersions()">
 		<tab-heading><i class="fa fa-database"></i> Cache versions</tab-heading>
 		<div ng-if="! versions_loaded" class="jumbotron"><p>
 			<span class="block-icon fa-stack">
@@ -167,7 +167,7 @@
 			</div>
 		</div>
 	</tab>
-	<tab select="loadStats()">
+	<tab disable="isWaiting()" select="loadStats()">
 		<tab-heading><i class="fa fa-table"></i> Raw data</tab-heading>
 		<div ng-if="! stats_loaded" class="jumbotron"><p>
 			<span class="block-icon fa-stack">
@@ -179,7 +179,7 @@
 		<div ng-if="stats_loaded" class="row">
 			<div class="col-sm-12">
 				<button type="button" class="btn btn-info" ng-click="reloadStats()" ng-disabled="waiting"><i class="fa fa-refresh"></i> refresh statistics</button>
-				<button type="button" class="btn btn-danger" ng-click="resetCache('all')" ng-disabled="waiting"><i class="fa fa-eraser"></i> Force rebuild all caches</button>
+				<!--<button type="button" class="btn btn-danger" ng-click="resetCache('all')" ng-disabled="waiting"><i class="fa fa-eraser"></i> Force rebuild all caches</button>-->
 			</div>
 			<div class="col-sm-6">
 				<h2>Context switches &amp; migrations</h2>
