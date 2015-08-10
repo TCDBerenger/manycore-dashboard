@@ -137,9 +137,6 @@ function addCommon(output, id) {
 		hpf:	data.stats.hpf
 	};
 
-	// Calibration
-	output.calibration = {};
-
 	// Threads
 	output.threads = {info: []};
 	for(var h in data.lifecycle) {
@@ -161,9 +158,6 @@ function addSwitches(output, id) {
 	// Data
 	output.switches = profiles[id].data.events.s;
 
-	// Calibration
-	output.calibration.switches = profiles[id].hardware.calibration.switches;
-
 	// Stats
 	output.stats.switches = {
 		s: profiles[id].data.stats.switches
@@ -176,9 +170,6 @@ function addSwitches(output, id) {
 function addMigrations(output, id) {
 	// Data
 	output.migrations = profiles[id].data.events.m;
-
-	// Calibration
-	output.calibration.migrations = profiles[id].hardware.calibration.migrations;
 
 	// Stats
 	output.stats.migrations = {

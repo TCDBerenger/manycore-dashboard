@@ -42,11 +42,7 @@ var hardRoman = {
 		s:	1,				// number of switches by ms by core
 		m: 0.3,				// number of migrations by ms by core
 		ls: 0.01,			// number of success lock acquisition by ms by core
-		lf: 0.003,			// number of failure lock acquisition by ms by core
-		switches:	1,		// TO REMOVE - number of switches by ms by core
-		migrations: 0.3,	// TO REMOVE - number of migrations by ms by core
-		lock_success: 0.01,	// TO REMOVE - number of success lock acquisition by ms by core
-		lock_failure: 0.003	// TO REMOVE - number of failure lock acquisition by ms by core
+		lf: 0.003			// number of failure lock acquisition by ms by core
 	}
 };
 

@@ -139,10 +139,10 @@ function addGauges(output, profile) {
 	});
 	
 	// Add calibrations
-	[	{ l: 's', v: data.stats.switches, c: profile.hardware.calibration.switches, n: 3 },
-		{ l: 'm', v: data.stats.switches, c: profile.hardware.calibration.migrations, n: 3 },
-		{ l: 'ls', v: data.stats.lock_success, c: profile.hardware.calibration.lock_success, n: 4 },
-		{ l: 'lf', v: data.stats.lock_failure, c: profile.hardware.calibration.lock_failure, n: 4 },
+	[	{ l: 's', v: data.stats.switches, c: profile.hardware.calibration.s, n: 3 },
+		{ l: 'm', v: data.stats.switches, c: profile.hardware.calibration.m, n: 3 },
+		{ l: 'ls', v: data.stats.lock_success, c: profile.hardware.calibration.ls, n: 4 },
+		{ l: 'lf', v: data.stats.lock_failure, c: profile.hardware.calibration.lf, n: 4 },
 	].forEach(function(item) {
 		max = (data.info.timeMax + data.info.timeStep) * data.info.threads * item.c;
 		output.gauges[item.l] = {

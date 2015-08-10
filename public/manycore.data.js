@@ -133,9 +133,9 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				v:			[facets.s],
 				limit:		limit,
 				limitLabel:	'calib.',
-				expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.switches; },
-				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.switches * 2; },
-				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.switches; }
+				expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s; },
+				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s * 2; },
+				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s; }
 			},
 			data : [facets.s],
 			legend : [],
@@ -151,9 +151,9 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				v:		[facets.m],
 				limit:		limit,
 				limitLabel:	'calib.',
-				expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.migrations; },
-				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.migrations * 2; },
-				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.migrations; }
+				expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m; },
+				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m * 2; },
+				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m; }
 			},
 			data : [facets.m],
 			legend : [],
@@ -182,10 +182,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			graph : {
 				v:			[facets.ls, facets.lf],
 				limit:		limit_th,
-				limitLabel:	'threads',
-				expected:	function(profile) { return profile.currentData.stats.h; },
-				displayed:	function(profile) { return profile.currentData.stats.h + 2; },
-				vStep:		function(profile) { return profile.currentData.stats.h; }
+				limitLabel:	'calib.',
+				expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf); },
+				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf) * 2; },
+				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf); }
 			},
 			data : [facets.ls, facets.lf],
 			legend : [],
