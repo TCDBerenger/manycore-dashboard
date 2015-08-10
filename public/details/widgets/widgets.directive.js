@@ -916,7 +916,7 @@ app.directive('chartUnits', function() {
 			if (v == r.meta.vExpected[index])
 				return r.deck.limitLabel;
 			else
-				return (v / r.meta.vExpected[index]) + '×';
+				return Math.round(v / r.meta.vExpected[index]) + '×';
 		}
 
 		// Redraw
