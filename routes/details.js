@@ -473,9 +473,9 @@ function addLocks(output, id) {
 
 	// Stats
 	output.stats.locks = {
-		s:	data.stats.lock_success,
-		f:	data.stats.lock_failure,
-		w:	data.stats.lock_wait
+		ls:	data.stats.lock_success,
+		lf:	data.stats.lock_failure,
+		lw:	data.stats.lock_wait
 	};
 	// Stats
 	max = data.info.threads * (data.info.timeMax + data.info.timeStep);
