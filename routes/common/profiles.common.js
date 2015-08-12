@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 56;
+var VERSION = 57;
 
 /************************************************/
 /* Variables - hardwares						*/
@@ -298,6 +298,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			timeMax:		0
 		},
 		stats: {
+			idle:			0,
 			switches:		0,
 			migrations:		0,
 			starts:			0,
@@ -314,6 +315,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			m:				[]
 		},
 		periods: {
+			cores:			{},
 			threads:		{}
 		},
 		switches: [],
@@ -331,10 +333,10 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 				hpf:		0
 			}
 		},
-		lock_success: [],
-		lock_failure: [],
+		lock_success:		[],
+		lock_failure:		[],
 		threads: {
-			byFrames: {}
+			byFrames:		{}
 		}
 	};
 
@@ -446,8 +448,9 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			// Sum by frame
 			data.frames[timeEvent].idle += element.value;
 
-			// Auto build structure
-			if (! data.stats.hasOwnProperty('idle')) data.stats.idle = 0;
+			// Save by core (no sum) by frame
+			if (! data.frames[timeEvent].c.hasOwnProperty(element.cid)) data.frames[timeEvent].c[element.cid] = { idle: element.value };
+			else data.frames[timeEvent].c[element.cid].idle = element.value;
 
 			// Sum by stat (with auto build structure)
 			data.stats.idle += element.value;

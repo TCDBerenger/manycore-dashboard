@@ -207,6 +207,31 @@ function addTimes(output, id, properties) {
 }
 
 /**
+ * Add times spending by core states
+ */
+function addCoreTimes(output, id, properties) {
+	// Init vars
+	var data =	profiles[id].data;
+	var isUU =	properties.indexOf('uu') >= 0;
+	
+	// Init return
+	output.cores = {};
+	
+	for (var cid = 0; cid < profiles[id].hardware.data.threads; cid++) {
+		output.cores[cid] = {};
+	}
+
+	// Add times
+	for (var timeID = 0; timeID <= data.info.timeMax; timeID+= data.info.timeStep) {
+		for (var cid = 0; cid < profiles[id].hardware.data.threads; cid++) {
+			output.cores[cid][timeID] = {};
+			
+			if (isUU)	output.cores[cid][timeID].uu =	Math.round(data.frames[timeID].c[cid].idle);
+		}
+	}
+}
+
+/**
  * Add data-locality data
  */
 function addLocality(output, id, simplified) {
@@ -407,8 +432,9 @@ function jsonLB(profile, id) {
 	// for migrations
 	addMigrations(output, id);
 
-	// for potential parallelism
+	// Add times
 	addTimes(output, id, ['r', 'yb', 'lw', 'sys']);
+	addCoreTimes(output, id, ['uu']);
 
 	// Add locks
 	addLocks(output, id);

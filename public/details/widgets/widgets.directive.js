@@ -1359,3 +1359,103 @@ app.directive('chartThreads', function() {
 		restrict: 'E'
 	}
 });
+
+
+
+/**
+ * Cores
+ */
+app.directive('chartCores', function() {
+
+	function chart_link(scope, element, attrs, controller) {
+		console.log("== directive == chartCores ==");
+
+		// Init vars
+		var r = directive_init(scope, element, attrs, LAYOUT_FH_NULL, true, true);
+
+		// Enhance meta
+		r.meta.cores = r.profiles[0].hardware.data.threads;
+		r.meta.core_Height = 12;
+		r.meta.period_halfHeight = 4;
+
+		// Redraw
+		function repaint() {
+			// Repaint container
+			directive_repaint_container(r);
+
+			// Repaint scales
+			directive_repaint_scales(r, [0, r.meta.vMinDisplay[0]], [0, r.meta.vMinDisplay[1]]);
+
+			// Repaint graphical elements
+			directive_repaint_xAxis(r);
+
+			// Main draw
+			var profileData, vLabels;
+			var groupHeight, coreY;
+			r.profiles.forEach(function(profile, index) {
+				// Clean
+				r.groupP[index].selectAll('*').remove();
+				vLabels = [];
+
+				// Data
+				profileData = profile.currentData;
+				groupHeight = r.meta.cores * r.meta.core_Height;
+				
+				// Draw cores
+				for (var cid = 0; cid < r.meta.cores; cid++) {
+					coreY = (index == 0) ? (cid + .5) * r.meta.core_Height - groupHeight : (cid + .5) * r.meta.core_Height;
+					
+					// Draw basic core
+					r.groupP[index].append('line')
+						.attr('class', "svg-core svg-core-line")
+						.attr('x1', r.scaleX(r.meta.begin))
+						.attr('x2', r.scaleX(r.meta.ends[index]))
+						.attr('y1', coreY).attr('y2', coreY)
+						.attr('stroke', r.deck.h.color)
+						.attr('stroke-width', 1);
+					
+					// Save label
+					vLabels.push({ l: 'core ' + cid, v: coreY });
+					
+					// Draw periods
+					if (r.deck.periods && ! r.meta.disablePeriods) {
+						var periodsData = profileData.cores[cid];
+						r.deck.periods.forEach(function(deck) {
+							var points = [[], []];
+							var timeStep = profileData.info.timeStep;
+							var delta;
+							for (var frameID = r.meta.begin; frameID < r.meta.ends[index]; frameID += timeStep) {
+								delta = periodsData[frameID][deck.attr] * r.meta.period_halfHeight / timeStep;
+								points[0].push.apply(points[0], [r.scaleX(frameID), coreY + delta, r.scaleX(frameID + timeStep), coreY + delta]);
+								points[1].push.apply(points[1], [r.scaleX(frameID), coreY - delta, r.scaleX(frameID + timeStep), coreY - delta]);
+							}
+							r.groupP[index].append("polygon")
+								.attr('class', "svg-limit")
+								.attr("points", p2s(points[0], points[1]))
+								.attr("fill", deck.color);
+						});
+					}
+				};
+				r.meta.vOverflow[index] = groupHeight;
+
+				// Value axis
+				directive_repaint_VCustomAxis(r, index, r.deck.h, vLabels);
+			});
+
+			// Post-treatment
+			directive_repaint_post(r);
+		}
+
+		// Select
+		function select(x) {
+		}
+
+		// Bind
+		directive_bind(scope, element, r, repaint, select);
+	}
+
+	return {
+		link: chart_link,
+		restrict: 'E'
+	}
+});
