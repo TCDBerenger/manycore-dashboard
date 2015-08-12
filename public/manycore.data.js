@@ -278,6 +278,14 @@ app.factory('strips', ['facets', function(facets) {
 
 
 app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, strips, facets) {
+	var yb =	JSON.parse(JSON.stringify(facets.yb));
+	var lw =	JSON.parse(JSON.stringify(facets.lw));
+	var miss =	JSON.parse(JSON.stringify(facets.miss));
+	
+	yb.shift = true;
+	lw.shift = true;
+	miss.shift = true;
+	
 	var common = {
 		label: 'Profile', title: 'Profile', icon: 'heartbeat',
 		strips: [strips.r],
@@ -287,13 +295,13 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 	var tg = {
 		tag: 'tg', cat: 'tg', label: 'Task granularity', title: 'Task granularity', icon: 'tasks', enabled: true,
 		strips: [strips.yb, strips.uu],
-		gauges: [[facets.uu, facets.yb], [facets.s, facets.m]], /* facets.r, */
+		gauges: [[yb, facets.uu], [facets.s, facets.m]], /* facets.r, */
 		widgets: [widgets.threadStates, widgets.threadSwitchs, widgets.threadMigrations, widgets.threadLifetime]
 	};
 	var sy = {
 		tag: 'sy', cat: 'sy', label: 'Synchronisation', title: 'Synchronisation', icon: 'cutlery', enabled: true,
 		strips: [strips.lw],
-		gauges: [[facets.lw], [facets.ls, facets.lf]],
+		gauges: [[lw], [facets.ls, facets.lf]],
 		widgets: [widgets.lockCounts, widgets.lockContentions, widgets.threadLocks]
 	};
 	var ds = {
@@ -311,7 +319,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 	var dl = {
 		tag: 'dl', cat: 'dl', label: 'Data locality', title: 'Data locality', icon: 'location-arrow', enabled: true,
 		strips: [strips.miss],
-		gauges: [[facets.miss]], /* facets.ipc, */
+		gauges: [[miss]], /* facets.ipc, */
 		widgets: [widgets.cacheMisses]
 	};
 	var rs = {
