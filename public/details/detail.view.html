@@ -1,11 +1,11 @@
 <!-- Waiting -->
-<div class="row detail" ng-if="isWaiting()"><div class="col-xs-12 waiting"><div class="block">
+<div class="row" ng-if="isWaiting()"><div class="col-xs-12 waiting"><div class="block">
 	<i class="fa fa-spinner fa-pulse"></i>
 	<strong>Retrieving data...</strong>
 </div></div></div>
 
 <!-- Display data -->
-<div class="row detail" ng-if="! isWaiting()">
+<div class="row" ng-if="! isWaiting()">
 	<div class="col-xs-12 profile">
 		<h2>{{meta.label}}</h2> for
 		<span>{{profiles[0].label}}</span>
@@ -83,7 +83,7 @@
 			</div>
 		</span>
 		<span ng-if="profiles.length > 1">{{profiles[1].label}}</span>
-
+		<!--
 		<div class="row profile" ng-repeat="(iw, widget) in meta.widgets" ng-init="createSettings(widget)">
 			<div class="col-xs-{{layout.colXS.graph}} col-sm-{{layout.colSM.graph}} col-md-{{layout.comMD.graph}} col-lg-{{layout.colLG.graph}} profile-graph">
 				<div class="profile-title">
@@ -103,7 +103,98 @@
 				<div ng-include="'/details/aside/aside.view.html'"></div>
 			</div>
 		</div>
+		-->
 	</div>
+	
+	<div class="col-xs-12 profile" ng-repeat="(iw, widget) in meta.widgets" ng-init="createSettings(widget)">
+		<div class="row">
+			<div class="col-xs-{{layout.colXS.graph}} col-sm-{{layout.colSM.graph}} col-md-{{layout.comMD.graph}} col-lg-{{layout.colLG.graph}}">
+				<tabset>
+					<h4>{{widget.title}}</h4>
+					<tab>
+						<tab-heading><i class="fa fa-bar-chart"></i> graph</tab-heading>
+					</tab>
+					<tab disable="isOutofVersion(widget)">
+						<tab-heading><i class="fa fa-info-circle"></i> legend</tab-heading>
+						<p>{{widget.subtitle}}</p>
+						<p> ... </p>
+					</tab>
+					<tab disable="isOutofVersion(widget) || widget.deck.clues.length == 0">
+						<tab-heading><i class="fa fa-medkit"></i> help</tab-heading>
+						<!--<p class="clues-label">
+							Clues about troubleshooting:
+						</p>-->
+						<ul class="legend-list" style="font-size: 0.85em;">
+							<li id="cli{{widget.id}}{{$index}}" ng-repeat="clue in widget.deck.clues">
+								<style>#cli{{widget.id}}{{$index}}:before { content: "▮ "; color: {{clue.color}}; }</style>
+								<strong>{{clue.tax}}</strong>: {{clue.text}}
+							</li>
+						</ul>
+					</tab>
+					<tab disable="isOutofVersion(widget) || widget.deck.settings.length == 0">
+						<tab-heading><i class="fa fa-sliders"></i> settings</tab-heading>
+						<div class="settings" ng-repeat="setting in widget.deck.settings">
+							<div class="setting setting-range" ng-if="setting.type == 'range'">
+								<label>{{setting.label}}:</label>
+								<input type="range" ng-model="widget.settings[setting.property]" min="{{::setting.min}}" max="{{::setting.max}}" step="{{::setting.step}}" ng-disabled="widget.settings[setting.depends] === false" />
+								[<span>{{widget.settings[setting.property]}}</span>] <span>{{setting.unit}}</span>
+							</div>
+							<div class="setting setting-flag" ng-if="setting.type == 'flag'">
+								<label>{{setting.label}}:</label>
+								<input type="checkbox" ng-model="widget.settings[setting.property]" ng-disabled="widget.settings[setting.depends] === false" />
+							</div>
+						</div>
+					</tab>
+				</tabset>
+				<div ng-if="isOutofVersion(widget)">
+					<span class="fa-stack fa-lg fa-2x">
+						<i class="fa fa-database fa-stack-1x"></i>
+						<i class="fa fa-ban fa-stack-2x text-info"></i>
+					</span>
+					<strong>Data missing !</strong>
+				</div>
+				<div ng-if="isUpToVersion(widget)" class="profile-body" ng-include="'/details/widgets/' + widget.file + '.widget.html'"></div>
+			</div>
+			<div ng-if="isUpToVersion(widget)" class="col-xs-{{layout.colXS.data}} col-sm-{{layout.colSM.data}} col-md-{{layout.comMD.data}} col-lg-{{layout.colLG.data}} profile-data aside">
+				<table class="table table-striped table-hover table-legend">
+					<thead>
+						<tr>
+							<th></th>
+							<th colspan="2" ng-repeat="profile in profiles">{{profile.label}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="(i, e) in widget.deck.data | reverse">
+							<td class="legend-col-label">
+								<span class="legend-dot" style="color: {{e.color}}" ng-if="e.colors == null">▮</span>
+								<span class="legend-dot" ng-if="e.colors != null">
+									<span style="color: {{e.colors[0]}}">◤</span>
+									<span style="color: {{e.colors[1]}}">◢</span>
+								</span>
+								<strong>{{e.title}}</strong>: {{e.desc}}
+							</td>
+							<td class="legend-col-p1">{{data[profiles[0].id].stats[e.cat][e.attr] | number: 0}}{{e.unity != null | iif : ' ' + e.unity : ''}}</td>
+							<td class="legend-col-stats" class="container-graph" rowspan="{{widget.deck.data.length}}" colspan="{{profiles.length}}" ng-if="i == 0">
+								<chart-stats class="integrated-graph"></chart-stats>
+							</td>
+							<td class="legend-col-p2" ng-if="profiles.length >= 2">{{data[profiles[1].id].stats[e.cat][e.attr] | number: 0}}{{e.unity != null | iif : ' ' + e.unity : ''}}</td>
+						</tr>
+						<tr ng-repeat="(i, e) in widget.deck.legend">
+							<td class="legend-col-label" colspan="{{1 + 2 * profiles.length}}">
+								<span class="legend-dot" style="color: {{e.color}}" ng-if="e.colors == null">▮</span>
+								<span class="legend-dot" ng-if="e.colors != null">
+									<span style="color: {{e.colors[0]}}">◤</span>
+									<span style="color: {{e.colors[1]}}">◢</span>
+								</span>
+								<strong>{{e.title}}</strong>: {{e.desc}}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	
 	<!--
 	<div class="col-xs-3 facets">
 		<div class="well well-sm">

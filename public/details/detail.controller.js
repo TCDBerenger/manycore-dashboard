@@ -92,6 +92,20 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		$scope.$broadcast('xEvent', NaN);
 	};
 	
+	/**
+	 * Version - is too old
+	 */
+	$scope.isOutofVersion = function(widget) {
+		return widget.v > profiles[0].version || widget.v > profiles[1].version;
+	};
+	
+	/**
+	 * Version - is new enough
+	 */
+	$scope.isUpToVersion = function(widget) {
+		return widget.v <= profiles[0].version && (profiles.length == 1 || widget.v <= profiles[1].version);
+	};
+
 
 	/************************************************/
 	/* Generator - Graphical						*/

@@ -1,6 +1,10 @@
 /*
  * Detail
  */
+.detail {
+	padding: 0px 20px 0px 20px !important;
+	transition: .2s linear all;
+}
 .detail h2 {
 	margin-top: 0px;
 	padding-right: 20px;
@@ -136,4 +140,17 @@
 .detail .waiting .block {
 	margin-top: 150px;
 	font-size: 3em;
+}
+
+
+/*
+ * Widget
+ */
+.detail .profile h4 {
+	float: left;
+	margin-right: 40px;
+}
+.detail .profile .tab-pane + .tab-pane {
+	padding: 10px 0px 15px 0px;
+	border-bottom: 1px solid #DDD;
 }
