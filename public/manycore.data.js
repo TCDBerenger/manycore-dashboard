@@ -307,13 +307,13 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 	var ds = {
 		tag: 'ds', cat: 'ds', label: 'Data sharing', title: 'Data sharing', icon: 'share-alt', enabled: true,
 		strips: [],
-		gauges: [],
+		gauges: [[lw, miss]],
 		widgets: [widgets.lockContentions, widgets.cacheInvalid, widgets.cacheMisses]
 	};
 	var lb = {
 		tag: 'lb', cat: 'lb', label: 'Load balancing', title: 'Load balancing', icon: 'code-fork', enabled: true,
 		strips: [],
-		gauges: [],
+		gauges: [[lw, facets.uu], [facets.m]],
 		widgets: [widgets.coreInactivity, widgets.lockContentions, widgets.threadMigrations, widgets.threadStates, widgets.threadPaths, widgets.threadChains]
 	};
 	var dl = {
