@@ -1375,8 +1375,7 @@ app.directive('chartCores', function() {
 
 		// Enhance meta
 		r.meta.cores = r.profiles[0].hardware.data.threads;
-		r.meta.core_Height = 12;
-		r.meta.period_halfHeight = 4;
+		r.meta.core_Height = 12; // scope.widget.deck.settings[0].max
 
 		// Redraw
 		function repaint() {
@@ -1425,7 +1424,7 @@ app.directive('chartCores', function() {
 							var timeStep = profileData.info.timeStep;
 							var delta;
 							for (var frameID = r.meta.begin; frameID < r.meta.ends[index]; frameID += timeStep) {
-								delta = periodsData[frameID][deck.attr] * r.meta.period_halfHeight / timeStep;
+								delta = periodsData[frameID][deck.attr] * r.meta.periodHeight / 2 / timeStep;
 								points[0].push.apply(points[0], [r.scaleX(frameID), coreY + delta, r.scaleX(frameID + timeStep), coreY + delta]);
 								points[1].push.apply(points[1], [r.scaleX(frameID), coreY - delta, r.scaleX(frameID + timeStep), coreY - delta]);
 							}

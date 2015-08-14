@@ -242,7 +242,9 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			data : [facets.uu],
 			legend : [],
 			clues: [],
-			settings: []
+			settings: [
+				{ property: 'periodHeight', value: 9, type: 'range', label: 'Inactivity height', unit: 'pixels', min: 6, max: 12, step: 1 }
+			]
 		},
 	};
 }]);
