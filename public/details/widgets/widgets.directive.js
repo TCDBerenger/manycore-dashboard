@@ -1363,21 +1363,21 @@ app.directive('chartThreads', function() {
 
 
 /**
- * Cores
+ * Lines
  */
-app.directive('chartCores', function() {
+app.directive('chartLines', function() {
 
 	function chart_link(scope, element, attrs, controller) {
-		console.log("== directive == chartCores ==");
+		console.log("== directive == chartLines ==");
 
 		// Init vars
 		var r = directive_init(scope, element, attrs, LAYOUT_FH_NULL, true, true);
 
 		// Enhance meta
-		r.meta.cores = r.profiles[0].hardware.data.threads;
-		r.meta.core_Height = 12; // scope.widget.deck.settings[0].max
+		r.meta.lineHeight = 12; // scope.widget.deck.settings[0].max
 
 		// Redraw
+		var lines;
 		function repaint() {
 			// Repaint container
 			directive_repaint_container(r);
@@ -1389,56 +1389,58 @@ app.directive('chartCores', function() {
 			directive_repaint_xAxis(r);
 
 			// Main draw
-			var profileData, vLabels;
-			var groupHeight, coreY;
+			var profileData, melodyData;
+			var groupHeight, lineY;
 			r.profiles.forEach(function(profile, index) {
 				// Clean
 				r.groupP[index].selectAll('*').remove();
-				vLabels = [];
 
 				// Data
+				lines = r.deck.lines(profile, r.meta.begin, r.meta.ends[index]);
 				profileData = profile.currentData;
-				groupHeight = r.meta.cores * r.meta.core_Height;
+				groupHeight = lines.length * r.meta.lineHeight;
 				
-				// Draw cores
-				for (var cid = 0; cid < r.meta.cores; cid++) {
-					coreY = (index == 0) ? (cid + .5) * r.meta.core_Height - groupHeight : (cid + .5) * r.meta.core_Height;
+				// Expand graph
+				r.meta.vOverflow[index] = groupHeight;
+				
+				// Draw lines
+				lines.forEach(function(line, line_index) {
+					lineY = (index == 0) ? (line_index + .5) * r.meta.lineHeight - groupHeight : (line_index + .5) * r.meta.lineHeight;
+					
+					// Save position
+					line.v = lineY;
 					
 					// Draw basic core
 					r.groupP[index].append('line')
-						.attr('class', "svg-core svg-core-line")
-						.attr('x1', r.scaleX(r.meta.begin))
-						.attr('x2', r.scaleX(r.meta.ends[index]))
-						.attr('y1', coreY).attr('y2', coreY)
+						.attr('class', "svg-data svg-data-line")
+						.attr('x1', r.scaleX(line.s))
+						.attr('x2', r.scaleX(line.e))
+						.attr('y1', lineY).attr('y2', lineY)
 						.attr('stroke', r.deck.h.color)
 						.attr('stroke-width', 1);
 					
-					// Save label
-					vLabels.push({ l: 'core ' + cid, v: coreY });
-					
-					// Draw periods
-					if (r.deck.periods && ! r.meta.disablePeriods) {
-						var periodsData = profileData.cores[cid];
-						r.deck.periods.forEach(function(deck) {
+					// Draw melody
+					var delta;
+					if (r.deck.melody && ! r.meta.disableMelody) {
+						r.deck.melody.forEach(function(deck) {
 							var points = [[], []];
 							var timeStep = profileData.info.timeStep;
-							var delta;
+							melodyData = profileData[deck.cat][line.id];
 							for (var frameID = r.meta.begin; frameID < r.meta.ends[index]; frameID += timeStep) {
-								delta = periodsData[frameID][deck.attr] * r.meta.periodHeight / 2 / timeStep;
-								points[0].push.apply(points[0], [r.scaleX(frameID), coreY + delta, r.scaleX(frameID + timeStep), coreY + delta]);
-								points[1].push.apply(points[1], [r.scaleX(frameID), coreY - delta, r.scaleX(frameID + timeStep), coreY - delta]);
+								delta = melodyData[frameID][deck.attr] * r.meta.melodyHeight / 2 / timeStep;
+								points[0].push.apply(points[0], [r.scaleX(frameID), lineY + delta, r.scaleX(frameID + timeStep), lineY + delta]);
+								points[1].push.apply(points[1], [r.scaleX(frameID), lineY - delta, r.scaleX(frameID + timeStep), lineY - delta]);
 							}
 							r.groupP[index].append("polygon")
-								.attr('class', "svg-limit")
+								.attr('class', "svg-data svg-data-melody")
 								.attr("points", p2s(points[0], points[1]))
 								.attr("fill", deck.color);
 						});
 					}
-				};
-				r.meta.vOverflow[index] = groupHeight;
-
+				});
+				
 				// Value axis
-				directive_repaint_VCustomAxis(r, index, r.deck.h, vLabels);
+				directive_repaint_VCustomAxis(r, index, r.deck.h, lines);
 			});
 
 			// Post-treatment

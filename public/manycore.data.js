@@ -1,3 +1,5 @@
+/* global app */
+
 app.factory('colours', [function() {
 	var list = {
 		black:		'#000000',		white:		'#FFFFFF',
@@ -91,12 +93,34 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			default:	return (v * 100) + ' %';
 		}
 	}
+	
+	function buildThreads(profile, begin, end) {
+		var lines = []
+		profile.currentData.threads.info.forEach(function(thread) {
+			lines.push({
+				id: thread.h,
+				l: thread.h,
+				s: Math.max(thread.s, begin),
+				e: (thread.e) ? Math.min(thread.e, end) : end
+			});
+		});
+		return lines;
+	}
+	function buildCores(profile, begin, end) {
+		var lines = []
+		for (var l = 0; l < profile.hardware.data.threads; l++)
+			lines.push({ id: l, l: 'core ' + l, s: begin, e: end });
+		return lines;
+	}
 
 	var limit = 	{ color: colours.list.eGrey, fcolor: colours.list.dGrey, gcolor: colours.list.lGrey,	expected: function(profile) { return 100; },																displayed: function(profile) { return 110; } };
 	var limit_th = 	{ color: limit.color, fcolor: limit.fcolor, gcolor: limit.gcolor, label: 'threads',		expected: function(profile) { return profile.currentData.stats.h; },										displayed: function(profile) { return profile.currentData.stats.h + 2; } };
 
-	var mg2 =		JSON.parse(JSON.stringify(facets.m));
-	mg2.colors = ['#b6e3bc', '#b6e3da', '#b6cee3', '#bcb6e3', '#dab6e3', '#e3b6ce', '#e3bcb6', '#e3dab6'];
+	var uu =	JSON.parse(JSON.stringify(facets.uu));
+	var m =		JSON.parse(JSON.stringify(facets.m));
+	
+	uu.cat = 'cores';
+	m.colors = ['#b6e3bc', '#b6e3da', '#b6cee3', '#bcb6e3', '#dab6e3', '#e3b6ce', '#e3bcb6', '#e3dab6'];
 
 	return {
 		states: {
@@ -202,7 +226,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			graph : {
 				h:			limit,		// threads (color)
 				ticks:		[facets.m],
-				periods:	[mg2],
+				periods:	[m],
 			},
 			data : [facets.m],
 			legend : [],
@@ -237,13 +261,36 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		inactivity: {
 			graph : {
 				h:			limit,		// threads (color)
-				periods:	[facets.uu],
+				lines:		buildCores,
+				melody:		[uu],
 			},
 			data : [facets.uu],
 			legend : [],
 			clues: [],
 			settings: [
-				{ property: 'periodHeight', value: 9, type: 'range', label: 'Inactivity height', unit: 'pixels', min: 6, max: 12, step: 1 }
+				{ property: 'melodyHeight', value: 9, type: 'range', label: 'Inactivity height', unit: 'pixels', min: 6, max: 12, step: 1 }
+			]
+		},
+		paths: {
+			graph : {
+				h:			limit,		// color
+				lines:		buildThreads,
+			},
+			data : [],
+			legend : [],
+			clues: [],
+			settings: [
+			]
+		},
+		chains: {
+			graph : {
+				h:			limit,		// color
+				lines:		buildThreads,
+			},
+			data : [],
+			legend : [],
+			clues: [],
+			settings: [
 			]
 		},
 	};
@@ -254,13 +301,13 @@ app.factory('widgets', ['decks', function(decks) {
 	return {
 		cacheInvalid:		{ id: 10,	v: 3, file: 'generic-to-delete',	deck: null,					tag: 'cache-invalid',		title: 'Cache misses from updating shared data',				subtitle: ''},
 		cacheMisses:		{ id: 11,	v: 3, file: 'chart-percent',		deck: decks.locality,		tag: 'cache-misses',		title: 'Cache misses',											subtitle: ''},
-		coreInactivity:		{ id: 5,	v: 3, file: 'chart-cores',			deck: decks.inactivity,		tag: 'core-idle',			title: 'Idle cores',											subtitle: ''},
+		coreInactivity:		{ id: 5,	v: 3, file: 'chart-lines',			deck: decks.inactivity,		tag: 'core-idle',			title: 'Idle cores',											subtitle: ''},
 		lockCounts:			{ id: 12,	v: 4, file: 'chart-units',			deck: decks.counts,			tag: 'lock-counts',			title: 'Lock contentions',										subtitle: 'lock failure versus lock acquisition'},
 		lockContentions:	{ id: 9,	v: 4, file: 'chart-capacity',		deck: decks.contentions,	tag: 'lock-contentions',	title: 'Time waiting for a lock',								subtitle: 'waiting for ressources'},
-		threadPaths:		{ id: 1,	v: 3, file: 'generic-to-delete',	deck: null,					tag: 'thread-paths',		title: 'Single thread execution phases',						subtitle: 'alternating sequential/parallel execution'},
-		threadChains:		{ id: 2,	v: 3, file: 'generic-to-delete',	deck: null,					tag: 'thread-chains',		title: 'Chains of dependencies',								subtitle: 'synchronisations and waiting between threads'},
-		threadLifetime:		{ id: 3,	v: 3, file: 'chart-threads',		deck: decks.migrationLT,		tag: 'thread-facets.r',		title: 'Life states of threads',								subtitle: 'creation, running, moving between cores, termination'},
-		threadLocks:		{ id: 4,	v: 4, file: 'chart-threads',		deck: decks.lockLT,					tag: 'thread-locks',		title: 'Waiting for locks',										subtitle: ''},
+		threadPaths:		{ id: 1,	v: 3, file: 'chart-lines',			deck: decks.paths,			tag: 'thread-paths',		title: 'Single thread execution phases',						subtitle: 'alternating sequential/parallel execution'},
+		threadChains:		{ id: 2,	v: 3, file: 'chart-lines',			deck: decks.chains,			tag: 'thread-chains',		title: 'Chains of dependencies',								subtitle: 'synchronisations and waiting between threads'},
+		threadLifetime:		{ id: 3,	v: 3, file: 'chart-threads',		deck: decks.migrationLT,	tag: 'thread-facets.r',		title: 'Life states of threads',								subtitle: 'creation, running, moving between cores, termination'},
+		threadLocks:		{ id: 4,	v: 4, file: 'chart-threads',		deck: decks.lockLT,			tag: 'thread-locks',		title: 'Waiting for locks',										subtitle: ''},
 		threadStates:		{ id: 6,	v: 3, file: 'chart-capacity',		deck: decks.states,			tag: 'thread-states',		title: 'Potential parallelism',									subtitle: 'number of running threads compared to number of cores'},
 		threadMigrations:	{ id: 7,	v: 3, file: 'chart-units',			deck: decks.migrations,		tag: 'thread-migrations',	title: 'Thread switching the core on which it is executing',	subtitle: 'thread migrations'},
 		threadSwitchs:		{ id: 8,	v: 3, file: 'chart-units',			deck: decks.switches,		tag: 'thread-switchs',		title: 'Core swhitching the thread it is executing',			subtitle: 'thread switches'},
