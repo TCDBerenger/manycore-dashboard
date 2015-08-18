@@ -1,4 +1,14 @@
 /*
+ * Profiling - aside
+ */
+.aside th {
+	height: 43px;
+	border-bottom-width: 1px;
+}
+
+
+
+/*
  * Tabs
  */
 .aside .nav-tabs a {

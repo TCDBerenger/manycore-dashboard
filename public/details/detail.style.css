@@ -142,23 +142,3 @@
 	font-size: 3em;
 }
 
-
-/*
- * Profiling
- */
-.detail .profiling h4 {
-	float: left;
-	margin-right: 40px;
-}
-.detail .profiling .tab-pane + .tab-pane {
-	padding: 10px 0px 15px 0px;
-	border-bottom: 1px solid #DDD;
-}
-
-/*
- * Profiling - aside
- */
-.detail .profiling .aside th {
-	height: 43px;
-	border-bottom-width: 1px;
-}

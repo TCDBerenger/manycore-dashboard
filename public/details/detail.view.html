@@ -106,54 +106,10 @@
 		-->
 	</div>
 	
-	<div class="col-xs-12 profiling" ng-repeat="(iw, widget) in meta.widgets" ng-init="createSettings(widget)">
+	<div class="col-xs-12 widget" ng-repeat="(iw, widget) in meta.widgets" ng-init="createSettings(widget)">
 		<div class="row">
-			<div class="col-xs-{{layout.colXS.graph}} col-sm-{{layout.colSM.graph}} col-md-{{layout.comMD.graph}} col-lg-{{layout.colLG.graph}}">
-				<tabset>
-					<h4>{{widget.title}}</h4>
-					<tab>
-						<tab-heading><i class="fa fa-bar-chart"></i> graph</tab-heading>
-					</tab>
-					<tab disable="isOutofVersion(widget)">
-						<tab-heading><i class="fa fa-info-circle"></i> legend</tab-heading>
-						<p>{{widget.subtitle}}</p>
-						<p> ... </p>
-					</tab>
-					<tab disable="isOutofVersion(widget) || widget.deck.clues.length == 0">
-						<tab-heading><i class="fa fa-medkit"></i> help</tab-heading>
-						<!--<p class="clues-label">
-							Clues about troubleshooting:
-						</p>-->
-						<ul class="legend-list" style="font-size: 0.85em;">
-							<li id="cli{{widget.id}}{{$index}}" ng-repeat="clue in widget.deck.clues">
-								<style>#cli{{widget.id}}{{$index}}:before { content: "▮ "; color: {{clue.color}}; }</style>
-								<strong>{{clue.tax}}</strong>: {{clue.text}}
-							</li>
-						</ul>
-					</tab>
-					<tab disable="isOutofVersion(widget) || widget.deck.settings.length == 0">
-						<tab-heading><i class="fa fa-sliders"></i> settings</tab-heading>
-						<div class="settings" ng-repeat="setting in widget.deck.settings">
-							<div class="setting setting-range" ng-if="setting.type == 'range'">
-								<label>{{setting.label}}:</label>
-								<input type="range" ng-model="widget.settings[setting.property]" min="{{::setting.min}}" max="{{::setting.max}}" step="{{::setting.step}}" ng-disabled="widget.settings[setting.depends] === false" />
-								[<span>{{widget.settings[setting.property]}}</span>] <span>{{setting.unit}}</span>
-							</div>
-							<div class="setting setting-flag" ng-if="setting.type == 'flag'">
-								<label>{{setting.label}}:</label>
-								<input type="checkbox" ng-model="widget.settings[setting.property]" ng-disabled="widget.settings[setting.depends] === false" />
-							</div>
-						</div>
-					</tab>
-				</tabset>
-				<div ng-if="isOutofVersion(widget)">
-					<span class="fa-stack fa-lg fa-2x">
-						<i class="fa fa-database fa-stack-1x"></i>
-						<i class="fa fa-ban fa-stack-2x text-info"></i>
-					</span>
-					<strong>Data missing !</strong>
-				</div>
-				<div ng-if="isUpToVersion(widget)" class="profile-body" ng-include="'/details/widgets/' + widget.file + '.widget.html'"></div>
+			<div class="col-xs-{{layout.colXS.graph}} col-sm-{{layout.colSM.graph}} col-md-{{layout.comMD.graph}} col-lg-{{layout.colLG.graph}} widgets">
+				<div ng-include="'/details/widgets/widgets.view.html'"></div>
 			</div>
 			<div ng-if="isUpToVersion(widget)" class="col-xs-{{layout.colXS.data}} col-sm-{{layout.colSM.data}} col-md-{{layout.comMD.data}} col-lg-{{layout.colLG.data}} aside">
 				<div ng-include="'/details/aside/aside.view.html'"></div>

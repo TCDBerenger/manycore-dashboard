@@ -46,27 +46,27 @@ app.factory('facets', ['colours', function(colours) {
 	var desc_lf = 'number of lock acquisition failure';
 
 	return {
-		r:		{ label: 'executing',		title: 'Thread executing',				desc: desc_r,		unity: 'ms',		cat: 'times',		attr: 'r',		color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
-		y:	 	{ label: 'ready',			title: 'Thread ready to run',			desc: desc_y,		unity: 'ms',		cat: 'times',		attr: 'y',		color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed },
-		b:	 	{ label: 'standby',			title: 'Thread on standby to execute',	desc: desc_b,		unity: 'ms',		cat: 'times',		attr: 'b',		color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed },
-		yb: 	{ label: 'ready',			title: 'Thread ready to execute',		desc: desc_y,		unity: 'ms',		cat: 'times',		attr: 'yb',		color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed },
-		w: 		{ label: 'waiting',			title: 'Waiting',						desc: desc_w,		unity: 'ms',		cat: 'times',		attr: 'w',		color: colours.list.eOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange },
-		lw:		{ label: 'lock waiting',	title: 'Thread waiting for lock',		desc: desc_lw,		unity: 'ms',		cat: 'times',		attr: 'lw',		color: colours.list.eYellow,	fcolor: colours.list.dYellow,	gcolor: colours.list.lYellow },
-		uu: 	{ label: 'idle core',		title: 'Core is idle',					desc: desc_uu,		unity: 'ms',		cat: 'times',		attr: 'uu',		color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.lBlue },
-		sys: 	{ label: 'system',			title: 'Core occupied by other program',desc: desc_sys,		unity: 'ms',		cat: 'times',		attr: 'sys',	color: colours.list.white,		fcolor: colours.list.lGrey,		gcolor: colours.list.white },
+		r:		{ label: 'executing',		title: 'Thread executing',				desc: desc_r,	unity: 'ms',	cat: 'times',	attr: 'r',		color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
+		y:	 	{ label: 'ready',			title: 'Thread ready to run',			desc: desc_y,	unity: 'ms',	cat: 'times',	attr: 'y',		color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed },
+		b:	 	{ label: 'standby',			title: 'Thread on standby to execute',	desc: desc_b,	unity: 'ms',	cat: 'times',	attr: 'b',		color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed },
+		yb: 	{ label: 'ready',			title: 'Thread ready to execute',		desc: desc_y,	unity: 'ms',	cat: 'times',	attr: 'yb',		color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed },
+		w: 		{ label: 'waiting',			title: 'Waiting',						desc: desc_w,	unity: 'ms',	cat: 'times',	attr: 'w',		color: colours.list.eOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange },
+		lw:		{ label: 'lock waiting',	title: 'Thread waiting for lock',		desc: desc_lw,	unity: 'ms',	cat: 'times',	attr: 'lw',		color: colours.list.eYellow,	fcolor: colours.list.dYellow,	gcolor: colours.list.lYellow },
+		uu: 	{ label: 'idle core',		title: 'Core is idle',					desc: desc_uu,	unity: 'ms',	cat: 'times',	attr: 'uu',		color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.lBlue },
+		sys: 	{ label: 'system',			title: 'Core occupied by other program',desc: desc_sys,	unity: 'ms',	cat: 'times',	attr: 'sys',	color: colours.list.white,		fcolor: colours.list.lGrey,		gcolor: colours.list.white },
 	
-		ipc:	{ label: 'executed',		title: 'Instructions per clock cycle',		desc: desc_ipc,		unity: 'ms',		cat: 'locality',	attr: 'ipc',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
-		miss:	{ label: 'Cache misses',	title: 'Time spent on locality misses',		desc: desc_miss,	unity: 'ms',		cat: 'locality',	attr: 'miss',	color: colours.list.eOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange },
-		tlb:	{ label: 'TLB misses',		title: 'Address translation (TLB) misses',	desc: desc_tlb,		unity: 'ms',		cat: 'locality',	attr: 'tlb',	color: colours.list.lGrey },
-		l1:		{ label: 'L1 misses',		title: 'Level 1 cache miss',				desc: desc_l1,		unity: 'ms',		cat: 'locality',	attr: 'l1',		color: colours.list.lOrange },
-		l2:		{ label: 'L2 misses',		title: 'Level 2 cache miss',				desc: desc_l2,		unity: 'ms',		cat: 'locality',	attr: 'l2',		color: colours.list.eOrange },
-		l3:		{ label: 'L3 misses',		title: 'Level 3 cache miss',				desc: desc_l3,		unity: 'ms',		cat: 'locality',	attr: 'l3',		color: colours.list.dOrange },
-		hpf:	{ label: 'Swapping',		title: 'Swapping to disk',					desc: desc_hpf,		unity: 'ms',		cat: 'locality',	attr: 'hpf',	color: colours.list.black },
+		ipc:	{ label: 'executed',		title: 'Instructions per clock cycle',		desc: desc_ipc,		unity: 'ms',	cat: 'locality',	attr: 'ipc',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
+		miss:	{ label: 'Cache misses',	title: 'Time spent on locality misses',		desc: desc_miss,	unity: 'ms',	cat: 'locality',	attr: 'miss',	color: colours.list.eOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange },
+		tlb:	{ label: 'TLB misses',		title: 'Address translation (TLB) misses',	desc: desc_tlb,		unity: 'ms',	cat: 'locality',	attr: 'tlb',	color: colours.list.lGrey },
+		l1:		{ label: 'L1 misses',		title: 'Level 1 cache miss',				desc: desc_l1,		unity: 'ms',	cat: 'locality',	attr: 'l1',		color: colours.list.lOrange },
+		l2:		{ label: 'L2 misses',		title: 'Level 2 cache miss',				desc: desc_l2,		unity: 'ms',	cat: 'locality',	attr: 'l2',		color: colours.list.eOrange },
+		l3:		{ label: 'L3 misses',		title: 'Level 3 cache miss',				desc: desc_l3,		unity: 'ms',	cat: 'locality',	attr: 'l3',		color: colours.list.dOrange },
+		hpf:	{ label: 'Swapping',		title: 'Swapping to disk',					desc: desc_hpf,		unity: 'ms',	cat: 'locality',	attr: 'hpf',	color: colours.list.black },
 		
-		s:		{ label: 'switches',		title: 'Context switches',			desc: desc_s,		list: 'switches',	cat: 'switches',	attr: 's',		color: colours.list.eGrey,		fcolor: colours.list.dGrey,		gcolor: colours.list.lGrey },
-		m:		{ label: 'migrations',		title: 'Thread migrations',			desc: desc_m,		list: 'migrations',	cat: 'migrations',	attr: 'm',		color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.lViolet },
-		ls:		{ label: 'lock success',	title: 'Lock without contention',	desc: desc_ls,		list: 'slocks',		cat: 'locks',		attr: 'ls',		color: colours.list.eTurquoise,	fcolor: colours.list.dTurquoise,gcolor: colours.list.lTurquoise },
-		lf:		{ label: 'lock failure',	title: 'Lock with contention',		desc: desc_lf,		list: 'flocks',		cat: 'locks',		attr: 'lf',		color: colours.list.eFuschia,	fcolor: colours.list.dFuschia,	gcolor: colours.list.lFuschia },
+		s:		{ label: 'switches',		title: 'Context switches',			desc: desc_s,	list: 'switches',	unity: 'events',	cat: 'switches',	attr: 's',		color: colours.list.eGrey,		fcolor: colours.list.dGrey,		gcolor: colours.list.lGrey },
+		m:		{ label: 'migrations',		title: 'Thread migrations',			desc: desc_m,	list: 'migrations',	unity: 'events',	cat: 'migrations',	attr: 'm',		color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.lViolet },
+		ls:		{ label: 'lock success',	title: 'Lock without contention',	desc: desc_ls,	list: 'slocks',		unity: 'events',	cat: 'locks',		attr: 'ls',		color: colours.list.eTurquoise,	fcolor: colours.list.dTurquoise,gcolor: colours.list.lTurquoise },
+		lf:		{ label: 'lock failure',	title: 'Lock with contention',		desc: desc_lf,	list: 'flocks',		unity: 'events',	cat: 'locks',		attr: 'lf',		color: colours.list.eFuschia,	fcolor: colours.list.dFuschia,	gcolor: colours.list.lFuschia },
 	};
 }]);
 
@@ -92,8 +92,18 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		}
 	}
 
-	var limit = 	{ color: colours.list.eGrey, fcolor: colours.list.dGrey, gcolor: colours.list.lGrey,	expected: function(profile) { return 100; },																displayed: function(profile) { return 110; } };
-	var limit_th = 	{ color: limit.color, fcolor: limit.fcolor, gcolor: limit.gcolor, label: 'threads',		expected: function(profile) { return profile.currentData.stats.h; },										displayed: function(profile) { return profile.currentData.stats.h + 2; } };
+	var limit = 	{ color: colours.list.eGrey, fcolor: colours.list.dGrey, gcolor: colours.list.lGrey };
+	var text = 		{ color: colours.list.black, fcolor: colours.list.black, gcolor: colours.list.black };
+	
+	var a_threads =		JSON.parse(JSON.stringify(limit));
+	a_threads.title =	'Threads';
+	a_threads.desc =	'vertical list of thread\'s identifier';
+	var a_uu =		JSON.parse(JSON.stringify(facets.uu));
+	a_uu.title =	'CPU';
+	a_uu.desc =		'capacity of thread executing by the cores';
+	var a_cores =	JSON.parse(JSON.stringify(text));
+	a_cores.title =	'cores';
+	a_cores.desc =	'below CPU it represents core capacity, above CPU it is in equivalent core';
 
 	var mg2 =		JSON.parse(JSON.stringify(facets.m));
 	mg2.colors = ['#b6e3bc', '#b6e3da', '#b6cee3', '#bcb6e3', '#dab6e3', '#e3b6ce', '#e3bcb6', '#e3dab6'];
@@ -108,6 +118,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			data : [facets.r, facets.uu, facets.y, facets.b],
 			legend : [facets.sys],
+			texts : [a_uu, a_cores],
 			clues: [
 				{ color: colours.bad,	tax: 'Oversubscription', 							text: 'too many threads' },
 				{ color: colours.bad,	tax: 'Thread migrations', 							text: 'too many threads' },
@@ -115,7 +126,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ color: colours.plus,	tax: 'Underscubscription', 							text: 'not enough threads' }
 			],
 			settings: [
-				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core' }
+				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core', desc: 'average of core activity among thread states' }
 			]
 		},
 		switches: {
@@ -171,7 +182,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		counts: {
 			graph : {
 				v:			[facets.ls, facets.lf],
-				limit:		limit_th,
+				limit:		limit,
 				limitLabel:	'calib.',
 				expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf); },
 				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf) * 2; },
@@ -195,7 +206,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			legend : [facets.sys],
 			clues: [],
 			settings: [
-				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core' }
+				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core', desc: 'average of core activity among thread states' }
 			]
 		},
 		migrationLT: {
@@ -206,6 +217,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			data : [facets.m],
 			legend : [],
+			texts: [a_threads],
 			clues: [
 				{ color: colours.unkn,	tax: 'Task start/stop overhead',					text: 'too many creations' },
 				{ color: colours.alt,	tax: 'Oversubscription',							text: 'too many threads' },
