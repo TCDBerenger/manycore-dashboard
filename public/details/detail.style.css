@@ -144,13 +144,21 @@
 
 
 /*
- * Widget
+ * Profiling
  */
-.detail .profile h4 {
+.detail .profiling h4 {
 	float: left;
 	margin-right: 40px;
 }
-.detail .profile .tab-pane + .tab-pane {
+.detail .profiling .tab-pane + .tab-pane {
 	padding: 10px 0px 15px 0px;
 	border-bottom: 1px solid #DDD;
+}
+
+/*
+ * Profiling - aside
+ */
+.detail .profiling .aside th {
+	height: 43px;
+	border-bottom-width: 1px;
 }
