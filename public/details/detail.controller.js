@@ -142,13 +142,17 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	/* Generator - Stats							*/
 	/************************************************/
 	function createStats(widget) {
+		// Prerequite (to remove when finished)
+		if (! widget.deck || ! widget.deck.data)
+			return (profiles.length == 1) ? { values: [[0]], sums: [0], maxSum: 0 } : { values: [[0], [0]], sums: [0, 0], maxSum: 0 };
+		
 		var sums = (profiles.length == 1) ? [0] : [0, 0];
 		var values = (profiles.length == 1) ? [[]] : [[], []];
 		
 		var value;
 		profiles.forEach(function(profile, index) {
 			widget.deck.data.forEach(function(facet) {
-				value = profile.currentData.stats[facet.cat][facet.attr];
+				value = Math.round(profile.currentData.stats[facet.cat][facet.attr]);
 				values[index].push({
 					previous: sums[index],
 					value: value,
@@ -172,7 +176,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		}
 		
 		return {
-			values : values,
+			values: values,
 			sums: sums,
 			maxSum: Math.max.apply(this, sums)
 		}

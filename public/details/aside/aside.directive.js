@@ -12,8 +12,8 @@ var statLayout = function() {
 	var self = this;
 	
 	// Constants
-	this.stacks =		{ width: 10, padding: 1 };
-	this.percents =		{ width: 3, padding: 4 };
+	this.stacks =		{ width: 10, padding: 4 };
+	this.percents =		{ width: 3, padding: 1 };
 	this.lineHeight =	40;
 
 	// Compute
