@@ -320,8 +320,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					failID: 0
 				}
 			},
-			data : [],
-			legend : [],
+			data : [facets.ls, facets.lf],
+			legend : [facets.lw],
 			clues: [],
 			settings: [
 			]
