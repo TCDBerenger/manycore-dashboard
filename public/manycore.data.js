@@ -28,47 +28,47 @@ app.factory('colours', [function() {
 
 
 app.factory('facets', ['colours', function(colours) {
-	var desc_r = 'threads are excuted';
-	var desc_y = 'threads are waiting a core but none available; threads are prepared to run on the next available core';
-	var desc_b = 'threads exiting the ready stack to run on an available core';
+	var desc_r = 'thread is actively executing';
+	var desc_y = 'thread is ready to run but is is waiting for a core to become available';
+	var desc_b = 'thread is ready to execute and is on standby to be executed';
 	var desc_w = 'threads are not ready to be processed because they waiting ressource(s)';
-	var desc_lw = 'threads are not ready to be processed because they waiting lock(s)';
-	var desc_uu = 'processor is available (idle)';
+	var desc_lw = 'threads are not ready to be processed because they waiting t oacquire a lock';
+	var desc_uu = 'no thread running on core';
 	var desc_sys = 'processor is used by the OS';
 	var desc_ipc = 'executing';
 	var desc_miss = '';
 	var desc_tlb = 'address translation';
-	var desc_l1 = 'loading data from L2';
-	var desc_l2 = 'loading data from L3';
+	var desc_l1 = 'loading data from L2 cache';
+	var desc_l2 = 'loading data from L3 cache';
 	var desc_l3 = 'loading data from RAM';
 	var desc_hpf = 'hard page faults';
-	var desc_s = 'cores switching the working thread';
+	var desc_s = 'cores switching from one thread to another';
 	var desc_m = 'thread migrates to another core';
 	var desc_ls = 'number of lock acquisition success';
 	var desc_lf = 'number of lock acquisition failure';
 
 	return {
-		r:		{ label: 'threads running',		title: 'running',			desc: desc_r,		unity: 'ms',		cat: 'times',		attr: 'r',		color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
-		y:	 	{ label: 'threads ready',		title: 'ready',				desc: desc_y,		unity: 'ms',		cat: 'times',		attr: 'y',		color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed },
-		b:	 	{ label: 'threads standBy',		title: 'stand by',			desc: desc_b,		unity: 'ms',		cat: 'times',		attr: 'b',		color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed },
-		yb: 	{ label: 'threads ready',		title: 'ready',				desc: desc_y,		unity: 'ms',		cat: 'times',		attr: 'yb',		color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed },
-		w: 		{ label: 'threads waiting',		title: 'waiting',			desc: desc_w,		unity: 'ms',		cat: 'times',		attr: 'w',		color: colours.list.eOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange },
-		lw:		{ label: 'lock waiting',		title: 'waiting',			desc: desc_lw,		unity: 'ms',		cat: 'times',		attr: 'lw',		color: colours.list.eYellow,	fcolor: colours.list.dYellow,	gcolor: colours.list.lYellow },
-		uu: 	{ label: 'unused core',			title: 'unused',			desc: desc_uu,		unity: 'ms',		cat: 'times',		attr: 'uu',		color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.lBlue },
-		sys: 	{ label: 'system',				title: 'system',			desc: desc_sys,		unity: 'ms',		cat: 'times',		attr: 'sys',	color: colours.list.white,		fcolor: colours.list.lGrey,		gcolor: colours.list.white },
+		r:		{ label: 'executing',		title: 'Thread executing',				desc: desc_r,	unity: 'ms',	cat: 'times',	attr: 'r',		color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
+		y:	 	{ label: 'ready',			title: 'Thread ready to run',			desc: desc_y,	unity: 'ms',	cat: 'times',	attr: 'y',		color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed },
+		b:	 	{ label: 'standby',			title: 'Thread on standby to execute',	desc: desc_b,	unity: 'ms',	cat: 'times',	attr: 'b',		color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed },
+		yb: 	{ label: 'ready',			title: 'Thread ready to execute',		desc: desc_y,	unity: 'ms',	cat: 'times',	attr: 'yb',		color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed },
+		w: 		{ label: 'waiting',			title: 'Waiting',						desc: desc_w,	unity: 'ms',	cat: 'times',	attr: 'w',		color: colours.list.eOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange },
+		lw:		{ label: 'lock waiting',	title: 'Thread waiting for lock',		desc: desc_lw,	unity: 'ms',	cat: 'times',	attr: 'lw',		color: colours.list.eYellow,	fcolor: colours.list.dYellow,	gcolor: colours.list.lYellow },
+		uu: 	{ label: 'idle core',		title: 'Core is idle',					desc: desc_uu,	unity: 'ms',	cat: 'times',	attr: 'uu',		color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.lBlue },
+		sys: 	{ label: 'system',			title: 'Core occupied by other program',desc: desc_sys,	unity: 'ms',	cat: 'times',	attr: 'sys',	color: colours.list.white,		fcolor: colours.list.lGrey,		gcolor: colours.list.white },
 	
-		ipc:	{ label: 'executing',			title: 'Executing',			desc: desc_ipc,		unity: 'ms',		cat: 'locality',	attr: 'ipc',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
-		miss:	{ label: 'Cache misses',		title: 'Cache misses',		desc: desc_miss,	unity: 'ms',		cat: 'locality',	attr: 'miss',	color: colours.list.eOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange },
-		tlb:	{ label: 'address translation',	title: 'TLB misses',		desc: desc_tlb,		unity: 'ms',		cat: 'locality',	attr: 'tlb',	color: colours.list.lGrey },
-		l1:		{ label: 'loading from L2',		title: 'L1 misses',			desc: desc_l1,		unity: 'ms',		cat: 'locality',	attr: 'l1',		color: colours.list.lOrange },
-		l2:		{ label: 'loading from L3',		title: 'L2 misses',			desc: desc_l2,		unity: 'ms',		cat: 'locality',	attr: 'l2',		color: colours.list.eOrange },
-		l3:		{ label: 'loading from RAM',	title: 'L3 misses',			desc: desc_l3,		unity: 'ms',		cat: 'locality',	attr: 'l3',		color: colours.list.dOrange },
-		hpf:	{ label: 'Swapping',			title: 'Swapping',			desc: desc_hpf,		unity: 'ms',		cat: 'locality',	attr: 'hpf',	color: colours.list.black },
+		ipc:	{ label: 'executed',		title: 'Instructions per clock cycle',		desc: desc_ipc,		unity: 'ms',	cat: 'locality',	attr: 'ipc',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
+		miss:	{ label: 'Cache misses',	title: 'Time spent on locality misses',		desc: desc_miss,	unity: 'ms',	cat: 'locality',	attr: 'miss',	color: colours.list.eOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange },
+		tlb:	{ label: 'TLB misses',		title: 'Address translation (TLB) misses',	desc: desc_tlb,		unity: 'ms',	cat: 'locality',	attr: 'tlb',	color: colours.list.lGrey },
+		l1:		{ label: 'L1 misses',		title: 'Level 1 cache miss',				desc: desc_l1,		unity: 'ms',	cat: 'locality',	attr: 'l1',		color: colours.list.lOrange },
+		l2:		{ label: 'L2 misses',		title: 'Level 2 cache miss',				desc: desc_l2,		unity: 'ms',	cat: 'locality',	attr: 'l2',		color: colours.list.eOrange },
+		l3:		{ label: 'L3 misses',		title: 'Level 3 cache miss',				desc: desc_l3,		unity: 'ms',	cat: 'locality',	attr: 'l3',		color: colours.list.dOrange },
+		hpf:	{ label: 'Swapping',		title: 'Swapping to disk',					desc: desc_hpf,		unity: 'ms',	cat: 'locality',	attr: 'hpf',	color: colours.list.black },
 		
-		s:		{ label: 'switches',			title: 'context switches',	desc: desc_s,		list: 'switches',	cat: 'switches',	attr: 's',		color: colours.list.eGrey,		fcolor: colours.list.dGrey,		gcolor: colours.list.lGrey },
-		m:		{ label: 'migrations',			title: 'thread migrations',	desc: desc_m,		list: 'migrations',	cat: 'migrations',	attr: 'm',		color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.lViolet },
-		ls:		{ label: 'lock success',		title: 'lock success',		desc: desc_ls,		list: 'slocks',		cat: 'locks',		attr: 'ls',		color: colours.list.eTurquoise,	fcolor: colours.list.dTurquoise,gcolor: colours.list.lTurquoise },
-		lf:		{ label: 'lock failure',		title: 'lock failure',		desc: desc_lf,		list: 'flocks',		cat: 'locks',		attr: 'lf',		color: colours.list.eFuschia,	fcolor: colours.list.dFuschia,	gcolor: colours.list.lFuschia },
+		s:		{ label: 'switches',		title: 'Context switches',			desc: desc_s,	list: 'switches',	unity: 'events',	cat: 'switches',	attr: 's',		color: colours.list.eGrey,		fcolor: colours.list.dGrey,		gcolor: colours.list.lGrey },
+		m:		{ label: 'migrations',		title: 'Thread migrations',			desc: desc_m,	list: 'migrations',	unity: 'events',	cat: 'migrations',	attr: 'm',		color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.lViolet },
+		ls:		{ label: 'lock success',	title: 'Lock without contention',	desc: desc_ls,	list: 'slocks',		unity: 'events',	cat: 'locks',		attr: 'ls',		color: colours.list.eTurquoise,	fcolor: colours.list.dTurquoise,gcolor: colours.list.lTurquoise },
+		lf:		{ label: 'lock failure',	title: 'Lock with contention',		desc: desc_lf,	list: 'flocks',		unity: 'events',	cat: 'locks',		attr: 'lf',		color: colours.list.eFuschia,	fcolor: colours.list.dFuschia,	gcolor: colours.list.lFuschia },
 	};
 }]);
 
@@ -113,8 +113,18 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		return lines;
 	}
 
-	var limit = 	{ color: colours.list.eGrey, fcolor: colours.list.dGrey, gcolor: colours.list.lGrey,	expected: function(profile) { return 100; },																displayed: function(profile) { return 110; } };
-	var limit_th = 	{ color: limit.color, fcolor: limit.fcolor, gcolor: limit.gcolor, label: 'threads',		expected: function(profile) { return profile.currentData.stats.h; },										displayed: function(profile) { return profile.currentData.stats.h + 2; } };
+	var limit = 	{ color: colours.list.eGrey, fcolor: colours.list.dGrey, gcolor: colours.list.lGrey };
+	var text = 		{ color: colours.list.black, fcolor: colours.list.black, gcolor: colours.list.black };
+	
+	var a_threads =		JSON.parse(JSON.stringify(limit));
+	a_threads.title =	'Threads';
+	a_threads.desc =	'vertical list of thread\'s identifier';
+	var a_uu =		JSON.parse(JSON.stringify(facets.uu));
+	a_uu.title =	'CPU';
+	a_uu.desc =		'capacity of thread executing by the cores';
+	var a_cores =	JSON.parse(JSON.stringify(text));
+	a_cores.title =	'cores';
+	a_cores.desc =	'below CPU it represents core capacity, above CPU it is in equivalent core';
 
 	var uu =	JSON.parse(JSON.stringify(facets.uu));
 	var m =		JSON.parse(JSON.stringify(facets.m));
@@ -132,6 +142,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			data : [facets.r, facets.uu, facets.y, facets.b],
 			legend : [facets.sys],
+			texts : [a_uu, a_cores],
 			clues: [
 				{ color: colours.bad,	tax: 'Oversubscription', 							text: 'too many threads' },
 				{ color: colours.bad,	tax: 'Thread migrations', 							text: 'too many threads' },
@@ -139,7 +150,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ color: colours.plus,	tax: 'Underscubscription', 							text: 'not enough threads' }
 			],
 			settings: [
-				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core' }
+				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core', desc: 'average of core activity among thread states' }
 			]
 		},
 		switches: {
@@ -195,7 +206,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		counts: {
 			graph : {
 				v:			[facets.ls, facets.lf],
-				limit:		limit_th,
+				limit:		limit,
 				limitLabel:	'calib.',
 				expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf); },
 				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf) * 2; },
@@ -219,7 +230,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			legend : [facets.sys],
 			clues: [],
 			settings: [
-				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core' }
+				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core', desc: 'average of core activity among thread states' }
 			]
 		},
 		migrationLT: {
@@ -230,6 +241,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			data : [facets.m],
 			legend : [],
+			texts: [a_threads],
 			clues: [
 				{ color: colours.unkn,	tax: 'Task start/stop overhead',					text: 'too many creations' },
 				{ color: colours.alt,	tax: 'Oversubscription',							text: 'too many threads' },
@@ -299,18 +311,19 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 
 app.factory('widgets', ['decks', function(decks) {
 	return {
-		cacheInvalid:		{ id: 10,	v: 3, file: 'generic-to-delete',	deck: null,					tag: 'cache-invalid',		title: 'Cache misses from updating shared data',				subtitle: ''},
-		cacheMisses:		{ id: 11,	v: 3, file: 'chart-percent',		deck: decks.locality,		tag: 'cache-misses',		title: 'Cache misses',											subtitle: ''},
-		coreInactivity:		{ id: 5,	v: 3, file: 'chart-lines',			deck: decks.inactivity,		tag: 'core-idle',			title: 'Idle cores',											subtitle: ''},
-		lockCounts:			{ id: 12,	v: 4, file: 'chart-units',			deck: decks.counts,			tag: 'lock-counts',			title: 'Lock contentions',										subtitle: 'lock failure versus lock acquisition'},
-		lockContentions:	{ id: 9,	v: 4, file: 'chart-capacity',		deck: decks.contentions,	tag: 'lock-contentions',	title: 'Time waiting for a lock',								subtitle: 'waiting for ressources'},
-		threadPaths:		{ id: 1,	v: 3, file: 'chart-lines',			deck: decks.paths,			tag: 'thread-paths',		title: 'Single thread execution phases',						subtitle: 'alternating sequential/parallel execution'},
-		threadChains:		{ id: 2,	v: 3, file: 'chart-lines',			deck: decks.chains,			tag: 'thread-chains',		title: 'Chains of dependencies',								subtitle: 'synchronisations and waiting between threads'},
-		threadLifetime:		{ id: 3,	v: 3, file: 'chart-threads',		deck: decks.migrationLT,	tag: 'thread-facets.r',		title: 'Life states of threads',								subtitle: 'creation, running, moving between cores, termination'},
-		threadLocks:		{ id: 4,	v: 4, file: 'chart-threads',		deck: decks.lockLT,			tag: 'thread-locks',		title: 'Waiting for locks',										subtitle: ''},
-		threadStates:		{ id: 6,	v: 3, file: 'chart-capacity',		deck: decks.states,			tag: 'thread-states',		title: 'Potential parallelism',									subtitle: 'number of running threads compared to number of cores'},
-		threadMigrations:	{ id: 7,	v: 3, file: 'chart-units',			deck: decks.migrations,		tag: 'thread-migrations',	title: 'Thread switching the core on which it is executing',	subtitle: 'thread migrations'},
-		threadSwitchs:		{ id: 8,	v: 3, file: 'chart-units',			deck: decks.switches,		tag: 'thread-switchs',		title: 'Core swhitching the thread it is executing',			subtitle: 'thread switches'},
+		cacheInvalid:		{ id: 10,	v: 3, file: 'generic-to-delete',	deck: null,					tag: 'cache-invalid',		title: 'Cache misses from updating shared data',					desc: ''},
+		cacheMisses:		{ id: 11,	v: 3, file: 'chart-percent',		deck: decks.locality,		tag: 'cache-misses',		title: 'Percentage of time spent on locality misses',				desc: ''},
+		cacheBreackdown:	{ id: 13,	v: 3, file: 'generic-to-delete',	deck: null,					tag: '',					title: 'Breackdown of time spent on locality misses',				desc: ''},
+		coreInactivity:		{ id: 5,	v: 3, file: 'chart-lines',			deck: decks.inactivity,		tag: 'core-idle',			title: 'Idle cores',												desc: 'Times that cores are idle'},
+		lockCounts:			{ id: 12,	v: 4, file: 'chart-units',			deck: decks.counts,			tag: 'lock-counts',			title: 'Lock contentions',											desc: 'Locking with and without contention'},
+		lockContentions:	{ id: 9,	v: 4, file: 'chart-capacity',		deck: decks.contentions,	tag: 'lock-contentions',	title: 'Time waiting for a lock',									desc: ''},
+		threadPaths:		{ id: 1,	v: 3, file: 'chart-lines',			deck: decks.paths,			tag: 'thread-paths',		title: 'Single thread execution phases',							desc: 'alternating sequential/parallel execution'},
+		threadChains:		{ id: 2,	v: 3, file: 'chart-lines',			deck: decks.chains,			tag: 'thread-chains',		title: 'Chains of dependencies on locks',							desc: 'synchronisations and waiting between threads'},
+		threadLifetime:		{ id: 3,	v: 3, file: 'chart-threads',		deck: decks.migrationLT,	tag: 'thread-facets.r',		title: 'Thread migrating to a different core',						desc: 'creation, running, moving between cores, termination'},
+		threadLocks:		{ id: 4,	v: 4, file: 'chart-threads',		deck: decks.lockLT,			tag: 'thread-locks',		title: 'Time each thread spends waiting for locks',					desc: ''},
+		threadStates:		{ id: 6,	v: 3, file: 'chart-capacity',		deck: decks.states,			tag: 'thread-states',		title: 'Breakdown of thread states compared to number of cores',	desc: 'number of threads compared to number of cores'},
+		threadMigrations:	{ id: 7,	v: 3, file: 'chart-units',			deck: decks.migrations,		tag: 'thread-migrations',	title: 'Thread switching the core on which it is executing',		desc: 'thread migrations'},
+		threadSwitchs:		{ id: 8,	v: 3, file: 'chart-units',			deck: decks.switches,		tag: 'thread-switchs',		title: 'Core swhitching the thread it is executing',				desc: 'thread switches'},
 	};
 }]);
 
@@ -369,7 +382,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 		tag: 'dl', cat: 'dl', label: 'Data locality', title: 'Data locality', icon: 'location-arrow', enabled: true,
 		strips: [strips.miss],
 		gauges: [[miss]], /* facets.ipc, */
-		widgets: [widgets.cacheMisses]
+		widgets: [widgets.cacheMisses, widgets.cacheBreackdown]
 	};
 	var rs = {
 		tag: 'rs', cat: 'rs', label: 'Resource sharing', title: 'Resource sharing', icon: 'exchange', enabled: true,

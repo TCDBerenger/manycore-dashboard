@@ -1,0 +1,28 @@
+/*
+ * Widgets
+ */
+.widgets h4 {
+	float: left;
+	margin-right: 40px;
+}
+.widgets .nav-tabs > li.active:not(:first-of-type) > a {
+	background-color: #F9F9F9;
+}
+.widgets .tab-pane:not(:first-of-type) {
+	padding: 10px 0px 15px 0px;
+	background-color: #F9F9F9;
+	border-bottom: 1px solid #DDD;
+}
+
+/*
+ * Facet list
+ */
+.widgets ul.facet-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.widgets ul.facet-list li { 
+	padding-left: 1em;
+	text-indent: -1.2em;
+}

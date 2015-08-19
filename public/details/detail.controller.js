@@ -57,8 +57,6 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	 * Retreive - populate
 	 */
 	function postReceiption() {
-		oldDataCompatibility();
-
 		$scope.selection = {
 			begin: 0,
 			end: (profiles.length > 1) ? Math.max(profiles[0].data[tag].info.duration, profiles[1].data[tag].info.duration) : profiles[0].data[tag].info.duration
@@ -92,6 +90,20 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		$scope.$broadcast('xEvent', NaN);
 	};
 	
+	/**
+	 * Version - is too old
+	 */
+	$scope.isOutofVersion = function(widget) {
+		return widget.v > profiles[0].version || (profiles[1] && widget.v > profiles[1].version);
+	};
+	
+	/**
+	 * Version - is new enough
+	 */
+	$scope.isUpToVersion = function(widget) {
+		return widget.v <= profiles[0].version && (profiles.length == 1 || widget.v <= profiles[1].version);
+	};
+
 
 	/************************************************/
 	/* Generator - Graphical						*/
@@ -126,6 +138,50 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	};
 
 
+	/************************************************/
+	/* Generator - Stats							*/
+	/************************************************/
+	function createStats(widget) {
+		// Prerequite (to remove when finished)
+		if (! widget.deck || ! widget.deck.data)
+			return (profiles.length == 1) ? { values: [[0]], sums: [0], maxSum: 0 } : { values: [[0], [0]], sums: [0, 0], maxSum: 0 };
+		
+		var sums = (profiles.length == 1) ? [0] : [0, 0];
+		var values = (profiles.length == 1) ? [[]] : [[], []];
+		
+		var value;
+		profiles.forEach(function(profile, index) {
+			widget.deck.data.forEach(function(facet) {
+				value = Math.round(profile.currentData.stats[facet.cat][facet.attr]);
+				values[index].push({
+					previous: sums[index],
+					value: value,
+					label1: (facet.unity) ? value + '\u00A0' + facet.unity : value
+				});
+				sums[index] += value;
+			});
+		});
+		
+		if (widget.deck.data.length == 1) {
+			for (var p = 0; p < profiles.length; p++) {
+				values[p][0].label2 = '<todo>';
+			}
+			
+		} else {
+			for (var p = 0; p < profiles.length; p++) {
+				for (var f = 0; f < widget.deck.data.length; f++) {
+					values[p][f].label2 = Math.round(100 * values[p][f].value / sums[p]) + '\u00A0%';
+				}
+			}
+		}
+		
+		return {
+			values: values,
+			sums: sums,
+			maxSum: Math.max.apply(this, sums)
+		}
+	}
+
 
 	
 	/************************************************/
@@ -156,50 +212,5 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	$scope.meta = categories[tag];
 	$scope.mouseOver = mouseOver;
 	$scope.mouseLeave = mouseLeave;
-
-	/**
-	 * Old compatibilty
-	 */
-	function oldDataCompatibility() {
-		$scope.data = {
-			c: {
-				timeMin: 0,
-				duration: 0
-			}
-		};
-		profiles.forEach(function(profile) {
-			$scope.data[profile.id] = profile.data[tag];
-			$scope.data.c.duration = Math.max($scope.data.c.duration, profile.data[tag].info.duration);
-		});
-	}
-
-
-
-	//
-	//
-	//		OLD
-	//
-	//
-	/*
-	// Metadata - Copy params data
-	$scope.meta.ids = $stateParams.ids;	
-
-	// Metadata - Copy detail data
-	var category = categories[tag];
-	for (var attr in category) {
-		if (category.hasOwnProperty(attr)) {
-			$scope.meta[attr] = category[attr];
-		}
-	};
-	
-	// Details
-	$scope.profiles = selectedProfiles;
-	$scope.ids = [];
-	$scope.data = dataProfiles;
-
-	// Populate ids
-	$scope.profiles.forEach(function(profile) {
-		$scope.ids.push(profile.id);
-	});
-	*/
+	$scope.createStats = createStats;
 }]);

@@ -1,6 +1,10 @@
 /*
  * Detail
  */
+.detail {
+	padding: 0px 20px 0px 20px !important;
+	transition: .2s linear all;
+}
 .detail h2 {
 	margin-top: 0px;
 	padding-right: 20px;
@@ -137,3 +141,4 @@
 	margin-top: 150px;
 	font-size: 3em;
 }
+

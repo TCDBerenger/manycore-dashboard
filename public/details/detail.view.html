@@ -1,11 +1,11 @@
 <!-- Waiting -->
-<div class="row detail" ng-if="isWaiting()"><div class="col-xs-12 waiting"><div class="block">
+<div class="row" ng-if="isWaiting()"><div class="col-xs-12 waiting"><div class="block">
 	<i class="fa fa-spinner fa-pulse"></i>
 	<strong>Retrieving data...</strong>
 </div></div></div>
 
 <!-- Display data -->
-<div class="row detail" ng-if="! isWaiting()">
+<div class="row" ng-if="! isWaiting()">
 	<div class="col-xs-12 profile">
 		<h2>{{meta.label}}</h2> for
 		<span>{{profiles[0].label}}</span>
@@ -83,7 +83,7 @@
 			</div>
 		</span>
 		<span ng-if="profiles.length > 1">{{profiles[1].label}}</span>
-
+		<!--
 		<div class="row profile" ng-repeat="(iw, widget) in meta.widgets" ng-init="createSettings(widget)">
 			<div class="col-xs-{{layout.colXS.graph}} col-sm-{{layout.colSM.graph}} col-md-{{layout.comMD.graph}} col-lg-{{layout.colLG.graph}} profile-graph">
 				<div class="profile-title">
@@ -103,7 +103,20 @@
 				<div ng-include="'/details/aside/aside.view.html'"></div>
 			</div>
 		</div>
+		-->
 	</div>
+	
+	<div class="col-xs-12 widget" ng-repeat="(iw, widget) in meta.widgets" ng-init="createSettings(widget)">
+		<div class="row">
+			<div class="col-xs-{{layout.colXS.graph}} col-sm-{{layout.colSM.graph}} col-md-{{layout.comMD.graph}} col-lg-{{layout.colLG.graph}} widgets">
+				<div ng-include="'/details/widgets/widgets.view.html'"></div>
+			</div>
+			<div ng-if="isUpToVersion(widget)" class="col-xs-{{layout.colXS.data}} col-sm-{{layout.colSM.data}} col-md-{{layout.comMD.data}} col-lg-{{layout.colLG.data}} aside">
+				<div ng-include="'/details/aside/aside.view.html'"></div>
+			</div>
+		</div>
+	</div>
+	
 	<!--
 	<div class="col-xs-3 facets">
 		<div class="well well-sm">
