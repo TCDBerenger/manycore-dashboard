@@ -408,7 +408,7 @@ function jsonDS(profile, id) {
 	addCommon(output, id);
 
 	// Add locks
-	addLocks(output, id);
+	addTimes(output, id, ['r', 'lw', 'sys']);
 
 	// Add locality
 	addLocality(output, id, false);
