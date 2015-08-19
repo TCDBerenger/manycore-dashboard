@@ -212,6 +212,7 @@ function addTimes(output, id, properties) {
 function addCoreTimes(output, id, properties) {
 	// Init vars
 	var data =	profiles[id].data;
+	var isR =	properties.indexOf('r') >= 0;
 	var isUU =	properties.indexOf('uu') >= 0;
 	
 	// Init return
@@ -226,6 +227,7 @@ function addCoreTimes(output, id, properties) {
 		for (var cid = 0; cid < profiles[id].hardware.data.threads; cid++) {
 			output.cores[cid][timeID] = {};
 			
+			if (isR)	output.cores[cid][timeID].r =	Math.round(data.frames[timeID].c[cid].running);
 			if (isUU)	output.cores[cid][timeID].uu =	Math.round(data.frames[timeID].c[cid].idle);
 		}
 	}
@@ -434,7 +436,7 @@ function jsonLB(profile, id) {
 
 	// Add times
 	addTimes(output, id, ['r', 'yb', 'lw', 'sys']);
-	addCoreTimes(output, id, ['uu']);
+	addCoreTimes(output, id, ['r', 'uu']);
 
 	// Add locks
 	addLocks(output, id);
