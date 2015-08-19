@@ -236,7 +236,7 @@ function directive_repaint_post(r) {
 			.attr("text-anchor", (index == 0) ? "start" : "end")
 			.attr("font-size", r.layout.vAxis.profileFontSize + "px")
 			.attr("font-weight", "bold")
-			.attr("fill", '#000000')
+			.attr('fill', '#000000')
 			.attr("transform", (index == 0) ? ("translate(" + r.layout.vAxis.profileFontSize + "," + (r.layout.vAxis.height) + ")rotate(270)") : ("translate(" + r.layout.vAxis.profileFontSize + "," + 0 + ")rotate(270)"))
 			.text(profile.label);
 	});
@@ -310,7 +310,7 @@ function directive_repaint_xAxis(r) {
 	];
 	r.groupX.append("polygon")
 		.attr("points", p2s(points))
-		.attr("stroke","black")
+		.attr('stroke',"black")
 		.attr("stroke-width", 2);
 	
 	// Clock symbol
@@ -334,7 +334,7 @@ function directive_repaint_xAxis(r) {
 			.attr("x", function (d) { return r.scaleX(d)})
 			.attr("text-anchor", function(d, i) { return (i == lastIndex) ? "end" : "middle"; })
 			.attr("font-size", r.layout.xAxis.text + "px")
-			.attr("fill", "#FFFFFF")
+			.attr('fill', "#FFFFFF")
 			.text(function (d) { return (d == 0) ? 0 : (d / 1000) + ' s'; });
 }
 
@@ -371,7 +371,7 @@ function directive_repaint_VAxis(r, index, valueFunction) {
 			.attr("text-anchor", "end")
 			.attr("font-size", r.layout.vAxis.fontSize + "px")
 			.attr("font-weight", (v == r.meta.vExpected[index]) ? 'bold' : 'normal')
-			.attr("fill", (v == r.meta.vExpected[index]) ? r.deck.limit.fcolor : '#000000')
+			.attr('fill', (v == r.meta.vExpected[index]) ? r.deck.limit.fcolor : '#000000')
 			.text((valueFunction !== undefined) ? valueFunction(v, index, r) : v);
 
 		// Limit line
@@ -429,21 +429,21 @@ function directive_repaint_VCustomAxis(r, index, facet, values) {
 		r.groupV[index].append('line')
 				.attr('class', "svg-line")
 				.attr('x1', r.layout.vAxis.width).attr('x2', r.layout.vAxis.width - 4)
-				.attr('y1', value.v).attr('y2', value.v)
+				.attr('y1', value.y).attr('y2', value.y)
 				.attr('stroke', facet.fcolor)
 				.attr('stroke-width', 1);
 
 		// Text
 		r.groupV[index].append("text")
 			.attr('class', "svg-text")
-			.attr("y", value.v)
+			.attr("y", value.y)
 			.attr("x", r.layout.vAxis.width - 6)
 			.attr("text-anchor", "end")
 			.attr("alignment-baseline", 'central')
 			.attr("dominant-baseline", 'central')
 			.attr("font-size", r.layout.vAxis.fontSize + "px")
 			.attr("font-weight", 'normal')
-			.attr("fill", facet.fcolor)
+			.attr('fill', facet.fcolor)
 			.text(value.l);
 	});
 
@@ -650,26 +650,26 @@ app.directive('chartCapacity', function() {
 				r.groupP[index].append("polygon")
 					.attr('class', "svg-limit")
 					.attr("points", p2s(pointsC))
-					.attr("fill", r.deck.limit.color);
+					.attr('fill', r.deck.limit.color);
 
 				// Draw - System
 				r.groupP[index].append("polygon")
 					.attr('class', "svg-state-system")
 					.attr("points", p2s(pointsS))
-					.attr("fill", r.deck.s.color);
+					.attr('fill', r.deck.s.color);
 
 				// Draw - Running
 				r.groupP[index].append("polygon")
 					.attr('class', "svg-state-running")
 					.attr("points", p2s(pointsR))
-					.attr("fill", r.deck.r.color);
+					.attr('fill', r.deck.r.color);
 				
 				// Draw - Over
 				for (var v = 0; v < r.deck.v.length; v++) {
 					r.groupP[index].append("polygon")
 						.attr('class', "svg-state-ready")
 						.attr("points", p2s(pointsOver[v+1], pointsOver[v]))
-						.attr("fill", r.deck.v[v].color);
+						.attr('fill', r.deck.v[v].color);
 				};
 
 				// Value axis
@@ -723,26 +723,26 @@ app.directive('chartCapacity', function() {
 					r.iSelection[index].append("polygon")
 						.attr('class', "svg-state-system")
 						.attr("points", p2s(pointsS))
-						.attr("fill", r.deck.s.fcolor);
+						.attr('fill', r.deck.s.fcolor);
 
 					// Draw - Capacity
 					r.iSelection[index].append("polygon")
 						.attr('class', "svg-limit")
 						.attr("points", p2s(pointsC))
-						.attr("fill", r.deck.limit.fcolor);
+						.attr('fill', r.deck.limit.fcolor);
 
 					// Draw - Running
 					r.iSelection[index].append("polygon")
 						.attr('class', "svg-state-running")
 						.attr("points", p2s(pointsR))
-						.attr("fill", r.deck.r.fcolor);
+						.attr('fill', r.deck.r.fcolor);
 
 					// Draw - OVer
 					for (var v = r.deck.v.length - 1; v >= 0; v--) {
 						r.iSelection[index].append("polygon")
 							.attr('class', "svg-area svg-area-" + v)
 							.attr("points", p2s(pointsOver[v]))
-							.attr("fill", r.deck.v[v].fcolor);
+							.attr('fill', r.deck.v[v].fcolor);
 					};
 				}
 			}
@@ -844,7 +844,7 @@ app.directive('chartPercent', function() {
 					r.groupP[index].append("polygon")
 						.attr('class', "svg-data svg-area svg-area-" + v)
 						.attr("points", p2s(r.iData[index][v + 1], r.iData[index][v]))
-						.attr("fill", r.deck.v[v].color);
+						.attr('fill', r.deck.v[v].color);
 				};
 
 				// Value axis
@@ -882,7 +882,7 @@ app.directive('chartPercent', function() {
 						r.iSelection[index].append("polygon")
 							.attr('class', "svg-area svg-area-" + v)
 							.attr("points", p2s(r.iData[index][v + 1].slice(tIndex * 4, tIndex * 4 + 4), r.iData[index][v].slice(tIndex * 4, tIndex * 4 + 4)))
-							.attr("fill", r.deck.v[v].fcolor);
+							.attr('fill', r.deck.v[v].fcolor);
 					};
 				}
 			}
@@ -1003,7 +1003,7 @@ app.directive('chartUnits', function() {
 					r.groupP[index].append("polygon")
 						.attr('class', "svg-data svg-area svg-area-" + v)
 						.attr("points", p2s(r.iData[index][v + 1], r.iData[index][v]))
-						.attr("fill", r.deck.v[v].color);
+						.attr('fill', r.deck.v[v].color);
 				};
 
 				// Value axis
@@ -1041,7 +1041,7 @@ app.directive('chartUnits', function() {
 						r.iSelection[index].append("polygon")
 							.attr('class', "svg-area svg-area-" + v)
 							.attr("points", p2s(r.iData[index][v + 1].slice(tIndex * 4, tIndex * 4 + 4), r.iData[index][v].slice(tIndex * 4, tIndex * 4 + 4)))
-							.attr("fill", r.deck.v[v].fcolor);
+							.attr('fill', r.deck.v[v].fcolor);
 					};
 				}
 			}
@@ -1142,7 +1142,7 @@ app.directive('chartStack', function() {
 					r.groupP[index].append("polygon")
 						.attr('class', "svg-data svg-area svg-area-" + v)
 						.attr("points", p2s(r.iData[index][v + 1], r.iData[index][v]))
-						.attr("fill", r.deck.v[v].color);
+						.attr('fill', r.deck.v[v].color);
 				};
 
 				// Value axis
@@ -1180,7 +1180,7 @@ app.directive('chartStack', function() {
 						r.iSelection[index].append("polygon")
 							.attr('class', "svg-area svg-area-" + v)
 							.attr("points", p2s(r.iData[index][v + 1].slice(tIndex * 4, tIndex * 4 + 4), r.iData[index][v].slice(tIndex * 4, tIndex * 4 + 4)))
-							.attr("fill", r.deck.v[v].fcolor);
+							.attr('fill', r.deck.v[v].fcolor);
 					};
 				}
 			}
@@ -1253,7 +1253,7 @@ app.directive('chartThreads', function() {
 						.attr('stroke-width', 1);
 					
 					// Save label
-					vLabels.push({ l: thread.h, v: threadY });
+					vLabels.push({ l: thread.h, y: threadY });
 					
 					// Draw periods
 					var x1Period, x2Period;
@@ -1271,7 +1271,7 @@ app.directive('chartThreads', function() {
 											.attr('y', threadY - r.meta.period_Height / 2)
 											.attr("width", x2Period - x1Period)
 											.attr("height", r.meta.period_Height)
-											.attr("fill", (p.hasOwnProperty('c')) ? deck.colors[p.c] : deck.fcolor);
+											.attr('fill', (p.hasOwnProperty('c')) ? deck.colors[p.c] : deck.fcolor);
 									}
 								});
 							}
@@ -1307,7 +1307,7 @@ app.directive('chartThreads', function() {
 									r.groupP[index].append("polygon")
 										.attr('class', "svg-limit")
 										.attr("points", p2s(points[0], points[1]))
-										.attr("fill", deck.color);
+										.attr('fill', deck.color);
 								}
 							}
 						});
@@ -1377,7 +1377,7 @@ app.directive('chartLines', function() {
 		r.meta.lineHeight = 12; // scope.widget.deck.settings[0].max
 
 		// Redraw
-		var lines;
+		var lines, mapLines;
 		function repaint() {
 			// Repaint container
 			directive_repaint_container(r);
@@ -1397,6 +1397,7 @@ app.directive('chartLines', function() {
 
 				// Data
 				lines = r.deck.lines(profile, r.meta.begin, r.meta.ends[index]);
+				mapLines = {};
 				profileData = profile.currentData;
 				groupHeight = lines.length * r.meta.lineHeight;
 				
@@ -1405,10 +1406,12 @@ app.directive('chartLines', function() {
 				
 				// Draw lines
 				lines.forEach(function(line, line_index) {
-					lineY = (index == 0) ? (line_index + .5) * r.meta.lineHeight - groupHeight : (line_index + .5) * r.meta.lineHeight;
+					// Map
+					mapLines[line.id] = line;
 					
-					// Save position
-					line.v = lineY;
+					// Position
+					lineY = (index == 0) ? (line_index + .5) * r.meta.lineHeight - groupHeight : (line_index + .5) * r.meta.lineHeight;
+					line.y = lineY;
 					
 					// Draw basic core
 					r.groupP[index].append('line')
@@ -1425,22 +1428,65 @@ app.directive('chartLines', function() {
 						r.deck.melody.forEach(function(deck) {
 							var points = [[], []];
 							var timeStep = profileData.info.timeStep;
-							melodyData = profileData[deck.cat][line.id];
+							melodyData = profileData[r.deck.melody_cat][line.id];
 							for (var frameID = r.meta.begin; frameID < r.meta.ends[index]; frameID += timeStep) {
 								delta = melodyData[frameID][deck.attr] * r.meta.melodyHeight / 2 / timeStep;
 								points[0].push.apply(points[0], [r.scaleX(frameID), lineY + delta, r.scaleX(frameID + timeStep), lineY + delta]);
 								points[1].push.apply(points[1], [r.scaleX(frameID), lineY - delta, r.scaleX(frameID + timeStep), lineY - delta]);
 							}
 							r.groupP[index].append("polygon")
-								.attr('class', "svg-data svg-data-melody")
+								.attr('class', 'svg-data svg-data-melody')
 								.attr("points", p2s(points[0], points[1]))
-								.attr("fill", deck.color);
+								.attr('fill', deck.color);
 						});
 					}
 				});
 				
 				// Value axis
 				directive_repaint_VCustomAxis(r, index, r.deck.h, lines);
+				
+				// Draw dependencies
+				if (r.deck.depends) {
+					var facet, points, lineFrom, lineTo;
+					
+					// Start
+					facet = r.deck.depends.start;
+					if (facet)
+						profileData.dependencies[facet.attr].forEach(function(dep, i) {
+							lineFrom = mapLines[(dep[r.deck.depends.from]) ? dep[r.deck.depends.from] : r.deck.depends.failID];
+							lineTo = mapLines[(dep[r.deck.depends.to]) ? dep[r.deck.depends.to] : r.deck.depends.failID];
+							
+							points =
+								'M' + r.scaleX(dep.t - dep.d) + ' ' + lineFrom.y + ' ' + 
+								'H' + r.scaleX(dep.t) + ' ' + 
+								'V' + lineTo.y + ' ' + 
+								'H' + r.scaleX(lineTo.e);
+							 
+							r.groupP[index].append("path")
+								.attr('class', 'svg-data svg-data-dependency')
+								.attr('d', points)
+								.attr('stroke', facet.color)
+								.attr('fill', 'transparent');
+						});
+					
+					// End
+					facet = r.deck.depends.end;
+					if (facet)
+						profileData.dependencies[facet.attr].forEach(function(dep, i) {
+							lineFrom = mapLines[(dep[r.deck.depends.from]) ? dep[r.deck.depends.from] : r.deck.depends.failID];
+							lineTo = mapLines[(dep[r.deck.depends.to]) ? dep[r.deck.depends.to] : r.deck.depends.failID];
+							
+							points =
+								'M' + r.scaleX(dep.t) + ' ' + lineFrom.y + ' ' + 
+								'V' + lineTo.y;
+							 
+							r.groupP[index].append("path")
+								.attr('class', 'svg-data svg-data-dependency')
+								.attr('d', points)
+								.attr('stroke', facet.color)
+								.attr('fill', 'transparent');
+						});
+				}
 			});
 
 			// Post-treatment

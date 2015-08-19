@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 57;
+var VERSION = 58;
 
 /************************************************/
 /* Variables - hardwares						*/
@@ -670,9 +670,10 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			// Save the success
 			data.lock_success.push({
 				t: timeEvent,
-				h: element.tid,			// which thread success
-				l: element.value,		// which lock
-				d: duration				// how long does it take to get the lock
+				h: element.tid,												// which thread success
+				hl: (duration > 0) ? lock_map[element.value] : undefined,	// which thread owned the lock
+				l: element.value,											// which lock
+				d: duration													// how long does it take to get the lock
 			});
 			
 			// Check event list existance

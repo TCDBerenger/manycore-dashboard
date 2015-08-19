@@ -336,6 +336,31 @@ function addThreadPeriods(output, id, properties) {
 	}
 }
 
+/**
+ * Add dependencies (only locks at the moment)
+ */
+function addDependencies(output, id) {
+	// Init vars
+	var data = profiles[id].data;
+	
+	// Init return
+	output.dependencies	= {
+		ls: [],
+		lf: []
+	};
+
+	// List lock success
+	data.lock_success.forEach(function(lock) {
+		if (lock.hl)
+			output.dependencies.ls.push(lock);
+	});
+
+	// List lock failure
+	data.lock_failure.forEach(function(lock) {
+		output.dependencies.lf.push(lock);
+	});
+}
+
 
 
 /************************************************/
@@ -440,6 +465,9 @@ function jsonLB(profile, id) {
 
 	// Add locks
 	addLocks(output, id);
+	
+	// Add dependencies for locks
+	addDependencies(output, id);
 
 	return output;
 }

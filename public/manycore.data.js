@@ -95,7 +95,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 	}
 	
 	function buildThreads(profile, begin, end) {
-		var lines = []
+		var lines = [];
 		profile.currentData.threads.info.forEach(function(thread) {
 			lines.push({
 				id: thread.h,
@@ -106,8 +106,18 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		});
 		return lines;
 	}
+	function buildThreadsAndFailure(profile, begin, end) {
+		var lines = buildThreads(profile, begin, end);
+		lines.push({
+			id: 0,
+			l: '?',
+			s: begin,
+			e: end
+		});
+		return lines;
+	}
 	function buildCores(profile, begin, end) {
-		var lines = []
+		var lines = [];
 		for (var l = 0; l < profile.hardware.data.threads; l++)
 			lines.push({ id: l, l: 'core ' + l, s: begin, e: end });
 		return lines;
@@ -116,6 +126,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 	var limit = 	{ color: colours.list.eGrey, fcolor: colours.list.dGrey, gcolor: colours.list.lGrey };
 	var text = 		{ color: colours.list.black, fcolor: colours.list.black, gcolor: colours.list.black };
 	
+	// Texts on axis
 	var a_threads =		JSON.parse(JSON.stringify(limit));
 	a_threads.title =	'Threads';
 	a_threads.desc =	'vertical list of thread\'s identifier';
@@ -126,12 +137,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 	a_cores.title =	'cores';
 	a_cores.desc =	'below CPU it represents core capacity, above CPU it is in equivalent core';
 
-	var r =		JSON.parse(JSON.stringify(facets.r));
-	var uu =	JSON.parse(JSON.stringify(facets.uu));
+	// Fruit salad
 	var m =		JSON.parse(JSON.stringify(facets.m));
-	
-	r.cat = 'cores';
-	uu.cat = 'cores';
 	m.colors = ['#b6e3bc', '#b6e3da', '#b6cee3', '#bcb6e3', '#dab6e3', '#e3b6ce', '#e3bcb6', '#e3dab6'];
 
 	return {
@@ -276,7 +283,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			graph : {
 				h:			limit,		// threads (color)
 				lines:		buildCores,
-				melody:		[r],
+				melody:		[facets.r],
+				melody_cat:	'cores',
 			},
 			data : [facets.r],
 			legend : [],
@@ -289,7 +297,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			graph : {
 				h:			limit,		// threads (color)
 				lines:		buildCores,
-				melody:		[uu],
+				melody:		[facets.uu],
+				melody_cat:	'cores',
 			},
 			data : [facets.uu],
 			legend : [],
@@ -301,7 +310,15 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		chains: {
 			graph : {
 				h:			limit,		// color
-				lines:		buildThreads,
+				lines:		buildThreadsAndFailure,
+				depends:	{
+					start: facets.ls,
+					end: facets.lf,
+					color: facets.lw,
+					from: 'hl',
+					to: 'h',
+					failID: 0
+				}
 			},
 			data : [],
 			legend : [],
