@@ -83,53 +83,15 @@
 			</div>
 		</span>
 		<span ng-if="profiles.length > 1">{{profiles[1].label}}</span>
-		<!--
-		<div class="row profile" ng-repeat="(iw, widget) in meta.widgets" ng-init="createSettings(widget)">
-			<div class="col-xs-{{layout.colXS.graph}} col-sm-{{layout.colSM.graph}} col-md-{{layout.comMD.graph}} col-lg-{{layout.colLG.graph}} profile-graph">
-				<div class="profile-title">
-					<h4>{{widget.title}}</h4>
-					{{widget.subtitle}}<br />
-				</div>
-				<div ng-if="widget.v > profiles[0].version || widget.v > profiles[1].version">
-					<span class="fa-stack fa-lg fa-2x">
-						<i class="fa fa-database fa-stack-1x"></i>
-						<i class="fa fa-ban fa-stack-2x text-info"></i>
-					</span>
-					<strong>Data missing !</strong>
-				</div>
-				<div class="profile-body" ng-include="'/details/widgets/' + widget.file + '.widget.html'" ng-if="! (widget.v > profiles[0].version || widget.v > profiles[1].version)"></div>
-			</div>
-			<div class="col-xs-{{layout.colXS.data}} col-sm-{{layout.colSM.data}} col-md-{{layout.comMD.data}} col-lg-{{layout.colLG.data}} profile-data aside">
-				<div ng-include="'/details/aside/aside.view.html'"></div>
-			</div>
-		</div>
-		-->
 	</div>
 	
-	<div class="col-xs-12 widget" ng-repeat="(iw, widget) in meta.widgets" ng-init="createSettings(widget)">
-		<div class="row">
-			<div class="col-xs-{{layout.colXS.graph}} col-sm-{{layout.colSM.graph}} col-md-{{layout.comMD.graph}} col-lg-{{layout.colLG.graph}} widgets">
-				<div ng-include="'/details/widgets/widgets.view.html'"></div>
-			</div>
-			<div ng-if="isUpToVersion(widget)" class="col-xs-{{layout.colXS.data}} col-sm-{{layout.colSM.data}} col-md-{{layout.comMD.data}} col-lg-{{layout.colLG.data}} aside">
-				<div ng-include="'/details/aside/aside.view.html'"></div>
-			</div>
+	<!-- Widget line (repeat) -->
+	<div class="col-xs-12 widget-line" ng-repeat="(iw, widget) in meta.widgets" ng-init="createSettings(widget)">
+		<div ng-if="isOutofVersion(widget)" class="widgets" ng-include="'/details/widgets/missing.view.html'"></div>
+		<div ng-if="isUpToVersion(widget) && widget.wide" class="widgets" ng-include="'/details/widgets/widgets.view.html'"></div>
+		<div ng-if="isUpToVersion(widget) && ! widget.wide" class="row">
+			<div class="col-xs-{{layout.colXS.graph}} col-sm-{{layout.colSM.graph}} col-md-{{layout.comMD.graph}} col-lg-{{layout.colLG.graph}} widgets" ng-include="'/details/widgets/widgets.view.html'"></div>
+			<div class="col-xs-{{layout.colXS.data}} col-sm-{{layout.colSM.data}} col-md-{{layout.comMD.data}} col-lg-{{layout.colLG.data}} aside" ng-include="'/details/aside/aside.view.html'"></div>
 		</div>
 	</div>
-	
-	<!--
-	<div class="col-xs-3 facets">
-		<div class="well well-sm">
-			<h2>Refine data</h2>
-			<p></p>
-			<h4>Threads</h4>
-			<div ng-repeat="p in profiles">
-				<p>{{p.label}}</p>
-				<ul>
-					<li ng-repeat="t in data[p.id].threads.info">{{t.h}}</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	-->
 </div>

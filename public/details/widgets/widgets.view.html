@@ -3,7 +3,7 @@
 	<tab>
 		<tab-heading><i class="fa fa-bar-chart"></i> graph</tab-heading>
 	</tab>
-	<tab disable="isOutofVersion(widget)">
+	<tab>
 		<tab-heading><i class="fa fa-info-circle"></i> legend</tab-heading>
 		<p ng-if="widget.desc">{{widget.desc}}</p>
 		<div class="row">
@@ -36,7 +36,7 @@
 			</div>
 		</div>
 	</tab>
-	<tab disable="isOutofVersion(widget) || widget.deck.clues.length == 0">
+	<tab disable="widget.deck.clues.length == 0">
 		<tab-heading><i class="fa fa-medkit"></i> help</tab-heading>
 		<!--<p class="clues-label">
 			Clues about troubleshooting:
@@ -48,7 +48,7 @@
 			</li>
 		</ul>
 	</tab>
-	<tab disable="isOutofVersion(widget) || widget.deck.settings.length == 0">
+	<tab disable="widget.deck.settings.length == 0">
 		<tab-heading><i class="fa fa-sliders"></i> settings</tab-heading>
 		<div class="form-horizontal settings">
 			<div class="form-group" ng-repeat="setting in widget.deck.settings">
@@ -69,11 +69,4 @@
 		</div>
 	</tab>
 </tabset>
-<div ng-if="isOutofVersion(widget)">
-	<span class="fa-stack fa-lg fa-2x">
-		<i class="fa fa-database fa-stack-1x"></i>
-		<i class="fa fa-ban fa-stack-2x text-info"></i>
-	</span>
-	<strong>Data missing !</strong>
-</div>
-<div ng-if="isUpToVersion(widget)" class="profile-body" ng-include="'/details/widgets/' + widget.file + '.widget.html'"></div>
+<div class="profile-body" ng-include="'/details/widgets/' + widget.file + '.widget.html'"></div>

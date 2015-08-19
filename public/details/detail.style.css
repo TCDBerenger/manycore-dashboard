@@ -142,3 +142,12 @@
 	font-size: 3em;
 }
 
+
+
+
+/*
+ * Widget line
+ */
+.detail .widget-line {
+	margin-bottom: 30px;
+}
