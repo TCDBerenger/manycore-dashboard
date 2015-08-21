@@ -361,6 +361,28 @@ function addDependencies(output, id) {
 	});
 }
 
+/**
+ * Add sequences (only parallel/sequential at the moment)
+ */
+function addSequences(output, id) {
+	// Init vars
+	var data = profiles[id].data;
+	var previous_r = -1;
+	
+	// Init return
+	output.sequences	= {
+		s: {}
+	};
+
+	// List lock success
+	for (var t in data.events.sequences) {
+		if (data.events.sequences[t].c_r != previous_r) {
+			output.sequences.s[t] = data.events.sequences[t].c_r;
+			previous_r = data.events.sequences[t].c_r;
+		}
+	}
+}
+
 
 
 /************************************************/
@@ -468,6 +490,9 @@ function jsonLB(profile, id) {
 	
 	// Add dependencies for locks
 	addDependencies(output, id);
+	
+	// Add sequences
+	addSequences(output, id);
 
 	return output;
 }

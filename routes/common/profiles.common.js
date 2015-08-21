@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 58;
+var VERSION = 59;
 
 /************************************************/
 /* Variables - hardwares						*/
@@ -311,6 +311,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 		frames: {},
 		events: {
 			threads:		{},
+			sequences:		{},
 			s:				[],
 			m:				[]
 		},
@@ -473,6 +474,12 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	 *		switches
 	 *
 	 */
+	// Sequential sequences
+	var coreLength = profile.hardware.data.threads;
+	var coreActivity = [];
+	var currentActivity;
+	for (var cid = 0; cid < coreLength; cid++) coreActivity[cid] = true;
+	
 	// Vars
 	var coreThreads = {};
 	var migrationMap = {};
@@ -486,6 +493,21 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 
 		// Check time frame existance
 		checkFrame(timeID);
+		
+		// Sequential or parallel sequences
+		if (element.type == "sw") {
+			currentActivity = element.pid == profile.pid;
+			if (currentActivity != coreActivity[element.cid]) {
+				coreActivity[element.cid] = currentActivity;
+				
+				// Save new state (override with new states if already exists)
+				data.events.sequences[timeEvent] = { c_r: 0 };
+				for (var cid = 0; cid < coreLength; cid++) {
+					if (coreActivity[cid])
+						data.events.sequences[timeEvent].c_r++;
+				}
+			}
+		}
 
 		// Switch
 		if (element.type == "sw" && element.pid == profile.pid) {
