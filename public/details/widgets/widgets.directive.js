@@ -57,7 +57,7 @@ var graphLayout = function(favoriteHeight) {
 /**
  * Meta (parameters)
  */
-var graphMeta = function(scope, attributes, mirror, canOverflow, properties) {
+var graphMeta = function(scope, attributes, mirror, canOverflow, params, properties) {
 	// Allow seld reference (otherwise this is the caller object)
 	var self = this;
 
@@ -84,7 +84,13 @@ var graphMeta = function(scope, attributes, mirror, canOverflow, properties) {
 	this.vStep =		[NaN, NaN];		// what is the step to display the ticks on the axis ?
 	this.vOverflow =	[NaN, NaN];		// Possible overflow by first and second profile
 
-	// On demand
+	// On demand - params
+	if (params)
+		params.forEach(function(p) {
+			try { self[p.property] = JSON.parse(p.value) } catch(e) { self[p.property] = p.value };
+		});
+	
+	// On demand - settings
 	properties.forEach(function(a) {
 		if (attributes.hasOwnProperty(a))
 			try { self[a] = JSON.parse(attributes[a]) } catch(e) { self[a] = attributes[a] };
@@ -131,7 +137,7 @@ function directive_init(scope, element, attrs, layoutType, mirror, canOverflow) 
 
 	// Attributes
 	var deck =		scope.widget.deck.graph;
-	var meta =		new graphMeta(scope, attrs, mirror, canOverflow, properties);
+	var meta =		new graphMeta(scope, attrs, mirror, canOverflow, scope.widget.deck.params, properties);
 
 	// Data
 	var profiles =	scope.profiles;
@@ -1374,7 +1380,7 @@ app.directive('chartLines', function() {
 		var r = directive_init(scope, element, attrs, LAYOUT_FH_NULL, true, true);
 
 		// Enhance meta
-		r.meta.lineHeight = 12; // scope.widget.deck.settings[0].max
+		if (! r.meta.lineHeight) r.meta.lineHeight = 12;
 
 		// Redraw
 		var lines, mapLines;
@@ -1404,6 +1410,54 @@ app.directive('chartLines', function() {
 				// Expand graph
 				r.meta.vOverflow[index] = groupHeight;
 				
+				// Draw sequences
+				if (r.deck.sequences) {
+					var seqData = profileData.events.q;
+					var currentY;
+					var yMax = (index == 0) ? - groupHeight : groupHeight;
+					var yMin = 0;
+					var cPreviousY = yMin;
+					var uPreviousY = yMax;
+					var cPoints = [r.scaleX(r.meta.begin), cPreviousY];
+					var uPoints = [r.scaleX(r.meta.begin), uPreviousY];
+					
+					for (var t in seqData) {
+						if (t > r.meta.begin) {
+							// Position
+							// currentY = (index == 0) ? - seqData[t] * r.meta.lineHeight : seqData[t] * r.meta.lineHeight;
+							currentY = (seqData[t] <= r.meta.sequenceThreshold) ? yMin : yMax;
+							
+							// Under
+							if (uPreviousY != currentY) {
+								uPoints.push.apply(uPoints, [r.scaleX(t), uPreviousY, r.scaleX(t), currentY]);
+								uPreviousY = currentY;
+							}
+							
+							// Count
+							if (cPreviousY != currentY) {
+								cPoints.push.apply(cPoints, [r.scaleX(t), cPreviousY, r.scaleX(t), currentY]);
+								cPreviousY = currentY;
+							}
+						}
+					}
+					
+					cPoints.push.apply(cPoints, [r.scaleX(r.meta.ends[index]), cPreviousY, r.scaleX(r.meta.ends[index]), yMin]);
+					uPoints.push.apply(uPoints, [r.scaleX(r.meta.ends[index]), uPreviousY, r.scaleX(r.meta.ends[index]), yMax]);
+					
+					// Under
+					r.groupP[index].append("polygon")
+						.attr('class', 'svg-data svg-data-sequence svg-data-under')
+						.attr("points", p2s(uPoints))
+						.attr('fill', r.deck.sequences.under.gcolor);
+					
+					// Count
+					if (! r.meta.disableSequenceCount)
+						r.groupP[index].append("polygon")
+							.attr('class', 'svg-data svg-data-sequence svg-data-count')
+							.attr("points", p2s(cPoints))
+							.attr('fill', r.deck.sequences.count.gcolor);
+				}
+				
 				// Draw lines
 				lines.forEach(function(line, line_index) {
 					// Map
@@ -1425,7 +1479,7 @@ app.directive('chartLines', function() {
 					// Draw melody
 					var delta;
 					if (r.deck.melody && ! r.meta.disableMelody) {
-						r.deck.melody.forEach(function(deck) {
+						r.deck.melody.forEach(function(deck, facet_index) {
 							var points = [[], []];
 							var timeStep = profileData.info.timeStep;
 							melodyData = profileData[r.deck.melody_cat][line.id];
@@ -1434,10 +1488,11 @@ app.directive('chartLines', function() {
 								points[0].push.apply(points[0], [r.scaleX(frameID), lineY + delta, r.scaleX(frameID + timeStep), lineY + delta]);
 								points[1].push.apply(points[1], [r.scaleX(frameID), lineY - delta, r.scaleX(frameID + timeStep), lineY - delta]);
 							}
-							r.groupP[index].append("polygon")
-								.attr('class', 'svg-data svg-data-melody')
-								.attr("points", p2s(points[0], points[1]))
-								.attr('fill', deck.color);
+							if (! r.meta['disableMelody' + facet_index])
+								r.groupP[index].append("polygon")
+									.attr('class', 'svg-data svg-data-melody')
+									.attr("points", p2s(points[0], points[1]))
+									.attr('fill', deck.color);
 						});
 					}
 				});

@@ -33,7 +33,7 @@ app.factory('facets', ['colours', function(colours) {
 	var desc_b = 'thread is ready to execute and is on standby to be executed';
 	var desc_w = 'threads are not ready to be processed because they waiting ressource(s)';
 	var desc_lw = 'threads are not ready to be processed because they waiting t oacquire a lock';
-	var desc_uu = 'no thread running on core';
+	var desc_i = 'no thread running on core';
 	var desc_sys = 'processor is used by the OS';
 	var desc_ipc = 'executing';
 	var desc_miss = '';
@@ -46,6 +46,8 @@ app.factory('facets', ['colours', function(colours) {
 	var desc_m = 'thread migrates to another core';
 	var desc_ls = 'number of lock acquisition success';
 	var desc_lf = 'number of lock acquisition failure';
+	var desc_q_s = 'core is idle or execute only one thread';
+	var desc_q_p = 'core executing more than one thread';
 
 	return {
 		r:		{ label: 'executing',		title: 'Thread executing',				desc: desc_r,	unity: 'ms',	cat: 'times',	attr: 'r',		color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
@@ -54,7 +56,7 @@ app.factory('facets', ['colours', function(colours) {
 		yb: 	{ label: 'ready',			title: 'Thread ready to execute',		desc: desc_y,	unity: 'ms',	cat: 'times',	attr: 'yb',		color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed },
 		w: 		{ label: 'waiting',			title: 'Waiting',						desc: desc_w,	unity: 'ms',	cat: 'times',	attr: 'w',		color: colours.list.eOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange },
 		lw:		{ label: 'lock waiting',	title: 'Thread waiting for lock',		desc: desc_lw,	unity: 'ms',	cat: 'times',	attr: 'lw',		color: colours.list.eYellow,	fcolor: colours.list.dYellow,	gcolor: colours.list.lYellow },
-		uu: 	{ label: 'idle core',		title: 'Core is idle',					desc: desc_uu,	unity: 'ms',	cat: 'times',	attr: 'uu',		color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.lBlue },
+		uu: 	{ label: 'idle core',		title: 'Core is idle',					desc: desc_i,	unity: 'ms',	cat: 'times',	attr: 'uu',		color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.lBlue },
 		sys: 	{ label: 'system',			title: 'Core occupied by other program',desc: desc_sys,	unity: 'ms',	cat: 'times',	attr: 'sys',	color: colours.list.white,		fcolor: colours.list.lGrey,		gcolor: colours.list.white },
 	
 		ipc:	{ label: 'executed',		title: 'Instructions per clock cycle',		desc: desc_ipc,		unity: 'ms',	cat: 'locality',	attr: 'ipc',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
@@ -69,6 +71,9 @@ app.factory('facets', ['colours', function(colours) {
 		m:		{ label: 'migrations',		title: 'Thread migrations',			desc: desc_m,	list: 'migrations',	unity: 'events',	cat: 'migrations',	attr: 'm',		color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.lViolet },
 		ls:		{ label: 'lock success',	title: 'Lock without contention',	desc: desc_ls,	list: 'slocks',		unity: 'events',	cat: 'locks',		attr: 'ls',		color: colours.list.eTurquoise,	fcolor: colours.list.dTurquoise,gcolor: colours.list.lTurquoise },
 		lf:		{ label: 'lock failure',	title: 'Lock with contention',		desc: desc_lf,	list: 'flocks',		unity: 'events',	cat: 'locks',		attr: 'lf',		color: colours.list.eFuschia,	fcolor: colours.list.dFuschia,	gcolor: colours.list.lFuschia },
+		
+		q_s:	{ label: 'sequential',		title: 'Sequential sequence',	desc: desc_q_s,	unity: '', cat: '', attr: '',	color: colours.list.eOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange },
+		q_p:	{ label: 'parallel',		title: 'Parallel sequence',		desc: desc_q_p,	unity: '', cat: '', attr: '',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
 	};
 }]);
 
@@ -120,6 +125,12 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		var lines = [];
 		for (var l = 0; l < profile.hardware.data.threads; l++)
 			lines.push({ id: l, l: 'core ' + l, s: begin, e: end });
+		return lines;
+	}
+	function buildCoresAnonymously(profile, begin, end) {
+		var lines = [];
+		for (var l = 0; l < profile.hardware.data.threads; l++)
+			lines.push({ id: l, l: 'core', s: begin, e: end });
 		return lines;
 	}
 
@@ -279,18 +290,25 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ property: 'disablePeriods', value: false, type: 'flag', label: 'Disable periods' }
 			]
 		},
-		coreR: {
+		sequences: {
 			graph : {
 				h:			limit,		// threads (color)
-				lines:		buildCores,
+				lines:		buildCoresAnonymously,
 				melody:		[facets.r],
 				melody_cat:	'cores',
+				sequences:	{ under: facets.q_s, count: facets.q_p }
 			},
-			data : [facets.r],
-			legend : [],
+			data : [],
+			legend : [facets.q_s, facets.q_p],
 			clues: [],
+			params: [
+				{ property: 'lineHeight', value: 10 }
+			],
 			settings: [
-				{ property: 'melodyHeight', value: 12, type: 'range', label: 'Inactivity height', unit: 'pixels', min: 6, max: 12, step: 1 }
+				{ property: 'disableSequenceCount', value: false, type: 'flag', label: 'Parallel sequence', desc: 'hide parallel sequences' },
+				{ property: 'sequenceThreshold', value: 1, type: 'range', label: 'Parallel threshold', unit: 'running threads', min: 0, max: 3, step: 1 },
+				{ property: 'disableMelody0', value: false, type: 'flag', label: 'Executing', desc: 'hide executing melody (parallel)' },
+				{ property: 'melodyHeight', value: 9, type: 'range', label: 'Executing height', unit: 'pixels', min: 6, max: 12, step: 1 },
 			]
 		},
 		coreUU: {
@@ -339,15 +357,15 @@ app.factory('widgets', ['decks', function(decks) {
 		cacheMisses:		{ id: id(),	v: 3, file: 'chart-percent',		deck: decks.locality,		wide: false,	title: 'Percentage of time spent on locality misses',				desc: ''},
 		cacheBreackdown:	{ id: id(),	v: 3, file: 'generic-to-delete',	deck: null,					wide: true,		title: 'Breackdown of time spent on locality misses',				desc: ''},
 		coreIdle:			{ id: id(),	v: 3, file: 'chart-lines',			deck: decks.coreUU,			wide: false,	title: 'Idle cores',												desc: 'Times that cores are idle'},
-		coreRunning:		{ id: id(),	v: 3, file: 'chart-lines',			deck: decks.coreR,			wide: false,	title: 'Single thread execution phases',							desc: 'alternating sequential/parallel execution'},
+		coreSequences:		{ id: id(),	v: 3, file: 'chart-lines',			deck: decks.sequences,		wide: false,	title: 'Single thread execution phases',							desc: 'alternating sequential/parallel execution'},
 		lockCounts:			{ id: id(),	v: 4, file: 'chart-units',			deck: decks.counts,			wide: false,	title: 'Lock contentions',											desc: 'Locking with and without contention'},
 		lockContentions:	{ id: id(),	v: 4, file: 'chart-capacity',		deck: decks.contentions,	wide: false,	title: 'Time waiting for a lock',									desc: ''},
 		threadChains:		{ id: id(),	v: 3, file: 'chart-lines',			deck: decks.chains,			wide: false,	title: 'Chains of dependencies on locks',							desc: 'synchronisations and waiting between threads'},
-		threadLifetime:		{ id: id(),	v: 3, file: 'chart-threads',		deck: decks.migrationLT,	wide: false,	title: 'Thread migrating to a different core',						desc: 'creation, running, moving between cores, termination'},
+		threadFruitSalad:	{ id: id(),	v: 3, file: 'chart-threads',		deck: decks.migrationLT,	wide: false,	title: 'Thread migrating to a different core',						desc: 'creation, running, moving between cores, termination'},
 		threadLocks:		{ id: id(),	v: 4, file: 'chart-threads',		deck: decks.lockLT,			wide: false,	title: 'Time each thread spends waiting for locks',					desc: ''},
 		threadStates:		{ id: id(),	v: 3, file: 'chart-capacity',		deck: decks.states,			wide: false,	title: 'Breakdown of thread states compared to number of cores',	desc: 'number of threads compared to number of cores'},
 		threadMigrations:	{ id: id(),	v: 3, file: 'chart-units',			deck: decks.migrations,		wide: false,	title: 'Thread switching the core on which it is executing',		desc: 'thread migrations'},
-		threadSwitchs:		{ id: id(),	v: 3, file: 'chart-units',			deck: decks.switches,		wide: false,	title: 'Core swhitching the thread it is executing',				desc: 'thread switches'},
+		threadSwitches:		{ id: id(),	v: 3, file: 'chart-units',			deck: decks.switches,		wide: false,	title: 'Core swhitching the thread it is executing',				desc: 'thread switches'},
 	};
 }]);
 
@@ -375,14 +393,13 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 	var common = {
 		label: 'Profile', title: 'Profile', icon: 'heartbeat',
 		strips: [strips.r],
-		gauges: [],
-		widgets: [widgets.threadStates, widgets.threadSwitchs, widgets.threadMigrations, widgets.threadLifetime]
+		gauges: []
 	};
 	var tg = {
 		tag: 'tg', cat: 'tg', label: 'Task granularity', title: 'Task granularity', icon: 'tasks', enabled: true,
 		strips: [strips.yb, strips.uu],
 		gauges: [[yb, facets.uu], [facets.s, facets.m]], /* facets.r, */
-		widgets: [widgets.threadStates, widgets.threadSwitchs, widgets.threadMigrations, widgets.threadLifetime]
+		widgets: [widgets.threadStates, widgets.threadSwitches, widgets.threadMigrations, widgets.threadFruitSalad]
 	};
 	var sy = {
 		tag: 'sy', cat: 'sy', label: 'Synchronisation', title: 'Synchronisation', icon: 'cutlery', enabled: true,
@@ -400,7 +417,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 		tag: 'lb', cat: 'lb', label: 'Load balancing', title: 'Load balancing', icon: 'code-fork', enabled: true,
 		strips: [],
 		gauges: [[lw, facets.uu], [facets.m]],
-		widgets: [widgets.coreIdle, widgets.lockContentions, widgets.threadMigrations, widgets.threadStates, widgets.coreRunning, widgets.threadChains]
+		widgets: [widgets.coreIdle, widgets.lockContentions, widgets.threadMigrations, widgets.threadStates, widgets.coreSequences, widgets.threadChains]
 	};
 	var dl = {
 		tag: 'dl', cat: 'dl', label: 'Data locality', title: 'Data locality', icon: 'location-arrow', enabled: true,
