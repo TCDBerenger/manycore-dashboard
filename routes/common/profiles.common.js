@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 59;
+var VERSION = 60;
 
 /************************************************/
 /* Variables - hardwares						*/
@@ -73,7 +73,8 @@ var profileMap = {
 		{ id: 19,	label: 'Word',			desc: 'Microsoft Word sample',		hardware: hardRoman, file: 'word',			pid: 2852,	timeStep: 50, v: 3 },
 		{ id: 20,	label: 'Excel',			desc: 'Microsoft Excel sample',		hardware: hardRoman, file: 'excel',			pid: 5176,	timeStep: 50, v: 3, disabled: true },
 
-		{ id: 21,	label: 'Dining ph. 45',	desc: 'Dining philosophers problem 45',		hardware: hardRoman, file: 'philosophers45',	pid: 4168,	timeStep: 50, v: 4 },
+		{ id: 21,	label: 'Dining ph. 5',	desc: 'Probliem for 5 philosophers dining',		hardware: hardRoman, file: 'philosophers5',		pid: 12220,	timeStep: 50, v: 4 },
+		{ id: 22,	label: 'Dining ph. 45',	desc: 'Probliem for 45 philosophers dining',	hardware: hardRoman, file: 'philosophers45',	pid: 6908,	timeStep: 50, v: 4 },
 
 		{ id: 31,	label: 'P/C 1/1',		desc: '1 producer and 1 consumer',			hardware: hardRoman, file: 'pc1x1',		pid: 67380,	timeStep: 50, v: 4 },
 		{ id: 32,	label: 'P/C 1/10',		desc: '1 producer and 10 consumers',		hardware: hardRoman, file: 'pc1x10',	pid: 73540,	timeStep: 50, v: 4 },
