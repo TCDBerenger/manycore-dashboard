@@ -1397,6 +1397,7 @@ app.directive('chartLines', function() {
 			// Main draw
 			var profileData, melodyData;
 			var groupHeight, lineLenght, lineY;
+			var delta;
 			r.profiles.forEach(function(profile, index) {
 				// Clean
 				r.groupP[index].selectAll('*').remove();
@@ -1412,7 +1413,7 @@ app.directive('chartLines', function() {
 				r.meta.vOverflow[index] = groupHeight;
 				
 				// Draw sequences
-				if (r.deck.sequences) {
+				if (r.deck.sequences && ! r.meta.disableSequenceBackgound) {
 					var seqData = profileData.events.q;
 					var currentY;
 					var yMax = (index == 0) ? - groupHeight : groupHeight;
@@ -1452,11 +1453,10 @@ app.directive('chartLines', function() {
 						.attr('fill', r.deck.sequences.under.gcolor);
 					
 					// Count
-					if (! r.meta.disableSequenceCount)
-						r.groupP[index].append("polygon")
-							.attr('class', 'svg-data svg-data-sequence svg-data-count')
-							.attr("points", p2s(cPoints))
-							.attr('fill', r.deck.sequences.count.gcolor);
+					r.groupP[index].append("polygon")
+						.attr('class', 'svg-data svg-data-sequence svg-data-count')
+						.attr("points", p2s(cPoints))
+						.attr('fill', r.deck.sequences.count.gcolor);
 				}
 				
 				// Draw lines
@@ -1480,7 +1480,6 @@ app.directive('chartLines', function() {
 					
 					// Draw melody
 					if (r.deck.melody && ! r.meta.disableMelody) {
-						var delta;
 						r.deck.melody.forEach(function(deck, facet_index) {
 							var points = [[], []];
 							var timeStep = profileData.info.timeStep;
@@ -1499,38 +1498,68 @@ app.directive('chartLines', function() {
 					}
 					
 					// Draw sequences
-					if (r.deck.sequences && ! r.meta.disableSequenceTicks) {
-						var points = [[r.scaleX(r.meta.begin), lineY], [r.scaleX(r.meta.begin), lineY]];
-						var useDelta = false;
-						var delta = 3;
+					if (r.deck.sequences && ! r.meta.disableSequenceDashs) {
+						var seqData = profileData.events.q;
+						var cPoints = [[r.scaleX(r.meta.begin), lineY], [r.scaleX(r.meta.begin), lineY]];
+						var uPoints = [[r.scaleX(r.meta.begin), lineY], [r.scaleX(r.meta.begin), lineY]];
+						var cUseDelta = false;
+						var uUseDelta = false;
+						delta = 3;
 						
-						for (var t in profileData.events.q) {
+						for (var t in seqData) {
 							if (t > r.meta.begin) {
+								// Count
 								if ((index == 0 && lineLenght - line_index - 1 < seqData[t]) || (index == 1 && line_index < seqData[t])) {
-									if (! useDelta) {
-										points[0].push.apply(points[0], [r.scaleX(t), lineY, r.scaleX(t), lineY + delta]);
-										points[1].push.apply(points[1], [r.scaleX(t), lineY, r.scaleX(t), lineY - delta]);
-										useDelta = true;
+									if (! cUseDelta) {
+										cPoints[0].push.apply(cPoints[0], [r.scaleX(t), lineY, r.scaleX(t), lineY + delta]);
+										cPoints[1].push.apply(cPoints[1], [r.scaleX(t), lineY, r.scaleX(t), lineY - delta]);
+										cUseDelta = true;
 									}
 								} else {
-									if (useDelta) {
-										points[0].push.apply(points[0], [r.scaleX(t), lineY + delta, r.scaleX(t), lineY]);
-										points[1].push.apply(points[1], [r.scaleX(t), lineY - delta, r.scaleX(t), lineY]);
-										useDelta = false;
+									if (cUseDelta) {
+										cPoints[0].push.apply(cPoints[0], [r.scaleX(t), lineY + delta, r.scaleX(t), lineY]);
+										cPoints[1].push.apply(cPoints[1], [r.scaleX(t), lineY - delta, r.scaleX(t), lineY]);
+										cUseDelta = false;
+									}
+								}
+								// Under
+								if (seqData[t] <= r.meta.sequenceThreshold && ((index == 0 && lineLenght - line_index - 1 < seqData[t]) || (index == 1 && line_index < seqData[t]))) {
+									if (! uUseDelta) {
+										uPoints[0].push.apply(uPoints[0], [r.scaleX(t), lineY, r.scaleX(t), lineY + delta]);
+										uPoints[1].push.apply(uPoints[1], [r.scaleX(t), lineY, r.scaleX(t), lineY - delta]);
+										uUseDelta = true;
+									}
+								} else {
+									if (uUseDelta) {
+										uPoints[0].push.apply(uPoints[0], [r.scaleX(t), lineY + delta, r.scaleX(t), lineY]);
+										uPoints[1].push.apply(uPoints[1], [r.scaleX(t), lineY - delta, r.scaleX(t), lineY]);
+										uUseDelta = false;
 									}
 								}
 							}
 						}
 						
-						if (useDelta) {
-							points[0].push.apply(points[0], [points[0][points[0].length - 2], lineY]);
-							points[1].push.apply(points[1], [points[1][points[1].length - 2], lineY]);
+						if (cUseDelta) {
+							cPoints[0].push.apply(cPoints[0], [cPoints[0][cPoints[0].length - 2], lineY]);
+							cPoints[1].push.apply(cPoints[1], [cPoints[1][cPoints[1].length - 2], lineY]);
+						}
+						if (uUseDelta) {
+							uPoints[0].push.apply(uPoints[0], [uPoints[0][uPoints[0].length - 2], lineY]);
+							uPoints[1].push.apply(uPoints[1], [uPoints[1][uPoints[1].length - 2], lineY]);
 						}
 						
+						// Count
 						r.groupP[index].append("polygon")
 							.attr('class', 'svg-data svg-data-sequence svg-data-doing')
-							.attr("points", p2s(points[0], points[1]))
+							.attr("points", p2s(cPoints[0], cPoints[1]))
 							.attr('fill', r.deck.sequences.count.color);
+						
+						// Under
+						if (uPoints[0].length > 2)
+							r.groupP[index].append("polygon")
+								.attr('class', 'svg-data svg-data-sequence svg-data-doing')
+								.attr("points", p2s(uPoints[0], uPoints[1]))
+								.attr('fill', r.deck.sequences.under.color);
 					}
 				});
 				

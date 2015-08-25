@@ -46,8 +46,8 @@ app.factory('facets', ['colours', function(colours) {
 	var desc_m = 'thread migrates to another core';
 	var desc_ls = 'number of lock acquisition success';
 	var desc_lf = 'number of lock acquisition failure';
-	var desc_q_s = 'core is idle or execute only one thread';
-	var desc_q_p = 'core executing more than one thread';
+	var desc_q_s = 'core is idle or execute only one thread sequentially';
+	var desc_q_p = 'core executing more than one thread in parallel';
 
 	return {
 		r:		{ label: 'executing',		title: 'Thread executing',				desc: desc_r,	unity: 'ms',	cat: 'times',	attr: 'r',		color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
@@ -294,8 +294,6 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			graph : {
 				h:			limit,		// threads (color)
 				lines:		buildCoresAnonymously,
-				melody:		[facets.r],
-				melody_cat:	'cores',
 				sequences:	{ under: facets.q_s, count: facets.q_p }
 			},
 			data : [],
@@ -305,12 +303,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ property: 'lineHeight', value: 10 }
 			],
 			settings: [
-				{ property: 'disableLine', value: true, type: 'flag', label: 'Core line', desc: 'hide core line' },
-				{ property: 'disableSequenceTicks', value: false, type: 'flag', label: 'Core executing', desc: 'hide core executing' },
-				{ property: 'disableSequenceCount', value: false, type: 'flag', label: 'Parallel sequence', desc: 'hide parallel sequences' },
+				{ property: 'disableLine', value: false, type: 'flag', label: 'Core line', desc: 'hide core line' },
+				{ property: 'disableSequenceDashs', value: false, type: 'flag', label: 'Core executing', desc: 'hide core executing' },
+				{ property: 'disableSequenceBackgound', value: false, type: 'flag', label: 'Parallel sequences', desc: 'hide backgound sequences (parallel/sequential)' },
 				{ property: 'sequenceThreshold', value: 1, type: 'range', label: 'Parallel threshold', unit: 'running threads', min: 0, max: 3, step: 1 },
-				{ property: 'disableMelody0', value: true, type: 'flag', label: 'Executing', desc: 'hide executing melody (parallel)' },
-				{ property: 'melodyHeight', value: 9, type: 'range', label: 'Executing height', unit: 'pixels', min: 6, max: 12, step: 1 },
 			]
 		},
 		coreUU: {
