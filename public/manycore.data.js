@@ -294,8 +294,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			graph : {
 				h:			limit,		// threads (color)
 				lines:		buildCoresAnonymously,
-				//melody:		[facets.r],
-				//melody_cat:	'cores',
+				melody:		[facets.r],
+				melody_cat:	'cores',
 				sequences:	{ under: facets.q_s, count: facets.q_p }
 			},
 			data : [],
@@ -306,10 +306,11 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			],
 			settings: [
 				{ property: 'disableLine', value: true, type: 'flag', label: 'Core line', desc: 'hide core line' },
+				{ property: 'disableSequenceTicks', value: false, type: 'flag', label: 'Core executing', desc: 'hide core executing' },
 				{ property: 'disableSequenceCount', value: false, type: 'flag', label: 'Parallel sequence', desc: 'hide parallel sequences' },
 				{ property: 'sequenceThreshold', value: 1, type: 'range', label: 'Parallel threshold', unit: 'running threads', min: 0, max: 3, step: 1 },
-				//{ property: 'disableMelody0', value: false, type: 'flag', label: 'Executing', desc: 'hide executing melody (parallel)' },
-				//{ property: 'melodyHeight', value: 9, type: 'range', label: 'Executing height', unit: 'pixels', min: 6, max: 12, step: 1 },
+				{ property: 'disableMelody0', value: true, type: 'flag', label: 'Executing', desc: 'hide executing melody (parallel)' },
+				{ property: 'melodyHeight', value: 9, type: 'range', label: 'Executing height', unit: 'pixels', min: 6, max: 12, step: 1 },
 			]
 		},
 		coreUU: {

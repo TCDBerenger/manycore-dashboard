@@ -1476,7 +1476,7 @@ app.directive('chartLines', function() {
 							.attr('x2', r.scaleX(line.e))
 							.attr('y1', lineY).attr('y2', lineY)
 							.attr('stroke', r.deck.h.color)
-							.attr('stroke-width', .5);
+							.attr('stroke-width', 1);
 					
 					// Draw melody
 					if (r.deck.melody && ! r.meta.disableMelody) {
@@ -1499,7 +1499,7 @@ app.directive('chartLines', function() {
 					}
 					
 					// Draw sequences
-					if (r.deck.sequences) {
+					if (r.deck.sequences && ! r.meta.disableSequenceTicks) {
 						var points = [[r.scaleX(r.meta.begin), lineY], [r.scaleX(r.meta.begin), lineY]];
 						var useDelta = false;
 						var delta = 3;
