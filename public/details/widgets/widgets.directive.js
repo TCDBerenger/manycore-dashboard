@@ -1396,16 +1396,17 @@ app.directive('chartLines', function() {
 
 			// Main draw
 			var profileData, melodyData;
-			var groupHeight, lineY;
+			var groupHeight, lineLenght, lineY;
 			r.profiles.forEach(function(profile, index) {
 				// Clean
 				r.groupP[index].selectAll('*').remove();
 
 				// Data
 				lines = r.deck.lines(profile, r.meta.begin, r.meta.ends[index]);
+				lineLenght = lines.length;
 				mapLines = {};
 				profileData = profile.currentData;
-				groupHeight = lines.length * r.meta.lineHeight;
+				groupHeight = lineLenght * r.meta.lineHeight;
 				
 				// Expand graph
 				r.meta.vOverflow[index] = groupHeight;
@@ -1468,17 +1469,18 @@ app.directive('chartLines', function() {
 					line.y = lineY;
 					
 					// Draw basic core
-					r.groupP[index].append('line')
-						.attr('class', "svg-data svg-data-line")
-						.attr('x1', r.scaleX(line.s))
-						.attr('x2', r.scaleX(line.e))
-						.attr('y1', lineY).attr('y2', lineY)
-						.attr('stroke', r.deck.h.color)
-						.attr('stroke-width', 1);
+					if (! r.meta.disableLine)
+						r.groupP[index].append('line')
+							.attr('class', "svg-data svg-data-line")
+							.attr('x1', r.scaleX(line.s))
+							.attr('x2', r.scaleX(line.e))
+							.attr('y1', lineY).attr('y2', lineY)
+							.attr('stroke', r.deck.h.color)
+							.attr('stroke-width', .5);
 					
 					// Draw melody
-					var delta;
 					if (r.deck.melody && ! r.meta.disableMelody) {
+						var delta;
 						r.deck.melody.forEach(function(deck, facet_index) {
 							var points = [[], []];
 							var timeStep = profileData.info.timeStep;
@@ -1494,6 +1496,41 @@ app.directive('chartLines', function() {
 									.attr("points", p2s(points[0], points[1]))
 									.attr('fill', deck.color);
 						});
+					}
+					
+					// Draw sequences
+					if (r.deck.sequences) {
+						var points = [[r.scaleX(r.meta.begin), lineY], [r.scaleX(r.meta.begin), lineY]];
+						var useDelta = false;
+						var delta = 3;
+						
+						for (var t in profileData.events.q) {
+							if (t > r.meta.begin) {
+								if ((index == 0 && lineLenght - line_index - 1 < seqData[t]) || (index == 1 && line_index < seqData[t])) {
+									if (! useDelta) {
+										points[0].push.apply(points[0], [r.scaleX(t), lineY, r.scaleX(t), lineY + delta]);
+										points[1].push.apply(points[1], [r.scaleX(t), lineY, r.scaleX(t), lineY - delta]);
+										useDelta = true;
+									}
+								} else {
+									if (useDelta) {
+										points[0].push.apply(points[0], [r.scaleX(t), lineY + delta, r.scaleX(t), lineY]);
+										points[1].push.apply(points[1], [r.scaleX(t), lineY - delta, r.scaleX(t), lineY]);
+										useDelta = false;
+									}
+								}
+							}
+						}
+						
+						if (useDelta) {
+							points[0].push.apply(points[0], [points[0][points[0].length - 2], lineY]);
+							points[1].push.apply(points[1], [points[1][points[1].length - 2], lineY]);
+						}
+						
+						r.groupP[index].append("polygon")
+							.attr('class', 'svg-data svg-data-sequence svg-data-doing')
+							.attr("points", p2s(points[0], points[1]))
+							.attr('fill', r.deck.sequences.count.color);
 					}
 				});
 				
