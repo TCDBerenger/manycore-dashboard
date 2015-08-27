@@ -111,15 +111,65 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		});
 		return lines;
 	}
-	function buildThreadsAndFailure(profile, begin, end) {
-		var lines = buildThreads(profile, begin, end);
-		lines.push({
-			id: 0,
-			l: '?',
-			s: begin,
-			e: end
-		});
-		return lines;
+	function buildThreadsForDP(profile, begin, end) {
+		if (profile.id == 21)
+			return [
+				{ id: 11936,	l: 'φ 1',	s:1,	e:1023},
+				{ id: 8020,		l: 'φ 2',	s:1,	e:1529},
+				{ id: 18012,	l: 'φ 3',	s:1,	e:509},
+				{ id: 18596,	l: 'φ 4',	s:1,	e:1028},
+				{ id: 18964,	l: 'φ 5',	s:0,	e:512},
+			];
+		else if (profile.id == 22)
+			return [
+				{ id: 6028,		l: 'φ 1',	s:9,	e:583},		// 43 44
+				{ id: 14012,	l: 'φ 2',	s:9,	e:1567},	// 44 45
+				{ id: 9448,		l: 'φ 3',	s:9,	e:1055},	// 45 02
+				{ id: 11740,	l: 'φ 4',	s:0,	e:540},		// 01 02
+				{ id: 12748,	l: 'φ 5',	s:1,	e:1061},	// 01 03
+				{ id: 18188,	l: 'φ 6',	s:1,	e:513},		// 03 04
+				{ id: 4304,		l: 'φ 7',	s:1,	e:1090},	// 04 05
+				{ id: 16232,	l: 'φ 8',	s:1,	e:576},		// 05 06
+				{ id: 10008,	l: 'φ 9',	s:1,	e:1095},	// 06 07
+				{ id: 7920,		l: 'φ 10',	s:1,	e:518},		// 07 08
+				{ id: 16172,	l: 'φ 11',	s:2,	e:1165},	// 08 09
+				{ id: 2692,		l: 'φ 12',	s:2,	e:621},		// 09 10
+				{ id: 19948,	l: 'φ 13',	s:2,	e:1146},	// 10 11
+				{ id: 15944,	l: 'φ 14',	s:2,	e:529},		// 11 12
+				{ id: 6964,		l: 'φ 15',	s:3,	e:1103},	// 12 13
+				{ id: 17064,	l: 'φ 16',	s:3,	e:590},		// 13 14
+				{ id: 12780,	l: 'φ 17',	s:3,	e:1110},	// 14 15
+				{ id: 5472,		l: 'φ 18',	s:3,	e:534},		// 15 16
+				{ id: 19964,	l: 'φ 19',	s:3,	e:1183},	// 16 17
+				{ id: 16464,	l: 'φ 20',	s:3,	e:647},		// 17 18
+				{ id: 8344,		l: 'φ 21',	s:4,	e:1194},	// 18 19
+				{ id: 9164,		l: 'φ 22',	s:4,	e:593},		// 19 20
+				{ id: 6060,		l: 'φ 23',	s:4,	e:1116},	// 20 21
+				{ id: 8208,		l: 'φ 24',	s:4,	e:546},		// 21 22
+				{ id: 3232,		l: 'φ 25',	s:4,	e:1133},	// 22 23
+				{ id: 13484,	l: 'φ 26',	s:4,	e:599},		// 23 24
+				{ id: 19940,	l: 'φ 27',	s:5,	e:1188},	// 24 25
+				{ id: 19828,	l: 'φ 28',	s:5,	e:552},		// 25 26
+				{ id: 5500,		l: 'φ 29',	s:5,	e:1177},	// 26 27
+				{ id: 10608,	l: 'φ 30',	s:5,	e:627},		// 27 28
+				{ id: 8600,		l: 'φ 31',	s:5,	e:1152},	// 28 29
+				{ id: 13088,	l: 'φ 32',	s:5,	e:558},		// 29 30
+				{ id: 22092,	l: 'φ 33',	s:6,	e:1121},	// 30 31
+				{ id: 14260,	l: 'φ 34',	s:6,	e:606},		// 31 32
+				{ id: 2320,		l: 'φ 35',	s:6,	e:1127},	// 32 33
+				{ id: 12608,	l: 'φ 36',	s:6,	e:564},		// 33 34
+				{ id: 6272,		l: 'φ 37',	s:7,	e:1171},	// 34 35
+				{ id: 9616,		l: 'φ 38',	s:7,	e:641},		// 35 36
+				{ id: 20644,	l: 'φ 39',	s:7,	e:1201},	// 36 37
+				{ id: 18556,	l: 'φ 40',	s:7,	e:570},		// 37 38
+				{ id: 5780,		l: 'φ 41',	s:8,	e:1140},	// 38 39
+				{ id: 20176,	l: 'φ 42',	s:8,	e:615},		// 39 40
+				{ id: 5756,		l: 'φ 43',	s:8,	e:1158},	// 40 41
+				{ id: 5256,		l: 'φ 44',	s:8,	e:634},		// 41 42
+				{ id: 19564,	l: 'φ 45',	s:8,	e:1207},	// 42 43
+			];
+		else
+			return buildThreads(profile, begin, end);
 	}
 	function buildCores(profile, begin, end) {
 		var lines = [];
@@ -326,8 +376,13 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		chains: {
 			graph : {
 				h:			limit,		// color
-				lines:		buildThreadsAndFailure,
+				lines:		buildThreads,
+				linesHack:	buildThreadsForDP,
 				depends:	{
+					list: 'locks',
+					failure: facets.lf,
+					working: facets.ls,
+					
 					start: facets.ls,
 					end: facets.lf,
 					color: facets.lw,
@@ -340,6 +395,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			legend : [facets.lw],
 			clues: [],
 			settings: [
+				{ property: 'hackLineProvider', value: true, type: 'flag', label: 'Data provider', desc: 'use a hack for dinner philosopher problems' },
 			]
 		},
 	};

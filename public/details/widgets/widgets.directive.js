@@ -199,12 +199,12 @@ function directive_repaint_container(r) {
 	r.svg.attr({width: r.layout.width, height: r.layout.height});
 
 	// Clean axis
-	r.groupV[0].attr("transform", "translate(" + r.layout.vAxis.x + "," + r.layout.vAxis.y[0] + ")");
-	r.groupV[1].attr("transform", "translate(" + r.layout.vAxis.x + "," + r.layout.vAxis.y[1] + ")");
+	r.groupV[0].attr('transform', 'translate(' + r.layout.vAxis.x + ',' + r.layout.vAxis.y[0] + ")");
+	r.groupV[1].attr('transform', 'translate(' + r.layout.vAxis.x + ',' + r.layout.vAxis.y[1] + ")");
 
 	// Clean groups
-	r.groupP[0].attr("transform", "translate(" + r.layout.profile.x + "," + r.layout.profile.y[0] + ")");
-	r.groupP[1].attr("transform", "translate(" + r.layout.profile.x + "," + r.layout.profile.y[1] + ")");
+	r.groupP[0].attr('transform', 'translate(' + r.layout.profile.x + ',' + r.layout.profile.y[0] + ")");
+	r.groupP[1].attr('transform', 'translate(' + r.layout.profile.x + ',' + r.layout.profile.y[1] + ")");
 
 	// Clean selection
 	directive_unselect(r);
@@ -212,7 +212,7 @@ function directive_repaint_container(r) {
 	// Overflow
 	if (r.meta.canOverflow) {
 		r.meta.vOverflow = [0, 0];
-		r.groupO.attr("transform", null);
+		r.groupO.attr('transform', null);
 	}
 }
 
@@ -237,13 +237,13 @@ function directive_repaint_scales(r, vData, vData2) {
 function directive_repaint_post(r) {
 	// Profile label
 	r.profiles.forEach(function(profile, index) {
-		r.groupV[index].append("text")
+		r.groupV[index].append('text')
 			.attr('class', "svg-text svg-profile-label")
-			.attr("text-anchor", (index == 0) ? "start" : "end")
-			.attr("font-size", r.layout.vAxis.profileFontSize + "px")
-			.attr("font-weight", "bold")
+			.attr('text-anchor', (index == 0) ? "start" : 'end')
+			.attr('font-size', r.layout.vAxis.profileFontSize + 'px')
+			.attr('font-weight', 'bold')
 			.attr('fill', '#000000')
-			.attr("transform", (index == 0) ? ("translate(" + r.layout.vAxis.profileFontSize + "," + (r.layout.vAxis.height) + ")rotate(270)") : ("translate(" + r.layout.vAxis.profileFontSize + "," + 0 + ")rotate(270)"))
+			.attr('transform', (index == 0) ? ('translate(' + r.layout.vAxis.profileFontSize + ',' + (r.layout.vAxis.height) + ")rotate(270)") : ('translate(' + r.layout.vAxis.profileFontSize + ',' + 0 + ")rotate(270)"))
 			.text(profile.label);
 	});
 		
@@ -252,12 +252,12 @@ function directive_repaint_post(r) {
 
 		// Top (profile 1)
 		if (r.meta.vOverflow[0] > 0) {
-			r.groupO.attr("transform", "translate(0," + r.meta.vOverflow[0] + ")");
+			r.groupO.attr('transform', "translate(0," + r.meta.vOverflow[0] + ")");
 		}
 
 		// Top (profile 2)
 		if (r.meta.vOverflow[1] > 0 && ! r.meta.mirror) {
-			r.group1.attr("transform", "translate(0," + r.meta.vOverflow[1] + ")");
+			r.group1.attr('transform', "translate(0," + r.meta.vOverflow[1] + ")");
 		}
 
 		// Top & Bottom (both profiles)
@@ -302,7 +302,7 @@ function directive_bind(scope, element, r, repaint, select) {
 function directive_repaint_xAxis(r) {
 	// Clean
 	r.groupX
-		.attr("transform", "translate(" + r.layout.xAxis.x + "," + r.layout.xAxis.y + ")")
+		.attr('transform', 'translate(' + r.layout.xAxis.x + ',' + r.layout.xAxis.y + ")")
 		.selectAll('*').remove();
 
 	// Box
@@ -320,13 +320,13 @@ function directive_repaint_xAxis(r) {
 		.attr("stroke-width", 2);
 	
 	// Clock symbol
-	r.groupX.append("text")
-		.attr('class', "svg-text")
-		.attr("y", r.layout.xAxis.textShift + 2)
-		.attr("x", -16)
-		.attr("text-anchor", "end")
-		.attr("font-size", (r.layout.xAxis.text + 4) + "px")
-		.text('🕓'); // ⌛
+	r.groupX.append('text')
+		.attr('class', 'svg-text')
+		.attr('y', r.layout.xAxis.textShift + 2)
+		.attr('x', -16)
+		.attr('text-anchor', 'end')
+		.attr('font-size', (r.layout.xAxis.text + 4) + 'px')
+		.text('time'); // ⌛ 🕓
 	
 	// Labels
 	var texts = r.scaleX.ticks();
@@ -334,12 +334,12 @@ function directive_repaint_xAxis(r) {
 	r.groupX
 		.selectAll(".svg-text-scale")
 		.data(texts).enter()
-		.append("text")
-			.attr('class', "svg-text")
-			.attr("y", r.layout.xAxis.textShift)
-			.attr("x", function (d) { return r.scaleX(d)})
-			.attr("text-anchor", function(d, i) { return (i == lastIndex) ? "end" : "middle"; })
-			.attr("font-size", r.layout.xAxis.text + "px")
+		.append('text')
+			.attr('class', 'svg-text')
+			.attr('y', r.layout.xAxis.textShift)
+			.attr('x', function (d) { return r.scaleX(d)})
+			.attr('text-anchor', function(d, i) { return (i == lastIndex) ? 'end' : "middle"; })
+			.attr('font-size', r.layout.xAxis.text + 'px')
 			.attr('fill', "#FFFFFF")
 			.text(function (d) { return (d == 0) ? 0 : (d / 1000) + ' s'; });
 }
@@ -370,13 +370,13 @@ function directive_repaint_VAxis(r, index, valueFunction) {
 				.attr('fill', 'none');
 
 		// Text
-		r.groupV[index].append("text")
-			.attr('class', "svg-text")
-			.attr("y", r.scalesV[index](v) + 3)
-			.attr("x", r.layout.vAxis.width - 6)
-			.attr("text-anchor", "end")
-			.attr("font-size", r.layout.vAxis.fontSize + "px")
-			.attr("font-weight", (v == r.meta.vExpected[index]) ? 'bold' : 'normal')
+		r.groupV[index].append('text')
+			.attr('class', 'svg-text')
+			.attr('y', r.scalesV[index](v) + 3)
+			.attr('x', r.layout.vAxis.width - 6)
+			.attr('text-anchor', 'end')
+			.attr('font-size', r.layout.vAxis.fontSize + 'px')
+			.attr('font-weight', (v == r.meta.vExpected[index]) ? 'bold' : 'normal')
 			.attr('fill', (v == r.meta.vExpected[index]) ? r.deck.limit.fcolor : '#000000')
 			.text((valueFunction !== undefined) ? valueFunction(v, index, r) : v);
 
@@ -440,15 +440,15 @@ function directive_repaint_VCustomAxis(r, index, facet, values) {
 				.attr('stroke-width', 1);
 
 		// Text
-		r.groupV[index].append("text")
-			.attr('class', "svg-text")
-			.attr("y", value.y)
-			.attr("x", r.layout.vAxis.width - 6)
-			.attr("text-anchor", "end")
-			.attr("alignment-baseline", 'central')
-			.attr("dominant-baseline", 'central')
-			.attr("font-size", r.layout.vAxis.fontSize + "px")
-			.attr("font-weight", 'normal')
+		r.groupV[index].append('text')
+			.attr('class', 'svg-text')
+			.attr('y', value.y)
+			.attr('x', r.layout.vAxis.width - 6)
+			.attr('text-anchor', 'end')
+			.attr('alignment-baseline', 'central')
+			.attr('dominant-baseline', 'central')
+			.attr('font-size', r.layout.vAxis.fontSize + 'px')
+			.attr('font-weight', 'normal')
 			.attr('fill', facet.fcolor)
 			.text(value.l);
 	});
@@ -487,12 +487,12 @@ function p2s(points, returnPoints) {
 	var result = "";
 
 	for (var i = points.length - 2; i >= 0; i -= 2) {
-		result = points[i] + "," + points[i+1] + " " + result;
+		result = points[i] + ',' + points[i+1] + " " + result;
 	};
 
 	if (returnPoints != undefined) {
 		for (var i = returnPoints.length - 2; i >= 0; i -= 2) {
-			result += returnPoints[i] + "," + returnPoints[i+1] + " ";
+			result += returnPoints[i] + ',' + returnPoints[i+1] + " ";
 		};
 	}
 
@@ -1403,7 +1403,7 @@ app.directive('chartLines', function() {
 				r.groupP[index].selectAll('*').remove();
 
 				// Data
-				lines = r.deck.lines(profile, r.meta.begin, r.meta.ends[index]);
+				lines = (r.meta.hackLineProvider) ? r.deck.linesHack(profile, r.meta.begin, r.meta.ends[index]) : r.deck.lines(profile, r.meta.begin, r.meta.ends[index]);
 				lineLenght = lines.length;
 				mapLines = {};
 				profileData = profile.currentData;
@@ -1568,6 +1568,88 @@ app.directive('chartLines', function() {
 				
 				// Draw dependencies
 				if (r.deck.depends) {
+					var depData = profileData.dependencies[r.deck.depends.list];
+					
+					for (var lock in depData) {
+						var holded, start;
+						depData[lock].forEach(function(event) {
+							// Failure
+							if (event.x == 'lf') {
+								// Line
+								r.groupP[index].insert('line', ':first-child')
+									.attr('class', "svg-data svg-data-line")
+									.attr('x1', r.scaleX(event.t)).attr('x2', r.scaleX(event.t))
+									.attr('y1', mapLines[event.h].y).attr('y2', mapLines[event.hl].y)
+									.attr('stroke', r.deck.depends.failure.color)
+									.attr('stroke-width', 1)
+									.attr('stroke-dasharray', '2,2');
+								// Cross
+								r.groupP[index].append('text')
+									.attr('class', 'svg-data svg-data-failure svg-data-failure-label')
+									.attr('x', r.scaleX(event.t))
+									.attr('y', mapLines[event.h].y)
+									.attr('text-anchor', 'middle')
+									.attr('alignment-baseline', 'central')
+									.attr('dominant-baseline', 'central')
+									.attr('font-size', '10px')
+									.attr('fill', r.deck.depends.failure.color)
+									.text('×');
+							} else
+							
+							// Success
+							if (event.x == 'ls') {
+								// Tick
+								r.groupP[index].append('line')
+									.attr('class', "svg-data svg-data-line")
+									.attr('x1', r.scaleX(event.t)).attr('x2', r.scaleX(event.t))
+									.attr('y1', mapLines[event.h].y - 4).attr('y2', mapLines[event.h].y + 4)
+									.attr('stroke', r.deck.depends.working.fcolor)
+									.attr('stroke-width', 1);
+								
+								holded = event;
+							} else
+							
+							// Release
+							if (event.x == 'lr') {
+								start = (holded) ? holded.t : mapLines[holded.h].s;
+								// Line
+								if (event.t - start > 0) {
+									// Period
+									r.groupP[index].append('line')
+										.attr('class', "svg-data svg-data-line")
+										.attr('x1', r.scaleX(start)).attr('x2', r.scaleX(event.t))
+										.attr('y1', mapLines[holded.h].y).attr('y2', mapLines[holded.h].y)
+										.attr('stroke', r.deck.depends.working.color)
+										.attr('stroke-width', 5);
+									
+									// Tick
+									r.groupP[index].append('line')
+										.attr('class', "svg-data svg-data-line")
+										.attr('x1', r.scaleX(event.t)).attr('x2', r.scaleX(event.t))
+										.attr('y1', mapLines[holded.h].y - 4).attr('y2', mapLines[holded.h].y + 4)
+										.attr('stroke', r.deck.depends.working.fcolor)
+										.attr('stroke-width', 1);
+								}
+								
+								holded = null;
+							}
+						}, this);
+						
+						if (holded) {
+							// Line
+							if (mapLines[holded.h].e - holded.t > 0)
+								r.groupP[index].append('line')
+									.attr('class', "svg-data svg-data-line")
+									.attr('x1', r.scaleX(holded.t)).attr('x2', r.scaleX(mapLines[holded.h].e))
+									.attr('y1', mapLines[holded.h].y).attr('y2', mapLines[holded.h].y)
+									.attr('stroke', r.deck.depends.working.color)
+									.attr('stroke-width', 5);
+							
+						}
+					}
+				}
+				/*
+				if (r.deck.depends) {
 					var facet, points, lineFrom, lineTo;
 					
 					// Start
@@ -1608,6 +1690,7 @@ app.directive('chartLines', function() {
 								.attr('fill', 'transparent');
 						});
 				}
+				*/
 			});
 
 			// Post-treatment
