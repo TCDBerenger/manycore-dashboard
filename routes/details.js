@@ -292,7 +292,9 @@ function addLocks(output, id) {
 	output.stats.locks = {
 		ls:	data.stats.lock_success,
 		lf:	data.stats.lock_failure,
-		lw:	data.stats.lock_wait
+		lr:	data.stats.lock_release,
+		lw:	data.stats.lock_wait,
+		lh:	data.stats.lock_hold
 	};
 }
 
@@ -346,7 +348,8 @@ function addDependencies(output, id) {
 	// Init return
 	output.dependencies	= {
 		ls: [],
-		lf: []
+		lf: [],
+		locks: data.locks
 	};
 
 	// List lock success
@@ -359,6 +362,11 @@ function addDependencies(output, id) {
 	data.lock_failure.forEach(function(lock) {
 		output.dependencies.lf.push(lock);
 	});
+
+	// List lock release
+	/*data.lock_failure.forEach(function(lock) {
+		output.dependencies.lf.push(lock);
+	});*/
 }
 
 /**

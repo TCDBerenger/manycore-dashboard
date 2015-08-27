@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 60;
+var VERSION = 61;
 
 /************************************************/
 /* Variables - hardwares						*/
@@ -304,9 +304,11 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			migrations:		0,
 			starts:			0,
 			ends:			0,
-			lock_success:	0,
 			lock_failure:	0,
+			lock_success:	0,
+			lock_release:	0,
 			lock_wait:		0,
+			lock_hold:		0,
 			threads:		0
 		},
 		frames: {},
@@ -335,8 +337,10 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 				hpf:		0
 			}
 		},
-		lock_success:		[],
+		locks:				{},
 		lock_failure:		[],
+		lock_success:		[],
+		lock_release:		[],
 		threads: {
 			byFrames:		{}
 		}
@@ -671,8 +675,9 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	 *
 	 */
 	// Vars
-	var lock_map = {};	// current owner of a lock
-	var wait_map = {};	// when a thread starts waiting a lock (key: 'thread-lock')
+	var lock_map = {};	// current owner of a lock				(key: 'lock-id')
+	var hold_map = {};	// when a thread starts holding a lock	(key: 'lock-id')
+	var wait_map = {};	// when a thread starts waiting a lock	(key: 'thread-lock')
 	var duration, currentEnd, currentID;
 
 	// Loop
@@ -707,6 +712,14 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			
 			// Save the success
 			data.events.threads[element.tid].ls.push(timeEvent);
+
+			// Save when lock is holding
+			if (hold_map[element.value] != null && hold_map[element.value] != element.dtime) console.log("incoherent: lock already holded", element.value, hold_map[element.value], element.dtime);
+			hold_map[element.value] = element.dtime;
+			
+			// Save lock life
+			if (! data.locks.hasOwnProperty(element.value)) data.locks[element.value] = []; 
+			data.locks[element.value].push({ t: timeEvent, x: 'ls', h: element.tid });
 
 			// Stats
 			data.stats.lock_success++;
@@ -746,7 +759,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			wait_map[element.tid] = undefined;			// Thread doesn't wait the lock anymore
 			lock_map[element.value] = element.tid;		// which thread has the lock
 
-		} else { // if (element.type == 'failure')
+		} else if (element.type == 'failure') {
 
 			// Save the failure
 			data.lock_failure.push({
@@ -768,12 +781,50 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			// Save when a thread fail
 			if (wait_map[element.tid] != null && wait_map[element.tid] != element.dtime) console.log("incoherent: thread already waiting", wait_map[element.tid], element.dtime);
 			wait_map[element.tid] = element.dtime;
+			
+			// Save lock life
+			if (! data.locks.hasOwnProperty(element.value)) data.locks[element.value] = []; 
+			data.locks[element.value].push({ t: timeEvent, x: 'lf', h: element.tid, hl: lock_map[element.value] });
 
 			// Stats
 			data.stats.lock_failure++;
 
 			// Stats by frame
 			data.frames[timeID].lock_failure++;
+
+		} else if (element.type == 'release') {
+			// Compute duration
+			duration = Math.round((element.dtime - hold_map[element.value]) / 10000);
+
+			// Save the release
+			data.lock_release.push({
+				t: timeEvent,
+				l: element.value,				// which occupied lock
+				h: element.tid,					// which thread fails
+				d: duration						// how long does it take to get the lock
+			});
+			
+			// Check event list existance
+			if (! data.periods.threads.hasOwnProperty(element.tid))
+				data.periods.threads[element.tid] = { lh: [] };
+			else if (! data.periods.threads[element.tid].hasOwnProperty('lh'))
+				data.periods.threads[element.tid].lh = [];
+			
+			// Save the success
+			data.periods.threads[element.tid].lh.push({ s: Math.round(hold_map[element.value] / 10000), e: timeEvent});
+			hold_map[element.value] = null;
+			
+			// Save lock life
+			if (! data.locks.hasOwnProperty(element.value)) data.locks[element.value] = []; 
+			data.locks[element.value].push({ t: timeEvent, x: 'lr' });
+
+			// Stats
+			data.stats.lock_release++;
+			data.stats.lock_hold += duration;
+
+			// Reset
+			hold_map[element.value] = undefined;		// Lock isn't holded anymore (when start holding)
+			lock_map[element.value] = undefined;		// Lock isn't holded anymore (which thread)
 		}
 	});
 
