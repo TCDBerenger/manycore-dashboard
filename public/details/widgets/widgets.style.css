@@ -5,10 +5,14 @@
 	float: left;
 	margin-right: 40px;
 }
-.widgets .nav-tabs > li.active:not(:first-of-type) > a {
+.widgets .nav-tabs > li.active:not(:last-of-type) > a {
 	background-color: #F9F9F9;
 }
-.widgets .tab-pane:not(:first-of-type) {
+.widgets .nav-tabs > li:last-of-type > a {
+	background-color: transparent !important;
+	border-color: transparent transparent #DDD !important;
+}
+.widgets .tab-pane:not(:last-of-type) {
 	padding: 10px 0px 15px 0px;
 	background-color: #F9F9F9;
 	border-bottom: 1px solid #DDD;

@@ -1,10 +1,7 @@
 <tabset>
 	<h4>{{widget.title}}</h4>
 	<tab>
-		<tab-heading><i class="fa fa-bar-chart"></i> graph</tab-heading>
-	</tab>
-	<tab>
-		<tab-heading><i class="fa fa-info-circle"></i> legend</tab-heading>
+		<tab-heading><i class="fa fa-bar-chart"></i> legend</tab-heading>
 		<p ng-if="widget.desc">{{widget.desc}}</p>
 		<div class="row">
 			<div class="col-sm-5">
@@ -54,10 +51,10 @@
 			<div class="form-group" ng-repeat="setting in widget.deck.settings">
 				<label class="col-sm-2 control-label">{{setting.label}}</label>
 				<div class="col-sm-10" ng-if="setting.type == 'flag'">
-					<div class="checkbox"><label>
-						<input type="checkbox" ng-model="widget.settings[setting.property]" ng-disabled="widget.settings[setting.depends] === false" />
-						{{setting.desc}}
-					</label></div>
+					<div class="checkbox checkbox-info">
+						<input id="setting-input-{{widget.id}}{{$index}}" type="checkbox" ng-model="widget.settings[setting.property]" ng-disabled="widget.settings[setting.depends] === false" />
+						<label for="setting-input-{{widget.id}}{{$index}}">{{setting.desc}}</label>
+					</div>
 				</div>
 				<div class="col-sm-10" ng-if="setting.type == 'range'">
 					<div class="range range-primary">
@@ -68,5 +65,6 @@
 			</div>
 		</div>
 	</tab>
+	<tab heading="hide"></tab>
 </tabset>
 <div class="profile-body" ng-include="'/details/widgets/' + widget.file + '.widget.html'"></div>
