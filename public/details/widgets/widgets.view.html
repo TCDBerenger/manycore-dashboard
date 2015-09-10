@@ -6,44 +6,20 @@
 		<div class="row">
 			<div class="col-sm-5">
 				<h5>Axis:</h5>
-				<ul class="facet-list" style="font-size: 0.85em;">
-					<li id="l4{{widget.id}}t">
-						<style>#l4{{widget.id}}t:before { content: "➨ "; color: #000; }</style><!-- ➽ -->
-						<strong>Time line</strong>: the horizontal scale is in seconds<br />
-						from <em>{{selection.begin / 1000}}</em> s to <em>{{selection.end / 1000}}</em> s
-					</li>
-					<li id="l3{{widget.id}}{{$index}}" ng-repeat="facet in widget.deck.texts">
-						<style>#l3{{widget.id}}{{$index}}:before { content: "tX "; color: {{facet.color}}; }</style>
-						<strong style="color: {{facet.color}};">{{facet.title}}</strong>: {{facet.desc}}
-					</li>
-				</ul>
+				<facet-list list="widget.deck.legend.axis" prelist="axisList"></facet-list>
 			</div>
 			<div class="col-sm-7">
 				<h5>Data shown:</h5>
-				<ul class="facet-list" style="font-size: 0.85em;">
-					<li id="l1{{widget.id}}{{$index}}" ng-repeat="facet in widget.deck.data">
-						<style>#l1{{widget.id}}{{$index}}:before { content: "▮ "; color: {{facet.color}}; }</style>
-						<strong>{{facet.title}}</strong>: {{facet.desc}}
-					</li>
-					<li id="l2{{widget.id}}{{$index}}" ng-repeat="facet in widget.deck.legend">
-						<style>#l2{{widget.id}}{{$index}}:before { content: "▮ "; color: {{facet.color}}; }</style>
-						<strong>{{facet.title}}</strong>: {{facet.desc}}
-					</li>
-				</ul>
+				<facet-list list="widget.deck.legend.data"></facet-list>
 			</div>
 		</div>
 	</tab>
 	<tab disable="widget.deck.clues.length == 0">
-		<tab-heading><i class="fa fa-medkit"></i> help</tab-heading>
+		<tab-heading><i class="fa fa-medkit"></i> diagnostic</tab-heading>
 		<!--<p class="clues-label">
 			Clues about troubleshooting:
 		</p>-->
-		<ul class="facet-list" style="font-size: 0.85em;">
-			<li id="cli{{widget.id}}{{$index}}" ng-repeat="clue in widget.deck.clues">
-				<style>#cli{{widget.id}}{{$index}}:before { content: "▮ "; color: {{clue.color}}; }</style>
-				<strong>{{clue.tax}}</strong>: {{clue.text}}
-			</li>
-		</ul>
+		<facet-list list="widget.deck.clues"></facet-list>
 	</tab>
 	<tab disable="widget.deck.settings.length == 0">
 		<tab-heading><i class="fa fa-sliders"></i> settings</tab-heading>

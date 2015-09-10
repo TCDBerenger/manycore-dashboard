@@ -214,10 +214,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			legend : [facets.sys],
 			texts : [a_uu, a_cores],
 			clues: [
-				{ color: colours.bad,	tax: 'Oversubscription', 							text: 'too many threads' },
-				{ color: colours.bad,	tax: 'Thread migrations', 							text: 'too many threads' },
-				{ color: colours.bad,	tax: 'Bad thread to core ratio', 					text: 'too many threads' },
-				{ color: colours.plus,	tax: 'Underscubscription', 							text: 'not enough threads' }
+				{ c: colours.bad,	t: 'Oversubscription', 			d: 'too many threads' },
+				{ c: colours.bad,	t: 'Thread migrations', 		d: 'too many threads' },
+				{ c: colours.bad,	t: 'Bad thread to core ratio', 	d: 'too many threads' },
+				{ c: colours.plus,	t: 'Underscubscription', 		d: 'not enough threads' }
 			],
 			settings: [
 				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core', desc: 'average of core activity among thread states' }
@@ -235,7 +235,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			data : [facets.s],
 			legend : [],
 			clues: [
-				{ color: colours.base,	tax: 'Oversubscription',							text: 'high frequency' }
+				{ c: colours.base,	t: 'Oversubscription',	d: 'high frequency' }
 			],
 			settings: [
 				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
@@ -253,8 +253,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			data : [facets.m],
 			legend : [],
 			clues: [
-				{ color: colours.base,	tax: 'Thread migrations',							text: 'too many migrations' },
-				{ color: colours.base,	tax: 'Alternating sequential/parallel execution',	text: 'alternating period of high and low thread migrations' }
+				{ c: colours.base,	t: 'Thread migrations',							d: 'too many migrations' },
+				{ c: colours.base,	t: 'Alternating sequential/parallel execution',	d: 'alternating period of high and low thread migrations' }
 			],
 			settings: [
 				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
@@ -313,11 +313,11 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			legend : [],
 			texts: [a_threads],
 			clues: [
-				{ color: colours.unkn,	tax: 'Task start/stop overhead',					text: 'too many creations' },
-				{ color: colours.alt,	tax: 'Oversubscription',							text: 'too many threads' },
-				{ color: colours.base,	tax: 'Thread migrations',							text: 'too many threads' },
-				{ color: colours.alt,	tax: 'Thread migrations',							text: 'too many migrations' },
-				{ color: colours.unkn,	tax: 'Task start/stop overhead',					text: 'too short lifetime' }
+				{ c: colours.unkn,	t: 'Task start/stop overhead',	d: 'too many creations' },
+				{ c: colours.alt,	t: 'Oversubscription',			d: 'too many threads' },
+				{ c: colours.base,	t: 'Thread migrations',			d: 'too many threads' },
+				{ c: colours.alt,	t: 'Thread migrations',			d: 'too many migrations' },
+				{ c: colours.unkn,	t: 'Task start/stop overhead',	d: 'too short lifetime' }
 			],
 			settings: [
 				{ property: 'disableTicks', value: false, type: 'flag', label: 'Disable ticks' },
@@ -391,8 +391,18 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					failID: 0
 				}
 			},
+			legend: {
+				axis: [
+					{ b: '⊢', f: limit,	t: '[Y] Threads',	d: 'each line represents a thread complying with the start and end times' },
+				],
+				data: [
+					{ b: '×', f: facets.lf,									d: 'attempt to acquire a lock' },
+					{ b: '¦', f: facets.lf,									d: 'indicating which thread hold the lock' },
+					{ b: '|', f: facets.ls,	t: 'Lock acquire or release',	d: '', 								c: colours.list.dTurquoise},
+					{ b: '▰', f: facets.ls,	t: 'Lock hold',					d: '' },
+				]
+			},
 			data : [facets.ls, facets.lf],
-			legend : [facets.lw],
 			clues: [],
 			settings: [
 				{ property: 'hackLineProvider', value: true, type: 'flag', label: 'Data provider', desc: 'use a hack for dinner philosopher problems' },

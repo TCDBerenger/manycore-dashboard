@@ -96,3 +96,55 @@ app.directive('chartStats', function() {
 		restrict: 'E'
 	}
 });
+
+
+/**
+ * Facet list
+ */
+app.directive('facetList', [function() {
+	return {
+		templateUrl : '/details/aside/facetList.template.html',
+		bindToController: true,
+		scope: {
+			prelist: '=',
+			list: '='
+		},
+		controllerAs : 'dv',
+		controller : function() {
+			console.log("== directive == facetList ==");
+			var listID = Math.floor((Math.random() * 1000) + 1);
+			var sources = [];
+			var provider = [];
+			var styles = '';
+			
+			if (this.prelist) sources.push(this.prelist);
+			if (this.list) sources.push(this.list);
+			
+			var itemID;
+			sources.forEach(function(source, i1) {
+				source.forEach(function(item, i2) {
+					itemID = 'l' + listID + 's' + i1 + 'i' + i2;
+					provider.push({
+						i: itemID,
+						t: ('t' in item) ? item.t : ('f' in item) ? item.f.title : '',
+						d: ('d' in item) ? item.d : ('f' in item) ? item.f.desc : ''
+					});
+					styles += '#' + itemID + ':before {' +
+							'content: "' + (('b' in item) ? item.b : '▮') + '";' +
+							'color: ' + (('c' in item) ? item.c : ('f' in item) ? item.f.color : '#000') + ';' +
+						'}';
+				});
+			});
+			
+			// Scope named 'dv'
+			this.id = listID;
+			this.provider = provider;
+			this.styles = styles;
+		},
+		link: function link(scope, element, attrs) {
+			// Add main class
+			d3.select(element[0]).attr("class", "aside");
+		},
+		restrict: 'E'
+	}
+}]);

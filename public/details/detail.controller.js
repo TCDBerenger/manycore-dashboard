@@ -32,7 +32,10 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		colMD: { graph: 9, data: 3 },
 		colLG: { graph: 9, data: 3 }
 	};
-
+	
+	
+	// Axis common list
+	var axisTime = { b: '⇛', c: '#000;', t: '[X] Time', d: 'time line in horizontal with scale in seconds, from -b- s to -e- s' }; // ⇛ ➨ ➽ 
 
 
 	
@@ -46,7 +49,6 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 
 		$http.get('/service/details/'+ tag + '/' + dataToRetreive.join('-')).success(function(data) {
 			profiles.forEach(function(profile) {
-				profile.currentData = data[profile.id];
 				profile.data[tag] = data[profile.id];
 			});
 			postReceiption();
@@ -57,11 +59,42 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	 * Retreive - populate
 	 */
 	function postReceiption() {
+		//
+		//	Data
+		//
+		profiles.forEach(function(profile) {
+			profile.currentData = profile.data[tag];
+		});
+		
+		
+		//
+		//	Selection
+		//
 		$scope.selection = {
 			begin: 0,
 			end: (profiles.length > 1) ? Math.max(profiles[0].data[tag].info.duration, profiles[1].data[tag].info.duration) : profiles[0].data[tag].info.duration
 		}
+		
+		
+		//
+		//	Axis
+		//
+		// clear
+		$scope.axisList.splice(0, $scope.axisList.length);
+		
+		// customize
+		var aTime = JSON.parse(JSON.stringify(axisTime));
+		aTime.d = aTime.d
+			.replace("-b-", Math.round($scope.selection.begin / 100) / 10)
+			.replace("-e-", Math.round($scope.selection.end / 100) / 10);
+		
+		// populate
+		$scope.axisList.push(aTime);
 
+		
+		//
+		//	Finish to wait
+		//
 		waiting =	false;
 	}
 	
@@ -213,4 +246,5 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	$scope.mouseOver = mouseOver;
 	$scope.mouseLeave = mouseLeave;
 	$scope.createStats = createStats;
+	$scope.axisList = []; // poputaled in postReceiption()
 }]);
