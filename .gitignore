@@ -5,3 +5,4 @@ npm-debug.log
 data/*.cache.json
 data/tmp
 .settings
+.vscode
