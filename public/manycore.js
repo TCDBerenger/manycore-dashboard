@@ -1,4 +1,4 @@
-var app = angular.module('manycoreDashboard', ['ui.router', 'ui.bootstrap']);
+var app = angular.module('manycoreDashboard', ['ui.router', 'ui.bootstrap', 'ngCookies']);
 
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 	$stateProvider

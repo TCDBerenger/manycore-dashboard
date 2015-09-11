@@ -8,6 +8,7 @@
 		"angular": "latest",
 		"ui-route": "latest",
 		"angular-bootstrap": "latest",
+		"angular-cookies": "latest",
 		"d3": "latest"
 	}
 }
