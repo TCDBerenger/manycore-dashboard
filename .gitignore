@@ -4,5 +4,6 @@ npm-debug.log
 *.sublime-*
 data/*.cache.json
 data/tmp
+public/libs
 .settings
 .vscode

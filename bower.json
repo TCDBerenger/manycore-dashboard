@@ -1,0 +1,13 @@
+{
+	"name": "manycoredashboard",
+	"version": "0.9.0",
+	"dependencies": {
+		"bootswatch-dist": "yeti",
+		"awesome-bootstrap-checkbox": "latest",
+		"font-awesome": "latest", 
+		"angular": "latest",
+		"ui-route": "latest",
+		"angular-bootstrap": "latest",
+		"d3": "latest"
+	}
+}
