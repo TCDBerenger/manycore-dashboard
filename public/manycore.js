@@ -29,6 +29,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 			url: '/admin',
 			templateUrl: '/admin/admin.view.html',
 			controller: 'AdminController'
+		})
+		.state('settings', {
+			url: '/settings',
+			templateUrl: '/settings/settings.view.html',
+			controller: 'SettingsController'
 		});
 	
 	$urlRouterProvider.otherwise('dashboard');

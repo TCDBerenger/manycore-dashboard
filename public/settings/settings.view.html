@@ -1,0 +1,45 @@
+<style>
+	.settings .tab-title {
+		float: left;
+		padding: 0px 20px;
+		line-height: 40px;
+		color: #222222;
+		font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+		font-size: 32px;
+		font-weight: 300;
+		cursor: default;
+	}
+	.settings .tab-content {
+		padding-top: 20px;
+	}
+</style>
+<tabset>
+	<span class="tab-title">Settings</span>
+	<tab>
+		<tab-heading><i class="fa fa-tachometer"></i> Dashboard</tab-heading>
+		TODO
+	</tab>
+	<tab active="true">
+		<tab-heading><i class="fa fa-bar-chart"></i> Graphs</tab-heading>
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="well"><form class="form-horizontal"><fieldset>
+					<legend>Tabs</legend>
+					<!-- Hide -->
+					<div class="form-group">
+						<label for="input001" class="col-lg-2 control-label">Show / Hide</label>
+						<div class="col-lg-10">
+							<div class="checkbox checkbox-info">
+								<input id="input001" type="checkbox" />
+								<label for="input001">hide all tabs (legend, diagnostic, settings) by default </label>
+							</div>
+						</div>
+					</div>
+				</fieldset></form></div>
+			</div>
+			<div class="col-sm-6">
+				
+			</div>
+		</div>
+	</tab>
+</tabset>
