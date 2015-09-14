@@ -32,7 +32,7 @@ app.factory('facets', ['colours', function(colours) {
 	var desc_y = 'thread is ready to run but is is waiting for a core to become available';
 	var desc_b = 'thread is ready to execute and is on standby to be executed';
 	var desc_w = 'threads are not ready to be processed because they waiting ressource(s)';
-	var desc_lw = 'threads are not ready to be processed because they waiting t oacquire a lock';
+	var desc_lw = 'threads are not ready to be processed because they waiting to acquire a lock';
 	var desc_i = 'no thread running on core';
 	var desc_sys = 'processor is used by the OS';
 	var desc_ipc = 'executing';
@@ -211,7 +211,17 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				limit:	facets.uu
 			},
 			data : [facets.r, facets.uu, facets.y, facets.b],
-			legend : [facets.sys],
+			legend: {
+				axis: [
+					{ b: '┄', t: '[Y] Core capacity',	d: 'capacity of the CPU',					c: colours.list.dBlue },
+					{ b: '-', t: '[Y] Core capacity',	d: 'part of the CPU or equivalent portion', c: colours.list.eGrey },
+				],
+				data: [
+					{ b: '▮', f: facets.yb },
+					{ b: '▮', f: facets.r },
+					{ b: '▯', t: 'Core occupied by other program', d: 'processor is used by the OS',	 c: colours.list.black }
+				]
+			},
 			texts : [a_uu, a_cores],
 			clues: [
 				{ c: colours.bad,	t: 'Oversubscription', 			d: 'too many threads' },
@@ -233,7 +243,14 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s; }
 			},
 			data : [facets.s],
-			legend : [],
+			legend: {
+				axis: [
+					{ b: '┄', t: '[Y] Calibration',	d: 'typical level of context switches', c: colours.list.eGrey}
+				],
+				data: [
+					{ b: '▮', f: facets.s }
+				]
+			},
 			clues: [
 				{ c: colours.base,	t: 'Oversubscription',	d: 'high frequency' }
 			],
@@ -251,7 +268,14 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m; }
 			},
 			data : [facets.m],
-			legend : [],
+			legend: {
+				axis: [
+					{ b: '┄', t: '[Y] Calibration',	d: 'typical level of thread migrations', c: colours.list.eGrey}
+				],
+				data: [
+					{ b: '▮', f: facets.m }
+				]
+			},
 			clues: [
 				{ c: colours.base,	t: 'Thread migrations',							d: 'too many migrations' },
 				{ c: colours.base,	t: 'Alternating sequential/parallel execution',	d: 'alternating period of high and low thread migrations' }
@@ -268,8 +292,20 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			axis : {
 				x:		{ colors: [colours.good, colours.list.lGrey, colours.list.lRed, colours.list.eRed, colours.list.dRed, colours.list.black] }
 			},
+			legend: {
+				axis: [
+					{ b: '%', t: '[Y] Percent',	d: 'ratio of time spent on locality misses compared to time spent on executing', c: colours.list.eGrey}
+				],
+				data: [
+					{ b: '▮', f: facets.ipc },
+					{ b: '▮', f: facets.tlb },
+					{ b: '▮', f: facets.l1 },
+					{ b: '▮', f: facets.l2 },
+					{ b: '▮', f: facets.l3 },
+					{ b: '▮', f: facets.hpf }
+				]
+			},
 			data : [facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf],
-			legend : [],
 			clues: [],
 			settings: []
 		},
@@ -283,7 +319,16 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf); }
 			},
 			data : [facets.ls, facets.lf],
-			legend : [],
+			legend: {
+				axis: [
+					{ b: '┄', t: '[Y] Core capacity',	d: 'capacity of the CPU',					f: limit },
+					{ b: '-', t: '[Y] Core capacity',	d: 'part of the CPU or equivalent portion', f: limit },
+				],
+				data: [
+					{ b: '▮', t: 'Lock with contention',	d: 'number failure of lock acquisition',	f: facets.lf },
+					{ b: '▮', t: 'Lock without contention',	d: 'number success of lock acquisition',	f: facets.ls }
+				]
+			},
 			clues: [],
 			settings: [
 				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
@@ -297,7 +342,17 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				limit:	facets.uu
 			},
 			data : [facets.r, facets.uu, facets.lw],
-			legend : [facets.sys],
+			legend: {
+				axis: [
+					{ b: '┄', t: '[Y] Core capacity',	d: 'capacity of the CPU',					c: colours.list.dBlue },
+					{ b: '-', t: '[Y] Core capacity',	d: 'part of the CPU or equivalent portion', c: colours.list.eGrey },
+				],
+				data: [
+					{ b: '▮', f: facets.lw },
+					{ b: '▮', f: facets.r },
+					{ b: '▯', t: 'Core occupied by other program', d: 'processor is used by the OS',	 c: colours.list.black }
+				]
+			},
 			clues: [],
 			settings: [
 				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core', desc: 'average of core activity among thread states' }
@@ -310,7 +365,15 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				periods:	[m],
 			},
 			data : [facets.m],
-			legend : [],
+			legend: {
+				axis: [
+					{ b: '⊢', f: limit,	t: '[Y] Threads',	d: 'each line represents a thread complying with the start and end times' }
+				],
+				data: [
+					{ b: '|', f: facets.m },
+					{ b: '◧', t: 'Cores', d: 'core to which a thread is attached to (one color by core)',	 c: colours.list.eGrey }
+				]
+			},
 			texts: [a_threads],
 			clues: [
 				{ c: colours.unkn,	t: 'Task start/stop overhead',	d: 'too many creations' },
@@ -333,7 +396,16 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				periods:	[facets.lw],
 			},
 			data : [facets.lw],
-			legend : [facets.ls, facets.lf],
+			legend: {
+				axis: [
+					{ b: '⊢', f: limit,	t: '[Y] Threads',	d: 'each line represents a thread complying with the start and end times' }
+				],
+				data: [
+					{ b: '▮', t: 'Lock with contention',		d: 'failure of lock acquisition',	f: facets.lf },
+					{ b: '▮', t: 'Lock without  contention',	d: 'success of lock acquisition',	f: facets.ls },
+					{ b: '▬', f: facets.lw }
+				]
+			},
 			clues: [],
 			settings: [
 				{ property: 'disableTicks', value: false, type: 'flag', label: 'Disable ticks' },
@@ -347,7 +419,17 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				sequences:	{ under: facets.q_s, count: facets.q_p }
 			},
 			data : [],
-			legend : [facets.q_s, facets.q_p],
+			legend: {
+				axis: [
+					{ b: '⊢', f: limit,	t: '[Y] Cores',	d: 'each line represents a core, not in the right order, not with the right thread' }
+				],
+				data: [
+					{ b: '─', t: 'Sequential line',			d: 'core is idle (sequential sequence)',		f: facets.q_s },
+					{ b: '▮', t: 'Sequential executing',	d: 'one core only is executing a thread',		f: facets.q_s },
+					{ b: '─', t: 'Parallel line',			d: 'core is idle (parallel sequence)',			f: facets.q_p },
+					{ b: '▮', t: 'Parallel executing',		d: 'more than one core is executing a thread',	f: facets.q_p }
+				]
+			},
 			clues: [],
 			params: [
 				{ property: 'lineHeight', value: 10 }
@@ -367,7 +449,14 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				melody_cat:	'cores',
 			},
 			data : [facets.uu],
-			legend : [],
+			legend: {
+				axis: [
+					{ b: '⊢', f: limit,	t: '[Y] Cores',	d: 'each line represents a core' }
+				],
+				data: [
+					{ b: '▮', t: 'Idle', d: 'time spend by the core waiting a thread to run (other processes are considered as idle time)',	 c: colours.list.eGrey }
+				]
+			},
 			clues: [],
 			settings: [
 				{ property: 'melodyHeight', value: 9, type: 'range', label: 'Inactivity height', unit: 'pixels', min: 6, max: 12, step: 1 }
