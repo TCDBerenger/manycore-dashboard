@@ -74,20 +74,32 @@ app.directive('chartStats', function() {
 				.attr('class', "svg-stack svg-profile-2")
 				.attr("transform", "translate(" + (layout.stacks.width + layout.stacks.padding) + ", 0)"));
 
-		// Draw rectanges
-		var yValue, yPrevious;
-		for (var index = 0; index < profiles.length; index++) {
-			stats.values[index].forEach(function(element, i) {
-				yValue = layout.height * element.value / stats.maxSum;
-				yPrevious = layout.height * element.previous / stats.maxSum;
-				groupS[index].append("rect")
-					.attr("width", layout.stacks.width)
-					.attr("x", 0)
-					.attr("y", layout.height - yPrevious - yValue)
-					.attr("height", yValue)
-					.style("fill", deck[i].color)
-			}, this);
+		// Paint
+		function repaint() {
+			var yValue, yPrevious;
+			var mode = scope.statMode;
+			console.log(mode);
+			for (var index = 0; index < profiles.length; index++) {
+				// Clean
+				groupS[index].selectAll('*').remove();
+				
+				// Draw rectanges
+				stats.values[index].forEach(function(element, i) {
+					yValue = layout.height * element.value / stats.maxSum;
+					yPrevious = layout.height * element.previous / stats.maxSum;
+					if (yValue >= 1) groupS[index].append("rect")
+						.attr("width", layout.stacks.width)
+						.attr("x", 0)
+						.attr("y", layout.height - yPrevious - yValue)
+						.attr("height", yValue)
+						.style("fill", deck[i].color)
+				}, this);
+			}
 		}
+		
+		// Bind
+		// (call the first repaint instance)
+		scope.$watch(function() { return scope.statMode; }, repaint);
 	};
 
 

@@ -1,7 +1,12 @@
 <table class="table table-striped table-hover table-legend" ng-init="stats = createStats(widget)">
 	<thead>
 		<tr>
-			<th></th>
+			<th>
+				<div class="btn-group btn-group-xs" ng-if="profiles.length >= 2">
+					<label class="btn btn-default" ng-model="dc.statMode" btn-radio="'units'" uncheckable>units</label>
+					<label class="btn btn-default" ng-model="dc.statMode" btn-radio="'percent'" uncheckable>percent</label>
+				</div>
+			</th>
 			<th ng-if="profiles.length == 1" colspan="2">&nbsp;</th>
 			<th ng-if="profiles.length >= 2" colspan="2" ng-repeat="profile in profiles"><span>{{profile.label}}</th>
 		</tr>

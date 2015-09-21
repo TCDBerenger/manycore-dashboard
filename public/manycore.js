@@ -16,6 +16,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 			url: '/detail/{cat:[b-y]{1,2}}/{ids}',
 			templateUrl: '/details/detail.view.html',
 			controller: 'DetailController',
+			controllerAs: 'dc',
 			resolve: {
 				selectedProfiles: ['$stateParams', 'profileService', function($stateParams, profileService) {
 					return profileService.gets($stateParams.ids);

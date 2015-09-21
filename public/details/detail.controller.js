@@ -247,4 +247,5 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	$scope.mouseLeave = mouseLeave;
 	$scope.createStats = createStats;
 	$scope.axisList = []; // poputaled in postReceiption()
+	$scope.statMode = 'units';
 }]);

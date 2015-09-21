@@ -5,7 +5,10 @@
 	height: 43px;
 	border-bottom-width: 1px;
 }
-
+.aside th:first-of-type {
+	padding: 7px 0px 7px 0px;
+	text-align: left;
+}
 
 
 /*
