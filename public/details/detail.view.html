@@ -86,7 +86,7 @@
 	</div>
 	
 	<!-- Widget line (repeat) -->
-	<div class="col-xs-12 widget-line" ng-repeat="(iw, widget) in meta.widgets" ng-init="createSettings(widget)">
+	<div class="col-xs-12 widget-line" ng-repeat="(iw, widget) in meta.widgets" ng-init="initWidget(widget)">
 		<div ng-if="isOutofVersion(widget)" class="widgets" ng-include="'/details/widgets/missing.view.html'"></div>
 		<div ng-if="isUpToVersion(widget) && widget.wide" class="widgets" ng-include="'/details/widgets/widgets.view.html'"></div>
 		<div ng-if="isUpToVersion(widget) && ! widget.wide" class="row">

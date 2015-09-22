@@ -144,29 +144,40 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	/**
 	 * Generator - setting
 	 */
-	function createSettings(widget) {
+	function initWidget(widget) {
+		// Create settings
 		var settings = { version: 0 };
 
-		if (widget.deck != null && widget.deck.settings != null)
-			widget.deck.settings.forEach(function(setting) {
-				settings["_" + setting.property] = setting.value;
-
-				settings.__defineGetter__(setting.property, function () {
-					return settings["_" + setting.property];
+		if (widget.deck != null) {
+			// Modes
+			if (widget.deck.modes) {
+				widget.mode = widget.deck.modes[0].id;
+			}
+			
+			// Populate settings
+			if (widget.deck.settings != null) {
+				widget.deck.settings.forEach(function(setting) {
+					settings["_" + setting.property] = setting.value;
+	
+					settings.__defineGetter__(setting.property, function () {
+						return settings["_" + setting.property];
+					});
+	
+					settings.__defineSetter__(setting.property, function (val) {
+						if (settings["_" + setting.property] != val) {
+							try {
+								settings["_" + setting.property] = JSON.parse(val);
+							} catch(e) {
+								settings["_" + setting.property] = val;
+							};
+							settings.version++;
+						}
+					});
 				});
-
-				settings.__defineSetter__(setting.property, function (val) {
-					if (settings["_" + setting.property] != val) {
-						try {
-							settings["_" + setting.property] = JSON.parse(val);
-						} catch(e) {
-							settings["_" + setting.property] = val;
-						};
-						settings.version++;
-					}
-				});
-			});
-
+			}
+		}
+		
+		// Populate
 		widget.settings = settings;
 	};
 
@@ -241,7 +252,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	$scope.ids = ids;
 	$scope.profiles = profiles;
 	$scope.isWaiting = isWaiting;
-	$scope.createSettings = createSettings;
+	$scope.initWidget = initWidget;
 	$scope.layout = layout;
 	$scope.meta = categories[tag];
 	$scope.mouseOver = mouseOver;

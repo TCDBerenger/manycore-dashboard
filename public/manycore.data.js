@@ -382,6 +382,11 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ c: colours.alt,	t: 'Thread migrations',			d: 'too many migrations' },
 				{ c: colours.unkn,	t: 'Task start/stop overhead',	d: 'too short lifetime' }
 			],
+			modes: [
+				{ id: 1, label: 'rate' },
+				{ id: 2, label: 'events' },
+				{ id: 3, label: 'affinity' }
+			],
 			settings: [
 				{ property: 'disableTicks', value: false, type: 'flag', label: 'Disable ticks' },
 				{ property: 'groupTicks', value: false, type: 'flag', label: 'Group ticks' },

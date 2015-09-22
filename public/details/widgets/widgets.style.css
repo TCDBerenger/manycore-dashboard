@@ -5,6 +5,10 @@
 	float: left;
 	margin-right: 40px;
 }
+.widgets .btn-group {
+	float: left;
+	margin-right: 40px;
+}
 .widgets .nav-tabs > li.active:not(:last-of-type) > a {
 	background-color: #F9F9F9;
 }

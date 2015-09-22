@@ -1,15 +1,21 @@
 <tabset>
 	<h4>{{widget.title}}</h4>
-	<tab>
+	<div class="btn-group btn-group-sm" ng-if="widget.deck.modes">
+		<label ng-repeat="mode in widget.deck.modes" class="btn btn-default" ng-model="widget.mode" btn-radio="mode.id" uncheckable>{{mode.label}}</label>
+	</div>
+	<tab disable="!widget.desc">
+		<tab-heading><i class="fa fa-info"></i> description</tab-heading>
+		<p>{{widget.desc}}</p>
+	</tab>
+	<tab active="true">
 		<tab-heading><i class="fa fa-bar-chart"></i> legend</tab-heading>
-		<p ng-if="widget.desc">{{widget.desc}}</p>
 		<div class="row">
 			<div class="col-sm-5">
-				<h5>Axis:</h5>
+				<!--<h5>Axis:</h5>-->
 				<facet-list list="widget.deck.legend.axis" prelist="axisList"></facet-list>
 			</div>
 			<div class="col-sm-7">
-				<h5>Data shown:</h5>
+				<!--<h5>Data shown:</h5>-->
 				<facet-list list="widget.deck.legend.data"></facet-list>
 			</div>
 		</div>
