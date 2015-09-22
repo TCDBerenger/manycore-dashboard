@@ -30,6 +30,26 @@ var statLayout = function() {
 
 
 
+/**********************************************************/
+/*														  */
+/*	Utilities											  */
+/*														  */
+/**********************************************************/
+
+/**
+ * Constants
+ */
+var ASIDE_CURRENT_ID = 1;
+
+/**
+ * Array of points to string
+ */
+function aside_getNewID() {
+	return ++ASIDE_CURRENT_ID;
+}
+
+
+
 
 /**********************************************************/
 /*														  */
@@ -125,7 +145,7 @@ app.directive('facetList', [function() {
 		controllerAs : 'dv',
 		controller : function() {
 			console.log("== directive == facetList ==");
-			var listID = Math.floor((Math.random() * 1000) + 1);
+			var listID = aside_getNewID();
 			var sources = [];
 			var provider = [];
 			var styles = '';
@@ -150,7 +170,6 @@ app.directive('facetList', [function() {
 			});
 			
 			// Scope named 'dv'
-			this.id = listID;
 			this.provider = provider;
 			this.styles = styles;
 		},
