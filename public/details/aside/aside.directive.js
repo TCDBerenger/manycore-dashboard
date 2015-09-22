@@ -76,17 +76,18 @@ app.directive('chartStats', function() {
 
 		// Paint
 		function repaint() {
-			var yValue, yPrevious;
-			var mode = scope.statMode;
-			console.log(mode);
+			var yValue, yPrevious, maxValue;
 			for (var index = 0; index < profiles.length; index++) {
 				// Clean
 				groupS[index].selectAll('*').remove();
 				
+				// Top
+				maxValue = (stats.mode == 'units') ? stats.maxSum : stats.sums[index]; 
+				
 				// Draw rectanges
 				stats.values[index].forEach(function(element, i) {
-					yValue = layout.height * element.value / stats.maxSum;
-					yPrevious = layout.height * element.previous / stats.maxSum;
+					yValue = layout.height * element.value / maxValue;
+					yPrevious = layout.height * element.previous / maxValue;
 					if (yValue >= 1) groupS[index].append("rect")
 						.attr("width", layout.stacks.width)
 						.attr("x", 0)
@@ -99,7 +100,7 @@ app.directive('chartStats', function() {
 		
 		// Bind
 		// (call the first repaint instance)
-		scope.$watch(function() { return scope.statMode; }, repaint);
+		scope.$watch(function() { return stats.mode; }, repaint);
 	};
 
 

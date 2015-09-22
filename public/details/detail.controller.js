@@ -209,6 +209,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		}
 		
 		return {
+			mode: $scope.statMode,
 			values: values,
 			sums: sums,
 			maxSum: Math.max.apply(this, sums)

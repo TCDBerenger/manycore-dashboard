@@ -2,9 +2,12 @@
 	<thead>
 		<tr>
 			<th>
-				<div class="btn-group btn-group-xs" ng-if="profiles.length >= 2">
-					<label class="btn btn-default" ng-model="dc.statMode" btn-radio="'units'" uncheckable>units</label>
-					<label class="btn btn-default" ng-model="dc.statMode" btn-radio="'percent'" uncheckable>percent</label>
+				<div ng-if="profiles.length >= 2 && stats.values[0].length > 1">
+					Comparison:
+					<div class="btn-group btn-group-xs">
+						<label class="btn btn-default" ng-model="stats.mode" btn-radio="'units'" uncheckable>Σ</label>
+						<label class="btn btn-default" ng-model="stats.mode" btn-radio="'percent'" uncheckable>%</label>
+					</div>
 				</div>
 			</th>
 			<th ng-if="profiles.length == 1" colspan="2">&nbsp;</th>
