@@ -112,23 +112,16 @@ function addCommon(output, id) {
 		r:	Math.round(data.stats.running),
 		y:	Math.round(data.stats.ready),
 		b:	Math.round(data.stats.standby),
-		w:	Math.round(data.stats.wait),
-
-		l1:		data.stats.l1miss,
-		l2:		data.stats.l2miss,
-		l3:		data.stats.l3miss,
-		tlb:	data.stats.tlbmiss,
-		dzf:	data.stats.dzf,
-		hpf:	data.stats.hpf
+		w:	Math.round(data.stats.wait)
 	};
 
 	// Threads
-	output.threads = {info: []};
-	for(var h in data.lifecycle) {
+	output.threads = { info: [] };
+	for (var h in data.threads.list) {
 		output.threads.info.push({
 			h: +h,
-			s: data.lifecycle[h].s,
-			e: data.lifecycle[h].e,
+			s: data.threads.list[h].s,
+			e: data.threads.list[h].e,
 		});
 	};
 
@@ -391,6 +384,32 @@ function addEvents(output, id) {
 	}
 }
 
+/**
+ * Add threads informations
+ */
+function addThreadInfo(output, id, profile, properties) {
+	// Init vars
+	var data =	profiles[id].data;
+	var isPN =	properties.indexOf('pn') >= 0;
+	var isIPC =	properties.indexOf('ipc') >= 0;
+	var isTLB =	properties.indexOf('tlb') >= 0;
+	var isL1 =	properties.indexOf('l1') >= 0;
+	var isL2 =	properties.indexOf('l2') >= 0;
+	var isL3 =	properties.indexOf('l3') >= 0;
+	var isHPF =	properties.indexOf('hpf') >= 0;
+	
+	// Add infos
+	output.threads.info.forEach(function(thread) {
+		if (isPN)	thread.pn = profile.label;
+		if (isIPC)	thread.ipc = data.threads.list[thread.h].ipc;
+		if (isTLB)	thread.tlb = data.threads.list[thread.h].tlb;
+		if (isL1)	thread.l1 = data.threads.list[thread.h].l1;
+		if (isL2)	thread.l2 = data.threads.list[thread.h].l2;
+		if (isL3)	thread.l3 = data.threads.list[thread.h].l3;
+		if (isHPF)	thread.hpf = data.threads.list[thread.h].hpf;
+	});
+}
+
 
 
 /************************************************/
@@ -520,6 +539,9 @@ function jsonDL(profile, id) {
 
 	// Data
 	addLocality(output, id, false);
+	
+	// Parallel coordinates
+	addThreadInfo(output, id, profile, ['pn', 'ipc', 'tlb', 'l1', 'l2', 'l3', 'hpf']);
 
 	return output;
 }

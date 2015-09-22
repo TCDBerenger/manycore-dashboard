@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 61;
+var VERSION = 64;
 
 /************************************************/
 /* Variables - hardwares						*/
@@ -153,21 +153,6 @@ profileMap.all.forEach(function (profile) { profileMap[profile.id] = profile; })
 	 │	 	 │	 └	lw				[]			array of lock waiting periods (real, not corresponding to a time frame), in the increasing time order
 	 │	 	 ├	...
 	 │	 	 └	<?>
-	 │
-	 ├	lifecycles					[]			array of thread lifecycle events
-	 │	 ├	<thread0>
-	 │	 │	 ├	s					<integer>	start time (real, not corresponding to a time frame), could be null
-	 │	 │	 ├	m					[]			array of migration /!\ unique /!\ (real) times (only one migration appears for 1 ms, so some migrations are missing)
-	 │	 │	 └	e					<char>		start time (real, not corresponding to a time frame), could be null
-	 │	 ├	...
-	 │	 └	<threadN>
-	 ├	lifetimes					[]			array of thread lifecycle events
-	 │	 ├	0
-	 │	 │	 ├	t					<integer>	time (real, not corresponding to a time frame)
-	 │	 │	 ├	h					ID			thread ID
-	 │	 │	 └	e					<char>		's' for start, 'e' for end
-	 │	 ├	...
-	 │	 └	<?>
 	 ├	migrations					[]			array of migration events, in the increasing time order
 	 │	 ├	0
 	 │	 │	 ├	t					<integer>	time (real, not corresponding to a time frame)
@@ -182,18 +167,22 @@ profileMap.all.forEach(function (profile) { profileMap[profile.id] = profile; })
 	 │	 ├	...
 	 │	 └	<?>
 	 ├	threads
-	 │	 └	byFrames
-	 │		 ├	frame<0>			ID
-	 │		 │	 ├	thread<0>		ID
-	 │		 │	 │	 ├	cycles		<integer>	number of cycles
-	 │		 │	 │	 ├	ready		<integer>	duration of ready state
-	 │		 │	 │	 ├	running		<integer>	duration of running state
-	 │		 │	 │	 ├	standby		<integer>	duration of standby state
-	 │		 │	 │	 └	wait		<integer>	duration of wait state
-	 │		 │	 ├	...
-	 │		 │	 └	thread<N>
-	 │		 ├	...
-	 │		 └	frame<?>
+	 │	 ├	byFrames
+	 │	 │	 ├	frame<0>			ID
+	 │	 │	 │	 ├	thread<0>		ID
+	 │	 │	 │	 │	 ├	cycles		<integer>	number of cycles
+	 │	 │	 │	 │	 ├	ready		<integer>	duration of ready state
+	 │	 │	 │	 │	 ├	running		<integer>	duration of running state
+	 │	 │	 │	 │	 ├	standby		<integer>	duration of standby state
+	 │	 │	 │	 │	 └	wait		<integer>	duration of wait state
+	 │	 │	 │	 ├	...
+	 │	 │	 │	 └	thread<N>
+	 │	 │	 ├	...
+	 │	 │	 └	frame<?>
+	 │	 └	list
+	 │		 └	<h>
+	 │			 ├	s					<integer>	start time (real, not corresponding to a time frame), could be null
+	 │			 └	e					<char>		start time (real, not corresponding to a time frame), could be null
 	 └	stats
 		 └	switch					<integer>	number of switches for all cores during all run
 **/
@@ -324,8 +313,6 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 		},
 		switches: [],
 		migrations: [],
-		lifetimes: [],
-		lifecycle: {},
 		locality: {
 			byFrames: {},
 			stats: {
@@ -342,7 +329,8 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 		lock_success:		[],
 		lock_release:		[],
 		threads: {
-			byFrames:		{}
+			byFrames:		{},
+			list:			{}
 		}
 	};
 
@@ -350,6 +338,10 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	var timeID, timeEvent;
 
 	// Global functions
+	function checkThread(id) {
+		if (! data.threads.list.hasOwnProperty(id))
+			data.threads.list[id] = { s: null, e: null};
+	}
 	function checkFrame(id) {
 		if (! data.frames.hasOwnProperty(id)) {
 			data.frames[id] = {
@@ -565,20 +557,13 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 				if (! migrationMap.hasOwnProperty(element.tid)) migrationMap[element.tid] = {};
 				migrationMap[element.tid][timeEvent] = element.cid;
 
-				// TO DELETE - Save lifecycle
-				if (! data.lifecycle.hasOwnProperty(element.tid)) data.lifecycle[element.tid] = { s: null, e: null, m: []};
-				if (data.lifecycle[element.tid].m[data.lifecycle[element.tid].m.length - 1] != timeEvent) {
-					data.lifecycle[element.tid].m.push(timeEvent);
-					data.lifecycle[element.tid].m.sort(function(a, b){return a - b});
-				}
-
 				// Save new attached core
 				coreThreads[element.tid] = element.cid;
 			}
 
 		}
 
-		// Lifecycle
+		// Thread life
 		else if ((element.type == "start" || element.type == "end") && element.pid == profile.pid) {
 
 			// Which case ?
@@ -590,16 +575,9 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			// Add a start with auto build structure
 			data.frames[timeID][property]++;
 
-			// Save start
-			data.lifetimes.push({
-				t: timeEvent,
-				h: element.tid,
-				e: element.type[0]
-			});
-
-			// Save lifecycle
-			if (! data.lifecycle.hasOwnProperty(element.tid)) data.lifecycle[element.tid] = { s: null, e: null, m: []};
-			data.lifecycle[element.tid][element.type[0]] = timeEvent;
+			// Save thread property
+			checkThread(element.tid);
+			data.threads.list[element.tid][element.type[0]] = timeEvent;
 		}
 		
 	});
@@ -641,7 +619,12 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 
 	// Loop
 	raw3.threads.forEach(function(thread) {
-		thread.measures.forEach(function(measure) {
+		if (thread.id > 1) thread.measures.forEach(function(measure) {
+			// Save average
+			checkThread(thread.id);
+			data.threads.list[thread.id][measure.name.toLowerCase()] = measure.data.reduce(function(a, b) { return a + b; }) / measure.data.length;
+			
+			// Save by time frame
 			measure.data.forEach(function (value, value_index) {
 				timeID = value_index * profile.timeStep;
 				property = measure.name.toLowerCase();
@@ -650,21 +633,20 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 				if (! data.locality.byFrames.hasOwnProperty(timeID))			data.locality.byFrames[timeID] = { t: timeID };
 				if (! data.locality.byFrames[timeID].hasOwnProperty(property))	data.locality.byFrames[timeID][property] = 0;
 				data.locality.byFrames[timeID][property] += +value || 0;
-
-				// Stats
-				data.locality.stats[property] += +value || 0;
 			});
 		});
 	});
 
 	// Stats
-	data.stats.cycles = +raw3.info.cycles;
-	data.stats.l1miss = +raw3.info.l1miss;
-	data.stats.l2miss = +raw3.info.l2miss;
-	data.stats.l3miss = +raw3.info.l3miss;
-	data.stats.tlbmiss = +raw3.info.tlbmiss;
-	data.stats.dzf = +raw3.info.dzf;
-	data.stats.hpf = +raw3.info.hpf;
+	data.locality.stats = {
+		ipc:	+raw3.info.cycles,
+		tlb:	+raw3.info.tlbmiss,
+		l1:		+raw3.info.l1miss,
+		l2:		+raw3.info.l2miss,
+		l3:		+raw3.info.l3miss,
+		dzf:	+raw3.info.dzf,
+		hpf:	+raw3.info.hpf
+	}
 
 
 
