@@ -531,19 +531,19 @@ app.factory('widgets', ['decks', function(decks) {
 	function id() { return ++i; }
 	
 	return {
-		cacheInvalid:		{ id: id(),	v: 3, file: 'generic-to-delete',	deck: null,					wide: false,	title: 'Cache misses from updating shared data',					desc: ''},
-		cacheMisses:		{ id: id(),	v: 3, file: 'chart-percent',		deck: decks.locality,		wide: false,	title: 'Percentage of time spent on locality misses',				desc: ''},
-		cacheBreackdown:	{ id: id(),	v: 3, file: 'chart-pcoords',		deck: decks.pCoordDL,		wide: true,		title: 'Breackdown of time spent on locality misses',				desc: ''},
-		coreIdle:			{ id: id(),	v: 3, file: 'chart-lines',			deck: decks.coreUU,			wide: false,	title: 'Idle cores',												desc: 'Times that cores are idle'},
-		coreSequences:		{ id: id(),	v: 3, file: 'chart-lines',			deck: decks.sequences,		wide: false,	title: 'Single thread execution phases',							desc: 'alternating sequential/parallel execution'},
-		lockCounts:			{ id: id(),	v: 4, file: 'chart-units',			deck: decks.counts,			wide: false,	title: 'Lock contentions',											desc: 'Locking with and without contention'},
-		lockContentions:	{ id: id(),	v: 4, file: 'chart-capacity',		deck: decks.contentions,	wide: false,	title: 'Time waiting for a lock',									desc: ''},
-		threadChains:		{ id: id(),	v: 4, file: 'chart-lines',			deck: decks.chains,			wide: false,	title: 'Chains of dependencies on locks',							desc: 'synchronisations and waiting between threads'},
-		threadFruitSalad:	{ id: id(),	v: 3, file: 'chart-threads',		deck: decks.migrationLT,	wide: false,	title: 'Migrations by thread',										desc: 'creation, running, moving between cores, termination'},
-		threadLocks:		{ id: id(),	v: 4, file: 'chart-threads',		deck: decks.lockLT,			wide: false,	title: 'Time each thread spends waiting for locks',					desc: ''},
-		threadStates:		{ id: id(),	v: 3, file: 'chart-capacity',		deck: decks.states,			wide: false,	title: 'Breakdown of thread states compared to number of cores',	desc: 'number of threads compared to number of cores'},
-		threadMigrations:	{ id: id(),	v: 3, file: 'chart-units',			deck: decks.migrations,		wide: false,	title: 'Rate of thread migrations',									desc: 'thread switching the core on which it is executing'},
-		threadSwitches:		{ id: id(),	v: 3, file: 'chart-units',			deck: decks.switches,		wide: false,	title: 'Core swhitching the thread it is executing',				desc: 'thread switches'},
+		cacheInvalid:		{ id: id(),	v: 3, file: 'chart-todo',		deck: null,					wide: false,	title: 'Cache misses from updating shared data',					desc: ''},
+		cacheMisses:		{ id: id(),	v: 3, file: 'chart-percent',	deck: decks.locality,		wide: false,	title: 'Percentage of time spent on locality misses',				desc: ''},
+		cacheBreackdown:	{ id: id(),	v: 3, file: 'chart-pcoords',	deck: decks.pCoordDL,		wide: true,		title: 'Breackdown of time spent on locality misses',				desc: ''},
+		coreIdle:			{ id: id(),	v: 3, file: 'chart-lines',		deck: decks.coreUU,			wide: false,	title: 'Idle cores',												desc: 'Times that cores are idle'},
+		coreSequences:		{ id: id(),	v: 3, file: 'chart-lines',		deck: decks.sequences,		wide: false,	title: 'Single thread execution phases',							desc: 'alternating sequential/parallel execution'},
+		lockCounts:			{ id: id(),	v: 4, file: 'chart-units',		deck: decks.counts,			wide: false,	title: 'Lock contentions',											desc: 'Locking with and without contention'},
+		lockContentions:	{ id: id(),	v: 4, file: 'chart-capacity',	deck: decks.contentions,	wide: false,	title: 'Time waiting for a lock',									desc: ''},
+		threadChains:		{ id: id(),	v: 4, file: 'chart-lines',		deck: decks.chains,			wide: false,	title: 'Chains of dependencies on locks',							desc: 'synchronisations and waiting between threads'},
+		threadFruitSalad:	{ id: id(),	v: 3, file: 'chart-threads',	deck: decks.migrationLT,	wide: false,	title: 'Migrations by thread',										desc: 'creation, running, moving between cores, termination'},
+		threadLocks:		{ id: id(),	v: 4, file: 'chart-threads',	deck: decks.lockLT,			wide: false,	title: 'Time each thread spends waiting for locks',					desc: ''},
+		threadStates:		{ id: id(),	v: 3, file: 'chart-capacity',	deck: decks.states,			wide: false,	title: 'Breakdown of thread states compared to number of cores',	desc: 'number of threads compared to number of cores'},
+		threadMigrations:	{ id: id(),	v: 3, file: 'chart-units',		deck: decks.migrations,		wide: false,	title: 'Rate of thread migrations',									desc: 'thread switching the core on which it is executing'},
+		threadSwitches:		{ id: id(),	v: 3, file: 'chart-units',		deck: decks.switches,		wide: false,	title: 'Core swhitching the thread it is executing',				desc: 'thread switches'},
 	};
 }]);
 
