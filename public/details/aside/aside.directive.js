@@ -140,7 +140,8 @@ app.directive('facetList', [function() {
 		bindToController: true,
 		scope: {
 			prelist: '=',
-			list: '='
+			list: '=',
+			options: '='
 		},
 		controllerAs : 'dv',
 		controller : function() {
@@ -150,7 +151,9 @@ app.directive('facetList', [function() {
 			var provider = [];
 			var styles = '';
 			
-			if (this.prelist) sources.push(this.prelist);
+			var allowPrelist = ! (this.options && this.options.disablePrelist);
+			
+			if (allowPrelist && this.prelist) sources.push(this.prelist);
 			if (this.list) sources.push(this.list);
 			
 			var itemID;

@@ -50,6 +50,9 @@ app.factory('facets', ['colours', function(colours) {
 	var desc_q_p = 'core executing more than one thread in parallel';
 
 	return {
+		h:		{ label: 'thread',			title: 'Thread',		unity: '',	cat: '',	attr: 'h',	color: colours.list.eGrey,	fcolor: colours.list.dGrey,	gcolor: colours.list.lGrey },
+		pn:		{ label: 'process',			title: 'Process',		unity: '',	cat: '',	attr: 'pn',	color: colours.list.eGrey,	fcolor: colours.list.dGrey,	gcolor: colours.list.lGrey },
+		
 		r:		{ label: 'executing',		title: 'Thread executing',				desc: desc_r,	unity: 'ms',	cat: 'times',	attr: 'r',		color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
 		y:	 	{ label: 'ready',			title: 'Thread ready to run',			desc: desc_y,	unity: 'ms',	cat: 'times',	attr: 'y',		color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed },
 		b:	 	{ label: 'standby',			title: 'Thread on standby to execute',	desc: desc_b,	unity: 'ms',	cat: 'times',	attr: 'b',		color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed },
@@ -502,6 +505,23 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ property: 'hackLineProvider', value: true, type: 'flag', label: 'Data provider', desc: 'use a hack for dinner philosopher problems' },
 			]
 		},
+		pCoordDL: {
+			graph : {
+				h:		limit,
+				plots:	[facets.h, facets.pn, facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf]
+			},
+			legend: {
+				axis: [
+				],
+				data: [
+				],
+				options: { disablePrelist: true }
+			},
+			clues: [],
+			settings: [
+				{ property: 'colorMode', value: 0, type: 'select', label: 'Color by', choices: ['good↔poor locality', 'process', 'thread'] },
+			]
+		}
 	};
 }]);
 
@@ -513,7 +533,7 @@ app.factory('widgets', ['decks', function(decks) {
 	return {
 		cacheInvalid:		{ id: id(),	v: 3, file: 'generic-to-delete',	deck: null,					wide: false,	title: 'Cache misses from updating shared data',					desc: ''},
 		cacheMisses:		{ id: id(),	v: 3, file: 'chart-percent',		deck: decks.locality,		wide: false,	title: 'Percentage of time spent on locality misses',				desc: ''},
-		cacheBreackdown:	{ id: id(),	v: 3, file: 'generic-to-delete',	deck: null,					wide: true,		title: 'Breackdown of time spent on locality misses',				desc: ''},
+		cacheBreackdown:	{ id: id(),	v: 3, file: 'chart-pcoords',		deck: decks.pCoordDL,		wide: true,		title: 'Breackdown of time spent on locality misses',				desc: ''},
 		coreIdle:			{ id: id(),	v: 3, file: 'chart-lines',			deck: decks.coreUU,			wide: false,	title: 'Idle cores',												desc: 'Times that cores are idle'},
 		coreSequences:		{ id: id(),	v: 3, file: 'chart-lines',			deck: decks.sequences,		wide: false,	title: 'Single thread execution phases',							desc: 'alternating sequential/parallel execution'},
 		lockCounts:			{ id: id(),	v: 4, file: 'chart-units',			deck: decks.counts,			wide: false,	title: 'Lock contentions',											desc: 'Locking with and without contention'},
