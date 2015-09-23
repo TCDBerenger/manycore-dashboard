@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 64;
+var VERSION = 65;
 
 /************************************************/
 /* Variables - hardwares						*/
@@ -617,6 +617,16 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	var property;
 	var stat_ipc = 0;
 
+	// Init stats
+	data.locality.stats = {
+		ipc:	0,
+		tlb:	0,
+		l1:		0,
+		l2:		0,
+		l3:		0,
+		hpf:	0
+	}
+
 	// Loop
 	raw3.threads.forEach(function(thread) {
 		if (thread.id > 1) thread.measures.forEach(function(measure) {
@@ -633,13 +643,18 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 				if (! data.locality.byFrames.hasOwnProperty(timeID))			data.locality.byFrames[timeID] = { t: timeID };
 				if (! data.locality.byFrames[timeID].hasOwnProperty(property))	data.locality.byFrames[timeID][property] = 0;
 				data.locality.byFrames[timeID][property] += +value || 0;
+				
+				// Stats
+				data.locality.stats[property] += (+value || 0) * data.info.timeStep / 100;
 			});
 		});
 	});
 
-	// Stats
-	data.locality.stats = {
-		ipc:	+raw3.info.cycles,
+	// Stats -- UNUSED
+	/*
+	data.rawLocality.stats = {
+		d:		+raw3.info.duration,
+		cycles:	+raw3.info.cycles,
 		tlb:	+raw3.info.tlbmiss,
 		l1:		+raw3.info.l1miss,
 		l2:		+raw3.info.l2miss,
@@ -647,8 +662,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 		dzf:	+raw3.info.dzf,
 		hpf:	+raw3.info.hpf
 	}
-
-
+	*/
 
 	/**
 	 *
