@@ -1,17 +1,10 @@
 <tabset>
 	<h4>{{widget.title}}</h4>
-	<tab>
-		<tab-heading><i class="fa fa-bar-chart"></i> graph</tab-heading>
+	<tab disable="!widget.desc">
+		<tab-heading><i class="fa fa-info"></i> description</tab-heading>
+		<p>{{widget.desc}}</p>
 	</tab>
-	<tab disable="true">
-		<tab-heading><i class="fa fa-info-circle"></i> legend</tab-heading>
-	</tab>
-	<tab disable="true">
-		<tab-heading><i class="fa fa-medkit"></i> help</tab-heading>
-	</tab>
-	<tab disable="true">
-		<tab-heading><i class="fa fa-sliders"></i> settings</tab-heading>
-	</tab>
+	<tab heading="collapse tab" active="true"></tab>
 </tabset>
 <div class="jumbotron">
 	<h1><i class="fa fa-database"></i> Data missing !</h1>
