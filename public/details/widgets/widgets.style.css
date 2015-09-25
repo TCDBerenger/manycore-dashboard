@@ -21,3 +21,27 @@
 	background-color: #F9F9F9;
 	border-bottom: 1px solid #DDD;
 }
+
+/*
+ * Charts D3
+ */
+.svg-d3 .axis .label {
+	font-size: 120%;
+	font-weight: 700;
+}
+.svg-d3 .axis .domain {
+	fill: none;
+	stroke: #C0C0C0;
+	shape-rendering: crispedges;
+}
+.svg-d3 .axis .tick line {
+	fill: none;
+	stroke: #C0C0C0;
+	shape-rendering: crispedges;
+}
+.svg-d3 .svg-data-line {
+	fill: none;
+	stroke: #00FF00;
+	/*
+	stroke-width: 2*/
+}

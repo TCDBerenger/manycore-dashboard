@@ -17,7 +17,7 @@ var externalLayout = function(favoriteHeight) {
 	var self = this;
 
 	// Constants
-	this.padding	= { top: 0, right: 0, bottom: 0, left: 0, inner: 0 };
+	this.padding	= { top: 30, right: 0, bottom: 20, left: 0, inner: 0 };
 	this.vars		= { favoriteHeight: favoriteHeight };
 
 	// Compute
@@ -39,7 +39,7 @@ var externalLayout = function(favoriteHeight) {
 /**
  * Init directive
  */
-function external_directive_init(scope, element, attrs, layoutType) {
+function pc_directive_init(scope, element, attrs, layoutType) {
 	// Layout
 	var container =	element[0];
 	var layout =	new externalLayout(layoutType);
@@ -58,7 +58,13 @@ function external_directive_init(scope, element, attrs, layoutType) {
 	var profiles =	scope.profiles;
 
 	// Canvas
-	var svg =		d3.select(container).append('svg');
+	var svg =		d3.select(container).append('svg')
+						.attr('class', 'svg svg-d3');
+
+	// Overflow
+	var overflow =	svg.append('g')
+						.attr('class', 'svg-overflow')
+						.attr('transform', 'translate(' + layout.padding.left + ',' + layout.padding.top + ')');
 
 	return {
 		scope:		scope,
@@ -72,7 +78,7 @@ function external_directive_init(scope, element, attrs, layoutType) {
 		svg:		svg,
 		scaleX:		null,
 		scalesV:	[null, null],
-		groupO:		null,
+		groupO:		overflow,
 		groupX:		null,
 		groupV:		[null, null],
 		groupP:		[null, null],
@@ -84,7 +90,7 @@ function external_directive_init(scope, element, attrs, layoutType) {
 /**
  * Repaint - container
  */
-function external_directive_repaint_container(r) {
+function pc_directive_repaint_container(r) {
 	// Parameters - Data
 	r.meta.refresh(r);
 	r.iData = [null, null];
@@ -125,11 +131,25 @@ function external_directive_repaint_container(r) {
 app.directive('chartPcoords', function() {
 
 	function chart_link(scope, element, attrs, controller) {
-		console.log("== directive == chartPcoords ==");
+		console.log('== directive == chartPcoords ==');
 
 		// Init vars
-		var r = external_directive_init(scope, element, attrs, LAYOUT_PARALLEL_COORDINATES);
-
+		var r = pc_directive_init(scope, element, attrs, LAYOUT_PARALLEL_COORDINATES);
+		
+		// Data
+		var data = r.profiles[0].currentData.threads.info;
+		if (r.profiles.length > 1) data = data.concat(r.profiles[1].currentData.threads.info);
+		
+		// Parallel coordinates
+		var pc = d3.parcoords()(r.container)
+			.data(data)
+			.render()
+			.createAxes()
+			.brushMode('1D-axes');
+		
+		
+		
+		/*
 		// Enhance meta
 		r.meta.hLabel = function(h, pi) {
 			return h;// (pi + 1) + '-' + h;
@@ -142,7 +162,7 @@ app.directive('chartPcoords', function() {
 		});
 		
 		// Plot axis
-		var axis = d3.svg.axis().orient("left");
+		var axis = d3.svg.axis().orient('left');
 		
 		// Plots position scale
 		r.scaleX = d3.scale.ordinal();
@@ -151,19 +171,24 @@ app.directive('chartPcoords', function() {
 		// Plot value scales
 		r.scalesV = [];
 		r.deck.plots.forEach(function(facet, i) {
-			var scale;
+			var scale, list;
 			
 			switch (facet.attr) {
 				case 'h':
 					scale = d3.scale.ordinal();
-					var list = [];
+					list = [];
 					r.profiles.forEach(function(profile, index) { profile.currentData.threads.info.forEach(function(thread) {
 						list.push(r.meta.hLabel(thread.h, index));
 					})});
 					scale.domain(list);
 					break;
 				case 'pn':
-					scale = d3.scale.ordinal().domain(r.profiles.map(function(profile) { return profile.label }));
+					scale = d3.scale.ordinal();
+					list = ['', ''];
+					r.profiles.forEach(function(profile) {
+						list.splice(-1, 0, profile.label);
+					});
+					scale.domain(list);
 					break;
 				default:
 					scale = d3.scale.linear().domain([0, 100]);
@@ -178,14 +203,14 @@ app.directive('chartPcoords', function() {
 		var line = d3.svg.line();
 		
 		// Groups
-		var gPlots = r.svg.append("g");
-		var gLines = r.svg.append("g");
+		var gPlots = r.groupO.append('g');
+		var gLines = r.groupO.append('g');
 		
 		
 		// Redraw
 		function repaint() {
 			// Repaint container
-			external_directive_repaint_container(r);
+			pc_directive_repaint_container(r);
 			
 			// Plots
 			r.scaleX.rangePoints([0, r.layout.width], 1);
@@ -196,25 +221,35 @@ app.directive('chartPcoords', function() {
 			
 			// Draw plots
 			r.deck.plots.forEach(function(facet, i) {
-				gPlots.append("g")
-					.attr("class", "axis")
+				gPlots.append('g')
+					.attr('transform', 'translate(' + r.scaleX(i) + ')')
+					.attr('class', 'axis')
 					.call(axis.scale(r.scalesV[i]))
-					.append("text")
-					.style("text-anchor", "middle")
-					.attr("y", 0)
-					.text(facet.label);
+					.append('text')
+						.attr('class', 'label')
+						.attr('transform', 'translate(2, 5) rotate(90)')
+						.attr("y", -4)
+						.style('text-anchor', 'top')
+						.text(facet.label);
+						
+						
 			});
 		
 			// Draw lines
 			r.profiles.forEach(function(profile, index) {
 				profile.currentData.threads.info.forEach(function(thread) {
-					gLines.append("path")
+					gLines.append('path')
 						.attr('class', 'svg-data svg-data-line')
-						.attr("d", line(r.meta.plots.map(function(p) {
+						.attr('d', line(r.meta.plots.map(function(p) {
 							return [r.scaleX(p), r.scalesV[p](thread[r.deck.plots[p].attr])];
 						})));
 				});
 			});
+		}
+		*/
+		
+		// Redraw
+		function repaint() {
 		}
 
 		// Select

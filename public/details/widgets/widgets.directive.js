@@ -199,12 +199,12 @@ function directive_repaint_container(r) {
 	r.svg.attr({width: r.layout.width, height: r.layout.height});
 
 	// Clean axis
-	r.groupV[0].attr('transform', 'translate(' + r.layout.vAxis.x + ',' + r.layout.vAxis.y[0] + ")");
-	r.groupV[1].attr('transform', 'translate(' + r.layout.vAxis.x + ',' + r.layout.vAxis.y[1] + ")");
+	r.groupV[0].attr('transform', 'translate(' + r.layout.vAxis.x + ',' + r.layout.vAxis.y[0] + ')');
+	r.groupV[1].attr('transform', 'translate(' + r.layout.vAxis.x + ',' + r.layout.vAxis.y[1] + ')');
 
 	// Clean groups
-	r.groupP[0].attr('transform', 'translate(' + r.layout.profile.x + ',' + r.layout.profile.y[0] + ")");
-	r.groupP[1].attr('transform', 'translate(' + r.layout.profile.x + ',' + r.layout.profile.y[1] + ")");
+	r.groupP[0].attr('transform', 'translate(' + r.layout.profile.x + ',' + r.layout.profile.y[0] + ')');
+	r.groupP[1].attr('transform', 'translate(' + r.layout.profile.x + ',' + r.layout.profile.y[1] + ')');
 
 	// Clean selection
 	directive_unselect(r);
@@ -252,12 +252,12 @@ function directive_repaint_post(r) {
 
 		// Top (profile 1)
 		if (r.meta.vOverflow[0] > 0) {
-			r.groupO.attr('transform', "translate(0," + r.meta.vOverflow[0] + ")");
+			r.groupO.attr('transform', "translate(0," + r.meta.vOverflow[0] + ')');
 		}
 
 		// Top (profile 2)
 		if (r.meta.vOverflow[1] > 0 && ! r.meta.mirror) {
-			r.group1.attr('transform', "translate(0," + r.meta.vOverflow[1] + ")");
+			r.group1.attr('transform', "translate(0," + r.meta.vOverflow[1] + ')');
 		}
 
 		// Top & Bottom (both profiles)
@@ -302,7 +302,7 @@ function directive_bind(scope, element, r, repaint, select) {
 function directive_repaint_xAxis(r) {
 	// Clean
 	r.groupX
-		.attr('transform', 'translate(' + r.layout.xAxis.x + ',' + r.layout.xAxis.y + ")")
+		.attr('transform', 'translate(' + r.layout.xAxis.x + ',' + r.layout.xAxis.y + ')')
 		.selectAll('*').remove();
 
 	// Box
