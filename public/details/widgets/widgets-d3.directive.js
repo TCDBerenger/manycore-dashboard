@@ -230,7 +230,7 @@ app.directive('chartPcoords', function() {
 			r.scaleX.rangePoints([0, r.layout.width], 1);
 			
 			// clean
-			//gPlots.selectAll('*').remove();
+			gPlots.selectAll('*').remove();
 			gLines.selectAll('*').remove();
 			
 			// Draw plots
