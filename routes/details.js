@@ -391,6 +391,7 @@ function addThreadInfo(output, id, profile, properties) {
 	// Init vars
 	var data =	profiles[id].data;
 	var isPN =	properties.indexOf('pn') >= 0;
+	var isCT =	properties.indexOf('ct') >= 0;
 	var isIPC =	properties.indexOf('ipc') >= 0;
 	var isTLB =	properties.indexOf('tlb') >= 0;
 	var isL1 =	properties.indexOf('l1') >= 0;
@@ -401,6 +402,7 @@ function addThreadInfo(output, id, profile, properties) {
 	// Add infos
 	output.threads.info.forEach(function(thread) {
 		if (isPN)	thread.pn = profile.label;
+		if (isCT)	thread.ct = Math.round(data.threads.list[thread.h].ct * 100 / output.info.duration);
 		if (isIPC)	thread.ipc = data.threads.list[thread.h].ipc;
 		if (isTLB)	thread.tlb = data.threads.list[thread.h].tlb;
 		if (isL1)	thread.l1 = data.threads.list[thread.h].l1;
@@ -541,7 +543,7 @@ function jsonDL(profile, id) {
 	addLocality(output, id, false);
 	
 	// Parallel coordinates
-	addThreadInfo(output, id, profile, ['pn', 'ipc', 'tlb', 'l1', 'l2', 'l3', 'hpf']);
+	addThreadInfo(output, id, profile, ['pn', 'ct', 'ipc', 'tlb', 'l1', 'l2', 'l3', 'hpf']);
 
 	return output;
 }

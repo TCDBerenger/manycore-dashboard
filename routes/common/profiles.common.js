@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 65;
+var VERSION = 66;
 
 /************************************************/
 /* Variables - hardwares						*/
@@ -32,7 +32,7 @@ var hardRoman = {
 		cores:		4,			// TO REMOVE #cores
 		threads:	8,			// TO REMOVE #theads (hyperthreading)
 		type:		64,			// TO REMOVE 32 or 64 bits
-		
+
 		arch:		'x86-64',	// architecture 32 or 64 bits
 		pcores:		4,			// number of physical cores
 		lcores:		8,			// number of logical cores
@@ -104,7 +104,7 @@ profileMap.all.forEach(function (profile) { profileMap[profile.id] = profile; })
 	 ├	profile<0>						<profile>
 	 ├	...
 	 └	profile<N>						<profile>
-	 
+
 	 profile
 	 ├	version						<integer>	version of the cache
 	 ├	frames
@@ -186,7 +186,8 @@ profileMap.all.forEach(function (profile) { profileMap[profile.id] = profile; })
 	 │	 └	list
 	 │		 └	<h>
 	 │			 ├	s					<integer>	start time (real, not corresponding to a time frame), could be null
-	 │			 └	e					<char>		start time (real, not corresponding to a time frame), could be null
+	 │			 ├	e					<integer>	end time (real, not corresponding to a time frame), could be null
+	 │			 └	ct					<integer>	core time in ms
 	 └	stats
 		 └	switch					<integer>	number of switches for all cores during all run
 **/
@@ -204,7 +205,7 @@ function getVersion(profile) {
 		v = JSON.parse(fs.readFileSync('data/' + profile.file + '.cache.json', 'utf8')).info.version;
 
 	} catch (e) { }
-	
+
 	console.log("[" + profile.id + "] cache revision: " + v);
 	return v;
 }
@@ -272,7 +273,7 @@ function reloadCache(profile) {
 	// Save to cache
 	fs.writeFileSync(filenameCache, JSON.stringify(data));
 	console.log("[" + profile.id + "] " + profile.file + " raw data cached");
-	
+
 	return data;
 }
 
@@ -344,7 +345,8 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	// Global functions
 	function checkThread(id) {
 		if (! data.threads.list.hasOwnProperty(id))
-			data.threads.list[id] = { s: null, e: null};
+			data.threads.list[id] = { s: null, e: null, ct: 0};
+		return data.threads.list[id];
 	}
 	function checkFrame(id) {
 		if (! data.frames.hasOwnProperty(id)) {
@@ -353,7 +355,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 				c:				{},	// by code
 
 				cycles: 		0,	// in cycles
-				
+
 				idle:			0,	// in ms, idle process
 				ready: 			0,	// in ms
 				running: 		0,	// in ms
@@ -428,6 +430,11 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 
 				// Save state
 				data.frames[timeEvent].t[element.tid][element.type] += element.value;
+
+				// Compute core time
+				if (element.type == 'running') {
+					checkThread(element.tid).ct += element.value;
+				}
 			}
 
 			// By core
@@ -440,7 +447,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 				data.frames[timeEvent].c[element.cid][element.type] += element.value;
 			}
 		}
-		
+
 		// IDLE
 		else if (element.pid == 1 && element.type == 'running') {
 
@@ -456,7 +463,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 
 			// Sum by stat (with auto build structure)
 			data.stats.idle += element.value;
-			
+
 		}
 	});
 
@@ -480,7 +487,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	var coreActivity = [];
 	var currentActivity;
 	for (var cid = 0; cid < coreLength; cid++) coreActivity[cid] = true;
-	
+
 	// Vars
 	var coreThreads = {};
 	var migrationMap = {};
@@ -494,13 +501,13 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 
 		// Check time frame existance
 		checkFrame(timeID);
-		
+
 		// Sequential or parallel sequences
 		if (element.type == "sw") {
 			currentActivity = element.pid == profile.pid;
 			if (currentActivity != coreActivity[element.cid]) {
 				coreActivity[element.cid] = currentActivity;
-				
+
 				// Save new state (override with new states if already exists)
 				data.events.sequences[timeEvent] = { c_r: 0 };
 				for (var cid = 0; cid < coreLength; cid++) {
@@ -547,16 +554,16 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 
 				// Save migration time
 				data.events.m.push(timeEvent);
-			
+
 				// Check event list existance
 				if (! data.events.threads.hasOwnProperty(element.tid))
 					data.events.threads[element.tid] = { m: [] };
 				else if (! data.events.threads[element.tid].hasOwnProperty('m'))
 					data.events.threads[element.tid].m = [];
-				
+
 				// Save the migration
 				data.events.threads[element.tid].m.push(timeEvent);
-				
+
 				// Save the migration core attachement
 				if (! migrationMap.hasOwnProperty(element.tid)) migrationMap[element.tid] = {};
 				migrationMap[element.tid][timeEvent] = element.cid;
@@ -580,10 +587,9 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			data.frames[timeID][property]++;
 
 			// Save thread property
-			checkThread(element.tid);
-			data.threads.list[element.tid][element.type[0]] = timeEvent;
+			checkThread(element.tid)[element.type[0]] = timeEvent;
 		}
-		
+
 	});
 
 	// Sorts arrays
@@ -591,7 +597,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	data.migrations.sort(function(a, b){return a.t - b.t});
 	data.events.s.sort(function(a, b){return a - b});
 	data.events.m.sort(function(a, b){return a - b});
-	
+
 	// Build migration periods
 	Object.keys(migrationMap).forEach(function(h) {
 		// Check event list existance
@@ -599,7 +605,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			data.periods.threads[h] = { m: [] };
 		else if (! data.periods.threads[h].hasOwnProperty('m'))
 			data.periods.threads[h].m = [];
-		
+
 		Object.keys(migrationMap[h]).forEach(function(t) {
 			if (data.periods.threads[h].m.length == 0) {
 				data.periods.threads[h].m.push({ s: +t, c: migrationMap[h][t], e: null });
@@ -619,7 +625,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	 */
 	// Var
 	var property;
-	var stat_ipc = 0;
+	var steps = +raw3.info.duration / data.info.timeStep;
 
 	// Init stats
 	data.locality.stats = {
@@ -635,9 +641,8 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	raw3.threads.forEach(function(thread) {
 		if (thread.id > 1) thread.measures.forEach(function(measure) {
 			// Save average
-			checkThread(thread.id);
-			data.threads.list[thread.id][measure.name.toLowerCase()] = measure.data.reduce(function(a, b) { return a + b; }) / measure.data.length;
-			
+			checkThread(thread.id)[measure.name.toLowerCase()] = measure.data.reduce(function(a, b) { return a + b; }) / measure.data.length;
+
 			// Save by time frame
 			measure.data.forEach(function (value, value_index) {
 				timeID = value_index * profile.timeStep;
@@ -647,9 +652,9 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 				if (! data.locality.byFrames.hasOwnProperty(timeID))			data.locality.byFrames[timeID] = { t: timeID };
 				if (! data.locality.byFrames[timeID].hasOwnProperty(property))	data.locality.byFrames[timeID][property] = 0;
 				data.locality.byFrames[timeID][property] += +value || 0;
-				
+
 				// Stats
-				data.locality.stats[property] += (+value || 0) * data.info.timeStep / 100;
+				data.locality.stats[property] += (+value || 0) * data.info.timeStep / 100; //  / steps
 			});
 		});
 	});
@@ -667,6 +672,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 		hpf:	+raw3.info.hpf
 	}
 	*/
+
 
 	/**
 	 *
@@ -703,22 +709,22 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 				l: element.value,											// which lock
 				d: duration													// how long does it take to get the lock
 			});
-			
+
 			// Check event list existance
 			if (! data.events.threads.hasOwnProperty(element.tid))
 				data.events.threads[element.tid] = { ls: [] };
 			else if (! data.events.threads[element.tid].hasOwnProperty('ls'))
 				data.events.threads[element.tid].ls = [];
-			
+
 			// Save the success
 			data.events.threads[element.tid].ls.push(timeEvent);
 
 			// Save when lock is holding
 			if (hold_map[element.value] != null && hold_map[element.value] != element.dtime) console.log("incoherent: lock already holded", element.value, hold_map[element.value], element.dtime);
 			hold_map[element.value] = element.dtime;
-			
+
 			// Save lock life
-			if (! data.locks.hasOwnProperty(element.value)) data.locks[element.value] = []; 
+			if (! data.locks.hasOwnProperty(element.value)) data.locks[element.value] = [];
 			data.locks[element.value].push({ t: timeEvent, x: 'ls', h: element.tid });
 
 			// Stats
@@ -738,7 +744,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 					data.periods.threads[element.tid] = { lw: [] };
 				else if (! data.periods.threads[element.tid].hasOwnProperty('lw'))
 					data.periods.threads[element.tid].lw = [];
-				
+
 				// Save the success
 				data.periods.threads[element.tid].lw.push({ s: Math.round(wait_map[element.tid] / 10000), e: timeEvent});
 
@@ -768,22 +774,22 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 				h: element.tid,					// which thread fails
 				hl: lock_map[element.value]		// which thread owns the lock
 			});
-			
+
 			// Check event list existance
 			if (! data.events.threads.hasOwnProperty(element.tid))
 				data.events.threads[element.tid] = { lf: [] };
 			else if (! data.events.threads[element.tid].hasOwnProperty('lf'))
 				data.events.threads[element.tid].lf = [];
-			
+
 			// Save the failure
 			data.events.threads[element.tid].lf.push(timeEvent);
 
 			// Save when a thread fail
 			if (wait_map[element.tid] != null && wait_map[element.tid] != element.dtime) console.log("incoherent: thread already waiting", wait_map[element.tid], element.dtime);
 			wait_map[element.tid] = element.dtime;
-			
+
 			// Save lock life
-			if (! data.locks.hasOwnProperty(element.value)) data.locks[element.value] = []; 
+			if (! data.locks.hasOwnProperty(element.value)) data.locks[element.value] = [];
 			data.locks[element.value].push({ t: timeEvent, x: 'lf', h: element.tid, hl: lock_map[element.value] });
 
 			// Stats
@@ -803,19 +809,19 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 				h: element.tid,					// which thread fails
 				d: duration						// how long does it take to get the lock
 			});
-			
+
 			// Check event list existance
 			if (! data.periods.threads.hasOwnProperty(element.tid))
 				data.periods.threads[element.tid] = { lh: [] };
 			else if (! data.periods.threads[element.tid].hasOwnProperty('lh'))
 				data.periods.threads[element.tid].lh = [];
-			
+
 			// Save the success
 			data.periods.threads[element.tid].lh.push({ s: Math.round(hold_map[element.value] / 10000), e: timeEvent});
 			hold_map[element.value] = null;
-			
+
 			// Save lock life
-			if (! data.locks.hasOwnProperty(element.value)) data.locks[element.value] = []; 
+			if (! data.locks.hasOwnProperty(element.value)) data.locks[element.value] = [];
 			data.locks[element.value].push({ t: timeEvent, x: 'lr' });
 
 			// Stats

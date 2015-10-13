@@ -28,6 +28,7 @@ app.factory('colours', [function() {
 
 
 app.factory('facets', ['colours', function(colours) {
+	/*  DESCRIPTIONS TO MOVE INTO LEGENDS AND DELETE HERE  */
 	var desc_r = 'thread is actively executing';
 	var desc_y = 'thread is ready to run but is is waiting for a core to become available';
 	var desc_b = 'thread is ready to execute and is on standby to be executed';
@@ -52,6 +53,7 @@ app.factory('facets', ['colours', function(colours) {
 	return {
 		h:		{ label: 'thread',			title: 'Thread',		unity: '',	cat: '',	attr: 'h',	color: colours.list.eGrey,	fcolor: colours.list.dGrey,	gcolor: colours.list.lGrey },
 		pn:		{ label: 'process',			title: 'Process',		unity: '',	cat: '',	attr: 'pn',	color: colours.list.eGrey,	fcolor: colours.list.dGrey,	gcolor: colours.list.lGrey },
+		ct:		{ label: 'core time',		title: 'Core time',		unity: '',	cat: '',	attr: 'ct',	color: colours.list.eGrey,	fcolor: colours.list.dGrey,	gcolor: colours.list.lGrey },
 		
 		r:		{ label: 'executing',		title: 'Thread executing',				desc: desc_r,	unity: 'ms',	cat: 'times',	attr: 'r',		color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
 		y:	 	{ label: 'ready',			title: 'Thread ready to run',			desc: desc_y,	unity: 'ms',	cat: 'times',	attr: 'y',		color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed },
@@ -508,7 +510,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		pCoordDL: {
 			graph : {
 				h:		limit,
-				plots:	[facets.pn, facets.h, facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf]
+				plots:	[facets.pn, facets.h, facets.ct, facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf]
 			},
 			legend: {
 				axis: [
