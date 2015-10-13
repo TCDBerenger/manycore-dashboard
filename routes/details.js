@@ -103,7 +103,7 @@ function addCommon(output, id) {
 
 	// Stats
 	output.stats = {
-		h:	data.stats.threads,
+		h:	data.stats.threads,	// TO MOVE in *.info.threads (actually used for number of logical cores)
 		
 	    s:	data.stats.switches,
 	    m:	data.stats.migrations,

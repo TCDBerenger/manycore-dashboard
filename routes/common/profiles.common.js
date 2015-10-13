@@ -29,14 +29,18 @@ var hardRoman = {
 		ram:	'12 279 MB'
 	},
 	data: {
-		cores:		4,			// #cores
-		threads: 	8,			// #theads (hyperthreading)
-		type:		64,			// 32 or 64 bits
-		clock:		3.06,		// in GHz
-		l1:			32,			// in KB
-		l2:			256,		// in KB
-		l3:			8192,		// in KB
-		ram:		12573696	// in KB
+		cores:		4,			// TO REMOVE #cores
+		threads:	8,			// TO REMOVE #theads (hyperthreading)
+		type:		64,			// TO REMOVE 32 or 64 bits
+		
+		arch:		'x86-64',	// architecture 32 or 64 bits
+		pcores:		4,			// number of physical cores
+		lcores:		8,			// number of logical cores
+		clock:		3.06,		// clock speed in GHz
+		l1:			32,			// cache L1 in KB
+		l2:			256,		// cache L2 in KB
+		l3:			8192,		// cache L3 in KB
+		ram:		12573696	// cache RAM in KB
 	},
 	calibration: {
 		s:	1,				// number of switches by ms by core
@@ -281,8 +285,8 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	var data = {
 		info: {
 			version:		VERSION,
-			cores:			profile.hardware.data.cores,
-			threads:		profile.hardware.data.threads,
+			cores:			profile.hardware.data.cores,	// TO REPLACE with lcores
+			threads:		profile.hardware.data.threads,	// TO REPLACE with app's #threads
 			timeStep:		profile.timeStep,
 			timeMin:		0,
 			timeMax:		0
@@ -851,11 +855,11 @@ function exportInfo(output, profile) {
 
 	// Infos
 	output.info = {
-		cores:			data.info.cores,
-		threads:		data.info.threads,
-		timeStep:		data.info.timeStep,
+		cores:			data.info.cores,	// TO REPLACE with lcores
+		threads:		data.info.threads,	// TO REPLACE with app's #threads
 		timeMin:		data.info.timeMin,
 		timeMax:		data.info.timeMax,
+		timeStep:		data.info.timeStep,
 		duration:		data.info.timeMax + data.info.timeStep
 	};
 }
