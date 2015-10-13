@@ -508,7 +508,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		pCoordDL: {
 			graph : {
 				h:		limit,
-				plots:	[facets.h, facets.pn, facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf]
+				plots:	[facets.pn, facets.h, facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf]
 			},
 			legend: {
 				axis: [

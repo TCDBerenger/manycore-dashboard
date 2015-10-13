@@ -39,9 +39,12 @@
 	stroke: #C0C0C0;
 	shape-rendering: crispedges;
 }
+.svg-d3 .axis .tick text {
+	fill: #606060;
+}
 .svg-d3 .svg-data-line {
 	fill: none;
-	stroke: #00FF00;
 	/*
+	stroke: #8DD28A;
 	stroke-width: 2*/
 }

@@ -59,7 +59,7 @@ function d3_directive_init(scope, element, attrs, layoutType) {
 
 	// Canvas
 	var svg =		d3.select(container).append('svg')
-						.attr('class', 'svg svg-d3');
+						.attr('class', 'svg-d3');
 
 	// Overflow
 	var overflow =	svg.append('g')
@@ -135,11 +135,28 @@ app.directive('chartPcoords', function() {
 
 		// Init vars
 		var r = d3_directive_init(scope, element, attrs, LAYOUT_PARALLEL_COORDINATES);
-
-		// Enhance meta
-		r.meta.hLabel = function(h, pi) {
-			return h;// (pi + 1) + '-' + h;
-		} 
+		
+		// Looking two threads with the same number
+		r.meta.hLabelUnique = false;
+		var thread_names = {};
+		r.profiles.every(function(profile) {
+			r.meta.hLabelUnique = profile.currentData.threads.info.every(function(thread) {
+				return (! thread_names[thread.h]) && (thread_names[thread.h] = true);
+			});
+			return r.meta.hLabelUnique;
+		});
+		delete thread_names;
+		
+		// Meta label for thread id (h)
+		if (r.meta.hLabelUnique) {
+			r.meta.hLabel = function(h, pi) {
+				return h;
+			} 
+		} else {
+			r.meta.hLabel = function(h, pi) {
+				return h + ' [' + (pi + 1) + ']';
+			} 
+		}
 		
 		// Meta plots
 		r.meta.plots = [];
@@ -161,27 +178,29 @@ app.directive('chartPcoords', function() {
 			
 			switch (facet.attr) {
 				case 'h':
-					scale = d3.scale.ordinal();
+					scale = d3.scale.ordinal()
+						.rangePoints([0, LAYOUT_PARALLEL_COORDINATES]);
 					list = [];
-					r.profiles.forEach(function(profile, index) { profile.currentData.threads.info.forEach(function(thread) {
-						list.push(r.meta.hLabel(thread.h, index));
+					r.profiles.forEach(function(profile, ip) { profile.currentData.threads.info.forEach(function(thread) {
+						list.push(r.meta.hLabel(thread.h, ip));
 					})});
 					scale.domain(list);
 					break;
 				case 'pn':
-					scale = d3.scale.ordinal();
-					list = ['', ''];
+					scale = d3.scale.ordinal()
+						.rangePoints([0, LAYOUT_PARALLEL_COORDINATES]);
+					list = ['', ' '];
 					r.profiles.forEach(function(profile) {
 						list.splice(-1, 0, profile.label);
 					});
 					scale.domain(list);
 					break;
 				default:
-					scale = d3.scale.linear().domain([0, 100]);
+					scale = d3.scale.linear()
+						.domain([0, 100])
+						.range([LAYOUT_PARALLEL_COORDINATES, 0]);
 					break;
 			}
-			
-			scale.range([LAYOUT_PARALLEL_COORDINATES, 0]);
 			r.scalesV.push(scale);
 		});
 		
@@ -191,15 +210,16 @@ app.directive('chartPcoords', function() {
 		
 		// Lines
 		var line = d3.svg.line();
-		/*var lineFunction = d3.svg.line()
-				.x(function(d, i, j) { console.log('x', d, i, j, r.scaleX(i)); return r.scaleX(i); })
-				.y(function(d, i, j) { console.log('y', d, i, j, r.scalesV[i](d[r.deck.plots[p].attr])); return r.scalesV[i](d[r.deck.plots[p].attr]); });
-//				.interpolate(interpolationMethod);*/
-		var linePoints = function(thread) {
+		var linePoints = function(thread, ip) {
 			return r.deck.plots.map(function(facet, index) {
-				return [r.scaleX(index), r.scalesV[index](thread[facet.attr])];
+				if (facet.attr == 'h') {
+					return [r.scaleX(index), r.scalesV[index](r.meta.hLabel(thread[facet.attr], ip))];
+				} else {
+					return [r.scaleX(index), r.scalesV[index](thread[facet.attr])];
+				}
 			})
 		}
+		
 		
 		// Redraw
 		function repaint() {
@@ -210,7 +230,7 @@ app.directive('chartPcoords', function() {
 			r.scaleX.rangePoints([0, r.layout.width], 1);
 			
 			// clean
-			gPlots.selectAll('*').remove();
+			//gPlots.selectAll('*').remove();
 			gLines.selectAll('*').remove();
 			
 			// Draw plots
@@ -225,24 +245,21 @@ app.directive('chartPcoords', function() {
 						.attr("y", -4)
 						.style('text-anchor', 'top')
 						.text(facet.label);
-						
-						
 			});
 			
 			// Brush
 		
 			// Draw lines
+			var tempid = Math.round(Math.random() * 100);
+			var tempct = 0;
 			r.profiles.forEach(function(profile, ip) {
 				profile.currentData.threads.info.forEach(function(thread, it) {
-					//if (it < 1) {
-					console.log(thread.h, line(linePoints(thread)));
-					//console.log(thread.h, line(r.meta.plots.map(function(p) { return [r.scaleX(p), r.scalesV[p](thread[r.deck.plots[p].attr])]; })));
-					//console.log(thread.h, lineFunction(r.meta.plots.map(function(p) { return [r.scaleX(p), r.scalesV[p](thread[r.deck.plots[p].attr])]; })));
 					gLines.append('path')
 						.attr('class', 'svg-data svg-data-line')
-						.attr('d', line(linePoints(thread)) + 'Z');
+						.attr('stroke', '#8DD28A')
+						.attr('d', line(linePoints(thread, ip)));
 						
-					/*linePoints(thread).forEach(function(point, ip) {
+					/*linePoints(thread, ip).forEach(function(point, ip) {
 						gLines.append("circle")
 							.attr("cx", point[0])
 							.attr("cy", point[1])
