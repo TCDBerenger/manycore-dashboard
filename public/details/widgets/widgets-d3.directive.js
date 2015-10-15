@@ -105,7 +105,7 @@ function d3_directive_repaint_container(r) {
 	r.svg.attr({width: r.layout.width, height: r.layout.height});
 
 	// Clean selection
-	directive_unselect(r);
+	// directive_unselect(r);
 }
 
 
@@ -250,28 +250,12 @@ app.directive('chartPcoords', function() {
 			// Brush
 		
 			// Draw lines
-			var tempid = Math.round(Math.random() * 100);
-			var tempct = 0;
 			r.profiles.forEach(function(profile, ip) {
 				profile.currentData.threads.info.forEach(function(thread, it) {
 					gLines.append('path')
 						.attr('class', 'svg-data svg-data-line')
 						.attr('stroke', '#8DD28A')
 						.attr('d', line(linePoints(thread, ip)));
-						
-					/*linePoints(thread, ip).forEach(function(point, ip) {
-						gLines.append("circle")
-							.attr("cx", point[0])
-							.attr("cy", point[1])
-							.attr("r", 20)
-							.style("fill", "purple");
-						gLines.append('text')
-							.attr('class', 'label')
-							.attr("x", point[0])
-							.attr("y", point[1])
-							.text(ip);
-					})*/
-					//}
 				});
 			});
 		}
