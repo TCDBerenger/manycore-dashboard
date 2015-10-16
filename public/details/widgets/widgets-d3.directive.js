@@ -205,8 +205,8 @@ app.directive('chartPcoords', function() {
 		});
 		
 		// Groups
-		var gPlots = r.groupO.append('g');
-		var gLines = r.groupO.append('g');
+		var gBackLines = r.groupO.append('g').attr('class', 'svg-background');
+		var gForeLines = r.groupO.append('g').attr('class', 'svg-foreground');
 		
 		// Lines
 		var line = d3.svg.line();
@@ -220,6 +220,87 @@ app.directive('chartPcoords', function() {
 			})
 		}
 		
+		// Draw plots
+		r.meta.plotGroups = [];
+		r.deck.plots.forEach(function(facet, i) {
+			r.meta.plotGroups.push(
+				r.groupO.append('g').attr('class', 'plot')
+			);
+			
+			// Axis
+			r.meta.plotGroups[i].append('g')
+				.attr('class', 'axis')
+				.call(axis.scale(r.scalesV[i]))
+				.append('text')
+					.attr('class', 'label')
+					.attr('transform', 'translate(2, 5) rotate(90)')
+					.attr("y", -4)
+					.style('text-anchor', 'top')
+					.text(facet.label);
+			
+			// Event handling
+			r.meta.plotGroups[i].call(
+				d3.behavior.drag()
+					.origin({ x: r.scaleX(i) })
+					.on("dragstart", function(d) {
+						dragging[d] = x(d);
+						background.attr("visibility", "hidden");
+					})
+					.on("drag", function(d) {
+						dragging[d] = Math.min(width, Math.max(0, d3.event.x));
+						foreground.attr("d", path);
+						r.meta.plots.sort(function(a, b) { return position(a) - position(b); });
+						x.domain(r.meta.plots);
+						g.attr("transform", function(d) { return "translate(" + position(d) + ")"; })
+					})
+					.on("dragend", function(d) {
+						delete dragging[d];
+						transition(d3.select(this)).attr("transform", "translate(" + x(d) + ")");
+						transition(foreground).attr("d", path);
+						background
+							.attr("d", path)
+							.transition()
+								.delay(500)
+								.duration(0)
+								.attr("visibility", null);
+					})
+			);
+			
+			// Create brush
+			// cf. http://bl.ocks.org/jasondavies/1341281
+			r.scalesV[i].brush = d3.svg.brush()
+				.y(r.scalesV[i])
+				.on("brushstart", function() {
+					d3.event.sourceEvent.stopPropagation();
+				})
+				.on("brush", function() {
+					// Handles a brush event, toggling the display of foreground lines.
+					/*var actives = [];
+					var extents = [];
+					
+					r.meta.plots.forEach(function(element) {
+						if (! element.brush.empty()) {
+							actives.push(element);
+							extents.push(element.extent());
+						}
+					}, this);
+					
+					gForeLines.style("display", function(d) {
+						return actives.every(function(p, i) {
+							return extents[i][0] <= d[p] && d[p] <= extents[i][1];
+						}) ? null : "none";
+					});*/
+				});
+			
+			// Selection rectangle feedback
+			r.meta.plotGroups[i].append('g')
+				.attr('class', 'brush')
+				.call(r.scalesV.brush)
+				.selectAll("rect")
+					.attr("x", -8)
+					.attr("width", 16);
+		});
+		
 		
 		// Redraw
 		function repaint() {
@@ -230,29 +311,21 @@ app.directive('chartPcoords', function() {
 			r.scaleX.rangePoints([0, r.layout.width], 1);
 			
 			// clean
-			gPlots.selectAll('*').remove();
-			gLines.selectAll('*').remove();
+			gBackLines.selectAll('*').remove();
+			gForeLines.selectAll('*').remove();
 			
-			// Draw plots
-			r.deck.plots.forEach(function(facet, i) {
-				gPlots.append('g')
-					.attr('transform', 'translate(' + r.scaleX(i) + ')')
-					.attr('class', 'axis')
-					.call(axis.scale(r.scalesV[i]))
-					.append('text')
-						.attr('class', 'label')
-						.attr('transform', 'translate(2, 5) rotate(90)')
-						.attr("y", -4)
-						.style('text-anchor', 'top')
-						.text(facet.label);
-			});
-			
-			// Brush
+			// Move plots
+			r.meta.plotGroups.forEach(function(group, i) {
+				group.attr('transform', 'translate(' + r.scaleX(i) + ')')
+			}, this);
 		
 			// Draw lines
 			r.profiles.forEach(function(profile, ip) {
 				profile.currentData.threads.info.forEach(function(thread, it) {
-					gLines.append('path')
+					gBackLines.append('path')
+						.attr('class', 'svg-data svg-data-line')
+						.attr('d', line(linePoints(thread, ip)));
+					gForeLines.append('path')
 						.attr('class', 'svg-data svg-data-line')
 						.attr('stroke', '#8DD28A')
 						.attr('d', line(linePoints(thread, ip)));

@@ -28,6 +28,7 @@
 .svg-d3 .axis .label {
 	font-size: 120%;
 	font-weight: 700;
+	text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
 }
 .svg-d3 .axis .domain {
 	fill: none;
@@ -41,8 +42,14 @@
 }
 .svg-d3 .axis .tick text {
 	fill: #606060;
+	text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
 }
-.svg-d3 .svg-data-line {
+.svg-d3 .svg-background path {
+	fill: none;
+	stroke: #ddd;
+	shape-rendering: crispEdges;
+}
+.svg-d3 .svg-foreground path {
 	fill: none;
 	/*
 	stroke: #8DD28A;
