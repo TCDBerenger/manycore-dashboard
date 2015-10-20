@@ -93,7 +93,6 @@ function d3_directive_init(scope, element, attrs, layoutType) {
 function d3_directive_repaint_container(r) {
 	// Parameters - Data
 	r.meta.refresh(r);
-	r.iData = [null, null];
 
 	// Sizes
 	r.layout.refresh(r.container, r.profiles);
@@ -164,6 +163,9 @@ app.directive('chartPcoords', function() {
 			r.meta.plots.push(i);
 		});
 		
+		// Meta brushes
+		r.meta.brushes = [];
+		
 		// Plot axis
 		var axis = d3.svg.axis().orient('left');
 		
@@ -204,6 +206,18 @@ app.directive('chartPcoords', function() {
 			r.scalesV.push(scale);
 		});
 		
+		// Build internal data
+		r.iData = [];
+		r.profiles.forEach(function(profile, ip) {
+			profile.currentData.threads.info.forEach(function(thread, it) {
+				var d = { id: '#path-' + ip + '-' + it };
+				r.deck.plots.forEach(function(facet, i) {
+					d[i] = (facet.attr == 'h') ? r.scalesV[i](r.meta.hLabel(thread[facet.attr], ip)) : r.scalesV[i](thread[facet.attr]);
+				});
+				r.iData.push(d);
+			});
+		});
+		
 		// Groups
 		var gBackLines = r.groupO.append('g').attr('class', 'svg-background');
 		var gForeLines = r.groupO.append('g').attr('class', 'svg-foreground');
@@ -238,64 +252,21 @@ app.directive('chartPcoords', function() {
 					.style('text-anchor', 'top')
 					.text(facet.label);
 			
-			// Event handling
-			r.meta.plotGroups[i].call(
-				d3.behavior.drag()
-					.origin({ x: r.scaleX(i) })
-					.on("dragstart", function(d) {
-						dragging[d] = x(d);
-						background.attr("visibility", "hidden");
-					})
-					.on("drag", function(d) {
-						dragging[d] = Math.min(width, Math.max(0, d3.event.x));
-						foreground.attr("d", path);
-						r.meta.plots.sort(function(a, b) { return position(a) - position(b); });
-						x.domain(r.meta.plots);
-						g.attr("transform", function(d) { return "translate(" + position(d) + ")"; })
-					})
-					.on("dragend", function(d) {
-						delete dragging[d];
-						transition(d3.select(this)).attr("transform", "translate(" + x(d) + ")");
-						transition(foreground).attr("d", path);
-						background
-							.attr("d", path)
-							.transition()
-								.delay(500)
-								.duration(0)
-								.attr("visibility", null);
-					})
-			);
-			
-			// Create brush
-			// cf. http://bl.ocks.org/jasondavies/1341281
-			r.scalesV[i].brush = d3.svg.brush()
+			// Create selection brush
+			var brush = d3.svg.brush()
 				.y(r.scalesV[i])
-				.on("brushstart", function() {
-					d3.event.sourceEvent.stopPropagation();
-				})
-				.on("brush", function() {
-					// Handles a brush event, toggling the display of foreground lines.
-					/*var actives = [];
-					var extents = [];
-					
-					r.meta.plots.forEach(function(element) {
-						if (! element.brush.empty()) {
-							actives.push(element);
-							extents.push(element.extent());
-						}
-					}, this);
-					
-					gForeLines.style("display", function(d) {
-						return actives.every(function(p, i) {
-							return extents[i][0] <= d[p] && d[p] <= extents[i][1];
-						}) ? null : "none";
-					});*/
-				});
+				.on("brush", select);
+				//.on("brushstart", brushstart)
+				//.on("brushend", brushend)
 			
-			// Selection rectangle feedback
+			// Save selection brush for later
+			r.meta.brushes.push(brush);
+					
+			// Visually add selection brush
 			r.meta.plotGroups[i].append('g')
 				.attr('class', 'brush')
-				.call(r.scalesV.brush)
+				.call(brush)
+				// Rectangle feedback
 				.selectAll("rect")
 					.attr("x", -8)
 					.attr("width", 16);
@@ -320,21 +291,42 @@ app.directive('chartPcoords', function() {
 			}, this);
 		
 			// Draw lines
+			var i = 0;
 			r.profiles.forEach(function(profile, ip) {
 				profile.currentData.threads.info.forEach(function(thread, it) {
-					gBackLines.append('path')
+					r.iData[i].b = gBackLines.append('path')
 						.attr('class', 'svg-data svg-data-line')
 						.attr('d', line(linePoints(thread, ip)));
-					gForeLines.append('path')
+					r.iData[i].f = gForeLines.append('path')
+						.attr('id', 'path-' + ip + '-' + it)
 						.attr('class', 'svg-data svg-data-line')
 						.attr('stroke', '#8DD28A')
 						.attr('d', line(linePoints(thread, ip)));
+					
+					i++;
 				});
 			});
 		}
 
 		// Select
-		function select(x) {
+		function select() {
+			// Handles a brush event, toggling the display of foreground lines.
+			var actives = [];
+			var extents = [];
+			
+			for (var index = 0; index < r.meta.plots.length; index++) {
+				if (! r.meta.brushes[index].empty()) {
+					actives.push(index);
+					extents.push(r.meta.brushes[index].extent());
+				}
+			}
+			
+			r.iData.forEach(function(element) {
+				element.f.style('display',
+					extents.every(function(p, i) {
+						return p[0] <= element[actives[i]] && element[actives[i]] <= p[1];
+					}) ? null : 'none');
+			});
 		}
 
 		// Bind
