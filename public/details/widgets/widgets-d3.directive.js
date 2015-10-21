@@ -108,6 +108,13 @@ function d3_directive_repaint_container(r) {
 }
 
 
+/**
+ * Bind
+ */
+function d3_directive_bind(scope, r, repaint) {
+	scope.$watch(function() { return r.container.clientWidth; }, repaint);
+}
+
 
 /**********************************************************/
 /*														  */
@@ -212,7 +219,11 @@ app.directive('chartPcoords', function() {
 			profile.currentData.threads.info.forEach(function(thread, it) {
 				var d = { id: '#path-' + ip + '-' + it };
 				r.deck.plots.forEach(function(facet, i) {
-					d[i] = (facet.attr == 'h') ? r.scalesV[i](r.meta.hLabel(thread[facet.attr], ip)) : r.scalesV[i](thread[facet.attr]);
+					switch (facet.attr) {
+						case 'h':	d[i] = r.scalesV[i](r.meta.hLabel(thread[facet.attr], ip));	break;	// Ordinal scale and label function
+						case 'pn':	d[i] = r.scalesV[i](thread[facet.attr]);					break;	// Ordinal scale
+						default:	d[i] = thread[facet.attr];									break;
+					}
 				});
 				r.iData.push(d);
 			});
@@ -321,16 +332,21 @@ app.directive('chartPcoords', function() {
 				}
 			}
 			
+			var extentsLenght = extents.length;
+			var toInclude, i_extents;
 			r.iData.forEach(function(element) {
-				element.f.style('display',
-					extents.every(function(p, i) {
-						return p[0] <= element[actives[i]] && element[actives[i]] <= p[1];
-					}) ? null : 'none');
+				toInclude = true;
+				i_extents = 0;
+				while (toInclude && i_extents < extentsLenght) {
+					toInclude = extents[i_extents][0] <= element[actives[i_extents]] && element[actives[i_extents]] <= extents[i_extents][1];
+					i_extents++;
+				}
+				element.f.style('display', toInclude ? null : 'none');
 			});
 		}
 
 		// Bind
-		directive_bind(scope, element, r, repaint, select);
+		d3_directive_bind(scope, r, repaint);
 	}
 
 	return {
