@@ -233,12 +233,19 @@ app.directive('chartPcoords', function() {
 		r.iData = [];
 		r.profiles.forEach(function(profile, ip) {
 			profile.currentData.threads.info.forEach(function(thread, it) {
-				var d = { id: '#path-' + ip + '-' + it };
+				var d = { id: 'path-' + ip + '-' + it };
 				r.deck.plots.forEach(function(facet, i) {
+					// Y
 					switch (facet.attr) {
-						case 'h':	d[i] = r.scalesV[i](r.meta.hLabel(thread[facet.attr], ip));	break;	// Ordinal scale and label function
-						case 'pn':	d[i] = r.scalesV[i](thread[facet.attr]);					break;	// Ordinal scale
-						default:	d[i] = thread[facet.attr];									break;
+						case 'h':	d['y' + i] = r.scalesV[i](r.meta.hLabel(thread[facet.attr], ip));	break;	// label function
+						default:	d['y' + i] = r.scalesV[i](thread[facet.attr]);						break;
+					}
+			
+					// Extent
+					switch (facet.attr) {
+						case 'h':
+						case 'pn':	d['e' + i] = d['y' + i];			break;	// Ordinal scale
+						default:	d['e' + i] = thread[facet.attr];	break;
 					}
 				});
 				r.iData.push(d);
@@ -251,14 +258,10 @@ app.directive('chartPcoords', function() {
 		
 		// Lines
 		var line = d3.svg.line();
-		var linePoints = function(thread, ip) {
+		var linePoints = function(element, plotXs) {
 			return r.deck.plots.map(function(facet, index) {
-				if (facet.attr == 'h') {
-					return [r.scaleX(index), r.scalesV[index](r.meta.hLabel(thread[facet.attr], ip))];
-				} else {
-					return [r.scaleX(index), r.scalesV[index](thread[facet.attr])];
-				}
-			})
+				return [plotXs[index], element['y' + index]];
+			});
 		}
 		
 		// Draw plots
@@ -313,26 +316,25 @@ app.directive('chartPcoords', function() {
 			gForeLines.selectAll('*').remove();
 			
 			// Move plots
+			var plotXs = [];
 			r.meta.plotGroups.forEach(function(group, i) {
-				group.attr('transform', 'translate(' + r.scaleX(i) + ')')
+				group.attr('transform', 'translate(' + r.scaleX(i) + ')');
+				plotXs.push(r.scaleX(i));
 			}, this);
 		
 			// Draw lines
-			var i = 0;
-			r.profiles.forEach(function(profile, ip) {
-				profile.currentData.threads.info.forEach(function(thread, it) {
-					r.iData[i].b = gBackLines.append('path')
-						.attr('class', 'svg-data svg-data-line')
-						.attr('d', line(linePoints(thread, ip)));
-					r.iData[i].f = gForeLines.append('path')
-						.attr('id', 'path-' + ip + '-' + it)
-						.attr('class', 'svg-data svg-data-line')
-						.attr('stroke', '#8DD28A')
-						.attr('d', line(linePoints(thread, ip)));
-					
-					i++;
-				});
-			});
+			var dataPath;
+			r.iData.forEach(function(element) {
+				dataPath = line(linePoints(element, plotXs));
+				element.b = gBackLines.append('path')
+								.attr('class', 'svg-data svg-data-line')
+								.attr('d', dataPath);
+				element.f = gForeLines.append('path')
+								.attr('id', element.id)
+								.attr('class', 'svg-data svg-data-line')
+								.attr('stroke', '#8DD28A')
+								.attr('d', dataPath);
+			})
 		}
 
 		// Select
@@ -354,7 +356,7 @@ app.directive('chartPcoords', function() {
 				toInclude = true;
 				i_extents = 0;
 				while (toInclude && i_extents < extentsLenght) {
-					toInclude = extents[i_extents][0] <= element[actives[i_extents]] && element[actives[i_extents]] <= extents[i_extents][1];
+					toInclude = extents[i_extents][0] <= element['e' + actives[i_extents]] && element['e' + actives[i_extents]] <= extents[i_extents][1];
 					i_extents++;
 				}
 				element.f.style('display', toInclude ? null : 'none');
