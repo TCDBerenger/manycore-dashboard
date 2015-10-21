@@ -229,25 +229,45 @@ app.directive('chartPcoords', function() {
 			r.scalesV.push(scale);
 		});
 		
+		// Color scales
+		var colorScale_thread = d3.scale.category20();
+		var colorScale_locality = d3.scale.linear().domain([0, 50, 100]).range(['#8DD28A', '#D2AB8A', '#000000']);
+		
 		// Build internal data
 		r.iData = [];
 		r.profiles.forEach(function(profile, ip) {
 			profile.currentData.threads.info.forEach(function(thread, it) {
-				var d = { id: 'path-' + ip + '-' + it };
+				var d = {
+					id: 'path-' + ip + '-' + it,
+					cp: (ip == 0) ? '#1f77b4' : '#ff7f0e',
+					ct: colorScale_thread(it % 20)
+				};
+				
 				r.deck.plots.forEach(function(facet, i) {
 					// Y
-					switch (facet.attr) {
-						case 'h':	d['y' + i] = r.scalesV[i](r.meta.hLabel(thread[facet.attr], ip));	break;	// label function
-						default:	d['y' + i] = r.scalesV[i](thread[facet.attr]);						break;
+					if (facet.attr == 'h') {
+						// label function
+						d['y' + i] = r.scalesV[i](r.meta.hLabel(thread[facet.attr], ip));
+					} else {
+						d['y' + i] = r.scalesV[i](thread[facet.attr]);
 					}
 			
 					// Extent
-					switch (facet.attr) {
-						case 'h':
-						case 'pn':	d['e' + i] = d['y' + i];			break;	// Ordinal scale
-						default:	d['e' + i] = thread[facet.attr];	break;
+					if (facet.attr == 'h' || facet.attr == 'pn') {
+						// Ordinal scale
+						d['e' + i] = d['y' + i];
+					} else {
+						d['e' + i] = thread[facet.attr];
+					}
+					
+					// Locality "level"
+					if (facet.attr == 'tlb' || facet.attr == 'l1' || facet.attr == 'l2' || facet.attr == 'l3' || facet.attr == 'hpf') {
+						d.ll = Math.max(d.ll || 0, thread[facet.attr]);
 					}
 				});
+				
+				d.cl = colorScale_locality(d.ll);
+				
 				r.iData.push(d);
 			});
 		});
@@ -323,16 +343,29 @@ app.directive('chartPcoords', function() {
 			}, this);
 		
 			// Draw lines
-			var dataPath;
+			var dataPath, color;
 			r.iData.forEach(function(element) {
+				// Path
 				dataPath = line(linePoints(element, plotXs));
+				
+				// Color
+				if (r.meta.colorMode == 0)		// good ↔ poor locality
+					color = element.cl;
+				else if (r.meta.colorMode == 1)	// process
+					color = element.cp;
+				else if (r.meta.colorMode == 2)	// thread
+					color = element.ct;
+				else							// what's wrong?
+					color = '#8DD28A';
+				
+				// Draw
 				element.b = gBackLines.append('path')
 								.attr('class', 'svg-data svg-data-line')
 								.attr('d', dataPath);
 				element.f = gForeLines.append('path')
 								.attr('id', element.id)
 								.attr('class', 'svg-data svg-data-line')
-								.attr('stroke', '#8DD28A')
+								.attr('stroke', color)
 								.attr('d', dataPath);
 			})
 		}
