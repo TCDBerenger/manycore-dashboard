@@ -112,7 +112,23 @@ function d3_directive_repaint_container(r) {
  * Bind
  */
 function d3_directive_bind(scope, r, repaint) {
+	// Size
 	scope.$watch(function() { return r.container.clientWidth; }, repaint);
+	
+	// Properties
+	scope.$watch(function() { return r.settings.version; }, function() {
+		var needToRepaint = false;
+
+		r.properties.forEach(function(property) {
+			if (r.meta[property] != r.settings[property]) {
+				r.meta[property] = r.settings[property];
+				needToRepaint = true;
+			}
+		});
+
+		if (needToRepaint)
+			repaint();
+	});
 }
 
 

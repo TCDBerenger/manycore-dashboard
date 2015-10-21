@@ -270,7 +270,10 @@ function directive_repaint_post(r) {
  * Repaint - Bind
  */
 function directive_bind(scope, element, r, repaint, select) {
+	// Size
 	scope.$watch(function() { return r.container.clientWidth; }, repaint);
+	
+	// Properties
 	scope.$watch(function() { return r.settings.version; }, function() {
 		var needToRepaint = false;
 
@@ -284,6 +287,14 @@ function directive_bind(scope, element, r, repaint, select) {
 		if (needToRepaint)
 			repaint();
 	});
+
+	// Selection TO controller
+	// Mouse events are redirected to the controller for a global handling
+	element.on('mousemove', function(event) { scope.mouseOver(event, r); });
+	element.on('mouseleave', function(event) { scope.mouseLeave(event, r); });
+	
+	// Selection FROM controller
+	// Controller treated and sent selection position
 	scope.$on('xEvent', function(event, x) {
 		if (isNaN(x)) {
 			directive_unselect(r);
@@ -291,9 +302,6 @@ function directive_bind(scope, element, r, repaint, select) {
 			select(x);
 		}
 	});
-
-	element.on('mousemove', function(event) { scope.mouseOver(event, r); });
-	element.on('mouseleave', function(event) { scope.mouseLeave(event, r); });
 }
 
 /**
