@@ -7,21 +7,22 @@
 /**
  * Constants
  */
-var LAYOUT_PARALLEL_COORDINATES = 300;
+var LAYOUT_PARALLEL_COORDINATES_MIN = 300;
+var LAYOUT_PARALLEL_COORDINATES_STEP = 10;
 
 /**
  * Layout for external graphs
  */
-var externalLayout = function(favoriteHeight) {
+var d3_layout = function(initialVars) {
 	// Allow seld reference (otherwise this is the caller object)
 	var self = this;
 
 	// Constants
 	this.padding	= { top: 30, right: 0, bottom: 20, left: 0, inner: 0 };
-	this.vars		= { favoriteHeight: favoriteHeight };
+	this.vars		= initialVars;
 
 	// Compute
-	this.refresh = function(container, profiles, callback) {
+	this.refresh = function(container, items, callback) {
 		self.width =	container.clientWidth;
 		self.height	=	self.padding.top + self.vars.favoriteHeight + self.padding.bottom;
 
@@ -39,10 +40,10 @@ var externalLayout = function(favoriteHeight) {
 /**
  * Init directive
  */
-function d3_directive_init(scope, element, attrs, layoutType) {
+function d3_directive_init(scope, element, attrs, layoutVars) {
 	// Layout
 	var container =	element[0];
-	var layout =	new externalLayout(layoutType);
+	var layout =	new d3_layout(layoutVars);
 	
 	// Properties
 	var properties = [];
@@ -156,7 +157,13 @@ app.directive('chartPcoords', function() {
 		console.log('== directive == chartPcoords ==');
 
 		// Init vars
-		var r = d3_directive_init(scope, element, attrs, LAYOUT_PARALLEL_COORDINATES);
+		var r = d3_directive_init(scope, element, attrs, { minHeight: LAYOUT_PARALLEL_COORDINATES_MIN, stepHeight: LAYOUT_PARALLEL_COORDINATES_STEP });
+		
+		// Init favorite height
+		var threadCount = r.profiles[0].currentData.threads.info.length + ((r.profiles.length > 1) ? r.profiles[1].currentData.threads.info.length : 0);
+		r.layout.vars.favoriteHeight = Math.max(r.layout.vars.minHeight, threadCount * r.layout.vars.stepHeight);
+		console.log(threadCount, r.profiles[0].currentData.threads.info.length, r.profiles.length > 1, r.profiles[1].currentData.threads.info.length);
+		console.log('#', threadCount, "p", r.layout.vars.favoriteHeight, r.layout.vars.minHeight, threadCount * r.layout.vars.stepHeight);
 		
 		// Looking two threads with the same number
 		r.meta.hLabelUnique = false;
@@ -204,7 +211,7 @@ app.directive('chartPcoords', function() {
 			switch (facet.attr) {
 				case 'h':
 					scale = d3.scale.ordinal()
-						.rangePoints([0, LAYOUT_PARALLEL_COORDINATES]);
+						.rangePoints([0, r.layout.vars.favoriteHeight]);
 					list = [];
 					r.profiles.forEach(function(profile, ip) { profile.currentData.threads.info.forEach(function(thread) {
 						list.push(r.meta.hLabel(thread.h, ip));
@@ -213,7 +220,7 @@ app.directive('chartPcoords', function() {
 					break;
 				case 'pn':
 					scale = d3.scale.ordinal()
-						.rangePoints([0, LAYOUT_PARALLEL_COORDINATES]);
+						.rangePoints([0, r.layout.vars.favoriteHeight]);
 					list = ['', ' '];
 					r.profiles.forEach(function(profile) {
 						list.splice(-1, 0, profile.label);
@@ -223,7 +230,7 @@ app.directive('chartPcoords', function() {
 				default:
 					scale = d3.scale.linear()
 						.domain([0, 100])
-						.range([LAYOUT_PARALLEL_COORDINATES, 0]);
+						.range([r.layout.vars.favoriteHeight, 0]);
 					break;
 			}
 			r.scalesV.push(scale);
