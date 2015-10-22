@@ -44,9 +44,25 @@
 	fill: #606060;
 	text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
 }
+.svg-d3 .brush .extent {
+	cursor: ns-resize !important;
+	fill-opacity: .2;
+	stroke: #606060;
+	shape-rendering: crispEdges;
+}
+/*.svg-d3 .brush .resize rect {
+	fill: rgba(0, 0, 0, 0.1);
+}*/
+.svg-d3 .brush .remove-brush {
+	font-size: 16px;
+	cursor: pointer;
+}
+.svg-d3 .brush .resize {
+	cursor: row-resize !important;
+}
 .svg-d3 .svg-background path {
 	fill: none;
-	stroke: #ddd;
+	stroke: #eee;
 	shape-rendering: crispEdges;
 }
 .svg-d3 .svg-foreground path {

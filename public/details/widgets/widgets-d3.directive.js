@@ -320,15 +320,22 @@ app.directive('chartPcoords', function() {
 			r.meta.brushes.push(brush);
 					
 			// Visually add selection brush
-			r.meta.plotGroups[i].append('g')
+			var brushGroup = r.meta.plotGroups[i].append('g')
 				.attr('class', 'brush')
-				.call(brush)
-				// Rectangle feedback
-				.selectAll("rect")
-					.attr("x", -8)
-					.attr("width", 16);
+				.call(brush);
+			
+			// Rectangle feedback
+			brushGroup.selectAll("rect")
+				.attr("x", -8)
+				.attr("width", 16)
+			
+			// Remove link
+			brushGroup.selectAll(".resize.n").append('text')
+				.attr('class', 'remove-brush')
+				.attr('font-family', 'FontAwesome')
+				.attr("x", 8)
+				.text('\uf057');
 		});
-		
 		
 		// Redraw
 		function repaint() {
@@ -375,6 +382,16 @@ app.directive('chartPcoords', function() {
 								.attr('stroke', color)
 								.attr('d', dataPath);
 			})
+		}
+		
+		// Reset brush
+		function reset(d) {
+			console.log('reset', this, d, arguments);
+			/*
+			brush
+				.clear()
+				.event(d3.select(".brush"));
+			*/
 		}
 
 		// Select
