@@ -195,6 +195,7 @@ app.directive('chartPcoords', function() {
 		
 		// Meta brushes
 		r.meta.brushes = [];
+		r.meta.removeBrushes = [];
 		
 		// Plot axis
 		var axis = d3.svg.axis().orient('left');
@@ -312,7 +313,7 @@ app.directive('chartPcoords', function() {
 			// Create selection brush
 			var brush = d3.svg.brush()
 				.y(r.scalesV[i])
-				.on("brush", select);
+				.on("brush", brushSelection);
 				//.on("brushstart", brushstart)
 				//.on("brushend", brushend)
 			
@@ -330,11 +331,19 @@ app.directive('chartPcoords', function() {
 				.attr("width", 16)
 			
 			// Remove link
-			brushGroup.selectAll(".resize.n").append('text')
-				.attr('class', 'remove-brush')
-				.attr('font-family', 'FontAwesome')
-				.attr("x", 8)
-				.text('\uf057');
+			r.meta.removeBrushes.push(
+				brushGroup.append('text')
+					.attr('class', 'remove-brush')
+					.attr('font-family', 'FontAwesome')
+					.attr("x", 8)
+					.text('\uf057')
+					.style('display', 'none')
+			);
+			
+			// TO RESET :
+			//	brush
+			//		.clear()
+			//		.event(d3.select(".brush"));
 		});
 		
 		// Redraw
@@ -381,21 +390,23 @@ app.directive('chartPcoords', function() {
 								.attr('class', 'svg-data svg-data-line')
 								.attr('stroke', color)
 								.attr('d', dataPath);
-			})
-		}
-		
-		// Reset brush
-		function reset(d) {
-			console.log('reset', this, d, arguments);
-			/*
-			brush
-				.clear()
-				.event(d3.select(".brush"));
-			*/
+			});
+			
+			applySelection();
 		}
 
 		// Select
-		function select() {
+		function brushSelection() {
+			// Add or move remove icon
+			d3.select(this).select('.remove-brush')
+				.style('display', null)
+				.attr('y', d3.select(this).select('rect.extent').attr("y"));
+			
+			applySelection();
+		}
+		
+		// Apply selection
+		function applySelection() {
 			// Handles a brush event, toggling the display of foreground lines.
 			var actives = [];
 			var extents = [];
@@ -404,6 +415,8 @@ app.directive('chartPcoords', function() {
 				if (! r.meta.brushes[index].empty()) {
 					actives.push(index);
 					extents.push(r.meta.brushes[index].extent());
+				} else {
+					r.meta.removeBrushes[index].style('display', 'none');
 				}
 			}
 			
