@@ -30,17 +30,17 @@
 	<tab disable="widget.deck.settings.length == 0">
 		<tab-heading><i class="fa fa-sliders"></i> settings</tab-heading>
 		<div class="form-horizontal settings">
-			<div class="form-group" ng-repeat="setting in widget.deck.settings">
+			<div class="form-group" ng-repeat="setting in widget.deck.settings" ng-if="! setting.depends || widget.settings[setting.depends[0]] == setting.depends[1]">
 				<label class="col-sm-2 control-label">{{setting.label}}</label>
 				<div class="col-sm-10" ng-if="setting.type == 'flag'">
 					<div class="checkbox checkbox-info">
-						<input id="setting-input-{{widget.id}}{{$index}}" type="checkbox" ng-model="widget.settings[setting.property]" ng-disabled="widget.settings[setting.depends] === false" />
+						<input id="setting-input-{{widget.id}}{{$index}}" type="checkbox" ng-model="widget.settings[setting.property]" />
 						<label for="setting-input-{{widget.id}}{{$index}}">{{setting.desc}}</label>
 					</div>
 				</div>
 				<div class="col-sm-10" ng-if="setting.type == 'range'">
 					<div class="range range-primary">
-						<input type="range" ng-model="widget.settings[setting.property]" min="{{setting.min}}" max="{{setting.max}}" step="{{setting.step}}" ng-disabled="widget.settings[setting.depends] === false" />
+						<input type="range" ng-model="widget.settings[setting.property]" min="{{setting.min}}" max="{{setting.max}}" step="{{setting.step}}" />
 						<output>{{widget.settings[setting.property]}} {{setting.unit}}</output>
 					</div>
 				</div>

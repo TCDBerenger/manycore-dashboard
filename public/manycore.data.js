@@ -395,7 +395,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			settings: [
 				{ property: 'disableTicks', value: false, type: 'flag', label: 'Disable ticks' },
 				{ property: 'groupTicks', value: false, type: 'flag', label: 'Group ticks' },
-				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10, depends: 'groupTicks' },
+				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10, depends: ['groupTicks', true] },
 				{ property: 'disablePeriods', value: true, type: 'flag', label: 'Disable fruit salad' },
 			]
 		},
@@ -522,6 +522,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			clues: [],
 			settings: [
 				{ property: 'colorMode', value: 0, type: 'select', label: 'Color by', choices: ['good↔poor locality', 'process', 'thread'] },
+				{ property: 'colorThreshold', value: 20, type: 'range', label: 'Locality threshold', unit: '%', min: 5, max: 95, step: 5, depends: ['colorMode', 0] },
 			]
 		}
 	};
