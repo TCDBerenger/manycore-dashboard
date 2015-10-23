@@ -239,7 +239,7 @@ app.directive('chartPcoords', function() {
 		
 		// Color scales
 		var colorScale_thread = d3.scale.category20();
-		var colorScale_locality = d3.scale.linear().domain([0, 50, 100]).range(['#8DD28A', '#D2AB8A', '#000000']);
+		var colorScale_locality = d3.scale.linear().range(['#8DD28A', '#D2AB8A', '#000000']);
 		
 		// Build internal data
 		r.iData = [];
@@ -273,8 +273,6 @@ app.directive('chartPcoords', function() {
 						d.ll = Math.max(d.ll || 0, thread[facet.attr]);
 					}
 				});
-				
-				d.cl = colorScale_locality(d.ll);
 				
 				r.iData.push(d);
 			});
@@ -354,6 +352,10 @@ app.directive('chartPcoords', function() {
 			// Plots
 			r.scaleX.rangePoints([0, r.layout.width], 1);
 			
+			// Color
+			colorScale_locality.domain([0, r.meta.colorThreshold, 100]);
+			console.log([0, r.meta.colorThreshold, 100]);
+			
 			// clean
 			gBackLines.selectAll('*').remove();
 			gForeLines.selectAll('*').remove();
@@ -373,13 +375,13 @@ app.directive('chartPcoords', function() {
 				
 				// Color
 				if (r.meta.colorMode == 0)		// good ↔ poor locality
-					color = element.cl;
+					color = colorScale_locality(element.ll);
 				else if (r.meta.colorMode == 1)	// process
 					color = element.cp;
 				else if (r.meta.colorMode == 2)	// thread
 					color = element.ct;
 				else							// what's wrong?
-					color = '#8DD28A';
+					color = element.cp;
 				
 				// Draw
 				element.b = gBackLines.append('path')
