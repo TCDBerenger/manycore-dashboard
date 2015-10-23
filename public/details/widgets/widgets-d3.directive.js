@@ -162,8 +162,6 @@ app.directive('chartPcoords', function() {
 		// Init favorite height
 		var threadCount = r.profiles[0].currentData.threads.info.length + ((r.profiles.length > 1) ? r.profiles[1].currentData.threads.info.length : 0);
 		r.layout.vars.favoriteHeight = Math.max(r.layout.vars.minHeight, threadCount * r.layout.vars.stepHeight);
-		console.log(threadCount, r.profiles[0].currentData.threads.info.length, r.profiles.length > 1, r.profiles[1].currentData.threads.info.length);
-		console.log('#', threadCount, "p", r.layout.vars.favoriteHeight, r.layout.vars.minHeight, threadCount * r.layout.vars.stepHeight);
 		
 		// Looking two threads with the same number
 		r.meta.hLabelUnique = false;
@@ -354,7 +352,6 @@ app.directive('chartPcoords', function() {
 			
 			// Color
 			colorScale_locality.domain([0, r.meta.colorThreshold, 100]);
-			console.log([0, r.meta.colorThreshold, 100]);
 			
 			// clean
 			gBackLines.selectAll('*').remove();
