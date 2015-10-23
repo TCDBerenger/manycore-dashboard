@@ -246,7 +246,7 @@ app.directive('chartPcoords', function() {
 		r.profiles.forEach(function(profile, ip) {
 			profile.currentData.threads.info.forEach(function(thread, it) {
 				var d = {
-					id: 'path-' + ip + '-' + it,
+					//id: 'path-' + ip + '-' + it,
 					cp: (ip == 0) ? '#1f77b4' : '#ff7f0e',
 					ct: colorScale_thread(it % 20)
 				};
@@ -383,11 +383,10 @@ app.directive('chartPcoords', function() {
 				
 				// Draw
 				element.b = gBackLines.append('path')
-								.attr('class', 'svg-data svg-data-line')
+								.attr('class', 'svg-data svg-background svg-data-line')
 								.attr('d', dataPath);
 				element.f = gForeLines.append('path')
-								.attr('id', element.id)
-								.attr('class', 'svg-data svg-data-line')
+								.attr('class', 'svg-data svg-foreground svg-data-line')
 								.attr('stroke', color)
 								.attr('d', dataPath);
 			});
@@ -429,6 +428,7 @@ app.directive('chartPcoords', function() {
 					toInclude = extents[i_extents][0] <= element['e' + actives[i_extents]] && element['e' + actives[i_extents]] <= extents[i_extents][1];
 					i_extents++;
 				}
+				element.b.style('display', toInclude ? 'none' : null);
 				element.f.style('display', toInclude ? null : 'none');
 			});
 		}

@@ -63,10 +63,11 @@
 .svg-d3 .svg-background path {
 	fill: none;
 	stroke: #eee;
-	shape-rendering: crispEdges;
+	shape-rendering: geometricPrecision;
 }
 .svg-d3 .svg-foreground path {
 	fill: none;
+	shape-rendering: geometricPrecision;
 	/*
 	stroke: #8DD28A;
 	stroke-width: 2*/
