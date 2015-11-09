@@ -107,21 +107,6 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	function isWaiting() {
 		return waiting;
 	};
-
-	/**
-	 * Mouse - over
-	 */
-	function mouseOver(event, r) {
-		var x = event.clientX - r.container.getBoundingClientRect().x - r.layout.profile.x;
-		$scope.$broadcast('xEvent', (x < 0 || x > r.layout.profile.width) ? NaN : x);
-	};
-
-	/**
-	 * Mouse - leave
-	 */
-	function mouseLeave(event) {
-		$scope.$broadcast('xEvent', NaN);
-	};
 	
 	/**
 	 * Version - is too old
@@ -136,6 +121,53 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	$scope.isUpToVersion = function(widget) {
 		return widget.v <= profiles[0].version && (profiles.length == 1 || widget.v <= profiles[1].version);
 	};
+	
+	
+	/************************************************/
+	/* Functions - Focus on mouse					*/
+	/************************************************/
+	/**
+	 * Document - init focus
+	 */
+	function initRuler() {
+		$scope.ruler = document.getElementById('ruler');
+		$scope.stamps = $scope.ruler.querySelectorAll('.label');
+    };
+	
+	/**
+	 * Mouse - over
+	 */
+	function mouseOver(event, r) {
+		var x = event.clientX - r.container.getBoundingClientRect().x - r.layout.profile.x;
+		var maxX = r.layout.profile.width;
+		focusHandle((x < 0 || x > maxX) ? NaN : x, event.clientX, maxX);
+	};
+
+	/**
+	 * Mouse - leave
+	 */
+	function mouseLeave(event) {
+		focusHandle(NaN);
+	};
+
+	/**
+	 * Mouse - focus handle
+	 */
+	function focusHandle(relativeX, x, maxX) {
+		if (isNaN(relativeX)) {
+			$scope.ruler.style.display = 'none';
+		} else {
+			$scope.ruler.style.display = 'initial';
+			$scope.ruler.style.left = x + 'px';
+			
+			var label = Math.round(relativeX * ($scope.selection.end - $scope.selection.begin) / maxX + $scope.selection.begin) + ' ms';
+			
+			$scope.stamps[0].innerHTML = label;
+			$scope.stamps[1].innerHTML = label;
+		}
+		
+		$scope.$broadcast('xEvent', relativeX);
+	}
 
 
 	/************************************************/
@@ -232,6 +264,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	/************************************************/
 	/* Scope - post treatment						*/
 	/************************************************/
+	
 	/**
 	 * Global binds
 	 */
@@ -260,4 +293,5 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	$scope.createStats = createStats;
 	$scope.axisList = []; // poputaled in postReceiption()
 	$scope.statMode = 'units';
+	$scope.initRuler = initRuler;
 }]);

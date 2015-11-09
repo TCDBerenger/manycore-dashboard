@@ -10,7 +10,7 @@
 		<h2>{{meta.label}}</h2> for
 		<span>{{profiles[0].label}}</span>
 		<span class="dropdown profile-versus {{profiles.length == 1 | iif : 'one-profile' : 'two-profiles'}}">
-			<a href class="dropdown-toggle"><spans class="label label-primary">{{profiles.length > 1 | iif : 'versus' : 'info'}} <i class="fa fa-caret-down"></i></a>
+			<a href class="dropdown-toggle"><spans class="label label-default">{{profiles.length > 1 | iif : 'versus' : 'info'}} <i class="fa fa-caret-down"></i></a>
 			<div class="dropdown-menu">
 			<table class="table table-striped table-hover">
 				<thead ng-if="profiles.length > 1">
@@ -83,6 +83,13 @@
 			</div>
 		</span>
 		<span ng-if="profiles.length > 1">{{profiles[1].label}}</span>
+	</div>
+	
+	<!-- Ruler -->
+	<div id="ruler" style="display: none" data-ng-init="initRuler()">
+		<span class="label label-default">? ms</span>
+		<div class="line"></div>
+		<span class="label label-default">? ms</span>
 	</div>
 	
 	<!-- Widget line (repeat) -->
