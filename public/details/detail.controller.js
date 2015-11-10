@@ -132,6 +132,16 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	function initRuler() {
 		$scope.ruler = document.getElementById('ruler');
 		$scope.stamps = $scope.ruler.querySelectorAll('.label');
+		
+		var pl = profiles.length;
+		categories[tag].widgets.forEach(function(widget, iw) {
+			if (widget.deck.focus) {
+				widget.deck.focus.forEach(function(facet) {
+					$scope.rules.push({ id: '0-' + iw + '-' + facet.attr, f: facet });
+					if (pl > 1) $scope.rules.push({ id: '1-' + iw + '-' + facet.attr, f: facet });
+				}, this);
+			}
+		}, this);
     };
 	
 	/**
@@ -294,4 +304,5 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	$scope.axisList = []; // poputaled in postReceiption()
 	$scope.statMode = 'units';
 	$scope.initRuler = initRuler;
+	$scope.rules = []; // poputaled in initRuler()
 }]);
