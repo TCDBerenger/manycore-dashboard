@@ -18,7 +18,7 @@
 		<tr ng-repeat="(i, e) in widget.deck.data | reverse" ng-init="iMax = widget.deck.data.length">
 			<td class="legend-col-label">
 				<span class="legend-dot" style="color: {{e.color}}">▮</span>
-				<strong>{{e.title}}</strong>
+				<strong>{{e.label}}</strong>
 			</td>
 			<td class="legend-col-p1">{{stats.values[0][iMax - i - 1].label1}}<br/>{{stats.values[0][iMax - i - 1].label2}}</td>
 			<td class="legend-col-stats" class="container-graph" rowspan="{{widget.deck.data.length}}" colspan="{{profiles.length}}" ng-if="i == 0">
@@ -34,7 +34,7 @@
 					<span style="color: {{e.colors[0]}}">◤</span>
 					<span style="color: {{e.colors[1]}}">◢</span>
 				</span>
-				<strong>{{e.title}}</strong>
+				<strong>{{e.label}}</strong>
 			</td>
 		</tr>
 		-->

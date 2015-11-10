@@ -36,13 +36,7 @@ app.factory('facets', ['colours', function(colours) {
 	var desc_lw = 'threads are not ready to be processed because they waiting to acquire a lock';
 	var desc_i = 'no thread running on core';
 	var desc_sys = 'processor is used by the OS';
-	var desc_ipc = 'executing';
-	var desc_miss = '';
-	var desc_tlb = 'address translation';
-	var desc_l1 = 'loading data from L2 cache';
-	var desc_l2 = 'loading data from L3 cache';
-	var desc_l3 = 'loading data from RAM';
-	var desc_hpf = 'hard page faults';
+	var desc_miss = 'time spent on locality misses';
 	var desc_s = 'cores switching from one thread to another';
 	var desc_m = 'thread migrates to another core';
 	var desc_ls = 'number of lock acquisition success';
@@ -50,10 +44,15 @@ app.factory('facets', ['colours', function(colours) {
 	var desc_q_s = 'core is idle or execute only one thread sequentially';
 	var desc_q_p = 'core executing more than one thread in parallel';
 
+	/*  TO REMOVE:
+		- title	==> merge into label and move to legend
+		- desc	==> move to legend
+	*/
+	
 	return {
-		h:		{ label: 'thread',			title: 'Thread',		unity: '',	cat: '',	attr: 'h',	color: colours.list.eGrey,	fcolor: colours.list.dGrey,	gcolor: colours.list.lGrey },
-		pn:		{ label: 'process',			title: 'Process',		unity: '',	cat: '',	attr: 'pn',	color: colours.list.eGrey,	fcolor: colours.list.dGrey,	gcolor: colours.list.lGrey },
-		ct:		{ label: 'core time',		title: 'Core time',		unity: '',	cat: '',	attr: 'ct',	color: colours.list.eGrey,	fcolor: colours.list.dGrey,	gcolor: colours.list.lGrey },
+		h:		{ label: 'Thread',			unity: '',	cat: '',	attr: 'h',	color: colours.list.eGrey,	fcolor: colours.list.dGrey,	gcolor: colours.list.lGrey },
+		pn:		{ label: 'Process',			unity: '',	cat: '',	attr: 'pn',	color: colours.list.eGrey,	fcolor: colours.list.dGrey,	gcolor: colours.list.lGrey },
+		ct:		{ label: 'Core time',		unity: '',	cat: '',	attr: 'ct',	color: colours.list.eGrey,	fcolor: colours.list.dGrey,	gcolor: colours.list.lGrey },
 		
 		r:		{ label: 'executing',		title: 'Thread executing',				desc: desc_r,	unity: 'ms',	cat: 'times',	attr: 'r',		color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
 		y:	 	{ label: 'ready',			title: 'Thread ready to run',			desc: desc_y,	unity: 'ms',	cat: 'times',	attr: 'y',		color: colours.list.eRed,		fcolor: colours.list.dRed,		gcolor: colours.list.lRed },
@@ -64,13 +63,13 @@ app.factory('facets', ['colours', function(colours) {
 		uu: 	{ label: 'idle core',		title: 'Core is idle',					desc: desc_i,	unity: 'ms',	cat: 'times',	attr: 'uu',		color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.lBlue },
 		sys: 	{ label: 'system',			title: 'Core occupied by other program',desc: desc_sys,	unity: 'ms',	cat: 'times',	attr: 'sys',	color: colours.list.white,		fcolor: colours.list.lGrey,		gcolor: colours.list.white },
 	
-		ipc:	{ label: 'executing',		title: 'Instructions per clock cycle',		desc: desc_ipc,		unity: '',	cat: 'locality',	attr: 'ipc',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
-		miss:	{ label: 'Cache misses',	title: 'Time spent on locality misses',		desc: desc_miss,	unity: '',	cat: 'locality',	attr: 'miss',	color: colours.list.eOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange },
-		tlb:	{ label: 'TLB misses',		title: 'Address translation (TLB) misses',	desc: desc_tlb,		unity: '',	cat: 'locality',	attr: 'tlb',	color: colours.list.lGrey },
-		l1:		{ label: 'L1 misses',		title: 'Level 1 cache miss',				desc: desc_l1,		unity: '',	cat: 'locality',	attr: 'l1',		color: colours.list.lOrange },
-		l2:		{ label: 'L2 misses',		title: 'Level 2 cache miss',				desc: desc_l2,		unity: '',	cat: 'locality',	attr: 'l2',		color: colours.list.eOrange },
-		l3:		{ label: 'L3 misses',		title: 'Level 3 cache miss',				desc: desc_l3,		unity: '',	cat: 'locality',	attr: 'l3',		color: colours.list.dOrange },
-		hpf:	{ label: 'Swapping',		title: 'Swapping to disk',					desc: desc_hpf,		unity: '',	cat: 'locality',	attr: 'hpf',	color: colours.list.black },
+		ipc:	{ label: 'Executing',			unity: '',	cat: 'locality',	attr: 'ipc',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
+		miss:	{ label: 'Cache misses',		unity: '',	cat: 'locality',	attr: 'miss',	color: colours.list.eOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange },
+		tlb:	{ label: 'Address translation',	unity: '',	cat: 'locality',	attr: 'tlb',	color: colours.list.lGrey },
+		l1:		{ label: 'Loading from L2',		unity: '',	cat: 'locality',	attr: 'l1',		color: colours.list.lOrange },
+		l2:		{ label: 'Loading from L2',		unity: '',	cat: 'locality',	attr: 'l2',		color: colours.list.eOrange },
+		l3:		{ label: 'Loading from RAM',	unity: '',	cat: 'locality',	attr: 'l3',		color: colours.list.dOrange },
+		hpf:	{ label: 'Swapping',			unity: '',	cat: 'locality',	attr: 'hpf',	color: colours.list.black },
 		
 		s:		{ label: 'switches',		title: 'Context switches',			desc: desc_s,	list: 'switches',	unity: 'events',	cat: 'switches',	attr: 's',		color: colours.list.eGrey,		fcolor: colours.list.dGrey,		gcolor: colours.list.lGrey },
 		m:		{ label: 'migrations',		title: 'Thread migrations',			desc: desc_m,	list: 'migrations',	unity: 'events',	cat: 'migrations',	attr: 'm',		color: colours.list.eViolet,	fcolor: colours.list.dViolet,	gcolor: colours.list.lViolet },
@@ -208,6 +207,31 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 	m.colors = ['#b6e3bc', '#b6e3da', '#b6cee3', '#bcb6e3', '#dab6e3', '#e3b6ce', '#e3bcb6', '#e3dab6'];
 
 	return {
+		cacheMisses: {
+			graph : {
+				v:		[facets.hpf, facets.l3, facets.l2, facets.l1, facets.tlb, facets.ipc],
+				limit:	limit
+			},
+			data: [facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf],
+			focus: [facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf],
+			legend: {
+				axis: [
+					{ b: '%', t: '[Y] Percent',	d: 'ratio of time spent on locality misses compared to time spent on executing', c: colours.list.eGrey}
+				],
+				data: [
+					{ b: '▮', f: facets.ipc,	d: 'instructions per clock cycle' },
+					{ b: '▮', f: facets.tlb,	d: 'address translation (TLB) misses' },
+					{ b: '▮', f: facets.l1,		d: 'level 1 cache miss, loading data from L2 cache' },
+					{ b: '▮', f: facets.l2,		d: 'level 2 cache miss, loading data from L3 cache' },
+					{ b: '▮', f: facets.l3,		d: 'level 3 cache miss, loading data from RAM' },
+					{ b: '▮', f: facets.hpf,	d: 'hard page faults, swapping to disk' }
+				]
+			},
+			clues: [],
+			settings: []
+		},
+		
+		
 		states: {
 			graph : {
 				v:		[facets.yb],	// data over the limit (like other graphs)
@@ -288,31 +312,6 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			settings: [
 				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
 			]
-		},
-		locality: {
-			graph : {
-				v:		[facets.hpf, facets.l3, facets.l2, facets.l1, facets.tlb, facets.ipc],
-				limit:	limit
-			},
-			axis : {
-				x:		{ colors: [colours.good, colours.list.lGrey, colours.list.lRed, colours.list.eRed, colours.list.dRed, colours.list.black] }
-			},
-			legend: {
-				axis: [
-					{ b: '%', t: '[Y] Percent',	d: 'ratio of time spent on locality misses compared to time spent on executing', c: colours.list.eGrey}
-				],
-				data: [
-					{ b: '▮', f: facets.ipc },
-					{ b: '▮', f: facets.tlb },
-					{ b: '▮', f: facets.l1 },
-					{ b: '▮', f: facets.l2 },
-					{ b: '▮', f: facets.l3 },
-					{ b: '▮', f: facets.hpf }
-				]
-			},
-			data : [facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf],
-			clues: [],
-			settings: []
 		},
 		counts: {
 			graph : {
@@ -534,9 +533,9 @@ app.factory('widgets', ['decks', function(decks) {
 	function id() { return ++i; }
 	
 	return {
-		cacheInvalid:		{ id: id(),	v: 3, file: 'chart-todo',		deck: null,					wide: false,	title: 'Cache misses from updating shared data',					desc: ''},
-		cacheMisses:		{ id: id(),	v: 3, file: 'chart-percent',	deck: decks.locality,		wide: false,	title: 'Percentage of time spent on locality misses',				desc: ''},
 		cacheBreackdown:	{ id: id(),	v: 3, file: 'chart-pcoords',	deck: decks.pCoordDL,		wide: true,		title: 'Breackdown of time spent on locality misses',				desc: ''},
+		cacheInvalid:		{ id: id(),	v: 3, file: 'chart-todo',		deck: null,					wide: false,	title: 'Cache misses from updating shared data',					desc: ''},
+		cacheMisses:		{ id: id(),	v: 3, file: 'chart-percent',	deck: decks.cacheMisses,	wide: false,	title: 'Percentage of time spent on locality misses',				desc: ''},
 		coreIdle:			{ id: id(),	v: 3, file: 'chart-lines',		deck: decks.coreUU,			wide: false,	title: 'Idle cores',												desc: 'Times that cores are idle'},
 		coreSequences:		{ id: id(),	v: 3, file: 'chart-lines',		deck: decks.sequences,		wide: false,	title: 'Single thread execution phases',							desc: 'alternating sequential/parallel execution'},
 		lockCounts:			{ id: id(),	v: 4, file: 'chart-units',		deck: decks.counts,			wide: false,	title: 'Lock contentions',											desc: 'Locking with and without contention'},

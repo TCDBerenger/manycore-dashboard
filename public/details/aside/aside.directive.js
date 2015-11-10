@@ -162,7 +162,7 @@ app.directive('facetList', [function() {
 					itemID = 'l' + listID + 's' + i1 + 'i' + i2;
 					provider.push({
 						i: itemID,
-						t: ('t' in item) ? item.t : ('f' in item) ? item.f.title : '',
+						t: ('t' in item) ? item.t : ('f' in item) ? item.f.label : '',
 						d: ('d' in item) ? item.d : ('f' in item) ? item.f.desc : ''
 					});
 					styles += '#' + itemID + ':before {' +
