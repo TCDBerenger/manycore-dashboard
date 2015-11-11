@@ -30,6 +30,56 @@ var d3_layout = function(initialVars) {
 	};
 };
 
+/**
+ * Meta for external graphs
+ */
+var d3_meta = function(scope, attributes, params, properties) {
+	// Allow seld reference (otherwise this is the caller object)
+	var self = this;
+
+	// Save params
+	this.scope =		scope;
+
+	// Common
+	this.begin =		NaN;		// When the user selection starts
+	this.end =			NaN;		// When the user selection ends (could be before or after timeMax)
+	this.duration =		NaN;		// Duration of the user selection
+
+	// Common
+	this.ends =			[NaN, NaN];	// When profiles ends (could be before or after timeMax)
+	this.durations =	[NaN, NaN];	// Duration of profiles
+	this.steps =		[NaN, NaN];	// Time step of profiles
+
+	// On demand - params
+	if (params)
+		params.forEach(function(p) {
+			try { self[p.property] = JSON.parse(p.value) } catch(e) { self[p.property] = p.value };
+		});
+	
+	// On demand - settings
+	properties.forEach(function(a) {
+		if (attributes.hasOwnProperty(a))
+			try { self[a] = JSON.parse(attributes[a]) } catch(e) { self[a] = attributes[a] };
+	});
+
+
+	this.refresh		= function(r) {
+		self.begin =	self.scope.selection.begin;
+		self.end =		self.scope.selection.end;
+		self.duration =	self.end - self.begin;
+
+		self.ends[0] =		Math.min(self.scope.selection.end, r.profiles[0].currentData.info.duration);
+		self.durations[0] =	Math.max(0, self.ends[0] - self.begin);
+		self.steps[0] =	r.profiles[0].currentData.info.timeStep;
+
+		if (r.profiles[1] != null) {
+			self.ends[1] =		Math.min(self.scope.selection.end, r.profiles[1].currentData.info.duration);
+			self.durations[1] =	Math.max(0, self.ends[1] - self.begin);
+			self.steps[1] =	r.profiles[1].currentData.info.timeStep;
+		}
+	}
+};
+
 
 /**********************************************************/
 /*														  */
@@ -53,7 +103,7 @@ function d3_directive_init(scope, element, attrs, layoutVars) {
 
 	// Attributes
 	var deck =		scope.widget.deck.graph;
-	var meta =		new graphMeta(scope, attrs, false, false, scope.widget.deck.params, properties);
+	var meta =		new d3_meta(scope, attrs, scope.widget.deck.params, properties);
 
 	// Data
 	var profiles =	scope.profiles;
