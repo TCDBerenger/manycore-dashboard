@@ -137,8 +137,8 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		categories[tag].widgets.forEach(function(widget, iw) {
 			if (widget.deck.focus) {
 				widget.deck.focus.forEach(function(facet) {
-					$scope.rules.push({ id: '0-' + iw + '-' + facet.attr, f: facet });
-					if (pl > 1) $scope.rules.push({ id: '1-' + iw + '-' + facet.attr, f: facet });
+					$scope.rules.push({ id: 'rule-' + iw + '-0-' + facet.attr, f: facet });
+					if (pl > 1) $scope.rules.push({ id: 'rule-' + iw + '-1-' + facet.attr, f: facet });
 				}, this);
 			}
 		}, this);
@@ -161,7 +161,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	};
 
 	/**
-	 * Mouse - focus handle
+	 * Focus - global handle
 	 */
 	function focusHandle(relativeX, x, maxX) {
 		if (isNaN(relativeX)) {
@@ -178,6 +178,35 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		
 		$scope.$broadcast('xEvent', relativeX);
 	}
+
+	/**
+	 * Focus - rules handle
+	 */
+	/*function focusRulesHandle(fys) {
+		var element;
+		fys.forEach(function(rule) {
+			element = document.getElementById(rule.id);
+			if (element) {
+				element.style.top = rule.y + 'px';
+			}
+		}, this);
+	};*/
+
+	/**
+	 * Focus - rules handle
+	 */
+	var ruleElements = {};
+	var ruleValueElements = {};
+	function focusRuleHandle(id, y, v) {
+		if ('undefined' === typeof ruleElements[id]) {
+			ruleElements[id] = document.getElementById(id);
+			if (ruleElements[id]) {
+				ruleValueElements[id] = ruleElements[id].querySelectorAll('.rule-value')[0];
+			}
+		}
+		if (ruleElements[id])		ruleElements[id].style.top = y + 'px';
+		if (ruleValueElements[id])	ruleValueElements[id].innerHTML = v;
+	};
 
 
 	/************************************************/
@@ -305,4 +334,6 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	$scope.statMode = 'units';
 	$scope.initRuler = initRuler;
 	$scope.rules = []; // poputaled in initRuler()
+	//$scope.focusRulesHandle = focusRulesHandle;
+	$scope.focusRuleHandle = focusRuleHandle;
 }]);

@@ -90,9 +90,9 @@
 		<span class="label label-default">? ms</span>
 		<div class="line"></div>
 		<span class="label label-default">? ms</span>
-		<div id="rule-{{rule.id}}" class="facet-rule" style="top: {{50 + 25 * ir}}px" ng-repeat="(ir, rule) in rules">
+		<div id="{{rule.id}}" class="facet-rule" ng-repeat="rule in rules">
 			<i class="fa fa-circle" style="color: {{rule.f.color}}"></i>
-			<span>?? %</span> {{rule.f.label}} 
+			<span class="rule-value">?? %</span> {{rule.f.label}} 
 		</div>
 	</div>
 	
