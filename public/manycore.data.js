@@ -67,7 +67,7 @@ app.factory('facets', ['colours', function(colours) {
 		miss:	{ label: 'Cache misses',		unity: '',	cat: 'locality',	attr: 'miss',	color: colours.list.eOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange },
 		tlb:	{ label: 'Address translation',	unity: '',	cat: 'locality',	attr: 'tlb',	color: colours.list.lGrey },
 		l1:		{ label: 'Loading from L2',		unity: '',	cat: 'locality',	attr: 'l1',		color: colours.list.lOrange },
-		l2:		{ label: 'Loading from L2',		unity: '',	cat: 'locality',	attr: 'l2',		color: colours.list.eOrange },
+		l2:		{ label: 'Loading from L3',		unity: '',	cat: 'locality',	attr: 'l2',		color: colours.list.eOrange },
 		l3:		{ label: 'Loading from RAM',	unity: '',	cat: 'locality',	attr: 'l3',		color: colours.list.dOrange },
 		hpf:	{ label: 'Swapping',			unity: '',	cat: 'locality',	attr: 'hpf',	color: colours.list.black },
 		
