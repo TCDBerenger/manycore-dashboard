@@ -204,8 +204,12 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 				ruleValueElements[id] = ruleElements[id].querySelectorAll('.rule-value')[0];
 			}
 		}
-		if (ruleElements[id])		ruleElements[id].style.top = y + 'px';
-		if (ruleValueElements[id])	ruleValueElements[id].innerHTML = v;
+		if (isNaN(y)) {
+			if (ruleElements[id])		ruleElements[id].style.top = '-10px';
+		} else {
+			if (ruleElements[id])		ruleElements[id].style.top = y + 'px';
+			if (ruleValueElements[id])	ruleValueElements[id].innerHTML = v;
+		}
 	};
 
 

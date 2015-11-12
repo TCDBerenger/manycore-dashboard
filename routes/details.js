@@ -233,26 +233,63 @@ function addLocality(output, id, simplified) {
 	// Init vars
 	var data		= profiles[id].data;
 	output.locality	= {};
+	if (! output.percent) output.percent = {};
 
 	// Data
 	var max;
 	for (var frameID in data.locality.byFrames) {
+		// Auto create structure
+		if (! output.percent[frameID]) output.percent[frameID] = {};
+		output.locality[frameID] = {};
+		
 		if (data.locality.byFrames.hasOwnProperty(frameID)) {
-			max = data.locality.byFrames[frameID].ipc + data.locality.byFrames[frameID].tlb + data.locality.byFrames[frameID].l1 + data.locality.byFrames[frameID].l2 + data.locality.byFrames[frameID].l3 + data.locality.byFrames[frameID].hpf
-			if (simplified)
-				output.locality[data.locality.byFrames[frameID].t] = {
-					ipc:	Math.round(100 * data.locality.byFrames[frameID].ipc / max),
-					miss:	100 - Math.round(100 * data.locality.byFrames[frameID].ipc / max)
-				};
-			else
-				output.locality[data.locality.byFrames[frameID].t] = {
-					ipc:	(100 * data.locality.byFrames[frameID].ipc / max),
-					tlb:	(100 * data.locality.byFrames[frameID].tlb / max),
-					l1:		(100 * data.locality.byFrames[frameID].l1 / max),
-					l2:		(100 * data.locality.byFrames[frameID].l2 / max),
-					l3:		(100 * data.locality.byFrames[frameID].l3 / max),
-					hpf:	(100 * data.locality.byFrames[frameID].hpf / max)
-				};
+			if (simplified) {
+				output.locality[frameID].ipc =	Math.round(data.locality.byFrames[frameID].ipc);
+				output.locality[frameID].miss =	Math.round(data.locality.byFrames[frameID].tlb + data.locality.byFrames[frameID].l1 + data.locality.byFrames[frameID].l2 + data.locality.byFrames[frameID].l3 + data.locality.byFrames[frameID].hpf);
+				
+				output.percent[frameID].ipc =	Math.round(100 * data.locality.byFrames[frameID].ipc / max);
+				output.percent[frameID].miss =	100 - output.percent[frameID].ipc;
+				
+			} else {
+				output.locality[frameID].ipc =	Math.round(data.locality.byFrames[frameID].ipc);
+				output.locality[frameID].tlb =	Math.round(data.locality.byFrames[frameID].tlb);
+				output.locality[frameID].l1 =	Math.round(data.locality.byFrames[frameID].l1);
+				output.locality[frameID].l2 =	Math.round(data.locality.byFrames[frameID].l2);
+				output.locality[frameID].l3 =	Math.round(data.locality.byFrames[frameID].l3);
+				output.locality[frameID].hpf =	Math.round(data.locality.byFrames[frameID].hpf);
+				
+				max = data.locality.byFrames[frameID].ipc + data.locality.byFrames[frameID].tlb + data.locality.byFrames[frameID].l1 + data.locality.byFrames[frameID].l2 + data.locality.byFrames[frameID].l3 + data.locality.byFrames[frameID].hpf;
+				
+				output.percent[frameID].ipc =	(100 * data.locality.byFrames[frameID].ipc / max);
+				output.percent[frameID].tlb =	(100 * data.locality.byFrames[frameID].tlb / max);
+				output.percent[frameID].l1 =	(100 * data.locality.byFrames[frameID].l1 / max);
+				output.percent[frameID].l2 =	(100 * data.locality.byFrames[frameID].l2 / max);
+				output.percent[frameID].l3 =	(100 * data.locality.byFrames[frameID].l3 / max);
+				output.percent[frameID].hpf =	(100 * data.locality.byFrames[frameID].hpf / max);
+			}
+		} else {
+			if (simplified) {
+				output.locality[frameID].ipc =	null;
+				output.locality[frameID].miss =	null;
+				
+				output.percent[frameID].ipc =	0;
+				output.percent[frameID].miss =	0;
+				
+			} else {
+				output.locality[frameID].ipc =	null;
+				output.locality[frameID].tlb =	null;
+				output.locality[frameID].l1 =	null;
+				output.locality[frameID].l2 =	null;
+				output.locality[frameID].l3 =	null;
+				output.locality[frameID].hpf =	null;
+				
+				output.percent[frameID].ipc =	0;
+				output.percent[frameID].tlb =	0;
+				output.percent[frameID].l1 =	0;
+				output.percent[frameID].l2 =	0;
+				output.percent[frameID].l3 =	0;
+				output.percent[frameID].hpf =	0;
+			}
 		}
 	}
 

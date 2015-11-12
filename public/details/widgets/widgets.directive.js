@@ -833,8 +833,8 @@ app.directive('chartPercent', function() {
 				scaleVZero = r.scalesV[index](0);
 				for (var t = r.meta.begin; t < r.meta.end; t += tStep) {
 					for (var v = 0; v < r.deck.v.length; v++) {
-						if (profileData[r.deck.v[v].cat].hasOwnProperty(t) && profileData[r.deck.v[v].cat][t].hasOwnProperty(r.deck.v[v].attr))
-							yPositions[v] = profileData[r.deck.v[v].cat][t][r.deck.v[v].attr];
+						if (profileData.percent.hasOwnProperty(t) && profileData.percent[t].hasOwnProperty(r.deck.v[v].attr))
+							yPositions[v] = profileData.percent[t][r.deck.v[v].attr];
 						else
 							yPositions[v] = 0;
 
@@ -880,6 +880,7 @@ app.directive('chartPercent', function() {
 			
 			// Time ID
 			var tIndex = Math.floor(r.scaleX.invert(x) / 50);
+			var t = tIndex * 50;
 			if (tIndex == r.meta.lastSelectID) {
 				return;
 			} else {
@@ -897,7 +898,7 @@ app.directive('chartPercent', function() {
 						r.iSelection[index].select(".svg-area-" + v).attr("points", p2s(r.iData[index][v + 1].slice(tIndex * 4, tIndex * 4 + 4), r.iData[index][v].slice(tIndex * 4, tIndex * 4 + 4)));
 						
 						// Send new coordinates to controller
-						updateFocusRule(prefixID, wy, index, tIndex, v);
+						updateFocusRule(prefixID, wy, index, t, tIndex, v);
 					}
 				}
 				// Draw
@@ -913,7 +914,7 @@ app.directive('chartPercent', function() {
 						
 						//fys.push({ id: prefixID + r.deck.v[v].attr, v: '?!?', y: wy + (r.iData[index][v + 1][tIndex * 4 + 1] + r.iData[index][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[index] + r.meta.vOverflow[index]});
 						// Send new coordinates to controller
-						updateFocusRule(prefixID, wy, index, tIndex, v);
+						updateFocusRule(prefixID, wy, index, t, tIndex, v);
 					};
 					// Send focus positions
 					//r.scope.focusRulesHandle(fys);
@@ -930,12 +931,24 @@ app.directive('chartPercent', function() {
 			//r.scope.focusRulesHandle(fys);
 		}
 		
-		function updateFocusRule(prefixID, wy, index, tIndex, v) {
-			// Send new coordinates to controller
-			r.scope.focusRuleHandle(
-				prefixID + r.deck.v[v].attr,
-				wy + (r.iData[index][v + 1][tIndex * 4 + 1] + r.iData[index][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[index] + r.meta.vOverflow[index],
-				'?!?');
+		function updateFocusRule(prefixID, wy, index, t, tIndex, v) {
+			var facet = r.deck.v[v];
+			
+			if (t >= r.meta.ends[index] || ! r.profiles[index].currentData.percent[t][facet.attr]) {
+				// Send disable to controller
+				r.scope.focusRuleHandle(prefixID + facet.attr, NaN, NaN);
+				
+			} else {
+				
+				var value = r.profiles[index].currentData[facet.cat][t][facet.attr];
+				if (facet.unity) value += ' ' + facet.unity;
+				
+				// Send new coordinates to controller
+				r.scope.focusRuleHandle(
+					prefixID + facet.attr,
+					wy + (r.iData[index][v + 1][tIndex * 4 + 1] + r.iData[index][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[index] + r.meta.vOverflow[index],
+					value);
+			}
 		}
 
 		// Bind
