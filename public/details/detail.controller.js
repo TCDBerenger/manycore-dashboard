@@ -135,7 +135,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		
 		var pl = profiles.length;
 		categories[tag].widgets.forEach(function(widget, iw) {
-			if (widget.deck.focus) {
+			if (widget.deck && widget.deck.focus) {
 				widget.deck.focus.forEach(function(facet) {
 					$scope.rules.push({ id: 'rule-' + iw + '-0-' + facet.attr, f: facet });
 					if (pl > 1) $scope.rules.push({ id: 'rule-' + iw + '-1-' + facet.attr, f: facet });
