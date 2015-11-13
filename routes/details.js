@@ -167,22 +167,45 @@ function addTimes(output, id, properties) {
 	var isYB =	properties.indexOf('yb') >= 0;
 	var isW =	properties.indexOf('w') >= 0;
 	var isLW =	properties.indexOf('lw') >= 0;
-	var isUU =	properties.indexOf('uu') >= 0;
+	var isI =	properties.indexOf('i') >= 0 || properties.indexOf('uu') >= 0;
 	var isSYS =	properties.indexOf('sys') >= 0;
 	
 	// Init return
 	output.times = {};
+	if (! output.percent) output.percent = {};
 
 	// Add times
 	max = data.info.threads * data.info.timeStep;
 	for (var timeID = 0; timeID <= data.info.timeMax; timeID+= data.info.timeStep) {
+		// Auto create structure
+		if (! output.percent[timeID]) output.percent[timeID] = {};
 		output.times[timeID] = {};
-		if (isR)	output.times[timeID].r =	Math.round(data.frames[timeID].running);
-		if (isYB)	output.times[timeID].yb =	Math.round(data.frames[timeID].ready + data.frames[timeID].standby);
-		if (isW)	output.times[timeID].w =	Math.round(data.frames[timeID].wait);
-		if (isLW)	output.times[timeID].lw =	Math.round(data.frames[timeID].lock_wait);
-		if (isUU)	output.times[timeID].uu =	Math.round(data.frames[timeID].idle);
-		if (isSYS)	output.times[timeID].sys =	Math.round(max - data.frames[timeID].running - data.frames[timeID].idle);
+		
+		if (isR) {
+			output.times[timeID].r =	Math.round(data.frames[timeID].running);
+			output.percent[timeID].r =	Math.round(100 * data.frames[timeID].running / max);
+		}	
+		if (isYB) {
+			output.times[timeID].yb =	Math.round(data.frames[timeID].ready + data.frames[timeID].standby);
+			output.percent[timeID].yb =	Math.round(100 * (data.frames[timeID].ready + data.frames[timeID].standby) / max);
+		}	
+		if (isW) {
+			output.times[timeID].w =	Math.round(data.frames[timeID].wait);
+			output.percent[timeID].w =	Math.round(100 * data.frames[timeID].wait / max);
+		}	
+		if (isLW) {
+			output.times[timeID].lw =	Math.round(data.frames[timeID].lock_wait);
+			output.percent[timeID].lw =	Math.round(100 * data.frames[timeID].lock_wait / max);
+		}	
+		if (isI) {
+			output.times[timeID].uu =	Math.round(data.frames[timeID].idle); // TO DELETE
+			output.times[timeID].i =	Math.round(data.frames[timeID].idle);
+			output.percent[timeID].i =	Math.round(100 * data.frames[timeID].idle / max);
+		}	
+		if (isSYS) {
+			output.times[timeID].sys =		max - Math.round(data.frames[timeID].running) - Math.round(data.frames[timeID].idle);
+			output.percent[timeID].sys =	100 - Math.round(100 * data.frames[timeID].running / max) - Math.round(100 * data.frames[timeID].idle / max);
+		}	
 	}
 
 	// Stats
@@ -194,7 +217,8 @@ function addTimes(output, id, properties) {
 		yb:		Math.round(data.stats.ready + data.stats.standby),
 		w:		Math.round(data.stats.wait),
 		lw:		data.stats.lock_wait,
-		uu:		Math.round(data.stats.idle),
+		uu:		Math.round(data.stats.idle), // TO DELETE
+		i:		Math.round(data.stats.idle),
 		sys:	Math.round(max - data.stats.running - data.stats.idle)
 	};
 }
@@ -468,7 +492,7 @@ function jsonTG(profile, id) {
 	addCommon(output, id);
 
 	// for potential parallelism
-	addTimes(output, id, ['r', 'yb', 'sys']);
+	addTimes(output, id, ['r', 'yb', 'i', 'sys']);
 
 	// for context switches
 	addSwitches(output, id);
@@ -498,7 +522,7 @@ function jsonSY(profile, id) {
 
 	// Add locks
 	addLocks(output, id);
-	addTimes(output, id, ['r', 'lw', 'sys']);
+	addTimes(output, id, ['r', 'lw', 'i', 'sys']);
 	
 	// Add ticks
 	addThreadTicks(output, id, ['ls', 'lf']);
@@ -523,7 +547,7 @@ function jsonDS(profile, id) {
 	addCommon(output, id);
 
 	// Add locks
-	addTimes(output, id, ['r', 'lw', 'sys']);
+	addTimes(output, id, ['r', 'lw', 'i', 'sys']);
 
 	// Add locality
 	addLocality(output, id, false);
@@ -548,7 +572,7 @@ function jsonLB(profile, id) {
 	addMigrations(output, id);
 
 	// Add times
-	addTimes(output, id, ['r', 'yb', 'lw', 'sys']);
+	addTimes(output, id, ['r', 'yb', 'lw', 'i', 'sys']);
 	addCoreTimes(output, id, ['r', 'uu']);
 
 	// Add locks

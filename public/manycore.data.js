@@ -61,6 +61,7 @@ app.factory('facets', ['colours', function(colours) {
 		w: 		{ label: 'waiting',			title: 'Waiting',						desc: desc_w,	unity: 'ms',	cat: 'times',	attr: 'w',		color: colours.list.eOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange },
 		lw:		{ label: 'lock waiting',	title: 'Thread waiting for lock',		desc: desc_lw,	unity: 'ms',	cat: 'times',	attr: 'lw',		color: colours.list.eYellow,	fcolor: colours.list.dYellow,	gcolor: colours.list.lYellow },
 		uu: 	{ label: 'idle core',		title: 'Core is idle',					desc: desc_i,	unity: 'ms',	cat: 'times',	attr: 'uu',		color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.lBlue },
+		i: 		{ label: 'Idle core',		unity: 'ms',	cat: 'times',	attr: 'i',		color: colours.list.eBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.lBlue },
 		sys: 	{ label: 'system',			title: 'Core occupied by other program',desc: desc_sys,	unity: 'ms',	cat: 'times',	attr: 'sys',	color: colours.list.white,		fcolor: colours.list.lGrey,		gcolor: colours.list.white },
 	
 		ipc:	{ label: 'Executing',			unity: '',	cat: 'locality',	attr: 'ipc',	color: colours.list.eGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
@@ -230,16 +231,38 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			clues: [],
 			settings: []
 		},
-		
-		
-		states: {
+		lockContentions: {
 			graph : {
-				v:		[facets.yb],	// data over the limit (like other graphs)
-				r:		facets.r,		// data under the limit
-				s:		facets.sys,		// data amputated by the system, under the limit
-				limit:	facets.uu
+				v:		[facets.sys, facets.i, facets.r, facets.lw],
+				limit:	facets.i,
+				axis:	{ labels: 'cores' }
 			},
-			data : [facets.r, facets.uu, facets.y, facets.b],
+			data : [facets.r, facets.uu, facets.lw],
+			focus: [facets.sys, facets.i, facets.r, facets.lw],
+			legend: {
+				axis: [
+					{ b: '┄', t: '[Y] Core capacity',	d: 'capacity of the CPU',					c: colours.list.dBlue },
+					{ b: '-', t: '[Y] Core capacity',	d: 'part of the CPU or equivalent portion', c: colours.list.eGrey },
+				],
+				data: [
+					{ b: '▮', f: facets.lw },
+					{ b: '▮', f: facets.r },
+					{ b: '▯', f: facets.sys,	d: 'core occupied by other program',	 c: colours.list.black }
+				]
+			},
+			clues: [],
+			settings: [
+				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core', desc: 'average of core activity among thread states' }
+			]
+		},
+		threadStates: {
+			graph : {
+				v:		[facets.sys, facets.i, facets.r, facets.yb],
+				limit:	facets.i,
+				axis:	{ labels: 'cores' }
+			},
+			data : [facets.r, facets.i, facets.y, facets.b],
+			focus: [facets.sys, facets.i, facets.r, facets.yb],
 			legend: {
 				axis: [
 					{ b: '┄', t: '[Y] Core capacity',	d: 'capacity of the CPU',					c: colours.list.dBlue },
@@ -248,7 +271,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				data: [
 					{ b: '▮', f: facets.yb },
 					{ b: '▮', f: facets.r },
-					{ b: '▯', t: 'Core occupied by other program', d: 'processor is used by the OS',	 c: colours.list.black }
+					{ b: '▯', f: facets.sys,	d: 'core occupied by other program',	 c: colours.list.black }
 				]
 			},
 			texts : [a_uu, a_cores],
@@ -259,9 +282,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ c: colours.plus,	t: 'Underscubscription', 		d: 'not enough threads' }
 			],
 			settings: [
-				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core', desc: 'average of core activity among thread states' }
 			]
 		},
+		
+		
 		switches: {
 			graph : {
 				v:			[facets.s],
@@ -336,30 +360,6 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			clues: [],
 			settings: [
 				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
-			]
-		},
-		contentions: {
-			graph : {
-				v:		[facets.lw],	// data over the limit (like other graphs)
-				r:		facets.r,		// data under the limit
-				s:		facets.sys,		// data amputated by the system, under the limit
-				limit:	facets.uu
-			},
-			data : [facets.r, facets.uu, facets.lw],
-			legend: {
-				axis: [
-					{ b: '┄', t: '[Y] Core capacity',	d: 'capacity of the CPU',					c: colours.list.dBlue },
-					{ b: '-', t: '[Y] Core capacity',	d: 'part of the CPU or equivalent portion', c: colours.list.eGrey },
-				],
-				data: [
-					{ b: '▮', f: facets.lw },
-					{ b: '▮', f: facets.r },
-					{ b: '▯', t: 'Core occupied by other program', d: 'processor is used by the OS',	 c: colours.list.black }
-				]
-			},
-			clues: [],
-			settings: [
-				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core', desc: 'average of core activity among thread states' }
 			]
 		},
 		migrationLT: {
@@ -533,19 +533,19 @@ app.factory('widgets', ['decks', function(decks) {
 	function id() { return ++i; }
 	
 	return {
-		cacheBreackdown:	{ id: id(),	v: 3, file: 'chart-pcoords',	deck: decks.pCoordDL,		wide: true,		title: 'Breackdown of time spent on locality misses',				desc: ''},
-		cacheInvalid:		{ id: id(),	v: 3, file: 'chart-todo',		deck: null,					wide: false,	title: 'Cache misses from updating shared data',					desc: ''},
-		cacheMisses:		{ id: id(),	v: 3, file: 'chart-percent',	deck: decks.cacheMisses,	wide: false,	title: 'Percentage of time spent on locality misses',				desc: ''},
-		coreIdle:			{ id: id(),	v: 3, file: 'chart-lines',		deck: decks.coreUU,			wide: false,	title: 'Idle cores',												desc: 'Times that cores are idle'},
-		coreSequences:		{ id: id(),	v: 3, file: 'chart-lines',		deck: decks.sequences,		wide: false,	title: 'Single thread execution phases',							desc: 'alternating sequential/parallel execution'},
-		lockCounts:			{ id: id(),	v: 4, file: 'chart-units',		deck: decks.counts,			wide: false,	title: 'Lock contentions',											desc: 'Locking with and without contention'},
-		lockContentions:	{ id: id(),	v: 4, file: 'chart-capacity',	deck: decks.contentions,	wide: false,	title: 'Time waiting for a lock',									desc: ''},
-		threadChains:		{ id: id(),	v: 4, file: 'chart-lines',		deck: decks.chains,			wide: false,	title: 'Chains of dependencies on locks',							desc: 'synchronisations and waiting between threads'},
-		threadFruitSalad:	{ id: id(),	v: 3, file: 'chart-threads',	deck: decks.migrationLT,	wide: false,	title: 'Migrations by thread',										desc: 'creation, running, moving between cores, termination'},
-		threadLocks:		{ id: id(),	v: 4, file: 'chart-threads',	deck: decks.lockLT,			wide: false,	title: 'Time each thread spends waiting for locks',					desc: ''},
-		threadStates:		{ id: id(),	v: 3, file: 'chart-capacity',	deck: decks.states,			wide: false,	title: 'Breakdown of thread states compared to number of cores',	desc: 'number of threads compared to number of cores'},
-		threadMigrations:	{ id: id(),	v: 3, file: 'chart-units',		deck: decks.migrations,		wide: false,	title: 'Rate of thread migrations',									desc: 'thread switching the core on which it is executing'},
-		threadSwitches:		{ id: id(),	v: 3, file: 'chart-units',		deck: decks.switches,		wide: false,	title: 'Core swhitching the thread it is executing',				desc: 'thread switches'},
+		cacheBreackdown:	{ id: id(),	v: 3, file: 'chart-d3-pcoords',	deck: decks.pCoordDL,			wide: true,		title: 'Breackdown of time spent on locality misses',				desc: ''},
+		cacheInvalid:		{ id: id(),	v: 3, file: 'chart-todo',		deck: null,						wide: false,	title: 'Cache misses from updating shared data',					desc: ''},
+		cacheMisses:		{ id: id(),	v: 3, file: 'chart-percent',	deck: decks.cacheMisses,		wide: false,	title: 'Percentage of time spent on locality misses',				desc: ''},
+		coreIdle:			{ id: id(),	v: 3, file: 'chart-lines',		deck: decks.coreUU,				wide: false,	title: 'Idle cores',												desc: 'Times that cores are idle'},
+		coreSequences:		{ id: id(),	v: 3, file: 'chart-lines',		deck: decks.sequences,			wide: false,	title: 'Single thread execution phases',							desc: 'alternating sequential/parallel execution'},
+		lockCounts:			{ id: id(),	v: 4, file: 'chart-units',		deck: decks.counts,				wide: false,	title: 'Lock contentions',											desc: 'Locking with and without contention'},
+		lockContentions:	{ id: id(),	v: 4, file: 'chart-percent',	deck: decks.lockContentions,	wide: false,	title: 'Time waiting for a lock',									desc: ''},
+		threadChains:		{ id: id(),	v: 4, file: 'chart-lines',		deck: decks.chains,				wide: false,	title: 'Chains of dependencies on locks',							desc: 'synchronisations and waiting between threads'},
+		threadFruitSalad:	{ id: id(),	v: 3, file: 'chart-threads',	deck: decks.migrationLT,		wide: false,	title: 'Migrations by thread',										desc: 'creation, running, moving between cores, termination'},
+		threadLocks:		{ id: id(),	v: 4, file: 'chart-threads',	deck: decks.lockLT,				wide: false,	title: 'Time each thread spends waiting for locks',					desc: ''},
+		threadStates:		{ id: id(),	v: 3, file: 'chart-percent',	deck: decks.threadStates,		wide: false,	title: 'Breakdown of thread states compared to number of cores',	desc: 'number of threads compared to number of cores'},
+		threadMigrations:	{ id: id(),	v: 3, file: 'chart-units',		deck: decks.migrations,			wide: false,	title: 'Rate of thread migrations',									desc: 'thread switching the core on which it is executing'},
+		threadSwitches:		{ id: id(),	v: 3, file: 'chart-units',		deck: decks.switches,			wide: false,	title: 'Core swhitching the thread it is executing',				desc: 'thread switches'},
 	};
 }]);
 
