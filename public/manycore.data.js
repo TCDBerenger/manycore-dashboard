@@ -255,6 +255,85 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core', desc: 'average of core activity among thread states' }
 			]
 		},
+		lockCounts: {
+			graph : {
+				v:			[facets.ls, facets.lf],
+				limit:		limit,
+				limitLabel:	'calib.',
+				expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf); },
+				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf) * 2; },
+				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf); }
+			},
+			data : [facets.ls, facets.lf],
+			focus: [facets.ls, facets.lf],
+			legend: {
+				axis: [
+					{ b: '┄', t: '[Y] Core capacity',	d: 'capacity of the CPU',					f: limit },
+					{ b: '-', t: '[Y] Core capacity',	d: 'part of the CPU or equivalent portion', f: limit },
+				],
+				data: [
+					{ b: '▮', t: 'Lock with contention',	d: 'number failure of lock acquisition',	f: facets.lf },
+					{ b: '▮', t: 'Lock without contention',	d: 'number success of lock acquisition',	f: facets.ls }
+				]
+			},
+			clues: [],
+			settings: [
+				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
+			]
+		},
+		threadMigrations: {
+			graph : {
+				v:		[facets.m],
+				limit:		limit,
+				limitLabel:	'calib.',
+				expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m; },
+				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m * 2; },
+				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m; }
+			},
+			data : [facets.m],
+			focus: [facets.m],
+			legend: {
+				axis: [
+					{ b: '┄', t: '[Y] Calibration',	d: 'typical level of thread migrations', c: colours.list.eGrey}
+				],
+				data: [
+					{ b: '▮', f: facets.m }
+				]
+			},
+			clues: [
+				{ c: colours.base,	t: 'Thread migrations',							d: 'too many migrations' },
+				{ c: colours.base,	t: 'Alternating sequential/parallel execution',	d: 'alternating period of high and low thread migrations' }
+			],
+			settings: [
+				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
+			]
+		},
+		threadSwitches: {
+			graph : {
+				v:			[facets.s],
+				limit:		limit,
+				limitLabel:	'calib.',
+				expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s; },
+				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s * 2; },
+				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s; }
+			},
+			data : [facets.s],
+			focus: [facets.s],
+			legend: {
+				axis: [
+					{ b: '┄', t: '[Y] Calibration',	d: 'typical level of context switches', c: colours.list.eGrey}
+				],
+				data: [
+					{ b: '▮', f: facets.s }
+				]
+			},
+			clues: [
+				{ c: colours.base,	t: 'Oversubscription',	d: 'high frequency' }
+			],
+			settings: [
+				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
+			]
+		},
 		threadStates: {
 			graph : {
 				v:		[facets.sys, facets.i, facets.r, facets.yb],
@@ -286,82 +365,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		},
 		
 		
-		switches: {
-			graph : {
-				v:			[facets.s],
-				limit:		limit,
-				limitLabel:	'calib.',
-				expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s; },
-				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s * 2; },
-				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s; }
-			},
-			data : [facets.s],
-			legend: {
-				axis: [
-					{ b: '┄', t: '[Y] Calibration',	d: 'typical level of context switches', c: colours.list.eGrey}
-				],
-				data: [
-					{ b: '▮', f: facets.s }
-				]
-			},
-			clues: [
-				{ c: colours.base,	t: 'Oversubscription',	d: 'high frequency' }
-			],
-			settings: [
-				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
-			]
-		},
-		migrations: {
-			graph : {
-				v:		[facets.m],
-				limit:		limit,
-				limitLabel:	'calib.',
-				expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m; },
-				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m * 2; },
-				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m; }
-			},
-			data : [facets.m],
-			legend: {
-				axis: [
-					{ b: '┄', t: '[Y] Calibration',	d: 'typical level of thread migrations', c: colours.list.eGrey}
-				],
-				data: [
-					{ b: '▮', f: facets.m }
-				]
-			},
-			clues: [
-				{ c: colours.base,	t: 'Thread migrations',							d: 'too many migrations' },
-				{ c: colours.base,	t: 'Alternating sequential/parallel execution',	d: 'alternating period of high and low thread migrations' }
-			],
-			settings: [
-				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
-			]
-		},
-		counts: {
-			graph : {
-				v:			[facets.ls, facets.lf],
-				limit:		limit,
-				limitLabel:	'calib.',
-				expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf); },
-				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf) * 2; },
-				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf); }
-			},
-			data : [facets.ls, facets.lf],
-			legend: {
-				axis: [
-					{ b: '┄', t: '[Y] Core capacity',	d: 'capacity of the CPU',					f: limit },
-					{ b: '-', t: '[Y] Core capacity',	d: 'part of the CPU or equivalent portion', f: limit },
-				],
-				data: [
-					{ b: '▮', t: 'Lock with contention',	d: 'number failure of lock acquisition',	f: facets.lf },
-					{ b: '▮', t: 'Lock without contention',	d: 'number success of lock acquisition',	f: facets.ls }
-				]
-			},
-			clues: [],
-			settings: [
-				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
-			]
-		},
+		
 		migrationLT: {
 			graph : {
 				h:			limit,		// threads (color)
@@ -538,14 +542,14 @@ app.factory('widgets', ['decks', function(decks) {
 		cacheMisses:		{ id: id(),	v: 3, file: 'chart-percent',	deck: decks.cacheMisses,		wide: false,	title: 'Percentage of time spent on locality misses',				desc: ''},
 		coreIdle:			{ id: id(),	v: 3, file: 'chart-lines',		deck: decks.coreUU,				wide: false,	title: 'Idle cores',												desc: 'Times that cores are idle'},
 		coreSequences:		{ id: id(),	v: 3, file: 'chart-lines',		deck: decks.sequences,			wide: false,	title: 'Single thread execution phases',							desc: 'alternating sequential/parallel execution'},
-		lockCounts:			{ id: id(),	v: 4, file: 'chart-units',		deck: decks.counts,				wide: false,	title: 'Lock contentions',											desc: 'Locking with and without contention'},
+		lockCounts:			{ id: id(),	v: 4, file: 'chart-units',		deck: decks.lockCounts,			wide: false,	title: 'Lock contentions',											desc: 'Locking with and without contention'},
 		lockContentions:	{ id: id(),	v: 4, file: 'chart-percent',	deck: decks.lockContentions,	wide: false,	title: 'Time waiting for a lock',									desc: ''},
 		threadChains:		{ id: id(),	v: 4, file: 'chart-lines',		deck: decks.chains,				wide: false,	title: 'Chains of dependencies on locks',							desc: 'synchronisations and waiting between threads'},
 		threadFruitSalad:	{ id: id(),	v: 3, file: 'chart-threads',	deck: decks.migrationLT,		wide: false,	title: 'Migrations by thread',										desc: 'creation, running, moving between cores, termination'},
 		threadLocks:		{ id: id(),	v: 4, file: 'chart-threads',	deck: decks.lockLT,				wide: false,	title: 'Time each thread spends waiting for locks',					desc: ''},
 		threadStates:		{ id: id(),	v: 3, file: 'chart-percent',	deck: decks.threadStates,		wide: false,	title: 'Breakdown of thread states compared to number of cores',	desc: 'number of threads compared to number of cores'},
-		threadMigrations:	{ id: id(),	v: 3, file: 'chart-units',		deck: decks.migrations,			wide: false,	title: 'Rate of thread migrations',									desc: 'thread switching the core on which it is executing'},
-		threadSwitches:		{ id: id(),	v: 3, file: 'chart-units',		deck: decks.switches,			wide: false,	title: 'Core swhitching the thread it is executing',				desc: 'thread switches'},
+		threadMigrations:	{ id: id(),	v: 3, file: 'chart-units',		deck: decks.threadMigrations,	wide: false,	title: 'Rate of thread migrations',									desc: 'thread switching the core on which it is executing'},
+		threadSwitches:		{ id: id(),	v: 3, file: 'chart-units',		deck: decks.threadSwitches,		wide: false,	title: 'Core swhitching the thread it is executing',				desc: 'thread switches'},
 	};
 }]);
 

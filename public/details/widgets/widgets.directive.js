@@ -272,7 +272,7 @@ function directive_repaint_post(r) {
 /**
  * Repaint - Bind
  */
-function directive_bind(scope, element, r, repaint, select) {
+function directive_bind(scope, element, r, repaint, select, addWidgetY) {
 	// Size
 	scope.$watch(function() { return r.container.clientWidth; }, repaint);
 	
@@ -302,7 +302,10 @@ function directive_bind(scope, element, r, repaint, select) {
 		if (isNaN(x)) {
 			directive_unselect(r);
 		} else {
-			select(x);
+			if (addWidgetY)
+				select(x, r.container.getBoundingClientRect().top + window.pageYOffset - document.documentElement.clientTop);
+			else
+				select(x);
 		}
 	});
 }
@@ -643,10 +646,7 @@ app.directive('chartPercent', function() {
 		}
 
 		// Select
-		function select(x) {
-			// Focus positions
-			var wy = r.container.getBoundingClientRect().top + window.pageYOffset - document.documentElement.clientTop;
-			
+		function select(x, y0) {
 			// Time ID
 			var tIndex = Math.floor(r.scaleX.invert(x) / 50);
 			var t = tIndex * 50;
@@ -667,7 +667,7 @@ app.directive('chartPercent', function() {
 						r.iSelection[index].select(".svg-area-" + v).attr("points", p2s(r.iData[index][v + 1].slice(tIndex * 4, tIndex * 4 + 4), r.iData[index][v].slice(tIndex * 4, tIndex * 4 + 4)));
 						
 						// Send new coordinates to controller
-						updateFocusRule(prefixID, wy, index, t, tIndex, v);
+						updateFocusRule(prefixID, y0, index, t, tIndex, v);
 					}
 				}
 				// Draw
@@ -682,13 +682,13 @@ app.directive('chartPercent', function() {
 							.attr('fill', r.deck.v[v].fcolor);
 						
 						// Send new coordinates to controller
-						updateFocusRule(prefixID, wy, index, t, tIndex, v);
+						updateFocusRule(prefixID, y0, index, t, tIndex, v);
 					};
 				}
 			}
 		}
 		
-		function updateFocusRule(prefixID, wy, index, t, tIndex, v) {
+		function updateFocusRule(prefixID, y0, index, t, tIndex, v) {
 			var facet = r.deck.v[v];
 			
 			if (t >= r.meta.ends[index] || ! r.profiles[index].currentData.percent[t][facet.attr]) {
@@ -703,13 +703,13 @@ app.directive('chartPercent', function() {
 				// Send new coordinates to controller
 				r.scope.focusRuleHandle(
 					prefixID + facet.attr,
-					wy + (r.iData[index][v + 1][tIndex * 4 + 1] + r.iData[index][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[index] + r.meta.vOverflow[index],
+					y0 + (r.iData[index][v + 1][tIndex * 4 + 1] + r.iData[index][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[index] + r.meta.vOverflow[index],
 					value);
 			}
 		}
 
 		// Bind
-		directive_bind(scope, element, r, repaint, select);
+		directive_bind(scope, element, r, repaint, select, true);
 	}
 
 	return {
@@ -753,6 +753,7 @@ app.directive('chartUnits', function() {
 				r.meta.vMinDisplay[1] =	r.deck.displayed(r.profiles[1], r.settings.timeGroup);
 				r.meta.vStep[1] =		r.deck.vStep(r.profiles[1], r.settings.timeGroup);
 			}
+			r.meta.countedUnits = [[], []];
 
 			// Repaint scales
 			directive_repaint_scales(r, [0, r.meta.vMinDisplay[0]], [0, r.meta.vMinDisplay[1]]);
@@ -784,6 +785,7 @@ app.directive('chartUnits', function() {
 					dataSource_index.push(0);
 					yPositions.push(NaN);
 					r.iData[index].push([]);
+					r.meta.countedUnits[index].push([]);
 				};
 
 				// All - points - data
@@ -799,6 +801,9 @@ app.directive('chartUnits', function() {
 							yPositions[v]++;
 							dataSource_index[v]++;
 						}
+						
+						// Save counted units
+						r.meta.countedUnits[index][v].push(yPositions[v]);
 
 						// Stack positions
 						if (v > 0)
@@ -835,7 +840,7 @@ app.directive('chartUnits', function() {
 		}
 
 		// Select
-		function select(x) {
+		function select(x, y0) {
 			// Time ID
 			var tIndex = Math.floor(r.scaleX.invert(x) / r.settings.timeGroup);
 			if (tIndex == r.meta.lastSelectID) {
@@ -846,10 +851,16 @@ app.directive('chartUnits', function() {
 
 			// Loop
 			for (var index = 0; index < r.profiles.length; index++) {
+				// Focus prefix for rules
+				var prefixID = 'rule-' + r.meta.widget.index + '-' + index + '-';
+				
 				// Reuse
 				if (r.iSelection[index] != null) {
 					for (var v = r.deck.v.length - 1; v >= 0; v--) {
 						r.iSelection[index].select(".svg-area-" + v).attr("points", p2s(r.iData[index][v + 1].slice(tIndex * 4, tIndex * 4 + 4), r.iData[index][v].slice(tIndex * 4, tIndex * 4 + 4)));
+						
+						// Send new coordinates to controller
+						updateFocusRule(prefixID, y0, index, tIndex, v);
 					}
 				}
 				// Draw
@@ -862,13 +873,37 @@ app.directive('chartUnits', function() {
 							.attr('class', "svg-area svg-area-" + v)
 							.attr("points", p2s(r.iData[index][v + 1].slice(tIndex * 4, tIndex * 4 + 4), r.iData[index][v].slice(tIndex * 4, tIndex * 4 + 4)))
 							.attr('fill', r.deck.v[v].fcolor);
+						
+						// Send new coordinates to controller
+						updateFocusRule(prefixID, y0, index, tIndex, v);
 					};
 				}
 			}
 		}
+		
+		
+		function updateFocusRule(prefixID, y0, index, tIndex, v) {
+			var facet = r.deck.v[v];
+			
+			if (tIndex >= r.meta.ends[index] / r.settings.timeGroup) {
+				// Send disable to controller
+				r.scope.focusRuleHandle(prefixID + facet.attr, NaN, NaN);
+				
+			} else {
+				
+				var value = r.meta.countedUnits[index][v][tIndex];
+				if (facet.unity) value += ' ' + facet.unity;
+				
+				// Send new coordinates to controller
+				r.scope.focusRuleHandle(
+					prefixID + facet.attr,
+					y0 + (r.iData[index][v + 1][tIndex * 4 + 1] + r.iData[index][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[index] + r.meta.vOverflow[index],
+					value);
+			}
+		}
 
 		// Bind
-		directive_bind(scope, element, r, repaint, select);
+		directive_bind(scope, element, r, repaint, select, true);
 	}
 
 	return {
