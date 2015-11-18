@@ -187,9 +187,12 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			}
 		}
 		if (isNaN(y)) {
-			if (pinElements[id])		pinElements[id].style.top = '-10px';
+			if (pinElements[id]) pinElements[id].style.opacity = 0;
 		} else {
-			if (y && pinElements[id])		pinElements[id].style.top = y + 'px';
+			if (y && pinElements[id]) {
+				pinElements[id].style.opacity = 1;
+				pinElements[id].style.top = y + 'px';
+			}
 			if (v && pinValueElements[id])	pinValueElements[id].innerHTML = v;
 		}
 	}
@@ -239,9 +242,12 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			}
 		}
 		if (isNaN(y)) {
-			if (ruleElements[id])		ruleElements[id].style.top = '-10px';
+			if (ruleElements[id])		ruleElements[id].style.opacity = 0;
 		} else {
-			if (ruleElements[id])		ruleElements[id].style.top = y + 'px';
+			if (ruleElements[id]) {
+				ruleElements[id].style.top = y + 'px';
+				ruleElements[id].style.opacity = 1;
+			}
 			if (ruleValueElements[id])	ruleValueElements[id].innerHTML = v;
 		}
 	};

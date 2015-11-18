@@ -193,7 +193,10 @@
 	position: absolute;
 	left: -4px;
 	min-width: 150px;
+	height: 16px;
+	margin-top: -8px;
 	font-size: 0.7em;
 	font-weight: bold;
 	text-shadow: 0 0 4px #FFF;
+	transition: all 0.2s ease;
 }

@@ -94,9 +94,9 @@
 			<i class="fa fa-circle" style="color: {{rule.f.color}}"></i>
 			<span class="rule-value">?? %</span> {{rule.f.label}} 
 		</div>
-		<div id="{{pin.id}}" class="facet-pin facet-pin-value" ng-repeat="pin in valuedPins">
-			<i class="fa fa-circle" style="color: {{pin.f.color}}"></i>
-			<span class="pin-value">§§ %</span> {{pin.f.label}} 
+		<div id="{{::pin.id}}" class="facet-pin facet-pin-value" ng-repeat="pin in valuedPins">
+			<i class="fa fa-circle" style="color: {{::pin.f.color}}"></i>
+			<span class="pin-value">§§ %</span> {{::pin.l}} 
 		</div>
 	</div>
 	
