@@ -104,7 +104,9 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		}
 	}
 	
-	function buildThreads(profile, begin, end) {
+	function buildThreads(profile) {
+		var begin = profile.currentData.info.timeMin;
+		var end = profile.currentData.info.duration;
 		var lines = [];
 		profile.currentData.threads.info.forEach(function(thread) {
 			lines.push({
@@ -116,7 +118,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		});
 		return lines;
 	}
-	function buildThreadsForDP(profile, begin, end) {
+	function buildThreadsForDP(profile) {
 		if (profile.id == 21)
 			return [
 				{ id: 11936,	l: 'φ 1',	s:1,	e:1023},	// 5 2
@@ -174,15 +176,19 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ id: 14012,	l: 'φ 45',	s:9,	e:1567},	// 44 45
 			];
 		else
-			return buildThreads(profile, begin, end);
+			return buildThreads(profile);
 	}
-	function buildCores(profile, begin, end) {
+	function buildCores(profile) {
+		var begin = profile.currentData.info.timeMin;
+		var end = profile.currentData.info.duration;
 		var lines = [];
 		for (var l = 0; l < profile.hardware.data.threads; l++)
 			lines.push({ id: l, l: 'core ' + l, s: begin, e: end });
 		return lines;
 	}
-	function buildCoresAnonymously(profile, begin, end) {
+	function buildCoresAnonymously(profile) {
+		var begin = profile.currentData.info.timeMin;
+		var end = profile.currentData.info.duration;
 		var lines = [];
 		for (var l = 0; l < profile.hardware.data.threads; l++)
 			lines.push({ id: l, l: 'core', s: begin, e: end });
@@ -230,6 +236,27 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			clues: [],
 			settings: []
+		},
+		coreIdle: {
+			graph : {
+				h:			limit,		// threads (color)
+				lines:		buildCores,
+				melody:		facets.uu,
+				melody_cat:	'cores',
+			},
+			data : [facets.uu],
+			legend: {
+				axis: [
+					{ b: '⊢', f: limit,	t: '[Y] Cores',	d: 'each line represents a core' }
+				],
+				data: [
+					{ b: '▮', t: 'Idle', d: 'time spend by the core waiting a thread to run (other processes are considered as idle time)',	 c: colours.list.eGrey }
+				]
+			},
+			clues: [],
+			settings: [
+				{ property: 'melodyHeight', value: 9, type: 'range', label: 'Inactivity height', unit: 'pixels', min: 6, max: 12, step: 1 }
+			]
 		},
 		lockContentions: {
 			graph : {
@@ -454,27 +481,6 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ property: 'sequenceThreshold', value: 1, type: 'range', label: 'Parallel threshold', unit: 'running threads', min: 0, max: 3, step: 1 },
 			]
 		},
-		coreUU: {
-			graph : {
-				h:			limit,		// threads (color)
-				lines:		buildCores,
-				melody:		[facets.uu],
-				melody_cat:	'cores',
-			},
-			data : [facets.uu],
-			legend: {
-				axis: [
-					{ b: '⊢', f: limit,	t: '[Y] Cores',	d: 'each line represents a core' }
-				],
-				data: [
-					{ b: '▮', t: 'Idle', d: 'time spend by the core waiting a thread to run (other processes are considered as idle time)',	 c: colours.list.eGrey }
-				]
-			},
-			clues: [],
-			settings: [
-				{ property: 'melodyHeight', value: 9, type: 'range', label: 'Inactivity height', unit: 'pixels', min: 6, max: 12, step: 1 }
-			]
-		},
 		chains: {
 			graph : {
 				h:			limit,		// color
@@ -540,7 +546,7 @@ app.factory('widgets', ['decks', function(decks) {
 		cacheBreackdown:	{ id: id(),	v: 3, file: 'chart-d3-pcoords',	deck: decks.pCoordDL,			wide: true,		title: 'Breackdown of time spent on locality misses',				desc: ''},
 		cacheInvalid:		{ id: id(),	v: 3, file: 'chart-todo',		deck: null,						wide: false,	title: 'Cache misses from updating shared data',					desc: ''},
 		cacheMisses:		{ id: id(),	v: 3, file: 'chart-percent',	deck: decks.cacheMisses,		wide: false,	title: 'Percentage of time spent on locality misses',				desc: ''},
-		coreIdle:			{ id: id(),	v: 3, file: 'chart-lines',		deck: decks.coreUU,				wide: false,	title: 'Idle cores',												desc: 'Times that cores are idle'},
+		coreIdle:			{ id: id(),	v: 3, file: 'chart-lines',		deck: decks.coreIdle,			wide: false,	title: 'Idle cores',												desc: 'Times that cores are idle'},
 		coreSequences:		{ id: id(),	v: 3, file: 'chart-lines',		deck: decks.sequences,			wide: false,	title: 'Single thread execution phases',							desc: 'alternating sequential/parallel execution'},
 		lockCounts:			{ id: id(),	v: 4, file: 'chart-units',		deck: decks.lockCounts,			wide: false,	title: 'Lock contentions',											desc: 'Locking with and without contention'},
 		lockContentions:	{ id: id(),	v: 4, file: 'chart-percent',	deck: decks.lockContentions,	wide: false,	title: 'Time waiting for a lock',									desc: ''},
