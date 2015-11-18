@@ -167,18 +167,15 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	//var tmpid = 1;
 	function focusInitPins(valuedPins) {
 		$scope.valuedPins.push.apply($scope.valuedPins, valuedPins);
-		//console.log('init', $scope.ruler,$scope.aRuler );
-		//$scope.aRuler.append();
-		//iElement.append('<svg width="600" height="100" class="svg"></svg>');
-		//$scope.valuedPins.push({id: ++tmpid, f: { color: "#000", label: "test" }})
 	}
 
 	/**
-	 * Focus - move pins (labels)
+	 * Focus - move pin (labels)
 	 */
 	var pinElements = {};
 	var pinValueElements = {};
 	function focusMovePin(id, y, v) {
+		// Create cache runtime
 		if ('undefined' === typeof pinElements[id]) {
 			pinElements[id] = document.getElementById(id);
 			if (pinElements[id]) {
@@ -186,6 +183,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 					pinValueElements[id] = pinElements[id].querySelectorAll('.pin-value')[0];
 			}
 		}
+		// Move (or hide) pin
 		if (isNaN(y)) {
 			if (pinElements[id]) pinElements[id].style.opacity = 0;
 		} else {
@@ -215,19 +213,6 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		
 		$scope.$broadcast('xEvent', relativeX);
 	}
-
-	/**
-	 * Focus - rules handle
-	 */
-	/*function focusRulesHandle(fys) {
-		var element;
-		fys.forEach(function(rule) {
-			element = document.getElementById(rule.id);
-			if (element) {
-				element.style.top = rule.y + 'px';
-			}
-		}, this);
-	};*/
 
 	/**
 	 * Focus - rules handle
