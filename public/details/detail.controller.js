@@ -131,6 +131,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	 */
 	function initRuler() {
 		$scope.ruler = document.getElementById('ruler');
+		$scope.aRuler = angular.element($scope.ruler);
 		$scope.stamps = $scope.ruler.querySelectorAll('.label');
 		
 		var pl = profiles.length;
@@ -159,6 +160,39 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	function mouseLeave(event) {
 		focusHandle(NaN);
 	};
+
+	/**
+	 * Focus - init pins (labels)
+	 */
+	//var tmpid = 1;
+	function focusInitPins(valuedPins) {
+		$scope.valuedPins.push.apply($scope.valuedPins, valuedPins);
+		//console.log('init', $scope.ruler,$scope.aRuler );
+		//$scope.aRuler.append();
+		//iElement.append('<svg width="600" height="100" class="svg"></svg>');
+		//$scope.valuedPins.push({id: ++tmpid, f: { color: "#000", label: "test" }})
+	}
+
+	/**
+	 * Focus - move pins (labels)
+	 */
+	var pinElements = {};
+	var pinValueElements = {};
+	function focusMovePin(id, y, v) {
+		if ('undefined' === typeof pinElements[id]) {
+			pinElements[id] = document.getElementById(id);
+			if (pinElements[id]) {
+				if (pinElements[id].querySelectorAll('.pin-value').length > 0)
+					pinValueElements[id] = pinElements[id].querySelectorAll('.pin-value')[0];
+			}
+		}
+		if (isNaN(y)) {
+			if (pinElements[id])		pinElements[id].style.top = '-10px';
+		} else {
+			if (y && pinElements[id])		pinElements[id].style.top = y + 'px';
+			if (v && pinValueElements[id])	pinValueElements[id].innerHTML = v;
+		}
+	}
 
 	/**
 	 * Focus - global handle
@@ -338,6 +372,9 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	$scope.statMode = 'units';
 	$scope.initRuler = initRuler;
 	$scope.rules = []; // poputaled in initRuler()
+	$scope.valuedPins = []; // poputaled in focusInitPins()
 	//$scope.focusRulesHandle = focusRulesHandle;
 	$scope.focusRuleHandle = focusRuleHandle;
+	$scope.focusInitPins = focusInitPins;
+	$scope.focusMovePin = focusMovePin;
 }]);

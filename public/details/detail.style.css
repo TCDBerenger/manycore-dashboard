@@ -189,7 +189,7 @@
 	bottom: 0px;
 }
 
-.detail #ruler .facet-rule {
+.detail #ruler .facet-rule, .detail #ruler .facet-pin {
 	position: absolute;
 	left: -4px;
 	min-width: 150px;
