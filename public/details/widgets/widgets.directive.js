@@ -202,7 +202,7 @@ function directive_focus_init(r, repeater) {
 			for (var l = 0; l < repeater[index]; l++) {
 				valuedPins.push({
 					id: prefix + 'melody-' + l,
-					l: r.deck.melody.label + ' ' + l,
+					l: (l == 0) ? r.deck.melody.label : '',
 					f: r.deck.melody
 				})
 			}
