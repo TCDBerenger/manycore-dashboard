@@ -622,6 +622,12 @@ function jsonRS(profile, id) {
 	profile.exportInfo(output);
 	addCommon(output, id);
 
+	// Add locks
+	addLocks(output, id);
+	
+	// Data locality
+	addLocality(output, id, false);
+
 	return output;
 }
 
