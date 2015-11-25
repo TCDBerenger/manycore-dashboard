@@ -619,7 +619,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 		tag: 'rs', cat: 'rs', label: 'Resource sharing', title: 'Resource sharing', icon: 'exchange', enabled: true,
 		strips: [],
 		gauges: [],
-		widgets: []
+		widgets: [widgets.lockCounts, widgets.cacheMisses]
 	};
 	var io = {
 		tag: 'io', cat: 'io', label: 'Input/Output', title: 'Input/Output', icon: 'plug', enabled: false,
