@@ -21,7 +21,7 @@ var graphLayout = function(favoriteHeight) {
 	// Constants
 	this.padding	= { top: 10, right: 20, bottom: 10, left: 60, inner: 4 };
 	this.profile	= { favoriteHeight: favoriteHeight };
-	this.xAxis		= { height: 10, text: 8, textShift: 8, arrow: 8, arrowShift: 4 };
+	this.xAxis		= { height: 10, text: 6, textShift: 8, arrow: 8, arrowShift: 4 };
 	this.vAxis		= { fontSize: 10, profileFontSize: 12 };
 
 	// Compute
@@ -368,11 +368,11 @@ function directive_repaint_xAxis(r) {
 	// Clock symbol
 	r.groupX.append('text')
 		.attr('class', 'svg-text')
-		.attr('y', r.layout.xAxis.textShift + 2)
+		.attr('y', r.layout.xAxis.textShift)
 		.attr('x', -16)
 		.attr('text-anchor', 'end')
 		.attr('font-size', (r.layout.xAxis.text + 4) + 'px')
-		.text('time'); // ⌛ 🕓
+		.text('time'); // ⌛ 🕓 elapsed time
 	
 	// Labels
 	var texts = r.scaleX.ticks();
