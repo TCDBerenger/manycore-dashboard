@@ -1,17 +1,18 @@
 <table class="table table-striped table-hover table-legend" ng-init="stats = createStats(widget)">
 	<thead>
-		<tr>
-			<th>
-				<div ng-if="profiles.length >= 2 && stats.values[0].length > 1">
-					Comparison:
-					<div class="btn-group btn-group-xs">
-						<label class="btn btn-default" ng-model="stats.mode" btn-radio="'units'" uncheckable>Σ</label>
-						<label class="btn btn-default" ng-model="stats.mode" btn-radio="'percent'" uncheckable>%</label>
-					</div>
+		<tr ng-if="profiles.length == 1">
+			<th colspan="3">&nbsp;</th>
+		</tr>
+		<tr ng-if="profiles.length == 2">
+			<th>&nbsp;</th>
+			<th>{{profiles[0].label}}</th>
+			<th colspan="2">
+				<div class="btn-group btn-group-xs">
+					<label class="btn btn-default" ng-model="stats.mode" btn-radio="'units'" uncheckable>Σ</label>
+					<label class="btn btn-default" ng-model="stats.mode" btn-radio="'percent'" uncheckable>%</label>
 				</div>
 			</th>
-			<th ng-if="profiles.length == 1" colspan="2">&nbsp;</th>
-			<th ng-if="profiles.length >= 2" colspan="2" ng-repeat="profile in profiles"><span>{{profile.label}}</th>
+			<th>{{profiles[1].label}}</th>
 		</tr>
 	</thead>
 	<tbody>
