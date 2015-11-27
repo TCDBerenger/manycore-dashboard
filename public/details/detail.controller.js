@@ -198,9 +198,18 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	/**
 	 * Focus - global handle
 	 */
+	var legendTableList;
 	function focusHandle(relativeX, x, maxX) {
 		if (isNaN(relativeX)) {
 			$scope.ruler.style.display = 'none';
+			
+			// Loose focus
+			if ($scope.hasFocus) {
+				for (var k = 0; k < legendTableList.length; k++) {
+					legendTableList[k].classList.remove('table-focus');
+				}
+				$scope.hasFocus = false;
+			}
 		} else {
 			$scope.ruler.style.display = 'initial';
 			$scope.ruler.style.left = x + 'px';
@@ -209,6 +218,15 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			
 			$scope.stamps[0].innerHTML = label;
 			$scope.stamps[1].innerHTML = label;
+			
+			// Gain focus
+			if (! $scope.hasFocus) {
+				legendTableList = document.getElementsByClassName('table-legend');
+				for (var k = 0; k < legendTableList.length; k++) {
+					legendTableList[k].classList.add('table-focus');
+				}
+				$scope.hasFocus = true;
+			}
 		}
 		
 		$scope.$broadcast('xEvent', relativeX);
@@ -365,6 +383,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	$scope.rules = []; // poputaled in initRuler()
 	$scope.valuedPins = []; // poputaled in focusInitPins()
 	//$scope.focusRulesHandle = focusRulesHandle;
+	$scope.hasFocus = false;
 	$scope.focusRuleHandle = focusRuleHandle;
 	$scope.focusInitPins = focusInitPins;
 	$scope.focusMovePin = focusMovePin;

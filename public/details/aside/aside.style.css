@@ -5,10 +5,6 @@
 	height: 43px;
 	border-bottom-width: 1px;
 }
-.aside th:first-of-type {
-	padding: 7px 0px 7px 0px;
-	text-align: left;
-}
 
 
 /*
@@ -22,7 +18,7 @@
 .aside .tab-pane:nth-child(3) {	padding-top: 20px; }
 
 /*
- * Legend
+ * Legend table
  */
 
 .aside .table-legend td {
@@ -46,6 +42,61 @@
 	text-align: center;
 	vertical-align: bottom;
 }
+.aside th:nth-of-type(3) {
+	padding: 7px 0px 2px 0px;
+}
+
+/*.table-striped > tbody > tr:nth-of-type(2n+1) {
+	background-color: rgba(0, 0, 0, .02);
+}*/
+
+
+
+/*
+ * Legend table focus
+ */
+
+.aside .table-focus tbody {
+	color: #eeeeee;
+	background-color: #595959; /*#f3f3f3  #5BC0DE */
+	/*
+	transition: background-color 0.2s ease;
+	*/
+}
+.aside .table-focus.table-striped > tbody > tr:nth-of-type(odd) {
+	background-color: #4d4d4d;
+}
+/*
+.aside .table-focus.table-bordered {
+	border: 0;
+}   
+.aside .table-focus th, .aside .table-focus td, .aside .table-focus thead th {
+	border-color: #55595c;
+}
+.aside .table-focus.table-striped > tbody > tr:nth-of-type(odd) {
+	background-color: #060606;
+}
+.aside .table-focus.table-hover > tbody > tr:hover {
+	background-color: #0b0b0b;
+}
+.aside .table-focus.table-hover > tbody > tr > td.active:hover,
+.aside .table-focus.table-hover > tbody > tr > th.active:hover,
+.aside .table-focus.table-hover > tbody > tr.active:hover > td,
+.aside .table-focus.table-hover > tbody > tr:hover > .active,
+.aside .table-focus.table-hover > tbody > tr.active:hover > th {
+	background-color: #171717;
+}
+*/
+/*
+.aside .table-focus th:nth-of-type(3) div {
+	opacity: 0;
+}
+*/
+
+
+/*
+ * Info profile
+ */
 
 .aside .info-profiles {
 }

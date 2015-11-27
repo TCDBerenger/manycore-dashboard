@@ -85,6 +85,7 @@ span.link:hover {
 .table-inverse {
 	color: #eceeef;
 	background-color: #373a3c;
+	/*transition: background-color 0.2s ease;*/
 }
 .table-inverse.table-bordered {
 	border: 0;
