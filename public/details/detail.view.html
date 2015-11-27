@@ -87,9 +87,9 @@
 	
 	<!-- Ruler -->
 	<div id="ruler" style="display: none" data-ng-init="initRuler()">
-		<span class="label label-default">? ms</span>
+		<span class="label label-focus">? ms</span>
 		<div class="line"></div>
-		<span class="label label-default">? ms</span>
+		<span class="label label-focus">? ms</span>
 		<div id="{{rule.id}}" class="facet-rule" ng-repeat="rule in rules">
 			<i class="fa fa-circle" style="color: {{rule.f.color}}"></i>
 			<span class="rule-value">?? %</span> {{rule.f.label}} 

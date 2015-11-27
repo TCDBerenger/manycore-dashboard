@@ -200,6 +200,10 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	 */
 	var legendTableList;
 	function focusHandle(relativeX, x, maxX) {
+		// Set focus positions
+		$scope.focusX = isNaN(relativeX) ? null : relativeX;
+		$scope.focusT = isNaN(relativeX) ? null : Math.round(relativeX * ($scope.selection.end - $scope.selection.begin) / maxX + $scope.selection.begin);
+		
 		if (isNaN(relativeX)) {
 			$scope.ruler.style.display = 'none';
 			
@@ -214,7 +218,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			$scope.ruler.style.display = 'initial';
 			$scope.ruler.style.left = x + 'px';
 			
-			var label = Math.round(relativeX * ($scope.selection.end - $scope.selection.begin) / maxX + $scope.selection.begin) + ' ms';
+			var label = $scope.focusT + ' ms';
 			
 			$scope.stamps[0].innerHTML = label;
 			$scope.stamps[1].innerHTML = label;
@@ -383,7 +387,9 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	$scope.rules = []; // poputaled in initRuler()
 	$scope.valuedPins = []; // poputaled in focusInitPins()
 	//$scope.focusRulesHandle = focusRulesHandle;
-	$scope.hasFocus = false;
+	$scope.hasFocus = false;						// updated by focusHandle
+	$scope.focusX = null;							// updated by focusHandle
+	$scope.focusT = null;							// updated by focusHandle
 	$scope.focusRuleHandle = focusRuleHandle;
 	$scope.focusInitPins = focusInitPins;
 	$scope.focusMovePin = focusMovePin;

@@ -76,6 +76,15 @@ span.link:hover {
 
 
 /*
+ * Bootstrap extended label
+ */
+.label-focus {
+    background-color: #595959;
+    color: #eeeeee;
+}
+
+
+/*
  * Bootstrap extended table
  */
 .thead-inverse th {
