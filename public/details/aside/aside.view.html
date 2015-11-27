@@ -22,7 +22,7 @@
 				<strong>{{e.label}}</strong>
 			</td>
 			<td class="legend-col-p1">{{stats.values[0][iMax - i - 1].label1}}<br/>{{stats.values[0][iMax - i - 1].label2}}</td>
-			<td class="legend-col-stats" class="container-graph" rowspan="{{widget.deck.data.length}}" colspan="{{profiles.length}}" ng-if="i == 0">
+			<td class="legend-col-stats" class="container-graph" rowspan="{{widget.deck.data.length}}" colspan="{{profiles.length}}" ng-if="$first">
 				<chart-stats class="integrated-graph"></chart-stats>
 			</td>
 			<td class="legend-col-p2" ng-if="profiles.length >= 2">{{stats.values[1][iMax - i - 1].label1}}<br/>{{stats.values[1][iMax - i - 1].label2}}</td>

@@ -64,6 +64,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		//
 		profiles.forEach(function(profile) {
 			profile.currentData = profile.data[tag];
+			profile.raw = profile.data[tag].raw;
 		});
 		
 		
@@ -204,6 +205,8 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		$scope.focusX = isNaN(relativeX) ? null : relativeX;
 		$scope.focusT = isNaN(relativeX) ? null : Math.round(relativeX * ($scope.selection.end - $scope.selection.begin) / maxX + $scope.selection.begin);
 		
+		console.log('new focusT', $scope.focusT);
+		
 		if (isNaN(relativeX)) {
 			$scope.ruler.style.display = 'none';
 			
@@ -307,17 +310,31 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	/************************************************/
 	/* Generator - Stats							*/
 	/************************************************/
+	var statsCache = [];
 	function createStats(widget) {
-		// Prerequite (to remove when finished)
-		if (! widget.deck || ! widget.deck.data)
-			return (profiles.length == 1) ? { values: [[0]], sums: [0], maxSum: 0 } : { values: [[0], [0]], sums: [0, 0], maxSum: 0 };
+		var stats = {
+			version: 0,
+			deck: widget.deck.data,
+			mode: $scope.statMode,
+//			focusT: null,
+		};
 		
+		// Save cache
+		statsCache.push(stats);
+		
+		// Update stat values
+		updateStats(stats);
+		
+		return stats;
+	}
+
+	function updateStats(stats) {
 		var sums = (profiles.length == 1) ? [0] : [0, 0];
 		var values = (profiles.length == 1) ? [[]] : [[], []];
 		
 		var value;
 		profiles.forEach(function(profile, index) {
-			widget.deck.data.forEach(function(facet) {
+			stats.deck.forEach(function(facet) {
 				value = Math.round(profile.currentData.stats[facet.cat][facet.attr]);
 				values[index].push({
 					previous: sums[index],
@@ -328,27 +345,24 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			});
 		});
 		
-		if (widget.deck.data.length == 1) {
+		if (stats.deck.length == 1) {
 			for (var p = 0; p < profiles.length; p++) {
 				values[p][0].label2 = '<todo>';
 			}
 			
 		} else {
 			for (var p = 0; p < profiles.length; p++) {
-				for (var f = 0; f < widget.deck.data.length; f++) {
+				for (var f = 0; f < stats.deck.length; f++) {
 					values[p][f].label2 = Math.round(100 * values[p][f].value / sums[p]) + '\u00A0%';
 				}
 			}
 		}
 		
-		return {
-			mode: $scope.statMode,
-			values: values,
-			sums: sums,
-			maxSum: Math.max.apply(this, sums)
-		}
+		stats.version++;
+		stats.values = values;
+		stats.sums = sums
+		stats.maxSum = Math.max.apply(this, sums);
 	}
-
 
 	
 	/************************************************/

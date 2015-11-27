@@ -96,31 +96,49 @@ app.directive('chartStats', function() {
 
 		// Paint
 		function repaint() {
-			var yValue, yPrevious, maxValue;
+			console.log("refesh stats");
+			// Data
+			var maxValue;
+			var valuesFrom = [[], []];
+			var valuesTo = [[], []];
+			var valuesMax = [];
+			
+			// Compute data
+			var profile;
+			for (var index = 0; index < profiles.length; index++) {
+				maxValue = 0;
+				profile = profiles[index];
+				for (var f = 0; f < deck.length; f++) {
+					valuesFrom[index].push(maxValue);
+					maxValue += (true) ? profile.raw.stats[deck[f].attr] : profile.raw.amount[0][deck[f].attr];
+					valuesTo[index].push(maxValue);
+				}
+				valuesMax.push(maxValue);
+			}
+			
+			var yFrom, yTo;
 			for (var index = 0; index < profiles.length; index++) {
 				// Clean
 				groupS[index].selectAll('*').remove();
+				maxValue =  (stats.mode == 'units') ? Math.max.apply(null, valuesMax) : valuesMax[index];
 				
-				// Top
-				maxValue = (stats.mode == 'units') ? stats.maxSum : stats.sums[index]; 
-				
-				// Draw rectanges
-				stats.values[index].forEach(function(element, i) {
-					yValue = layout.height * element.value / maxValue;
-					yPrevious = layout.height * element.previous / maxValue;
-					if (yValue >= 1) groupS[index].append("rect")
+				// Draw
+				for (var f = 0; f < deck.length; f++) {
+					yFrom = layout.height * valuesFrom[index][f] / maxValue;
+					yTo = layout.height * valuesTo[index][f] / maxValue;
+					if (yTo - yFrom >= 1) groupS[index].append("rect")
 						.attr("width", layout.stacks.width)
 						.attr("x", 0)
-						.attr("y", layout.height - yPrevious - yValue)
-						.attr("height", yValue)
-						.style("fill", deck[i].color)
-				}, this);
+						.attr("y", layout.height - yTo)
+						.attr("height", yTo - yFrom)
+						.style("fill", deck[f].color)
+				}
 			}
 		}
 		
 		// Bind
 		// (call the first repaint instance)
-		scope.$watch(function() { return stats.mode; }, repaint);
+		scope.$watch(function() { console.log(((stats.mode == 'units') ? 1 : 2) + scope.focusT, scope.focusT); return ((stats.mode == 'units') ? 1 : 2) + scope.focusT }, repaint);
 	};
 
 
