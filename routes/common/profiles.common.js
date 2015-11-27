@@ -290,7 +290,8 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			threads:		profile.hardware.data.threads,	// TO REPLACE with app's #threads
 			timeStep:		profile.timeStep,
 			timeMin:		0,
-			timeMax:		0
+			timeMax:		0,
+			duration:		0
 		},
 		stats: {
 			idle:			0,
@@ -835,8 +836,20 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	});
 
 
+	/**
+	 *
+	 *	Post treatment
+	 *
+	 */
+	data.info.duration = data.info.timeMax + data.info.timeStep;
+	
 
-	// computation done
+
+	/**
+	 *
+	 *	Done!
+	 *
+	 */
 	return data;
 }
 
@@ -866,7 +879,7 @@ function exportInfo(output, profile) {
 		timeMin:		data.info.timeMin,
 		timeMax:		data.info.timeMax,
 		timeStep:		data.info.timeStep,
-		duration:		data.info.timeMax + data.info.timeStep
+		duration:		data.info.duration
 	};
 }
 
