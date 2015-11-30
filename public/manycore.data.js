@@ -222,7 +222,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			data: {
 				stats: [facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf],
 				focus: [facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf],
-				statsFocusable: true //'amount',
+				statsFocusable: true, //'amount'
+				time: 'step'
 			},
 			focus: [facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf],
 			legend: {

@@ -175,9 +175,10 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	function createStats(widget, index) {
 		var stats = {
 			version: 0,
+			time: widget.deck.data.time,
 			table: document.getElementsByClassName('table-legend')[index],
 			deck: Array.isArray(widget.deck.data) ? widget.deck.data : widget.deck.data.stats,
-			focusable: widget.deck.data.statsFocusable,
+			focusable: isStatHandleFocus(widget.deck.data.time),
 			mode: $scope.statMode
 		};
 		
@@ -226,8 +227,8 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		stats.version++;
 	}
 	
-	function isStatHandleFocus(stats) {
-		return !!stats.focusable;
+	function isStatHandleFocus(mode) {
+		return mode == 'step';
 	}
 	
 	
@@ -308,11 +309,12 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	 */
 	//var legendTableList;
 	function focusHandle(relativeX, x, maxX) {
-		var stat;
+		var stats;
 		
 		// Set focus positions
 		$scope.focusX = isNaN(relativeX) ? null : relativeX;
 		$scope.focusT = isNaN(relativeX) ? null : Math.round(relativeX * ($scope.selection.end - $scope.selection.begin) / maxX + $scope.selection.begin);
+		var timeFrameID = *jezfqmkj-*-*v/-*v-*/qsdf-
 		
 		console.log('new focusT', $scope.focusT);
 		
@@ -322,9 +324,9 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			// Loose focus
 			if ($scope.hasFocus) {
 				for (var s = 0; s < statsCache.length; s++) {
-					stat = statsCache[s];
-					if (isStatHandleFocus(stat)) {
-						stat.table.classList.remove('table-focus');
+					stats = statsCache[s];
+					if (stats.focusable) {
+						stats.table.classList.remove('table-focus');
 					}
 				}
 				$scope.hasFocus = false;
@@ -341,9 +343,12 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			// Gain focus
 			if (! $scope.hasFocus) {
 				for (var s = 0; s < statsCache.length; s++) {
-					stat = statsCache[s];
-					if (isStatHandleFocus(stat)) {
-						stat.table.classList.add('table-focus');
+					stats = statsCache[s];
+					if (stats.focusable) {
+						stats.table.classList.add('table-focus');
+						if (stats.time == 'step') {
+							updateStats(stats, timeFrameID);
+						}
 					}
 				}
 				$scope.hasFocus = true;
