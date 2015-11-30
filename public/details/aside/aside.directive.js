@@ -85,60 +85,51 @@ app.directive('chartStats', function() {
 			.attr({width: layout.width, height: layout.height})
 			.attr('class', "svg-stats");
 			
-		// Groups
-		var groupS = [];
-		groupS.push(svg.append("g")
-			.attr('class', "svg-stack svg-profile-1"));
-		if (profiles.length == 2)
-			groupS.push(svg.append("g")
-				.attr('class', "svg-stack svg-profile-2")
-				.attr("transform", "translate(" + (layout.stacks.width + layout.stacks.padding) + ", 0)"));
+		// Draw template
+		var group;
+		var shapes = [[], []];
+		for (var index = 0; index < profiles.length; index++) {
+			// Add group
+			if (index == 0)
+				group = svg.append("g")
+					.attr('class', "svg-stack svg-profile-1");
+			else
+				group = svg.append("g")
+					.attr('class', "svg-stack svg-profile-2")
+					.attr("transform", "translate(" + (layout.stacks.width + layout.stacks.padding) + ", 0)");
+			
+			// Draw
+			for (var f = 0; f < deck.length; f++) {
+				shapes[index].push(group.append("rect")
+					.attr("width", layout.stacks.width)
+					.attr("x", 0)
+					.style("fill", deck[f].color));
+			}
+		}
 
 		// Paint
 		function repaint() {
 			console.log("refesh stats");
-			// Data
-			var maxValue;
-			var valuesFrom = [[], []];
-			var valuesTo = [[], []];
-			var valuesMax = [];
 			
-			// Compute data
-			var profile;
+			var maxValue, yFrom, yTo;
 			for (var index = 0; index < profiles.length; index++) {
-				maxValue = 0;
-				profile = profiles[index];
-				for (var f = 0; f < deck.length; f++) {
-					valuesFrom[index].push(maxValue);
-					maxValue += (true) ? profile.raw.stats[deck[f].attr] : profile.raw.amount[0][deck[f].attr];
-					valuesTo[index].push(maxValue);
-				}
-				valuesMax.push(maxValue);
-			}
-			
-			var yFrom, yTo;
-			for (var index = 0; index < profiles.length; index++) {
-				// Clean
-				groupS[index].selectAll('*').remove();
-				maxValue =  (stats.mode == 'units') ? Math.max.apply(null, valuesMax) : valuesMax[index];
+				// Data
+				maxValue =  (stats.mode == 'units') ? Math.max.apply(null, stats.valuesMax) : stats.valuesMax[index];
 				
-				// Draw
+				// Refresh shape parameters
 				for (var f = 0; f < deck.length; f++) {
-					yFrom = layout.height * valuesFrom[index][f] / maxValue;
-					yTo = layout.height * valuesTo[index][f] / maxValue;
-					if (yTo - yFrom >= 1) groupS[index].append("rect")
-						.attr("width", layout.stacks.width)
-						.attr("x", 0)
+					yFrom = layout.height * stats.valuesFrom[index][f] / maxValue;
+					yTo = layout.height * stats.valuesTo[index][f] / maxValue;
+					shapes[index][f]
 						.attr("y", layout.height - yTo)
 						.attr("height", yTo - yFrom)
-						.style("fill", deck[f].color)
 				}
 			}
 		}
 		
 		// Bind
 		// (call the first repaint instance)
-		scope.$watch(function() { console.log(((stats.mode == 'units') ? 1 : 2) + scope.focusT, scope.focusT); return ((stats.mode == 'units') ? 1 : 2) + scope.focusT }, repaint);
+		scope.$watch(function() { return stats.version + .1 * ((stats.mode == 'units') ? 1 : 2); }, repaint);
 	};
 
 

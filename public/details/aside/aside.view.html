@@ -1,10 +1,10 @@
-<table class="table table-striped table-hover table-legend" ng-init="stats = createStats(widget)">
+<table class="table table-striped table-hover table-legend" ng-init="stats = createStats(widget, $index)">
 	<thead>
 		<tr ng-if="profiles.length == 1">
-			<th colspan="3"><span class="label label-focus">data under cursor</span></th>
+			<th colspan="3"><span class="label label-focus">under cursor</span></th>
 		</tr>
 		<tr ng-if="profiles.length == 2">
-			<th><span class="label label-focus">data under cursor</span></th>
+			<th><span class="label label-focus">under cursor</span></th>
 			<th>{{profiles[0].label}}</th>
 			<th colspan="2">
 				<div class="btn-group btn-group-xs">
@@ -16,16 +16,16 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="(i, e) in widget.deck.data | reverse" ng-init="iMax = widget.deck.data.length">
+		<tr ng-repeat="(i, e) in stats.deck | reverse" ng-init="iMax = stats.deck.length">
 			<td class="legend-col-label">
 				<span class="legend-dot" style="color: {{e.color}}">▮</span>
 				<strong>{{e.label}}</strong>
 			</td>
-			<td class="legend-col-p1">{{stats.values[0][iMax - i - 1].label1}}<br/>{{stats.values[0][iMax - i - 1].label2}}</td>
-			<td class="legend-col-stats" class="container-graph" rowspan="{{widget.deck.data.length}}" colspan="{{profiles.length}}" ng-if="$first">
+			<td class="legend-col-p1">{{stats.values1[0][iMax - i - 1]}}<br/>{{stats.values2[0][iMax - i - 1]}}</td>
+			<td class="legend-col-stats" class="container-graph" rowspan="{{stats.deck.length}}" colspan="{{profiles.length}}" ng-if="$first">
 				<chart-stats class="integrated-graph"></chart-stats>
 			</td>
-			<td class="legend-col-p2" ng-if="profiles.length >= 2">{{stats.values[1][iMax - i - 1].label1}}<br/>{{stats.values[1][iMax - i - 1].label2}}</td>
+			<td class="legend-col-p2" ng-if="profiles.length >= 2">{{stats.values1[1][iMax - i - 1]}}<br/>{{stats.values2[1][iMax - i - 1]}}</td>
 		</tr>
 		<!--
 		<tr ng-repeat="(i, e) in widget.deck.legend">

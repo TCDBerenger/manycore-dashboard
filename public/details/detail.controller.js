@@ -122,6 +122,113 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	$scope.isUpToVersion = function(widget) {
 		return widget.v <= profiles[0].version && (profiles.length == 1 || widget.v <= profiles[1].version);
 	};
+
+
+	/************************************************/
+	/* Generator - Graphical						*/
+	/************************************************/
+	/**
+	 * Generator - setting
+	 */
+	function initWidget(widget) {
+		// Create settings
+		var settings = { version: 0 };
+
+		if (widget.deck != null) {
+			// Modes
+			if (widget.deck.modes) {
+				widget.mode = widget.deck.modes[0].id;
+			}
+			
+			// Populate settings
+			if (widget.deck.settings != null) {
+				widget.deck.settings.forEach(function(setting) {
+					settings["_" + setting.property] = setting.value;
+	
+					settings.__defineGetter__(setting.property, function () {
+						return settings["_" + setting.property];
+					});
+	
+					settings.__defineSetter__(setting.property, function (val) {
+						if (settings["_" + setting.property] != val) {
+							try {
+								settings["_" + setting.property] = JSON.parse(val);
+							} catch(e) {
+								settings["_" + setting.property] = val;
+							};
+							settings.version++;
+						}
+					});
+				});
+			}
+		}
+		
+		// Populate
+		widget.settings = settings;
+	};
+
+
+	/************************************************/
+	/* Generator - Stats							*/
+	/************************************************/
+	var statsCache = [];
+	function createStats(widget, index) {
+		var stats = {
+			version: 0,
+			table: document.getElementsByClassName('table-legend')[index],
+			deck: Array.isArray(widget.deck.data) ? widget.deck.data : widget.deck.data.stats,
+			focusable: widget.deck.data.statsFocusable,
+			mode: $scope.statMode
+		};
+		
+		// Save cache
+		statsCache.push(stats);
+		
+		// Update stat values
+		updateStats(stats);
+		
+		return stats;
+	}
+
+	function updateStats(stats, t) {
+		var valuesMax = [];
+		var values1 = [[], []];
+		var values2 = [[], []];
+		var valuesFrom = [[], []];
+		var valuesTo = [[], []];
+		var isStats = !(t >= 0);
+		
+		// Compute data
+		var facet, value1, value2, maxValue, profile;
+		for (var index = 0; index < profiles.length; index++) {
+			maxValue = 0;
+			profile = profiles[index];
+			for (var f = 0; f < stats.deck.length; f++) {
+				facet = stats.deck[f];
+				// Values
+				value1 = (isStats) ? profile.raw.stats[facet.attr] : profile.raw.amount[t][facet.attr];
+				value2 = (isStats) ? profile.raw.statsPercent[facet.attr] : profile.raw.amountPercent[t][facet.attr];
+				values1[index].push((facet.unity) ? value1 + '\u00A0' + facet.unity : value1);
+				values2[index].push((value2) ? value2 + '\u00A0%' : null);
+				// From TO
+				valuesFrom[index].push(maxValue);
+				maxValue += value1;
+				valuesTo[index].push(maxValue);
+			}
+			valuesMax.push(maxValue);
+		}
+		
+		stats.values1 = values1;
+		stats.values2 = values2;
+		stats.valuesFrom = valuesFrom;
+		stats.valuesTo = valuesTo;
+		stats.valuesMax = valuesMax;
+		stats.version++;
+	}
+	
+	function isStatHandleFocus(stats) {
+		return !!stats.focusable;
+	}
 	
 	
 	/************************************************/
@@ -199,8 +306,10 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	/**
 	 * Focus - global handle
 	 */
-	var legendTableList;
+	//var legendTableList;
 	function focusHandle(relativeX, x, maxX) {
+		var stat;
+		
 		// Set focus positions
 		$scope.focusX = isNaN(relativeX) ? null : relativeX;
 		$scope.focusT = isNaN(relativeX) ? null : Math.round(relativeX * ($scope.selection.end - $scope.selection.begin) / maxX + $scope.selection.begin);
@@ -212,8 +321,11 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			
 			// Loose focus
 			if ($scope.hasFocus) {
-				for (var k = 0; k < legendTableList.length; k++) {
-					legendTableList[k].classList.remove('table-focus');
+				for (var s = 0; s < statsCache.length; s++) {
+					stat = statsCache[s];
+					if (isStatHandleFocus(stat)) {
+						stat.table.classList.remove('table-focus');
+					}
 				}
 				$scope.hasFocus = false;
 			}
@@ -228,9 +340,11 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			
 			// Gain focus
 			if (! $scope.hasFocus) {
-				legendTableList = document.getElementsByClassName('table-legend');
-				for (var k = 0; k < legendTableList.length; k++) {
-					legendTableList[k].classList.add('table-focus');
+				for (var s = 0; s < statsCache.length; s++) {
+					stat = statsCache[s];
+					if (isStatHandleFocus(stat)) {
+						stat.table.classList.add('table-focus');
+					}
 				}
 				$scope.hasFocus = true;
 			}
@@ -261,108 +375,6 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			if (ruleValueElements[id])	ruleValueElements[id].innerHTML = v;
 		}
 	};
-
-
-	/************************************************/
-	/* Generator - Graphical						*/
-	/************************************************/
-	/**
-	 * Generator - setting
-	 */
-	function initWidget(widget) {
-		// Create settings
-		var settings = { version: 0 };
-
-		if (widget.deck != null) {
-			// Modes
-			if (widget.deck.modes) {
-				widget.mode = widget.deck.modes[0].id;
-			}
-			
-			// Populate settings
-			if (widget.deck.settings != null) {
-				widget.deck.settings.forEach(function(setting) {
-					settings["_" + setting.property] = setting.value;
-	
-					settings.__defineGetter__(setting.property, function () {
-						return settings["_" + setting.property];
-					});
-	
-					settings.__defineSetter__(setting.property, function (val) {
-						if (settings["_" + setting.property] != val) {
-							try {
-								settings["_" + setting.property] = JSON.parse(val);
-							} catch(e) {
-								settings["_" + setting.property] = val;
-							};
-							settings.version++;
-						}
-					});
-				});
-			}
-		}
-		
-		// Populate
-		widget.settings = settings;
-	};
-
-
-	/************************************************/
-	/* Generator - Stats							*/
-	/************************************************/
-	var statsCache = [];
-	function createStats(widget) {
-		var stats = {
-			version: 0,
-			deck: widget.deck.data,
-			mode: $scope.statMode,
-//			focusT: null,
-		};
-		
-		// Save cache
-		statsCache.push(stats);
-		
-		// Update stat values
-		updateStats(stats);
-		
-		return stats;
-	}
-
-	function updateStats(stats) {
-		var sums = (profiles.length == 1) ? [0] : [0, 0];
-		var values = (profiles.length == 1) ? [[]] : [[], []];
-		
-		var value;
-		profiles.forEach(function(profile, index) {
-			stats.deck.forEach(function(facet) {
-				value = Math.round(profile.currentData.stats[facet.cat][facet.attr]);
-				values[index].push({
-					previous: sums[index],
-					value: value,
-					label1: (facet.unity) ? value + '\u00A0' + facet.unity : value
-				});
-				sums[index] += value;
-			});
-		});
-		
-		if (stats.deck.length == 1) {
-			for (var p = 0; p < profiles.length; p++) {
-				values[p][0].label2 = '<todo>';
-			}
-			
-		} else {
-			for (var p = 0; p < profiles.length; p++) {
-				for (var f = 0; f < stats.deck.length; f++) {
-					values[p][f].label2 = Math.round(100 * values[p][f].value / sums[p]) + '\u00A0%';
-				}
-			}
-		}
-		
-		stats.version++;
-		stats.values = values;
-		stats.sums = sums
-		stats.maxSum = Math.max.apply(this, sums);
-	}
 
 	
 	/************************************************/

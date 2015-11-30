@@ -215,11 +215,15 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 
 	return {
 		cacheMisses: {
-			graph : {
+			graph: {
 				v:		[facets.hpf, facets.l3, facets.l2, facets.l1, facets.tlb, facets.ipc],
 				limit:	limit
 			},
-			data: [facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf],
+			data: {
+				stats: [facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf],
+				focus: [facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf],
+				statsFocusable: true //'amount',
+			},
 			focus: [facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf],
 			legend: {
 				axis: [
