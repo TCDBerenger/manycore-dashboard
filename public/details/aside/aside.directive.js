@@ -72,7 +72,7 @@ app.directive('chartStats', function() {
 		// Attributes
 		var stats = scope.stats;
 		var profiles = scope.profiles;
-		var deck = scope.widget.deck.data;
+		var deck = scope.stats.deck;
 		
 		// Compute layout
 		layout.refresh(deck, profiles);
@@ -118,10 +118,10 @@ app.directive('chartStats', function() {
 				
 				// Refresh shape parameters
 				for (var f = 0; f < deck.length; f++) {
-					yFrom = layout.height * stats.valuesFrom[index][f] / maxValue;
-					yTo = layout.height * stats.valuesTo[index][f] / maxValue;
+					yFrom = layout.height * stats.valuesStack[index][f] / maxValue || 0;
+					yTo = layout.height * stats.valuesStack[index][f + 1] / maxValue || 0;
 					shapes[index][f]
-						.attr("y", layout.height - yTo)
+						.attr("y", yFrom)
 						.attr("height", yTo - yFrom)
 				}
 			}

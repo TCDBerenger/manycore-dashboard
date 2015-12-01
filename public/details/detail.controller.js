@@ -1,3 +1,5 @@
+/* global angular */
+
 app.controller('DetailController', ['$scope', '$rootScope', '$window', '$stateParams', '$http', 'selectedProfiles', 'categories', 'widgets', function($scope, $rootScope, $window, $stateParams, $http, selectedProfiles, categories, widgets) {
 	/************************************************/
 	/* Constructor - Init							*/
@@ -180,7 +182,11 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			table: document.getElementsByClassName('table-legend')[index],
 			deck: Array.isArray(widget.deck.data) ? widget.deck.data : widget.deck.data.stats,
 			focusable: isStatHandleFocus(widget.deck.data.time),
-			mode: $scope.statMode
+			mode: $scope.statMode,
+			valuesMax: [],
+			values1: [[], []],
+			values2: [[], []],
+			valuesStack: [[], []]
 		};
 		
 		// Save cache
@@ -193,38 +199,29 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	}
 
 	function updateStats(stats, positions) {
-		var valuesMax = [];
-		var values1 = [[], []];
-		var values2 = [[], []];
-		var valuesFrom = [[], []];
-		var valuesTo = [[], []];
-		var isStats = positions.isOut;
+		// Stats mode (is stats or is focus)
+		var isStats = ! positions || positions.isOut;
 		
 		// Compute data
 		var facet, value1, value2, maxValue, profile;
 		for (var index = 0; index < profiles.length; index++) {
 			maxValue = 0;
 			profile = profiles[index];
+			stats.valuesStack[index][0] = 0;
 			for (var f = 0; f < stats.deck.length; f++) {
 				facet = stats.deck[f];
 				// Values
-				value1 = (isStats) ? profile.raw.stats[facet.attr] : profile.raw.amount[positions.f50][facet.attr];
-				value2 = (isStats) ? profile.raw.statsPercent[facet.attr] : profile.raw.amountPercent[positions.f50][facet.attr];
-				values1[index].push((facet.unity) ? value1 + '\u00A0' + facet.unity : value1);
-				values2[index].push((value2) ? value2 + '\u00A0%' : null);
+				value1 = (isStats) ? profile.raw.stats[facet.attr] : (profile.raw.amount[positions.i50]) ? profile.raw.amount[positions.i50][facet.attr] : null;
+				value2 = (isStats) ? profile.raw.statsPercent[facet.attr] : (profile.raw.amountPercent[positions.i50]) ? profile.raw.amountPercent[positions.i50][facet.attr] : null;
+				stats.values1[index][f] = (facet.unity) ? value1 + '\u00A0' + facet.unity : value1;
+				stats.values2[index][f] = (value2 != undefined) ? value2 + '\u00A0%' : null;
 				// From TO
-				valuesFrom[index].push(maxValue);
 				maxValue += value1;
-				valuesTo[index].push(maxValue);
+				stats.valuesStack[index][f + 1] = maxValue;
 			}
-			valuesMax.push(maxValue);
+			stats.valuesMax[index] = maxValue;
 		}
 		
-		stats.values1 = values1;
-		stats.values2 = values2;
-		stats.valuesFrom = valuesFrom;
-		stats.valuesTo = valuesTo;
-		stats.valuesMax = valuesMax;
 		stats.version++;
 	}
 	
@@ -310,53 +307,62 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	 */
 	//var legendTableList;
 	function focusHandle(relativeX, x, maxX) {
+		var positions = { isOut: isNaN(relativeX) };
 		var stats;
-		var positions = {};
+		var needToUpdateStats;
 		
-		// Set focus positions
-		positions.isOut = isNaN(relativeX);
-		positions.x = isNaN(relativeX) ? null : relativeX;
-		positions.t = isNaN(relativeX) ? null : Math.round(relativeX * ($scope.selection.end - $scope.selection.begin) / maxX + $scope.selection.begin);
-		
-		// Profiles
-		addStepPosition(positions, 50);
-		
-		// Stats
-		for (var s = 0; s < statsCache.length; s++) {
-			if (statsCache[s].step) {
-				addStepPosition(positions, statsCache[s].step);
-			}
+		// Check new state
+		// NO CHANGE: always on stats mode
+		if ((! $scope.focusPosition || $scope.focusPosition.isOut) && positions.isOut) {
+			return;
 		}
-		
-		console.log('new focusT', positions);
-		
-		if (isNaN(relativeX)) {
+		// NEW MODE: stats
+		else if (positions.isOut) {
+			// Hide Focus ruler
+			//console.log('new focusT', 'stats mode');
 			$scope.ruler.style.display = 'none';
 			
-			// Loose focus
-			if ($scope.hasFocus) {
-				for (var s = 0; s < statsCache.length; s++) {
-					stats = statsCache[s];
-					if (stats.focusable) {
-						stats.table.classList.remove('table-focus');
-						if (stats.time == 'step') {
-							updateStats(stats, positions);
-						}
+			// Update stats
+			for (var s = 0; s < statsCache.length; s++) {
+				stats = statsCache[s];
+				if (stats.focusable) {
+					stats.table.classList.remove('table-focus');
+					if (stats.time == 'step') {
+						updateStats(stats, positions);
 					}
 				}
-				$scope.hasFocus = false;
 			}
-		} else {
+				
+		}
+		// NEW MODE: focus
+		else {
+			//console.log('new focusT', 'focus', relativeX);
+			needToUpdateStats = ! $scope.focusPosition;
+			
+			// Compute position
+			positions.x = relativeX;
+			positions.t = Math.round(relativeX * ($scope.selection.end - $scope.selection.begin) / maxX + $scope.selection.begin);
+			
+			// Update Focus ruler
 			$scope.ruler.style.display = 'initial';
 			$scope.ruler.style.left = x + 'px';
+			$scope.stamps[0].innerHTML = positions.t + ' ms';
+			$scope.stamps[1].innerHTML = positions.t + ' ms';
 			
-			var label = positions.t + ' ms';
+			// Compute position - Step time of profiles
+			addStepPosition(positions, 50);
+			needToUpdateStats = needToUpdateStats || positions.i50 != $scope.focusPosition.i50;
 			
-			$scope.stamps[0].innerHTML = label;
-			$scope.stamps[1].innerHTML = label;
+			// Compute position - Step time specific (by settings)
+			for (var s = 0; s < statsCache.length; s++) {
+				if (statsCache[s].step) {
+					addStepPosition(positions, statsCache[s].step);
+					needToUpdateStats = needToUpdateStats || positions['i' + statsCache[s].step] != $scope.focusPosition['i' + statsCache[s].step];
+				}
+			}
 			
-			// Gain focus
-			if (! $scope.hasFocus) {
+			// Update stats
+			if (needToUpdateStats) {
 				for (var s = 0; s < statsCache.length; s++) {
 					stats = statsCache[s];
 					if (stats.focusable) {
@@ -366,11 +372,16 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 						}
 					}
 				}
-				$scope.hasFocus = true;
 			}
 		}
 		
+		// Post treatment (common to all states)
+		$scope.hasFocus = ! positions.isOut;
+		$scope.focusPosition = positions;
 		$scope.$broadcast('xEvent', positions);
+		
+		// Launch events to update UI
+		$scope.$apply();
 	}
 	
 	function addStepPosition(positions, step) {
