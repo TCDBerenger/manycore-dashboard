@@ -176,6 +176,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		var stats = {
 			version: 0,
 			time: widget.deck.data.time,
+			step: widget.settings.timeGroup,
 			table: document.getElementsByClassName('table-legend')[index],
 			deck: Array.isArray(widget.deck.data) ? widget.deck.data : widget.deck.data.stats,
 			focusable: isStatHandleFocus(widget.deck.data.time),
@@ -191,13 +192,13 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		return stats;
 	}
 
-	function updateStats(stats, t) {
+	function updateStats(stats, positions) {
 		var valuesMax = [];
 		var values1 = [[], []];
 		var values2 = [[], []];
 		var valuesFrom = [[], []];
 		var valuesTo = [[], []];
-		var isStats = !(t >= 0);
+		var isStats = positions.isOut;
 		
 		// Compute data
 		var facet, value1, value2, maxValue, profile;
@@ -207,8 +208,8 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			for (var f = 0; f < stats.deck.length; f++) {
 				facet = stats.deck[f];
 				// Values
-				value1 = (isStats) ? profile.raw.stats[facet.attr] : profile.raw.amount[t][facet.attr];
-				value2 = (isStats) ? profile.raw.statsPercent[facet.attr] : profile.raw.amountPercent[t][facet.attr];
+				value1 = (isStats) ? profile.raw.stats[facet.attr] : profile.raw.amount[positions.f50][facet.attr];
+				value2 = (isStats) ? profile.raw.statsPercent[facet.attr] : profile.raw.amountPercent[positions.f50][facet.attr];
 				values1[index].push((facet.unity) ? value1 + '\u00A0' + facet.unity : value1);
 				values2[index].push((value2) ? value2 + '\u00A0%' : null);
 				// From TO
@@ -310,13 +311,24 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	//var legendTableList;
 	function focusHandle(relativeX, x, maxX) {
 		var stats;
+		var positions = {};
 		
 		// Set focus positions
-		$scope.focusX = isNaN(relativeX) ? null : relativeX;
-		$scope.focusT = isNaN(relativeX) ? null : Math.round(relativeX * ($scope.selection.end - $scope.selection.begin) / maxX + $scope.selection.begin);
-		var timeFrameID = *jezfqmkj-*-*v/-*v-*/qsdf-
+		positions.isOut = isNaN(relativeX);
+		positions.x = isNaN(relativeX) ? null : relativeX;
+		positions.t = isNaN(relativeX) ? null : Math.round(relativeX * ($scope.selection.end - $scope.selection.begin) / maxX + $scope.selection.begin);
 		
-		console.log('new focusT', $scope.focusT);
+		// Profiles
+		addStepPosition(positions, 50);
+		
+		// Stats
+		for (var s = 0; s < statsCache.length; s++) {
+			if (statsCache[s].step) {
+				addStepPosition(positions, statsCache[s].step);
+			}
+		}
+		
+		console.log('new focusT', positions);
 		
 		if (isNaN(relativeX)) {
 			$scope.ruler.style.display = 'none';
@@ -327,6 +339,9 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 					stats = statsCache[s];
 					if (stats.focusable) {
 						stats.table.classList.remove('table-focus');
+						if (stats.time == 'step') {
+							updateStats(stats, positions);
+						}
 					}
 				}
 				$scope.hasFocus = false;
@@ -335,7 +350,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			$scope.ruler.style.display = 'initial';
 			$scope.ruler.style.left = x + 'px';
 			
-			var label = $scope.focusT + ' ms';
+			var label = positions.t + ' ms';
 			
 			$scope.stamps[0].innerHTML = label;
 			$scope.stamps[1].innerHTML = label;
@@ -347,7 +362,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 					if (stats.focusable) {
 						stats.table.classList.add('table-focus');
 						if (stats.time == 'step') {
-							updateStats(stats, timeFrameID);
+							updateStats(stats, positions);
 						}
 					}
 				}
@@ -355,7 +370,17 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			}
 		}
 		
-		$scope.$broadcast('xEvent', relativeX);
+		$scope.$broadcast('xEvent', positions);
+	}
+	
+	function addStepPosition(positions, step) {
+		if (positions.isOut) {
+			positions['i' + step] = null;
+			positions['f' + step] = null;
+		} else if (! positions['i' + step]) {
+			positions['i' + step] = Math.floor(positions.t / step);
+			positions['f' + step] = Math.floor(positions.t / step) * step;
+		}
 	}
 
 	/**
@@ -419,8 +444,9 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	$scope.valuedPins = []; // poputaled in focusInitPins()
 	//$scope.focusRulesHandle = focusRulesHandle;
 	$scope.hasFocus = false;						// updated by focusHandle
-	$scope.focusX = null;							// updated by focusHandle
-	$scope.focusT = null;							// updated by focusHandle
+	$scope.focusPosition = null;					// updated by focusHandle
+//	$scope.focusX = null;							// updated by focusHandle
+//	$scope.focusT = null;							// updated by focusHandle
 	$scope.focusRuleHandle = focusRuleHandle;
 	$scope.focusInitPins = focusInitPins;
 	$scope.focusMovePin = focusMovePin;

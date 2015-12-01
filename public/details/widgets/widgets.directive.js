@@ -1,3 +1,4 @@
+/* global app */
 /**********************************************************/
 /*														  */
 /*	Common smart objects								  */
@@ -330,14 +331,14 @@ function directive_bind(scope, element, r, repaint, select, addWidgetY) {
 	
 	// Selection FROM controller
 	// Controller treated and sent selection position
-	scope.$on('xEvent', function(event, x) {
-		if (isNaN(x)) {
+	scope.$on('xEvent', function(event, positions) {
+		if (positions.isOut) {
 			directive_unselect(r);
 		} else {
 			if (addWidgetY)
-				select(x, r.container.getBoundingClientRect().top + window.pageYOffset - document.documentElement.clientTop);
+				select(positions, r.container.getBoundingClientRect().top + window.pageYOffset - document.documentElement.clientTop);
 			else
-				select(x);
+				select(positions);
 		}
 	});
 }
@@ -678,10 +679,10 @@ app.directive('chartPercent', function() {
 		}
 
 		// Select
-		function select(x, y0) {
+		function select(positions, y0) {
 			// Time ID
-			var tIndex = Math.floor(r.scaleX.invert(x) / 50);
-			var t = tIndex * 50;
+			var tIndex = positions.i50;
+			var t = positions.f50;
 			if (tIndex == r.meta.lastSelectID) {
 				return;
 			} else {
@@ -872,9 +873,9 @@ app.directive('chartUnits', function() {
 		}
 
 		// Select
-		function select(x, y0) {
+		function select(positions, y0) {
 			// Time ID
-			var tIndex = Math.floor(r.scaleX.invert(x) / r.settings.timeGroup);
+			var tIndex = Math.floor(positions.t / r.settings.timeGroup);
 			if (tIndex == r.meta.lastSelectID) {
 				return;
 			} else {
@@ -1042,9 +1043,9 @@ app.directive('chartStack', function() {
 		}
 
 		// Select
-		function select(x) {
+		function select(positions) {
 			// Time ID
-			var tIndex = Math.floor(r.scaleX.invert(x) / 50);
+			var tIndex = positions.f50;
 			if (tIndex >= r.meta.ends[index] / r.settings.timeGroup) {
 				return;
 			} else {
@@ -1235,7 +1236,7 @@ app.directive('chartThreads', function() {
 		}
 
 		// Select
-		function select(x) {
+		function select(positions) {
 		}
 
 		// Bind
@@ -1600,15 +1601,15 @@ app.directive('chartLines', function() {
 		}
 
 		// Select
-		function select(x, y0) {
+		function select(positions, y0) {
 			
 			// Select melody
 			if (r.deck.melody && ! r.meta.disableMelody) {
 				
 				// Time ID
-				var t = r.scaleX.invert(x);
-				var tIndex = Math.floor(t / 50);
-				var frameID = tIndex * 50;
+				var t = positions.t;
+				var tIndex = positions.f50;
+				var frameID = positions.i50;
 				t = Math.round(t);
 				if (tIndex == r.meta.lastSelectID) {
 					return;
