@@ -16,16 +16,16 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="(i, e) in stats.deck | reverse" ng-init="iMax = stats.deck.length">
+		<tr ng-repeat="(i, e) in stats.deck" ng-init="iMax = stats.deck.length">
 			<td class="legend-col-label">
 				<span class="legend-dot" style="color: {{e.color}}">▮</span>
 				<strong>{{e.label}}</strong>
 			</td>
-			<td class="legend-col-p1">{{stats.values1[0][iMax - i - 1]}}<br/>{{stats.values2[0][iMax - i - 1]}}</td>
+			<td class="legend-col-p1">{{stats.values1[0][i]}}<br/>{{stats.values2[0][i]}}</td>
 			<td class="legend-col-stats" class="container-graph" rowspan="{{stats.deck.length}}" colspan="{{profiles.length}}" ng-if="$first">
 				<chart-stats class="integrated-graph"></chart-stats>
 			</td>
-			<td class="legend-col-p2" ng-if="profiles.length >= 2">{{stats.values1[1][iMax - i - 1]}}<br/>{{stats.values2[1][iMax - i - 1]}}</td>
+			<td class="legend-col-p2" ng-if="profiles.length >= 2">{{stats.values1[1][i]}}<br/>{{stats.values2[1][i]}}</td>
 		</tr>
 		<!--
 		<tr ng-repeat="(i, e) in widget.deck.legend">
