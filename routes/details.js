@@ -241,12 +241,12 @@ function addRawData(output, id, statProperties, amountProperties, eventPropertie
 					
 					maxAL = data.locality.byFrames[timeID].ipc + data.locality.byFrames[timeID].tlb + data.locality.byFrames[timeID].l1 + data.locality.byFrames[timeID].l2 + data.locality.byFrames[timeID].l3 + data.locality.byFrames[timeID].hpf;
 					
-					amountPercent.ipc =	(100 * data.locality.byFrames[timeID].ipc / maxAL);
-					amountPercent.tlb =	(100 * data.locality.byFrames[timeID].tlb / maxAL);
-					amountPercent.l1 =	(100 * data.locality.byFrames[timeID].l1 / maxAL);
-					amountPercent.l2 =	(100 * data.locality.byFrames[timeID].l2 / maxAL);
-					amountPercent.l3 =	(100 * data.locality.byFrames[timeID].l3 / maxAL);
-					amountPercent.hpf =	(100 * data.locality.byFrames[timeID].hpf / maxAL);
+					amountPercent.ipc =	Math.round(100 * data.locality.byFrames[timeID].ipc / maxAL);
+					amountPercent.tlb =	Math.round(100 * data.locality.byFrames[timeID].tlb / maxAL);
+					amountPercent.l1 =	Math.round(100 * data.locality.byFrames[timeID].l1 / maxAL);
+					amountPercent.l2 =	Math.round(100 * data.locality.byFrames[timeID].l2 / maxAL);
+					amountPercent.l3 =	Math.round(100 * data.locality.byFrames[timeID].l3 / maxAL);
+					amountPercent.hpf =	Math.round(100 * data.locality.byFrames[timeID].hpf / maxAL);
 				} else {
 					amount.ipc = null;	amountPercent.ipc =	0;
 					amount.tlb = null;	amountPercent.tlb =	0;
