@@ -928,10 +928,9 @@ app.directive('chartUnits', function() {
 				if (facet.unity) value += ' ' + facet.unity;
 				
 				// Send new coordinates to controller
-				//console.log(index, y0, (r.iData[index][v + 1][tIndex * 4 + 1] + r.iData[index][v][tIndex * 4 + 1]) / 2, r.layout.profile.y[index], r.meta.vOverflow[index]);
 				r.scope.focusRuleHandle(
 					prefixID + facet.attr,
-					y0 + (r.iData[index][v + 1][tIndex * 4 + 1] + r.iData[index][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[index] + r.meta.vOverflow[index],
+					y0 + (r.iData[index][v + 1][tIndex * 4 + 1] + r.iData[index][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[index] + r.meta.vOverflow[0],
 					value);
 			}
 		}
