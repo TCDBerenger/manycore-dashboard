@@ -173,15 +173,18 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	/************************************************/
 	/* Generator - Stats							*/
 	/************************************************/
+	var statsIndex = 0;
 	var statsCache = [];
-	function createStats(widget, index) {
+	function createStats(widget) {
 		var stats = {
 			version: 0,
-			time: widget.deck.data.time,
+			//time: widget.deck.data.timeHandling,
 			step: widget.settings.timeGroup,
-			table: document.getElementsByClassName('table-legend')[index],
+			table: document.getElementsByClassName('table-legend')[statsIndex],
+			tableLabel: null, // document.getElementsByClassName('table-legend-label')[statsIndex]
 			deck: Array.isArray(widget.deck.data) ? widget.deck.data : widget.deck.data.stats,
-			focusable: isStatHandleFocus(widget.deck.data.time),
+			focusable: isStatHandleFocus(widget.deck.data.timeHandling),
+			focusLabel: 'under cursor',
 			mode: $scope.statMode,
 			valuesMax: [],
 			values1: [[], []],
@@ -191,6 +194,8 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		
 		// Save cache
 		statsCache.push(stats);
+		widget.stats = stats;
+		statsIndex++;
 		
 		// Update stat values
 		updateStats(stats);
@@ -213,7 +218,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 				// Values
 				value1 = (isStats) ? profile.raw.stats[facet.attr] : (profile.raw.amount[positions.i50]) ? profile.raw.amount[positions.i50][facet.attr] : null;
 				value2 = (isStats) ? profile.raw.statsPercent[facet.attr] : (profile.raw.amountPercent[positions.i50]) ? profile.raw.amountPercent[positions.i50][facet.attr] : null;
-				stats.values1[index][f] = (facet.unity) ? value1 + '\u00A0' + facet.unity : value1;
+				stats.values1[index][f] = (value1 != undefined) ? (facet.unity) ? value1 + '\u00A0' + facet.unity : value1 : null;
 				stats.values2[index][f] = (value2 != undefined) ? value2 + '\u00A0%' : null;
 				// From TO
 				maxValue += value1;
@@ -223,10 +228,11 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		}
 		
 		stats.version++;
+		//console.log(stats);
 	}
 	
 	function isStatHandleFocus(mode) {
-		return mode == 'step';
+		return mode == 'default';
 	}
 	
 	
@@ -327,9 +333,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 				stats = statsCache[s];
 				if (stats.focusable) {
 					stats.table.classList.remove('table-focus');
-					if (stats.time == 'step') {
-						updateStats(stats, positions);
-					}
+					updateStats(stats, positions);
 				}
 			}
 				
@@ -367,9 +371,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 					stats = statsCache[s];
 					if (stats.focusable) {
 						stats.table.classList.add('table-focus');
-						if (stats.time == 'step') {
-							updateStats(stats, positions);
-						}
+						updateStats(stats, positions);
 					}
 				}
 			}
