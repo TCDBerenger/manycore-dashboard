@@ -8,7 +8,26 @@
 .dashboard h2 {
 	margin-top: 0px;
 }
-
+/*
+.dashboard .div-link {
+	cursor: pointer;
+}
+.dashboard .div-link .div-tooltip {
+	position: absolute;
+	z-index: 1000;
+	display: none;
+	width: 200px;
+	margin-left: -200px;
+	
+	font-size: 0.7em;
+	font-weight: bold;
+	text-align: right;
+	text-shadow: 0 0 4px #FFF;
+}
+.dashboard .div-link:hover .div-tooltip {
+	display: block;
+}
+*/
 
 
 /**
@@ -132,7 +151,7 @@
 	margin: auto 0.25em;
 	border: none;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-	transition: .1s linear all;
+	transition: width .1s linear all;
 }
 .dashboard .category .title.for1 hr:first-child { flex: none; width: 25px; }
 .dashboard .category .title span {
@@ -146,6 +165,20 @@
 .dashboard .category .title i:last-of-type { margin-right: 6px; }
 .dashboard .category .title.for1 i:last-of-type { display: none; }
 
+.dashboard .category {
+	cursor: pointer;
+}
+.dashboard .category:hover {
+	background-color: rgba(91, 192, 222, 0.08);
+}
+.dashboard .category:hover .title span {
+	font-weight: bold;
+	color: #5BC0DE;
+}
+.dashboard .category:hover .title hr {
+	border-bottom-color: #5BC0DE;
+	border-bottom-width: 2px;
+}
 
 
 /**

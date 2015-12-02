@@ -163,6 +163,21 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	}
 
 	
+	/**
+	 * Tooltip - follow
+	 */
+	/*
+	var tooltipCache = [];
+	$scope.categoryTooltipMouseMoveHandler = function(event, index) {
+		if (! tooltipCache[index])
+			tooltipCache[index] = document.getElementById('div-tooltip-' + index);
+		
+		tooltipCache[index].style.left = event.pageX + 'px';
+        tooltipCache[index].style.top = event.pageY + 'px';
+	};
+	*/
+	
+	
 
 	/************************************************/
 	/* Functions - Handle data						*/

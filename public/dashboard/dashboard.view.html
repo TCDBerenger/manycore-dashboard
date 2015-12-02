@@ -33,7 +33,7 @@
 		<h2 ng-if="isStep1Compare()"><strong>Step 1 bis</strong> compare</h2>
 		<p>&nbsp;</p>
 		<p class="profile-group">
-			<button type="button" class="btn {{ profile.version < 4 | iif : 'btn-default' : 'btn-primary'}} btn-xs" ng-click="selectProfile(profile)" ng-repeat="profile in profiles | enabled | notin : selectedProfiles | orderBy : 'label'" tooltip="{{profile.desc}}">{{profile.label}}</button>
+			<button type="button" class="btn {{ profile.version < 4 | iif : 'btn-default' : 'btn-primary'}} btn-xs" ng-click="selectProfile(profile)" ng-repeat="profile in profiles | enabled | notin : selectedProfiles | orderBy : 'label'" tooltip="{{::profile.desc}}">{{::profile.label}}</button>
 		</p>
 		<p>
 			<button type="button" class="btn btn-primary btn-xs"></button> in accordance with last data revision<br />
@@ -87,7 +87,7 @@
 			</span>
 			<h2>Quick access</h2>
 			<div class="category-group">
-				<a ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})' ng-repeat="category in categories | enabled"><button type="button" class="btn btn-link btn-xs"><i class="fa fa-{{category.icon}}"></i>{{category.title}}</button></a>
+				<a ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})' ng-repeat="category in categories | enabled"><button type="button" class="btn btn-link btn-xs"><i class="fa fa-{{::category.icon}}"></i>{{::category.title}}</button></a>
 			</div>
 		</div></div>-->
 		
@@ -117,7 +117,9 @@
 	<ng-include src="'/template_profile.html'" ng-if="willProfile(1)" ng-init="pindex = 1"></ng-include>
 </div>
 
-<div class="row category" ng-if="hasProfiles()" ng-repeat="category in categories | enabled">
+<div class="row category div-link" ng-if="hasProfiles()" ng-repeat="category in categories | enabled" ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})'>
+	<!--<span id="div-tooltip-{{::$index}}" class="div-tooltip">view {{::category.title}} details <i class="fa fa-external-link"></i></span> ng-mousemove="categoryTooltipMouseMoveHandler($event, $index)"-->
+	
 	<!-- Strips (profile 1) -->
 	<ng-include src="'/template_profile_strips.html'" ng-init="pindex = 0"></ng-include>
 	
@@ -125,9 +127,9 @@
 	<div class="col-xs-6 category-main">
 		<!-- Title -->
 		<!--<div class="title" ng-class="{'for1': has1Profile(), 'for2': has2Profiles()}">
-			<hr/><i class="fa fa-{{category.icon}} text-muted"></i><span>{{category.title}}</span><i class="fa fa-{{category.icon}} text-muted"></i><hr/>
+			<hr/><i class="fa fa-{{::category.icon}} text-muted"></i><span>{{::category.title}}</span><i class="fa fa-{{category.icon}} text-muted"></i><hr/>
 		</div>-->
-		<div class="title" ng-class="{'for1': has1Profile(), 'for2': has2Profiles()}"><hr/><span>{{category.title}}</span><hr/></div>
+		<div class="title" ng-class="{'for1': has1Profile(), 'for2': has2Profiles()}"><hr/><span>{{::category.title}}</span><hr/></div>
 		
 		<!-- Gauges -->
 		<chart-gauges class="widget-graph"></chart-gauges>
@@ -195,9 +197,9 @@
 <script type="text/ng-template" id="/template_profile_strips.html">
 	<div class="col-xs-3 profile"><div class="tile">
 		<section class="strip" ng-repeat="strip in category.strips">
-			<a ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})'>
+			<!--<a ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})'>-->
 				<chart-strip class="widget-graph"></chart-strip>
-			</a>
+			<!--</a>-->
 		</section>
 	</div></div>
 </script>
