@@ -221,9 +221,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			data: {
 				stats: [facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf],
-				focus: [facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf],
-				statsFocusable: true, //'amount'
-				time: 'step'
+				timeHandling: 'default'
 			},
 			focus: [facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf],
 			legend: {
@@ -249,7 +247,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				melody:		facets.uu,
 				melody_cat:	'cores',
 			},
-			data : [facets.uu],
+			data: {
+				stats: [facets.i],
+				timeHandling: 'none'
+			},
 			legend: {
 				axis: [
 					{ b: '⊢', f: limit,	t: '[Y] Cores',	d: 'each line represents a core' }
@@ -269,7 +270,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				limit:	facets.i,
 				axis:	{ labels: 'cores' }
 			},
-			data : [facets.r, facets.uu, facets.lw],
+			data: {
+				stats: [facets.lw, facets.r, facets.i],
+				timeHandling: 'default'
+			},
 			focus: [facets.sys, facets.i, facets.r, facets.lw],
 			legend: {
 				axis: [
@@ -296,7 +300,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf) * 2; },
 				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf); }
 			},
-			data : [facets.ls, facets.lf],
+			data: {
+				stats: [facets.ls, facets.lf],
+				timeHandling: 'group'
+			},
 			focus: [facets.ls, facets.lf],
 			legend: {
 				axis: [
@@ -322,7 +329,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m * 2; },
 				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m; }
 			},
-			data : [facets.m],
+			data: {
+				stats: [facets.m],
+				timeHandling: 'group'
+			},
 			focus: [facets.m],
 			legend: {
 				axis: [
@@ -349,7 +359,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s * 2; },
 				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s; }
 			},
-			data : [facets.s],
+			data: {
+				stats: [facets.s],
+				timeHandling: 'group'
+			},
 			focus: [facets.s],
 			legend: {
 				axis: [
@@ -372,7 +385,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				limit:	facets.i,
 				axis:	{ labels: 'cores' }
 			},
-			data : [facets.r, facets.i, facets.y, facets.b],
+			data: {
+				stats: [facets.b, facets.y, facets.r, facets.i],
+				timeHandling: 'default'
+			},
 			focus: [facets.sys, facets.i, facets.r, facets.yb],
 			legend: {
 				axis: [
@@ -395,16 +411,16 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			settings: [
 			]
 		},
-		
-		
-		
-		migrationLT: {
+		threadFruitSalad: {
 			graph : {
 				h:			limit,		// threads (color)
 				ticks:		[facets.m],
 				periods:	[m],
 			},
-			data : [facets.m],
+			data: {
+				stats: [facets.m],
+				timeHandling: 'none'
+			},
 			legend: {
 				axis: [
 					{ b: '⊢', f: limit,	t: '[Y] Threads',	d: 'each line represents a thread complying with the start and end times' }
@@ -434,13 +450,16 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ property: 'disablePeriods', value: true, type: 'flag', label: 'Disable fruit salad' },
 			]
 		},
-		lockLT: {
+		threadLocks: {
 			graph : {
 				h:	limit,		// threads (color)
 				ticks:		[facets.ls, facets.lf],
 				periods:	[facets.lw],
 			},
-			data : [facets.lw],
+			data: {
+				stats: [facets.lw],
+				timeHandling: 'none'
+			},
 			legend: {
 				axis: [
 					{ b: '⊢', f: limit,	t: '[Y] Threads',	d: 'each line represents a thread complying with the start and end times' }
@@ -463,7 +482,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				lines:		buildCoresAnonymously,
 				sequences:	{ under: facets.q_s, count: facets.q_p }
 			},
-			data : [],
+			data: {
+				stats: [],
+				timeHandling: 'none'
+			},
 			legend: {
 				axis: [
 					{ b: '⊢', f: limit,	t: '[Y] Cores',	d: 'each line represents a core, not in the right order, not with the right thread' }
@@ -504,6 +526,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					failID: 0
 				}
 			},
+			data: {
+				stats: [facets.ls, facets.lf],
+				timeHandling: 'none'
+			},
 			legend: {
 				axis: [
 					{ b: '⊢', f: limit,	t: '[Y] Threads',	d: 'each line represents a thread complying with the start and end times' },
@@ -515,7 +541,6 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '▰', f: facets.ls,	t: 'Lock hold',					d: '' },
 				]
 			},
-			data : [facets.ls, facets.lf],
 			clues: [],
 			settings: [
 				{ property: 'hackLineProvider', value: true, type: 'flag', label: 'Data provider', desc: 'use a hack for dinner philosopher problems' },
@@ -547,19 +572,24 @@ app.factory('widgets', ['decks', function(decks) {
 	var i = 0;
 	function id() { return ++i; }
 	
+	// Reserved properties:
+	//	- data:			automatically provided and updated in case of time group
+	//	- settings:		programmatically provided and handled (data of deck.settings)
+	//	- stats:		data and UI computed for focus or not
+	
 	return {
 		cacheBreackdown:	{ id: id(),	v: 3, file: 'chart-d3-pcoords',	deck: decks.pCoordDL,			wide: true,		title: 'Breackdown of time spent on locality misses',				desc: ''},
-		cacheInvalid:		{ id: id(),	v: 3, file: 'chart-todo',		deck: null,						wide: false,	title: 'Cache misses from updating shared data',					desc: ''},
+		cacheInvalid:		{ id: id(),	v: 3, file: 'chart-todo',		deck: null,						wide: true,		title: 'Cache misses from updating shared data',					desc: ''},
 		cacheMisses:		{ id: id(),	v: 3, file: 'chart-percent',	deck: decks.cacheMisses,		wide: false,	title: 'Percentage of time spent on locality misses',				desc: ''},
 		coreIdle:			{ id: id(),	v: 3, file: 'chart-lines',		deck: decks.coreIdle,			wide: false,	title: 'Idle cores',												desc: 'Times that cores are idle'},
 		coreSequences:		{ id: id(),	v: 3, file: 'chart-lines',		deck: decks.sequences,			wide: false,	title: 'Single thread execution phases',							desc: 'alternating sequential/parallel execution'},
 		lockCounts:			{ id: id(),	v: 4, file: 'chart-units',		deck: decks.lockCounts,			wide: false,	title: 'Lock contentions',											desc: 'Locking with and without contention'},
 		lockContentions:	{ id: id(),	v: 4, file: 'chart-percent',	deck: decks.lockContentions,	wide: false,	title: 'Time waiting for a lock',									desc: ''},
 		threadChains:		{ id: id(),	v: 4, file: 'chart-lines',		deck: decks.chains,				wide: false,	title: 'Chains of dependencies on locks',							desc: 'synchronisations and waiting between threads'},
-		threadFruitSalad:	{ id: id(),	v: 3, file: 'chart-threads',	deck: decks.migrationLT,		wide: false,	title: 'Migrations by thread',										desc: 'creation, running, moving between cores, termination'},
-		threadLocks:		{ id: id(),	v: 4, file: 'chart-threads',	deck: decks.lockLT,				wide: false,	title: 'Time each thread spends waiting for locks',					desc: ''},
-		threadStates:		{ id: id(),	v: 3, file: 'chart-percent',	deck: decks.threadStates,		wide: false,	title: 'Breakdown of thread states compared to number of cores',	desc: 'number of threads compared to number of cores'},
+		threadFruitSalad:	{ id: id(),	v: 3, file: 'chart-threads',	deck: decks.threadFruitSalad,	wide: false,	title: 'Migrations by thread',										desc: 'creation, running, moving between cores, termination'},
+		threadLocks:		{ id: id(),	v: 4, file: 'chart-threads',	deck: decks.threadLocks,		wide: false,	title: 'Time each thread spends waiting for locks',					desc: ''},
 		threadMigrations:	{ id: id(),	v: 3, file: 'chart-units',		deck: decks.threadMigrations,	wide: false,	title: 'Rate of thread migrations',									desc: 'thread switching the core on which it is executing'},
+		threadStates:		{ id: id(),	v: 3, file: 'chart-percent',	deck: decks.threadStates,		wide: false,	title: 'Breakdown of thread states compared to number of cores',	desc: 'number of threads compared to number of cores'},
 		threadSwitches:		{ id: id(),	v: 3, file: 'chart-units',		deck: decks.threadSwitches,		wide: false,	title: 'Core swhitching the thread it is executing',				desc: 'thread switches'},
 	};
 }]);
