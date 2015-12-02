@@ -8,6 +8,9 @@
 .dashboard h2 {
 	margin-top: 0px;
 }
+.dashboard svg text {
+	pointer-events: none;
+}
 /*
 .dashboard .div-link {
 	cursor: pointer;
@@ -38,12 +41,13 @@
 	position: fixed;
 	top: 0px;
 	right: 0px;
-	width: 33.33333333%;
+	width: 40%;
 	height: 100%;
 	padding-top: 100px;
 	box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
 	background-clip: padding-box;
 	outline: 0px none;
+	overflow: auto;
 }
 .dashboard .wizard.hidden {
 	right: 35%;
@@ -55,10 +59,14 @@
 	margin-bottom: 40px;
 	padding: 20px 20px 20px 20px;
 }
+.dashboard .wizard .profile-group {
+	transition: all .1s ease;
+}
 .dashboard .wizard .profile-group button {
 	width: 90px;
 	margin-right: 8px;
 	margin-bottom: 6px;
+	transition: all .1s ease;
 }
 
 
@@ -99,7 +107,7 @@
 .dashboard .profile section + section { border-top: 1px solid rgba(0, 0, 0, 0.4); }
 .dashboard .profile section a { text-decoration: none !important; }
 .dashboard .profile section.title { padding: 20px 20px 10px 20px; }
-.dashboard .profile section.sequence { }
+.dashboard .profile section.sequence { height: 19px }
 .dashboard .profile section.strip { }
 
 .dashboard .profile h2 {
@@ -193,18 +201,19 @@
 .dashboard svg:hover .svg-text-hover {
 	text-shadow: 0 0 10px #FFF, 0 0 10px #FFF, 0 0 10px #FFF, 0 0 20px #FFF, 0 0 30px #FFF;
 	fill: #222;
+	font-weight: bold;
 }
 
 
 /**
  * Dashboard profile sequence
  */
-.dashboard .tile.tile-sequence {
+/*.dashboard .tile.tile-sequence {
 	height: 20px;
 	border-left: none;
 	border-right: none;
 	margin-bottom: 20px;
-}
+}*/
 .dashboard .svg-sequence .svg-line {
 	stroke: rgba(0, 0, 0, 0.4);
 	stroke-width: 1;
@@ -219,6 +228,10 @@
 	font-size: 14px;
 	fill: #FFF;
 	cursor: default;
+}
+.dashboard .svg-sequence:hover .svg-text-hover {
+	text-shadow: none;
+	fill: #FFF;
 }
 
 
@@ -246,6 +259,9 @@
 }
 .dashboard .svg-gauges .svg-label {
 	font-size: 10px;
+}
+.dashboard .svg-gauges .svg-labels .svg-label {
+	font-weight: bold;
 }
 .dashboard .svg-gauges .svg-test {
 	fill: rgba(0, 0, 0, 0.2);

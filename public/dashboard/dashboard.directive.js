@@ -187,7 +187,7 @@ app.directive('chartSequence', function() {
 			itemGap.attr("points", p2s(points));
 			itemLabel
 				.attr("x", container.clientWidth / 2)
-				.text((Math.round(profiles[pIndex].data.dash.info.duration / 100) / 10) + ' sec');
+				.text('duration: ' + (Math.round(profiles[pIndex].data.dash.info.duration / 100) / 10) + ' sec');
 		}
 		
 		scope.$watch(function() { return container.clientWidth * profiles.length * profiles[pIndex].id; }, repaint);

@@ -6,8 +6,9 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	/************************************************/
 	// Profiles
 	$scope.profiles = profileService.all;
-	$scope.selectedProfiles = []
+	$scope.selectedProfiles = [];
 	$scope.howWaiting = 0;
+	var waitingProfiles = [];
 
 	// Details
 	$scope.commonCategory = categories.common;
@@ -122,6 +123,13 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	 */
 	$scope.waitingData = function() {
 		return $scope.howWaiting > 0;
+	};
+	
+	/**
+	 * Profile - is selected
+	 */
+	$scope.isSelected = function(profile) {
+		return $scope.selectedProfiles.indexOf(profile) >= 0 || waitingProfiles.indexOf(profile) >= 0;
 	};
 	
 
@@ -274,6 +282,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	 * Load
 	 */
 	$scope.downloadData = function(profile) {
+		waitingProfiles.push(profile);
 		$scope.howWaiting++;
 
 		$http.get('/service/dash/'+ profile.id).success(function(data) {
@@ -283,6 +292,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 
 			$scope._selectProfile_withData(profile);
 
+			waitingProfiles.splice(waitingProfiles.indexOf(profile), 1);
 			$scope.howWaiting--;
 		});
 	};
