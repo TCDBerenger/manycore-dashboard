@@ -163,7 +163,7 @@ app.directive('chartSequence', function() {
 		var itemGap = group.append("polygon")
 			.attr('class', "svg-gap");
 		var itemLabel = group.append("text")
-			.attr('class', "svg-text-hover svg-label")
+			.attr('class', "svg-label")
 			.attr("y", layout.graph.height / 2)
 			.attr("text-anchor", 'middle')
 			.attr("alignment-baseline", 'central')

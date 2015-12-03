@@ -30,7 +30,7 @@
 			<i class="fa fa-hand-o-right fa-stack-1x text-info"></i>
 		</span>
 		<h2 ng-if="isStep1()"><strong>Step 1</strong> select a sample</h2>
-		<h2 ng-if="isStep1Compare()"><strong>Step 1</strong> compare a sample</h2>
+		<h2 ng-if="isStep1Compare()"><strong>Step 1 bis</strong> compare</h2>
 		<p>&nbsp;</p>
 		<p class="profile-group">
 			<button type="button" class="btn {{ profile.version < 4 | iif : 'btn-default' : 'btn-primary'}} btn-xs" ng-click="selectProfile(profile)" ng-repeat="profile in profiles | enabled | orderBy : 'label'" tooltip="{{::profile.desc}}" ng-disabled="isSelected(profile)">{{::profile.label}}</button>
@@ -52,7 +52,7 @@
 	<!-- Main -->
 	<div class="col-xs-6"><div class="row">
 		<!-- Step 1 (welcome message) -->
-		<div ng-if="isStep1()" class="col-xs-8 col-xs-offset-2"><div class="block block-imp block-title">
+		<div ng-if="isStep1()" class="col-xs-10 col-xs-offset-2" style="margin-top: 7%;"><div class="block block-imp block-title">
 			<span class="block-icon fa-stack">
 				<i class="fa fa-circle fa-stack-2x"></i>
 				<i class="fa fa-hand-spock-o fa-stack-1x fa-inverse"></i>
@@ -65,7 +65,7 @@
 			But, don't worry, you should see some low level data.</p>
 			<p><strong class="text-warning">Be careful.</strong> This tool is created for a research purpose and is in constant evolution.
 			Graphs could contain some mistakes and data could be miscomputed.</p>
-			<p><strong class="text-muted">Temporal data.</strong> To keep your experience simple and due to complex data harvesting, most of data are presented
+			<p><strong class="text-muted">Time.</strong> To keep your experience simple and due to complex data harvesting, most of data are presented
 			with a time frame, either 50 ms, or customisable.</p>
 			<p><strong class="text-info"><i class="fa fa-hand-o-right"></i> Start.</strong> To begin, select your first sample on the right.</p>
 		</div></div>

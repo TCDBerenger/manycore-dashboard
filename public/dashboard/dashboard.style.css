@@ -90,7 +90,7 @@
 	z-index: 100;
 	position: absolute;
 	top: 0px;
-	right: 14px;
+	right: 15px;
 	border-left: 1px solid rgba(0, 0, 0, 0.4);
 	border-bottom: 1px solid rgba(0, 0, 0, 0.4);
 	border-bottom-left-radius: 18px;
@@ -229,10 +229,12 @@
 	fill: #FFF;
 	cursor: default;
 }
+/*
 .dashboard .svg-sequence:hover .svg-text-hover {
 	text-shadow: none;
 	fill: #FFF;
 }
+*/
 
 
 
