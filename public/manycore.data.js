@@ -83,7 +83,11 @@ app.factory('facets', ['colours', function(colours) {
 }]);
 
 app.factory('decks', ['facets', 'colours', function(facets, colours) {
-
+	// Time handling constants
+	const TIME_NONE = 0;
+	const TIME_PROFILE = 10;
+	const TIME_CUSTOM = 20;
+	
 	function n2ft(v) {
 		switch(v) {
 			case 0.25:	return '¼';
@@ -212,17 +216,17 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 	// Fruit salad
 	var m =		JSON.parse(JSON.stringify(facets.m));
 	m.colors = ['#b6e3bc', '#b6e3da', '#b6cee3', '#bcb6e3', '#dab6e3', '#e3b6ce', '#e3bcb6', '#e3dab6'];
-
+	
 	return {
 		cacheMisses: {
+			handling: {
+				time: TIME_PROFILE,
+			},
 			graph: {
 				v:		[facets.hpf, facets.l3, facets.l2, facets.l1, facets.tlb, facets.ipc],
 				limit:	limit
 			},
-			data: {
-				stats: [facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf],
-				timeHandling: 'default'
-			},
+			data: [facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf],
 			focus: [facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf],
 			legend: {
 				axis: [
@@ -241,16 +245,16 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			settings: []
 		},
 		coreIdle: {
+			handling: {
+				time: TIME_NONE,
+			},
 			graph : {
 				h:			limit,		// threads (color)
 				lines:		buildCores,
 				melody:		facets.uu,
 				melody_cat:	'cores',
 			},
-			data: {
-				stats: [facets.i],
-				timeHandling: 'none'
-			},
+			data: [facets.i],
 			legend: {
 				axis: [
 					{ b: '⊢', f: limit,	t: '[Y] Cores',	d: 'each line represents a core' }
@@ -265,15 +269,15 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			]
 		},
 		lockContentions: {
+			handling: {
+				time: TIME_PROFILE,
+			},
 			graph : {
 				v:		[facets.sys, facets.i, facets.r, facets.lw],
 				limit:	facets.i,
 				axis:	{ labels: 'cores' }
 			},
-			data: {
-				stats: [facets.lw, facets.r, facets.i],
-				timeHandling: 'default'
-			},
+			data: [facets.lw, facets.r, facets.i],
 			focus: [facets.sys, facets.i, facets.r, facets.lw],
 			legend: {
 				axis: [
@@ -292,6 +296,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			]
 		},
 		lockCounts: {
+			handling: {
+				time:	TIME_CUSTOM,
+				v:		[facets.ls, facets.lf]
+			},
 			graph : {
 				v:			[facets.ls, facets.lf],
 				limit:		limit,
@@ -300,10 +308,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf) * 2; },
 				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf); }
 			},
-			data: {
-				stats: [facets.ls, facets.lf],
-				timeHandling: 'group'
-			},
+			data: [facets.ls, facets.lf],
 			focus: [facets.ls, facets.lf],
 			legend: {
 				axis: [
@@ -321,6 +326,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			]
 		},
 		threadMigrations: {
+			handling: {
+				time:	TIME_CUSTOM,
+				v:		[facets.m]
+			},
 			graph : {
 				v:		[facets.m],
 				limit:		limit,
@@ -329,10 +338,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m * 2; },
 				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m; }
 			},
-			data: {
-				stats: [facets.m],
-				timeHandling: 'group'
-			},
+			data: [facets.m],
 			focus: [facets.m],
 			legend: {
 				axis: [
@@ -351,6 +357,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			]
 		},
 		threadSwitches: {
+			handling: {
+				time:	TIME_CUSTOM,
+				v:		[facets.s]
+			},
 			graph : {
 				v:			[facets.s],
 				limit:		limit,
@@ -359,10 +369,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s * 2; },
 				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s; }
 			},
-			data: {
-				stats: [facets.s],
-				timeHandling: 'group'
-			},
+			data: [facets.s],
 			focus: [facets.s],
 			legend: {
 				axis: [
@@ -380,15 +387,15 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			]
 		},
 		threadStates: {
+			handling: {
+				time: TIME_PROFILE,
+			},
 			graph : {
 				v:		[facets.sys, facets.i, facets.r, facets.yb],
 				limit:	facets.i,
 				axis:	{ labels: 'cores' }
 			},
-			data: {
-				stats: [facets.b, facets.y, facets.r, facets.i],
-				timeHandling: 'default'
-			},
+			data: [facets.b, facets.y, facets.r, facets.i],
 			focus: [facets.sys, facets.i, facets.r, facets.yb],
 			legend: {
 				axis: [
@@ -412,15 +419,15 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			]
 		},
 		threadFruitSalad: {
+			handling: {
+				time: TIME_NONE,
+			},
 			graph : {
 				h:			limit,		// threads (color)
 				ticks:		[facets.m],
 				periods:	[m],
 			},
-			data: {
-				stats: [facets.m],
-				timeHandling: 'none'
-			},
+			data: [facets.m],
 			legend: {
 				axis: [
 					{ b: '⊢', f: limit,	t: '[Y] Threads',	d: 'each line represents a thread complying with the start and end times' }
@@ -451,15 +458,15 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			]
 		},
 		threadLocks: {
+			handling: {
+				time: TIME_NONE,
+			},
 			graph : {
 				h:	limit,		// threads (color)
 				ticks:		[facets.ls, facets.lf],
 				periods:	[facets.lw],
 			},
-			data: {
-				stats: [facets.lw],
-				timeHandling: 'none'
-			},
+			data: [facets.lw],
 			legend: {
 				axis: [
 					{ b: '⊢', f: limit,	t: '[Y] Threads',	d: 'each line represents a thread complying with the start and end times' }
@@ -477,15 +484,15 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			]
 		},
 		sequences: {
+			handling: {
+				time: TIME_NONE,
+			},
 			graph : {
 				h:			limit,		// threads (color)
 				lines:		buildCoresAnonymously,
 				sequences:	{ under: facets.q_s, count: facets.q_p }
 			},
-			data: {
-				stats: [],
-				timeHandling: 'none'
-			},
+			data: [],
 			legend: {
 				axis: [
 					{ b: '⊢', f: limit,	t: '[Y] Cores',	d: 'each line represents a core, not in the right order, not with the right thread' }
@@ -509,6 +516,9 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			]
 		},
 		chains: {
+			handling: {
+				time: TIME_NONE,
+			},
 			graph : {
 				h:			limit,		// color
 				lines:		buildThreads,
@@ -526,10 +536,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					failID: 0
 				}
 			},
-			data: {
-				stats: [facets.ls, facets.lf],
-				timeHandling: 'none'
-			},
+			data: [facets.ls, facets.lf],
 			legend: {
 				axis: [
 					{ b: '⊢', f: limit,	t: '[Y] Threads',	d: 'each line represents a thread complying with the start and end times' },

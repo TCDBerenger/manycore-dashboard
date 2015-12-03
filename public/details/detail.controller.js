@@ -1,5 +1,10 @@
 /* global angular */
 
+// Time handling constants
+const TIME_NONE = 0;
+const TIME_PROFILE = 10;
+const TIME_CUSTOM = 20;
+
 app.controller('DetailController', ['$scope', '$rootScope', '$window', '$stateParams', '$http', 'selectedProfiles', 'categories', 'widgets', function($scope, $rootScope, $window, $stateParams, $http, selectedProfiles, categories, widgets) {
 	/************************************************/
 	/* Constructor - Init							*/
@@ -75,7 +80,8 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		//
 		$scope.selection = {
 			begin: 0,
-			end: (profiles.length > 1) ? Math.max(profiles[0].data[tag].info.duration, profiles[1].data[tag].info.duration) : profiles[0].data[tag].info.duration
+			end: (profiles.length > 1) ? Math.max(profiles[0].data[tag].info.duration, profiles[1].data[tag].info.duration) : profiles[0].data[tag].info.duration,
+			step: [profiles[0].data[tag].info.timeStep, (profiles.length > 1) ? profiles[1].data[tag].info.timeStep : null]
 		}
 		
 		
@@ -135,7 +141,13 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	function initWidget(widget) {
 		// Create settings
 		var settings = { version: 0 };
+		var data = [null, null];
+		
+		// Set properties
+		widget.settings = settings;
+		widget.data = data;
 
+		// Populate
 		if (widget.deck != null) {
 			// Modes
 			if (widget.deck.modes) {
@@ -158,16 +170,69 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 							} catch(e) {
 								settings["_" + setting.property] = val;
 							};
+							if (setting.property == 'timeGroup') populateWidgetData(widget);
 							settings.version++;
 						}
 					});
 				});
 			}
+			
+			// Populate data
+			console.log('before', data);
+			if (widget.deck.handling.time == TIME_PROFILE) {
+				data[0] = profiles[0].raw.amount;
+				if (profiles.length) data[1] = profiles[1].raw.amount;
+			} else if (widget.deck.handling.time == TIME_CUSTOM) {
+				populateWidgetData(widget);
+			}
+			console.log('after', data);
 		}
-		
-		// Populate
-		widget.settings = settings;
 	};
+	
+	/**
+	 * Widget - data population
+	 */
+	function populateWidgetData(widget) {
+		var timeGroup = widget.settings._timeGroup;
+		var deck = widget.deck.handling.v;
+		var raw_list = [], raw_length = [], raw_index = [];
+		var frames, counts, count;
+		
+		// Loop by profile
+		for (var i = 0; i < profiles.length; i++) {
+			frames = [];
+			
+			// Fetch raw data
+			for (var v = 0; v < deck.length; v++) {
+				raw_list.push(profiles[i].raw.events[deck[v].attr]);
+				raw_length.push(profiles[i].raw.events[deck[v].attr].length);
+				raw_index.push(0);
+			}
+			
+			// Loop time by time group
+			for (var t = $scope.selection.begin; t < $scope.selection.end; t += timeGroup) {
+				counts = {};
+				
+				for (var v = 0; v < deck.length; v++) {
+					count = 0;
+		
+					// Count all values inside the time frame
+					while (raw_index[v] < raw_length[v] && raw_list[v][raw_index[v]] < (t + timeGroup)) {
+						count++;
+						raw_index[v]++;
+					}
+					
+					// Save counted units
+					counts[deck[v].attr] = count;
+				}
+				// Save time frame (all counted units)
+				frames.push(counts);
+			}
+			
+			// Populate
+			widget.data[i] = frames;
+		}
+	}
 
 
 	/************************************************/
@@ -182,8 +247,8 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			step: widget.settings.timeGroup,
 			table: document.getElementsByClassName('table-legend')[statsIndex],
 			tableLabel: null, // document.getElementsByClassName('table-legend-label')[statsIndex]
-			deck: Array.isArray(widget.deck.data) ? widget.deck.data : widget.deck.data.stats,
-			focusable: isStatHandleFocus(widget.deck.data.timeHandling),
+			deck: widget.deck.data,
+			focusable: isStatHandleFocus(widget),
 			focusLabel: 'under cursor',
 			mode: $scope.statMode,
 			valuesMax: [],
@@ -231,8 +296,8 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		//console.log(stats);
 	}
 	
-	function isStatHandleFocus(mode) {
-		return mode == 'default';
+	function isStatHandleFocus(widget) {
+		return widget.deck.handling.time == TIME_PROFILE; // add custom /!\
 	}
 	
 	
