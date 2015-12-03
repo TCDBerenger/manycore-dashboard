@@ -16,6 +16,65 @@
 <tabset>
 	<span class="tab-title">Settings</span>
 	<tab>
+		<tab-heading><i class="fa fa-database"></i> Data</tab-heading>
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="well"><form class="form-horizontal"><fieldset>
+					<legend>Typical values - Core</legend>
+					<!-- Switches -->
+					<div class="form-group">
+						<label for="input101" class="col-lg-3 control-label">context switches</label>
+						<div class="col-lg-9">
+							<div class="input-group">
+								<span class="input-group-addon">expect</span>
+								<input id="input101" class="form-control" type="number">
+								<span class="input-group-addon">switches</span>
+							</div>
+						</div>
+					</div>
+					<!-- Migrations -->
+					<div class="form-group">
+						<label for="input102" class="col-lg-3 control-label">thread migrations</label>
+						<div class="col-lg-9">
+							<div class="input-group">
+								<span class="input-group-addon">expect</span>
+								<input id="input102" class="form-control" type="number">
+								<span class="input-group-addon">migrations</span>
+							</div>
+						</div>
+					</div>
+				</fieldset></form></div>
+			</div>
+			<div class="col-sm-6">
+				<div class="well"><form class="form-horizontal"><fieldset>
+					<legend>Typical values - Locks</legend>
+					<!-- Locks success -->
+					<div class="form-group">
+						<label for="input103" class="col-lg-3 control-label">Success lock acquisitions</label>
+						<div class="col-lg-9">
+							<div class="input-group">
+								<span class="input-group-addon">expect</span>
+								<input id="input103" class="form-control" type="number">
+								<span class="input-group-addon">Locks</span>
+							</div>
+						</div>
+					</div>
+					<!-- Locks fail -->
+					<div class="form-group">
+						<label for="input104" class="col-lg-3 control-label">Failed lock acquisitions</label>
+						<div class="col-lg-9">
+							<div class="input-group">
+								<span class="input-group-addon">expect</span>
+								<input id="input104" class="form-control" type="number">
+								<span class="input-group-addon">Locks</span>
+							</div>
+						</div>
+					</div>
+				</fieldset></form></div>
+			</div>
+		</div>
+	</tab>
+	<tab>
 		<tab-heading><i class="fa fa-tachometer"></i> Dashboard</tab-heading>
 		TODO
 	</tab>
@@ -27,11 +86,11 @@
 					<legend>Tabs</legend>
 					<!-- Hide -->
 					<div class="form-group">
-						<label for="input001" class="col-lg-2 control-label">Show / Hide</label>
+						<label for="input301" class="col-lg-2 control-label">Show / Hide</label>
 						<div class="col-lg-10">
 							<div class="checkbox checkbox-info">
-								<input id="input001" type="checkbox" ng-model="settings.asideTabsHide"  ng-checked="settings.asideTabsHide" />
-								<label for="input001">hide all tabs (legend, diagnostic, settings) by default </label>
+								<input id="input301" type="checkbox" ng-model="settings.asideTabsHide"  ng-checked="settings.asideTabsHide" />
+								<label for="input301">hide all tabs (legend, diagnostic, settings) by default </label>
 							</div>
 						</div>
 					</div>
