@@ -169,6 +169,7 @@ function directive_init(scope, element, attrs, layoutType, mirror, canOverflow) 
 		container:	container,
 		layout:		layout,
 		deck:		deck,
+		data:		scope.widget.data,
 		settings:	scope.widget.settings,
 		properties:	properties,
 		meta:		meta,
@@ -786,7 +787,6 @@ app.directive('chartUnits', function() {
 				r.meta.vMinDisplay[1] =	r.deck.displayed(r.profiles[1], r.settings.timeGroup);
 				r.meta.vStep[1] =		r.deck.vStep(r.profiles[1], r.settings.timeGroup);
 			}
-			r.meta.countedUnits = [[], []];
 
 			// Repaint scales
 			directive_repaint_scales(r, [0, r.meta.vMinDisplay[0]], [0, r.meta.vMinDisplay[1]]);
@@ -818,7 +818,6 @@ app.directive('chartUnits', function() {
 					dataSource_index.push(0);
 					yPositions.push(NaN);
 					r.iData[index].push([]);
-					r.meta.countedUnits[index].push([]);
 				};
 
 				// All - points - data
@@ -834,9 +833,6 @@ app.directive('chartUnits', function() {
 							yPositions[v]++;
 							dataSource_index[v]++;
 						}
-						
-						// Save counted units
-						r.meta.countedUnits[index][v].push(yPositions[v]);
 
 						// Stack positions
 						if (v > 0)
@@ -924,7 +920,7 @@ app.directive('chartUnits', function() {
 				
 			} else {
 				
-				var value = r.meta.countedUnits[index][v][tIndex];
+				var value = r.data[index].hasOwnProperty(tIndex) ? r.data[index][tIndex][r.deck.v[v].attr] || 0 : 0;
 				if (facet.unity) value += ' ' + facet.unity;
 				
 				// Send new coordinates to controller
