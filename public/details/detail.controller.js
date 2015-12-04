@@ -42,7 +42,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	
 	
 	// Axis common list
-	var axisTime = { b: '⇛', c: '#000;', t: '[X] Time', d: 'time line in horizontal with scale in seconds, from -b- s to -e- s' }; // ⇛ ➨ ➽ 
+	var axisTime = { b: '↣', c: '#000;', t: '[X] Time', d: 'time line, scale in seconds, from -b- s to -e- s' }; // ⇛ ➨ ➽ 
 
 
 	
