@@ -195,42 +195,35 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	function populateWidgetData(widget) {
 		var timeGroup = widget.settings._timeGroup;
 		var deck = widget.deck.handling.v;
-		var raw_list = [], raw_length = [], raw_index = [];
-		var frames, counts, count;
+		var source, frameID, end, frames, attr;
 		
 		// Loop by profile
-		for (var i = 0; i < profiles.length; i++) {
+		for (var p = 0; p < profiles.length; p++) {
+			// Compute data
+			end = Math.min($scope.selection.end, profiles[p].data[tag].info.duration);
+			
+			// Clear data
 			frames = [];
 			
-			// Fetch raw data
-			for (var v = 0; v < deck.length; v++) {
-				raw_list.push(profiles[i].raw.events[deck[v].attr]);
-				raw_length.push(profiles[i].raw.events[deck[v].attr].length);
-				raw_index.push(0);
+			// Fill data
+			for (var t = $scope.selection.begin; t < end; t += timeGroup) {
+				frames.push({});
 			}
 			
-			// Loop time by time group
-			for (var t = $scope.selection.begin; t < $scope.selection.end; t += timeGroup) {
-				counts = {};
+			// Count data
+			for (var v = deck.length; v--; ) {
+				attr = deck[v].attr;
 				
-				for (var v = 0; v < deck.length; v++) {
-					count = 0;
-		
-					// Count all values inside the time frame
-					while (raw_index[v] < raw_length[v] && raw_list[v][raw_index[v]] < (t + timeGroup)) {
-						count++;
-						raw_index[v]++;
-					}
-					
-					// Save counted units
-					counts[deck[v].attr] = count;
+				source = profiles[p].raw.events[deck[v].attr];
+				for (var r = source.length; r--; ) {
+					frameID = Math.floor(source[r] / timeGroup);
+					frames[frameID][attr] = 1 + (frames[frameID][attr] || 0);
 				}
-				// Save time frame (all counted units)
-				frames.push(counts);
 			}
 			
-			// Populate
-			widget.data[i] = frames;
+			// Poputale
+			widget.data[p] = frames;
+			console.log(p, frames);
 		}
 	}
 
