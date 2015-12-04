@@ -70,12 +70,12 @@ app.factory('facets', ['colours', function(colours) {
 		uu: 	{ label: 'idle core',			unity: 'ms',	cat: 'times',	attr: 'uu',		color: colours.list.nBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.fBlue },
 	
 		ipc:	{ label: 'Executing',			unity: '',	cat: 'locality',	attr: 'ipc',	color: colours.list.nGreen,	fcolor: colours.list.dGreen,	gcolor: colours.list.fGreen },
-		miss:	{ label: 'Cache misses',		unity: '',	cat: 'locality',	attr: 'miss',	color: colours.list.nRed,	fcolor: colours.list.dRed,		gcolor: colours.list.eRed },
-		tlb:	{ label: 'Address translation',	unity: '',	cat: 'locality',	attr: 'tlb',	color: colours.list.nRed5,	fcolor: colours.list.dRed5,		gcolor: colours.list.eRed5 },
-		l1:		{ label: 'Loading from L2',		unity: '',	cat: 'locality',	attr: 'l1',		color: colours.list.nRed4,	fcolor: colours.list.dRed4,		gcolor: colours.list.eRed4 },
-		l2:		{ label: 'Loading from L3',		unity: '',	cat: 'locality',	attr: 'l2',		color: colours.list.nRed3,	fcolor: colours.list.dRed3,		gcolor: colours.list.eRed3 },
-		l3:		{ label: 'Loading from RAM',	unity: '',	cat: 'locality',	attr: 'l3',		color: colours.list.nRed2,	fcolor: colours.list.dRed2,		gcolor: colours.list.eRed2 },
-		hpf:	{ label: 'Swapping',			unity: '',	cat: 'locality',	attr: 'hpf',	color: colours.list.nRed1,	fcolor: colours.list.dRed1,		gcolor: colours.list.eRed1 },
+		miss:	{ label: 'Cache misses',		unity: '',	cat: 'locality',	attr: 'miss',	color: colours.list.nRed,	fcolor: colours.list.dRed,		gcolor: colours.list.fRed },
+		tlb:	{ label: 'Address translation',	unity: '',	cat: 'locality',	attr: 'tlb',	color: colours.list.nRed5,	fcolor: colours.list.dRed5,		gcolor: colours.list.fRed5 },
+		l1:		{ label: 'Loading from L2',		unity: '',	cat: 'locality',	attr: 'l1',		color: colours.list.nRed4,	fcolor: colours.list.dRed4,		gcolor: colours.list.fRed4 },
+		l2:		{ label: 'Loading from L3',		unity: '',	cat: 'locality',	attr: 'l2',		color: colours.list.nRed3,	fcolor: colours.list.dRed3,		gcolor: colours.list.fRed3 },
+		l3:		{ label: 'Loading from RAM',	unity: '',	cat: 'locality',	attr: 'l3',		color: colours.list.nRed2,	fcolor: colours.list.dRed2,		gcolor: colours.list.fRed2 },
+		hpf:	{ label: 'Swapping',			unity: '',	cat: 'locality',	attr: 'hpf',	color: colours.list.nRed1,	fcolor: colours.list.dRed1,		gcolor: colours.list.fRed1 },
 		
 		s:		{ label: 'switches',		title: 'Context switches',			desc: desc_s,	list: 'switches',	unity: 'events',	cat: 'switches',	attr: 's',		color: colours.list.fGrey,		fcolor: colours.list.dGrey,		gcolor: colours.list.lGrey },
 		m:		{ label: 'migrations',		title: 'Thread migrations',			desc: desc_m,	list: 'migrations',	unity: 'events',	cat: 'migrations',	attr: 'm',		color: colours.list.eMagenta,	fcolor: colours.list.dMagenta,	gcolor: colours.list.lMagenta },
