@@ -142,10 +142,13 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		// Create settings
 		var settings = { version: 0 };
 		var data = [null, null];
+		var dataPercent = [null, null];
 		
 		// Set properties
 		widget.settings = settings;
 		widget.data = data;
+		widget.dataPercent = dataPercent;
+		widget.getStatStepTimes = function() { return getStatStepTimes(widget); };
 
 		// Populate
 		if (widget.deck != null) {
@@ -178,14 +181,16 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			}
 			
 			// Populate data
-			console.log('before', data);
 			if (widget.deck.handling.time == TIME_PROFILE) {
 				data[0] = profiles[0].raw.amount;
-				if (profiles.length) data[1] = profiles[1].raw.amount;
+				dataPercent[0] = profiles[0].raw.amountPercent;
+				if (profiles.length) {
+					data[1] = profiles[1].raw.amount;
+					dataPercent[1] = profiles[1].raw.amountPercent;
+				}
 			} else if (widget.deck.handling.time == TIME_CUSTOM) {
 				populateWidgetData(widget);
 			}
-			console.log('after', data);
 		}
 	};
 	
@@ -223,7 +228,6 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			
 			// Poputale
 			widget.data[p] = frames;
-			console.log(p, frames);
 		}
 	}
 
@@ -237,10 +241,12 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		var stats = {
 			version: 0,
 			//time: widget.deck.data.timeHandling,
-			step: widget.settings.timeGroup,
+			getStatStepTimes: widget.getStatStepTimes,
 			table: document.getElementsByClassName('table-legend')[statsIndex],
 			tableLabel: null, // document.getElementsByClassName('table-legend-label')[statsIndex]
 			deck: widget.deck.data,
+			data: widget.data,
+			dataPercent: widget.dataPercent,
 			focusable: isStatHandleFocus(widget),
 			focusLabel: 'under cursor',
 			mode: $scope.statMode,
@@ -264,18 +270,20 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	function updateStats(stats, positions) {
 		// Stats mode (is stats or is focus)
 		var isStats = ! positions || positions.isOut;
+		var steps = stats.getStatStepTimes();
 		
 		// Compute data
-		var facet, value1, value2, maxValue, profile;
+		var tIndex, facet, value1, value2, maxValue, profile;
 		for (var index = 0; index < profiles.length; index++) {
 			maxValue = 0;
 			profile = profiles[index];
 			stats.valuesStack[index][0] = 0;
+			tIndex = (! isStats) ? positions['i' + steps[index]] : null;
 			for (var f = 0; f < stats.deck.length; f++) {
 				facet = stats.deck[f];
 				// Values
-				value1 = (isStats) ? profile.raw.stats[facet.attr] : (profile.raw.amount[positions.i50]) ? profile.raw.amount[positions.i50][facet.attr] : null;
-				value2 = (isStats) ? profile.raw.statsPercent[facet.attr] : (profile.raw.amountPercent[positions.i50]) ? profile.raw.amountPercent[positions.i50][facet.attr] : null;
+				value1 = (isStats) ? profile.raw.stats[facet.attr] : (stats.data[index][tIndex]) ? (stats.data[index][tIndex][facet.attr] || 0) : null;
+				value2 = (isStats) ? profile.raw.statsPercent[facet.attr] : (stats.dataPercent[index] && stats.dataPercent[index][tIndex]) ? (stats.dataPercent[index][tIndex][facet.attr] || 0) : null;
 				stats.values1[index][f] = (value1 != undefined) ? (facet.unity) ? value1 + '\u00A0' + facet.unity : value1 : null;
 				stats.values2[index][f] = (value2 != undefined) ? value2 + '\u00A0%' : null;
 				// From TO
@@ -286,11 +294,20 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		}
 		
 		stats.version++;
-		//console.log(stats);
 	}
 	
 	function isStatHandleFocus(widget) {
-		return widget.deck.handling.time == TIME_PROFILE; // add custom /!\
+		return widget.deck.handling.time == TIME_PROFILE || widget.deck.handling.time == TIME_CUSTOM;
+	}
+	
+	function getStatStepTimes(widget) {
+		if (widget.deck.handling.time == TIME_PROFILE) {
+			return $scope.selection.step;
+		} else if (widget.deck.handling.time == TIME_CUSTOM) {
+			return [widget.settings._timeGroup, widget.settings._timeGroup];
+		} else {
+			return [null, null];
+		}
 	}
 	
 	
@@ -383,7 +400,6 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		// NEW MODE: stats
 		else if (positions.isOut) {
 			// Hide Focus ruler
-			//console.log('new focusT', 'stats mode');
 			$scope.ruler.style.display = 'none';
 			
 			// Update stats
@@ -398,7 +414,6 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		}
 		// NEW MODE: focus
 		else {
-			//console.log('new focusT', 'focus', relativeX);
 			needToUpdateStats = ! $scope.focusPosition;
 			
 			// Compute position
@@ -411,16 +426,12 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			$scope.stamps[0].innerHTML = positions.t + ' ms';
 			$scope.stamps[1].innerHTML = positions.t + ' ms';
 			
-			// Compute position - Step time of profiles
-			addStepPosition(positions, 50);
-			needToUpdateStats = needToUpdateStats || positions.i50 != $scope.focusPosition.i50;
-			
-			// Compute position - Step time specific (by settings)
+			// Compute position index - Step time specific (by settings)
+			var steps;
 			for (var s = 0; s < statsCache.length; s++) {
-				if (statsCache[s].step) {
-					addStepPosition(positions, statsCache[s].step);
-					needToUpdateStats = needToUpdateStats || positions['i' + statsCache[s].step] != $scope.focusPosition['i' + statsCache[s].step];
-				}
+				steps = statsCache[s].getStatStepTimes()
+				if (addStepPosition(positions, steps[0])) needToUpdateStats = needToUpdateStats || positions['i' + steps[0]] != $scope.focusPosition['i' + steps[0]];
+				if (addStepPosition(positions, steps[1])) needToUpdateStats = needToUpdateStats || positions['i' + steps[1]] != $scope.focusPosition['i' + steps[0]];
 			}
 			
 			// Update stats
@@ -448,10 +459,13 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		if (positions.isOut) {
 			positions['i' + step] = null;
 			positions['f' + step] = null;
-		} else if (! positions['i' + step]) {
+			return true;
+		} else if (! positions['i' + step] && step > 0) {
 			positions['i' + step] = Math.floor(positions.t / step);
 			positions['f' + step] = Math.floor(positions.t / step) * step;
+			return true;
 		}
+		return false;
 	}
 
 	/**
