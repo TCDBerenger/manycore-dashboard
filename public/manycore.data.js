@@ -2,20 +2,19 @@
 
 app.factory('colours', [function() {
 	// Gradient:
-	//	[O] opaque → [D] dark → [N] normal → [F] faded → [L] light
-	
+	//	[O] opaque	→ [D] dark			→ [N] normal	→ [F] faded			→ [L] light
 	var list = {
 		black:		'#000000',		white:		'#FFFFFF',
-		dMagenta:	'#AF46B4',		eMagenta:	'#CE8AD2',		lMagenta:	'#ECD0ED',
 		dViolet:	'#7846B4',		eViolet:	'#AB8AD2',		lViolet:	'#DDD0ED',
-		dTurquoise:	'#5EB8C0',		eTurquoise:	'#9ad3d8',		lTurquoise:	'#d7edef',
-		dFuschia:	'#812559',		eFuschia:	'#cf589b',		lFuschia:	'#ecbcd7',
 		
-		oGrey:		'#1e1e1e',	dGrey:		'#4c4c4c',	nGrey:		'#797979',	fGrey:		'#ABABAB',	lGrey:		'#DEDEDE',
 		oBlue:		'#12212d',	dBlue:		'#2c5171',	nBlue:		'#4682B4',	fBlue:		'#9ED3FF',	lBlue:		'#D0E0ED',
+		oFuschia:	'#200916',	dFuschia:	'#511738',	nFuschia:	'#812559',	fFuschia:	'#cf589b',	lFuschia:	'#ecbcd7',
+		oGrey:		'#1e1e1e',	dGrey:		'#4c4c4c',	nGrey:		'#797979',	fGrey:		'#ABABAB',	lGrey:		'#DEDEDE',
 		oGreen:		'#132d12',	dGreen:		'#2f712c',	nGreen:		'#4BB446',	fGreen:		'#8DD28A',	lGreen:		'#D2EDD0',
+		oMagenta:	'#2c122d',	dMagenta:	'#6d2c71',	nMagenta:	'#AF46B4',	fMagenta:	'#CE8AD2',	lMagenta:	'#ECD0ED',
 		oOrange:	'#2d1e12',	dOrange:	'#714b2c',	nOrange:	'#B47846',	fOrange:	'#D2AB8A',	lOrange:	'#EDDDD0',
 		oRed:		'#2D1213',	dRed:		'#712C2F',	nRed:		'#B4464B',	fRed:		'#D28A8D',	lRed:		'#EDD0D2',
+		oTurquoise:	'#143133',	dTurquoise:	'#327a80',	nTurquoise:	'#5EB8C0',	fTurquoise:	'#9ad3d8',	lTurquoise:	'#d7edef',
 		oYellow:	'#2d2a12',	dYellow:	'#71682c',	nYellow:	'#b4a646',	fYellow:	'#D2C88A',	lYellow:	'#EDE9D0',
 		
 		oRed1:	'#170909',	dRed1:	'#381618',	nRed1:	'#5A2326',	fRed1:	'#BC5258',	lRed1:	'#E4DABC',
@@ -23,7 +22,33 @@ app.factory('colours', [function() {
 		oRed3:	'#2D1213',	dRed3:	'#712C2F',	nRed3:	'#B4464B',	fRed3:	'#D28A8D',	lRed3:	'#EDD0D2',
 		oRed4:	'#391618',	dRed4:	'#8D383C',	nRed4:	'#C87377',	fRed4:	'#DDA8AA',	lRed4:	'#F1DCDD',
 		oRed5:	'#451A1D',	dRed5:	'#AC4247',	nRed5:	'#DBA1A4',	fRed5:	'#E9C4C6',	lRed5:	'#F6E8E8',
+		
+		oGBlue:	'#1e1d27',	dGBlue:	'#4c4962',	nGBlue:	'#7c789a',	fGBlue:	'#adabc0',	lGBlue:	'#dedde6',
+		oGViol:	'#251d27',	dGViol:	'#5c4962',	nGViol:	'#92789a',	fGViol:	'#bbabc0',	lGViol:	'#e4dde6',
 	};
+	
+	// Categories:
+	//	[T] text	→ [F] foreground	→ [N] normal	→ [G] background	→ [H] highlight
+	var sets = {
+		Blue:		{ t: list.oBlue,		f: list.dBlue,		n: list.nBlue, 		g: list.fBlue, 		h: list.lBlue },
+		Fuschia:	{ t: list.oFuschia,		f: list.dFuschia,	n: list.nFuschia, 	g: list.fFuschia, 	h: list.lFuschia },
+		Grey:		{ t: list.oGrey,		f: list.dGrey,		n: list.nGrey, 		g: list.fGrey,	 	h: list.lGrey },
+		Green:		{ t: list.oGreen,		f: list.dGreen, 	n: list.nGreen, 	g: list.fGreen, 	h: list.lGreen },
+		Magenta:	{ t: list.oMagenta,		f: list.dMagenta,	n: list.nMagenta, 	g: list.fMagenta, 	h: list.lMagenta },
+		Orange:		{ t: list.oOrange,		f: list.dOrange, 	n: list.nOrange, 	g: list.fOrange, 	h: list.lOrange },
+		Red:		{ t: list.oRed,			f: list.dRed, 		n: list.nRed, 		g: list.fRed, 		h: list.lRed },
+		Turquoise:	{ t: list.oTurquoise,	f: list.dTurquoise,	n: list.nTurquoise, g: list.fTurquoise, h: list.lTurquoise },
+		Yellow:		{ t: list.oYellow,		f: list.dYellow, 	n: list.nYellow, 	g: list.fYellow, 	h: list.lYellow },
+		
+		Red1: 	{ t: list.oRed1,	f: list.dRed1,	n: list.nRed1,	g: list.fRed1,	h: list.lRed1 },
+		Red2: 	{ t: list.oRed2,	f: list.dRed2,	n: list.nRed2,	g: list.fRed2,	h: list.lRed2 },
+		Red3: 	{ t: list.oRed3,	f: list.dRed3,	n: list.nRed3,	g: list.fRed3,	h: list.lRed3 },
+		Red4: 	{ t: list.oRed4,	f: list.dRed4,	n: list.nRed4,	g: list.fRed4,	h: list.lRed4 },
+		Red5: 	{ t: list.oRed5,	f: list.dRed5,	n: list.nRed5,	g: list.fRed5,	h: list.lRed5 },
+		
+		GBlue:	{ t: list.oGBlue,	f: list.dGBlue,	n: list.nGBlue,	g: list.fGBlue,	h: list.lGBlue },
+		GViol:	{ t: list.oGViol,	f: list.dGViol,	n: list.nGViol,	g: list.fGViol,	h: list.lGViol },
+	}
 
 	return {
 		unkn:	list.black,		// unkown color
@@ -32,7 +57,8 @@ app.factory('colours', [function() {
 		good:	list.fGreen,	// correctly running
 		bad:	list.fRed,		// Not expected
 		alt:	list.eViolet,	// alternating
-		list:	list
+		list:	list,
+		sets:	sets
 	};
 }]);
 
@@ -56,34 +82,34 @@ app.factory('facets', ['colours', function(colours) {
 	*/
 	
 	return {
-		h:		{ label: 'Thread',			unity: '',	cat: '',	attr: 'h',	color: colours.list.fGrey,	fcolor: colours.list.dGrey,	gcolor: colours.list.lGrey },
-		pn:		{ label: 'Process',			unity: '',	cat: '',	attr: 'pn',	color: colours.list.fGrey,	fcolor: colours.list.dGrey,	gcolor: colours.list.lGrey },
-		ct:		{ label: 'Core time',		unity: '',	cat: '',	attr: 'ct',	color: colours.list.fGrey,	fcolor: colours.list.dGrey,	gcolor: colours.list.lGrey },
+		h:		{ label: 'Thread',			unity: '',	cat: '',	attr: 'h',	colours: colours.sets.Grey,	color: colours.list.fGrey,	fcolor: colours.list.dGrey,	gcolor: colours.list.lGrey },
+		pn:		{ label: 'Process',			unity: '',	cat: '',	attr: 'pn',	colours: colours.sets.Grey,	color: colours.list.fGrey,	fcolor: colours.list.dGrey,	gcolor: colours.list.lGrey },
+		ct:		{ label: 'Core time',		unity: '',	cat: '',	attr: 'ct',	colours: colours.sets.Grey,	color: colours.list.fGrey,	fcolor: colours.list.dGrey,	gcolor: colours.list.lGrey },
 		
-		r:		{ label: 'Executing',			unity: 'ms',	cat: 'times',	attr: 'r',		color: colours.list.nGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.fGreen },
-		y:	 	{ label: 'Ready',				unity: 'ms',	cat: 'times',	attr: 'y',		color: colours.list.nOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.fOrange },
-		b:	 	{ label: 'Standby',				unity: 'ms',	cat: 'times',	attr: 'b',		color: colours.list.nOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.fOrange },
-		yb: 	{ label: 'Ready',				unity: 'ms',	cat: 'times',	attr: 'yb',		color: colours.list.nOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.fOrange },
-		i: 		{ label: 'Idle core',			unity: 'ms',	cat: 'times',	attr: 'i',		color: colours.list.nBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.fBlue },
-		sys: 	{ label: 'system',				unity: 'ms',	cat: 'times',	attr: 'sys',	color: colours.list.lGrey,		fcolor: colours.list.nGrey,		gcolor: colours.list.white },
-		lw:		{ label: 'lock waiting',		unity: 'ms',	cat: 'times',	attr: 'lw',		color: colours.list.nYellow,	fcolor: colours.list.dYellow,	gcolor: colours.list.fYellow },
-		uu: 	{ label: 'idle core',			unity: 'ms',	cat: 'times',	attr: 'uu',		color: colours.list.nBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.fBlue },
-	
-		ipc:	{ label: 'Executing',			unity: '',	cat: 'locality',	attr: 'ipc',	color: colours.list.nGreen,	fcolor: colours.list.dGreen,	gcolor: colours.list.fGreen },
-		miss:	{ label: 'Cache misses',		unity: '',	cat: 'locality',	attr: 'miss',	color: colours.list.nRed,	fcolor: colours.list.dRed,		gcolor: colours.list.fRed },
-		tlb:	{ label: 'Address translation',	unity: '',	cat: 'locality',	attr: 'tlb',	color: colours.list.nRed5,	fcolor: colours.list.dRed5,		gcolor: colours.list.fRed5 },
-		l1:		{ label: 'Loading from L2',		unity: '',	cat: 'locality',	attr: 'l1',		color: colours.list.nRed4,	fcolor: colours.list.dRed4,		gcolor: colours.list.fRed4 },
-		l2:		{ label: 'Loading from L3',		unity: '',	cat: 'locality',	attr: 'l2',		color: colours.list.nRed3,	fcolor: colours.list.dRed3,		gcolor: colours.list.fRed3 },
-		l3:		{ label: 'Loading from RAM',	unity: '',	cat: 'locality',	attr: 'l3',		color: colours.list.nRed2,	fcolor: colours.list.dRed2,		gcolor: colours.list.fRed2 },
-		hpf:	{ label: 'Swapping',			unity: '',	cat: 'locality',	attr: 'hpf',	color: colours.list.nRed1,	fcolor: colours.list.dRed1,		gcolor: colours.list.fRed1 },
+		r:		{ label: 'Executing',			unity: 'ms',	cat: 'times',	attr: 'r',		colours: colours.sets.Green,	color: colours.list.nGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.fGreen },
+		y:	 	{ label: 'Ready',				unity: 'ms',	cat: 'times',	attr: 'y',		colours: colours.sets.Orange,	color: colours.list.nOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.fOrange },
+		b:	 	{ label: 'Standby',				unity: 'ms',	cat: 'times',	attr: 'b',		colours: colours.sets.Orange,	color: colours.list.nOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.fOrange },
+		yb: 	{ label: 'Ready',				unity: 'ms',	cat: 'times',	attr: 'yb',		colours: colours.sets.Orange,	color: colours.list.nOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.fOrange },
+		i: 		{ label: 'Idle core',			unity: 'ms',	cat: 'times',	attr: 'i',		colours: colours.sets.Blue,		color: colours.list.nBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.fBlue },
+		sys: 	{ label: 'system',				unity: 'ms',	cat: 'times',	attr: 'sys',	colours: colours.sets.Grey,		color: colours.list.lGrey,		fcolor: colours.list.nGrey,		gcolor: colours.list.white },
+		lw:		{ label: 'lock waiting',		unity: 'ms',	cat: 'times',	attr: 'lw',		colours: colours.sets.Yellow,	color: colours.list.nYellow,	fcolor: colours.list.dYellow,	gcolor: colours.list.fYellow },
+		uu: 	{ label: 'idle core',			unity: 'ms',	cat: 'times',	attr: 'uu',		colours: colours.sets.Blue,		color: colours.list.nBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.fBlue },
 		
-		s:		{ label: 'switches',		title: 'Context switches',			desc: desc_s,	list: 'switches',	unity: 'events',	cat: 'switches',	attr: 's',		color: colours.list.fGrey,		fcolor: colours.list.dGrey,		gcolor: colours.list.lGrey },
-		m:		{ label: 'migrations',		title: 'Thread migrations',			desc: desc_m,	list: 'migrations',	unity: 'events',	cat: 'migrations',	attr: 'm',		color: colours.list.eMagenta,	fcolor: colours.list.dMagenta,	gcolor: colours.list.lMagenta },
-		ls:		{ label: 'lock success',	title: 'Lock without contention',	desc: desc_ls,	list: 'slocks',		unity: 'events',	cat: 'locks',		attr: 'ls',		color: colours.list.eTurquoise,	fcolor: colours.list.dTurquoise,gcolor: colours.list.lTurquoise },
-		lf:		{ label: 'lock failure',	title: 'Lock with contention',		desc: desc_lf,	list: 'flocks',		unity: 'events',	cat: 'locks',		attr: 'lf',		color: colours.list.eFuschia,	fcolor: colours.list.dFuschia,	gcolor: colours.list.lFuschia },
+		ipc:	{ label: 'Executing',			unity: '',	cat: 'locality',	attr: 'ipc',	colours: colours.sets.Green,	color: colours.list.nGreen,	fcolor: colours.list.dGreen,	gcolor: colours.list.fGreen },
+		miss:	{ label: 'Cache misses',		unity: '',	cat: 'locality',	attr: 'miss',	colours: colours.sets.Red,		color: colours.list.nRed,	fcolor: colours.list.dRed,		gcolor: colours.list.fRed },
+		tlb:	{ label: 'Address translation',	unity: '',	cat: 'locality',	attr: 'tlb',	colours: colours.sets.Red5,		color: colours.list.nRed5,	fcolor: colours.list.dRed5,		gcolor: colours.list.fRed5 },
+		l1:		{ label: 'Loading from L2',		unity: '',	cat: 'locality',	attr: 'l1',		colours: colours.sets.Red4,		color: colours.list.nRed4,	fcolor: colours.list.dRed4,		gcolor: colours.list.fRed4 },
+		l2:		{ label: 'Loading from L3',		unity: '',	cat: 'locality',	attr: 'l2',		colours: colours.sets.Red3,		color: colours.list.nRed3,	fcolor: colours.list.dRed3,		gcolor: colours.list.fRed3 },
+		l3:		{ label: 'Loading from RAM',	unity: '',	cat: 'locality',	attr: 'l3',		colours: colours.sets.Red2,		color: colours.list.nRed2,	fcolor: colours.list.dRed2,		gcolor: colours.list.fRed2 },
+		hpf:	{ label: 'Swapping',			unity: '',	cat: 'locality',	attr: 'hpf',	colours: colours.sets.Red1,		color: colours.list.nRed1,	fcolor: colours.list.dRed1,		gcolor: colours.list.fRed1 },
 		
-		q_s:	{ label: 'sequential',		title: 'Sequential sequence',	desc: desc_q_s,	unity: '', cat: '', attr: '',	color: colours.list.fOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange },
-		q_p:	{ label: 'parallel',		title: 'Parallel sequence',		desc: desc_q_p,	unity: '', cat: '', attr: '',	color: colours.list.fGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
+		s:		{ label: 'switches',		title: 'Context switches',			desc: desc_s,	list: 'switches',	unity: 'events',	cat: 'switches',	attr: 's',		colours: colours.sets.GBlue,	color: colours.list.nGBlue,		fcolor: colours.list.dGBlue },
+		m:		{ label: 'migrations',		title: 'Thread migrations',			desc: desc_m,	list: 'migrations',	unity: 'events',	cat: 'migrations',	attr: 'm',		colours: colours.sets.GViol,	color: colours.list.nGViol,		fcolor: colours.list.dGViol },
+		ls:		{ label: 'lock success',	title: 'Lock without contention',	desc: desc_ls,	list: 'slocks',		unity: 'events',	cat: 'locks',		attr: 'ls',		colours: colours.sets.Turquoise,	color: colours.list.fTurquoise,	fcolor: colours.list.dTurquoise,gcolor: colours.list.lTurquoise },
+		lf:		{ label: 'lock failure',	title: 'Lock with contention',		desc: desc_lf,	list: 'flocks',		unity: 'events',	cat: 'locks',		attr: 'lf',		colours: colours.sets.Fuschia,	color: colours.list.fFuschia,	fcolor: colours.list.dFuschia,	gcolor: colours.list.lFuschia },
+		
+		q_s:	{ label: 'sequential',		title: 'Sequential sequence',	desc: desc_q_s,	unity: '', cat: '', attr: '',	colours: colours.sets.Orange,	color: colours.list.fOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange },
+		q_p:	{ label: 'parallel',		title: 'Parallel sequence',		desc: desc_q_p,	unity: '', cat: '', attr: '',	colours: colours.sets.Green,	color: colours.list.fGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
 	};
 }]);
 

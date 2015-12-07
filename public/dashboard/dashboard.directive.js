@@ -288,25 +288,25 @@ app.directive('chartStrip', function() {
 			group.append("polygon")
 				.attr('class', "svg-data")
 				.attr("points", dash_p2s(points))
-				.attr("fill", v.fcolor)
+				.attr("fill", v.colours.n)
 				.attr('stroke-width', 1);
 		}
 		
 		// Select
 		var enter = function enter() {
-			group.select('.svg-data').attr("fill", v.color);
+			group.select('.svg-data').attr("fill", v.colours.g);
 		}
 		
 		// Unselect
 		var leave = function leave() {
-			group.select('.svg-data').attr("fill", v.fcolor);
+			group.select('.svg-data').attr("fill", v.colours.n);
 		}
 		
 		
 		// Binds
 		scope.$watch(function() { return container.clientWidth * profiles[pIndex].id; }, redraw);
-		element.on('mouseenter', enter);
-		element.on('mouseleave', leave);
+		//element.on('mouseenter', enter);
+		//element.on('mouseleave', leave);
 	}
 
 	return {
@@ -372,7 +372,7 @@ app.directive('chartGauges', function() {
 					.attr("text-anchor", 'middle')
 					.attr("alignment-baseline", 'central')
 					.attr("dominant-baseline", 'central')
-					.attr("fill", facet.fcolor)
+					.attr("fill", facet.colours.n)
 					.text(facet.label);
 				
 				// Indicators
@@ -383,7 +383,7 @@ app.directive('chartGauges', function() {
 						.attr('x', 0)
 						.attr("y", layout.gauge[gauge_index].facet[facet_index] + 1)
 						.attr("height", layout.groups.row_height - 2)
-						.attr("fill", facet.color);
+						.attr("fill", facet.colours.g);
 					
 					// Bar KO
 					group.append("rect")
@@ -391,7 +391,7 @@ app.directive('chartGauges', function() {
 						.attr('x', 0)
 						.attr("y", layout.gauge[gauge_index].facet[facet_index] + 1)
 						.attr("height", layout.groups.row_height - 2)
-						.attr("fill", facet.fcolor);
+						.attr("fill", facet.colours.n);
 					
 					// Label - title
 					group.append("text")
@@ -400,7 +400,7 @@ app.directive('chartGauges', function() {
 						.attr("text-anchor", group_index == 0 ? 'end' : 'start')
 						.attr("alignment-baseline", 'central')
 						.attr("dominant-baseline", 'central')
-						.attr("fill", facet.fcolor);
+						.attr("fill", facet.colours.n);
 					
 					// Label - unit
 					group.append("text")
@@ -409,7 +409,7 @@ app.directive('chartGauges', function() {
 						.attr("text-anchor", 'middle')
 						.attr("alignment-baseline", 'central')
 						.attr("dominant-baseline", 'central')
-						.attr("fill", facet.gcolor);
+						.attr("fill", facet.colours.h);
 				});
 			});
 			

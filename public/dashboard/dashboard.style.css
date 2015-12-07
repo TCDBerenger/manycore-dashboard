@@ -199,10 +199,15 @@
 	user-select: none;
 }
 .dashboard svg:hover .svg-text-hover {
-	text-shadow: 0 0 10px #FFF, 0 0 10px #FFF, 0 0 10px #FFF, 0 0 20px #FFF, 0 0 30px #FFF;
+	/*text-shadow: 0 0 10px #FFF, 0 0 10px #FFF, 0 0 10px #FFF, 0 0 20px #FFF, 0 0 30px #FFF;*/
 	fill: #222;
 	font-weight: bold;
 }
+/*
+.dashboard .category:hover .svg-text-hover {
+	fill: #222;
+}
+*/
 
 
 /**
