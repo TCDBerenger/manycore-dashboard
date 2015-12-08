@@ -6,8 +6,8 @@
 		<tr ng-if="profiles.length == 2">
 			<th><span class="label label-focus table-legend-label">{{stats.focusLabel}}</span></th>
 			<th>{{profiles[0].label}}</th>
-			<th colspan="2">
-				<div class="btn-group btn-group-xs"><!-- ng-show="stats.deck.length > 1" -->
+			<th colspan="2" class="table-legend-col-stats-compare">
+				<div class="btn-group btn-group-xs" ng-show="stats.deck.length > 1">
 					<label class="btn btn-default" ng-model="stats.mode" btn-radio="'units'" uncheckable>Σ</label>
 					<label class="btn btn-default" ng-model="stats.mode" btn-radio="'percent'" uncheckable>%</label>
 				</div>
