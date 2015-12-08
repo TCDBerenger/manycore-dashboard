@@ -363,7 +363,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	 */
 	var pinElements = {};
 	var pinValueElements = {};
-	function focusMovePin(id, y, v) {
+	function focusMovePin(id, y, v, label) {
 		// Create cache runtime
 		if ('undefined' === typeof pinElements[id]) {
 			pinElements[id] = document.getElementById(id);
@@ -373,14 +373,14 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			}
 		}
 		// Move (or hide) pin
-		if (isNaN(y)) {
+		if (isNaN(y) || v < 1) {
 			if (pinElements[id]) pinElements[id].style.opacity = 0;
 		} else {
 			if (y && pinElements[id]) {
 				pinElements[id].style.opacity = 1;
 				pinElements[id].style.top = y + 'px';
 			}
-			if (v && pinValueElements[id])	pinValueElements[id].innerHTML = v;
+			if (v && pinValueElements[id])	pinValueElements[id].innerHTML = label;
 		}
 	}
 
@@ -474,21 +474,21 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	 */
 	var ruleElements = {};
 	var ruleValueElements = {};
-	function focusRuleHandle(id, y, v) {
+	function focusRuleHandle(id, y, v, label) {
 		if ('undefined' === typeof ruleElements[id]) {
 			ruleElements[id] = document.getElementById(id);
 			if (ruleElements[id]) {
 				ruleValueElements[id] = ruleElements[id].querySelectorAll('.rule-value')[0];
 			}
 		}
-		if (isNaN(y)) {
+		if (isNaN(y) || v < 1) {
 			if (ruleElements[id])		ruleElements[id].style.opacity = 0;
 		} else {
 			if (ruleElements[id]) {
 				ruleElements[id].style.top = y + 'px';
 				ruleElements[id].style.opacity = 1;
 			}
-			if (ruleValueElements[id])	ruleValueElements[id].innerHTML = v;
+			if (ruleValueElements[id])	ruleValueElements[id].innerHTML = label;
 		}
 	};
 

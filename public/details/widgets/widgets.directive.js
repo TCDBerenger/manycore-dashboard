@@ -727,18 +727,18 @@ app.directive('chartPercent', function() {
 			
 			if (t >= r.meta.ends[index] || ! r.profiles[index].currentData.percent[t][facet.attr]) {
 				// Send disable to controller
-				r.scope.focusRuleHandle(prefixID + facet.attr, NaN, NaN);
+				r.scope.focusRuleHandle(prefixID + facet.attr, NaN, NaN, NaN);
 				
 			} else {
 				
 				var value = r.profiles[index].currentData[facet.cat][t][facet.attr];
-				if (facet.unity) value += ' ' + facet.unity;
 				
 				// Send new coordinates to controller
 				r.scope.focusRuleHandle(
 					prefixID + facet.attr,
 					y0 + (r.iData[index][v + 1][tIndex * 4 + 1] + r.iData[index][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[index] + r.meta.vOverflow[0],
-					value);
+					value,
+					(facet.unity) ? value + ' ' + facet.unity : value);
 			}
 		}
 
@@ -916,18 +916,18 @@ app.directive('chartUnits', function() {
 			
 			if (tIndex >= r.meta.ends[index] / r.settings.timeGroup) {
 				// Send disable to controller
-				r.scope.focusRuleHandle(prefixID + facet.attr, NaN, NaN);
+				r.scope.focusRuleHandle(prefixID + facet.attr, NaN, NaN, NaN);
 				
 			} else {
 				
 				var value = r.data[index].hasOwnProperty(tIndex) ? r.data[index][tIndex][r.deck.v[v].attr] || 0 : 0;
-				if (facet.unity) value += ' ' + facet.unity;
 				
 				// Send new coordinates to controller
 				r.scope.focusRuleHandle(
 					prefixID + facet.attr,
 					y0 + (r.iData[index][v + 1][tIndex * 4 + 1] + r.iData[index][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[index] + r.meta.vOverflow[0],
-					value);
+					value,
+					(facet.unity) ? value + ' ' + facet.unity : value);
 			}
 		}
 
