@@ -337,7 +337,8 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	 * Mouse - over
 	 */
 	function mouseOver(event, r) {
-		var x = event.clientX - r.container.getBoundingClientRect().x - r.layout.profile.x;
+		var rect = r.container.getBoundingClientRect();
+		var x = event.clientX - (rect.x || rect.left) - r.layout.profile.x;
 		var maxX = r.layout.profile.width;
 		focusHandle((x < 0 || x > maxX) ? NaN : x, event.clientX, maxX);
 	};
