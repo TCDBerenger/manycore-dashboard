@@ -679,7 +679,7 @@ function jsonDS(profile, id) {
 	addCommon(output, id);
 	
 	// Add raw data for visualisation
-	addRawData(output, id, ['r', 's', 'lw'], ['i', 'r', 'lw', 'sys'], null, null, null, null, true);
+	addRawData(output, id, ['r', 'i', 'lw'], ['i', 'r', 'lw', 'sys'], null, null, null, null, true);
 
 	// Add locks
 	addTimes(output, id, ['r', 'lw', 'i', 'sys']);
