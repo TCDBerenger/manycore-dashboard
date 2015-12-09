@@ -118,6 +118,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 	const TIME_NONE = 0;
 	const TIME_PROFILE = 10;
 	const TIME_CUSTOM = 20;
+
 	
 	function n2ft(v) {
 		switch(v) {
@@ -313,9 +314,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				]
 			},
 			clues: [],
-			settings: [
-				{ property: 'crenellate', value: false, type: 'flag', label: 'Round by core', desc: 'average of core activity among thread states' }
-			]
+			settings: []
 		},
 		lockCounts: {
 			handling: {
@@ -438,8 +437,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ c: colours.bad,	t: 'Bad thread to core ratio', 	d: 'too many threads' },
 				{ c: colours.plus,	t: 'Underscubscription', 		d: 'not enough threads' }
 			],
-			settings: [
-			]
+			settings: []
 		},
 		threadFruitSalad: {
 			handling: {
