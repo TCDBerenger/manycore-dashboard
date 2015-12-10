@@ -576,7 +576,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		pCoordDL: {
 			graph : {
 				h:		limit,
-				plots:	[facets.pn, facets.h, facets.ct, facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf]
+				plots:	[facets.pn, facets.h, facets.ct, facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf],
+				c_scale:[facets.ipc.colours.n, facets.miss.colours.n, facets.miss.colours.n]
 			},
 			legend: {
 				axis: [
@@ -587,7 +588,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			clues: [],
 			settings: [
-				{ property: 'colorMode', value: 0, type: 'select', label: 'Color by', choices: ['good↔poor locality', 'process', 'thread'] },
+				{ property: 'colorMode', value: 0, type: 'select', label: 'Color by', choices: ['good <--> poor locality', 'process', 'thread'] },
 				{ property: 'colorThreshold', value: 20, type: 'range', label: 'Locality threshold', unit: '%', min: 5, max: 95, step: 5, depends: ['colorMode', 0] },
 			]
 		}

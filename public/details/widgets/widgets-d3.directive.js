@@ -287,7 +287,7 @@ app.directive('chartPcoords', function() {
 		
 		// Color scales
 		var colorScale_thread = d3.scale.category20();
-		var colorScale_locality = d3.scale.linear().range(['#8DD28A', '#D2AB8A', '#000000']);
+		var colorScale_locality = d3.scale.linear().range([r.deck.c_scale[0], r.deck.c_scale[1], r.deck.c_scale[0]]);
 		
 		// Build internal data
 		r.iData = [];
