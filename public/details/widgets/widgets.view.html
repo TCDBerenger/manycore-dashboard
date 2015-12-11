@@ -1,7 +1,7 @@
 <tabset>
 	<h4>{{widget.title}}</h4>
-	<div class="btn-group btn-group-sm" ng-if="widget.deck.modes">
-		<label ng-repeat="mode in widget.deck.modes" class="btn btn-default" ng-model="widget.mode" btn-radio="mode.id" uncheckable>{{mode.label}}</label>
+	<div class="btn-group btn-group-sm" ng-if="widget.deck.plans">
+		<label ng-repeat="mode in widget.deck.plans" class="btn btn-default" ng-model="widget.settings.plan" btn-radio="$index" uncheckable>{{mode.label}}</label>
 	</div>
 	<tab disable="!widget.desc">
 		<tab-heading><i class="fa fa-info"></i> description</tab-heading>
