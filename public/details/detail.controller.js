@@ -213,7 +213,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	 */
 	function populateWidgetData(widget) {
 		var timeGroup = widget.settings._timeGroup;
-		var deck = widget.deck.handling.v;
+		var deck = widget.deck.handling.v || [];
 		var source, frameID, end, frames, attr;
 		
 		// Loop by profile

@@ -444,7 +444,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		},
 		threadFruitSalad: {
 			handling: {
-				time: TIME_NONE,
+				time:	TIME_CUSTOM,
+				v:		[facets.m]
 			},
 			graph : {
 				h:			limit,		// threads (color)
@@ -480,7 +481,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		},
 		threadLocks: {
 			handling: {
-				time: TIME_NONE,
+				time:	TIME_NONE,	// TODO change to TIME_CUSTOM
+				v:		[facets.lw]
 			},
 			graph : {
 				h:	limit,		// threads (color)
