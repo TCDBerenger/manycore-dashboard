@@ -152,9 +152,22 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 
 		// Populate
 		if (widget.deck != null) {
-			// Modes
-			if (widget.deck.modes) {
-				widget.mode = widget.deck.modes[0].id;
+			// Mlans mode
+			if (widget.deck.plans) {
+				settings._plan = 0;
+
+				settings.__defineGetter__('plan', function () {
+					return settings._plan;
+				});
+
+				settings.__defineSetter__('plan', function (val) {
+					if (settings._plan != +val) {
+						settings._plan = +val;
+						settings.version++;
+						settings.lastChangeProperty = 'plan';
+						console.log('new plan', +val, 'incr', settings.version);
+					}
+				});
 			}
 			
 			// Populate settings
@@ -175,6 +188,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 							};
 							if (setting.property == 'timeGroup') populateWidgetData(widget);
 							settings.version++;
+							settings.lastChangeProperty = setting.property;
 						}
 					});
 				});

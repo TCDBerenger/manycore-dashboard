@@ -58,7 +58,7 @@ var graphLayout = function(favoriteHeight) {
 /**
  * Meta (parameters)
  */
-var graphMeta = function(scope, attributes, mirror, canOverflow, params, properties) {
+var graphMeta = function(scope, attributes, mirror, canOverflow, params, settings) {
 	// Allow seld reference (otherwise this is the caller object)
 	var self = this;
 
@@ -92,9 +92,8 @@ var graphMeta = function(scope, attributes, mirror, canOverflow, params, propert
 		});
 	
 	// On demand - settings
-	properties.forEach(function(a) {
-		if (attributes.hasOwnProperty(a))
-			try { self[a] = JSON.parse(attributes[a]) } catch(e) { self[a] = attributes[a] };
+	settings.forEach(function(setting) {
+		self[setting.property] = setting.value;
 	});
 
 
@@ -130,15 +129,17 @@ function directive_init(scope, element, attrs, layoutType, mirror, canOverflow) 
 	var container =	element[0];
 	var layout =	new graphLayout(layoutType);
 	
-	// Properties
-	var properties = [];
-	if (scope.widget.deck.settings) scope.widget.deck.settings.forEach(function(setting) {
-		properties.push(setting.property);
-	});
-
 	// Attributes
 	var deck =		scope.widget.deck.graph;
-	var meta =		new graphMeta(scope, attrs, mirror, canOverflow, scope.widget.deck.params, properties);
+	var meta =		new graphMeta(scope, attrs, mirror, canOverflow, scope.widget.deck.params, scope.widget.deck.settings);
+	
+	// Plans modes
+	var plan;
+	if (scope.widget.deck.plans) {
+		meta.plan = 0;
+		plan = scope.widget.deck.plans[0];
+		if (plan.property) meta[plan.property] = true;
+	}
 	
 	// Widget
 	meta.widget =	{ index: scope.iw };
@@ -170,8 +171,9 @@ function directive_init(scope, element, attrs, layoutType, mirror, canOverflow) 
 		layout:		layout,
 		deck:		deck,
 		data:		scope.widget.data,
+		plans:		scope.widget.deck.plans,
+		plan:		plan,
 		settings:	scope.widget.settings,
-		properties:	properties,
 		meta:		meta,
 		profiles:	profiles,
 		svg:		svg,
@@ -313,14 +315,21 @@ function directive_bind(scope, element, r, repaint, select, addWidgetY) {
 	// Properties
 	scope.$watch(function() { return r.settings.version; }, function() {
 		var needToRepaint = false;
-
-		r.properties.forEach(function(property) {
-			if (r.meta[property] != r.settings[property]) {
+		
+		var property = r.settings.lastChangeProperty;
+		
+		if (r.meta[property] != r.settings[property]) {
+			if (property == 'plan') {
+				if (r.plan && r.plan.property) r.meta[r.plan.property] = false;
+				r.meta.plan = r.settings.plan;
+				r.plan = r.plans[r.settings.plan];
+				if (r.plan && r.plan.property) r.meta[r.plan.property] = true;
+			} else {
 				r.meta[property] = r.settings[property];
-				needToRepaint = true;
 			}
-		});
-
+			needToRepaint = true;
+		}
+		
 		if (needToRepaint)
 			repaint();
 	});
@@ -1141,7 +1150,7 @@ app.directive('chartThreads', function() {
 					
 					// Draw periods
 					var x1Period, x2Period;
-					if (r.deck.periods && ! r.meta.disablePeriods) {
+					if (r.deck.periods && (!! r.meta.enablePeriods || (r.meta.hasOwnProperty('disablePeriods') && ! r.meta.disablePeriods))) {
 						var periodsData = profile.currentData.threads.periods;
 						r.deck.periods.forEach(function(deck) {
 							if (periodsData[thread.h] && periodsData[thread.h][deck.attr]) {
@@ -1155,7 +1164,7 @@ app.directive('chartThreads', function() {
 											.attr('y', threadY - r.meta.period_Height / 2)
 											.attr("width", x2Period - x1Period)
 											.attr("height", r.meta.period_Height)
-											.attr('fill', (p.hasOwnProperty('c')) ? deck.colors[p.c] : deck.fcolor);
+											.attr('fill', (p.hasOwnProperty('c')) ? r.deck.c_periods[p.c] : deck.colours.n);
 									}
 								});
 							}
@@ -1198,7 +1207,7 @@ app.directive('chartThreads', function() {
 					}
 					
 					// Draw ticks
-					if (r.deck.ticks && ! r.meta.disableTicks) {
+					if (r.deck.ticks && (!! r.meta.enableTicks || (r.meta.hasOwnProperty('disableTicks') && ! r.meta.disableTicks))) {
 						var ticksData = profile.currentData.threads.ticks[thread.h];
 						var lastTick;
 						r.deck.ticks.forEach(function(deck) {

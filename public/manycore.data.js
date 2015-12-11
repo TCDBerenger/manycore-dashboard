@@ -49,6 +49,8 @@ app.factory('colours', [function() {
 		GBlue:	{ t: list.oGBlue,	f: list.dGBlue,	n: list.nGBlue,	g: list.fGBlue,	h: list.lGBlue },
 		GViol:	{ t: list.oGViol,	f: list.dGViol,	n: list.nGViol,	g: list.fGViol,	h: list.lGViol },
 	}
+	
+	var cores = ['#b6e3bc', '#b6e3da', '#b6cee3', '#bcb6e3', '#dab6e3', '#e3b6ce', '#e3bcb6', '#e3dab6'];
 
 	return {
 		unkn:	list.black,		// unkown color
@@ -58,7 +60,8 @@ app.factory('colours', [function() {
 		bad:	list.fRed,		// Not expected
 		alt:	list.eViolet,	// alternating
 		list:	list,
-		sets:	sets
+		sets:	sets,
+		cores:	cores
 	};
 }]);
 
@@ -446,7 +449,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			graph : {
 				h:			limit,		// threads (color)
 				ticks:		[facets.m],
-				periods:	[m],
+				periods:	[facets.m],
+				c_periods:	colours.cores,
 			},
 			data: [facets.m],
 			legend: {
@@ -465,16 +469,13 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ c: colours.alt,	t: 'Thread migrations',			d: 'too many migrations' },
 				{ c: colours.unkn,	t: 'Task start/stop overhead',	d: 'too short lifetime' }
 			],
-			modes: [
-				{ id: 1, label: 'rate' },
-				{ id: 2, label: 'events' },
-				{ id: 3, label: 'affinity' }
+			plans: [
+				{ id: 1, label: 'rate', property: 'groupTicks' },
+				{ id: 2, label: 'events', property: 'enableTicks' },
+				{ id: 3, label: 'core affinity', property: 'enablePeriods' }
 			],
 			settings: [
-				{ property: 'disableTicks', value: false, type: 'flag', label: 'Disable ticks' },
-				{ property: 'groupTicks', value: false, type: 'flag', label: 'Group ticks' },
-				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10, depends: ['groupTicks', true] },
-				{ property: 'disablePeriods', value: true, type: 'flag', label: 'Disable fruit salad' },
+				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10, depends: ['plan', 0] },
 			]
 		},
 		threadLocks: {
