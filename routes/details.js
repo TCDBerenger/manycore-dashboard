@@ -133,12 +133,13 @@ function addCommon(output, id) {
 /**
  * Add raw data for visualisations and stats
  */
-function addRawData(output, id, statProperties, frameProperties, eventProperties, threadTimeProperties, threadEventProperties, coreTimeProperties, addDalaLocality) {
+function addRawData(output, id, statProperties, frameProperties, eventProperties, coreFrameProperties, addDalaLocality) {
 	// Shortcut vars
 	var hasF =	frameProperties && frameProperties.length > 0;
 	var hasE =	eventProperties && eventProperties.length > 0;
+	var hasCF =	coreFrameProperties && coreFrameProperties.length > 0;
 	var isB =	{ s: statProperties.indexOf('b') >= 0,	f: hasF && frameProperties.indexOf('b') >= 0,													 };
-	var isI =	{ s: statProperties.indexOf('i') >= 0,	f: hasF && frameProperties.indexOf('i') >= 0,													 };
+	var isI =	{ s: statProperties.indexOf('i') >= 0,	f: hasF && frameProperties.indexOf('i') >= 0,													cf: hasCF && coreFrameProperties.indexOf('i') >= 0, };
 	var isM =	{ s: statProperties.indexOf('m') >= 0,													e: hasE && eventProperties.indexOf('m') >= 0,	 };
 	var isR =	{ s: statProperties.indexOf('r') >= 0,	f: hasF && frameProperties.indexOf('r') >= 0,													 };
 	var isS =	{ s: statProperties.indexOf('s') >= 0,													e: hasE && eventProperties.indexOf('s') >= 0,	 };
@@ -171,9 +172,6 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 		threads: {
 			times: {},
 			events: {}
-		},
-		cores: {
-			times: {}
 		}
 	}
 	
@@ -199,7 +197,7 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 	}
 	
 	// Time frames
-	if (hasF || addDalaLocality) {
+	if (hasF || hasCF || addDalaLocality) {
 		var amount, amountPercent, maxAL;
 		for (var timeID = 0; timeID <= data.info.timeMax; timeID+= data.info.timeStep) {
 			
@@ -208,7 +206,7 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 			//	- times of states for threads
 			//	- instructions for data locality
 			//
-			if (hasF || addDalaLocality) {
+			if (hasF || hasCF || addDalaLocality) {
 				amount = { t: timeID };
 				amountPercent = { t: timeID };
 				
@@ -222,6 +220,14 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 				if (isSYS.f) {
 					amount.sys =		max.timeFrame - Math.round(data.frames[timeID].running) - Math.round(data.frames[timeID].idle);
 					amountPercent.sys =	100 - Math.round(100 * data.frames[timeID].running / max.timeFrame) - Math.round(100 * data.frames[timeID].idle / max.timeFrame);
+				}
+				
+				// Core times
+				if (hasCF) {
+					for (var cid = profiles[id].hardware.data.lcores; cid--; ) {
+						if (isR.cf)	amount['r_c' + cid] =	Math.round(data.frames[timeID].c[cid].running);
+						if (isI.cf)	amount['i_c' + cid] =	Math.round(data.frames[timeID].c[cid].idle);
+					}
 				}
 				
 				// Data locality
@@ -355,7 +361,7 @@ function addTimes(output, id, properties) {
 /**
  * Add times spending by core states
  */
-function addCoreTimes(output, id, properties) {
+/*function addCoreTimes(output, id, properties) {
 	// Init vars
 	var data =	profiles[id].data;
 	var isR =	properties.indexOf('r') >= 0;
@@ -377,7 +383,7 @@ function addCoreTimes(output, id, properties) {
 			if (isUU)	output.cores[cid][timeID].uu =	Math.round(data.frames[timeID].c[cid].idle);
 		}
 	}
-}
+}*/
 
 /**
  * Add data-locality data
@@ -618,7 +624,7 @@ function jsonTG(profile, id) {
 	addCommon(output, id);
 	
 	// Add raw data for visualisation
-	addRawData(output, id, ['b', 'i', 'm', 'r', 's', 'y'], ['b', 'i', 'r', 'y', 'sys'], ['m', 's'], null, null, null, false);
+	addRawData(output, id, ['b', 'i', 'm', 'r', 's', 'y'], ['b', 'i', 'r', 'y', 'sys'], ['m', 's'], null, false);
 
 	// for potential parallelism
 	addTimes(output, id, ['r', 'yb', 'i', 'sys']);
@@ -650,7 +656,7 @@ function jsonSY(profile, id) {
 	addCommon(output, id);
 	
 	// Add raw data for visualisation
-	addRawData(output, id, ['r', 's', 'lf', 'ls', 'lw'], ['i', 'r', 'lw', 'sys'], ['lf', 'ls'], null, null, null, false);
+	addRawData(output, id, ['r', 's', 'lf', 'ls', 'lw'], ['i', 'r', 'lw', 'sys'], ['lf', 'ls'], null, false);
 
 	// Add locks
 	addLocks(output, id);
@@ -679,7 +685,7 @@ function jsonDS(profile, id) {
 	addCommon(output, id);
 	
 	// Add raw data for visualisation
-	addRawData(output, id, ['r', 'i', 'lw'], ['i', 'r', 'lw', 'sys'], null, null, null, null, true);
+	addRawData(output, id, ['r', 'i', 'lw'], ['i', 'r', 'lw', 'sys'], null, null, true);
 
 	// Add locks
 	addTimes(output, id, ['r', 'lw', 'i', 'sys']);
@@ -704,14 +710,14 @@ function jsonLB(profile, id) {
 	addCommon(output, id);
 	
 	// Add raw data for visualisation
-	addRawData(output, id, ['b', 'i', 'm', 'r', 'y', 'lf', 'ls', 'lw'], ['b', 'i', 'r', 'y', 'lw', 'sys'], ['m'], null, null, null, false);
+	addRawData(output, id, ['b', 'i', 'm', 'r', 'y', 'lf', 'ls', 'lw'], ['b', 'i', 'r', 'y', 'lw', 'sys'], ['m'], ['i'], false);
 
 	// for migrations
 	addMigrations(output, id);
 
 	// Add times
 	addTimes(output, id, ['r', 'yb', 'lw', 'i', 'sys']);
-	addCoreTimes(output, id, ['r', 'uu']);
+	//addCoreTimes(output, id, ['r', 'uu']);
 
 	// Add locks
 	addLocks(output, id);
@@ -739,7 +745,7 @@ function jsonDL(profile, id) {
 	addCommon(output, id);
 	
 	// Add raw data for visualisation
-	addRawData(output, id, [], null, null, null, null, null, true);
+	addRawData(output, id, [], null, null, null, true);
 
 	// Data
 	addLocality(output, id, false);
@@ -764,7 +770,7 @@ function jsonRS(profile, id) {
 	addCommon(output, id);
 	
 	// Add raw data for visualisation
-	addRawData(output, id, ['lf', 'ls'], null, ['lf', 'ls'], null, null, null, true);
+	addRawData(output, id, ['lf', 'ls'], null, ['lf', 'ls'], null, true);
 
 	// Add locks
 	addLocks(output, id);

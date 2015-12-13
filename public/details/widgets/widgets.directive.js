@@ -191,7 +191,7 @@ function directive_init(scope, element, attrs, layoutType, mirror, canOverflow) 
 /**
  * Focus - init
  */
-function directive_focus_init(r, repeater) {
+/*function directive_focus_init(r, repeater) {
 	var prefix;
 	var valuedPins = [];
 	
@@ -201,13 +201,13 @@ function directive_focus_init(r, repeater) {
 		prefix = 'pin-' + r.meta.widget.index + '-' + index + '-';
 		
 		// for melody
-		if (r.deck.melody) {
+		if (r.deck.melody_c) {
 			// Repeat
 			for (var l = 0; l < repeater[index]; l++) {
 				valuedPins.push({
-					id: prefix + 'melody-' + l,
-					l: (l == 0) ? r.deck.melody.label : '',
-					f: r.deck.melody
+					id: prefix + 'c-' + l,
+					l: (l == 0) ? r.deck.melody_c.label : '',
+					f: r.deck.melody_c
 				})
 			}
 		}
@@ -217,7 +217,7 @@ function directive_focus_init(r, repeater) {
 	
 	// Push pins
 	r.scope.focusInitPins(valuedPins);
-}
+}*/
 
 
 /**
@@ -1280,7 +1280,7 @@ app.directive('chartLines', function() {
 		];
 		
 		// Init focus pins
-		directive_focus_init(r, r.meta.linesLength);
+		//directive_focus_init(r, r.meta.linesLength);
 		
 		// Init internal data
 		r.iData = {};
@@ -1298,7 +1298,7 @@ app.directive('chartLines', function() {
 			directive_repaint_xAxis(r);
 			
 			// Clean
-			if (r.deck.melody) r.iData.melody = [[], []];
+			if (r.deck.melody_c) r.iData.melody = [[], []];
 
 			// Main draw
 			var profileData;
@@ -1391,13 +1391,15 @@ app.directive('chartLines', function() {
 							.attr('stroke', r.deck.h.color)
 							.attr('stroke-width', 1);
 					
-					// Draw melody
-					if (r.deck.melody && ! r.meta.disableMelody) {
+					// Draw melody core
+					if (r.deck.melody_c && ! r.meta.disableMelody) {
 						// Compute points
 						var points = [[], []];
 						var timeStep = profileData.info.timeStep;
+						var frameIndex;
 						for (var frameID = r.meta.begin; frameID < r.meta.ends[index]; frameID += timeStep) {
-							delta = profileData[r.deck.melody_cat][line.id][frameID][r.deck.melody.attr] * r.meta.melodyHeight / 2 / timeStep;
+							frameIndex = frameID / timeStep;
+							delta = profileData.raw.amount[frameIndex][r.deck.melody_c.attr + '_c' + line.id] * r.meta.melodyHeight / 2 / timeStep;
 							points[0].push.apply(points[0], [r.scaleX(frameID), lineCenter + delta, r.scaleX(frameID + timeStep), lineCenter + delta]);
 							points[1].push.apply(points[1], [r.scaleX(frameID), lineCenter - delta, r.scaleX(frameID + timeStep), lineCenter - delta]);
 						}
@@ -1410,7 +1412,7 @@ app.directive('chartLines', function() {
 							lineGroup.append("polygon")
 								.attr('class', 'svg-data svg-data-melody')
 								.attr("points", p2s(points[0], points[1]))
-								.attr('fill', r.deck.melody.color);
+								.attr('fill', r.deck.melody_c.colours.n);
 					}
 					
 					// Draw sequences
@@ -1572,49 +1574,6 @@ app.directive('chartLines', function() {
 						}
 					}
 				}
-				/*
-				if (r.deck.depends) {
-					var facet, points, lineFrom, lineTo;
-					
-					// Start
-					facet = r.deck.depends.start;
-					if (facet)
-						profileData.dependencies[facet.attr].forEach(function(dep, i) {
-							lineFrom = mapLines[(dep[r.deck.depends.from]) ? dep[r.deck.depends.from] : r.deck.depends.failID];
-							lineTo = mapLines[(dep[r.deck.depends.to]) ? dep[r.deck.depends.to] : r.deck.depends.failID];
-							
-							points =
-								'M' + r.scaleX(dep.t - dep.d) + ' ' + lineFrom.y + ' ' + 
-								'H' + r.scaleX(dep.t) + ' ' + 
-								'V' + lineTo.y + ' ' + 
-								'H' + r.scaleX(lineTo.e);
-							 
-							r.groupP[index].append("path")
-								.attr('class', 'svg-data svg-data-dependency')
-								.attr('d', points)
-								.attr('stroke', facet.color)
-								.attr('fill', 'transparent');
-						});
-					
-					// End
-					facet = r.deck.depends.end;
-					if (facet)
-						profileData.dependencies[facet.attr].forEach(function(dep, i) {
-							lineFrom = mapLines[(dep[r.deck.depends.from]) ? dep[r.deck.depends.from] : r.deck.depends.failID];
-							lineTo = mapLines[(dep[r.deck.depends.to]) ? dep[r.deck.depends.to] : r.deck.depends.failID];
-							
-							points =
-								'M' + r.scaleX(dep.t) + ' ' + lineFrom.y + ' ' + 
-								'V' + lineTo.y;
-							 
-							r.groupP[index].append("path")
-								.attr('class', 'svg-data svg-data-dependency')
-								.attr('d', points)
-								.attr('stroke', facet.color)
-								.attr('fill', 'transparent');
-						});
-				}
-				*/
 			});
 
 			// Post-treatment
@@ -1625,7 +1584,7 @@ app.directive('chartLines', function() {
 		function select(positions, y0) {
 			
 			// Select melody
-			if (r.deck.melody && ! r.meta.disableMelody) {
+			if (r.deck.melody_c && ! r.meta.disableMelody) {
 				
 				// Time ID
 				var t = positions.t;
@@ -1641,7 +1600,7 @@ app.directive('chartLines', function() {
 				// Loop
 				for (var index = 0; index < r.profiles.length; index++) {
 					// Focus prefix for rules
-					var prefixID = 'pin-' + r.meta.widget.index + '-' + index + '-melody-';
+					var prefixID = 'rule-' + r.meta.widget.index + '-' + index + '-c-';
 					
 					// Reuse
 					if (r.iSelection[index] != null) {
@@ -1661,7 +1620,7 @@ app.directive('chartLines', function() {
 							r.iSelection[index].append("polygon")
 								.attr('class', "svg-area svg-area-melody-" + l)
 								.attr("points", p2s(r.iData.melody[index][l][1].slice(tIndex * 4, tIndex * 4 + 4), r.iData.melody[index][l][0].slice(tIndex * 4, tIndex * 4 + 4)))
-								.attr('fill', r.deck.melody.fcolor);
+								.attr('fill', r.deck.melody_c.colours.f);
 							
 							// Send new coordinates to controller
 							updateMelodyPin(prefixID, l, y0, index, t, frameID);
@@ -1672,20 +1631,24 @@ app.directive('chartLines', function() {
 		}
 		
 		function updateMelodyPin(prefixID, l, y0, index, t, frameID) {
-			console.log('move'); // arguments
 			if (t >= r.meta.ends[index]) {
 				// Send disable to controller
 				r.scope.focusMovePin(prefixID + l, NaN, NaN);
 				
 			} else {
-				var value = r.profiles[index].currentData[r.deck.melody_cat][l][frameID][r.deck.melody.attr];
-				if (r.deck.melody.unity) value += ' ' + r.deck.melody.unity;
+				var value = r.profiles[index].currentData.raw.amount[frameID][r.deck.melody_c.attr + '_c' + l];
+				if (r.deck.melody_c.unity) value += ' ' + r.deck.melody_c.unity;
 				
 				// Send new coordinates to controller
-				r.scope.focusMovePin(
+				/*r.scope.focusMovePin(
 					prefixID + l,
 					y0 + r.meta.lines[index][l].y + r.layout.profile.y[index] + r.meta.vOverflow[index],
-					value);
+					value);*/
+				r.scope.focusRuleHandle(
+					prefixID + l,
+					y0 + r.meta.lines[index][l].y + r.layout.profile.y[index] + r.meta.vOverflow[index],
+					value,
+					(r.deck.melody_c.unity && r.deck.melody_c.unity.unity) ? value + ' ' + r.deck.melody_c.unity : value);
 			}
 		}
 

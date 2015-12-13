@@ -165,7 +165,6 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 						settings._plan = +val;
 						settings.version++;
 						settings.lastChangeProperty = 'plan';
-						console.log('new plan', +val, 'incr', settings.version);
 					}
 				});
 			}

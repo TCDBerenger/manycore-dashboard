@@ -270,15 +270,15 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		},
 		coreIdle: {
 			handling: {
-				time: TIME_NONE,
+				time: TIME_PROFILE,
 			},
 			graph : {
 				h:			limit,		// threads (color)
 				lines:		buildCores,
-				melody:		facets.i,
-				melody_cat:	'cores',
+				melody_c:	facets.i,
 			},
 			data: [facets.i, facets.r],
+			focus: [facets.i],
 			legend: {
 				axis: [
 					{ b: '⊢', f: limit,	t: '[Y] Cores',	d: 'each line represents a core' }
@@ -554,7 +554,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				lines:		buildCoresAnonymously,
 				sequences:	{ under: facets.q_s, count: facets.q_p }
 			},
-			data: [facets.r],
+			data: [facets.r, facets.i],
 			legend: {
 				axis: [
 					{ b: '⊢', f: limit,	t: '[Y] Cores',	d: 'each line represents a core, not in the right order, not with the right thread' }
