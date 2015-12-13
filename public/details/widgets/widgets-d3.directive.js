@@ -109,8 +109,7 @@ function d3_directive_init(scope, element, attrs, layoutVars) {
 	var profiles =	scope.profiles;
 
 	// Canvas
-	var svg =		d3.select(container).append('svg')
-						.attr('class', 'svg-d3');
+	var svg =		d3.select(container).append('svg').attr('class', 'svg-d3');
 
 	// Overflow
 	var overflow =	svg.append('g')

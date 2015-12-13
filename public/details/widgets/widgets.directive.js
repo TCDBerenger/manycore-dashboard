@@ -148,7 +148,7 @@ function directive_init(scope, element, attrs, layoutType, mirror, canOverflow) 
 	var profiles =	scope.profiles;
 
 	// Canvas
-	var svg =		d3.select(container).append('svg');
+	var svg =		d3.select(container).append('svg').attr('class', 'svg-charts');
 
 	// Scales
 	var scaleX =	d3.scale.linear();
@@ -1302,8 +1302,9 @@ app.directive('chartLines', function() {
 
 			// Main draw
 			var profileData;
-			var groupHeight, lineY;
+			var groupHeight, lineY, lineGroup, elementClasses;
 			var delta;
+			var lineCenter = r.meta.lineHeight / 2
 			r.profiles.forEach(function(profile, index) {
 				// Clean
 				r.groupP[index].selectAll('*').remove();
@@ -1370,15 +1371,23 @@ app.directive('chartLines', function() {
 					
 					// Position
 					lineY = (index == 0) ? (line_index + .5) * r.meta.lineHeight - groupHeight : (line_index + .5) * r.meta.lineHeight;
+					
+					// Group
+					lineGroup = r.groupP[index].append("g")
+						.attr('transform', 'translate(0,' + ((index == 0) ? line_index * r.meta.lineHeight - groupHeight : line_index * r.meta.lineHeight) + ')')
+						.attr('class', 'svg-group');
+					
+					// Save line parameters
 					line.y = lineY;
+					line.g = lineGroup;
 					
 					// Draw basic core
 					if (! r.meta.disableLine)
-						r.groupP[index].append('line')
+						lineGroup.append('line')
 							.attr('class', "svg-data svg-data-line")
 							.attr('x1', r.scaleX(line.s))
 							.attr('x2', r.scaleX(line.e))
-							.attr('y1', lineY).attr('y2', lineY)
+							.attr('y1', lineCenter).attr('y2', lineCenter)
 							.attr('stroke', r.deck.h.color)
 							.attr('stroke-width', 1);
 					
@@ -1389,8 +1398,8 @@ app.directive('chartLines', function() {
 						var timeStep = profileData.info.timeStep;
 						for (var frameID = r.meta.begin; frameID < r.meta.ends[index]; frameID += timeStep) {
 							delta = profileData[r.deck.melody_cat][line.id][frameID][r.deck.melody.attr] * r.meta.melodyHeight / 2 / timeStep;
-							points[0].push.apply(points[0], [r.scaleX(frameID), lineY + delta, r.scaleX(frameID + timeStep), lineY + delta]);
-							points[1].push.apply(points[1], [r.scaleX(frameID), lineY - delta, r.scaleX(frameID + timeStep), lineY - delta]);
+							points[0].push.apply(points[0], [r.scaleX(frameID), lineCenter + delta, r.scaleX(frameID + timeStep), lineCenter + delta]);
+							points[1].push.apply(points[1], [r.scaleX(frameID), lineCenter - delta, r.scaleX(frameID + timeStep), lineCenter - delta]);
 						}
 						
 						// Save melody data
@@ -1398,7 +1407,7 @@ app.directive('chartLines', function() {
 						
 						// Draw melody (if necessary)
 						if (! r.meta.disableMelody)
-							r.groupP[index].append("polygon")
+							lineGroup.append("polygon")
 								.attr('class', 'svg-data svg-data-melody')
 								.attr("points", p2s(points[0], points[1]))
 								.attr('fill', r.deck.melody.color);
@@ -1407,8 +1416,8 @@ app.directive('chartLines', function() {
 					// Draw sequences
 					if (r.deck.sequences && ! r.meta.disableSequenceDashs) {
 						var seqData = profileData.events.q;
-						var cPoints = [[r.scaleX(r.meta.begin), lineY], [r.scaleX(r.meta.begin), lineY]];
-						var uPoints = [[r.scaleX(r.meta.begin), lineY], [r.scaleX(r.meta.begin), lineY]];
+						var cPoints = [[r.scaleX(r.meta.begin), lineCenter], [r.scaleX(r.meta.begin), lineCenter]];
+						var uPoints = [[r.scaleX(r.meta.begin), lineCenter], [r.scaleX(r.meta.begin), lineCenter]];
 						var cUseDelta = false;
 						var uUseDelta = false;
 						delta = 3;
@@ -1418,28 +1427,28 @@ app.directive('chartLines', function() {
 								// Count
 								if ((index == 0 && r.meta.linesLength[index] - line_index - 1 < seqData[t]) || (index == 1 && line_index < seqData[t])) {
 									if (! cUseDelta) {
-										cPoints[0].push.apply(cPoints[0], [r.scaleX(t), lineY, r.scaleX(t), lineY + delta]);
-										cPoints[1].push.apply(cPoints[1], [r.scaleX(t), lineY, r.scaleX(t), lineY - delta]);
+										cPoints[0].push.apply(cPoints[0], [r.scaleX(t), lineCenter, r.scaleX(t), lineCenter + delta]);
+										cPoints[1].push.apply(cPoints[1], [r.scaleX(t), lineCenter, r.scaleX(t), lineCenter - delta]);
 										cUseDelta = true;
 									}
 								} else {
 									if (cUseDelta) {
-										cPoints[0].push.apply(cPoints[0], [r.scaleX(t), lineY + delta, r.scaleX(t), lineY]);
-										cPoints[1].push.apply(cPoints[1], [r.scaleX(t), lineY - delta, r.scaleX(t), lineY]);
+										cPoints[0].push.apply(cPoints[0], [r.scaleX(t), lineCenter + delta, r.scaleX(t), lineCenter]);
+										cPoints[1].push.apply(cPoints[1], [r.scaleX(t), lineCenter - delta, r.scaleX(t), lineCenter]);
 										cUseDelta = false;
 									}
 								}
 								// Under
 								if (seqData[t] <= r.meta.sequenceThreshold && ((index == 0 && r.meta.linesLength[index] - line_index - 1 < seqData[t]) || (index == 1 && line_index < seqData[t]))) {
 									if (! uUseDelta) {
-										uPoints[0].push.apply(uPoints[0], [r.scaleX(t), lineY, r.scaleX(t), lineY + delta]);
-										uPoints[1].push.apply(uPoints[1], [r.scaleX(t), lineY, r.scaleX(t), lineY - delta]);
+										uPoints[0].push.apply(uPoints[0], [r.scaleX(t), lineCenter, r.scaleX(t), lineCenter + delta]);
+										uPoints[1].push.apply(uPoints[1], [r.scaleX(t), lineCenter, r.scaleX(t), lineCenter - delta]);
 										uUseDelta = true;
 									}
 								} else {
 									if (uUseDelta) {
-										uPoints[0].push.apply(uPoints[0], [r.scaleX(t), lineY + delta, r.scaleX(t), lineY]);
-										uPoints[1].push.apply(uPoints[1], [r.scaleX(t), lineY - delta, r.scaleX(t), lineY]);
+										uPoints[0].push.apply(uPoints[0], [r.scaleX(t), lineCenter + delta, r.scaleX(t), lineCenter]);
+										uPoints[1].push.apply(uPoints[1], [r.scaleX(t), lineCenter - delta, r.scaleX(t), lineCenter]);
 										uUseDelta = false;
 									}
 								}
@@ -1447,23 +1456,23 @@ app.directive('chartLines', function() {
 						}
 						
 						if (cUseDelta) {
-							cPoints[0].push.apply(cPoints[0], [cPoints[0][cPoints[0].length - 2], lineY]);
-							cPoints[1].push.apply(cPoints[1], [cPoints[1][cPoints[1].length - 2], lineY]);
+							cPoints[0].push.apply(cPoints[0], [cPoints[0][cPoints[0].length - 2], lineCenter]);
+							cPoints[1].push.apply(cPoints[1], [cPoints[1][cPoints[1].length - 2], lineCenter]);
 						}
 						if (uUseDelta) {
-							uPoints[0].push.apply(uPoints[0], [uPoints[0][uPoints[0].length - 2], lineY]);
-							uPoints[1].push.apply(uPoints[1], [uPoints[1][uPoints[1].length - 2], lineY]);
+							uPoints[0].push.apply(uPoints[0], [uPoints[0][uPoints[0].length - 2], lineCenter]);
+							uPoints[1].push.apply(uPoints[1], [uPoints[1][uPoints[1].length - 2], lineCenter]);
 						}
 						
 						// Count
-						r.groupP[index].append("polygon")
+						lineGroup.append("polygon")
 							.attr('class', 'svg-data svg-data-sequence svg-data-doing')
 							.attr("points", p2s(cPoints[0], cPoints[1]))
 							.attr('fill', r.deck.sequences.count.color);
 						
 						// Under
 						if (uPoints[0].length > 2)
-							r.groupP[index].append("polygon")
+							lineGroup.append("polygon")
 								.attr('class', 'svg-data svg-data-sequence svg-data-doing')
 								.attr("points", p2s(uPoints[0], uPoints[1]))
 								.attr('fill', r.deck.sequences.under.color);
@@ -1483,18 +1492,19 @@ app.directive('chartLines', function() {
 							// Failure
 							if (event.x == 'lf') {
 								// Line
-								if (r.meta.holdingMode >= 2) r.groupP[index].insert('line', ':first-child')
-									.attr('class', "svg-data svg-data-line svg-data-for-" + event.h)
+								elementClasses = (r.meta.holdingMode == 1) ? 'svg-data svg-data-line svg-group-hovered-element' : 'svg-data svg-data-line';
+								if (r.meta.holdingMode >= 1) mapLines[event.h].g.insert('line', ':first-child')
+									.attr('class', elementClasses)
 									.attr('x1', r.scaleX(event.t)).attr('x2', r.scaleX(event.t))
-									.attr('y1', mapLines[event.h].y).attr('y2', mapLines[event.hl].y)
+									.attr('y1', lineCenter).attr('y2', lineCenter + mapLines[event.hl].y - mapLines[event.h].y)
 									.attr('stroke', r.deck.depends.failure.color)
 									.attr('stroke-width', 1)
 									.attr('stroke-dasharray', '2,2');
 								// Cross
-								r.groupP[index].append('text')
+								mapLines[event.h].g.append('text')
 									.attr('class', 'svg-data svg-data-failure svg-data-failure-label')
 									.attr('x', r.scaleX(event.t))
-									.attr('y', mapLines[event.h].y)
+									.attr('y', lineCenter)
 									.attr('text-anchor', 'middle')
 									.attr('alignment-baseline', 'central')
 									.attr('dominant-baseline', 'central')
@@ -1506,10 +1516,10 @@ app.directive('chartLines', function() {
 							// Success
 							if (event.x == 'ls') {
 								// Tick
-								r.groupP[index].append('text')
+								mapLines[event.h].g.append('text')
 									.attr('class', 'svg-data svg-data-failure svg-data-failure-label svg-data-lock-ls-' + lock)
 									.attr('x', r.scaleX(event.t))
-									.attr('y', mapLines[event.h].y)
+									.attr('y', lineCenter)
 									.attr('text-anchor', 'middle')
 									.attr('alignment-baseline', 'central')
 									.attr('dominant-baseline', 'central')
@@ -1525,18 +1535,18 @@ app.directive('chartLines', function() {
 								// Line
 								if (event.t - start > 0) {
 									// Period
-									r.groupP[index].insert('line', '.svg-data-lock-ls-' + lock)
+									mapLines[holded.h].g.insert('line', '.svg-data-lock-ls-' + lock)
 										.attr('class', "svg-data svg-data-line")
 										.attr('x1', r.scaleX(start)).attr('x2', r.scaleX(event.t))
-										.attr('y1', mapLines[holded.h].y).attr('y2', mapLines[holded.h].y)
+										.attr('y1', lineCenter).attr('y2', lineCenter)
 										.attr('stroke', r.deck.depends.working.color)
 										.attr('stroke-width', 5);
 									
 									// Tick
-									r.groupP[index].append('text')
+									mapLines[holded.h].g.append('text')
 										.attr('class', 'svg-data svg-data-failure svg-data-failure-label')
 										.attr('x', r.scaleX(event.t))
-										.attr('y', mapLines[holded.h].y)
+										.attr('y', lineCenter)
 										.attr('text-anchor', 'middle')
 										.attr('alignment-baseline', 'central')
 										.attr('dominant-baseline', 'central')
@@ -1552,10 +1562,10 @@ app.directive('chartLines', function() {
 						if (holded) {
 							// Line
 							if (mapLines[holded.h].e - holded.t > 0)
-								r.groupP[index].append('line')
+								mapLines[holded.h].g.append('line')
 									.attr('class', "svg-data svg-data-line")
 									.attr('x1', r.scaleX(holded.t)).attr('x2', r.scaleX(mapLines[holded.h].e))
-									.attr('y1', mapLines[holded.h].y).attr('y2', mapLines[holded.h].y)
+									.attr('y1', lineCenter).attr('y2', lineCenter)
 									.attr('stroke', r.deck.depends.working.color)
 									.attr('stroke-width', 5);
 							

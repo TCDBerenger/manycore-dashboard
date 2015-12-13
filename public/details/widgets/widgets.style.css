@@ -23,6 +23,20 @@
 }
 
 /*
+ * Charts
+ */
+/*.svg * {
+	pointer-events: none;
+}*/
+.svg-charts .svg-group .svg-group-hovered-element {
+	visibility: hidden;
+}
+.svg-charts .svg-group:hover .svg-group-hovered-element {
+	visibility: visible;
+}
+
+
+/*
  * Charts D3
  */
 .svg-d3 .axis .label {
