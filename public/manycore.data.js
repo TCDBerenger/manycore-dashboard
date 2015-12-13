@@ -278,7 +278,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				melody:		facets.i,
 				melody_cat:	'cores',
 			},
-			data: [facets.i],
+			data: [facets.i, facets.r],
 			legend: {
 				axis: [
 					{ b: '⊢', f: limit,	t: '[Y] Cores',	d: 'each line represents a core' }
@@ -347,6 +347,45 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			clues: [],
 			settings: [
 				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
+			]
+		},
+		threadChains: {
+			handling: {
+				time: TIME_NONE,
+			},
+			graph : {
+				h:			limit,		// color
+				lines:		buildThreads,
+				linesHack:	buildThreadsForDP,
+				depends:	{
+					list: 'locks',
+					failure: facets.lf,
+					working: facets.ls,
+					
+					start: facets.ls,
+					end: facets.lf,
+					color: facets.lw,
+					from: 'hl',
+					to: 'h',
+					failID: 0
+				}
+			},
+			data: [facets.ls, facets.lf],
+			legend: {
+				axis: [
+					{ b: '⊢', f: limit,	t: '[Y] Threads',	d: 'each line represents a thread complying with the start and end times' },
+				],
+				data: [
+					{ b: '×', f: facets.lf,									d: 'attempt to acquire a lock' },
+					{ b: '¦', f: facets.lf,									d: 'indicating which thread hold the lock' },
+					{ b: '|', f: facets.ls,	t: 'Lock acquire or release',	d: '', 								c: colours.list.dTurquoise},
+					{ b: '▰', f: facets.ls,	t: 'Lock hold',					d: '' },
+				]
+			},
+			clues: [],
+			settings: [
+				{ property: 'hackLineProvider', value: true, type: 'flag', label: 'Data provider', desc: 'use a hack for dinner philosopher problems' },
+				{ property: 'holdingMode', value: 1, type: 'select', label: 'Thread holding the lock', choices: ['hide', 'show on mouve hover', 'show'] },
 			]
 		},
 		threadMigrations: {
@@ -515,7 +554,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				lines:		buildCoresAnonymously,
 				sequences:	{ under: facets.q_s, count: facets.q_p }
 			},
-			data: [],
+			data: [facets.r],
 			legend: {
 				axis: [
 					{ b: '⊢', f: limit,	t: '[Y] Cores',	d: 'each line represents a core, not in the right order, not with the right thread' }
@@ -536,44 +575,6 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ property: 'disableSequenceDashs', value: false, type: 'flag', label: 'Core executing', desc: 'hide core executing' },
 				{ property: 'disableSequenceBackgound', value: false, type: 'flag', label: 'Parallel sequences', desc: 'hide backgound sequences (parallel/sequential)' },
 				{ property: 'sequenceThreshold', value: 1, type: 'range', label: 'Parallel threshold', unit: 'running threads', min: 0, max: 3, step: 1 },
-			]
-		},
-		chains: {
-			handling: {
-				time: TIME_NONE,
-			},
-			graph : {
-				h:			limit,		// color
-				lines:		buildThreads,
-				linesHack:	buildThreadsForDP,
-				depends:	{
-					list: 'locks',
-					failure: facets.lf,
-					working: facets.ls,
-					
-					start: facets.ls,
-					end: facets.lf,
-					color: facets.lw,
-					from: 'hl',
-					to: 'h',
-					failID: 0
-				}
-			},
-			data: [facets.ls, facets.lf],
-			legend: {
-				axis: [
-					{ b: '⊢', f: limit,	t: '[Y] Threads',	d: 'each line represents a thread complying with the start and end times' },
-				],
-				data: [
-					{ b: '×', f: facets.lf,									d: 'attempt to acquire a lock' },
-					{ b: '¦', f: facets.lf,									d: 'indicating which thread hold the lock' },
-					{ b: '|', f: facets.ls,	t: 'Lock acquire or release',	d: '', 								c: colours.list.dTurquoise},
-					{ b: '▰', f: facets.ls,	t: 'Lock hold',					d: '' },
-				]
-			},
-			clues: [],
-			settings: [
-				{ property: 'hackLineProvider', value: true, type: 'flag', label: 'Data provider', desc: 'use a hack for dinner philosopher problems' },
 			]
 		},
 		pCoordDL: {
@@ -616,7 +617,7 @@ app.factory('widgets', ['decks', function(decks) {
 		coreSequences:		{ id: id(),	v: 3, file: 'chart-lines',		deck: decks.sequences,			wide: false,	title: 'Single thread execution phases',							desc: 'alternating sequential/parallel execution'},
 		lockCounts:			{ id: id(),	v: 4, file: 'chart-units',		deck: decks.lockCounts,			wide: false,	title: 'Lock contentions',											desc: 'Locking with and without contention'},
 		lockContentions:	{ id: id(),	v: 4, file: 'chart-percent',	deck: decks.lockContentions,	wide: false,	title: 'Time waiting for a lock',									desc: ''},
-		threadChains:		{ id: id(),	v: 4, file: 'chart-lines',		deck: decks.chains,				wide: false,	title: 'Chains of dependencies on locks',							desc: 'synchronisations and waiting between threads'},
+		threadChains:		{ id: id(),	v: 4, file: 'chart-lines',		deck: decks.threadChains,		wide: false,	title: 'Chains of dependencies on locks',							desc: 'synchronisations and waiting between threads'},
 		threadFruitSalad:	{ id: id(),	v: 3, file: 'chart-threads',	deck: decks.threadFruitSalad,	wide: false,	title: 'Migrations by thread',										desc: 'creation, running, moving between cores, termination'},
 		threadLocks:		{ id: id(),	v: 4, file: 'chart-threads',	deck: decks.threadLocks,		wide: false,	title: 'Time each thread spends waiting for locks',					desc: ''},
 		threadMigrations:	{ id: id(),	v: 3, file: 'chart-units',		deck: decks.threadMigrations,	wide: false,	title: 'Rate of thread migrations',									desc: 'thread switching the core on which it is executing'},
