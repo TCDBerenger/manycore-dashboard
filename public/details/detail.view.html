@@ -23,30 +23,30 @@
 				<tbody>
 					<tr class="info"><td colspan="{{profiles.length > 1 | iif : '3' : '2'}}">Stats</td></tr>
 					<tr>
-						<td><span>ms</span>{{data[profiles[0].id].info.duration}}</td>
+						<td><span>ms</span>{{profiles[0].currentData.info.duration}}</td>
 						<td>duration</td>
-						<td ng-if="profiles.length == 2"><span>ms</span>{{data[profiles[1].id].info.duration}}</td>
+						<td ng-if="profiles.length == 2"><span>ms</span>{{profiles[1].currentData.info.duration}}</td>
 					</tr>
 					<tr>
-						<td>{{data[profiles[0].id].stats.h}}</td>
+						<td>{{profiles[0].currentData.stats.h}}</td>
 						<td>threads</td>
-						<td ng-if="profiles.length == 2">{{data[profiles[1].id].stats.h}}</td>
+						<td ng-if="profiles.length == 2">{{profiles[1].currentData.stats.h}}</td>
 					</tr>
 					<tr>
-						<td><span>10⁶</span><span>&nbsp;</span><span>×</span>{{data[profiles[0].id].stats.c / 1000000000 | number: 0}}</td>
+						<td><span>10⁶</span><span>&nbsp;</span><span>×</span>{{profiles[0].currentData.stats.c / 1000000000 | number: 0}}</td>
 						<td>cycles</td>
-						<td ng-if="profiles.length == 2"><span>10⁶</span><span>&nbsp;</span><span>×</span>{{data[profiles[1].id].stats.c / 1000000000 | number: 0}}</td>
+						<td ng-if="profiles.length == 2"><span>10⁶</span><span>&nbsp;</span><span>×</span>{{profiles[1].currentData.stats.c / 1000000000 | number: 0}}</td>
 					</tr>
 					<tr>
-						<td><span>%</span>{{data[profiles[0].id].stats.r * 100 / (data[profiles[0].id].stats.r + data[profiles[0].id].stats.y + data[profiles[0].id].stats.s + data[profiles[0].id].stats.w) | number: 0}}</td>
+						<td><span>%</span>{{profiles[0].currentData.stats.r * 100 / (profiles[0].currentData.stats.r + profiles[0].currentData.stats.y + profiles[0].currentData.stats.s + profiles[0].currentData.stats.w) | number: 0}}</td>
 						<td>running</td>
-						<td ng-if="profiles.length == 2"><span>%</span>{{data[profiles[1].id].stats.r * 100 / (data[profiles[1].id].stats.r + data[profiles[1].id].stats.y + data[profiles[1].id].stats.s + data[profiles[1].id].stats.w) | number: 0}}</td>
+						<td ng-if="profiles.length == 2"><span>%</span>{{profiles[1].currentData.stats.r * 100 / (profiles[1].currentData.stats.r + profiles[1].currentData.stats.y + profiles[1].currentData.stats.s + profiles[1].currentData.stats.w) | number: 0}}</td>
 					</tr>
 					<tr class="info"><td colspan="{{profiles.length > 1 | iif : '3' : '2'}}">Hardware</td></tr>
 					<tr>
-						<td>{{profiles[0].hardware.data.cores}} / {{profiles[0].hardware.data.threads}}</td>
-						<td>cores / threads</td>
-						<td ng-if="profiles.length == 2">{{profiles[1].hardware.data.cores}} / {{profiles[1].hardware.data.threads}}</td>
+						<td>{{profiles[0].hardware.data.pcores}} / {{profiles[0].hardware.data.lcores}}</td>
+						<td>cores (physical&nbsp;/&nbsp;logical)</td>
+						<td ng-if="profiles.length == 2">{{profiles[1].hardware.data.pcores}} / {{profiles[1].hardware.data.lcores}}</td>
 					</tr>
 					<tr>
 						<td>{{profiles[0].hardware.data.type}} bits</td>
