@@ -1484,7 +1484,7 @@ app.directive('chartLines', function() {
 							if (event.x == 'lf') {
 								// Line
 								if (r.meta.holdingMode >= 2) r.groupP[index].insert('line', ':first-child')
-									.attr('class', "svg-data svg-data-line")
+									.attr('class', "svg-data svg-data-line svg-data-for-" + event.h)
 									.attr('x1', r.scaleX(event.t)).attr('x2', r.scaleX(event.t))
 									.attr('y1', mapLines[event.h].y).attr('y2', mapLines[event.hl].y)
 									.attr('stroke', r.deck.depends.failure.color)
@@ -1507,13 +1507,13 @@ app.directive('chartLines', function() {
 							if (event.x == 'ls') {
 								// Tick
 								r.groupP[index].append('text')
-									.attr('class', 'svg-data svg-data-failure svg-data-failure-label')
+									.attr('class', 'svg-data svg-data-failure svg-data-failure-label svg-data-lock-ls-' + lock)
 									.attr('x', r.scaleX(event.t))
 									.attr('y', mapLines[event.h].y)
 									.attr('text-anchor', 'middle')
 									.attr('alignment-baseline', 'central')
 									.attr('dominant-baseline', 'central')
-									.attr('font-size', '14px')
+									.attr('font-size', '12px')
 									.attr('fill', r.deck.depends.working.fcolor)
 									.text('[');
 								holded = event;
@@ -1525,7 +1525,7 @@ app.directive('chartLines', function() {
 								// Line
 								if (event.t - start > 0) {
 									// Period
-									r.groupP[index].append('line')
+									r.groupP[index].insert('line', '.svg-data-lock-ls-' + lock)
 										.attr('class', "svg-data svg-data-line")
 										.attr('x1', r.scaleX(start)).attr('x2', r.scaleX(event.t))
 										.attr('y1', mapLines[holded.h].y).attr('y2', mapLines[holded.h].y)
@@ -1540,7 +1540,7 @@ app.directive('chartLines', function() {
 										.attr('text-anchor', 'middle')
 										.attr('alignment-baseline', 'central')
 										.attr('dominant-baseline', 'central')
-										.attr('font-size', '14px')
+										.attr('font-size', '12px')
 										.attr('fill', r.deck.depends.working.fcolor)
 										.text(']');
 								}
