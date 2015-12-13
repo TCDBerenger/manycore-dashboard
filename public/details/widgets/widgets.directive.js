@@ -1483,7 +1483,7 @@ app.directive('chartLines', function() {
 							// Failure
 							if (event.x == 'lf') {
 								// Line
-								r.groupP[index].insert('line', ':first-child')
+								if (r.meta.holdingMode >= 2) r.groupP[index].insert('line', ':first-child')
 									.attr('class', "svg-data svg-data-line")
 									.attr('x1', r.scaleX(event.t)).attr('x2', r.scaleX(event.t))
 									.attr('y1', mapLines[event.h].y).attr('y2', mapLines[event.hl].y)
@@ -1498,7 +1498,7 @@ app.directive('chartLines', function() {
 									.attr('text-anchor', 'middle')
 									.attr('alignment-baseline', 'central')
 									.attr('dominant-baseline', 'central')
-									.attr('font-size', '10px')
+									.attr('font-size', '14px')
 									.attr('fill', r.deck.depends.failure.color)
 									.text('×');
 							} else
@@ -1506,13 +1506,16 @@ app.directive('chartLines', function() {
 							// Success
 							if (event.x == 'ls') {
 								// Tick
-								r.groupP[index].append('line')
-									.attr('class', "svg-data svg-data-line")
-									.attr('x1', r.scaleX(event.t)).attr('x2', r.scaleX(event.t))
-									.attr('y1', mapLines[event.h].y - 4).attr('y2', mapLines[event.h].y + 4)
-									.attr('stroke', r.deck.depends.working.fcolor)
-									.attr('stroke-width', 1);
-								
+								r.groupP[index].append('text')
+									.attr('class', 'svg-data svg-data-failure svg-data-failure-label')
+									.attr('x', r.scaleX(event.t))
+									.attr('y', mapLines[event.h].y)
+									.attr('text-anchor', 'middle')
+									.attr('alignment-baseline', 'central')
+									.attr('dominant-baseline', 'central')
+									.attr('font-size', '14px')
+									.attr('fill', r.deck.depends.working.fcolor)
+									.text('[');
 								holded = event;
 							} else
 							
@@ -1530,12 +1533,16 @@ app.directive('chartLines', function() {
 										.attr('stroke-width', 5);
 									
 									// Tick
-									r.groupP[index].append('line')
-										.attr('class', "svg-data svg-data-line")
-										.attr('x1', r.scaleX(event.t)).attr('x2', r.scaleX(event.t))
-										.attr('y1', mapLines[holded.h].y - 4).attr('y2', mapLines[holded.h].y + 4)
-										.attr('stroke', r.deck.depends.working.fcolor)
-										.attr('stroke-width', 1);
+									r.groupP[index].append('text')
+										.attr('class', 'svg-data svg-data-failure svg-data-failure-label')
+										.attr('x', r.scaleX(event.t))
+										.attr('y', mapLines[holded.h].y)
+										.attr('text-anchor', 'middle')
+										.attr('alignment-baseline', 'central')
+										.attr('dominant-baseline', 'central')
+										.attr('font-size', '14px')
+										.attr('fill', r.deck.depends.working.fcolor)
+										.text(']');
 								}
 								
 								holded = null;
