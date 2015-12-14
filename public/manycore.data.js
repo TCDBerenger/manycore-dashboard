@@ -143,31 +143,35 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		}
 	}
 	
-	function buildThreads(profile) {
+	function buildThreads(profile, presetList) {
 		var begin = profile.currentData.info.timeMin;
 		var end = profile.currentData.info.duration;
-		var lines = [];
+		var lines = presetList || [];
+		var excludes = (presetList) ? presetList.map(function(line) { return line.id; }) : [];
 		profile.currentData.threads.info.forEach(function(thread) {
-			lines.push({
-				id: thread.h,
-				l: thread.h,
-				s: Math.max(thread.s, begin),
-				e: (thread.e) ? Math.min(thread.e, end) : end
-			});
+			if (excludes.indexOf(thread.h) < 0)
+				lines.push({
+					id: thread.h,
+					l: thread.h,
+					s: Math.max(thread.s, begin),
+					e: (thread.e) ? Math.min(thread.e, end) : end
+				});
 		});
 		return lines;
 	}
 	function buildThreadsForDP(profile) {
-		if (profile.id == 21)
-			return [
+		var presetList;
+		if (profile.id == 21) {
+			presetList = [
 				{ id: 11936,	l: 'φ 1',	s:1,	e:1023},	// 5 2
 				{ id: 18964,	l: 'φ 2',	s:0,	e:512},		// 2 1
 				{ id: 18596,	l: 'φ 3',	s:1,	e:1028},	// 1 3
 				{ id: 18012,	l: 'φ 4',	s:1,	e:509},		// 3 4
 				{ id: 8020,		l: 'φ 5',	s:1,	e:1529},	// 4 5
 			];
-		else if (profile.id == 22)
-			return [
+			return buildThreads(profile, presetList);
+		} else if (profile.id == 22) {
+			presetList = [
 				{ id: 9448,		l: 'φ 1',	s:9,	e:1055},	// 45 02
 				{ id: 11740,	l: 'φ 2',	s:0,	e:540},		// 01 02
 				{ id: 12748,	l: 'φ 3',	s:1,	e:1061},	// 01 03
@@ -214,8 +218,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ id: 6028,		l: 'φ 44',	s:9,	e:583},		// 43 44
 				{ id: 14012,	l: 'φ 45',	s:9,	e:1567},	// 44 45
 			];
-		else
+			return buildThreads(profile, presetList);
+		} else {
 			return buildThreads(profile);
+		}
 	}
 	function buildCores(profile) {
 		var begin = profile.currentData.info.timeMin;
