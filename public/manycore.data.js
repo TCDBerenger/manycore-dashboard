@@ -355,8 +355,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			graph : {
 				h:			limit,		// color
-				lines:		buildThreads,
-				linesHack:	buildThreadsForDP,
+				lines:		buildThreadsForDP,
 				depends:	{
 					list: 'locks',
 					failure: facets.lf,
@@ -384,7 +383,6 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			clues: [],
 			settings: [
-				{ property: 'hackLineProvider', value: true, type: 'flag', label: 'Data provider', desc: 'use a hack for dinner philosopher problems' },
 				{ property: 'holdingMode', value: 1, type: 'select', label: 'Thread holding the lock', choices: ['hide', 'show on mouve hover', 'show'] },
 			]
 		},

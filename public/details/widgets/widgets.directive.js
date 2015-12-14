@@ -1271,8 +1271,8 @@ app.directive('chartLines', function() {
 		
 		// lines
 		r.meta.lines = [
-											 (r.meta.hackLineProvider) ? r.deck.linesHack(r.profiles[0]) : r.deck.lines(r.profiles[0]),
-			(r.profiles.length < 2) ? null : (r.meta.hackLineProvider) ? r.deck.linesHack(r.profiles[1]) : r.deck.lines(r.profiles[1])
+											 r.deck.lines(r.profiles[0]),
+			(r.profiles.length < 2) ? null : r.deck.lines(r.profiles[1])
 		];
 		r.meta.linesLength = [
 			(r.meta.lines[0]) ? r.meta.lines[0].length : 0,
