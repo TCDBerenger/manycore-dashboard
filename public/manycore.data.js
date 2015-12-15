@@ -519,7 +519,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ id: 3, label: 'core affinity', property: 'enablePeriods' }
 			],
 			settings: [
-				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10, depends: ['plan', 0] },
+				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }, // depends: ['plan', 0]
 			]
 		},
 		threadLocks: {
