@@ -333,7 +333,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			graph : {
 				v:			[facets.ls, facets.lf],
 				limit:		limit,
-				limitLabel:	'calib.',
+				limitLabel:	't. value',
 				expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf); },
 				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf) * 2; },
 				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf); }
@@ -342,8 +342,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			focus: [facets.ls, facets.lf],
 			legend: {
 				axis: [
-					{ b: '┄', t: '[Y] Core capacity',	d: 'capacity of the CPU',					f: limit },
-					{ b: '-', t: '[Y] Core capacity',	d: 'part of the CPU or equivalent portion', f: limit },
+					{ b: '-', t: 't. value',	d: 'typical value of lock acquisitions computed from the average of our samples',	f: limit },
+					{ b: 'n×', t: 'excess',		d: 'more lock acquisitions than expected (multiple of the typical value)',			f: limit },
 				],
 				data: [
 					{ b: '▮', t: 'Lock with contention',	d: 'number failure of lock acquisition',	f: facets.lf },
@@ -400,7 +400,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			graph : {
 				v:		[facets.m],
 				limit:		limit,
-				limitLabel:	'calib.',
+				limitLabel:	't. value',
 				expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m; },
 				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m * 2; },
 				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m; }
@@ -409,7 +409,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			focus: [facets.m],
 			legend: {
 				axis: [
-					{ b: '┄', t: '[Y] Calibration',	d: 'typical level of thread migrations', c: colours.list.fGrey}
+					{ b: '-', t: 't. value',	d: 'typical value of thread migrations computed from the average of our samples',	f: limit },
+					{ b: 'n×', t: 'excess',		d: 'more thread migrations than expected (multiple of the typical value)',			f: limit },
 				],
 				data: [
 					{ b: '▮', f: facets.m }
@@ -431,7 +432,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			graph : {
 				v:			[facets.s],
 				limit:		limit,
-				limitLabel:	'calib.',
+				limitLabel:	't. value',
 				expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s; },
 				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s * 2; },
 				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s; }
@@ -440,7 +441,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			focus: [facets.s],
 			legend: {
 				axis: [
-					{ b: '┄', t: '[Y] Calibration',	d: 'typical level of context switches', c: colours.list.fGrey}
+					{ b: '-', t: 't. value',	d: 'typical value of context switches computed from the average of our samples',	f: limit },
+					{ b: 'n×', t: 'excess',		d: 'more context switches than expected (multiple of the typical value)',			f: limit },
 				],
 				data: [
 					{ b: '▮', f: facets.s }
@@ -538,9 +540,9 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '⊢', f: limit,	t: '[Y] Threads',	d: 'each line represents a thread complying with the start and end times' }
 				],
 				data: [
-					{ b: '▮', t: 'Lock with contention',		d: 'failure of lock acquisition',	f: facets.lf },
-					{ b: '▮', t: 'Lock without  contention',	d: 'success of lock acquisition',	f: facets.ls },
-					{ b: '▬', f: facets.lw }
+					{ b: '╳', t: 'Lock with contention',		d: 'failure of lock acquisition',	f: facets.lf },
+					{ b: '[', t: 'Lock without  contention',	d: 'success of lock acquisition',	f: facets.ls },
+					{ b: '▮', f: facets.lw,						d: 'threads are not ready to be processed because they waiting to acquire a lock' }
 				]
 			},
 			clues: [],

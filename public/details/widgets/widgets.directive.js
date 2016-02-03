@@ -1512,7 +1512,7 @@ app.directive('chartLines', function() {
 									.attr('dominant-baseline', 'central')
 									.attr('font-size', '14px')
 									.attr('fill', r.deck.depends.failure.color)
-									.text('×');
+									.text('×'); // ╳
 							} else
 							
 							// Success
