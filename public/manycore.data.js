@@ -334,15 +334,15 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				v:			[facets.ls, facets.lf],
 				limit:		limit,
 				limitLabel:	't. value',
-				expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf); },
-				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf) * 2; },
-				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf); }
+				//expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf); },
+				//displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf) * 2; },
+				//vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf); }
 			},
 			data: [facets.ls, facets.lf],
 			focus: [facets.ls, facets.lf],
 			legend: {
 				axis: [
-					{ b: '-', t: 't. value',	d: 'typical value of lock acquisitions computed from the average of our samples',	f: limit },
+					{ b: '-', t: 't. value',	d: 'typical value of expected lock acquisitions (could be changed in settings)',	f: limit, sv: 'calibration', sd: 'lock acquisitions by ms' },
 					{ b: 'n×', t: 'excess',		d: 'more lock acquisitions than expected (multiple of the typical value)',			f: limit },
 				],
 				data: [
@@ -352,6 +352,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			clues: [],
 			settings: [
+				{ property: 'calibration', type: 'pnumeric', label: 'Typical values', unit: 'lock acquisitions', psource: function(profile) { return profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf); } },
 				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
 			]
 		},
@@ -401,15 +402,15 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				v:		[facets.m],
 				limit:		limit,
 				limitLabel:	't. value',
-				expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m; },
-				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m * 2; },
-				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m; }
+				//expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m; },
+				//displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m * 2; },
+				//vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m; }
 			},
 			data: [facets.m],
 			focus: [facets.m],
 			legend: {
 				axis: [
-					{ b: '-', t: 't. value',	d: 'typical value of thread migrations computed from the average of our samples',	f: limit },
+					{ b: '-', t: 't. value',	d: 'typical value of expected thread migrations (could be changed in settings)',	f: limit, sv: 'calibration', sd: 'thread migrations by ms' },
 					{ b: 'n×', t: 'excess',		d: 'more thread migrations than expected (multiple of the typical value)',			f: limit },
 				],
 				data: [
@@ -421,6 +422,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ c: colours.base,	t: 'Alternating sequential/parallel execution',	d: 'alternating period of high and low thread migrations' }
 			],
 			settings: [
+				{ property: 'calibration', type: 'pnumeric', label: 'Typical values', unit: 'thread migrations', psource: function(profile) { return profile.hardware.data.threads * profile.hardware.calibration.m; } },
 				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
 			]
 		},
@@ -433,16 +435,16 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				v:			[facets.s],
 				limit:		limit,
 				limitLabel:	't. value',
-				expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s; },
-				displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s * 2; },
-				vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s; }
+				//expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s; },
+				//displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s * 2; },
+				//vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s; }
 			},
 			data: [facets.s],
 			focus: [facets.s],
 			legend: {
 				axis: [
-					{ b: '-', t: 't. value',	d: 'typical value of context switches computed from the average of our samples',	f: limit },
-					{ b: 'n×', t: 'excess',		d: 'more context switches than expected (multiple of the typical value)',			f: limit },
+					{ b: '-', t: 't. value',	d: 'typical value of expected context switches (could be changed in settings)',	f: limit, sv: 'calibration', sd: 'context switches by ms' },
+					{ b: 'n×', t: 'excess',		d: 'more context switches than expected (multiple of the typical value)',		f: limit },
 				],
 				data: [
 					{ b: '▮', f: facets.s }
@@ -452,6 +454,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ c: colours.base,	t: 'Oversubscription',	d: 'high frequency' }
 			],
 			settings: [
+				{ property: 'calibration', type: 'pnumeric', label: 'Typical values', unit: 'context switches', psource: function(profile) { return profile.hardware.data.threads * profile.hardware.calibration.s; } },
 				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
 			]
 		},

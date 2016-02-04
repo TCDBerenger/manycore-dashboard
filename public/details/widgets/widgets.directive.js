@@ -124,7 +124,7 @@ var graphMeta = function(scope, attributes, mirror, canOverflow, params, setting
 /**
  * Init directive
  */
-function directive_init(scope, element, attrs, layoutType, mirror, canOverflow) {
+function directive_init(scope, element, attrs, layoutType, mirror, canOverflow, useLogScale) {
 	// Layout
 	var container =	element[0];
 	var layout =	new graphLayout(layoutType);
@@ -152,7 +152,7 @@ function directive_init(scope, element, attrs, layoutType, mirror, canOverflow) 
 
 	// Scales
 	var scaleX =	d3.scale.linear();
-	var scalesV =	[d3.scale.linear(), d3.scale.linear()];
+	var scalesV =	(useLogScale) ? [d3.scale.log(), d3.scale.log()] : [d3.scale.linear(), d3.scale.linear()];
 
 	// Overflow
 	var overflow =	(canOverflow) ? svg.append("g").attr('class', "svg-overflow") : svg;
@@ -258,7 +258,13 @@ function directive_repaint_container(r) {
 /**
  * Repaint - scales
  */
-function directive_repaint_scales(r, vData, vData2) {
+function directive_repaint_scales(r, vData, vData2, expected) {
+	// Sclaes - expected
+	if (expected) {
+		r.scalesV[0].base(expected[0]);
+		r.scalesV[1].base(expected[1]);
+	}
+	
 	// Scales - domains (data)
 	r.scaleX.domain([r.meta.begin, r.meta.end]);
 	r.scalesV[0].domain(vData);
@@ -772,7 +778,7 @@ app.directive('chartUnits', function() {
 		console.log("== directive == chartUnits ==");
 
 		// Init vars
-		var r = directive_init(scope, element, attrs, LAYOUT_FH_BAND, true, true);
+		var r = directive_init(scope, element, attrs, LAYOUT_FH_BAND, true, true, true);
 
 		// Axis label
 		function vAxisLabel(v, index) {
@@ -788,17 +794,19 @@ app.directive('chartUnits', function() {
 			directive_repaint_container(r);
 			
 			// Enhance meta
-			r.meta.vExpected[0] =	r.deck.expected(r.profiles[0], r.settings.timeGroup);
-			r.meta.vMinDisplay[0] =	r.deck.displayed(r.profiles[0], r.settings.timeGroup);
-			r.meta.vStep[0] =		r.deck.vStep(r.profiles[0], r.settings.timeGroup);
-			if (r.profiles[1] != null) {
-				r.meta.vExpected[1] =	r.deck.expected(r.profiles[1], r.settings.timeGroup);
-				r.meta.vMinDisplay[1] =	r.deck.displayed(r.profiles[1], r.settings.timeGroup);
-				r.meta.vStep[1] =		r.deck.vStep(r.profiles[1], r.settings.timeGroup);
-			}
+			r.meta.vExpected = [];
+			r.meta.vMinDisplay = [];
+			r.meta.vStep = r.meta.vExpected;
+			
+			// Compute expected data (calibration times time-frame)
+			r.meta.calibration.forEach(function(calibration) {
+				r.meta.vExpected.push(calibration * r.meta.timeGroup);
+				r.meta.vMinDisplay.push(calibration * r.meta.timeGroup * calibration * r.meta.timeGroup);
+			});
 
 			// Repaint scales
-			directive_repaint_scales(r, [0, r.meta.vMinDisplay[0]], [0, r.meta.vMinDisplay[1]]);
+			console.log([1, r.meta.vExpected[0]], [1, r.meta.vExpected[1]], r.meta.vExpected)
+			directive_repaint_scales(r, [1, r.meta.vMinDisplay[0]], [1, r.meta.vMinDisplay[1]], r.meta.vExpected);
 
 			// Repaint graphical elements
 			directive_repaint_xAxis(r);

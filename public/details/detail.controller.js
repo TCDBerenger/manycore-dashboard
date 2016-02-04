@@ -172,12 +172,21 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			// Populate settings
 			if (widget.deck.settings != null) {
 				widget.deck.settings.forEach(function(setting) {
+					// Compute value by profile
+					if ('psource' in setting) {
+						setting.value = [];
+						profiles.forEach(function(profile) {
+							setting.value.push(setting.psource(profile))
+						});
+					}
+					
+					// Cache initial value
 					settings["_" + setting.property] = setting.value;
 	
+					// Set accessors
 					settings.__defineGetter__(setting.property, function () {
 						return settings["_" + setting.property];
 					});
-	
 					settings.__defineSetter__(setting.property, function (val) {
 						if (settings["_" + setting.property] != val) {
 							try {

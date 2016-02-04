@@ -109,8 +109,6 @@ app.directive('chartStats', function() {
 
 		// Paint
 		function repaint() {
-			console.log("refesh stats");
-			
 			var maxValue, yFrom, yTo;
 			for (var index = 0; index < profiles.length; index++) {
 				// Data
@@ -150,7 +148,9 @@ app.directive('facetList', [function() {
 		scope: {
 			prelist: '=',
 			list: '=',
-			options: '='
+			options: '=',
+			settings: '=',
+			profiles: '='
 		},
 		controllerAs : 'dv',
 		controller : function() {
@@ -159,6 +159,15 @@ app.directive('facetList', [function() {
 			var sources = [];
 			var provider = [];
 			var styles = '';
+			var settings = this.settings;
+			var profiles = this.profiles;
+			var getSettings = function(item) {
+				var result = [];
+				settings[item.sv].forEach(function(value, index) {
+					result.push(profiles[index].label + ': ' + (Math.round(value * 1000) / 1000) + ' ' + item.sd);
+				});
+				return result;
+			}
 			
 			var allowPrelist = ! (this.options && this.options.disablePrelist);
 			
@@ -172,7 +181,8 @@ app.directive('facetList', [function() {
 					provider.push({
 						i: itemID,
 						t: ('t' in item) ? item.t : ('f' in item) ? item.f.label : '',
-						d: ('d' in item) ? item.d : ('f' in item) ? item.f.desc : ''
+						d: item.d,
+						s: ('sv' in item) ? getSettings(item) : null
 					});
 					styles += '#' + itemID + ':before {' +
 							'content: "' + (('b' in item) ? item.b : '▮') + '";' +
