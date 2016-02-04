@@ -348,6 +348,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				]
 			},
 			clues: [],
+			plans: [
+				{ id: 1, label: 'log₂', property: 'useLogScale' },
+				{ id: 2, label: 'linear', property: 'useLinearScale' },
+			],
 			settings: [
 				{ property: 'calibration', type: 'pnumeric', label: 'Typical values', unit: 'lock acquisitions', psource: function(profile) { return profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf); } },
 				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
@@ -415,6 +419,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ c: colours.base,	t: 'Thread migrations',							d: 'too many migrations' },
 				{ c: colours.base,	t: 'Alternating sequential/parallel execution',	d: 'alternating period of high and low thread migrations' }
 			],
+			plans: [
+				{ id: 1, label: 'log₂', property: 'useLogScale' },
+				{ id: 2, label: 'linear', property: 'useLinearScale' },
+			],
 			settings: [
 				{ property: 'calibration', type: 'pnumeric', label: 'Typical values', unit: 'thread migrations', psource: function(profile) { return profile.hardware.data.threads * profile.hardware.calibration.m; } },
 				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }
@@ -443,6 +451,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			clues: [
 				{ c: colours.base,	t: 'Oversubscription',	d: 'high frequency' }
+			],
+			plans: [
+				{ id: 1, label: 'log₂', property: 'useLogScale' },
+				{ id: 2, label: 'linear', property: 'useLinearScale' },
 			],
 			settings: [
 				{ property: 'calibration', type: 'pnumeric', label: 'Typical values', unit: 'context switches', psource: function(profile) { return profile.hardware.data.threads * profile.hardware.calibration.s; } },

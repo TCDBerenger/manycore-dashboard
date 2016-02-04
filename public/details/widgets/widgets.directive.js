@@ -776,10 +776,17 @@ app.directive('chartUnits', function() {
 
 		// Axis label
 		function vAxisLabel(v, index) {
-			if (v == 1)
-				return r.deck.limitLabel;
-			else
-				return Math.pow(2, v - 1) + '×';
+			if (r.meta.useLogScale) {
+				if (v == 1)
+					return r.deck.limitLabel;
+				else
+					return Math.pow(2, v - 1) + '×';
+			} else {
+				if (v == r.meta.vExpected[index])
+					return r.deck.limitLabel;
+				else
+					return Math.round(v / r.meta.vExpected[index]) + '×';
+			}
 		}
 
 		// Redraw
@@ -789,14 +796,26 @@ app.directive('chartUnits', function() {
 			
 			// Enhance meta
 			r.meta.vCalibration = [];
-			r.meta.vExpected = [1,1];
-			r.meta.vMinDisplay = [2, 2];
-			r.meta.vStep = r.meta.vExpected;
+			r.meta.vExpected = [];
+			r.meta.vMinDisplay = [];
+			r.meta.vStep = [];
 			
 			// Compute expected data (calibration times time-frame)
-			r.meta.calibration.forEach(function(calibration) {
-				r.meta.vCalibration.push(calibration * r.meta.timeGroup);
-			});
+			if (r.meta.useLogScale) {
+				r.meta.calibration.forEach(function(calibration) {
+					r.meta.vCalibration.push(calibration * r.meta.timeGroup);
+					r.meta.vExpected.push(1);
+					r.meta.vMinDisplay.push(2);
+					r.meta.vStep.push(1);
+				});
+			} else {
+				r.meta.calibration.forEach(function(calibration) {
+					r.meta.vExpected.push(calibration * r.meta.timeGroup);
+					r.meta.vMinDisplay.push(2 * calibration * r.meta.timeGroup);
+					r.meta.vStep.push(calibration * r.meta.timeGroup);
+				});
+			}
+			
 
 			// Repaint scales
 			directive_repaint_scales(r, [0, r.meta.vMinDisplay[0]], [0, r.meta.vMinDisplay[1]], r.meta.vExpected);
@@ -849,12 +868,17 @@ app.directive('chartUnits', function() {
 							yPositions[v] += yPositions[v-1];
 						
 						// "log" scale
-						yLogPosition = yPositions[v] / r.meta.vCalibration[index]; // how much times
-						if (yLogPosition > 1)
-							yLogPosition = 1 + Math.log2(yLogPosition); // log base 2
-						
-						// Scale
-						yScaledPosition = r.scalesV[index](yLogPosition);
+						if (r.meta.useLogScale) {
+							yLogPosition = yPositions[v] / r.meta.vCalibration[index]; // how much times
+							if (yLogPosition > 1)
+								yLogPosition = 1 + Math.log2(yLogPosition); // log base 2
+							
+							yScaledPosition = r.scalesV[index](yLogPosition);
+						}
+						// Linear scale
+						else {
+							yScaledPosition = r.scalesV[index](yPositions[v]);
+						}
 
 						// Add points to shape (x, y, x, y)
 						//	=> twice for the boxing effect
