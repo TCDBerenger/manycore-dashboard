@@ -334,9 +334,6 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				v:			[facets.ls, facets.lf],
 				limit:		limit,
 				limitLabel:	't. value',
-				//expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf); },
-				//displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf) * 2; },
-				//vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf); }
 			},
 			data: [facets.ls, facets.lf],
 			focus: [facets.ls, facets.lf],
@@ -402,9 +399,6 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				v:		[facets.m],
 				limit:		limit,
 				limitLabel:	't. value',
-				//expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m; },
-				//displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m * 2; },
-				//vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.m; }
 			},
 			data: [facets.m],
 			focus: [facets.m],
@@ -414,7 +408,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: 'n×', t: 'excess',		d: 'more thread migrations than expected (multiple of the typical value)',			f: limit },
 				],
 				data: [
-					{ b: '▮', f: facets.m }
+					{ b: '▮', d:'thread migrates to another core', f: facets.m }
 				]
 			},
 			clues: [
@@ -435,9 +429,6 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				v:			[facets.s],
 				limit:		limit,
 				limitLabel:	't. value',
-				//expected:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s; },
-				//displayed:	function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s * 2; },
-				//vStep:		function(profile, timeGroup) { return timeGroup * profile.hardware.data.threads * profile.hardware.calibration.s; }
 			},
 			data: [facets.s],
 			focus: [facets.s],
@@ -447,7 +438,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: 'n×', t: 'excess',		d: 'more context switches than expected (multiple of the typical value)',		f: limit },
 				],
 				data: [
-					{ b: '▮', f: facets.s }
+					{ b: '▮', d: 'cores switching from one thread to another', f: facets.s }
 				]
 			},
 			clues: [
@@ -507,8 +498,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '⊢', f: limit,	t: '[Y] Threads',	d: 'each line represents a thread complying with the start and end times' }
 				],
 				data: [
-					{ b: '|', f: facets.m },
-					{ b: '◧', t: 'Cores', d: 'core to which a thread is attached to (one color by core)',	 c: colours.list.fGrey }
+					{ b: '|',				d:'thread migrates to another core', f: facets.m },
+					{ b: '◧', t: 'Cores',	d: 'core to which a thread is attached to (one color by core)',	 c: colours.list.fGrey }
 				]
 			},
 			clues: [
