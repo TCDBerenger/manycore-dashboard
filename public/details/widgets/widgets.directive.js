@@ -124,7 +124,7 @@ var graphMeta = function(scope, attributes, mirror, canOverflow, params, setting
 /**
  * Init directive
  */
-function directive_init(scope, element, attrs, layoutType, mirror, canOverflow, useLogScale) {
+function directive_init(scope, element, attrs, layoutType, mirror, canOverflow) {
 	// Layout
 	var container =	element[0];
 	var layout =	new graphLayout(layoutType);
@@ -152,7 +152,7 @@ function directive_init(scope, element, attrs, layoutType, mirror, canOverflow, 
 
 	// Scales
 	var scaleX =	d3.scale.linear();
-	var scalesV =	(useLogScale) ? [d3.scale.log(), d3.scale.log()] : [d3.scale.linear(), d3.scale.linear()];
+	var scalesV =	[d3.scale.linear(), d3.scale.linear()];
 
 	// Overflow
 	var overflow =	(canOverflow) ? svg.append("g").attr('class', "svg-overflow") : svg;
@@ -258,13 +258,7 @@ function directive_repaint_container(r) {
 /**
  * Repaint - scales
  */
-function directive_repaint_scales(r, vData, vData2, expected) {
-	// Sclaes - expected
-	if (expected) {
-		r.scalesV[0].base(expected[0]);
-		r.scalesV[1].base(expected[1]);
-	}
-	
+function directive_repaint_scales(r, vData, vData2) {
 	// Scales - domains (data)
 	r.scaleX.domain([r.meta.begin, r.meta.end]);
 	r.scalesV[0].domain(vData);
@@ -782,10 +776,10 @@ app.directive('chartUnits', function() {
 
 		// Axis label
 		function vAxisLabel(v, index) {
-			if (v == r.meta.vExpected[index])
+			if (v == 1)
 				return r.deck.limitLabel;
 			else
-				return Math.round(v / r.meta.vExpected[index]) + '×';
+				return Math.pow(2, v - 1) + '×';
 		}
 
 		// Redraw
@@ -794,25 +788,24 @@ app.directive('chartUnits', function() {
 			directive_repaint_container(r);
 			
 			// Enhance meta
-			r.meta.vExpected = [];
-			r.meta.vMinDisplay = [];
+			r.meta.vCalibration = [];
+			r.meta.vExpected = [1,1];
+			r.meta.vMinDisplay = [2, 2];
 			r.meta.vStep = r.meta.vExpected;
 			
 			// Compute expected data (calibration times time-frame)
 			r.meta.calibration.forEach(function(calibration) {
-				r.meta.vExpected.push(calibration * r.meta.timeGroup);
-				r.meta.vMinDisplay.push(calibration * r.meta.timeGroup * calibration * r.meta.timeGroup);
+				r.meta.vCalibration.push(calibration * r.meta.timeGroup);
 			});
 
 			// Repaint scales
-			console.log([1, r.meta.vExpected[0]], [1, r.meta.vExpected[1]], r.meta.vExpected)
-			directive_repaint_scales(r, [1, r.meta.vMinDisplay[0]], [1, r.meta.vMinDisplay[1]], r.meta.vExpected);
+			directive_repaint_scales(r, [0, r.meta.vMinDisplay[0]], [0, r.meta.vMinDisplay[1]], r.meta.vExpected);
 
 			// Repaint graphical elements
 			directive_repaint_xAxis(r);
 
 			// Main draw
-			var profileData, yPositions, yScaledPosition;
+			var profileData, yPositions, yLogPosition, yScaledPosition;
 			var tID, scaleVZero;
 			var tStep = r.settings.timeGroup;
 			var dataSource_list, dataSource_length, dataSource_index;
@@ -854,8 +847,14 @@ app.directive('chartUnits', function() {
 						// Stack positions
 						if (v > 0)
 							yPositions[v] += yPositions[v-1];
-
-						yScaledPosition = r.scalesV[index](yPositions[v]);
+						
+						// "log" scale
+						yLogPosition = yPositions[v] / r.meta.vCalibration[index]; // how much times
+						if (yLogPosition > 1)
+							yLogPosition = 1 + Math.log2(yLogPosition); // log base 2
+						
+						// Scale
+						yScaledPosition = r.scalesV[index](yLogPosition);
 
 						// Add points to shape (x, y, x, y)
 						//	=> twice for the boxing effect
