@@ -182,7 +182,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 					
 					// Cache initial value
 					settings["_" + setting.property] = setting.value;
-	
+					
 					// Set accessors
 					settings.__defineGetter__(setting.property, function () {
 						return settings["_" + setting.property];
@@ -199,6 +199,28 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 							settings.lastChangeProperty = setting.property;
 						}
 					});
+					
+					// Array case
+					/*if (Array.isArray(setting.value)) {
+						
+						settings[setting.property] = new Proxy(setting.value, {
+							set: function(target, property, value, receiver) {
+								target[property] = value;
+								settings.version++;
+								settings.lastChangeProperty = setting.property;
+								console.log('proxy', settings.version, target, property, value, receiver);
+								
+								// Launch events to update UI
+								$scope.$apply();
+								// Proxy: ok
+								return true;
+							}
+						});
+						
+					} else {
+		
+					}*/
+					
 				});
 			}
 			
