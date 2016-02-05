@@ -202,6 +202,31 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 					
 					// Array case
 					/*if (Array.isArray(setting.value)) {
+						for (var tIndex = 0; tIndex < setting.value.length; tIndex++) {
+							var currentIndex = +tIndex;
+							var currentProperty = setting.property + tIndex;
+							console.log('setting for', currentProperty);
+							settings.__defineGetter__(currentProperty, function () {
+								console.log('get', setting.property, currentIndex, currentProperty, settings["_" + setting.property][currentIndex]);
+								return settings["_" + setting.property][currentIndex];
+							});
+							settings.__defineSetter__(currentProperty, function (val) {
+								if (settings["_" + setting.property][currentIndex] != val) {
+									try {
+										settings["_" + setting.property][currentIndex] = JSON.parse(val);
+									} catch(e) {
+										settings["_" + setting.property][currentIndex] = val;
+									};
+									if (setting.property == 'timeGroup') populateWidgetData(widget);
+									settings.version++;
+									settings.lastChangeProperty = setting.property;
+								}
+							});
+						}
+					}*/
+					
+					// Array case
+					/*if (Array.isArray(setting.value)) {
 						
 						settings[setting.property] = new Proxy(setting.value, {
 							set: function(target, property, value, receiver) {
