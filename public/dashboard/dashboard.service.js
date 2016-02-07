@@ -6,9 +6,9 @@ app.factory('profileService', ['$http', function($http) {
 	output.postReceipt = function(list) {
 		list.forEach(function(profile) {
 			// Only add
-			if (! output.hasOwnProperty(profile.id)) {
+			//if (! output.hasOwnProperty(profile.id)) {
 				output[profile.id] = profile;
-			}
+			//}
 
 			// Check data property
 			if (! profile.hasOwnProperty('data')) {

@@ -18,18 +18,18 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	// Check already data
 	var dataToRetreive = [];
 	profiles.forEach(function(profile) {
-		if (! profile.data.hasOwnProperty(tag)) {
+		//if (! profile.data.hasOwnProperty(tag)) {
 			dataToRetreive.push(profile.id);
-		}
+		//}
 	});
 
 	// Something to retreive ?
 	// Looking for profile data
-	if (dataToRetreive.length != 0) {
+	//if (dataToRetreive.length != 0) {
 		retreiveData(dataToRetreive);
-	} else {
-		postReceiption();
-	}
+	//} else {
+	//	postReceiption();
+	//}
 
 
 	// Setting for layout and visual/graphics elements
