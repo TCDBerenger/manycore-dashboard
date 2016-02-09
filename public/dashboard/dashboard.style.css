@@ -51,7 +51,7 @@
 }
 .dashboard .wizard.hidden {
 	right: 35%;
-    transition: 1s;
+	transition: 1s;
 }
 .dashboard .wizard .tile {
 	overflow: hidden;
@@ -108,7 +108,6 @@
 .dashboard .profile section a { text-decoration: none !important; }
 .dashboard .profile section.title { padding: 20px 20px 10px 20px; }
 .dashboard .profile section.sequence { height: 19px }
-.dashboard .profile section.strip { }
 
 .dashboard .profile h2 {
 	height: 38px;
@@ -125,6 +124,25 @@
 	white-space: nowrap;
 }
 
+
+/**
+ * Dashboard profile strip
+ */
+.dashboard .profile section.strip {
+}
+.dashboard .profile section.strip .strip-gauge {
+	position: absolute;
+	line-height: 50px;
+	font-size: 18px;
+	font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-weight: 300;
+}
+.dashboard .category-profile-0 section.strip .strip-gauge {
+	left: 98%;
+}
+.dashboard .category-profile-1 section.strip .strip-gauge {
+	right: 98%;
+}
 
 
 /**
