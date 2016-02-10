@@ -242,7 +242,7 @@ app.directive('chartStrip', function() {
 			.attr("text-anchor", "start")
 			.attr("alignment-baseline", 'central')
 			.attr("dominant-baseline", 'central')
-			.attr("fill", v.gcolor)
+			.attr("fill", v.colours.g)
 			.text(title);
 
 		// (Re) Paint
