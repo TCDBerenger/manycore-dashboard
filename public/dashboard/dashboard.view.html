@@ -188,7 +188,7 @@
 	<!-- Running -->
 	<div class="tile">
 		<section class="strip" ng-repeat="strip in commonCategory.strips">
-            <span class="strip-gauge" style="color: {{::strip.facet.colours.n}}">{{::selectedProfiles[pindex].data.dash.gauges[strip.facet.attr].l}}</span>
+            <span class="strip-gauge" style="color: {{::strip.facet.colours.n}}">{{selectedProfiles[pindex].data.dash.gauges[strip.facet.attr].l}}</span>
 			<chart-strip class="widget-graph"></chart-strip>
 		</section>
 	</div></div>
@@ -198,8 +198,11 @@
 <script type="text/ng-template" id="/template_profile_strips.html">
 	<div class="col-xs-3 profile"><div class="tile">
 		<section class="strip" ng-repeat="strip in category.strips">
-            <span class="strip-gauge" style="color: {{::strip.facet.colours.n}}">{{::selectedProfiles[pindex].data.dash.gauges[strip.facet.attr].l}}</span>
+            <span class="strip-gauge" style="color: {{::strip.facet.colours.n}}">{{selectedProfiles[pindex].data.dash.gauges[strip.facet.attr].l}}</span>
 			<chart-strip class="widget-graph"></chart-strip>
+		</section>
+		<section class="no-strip" ng-if="category.strips.length == 0">
+			Data missing !
 		</section>
 	</div></div>
 </script>
