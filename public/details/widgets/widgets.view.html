@@ -54,7 +54,7 @@
 						<span class="input-group-addon">{{::profile.label}}</span>
 						<input type="number" class="form-control" min="0.001" step="0.001" ng-model="widget.settings[setting.property][$index]" />
 						<span class="input-group-addon">{{::setting.unit}} by ms</span>
-						<span class="input-group-addon">{{widget.settings[setting.property][$index] * widget.settings.timeGroup}} by {{widget.settings.timeGroup}} ms</span>
+						<span class="input-group-addon">about {{widget.settings[setting.property][$index] * widget.settings.timeGroup | number : 2}} per {{widget.settings.timeGroup}} ms</span>
 					</div>
 				</div>
 			</div>
