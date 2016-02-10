@@ -111,6 +111,7 @@ app.factory('facets', ['colours', function(colours) {
 		ls:		{ label: 'lock success',	title: 'Lock without contention',	desc: desc_ls,	list: 'slocks',		unity: 'events',	cat: 'locks',		attr: 'ls',		colours: colours.sets.Turquoise,	color: colours.list.fTurquoise,	fcolor: colours.list.dTurquoise,gcolor: colours.list.lTurquoise },
 		lf:		{ label: 'lock failure',	title: 'Lock with contention',		desc: desc_lf,	list: 'flocks',		unity: 'events',	cat: 'locks',		attr: 'lf',		colours: colours.sets.Fuschia,	color: colours.list.fFuschia,	fcolor: colours.list.dFuschia,	gcolor: colours.list.lFuschia },
 		
+		p:		{ label: 'Parallel',		unity: '',	attr: 'p',	colours: colours.sets.Green },
 		q:		{ label: 'Parallelized',	unity: '',	attr: 'q',	colours: colours.sets.Green },
 		q_s:	{ label: 'sequential',		title: 'Sequential sequence',	desc: desc_q_s,	unity: '', cat: '', attr: '',	colours: colours.sets.Orange,	color: colours.list.fOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange },
 		q_p:	{ label: 'parallel',		title: 'Parallel sequence',		desc: desc_q_p,	unity: '', cat: '', attr: '',	colours: colours.sets.Green,	color: colours.list.fGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
@@ -646,7 +647,7 @@ app.factory('strips', ['facets', function(facets) {
 		uu:		{ title: 'Unused cores',		facet: facets.i,	reverse: true },
 		yb:		{ title: 'Waiting a core',		facet: facets.yb,	reverse: false },
 		lw:		{ title: 'Waiting a ressource',	facet: facets.lw,	reverse: false },
-		q:		{ title: 'Parallelisation level',	facet: facets.q,	reverse: false },
+		q:		{ title: 'Parallelisation',		facet: facets.p,	reverse: false },
 		miss:	{ title: 'Cache misses',		facet: facets.miss,	reverse: false }
 	};
 }]);

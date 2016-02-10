@@ -7,7 +7,8 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 67;
+var VERSION = 71;
+var PARALLEL_THRESHOLD = 2;
 
 /************************************************/
 /* Variables - hardwares						*/
@@ -295,6 +296,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 		},
 		stats: {
 			idle:			0,
+			parallel:		0,
 			switches:		0,
 			migrations:		0,
 			starts:			0,
@@ -342,6 +344,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 
 	// Grobal vars
 	var timeID, timeEvent;
+	var timeStep = data.info.timeStep;
 
 	// Global functions
 	function checkThread(id) {
@@ -356,6 +359,8 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 				c:				{},	// by code
 
 				cycles: 		0,	// in cycles
+				
+				runcores:		0,	// number of running cores (float number between 0 to lcores)
 
 				idle:			0,	// in ms, idle process
 				ready: 			0,	// in ms
@@ -363,6 +368,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 				standby: 		0,	// in ms
 				wait: 			0,	// in ms
 				lock_wait:		0,	// in ms, how long threads waiting for a lock acquisition
+				parallel:		0,	// in ms, how long more than PARALLEL_THRESHOLD cores are running
 
 				starts:			0,	// how many threads starting
 				ends:			0,	// how many threads ending
@@ -498,7 +504,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	raw2.forEach(function(element) {
 		// Compute time ID
 		timeEvent = Math.round(element.dtime / 10000);
-		timeID = Math.floor(timeEvent / data.info.timeStep) * data.info.timeStep;
+		timeID = Math.floor(timeEvent / timeStep) * timeStep;
 
 		// Check time frame existance
 		checkFrame(timeID);
@@ -616,6 +622,44 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			}
 		});
 	});
+	
+	// Events to time frames for sequences
+	var q_previousEventTime = 0;
+	var q_previousRunningCoreS = (data.events.sequences[0]) ? data.events.sequences[0].c_r | 0 : 0;
+	var q_previousRunningCoreByMs = q_previousRunningCoreS / timeStep;
+	for (timeID = 0; timeID <= data.info.timeMax; timeID += timeStep) {
+		
+		// Check (probably useless) the time frame existance
+		checkFrame(timeID);
+		
+		// Sequence - add event
+		for (timeEvent = Math.max(timeID, 1); timeEvent < timeID + timeStep; timeEvent++) {
+			if (timeEvent in data.events.sequences) {
+				
+				// Add previous stat until this new event
+				data.frames[timeID].runcores += q_previousRunningCoreByMs * (timeEvent - Math.max(timeID, q_previousEventTime));
+				data.frames[timeID].parallel += (q_previousRunningCoreS >= PARALLEL_THRESHOLD) ? (timeEvent - Math.max(timeID, q_previousEventTime)) : 0;
+				
+				// Set current stats with found new event stats
+				q_previousEventTime = timeEvent;
+				q_previousRunningCoreS = data.events.sequences[timeEvent].c_r;
+				q_previousRunningCoreByMs = q_previousRunningCoreS / timeStep;
+			}
+		}
+		
+		// Sequence - end of frame (also empty frame)
+		if (q_previousEventTime < timeID + timeStep) {
+			// Add current stat until the end of the frame
+			// NB: if no new stat is found this turn, use previous stat for all the time frame
+			data.frames[timeID].runcores += q_previousRunningCoreByMs * (timeID + timeStep - Math.max(timeID, q_previousEventTime));
+			data.frames[timeID].parallel += (q_previousRunningCoreS >= PARALLEL_THRESHOLD) ? (timeID + timeStep - Math.max(timeID, q_previousEventTime)) : 0;
+		}
+		console.log(timeID, data.frames[timeID].parallel, 100 * data.frames[timeID].runcores / 8);
+		
+		// Sequence post-treatment
+		data.stats.parallel += data.frames[timeID].parallel;
+//		data.frames[timeID].runcores = Math.round(data.frames[timeID].runcores);
+	}
 
 
 	/**
@@ -626,7 +670,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	 */
 	// Var
 	var property;
-	var steps = +raw3.info.duration / data.info.timeStep;
+	var steps = +raw3.info.duration / timeStep;
 
 	// Init stats
 	data.locality.stats = {
@@ -655,7 +699,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 				data.locality.byFrames[timeID][property] += +value || 0;
 
 				// Stats
-				data.locality.stats[property] += (+value || 0) * data.info.timeStep / 100; //  / steps
+				data.locality.stats[property] += (+value || 0) * timeStep / 100; //  / steps
 			});
 		});
 	});
@@ -691,7 +735,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	if (raw4 != null) raw4.forEach(function(element) {
 		// Compute time ID
 		timeEvent = Math.round(element.dtime / 10000);
-		timeID = Math.floor(timeEvent / data.info.timeStep) * data.info.timeStep;
+		timeID = Math.floor(timeEvent / timeStep) * timeStep;
 
 		// Check time frame existance
 		checkFrame(timeID);
@@ -758,7 +802,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 
 					// Next loop
 					currentEnd = currentID * 10000;
-					currentID -= data.info.timeStep;
+					currentID -= timeStep;
 				}
 			}
 
@@ -841,7 +885,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	 *	Post treatment
 	 *
 	 */
-	data.info.duration = data.info.timeMax + data.info.timeStep;
+	data.info.duration = data.info.timeMax + timeStep;
 	
 
 
