@@ -143,6 +143,9 @@
 .dashboard .category-profile-1 section.strip .strip-gauge {
 	right: 98%;
 }
+.dashboard section:hover .strip-gauge {
+	font-weight: bold !important;
+}
 
 
 /**
