@@ -46,7 +46,7 @@ function addStats(output, profile) {
 
 
 /**
- * Add data-locality data
+ * Add profile strip data
  */
 function addProfiling(output, profile) {
 	// Data
@@ -54,23 +54,26 @@ function addProfiling(output, profile) {
 
 	// Init vars
 	output.profiling = [];
+	var timeStep = data.info.timeStep;
 
 	// Data
 	var max, f;
+	var q_previousTime = 0;
+	var q_previousPercentValueByMS = 100 * data.events.sequences[0].c_r / profile.hardware.data.lcores / timeStep | 0;
 	
 	// Loop
-	for (var time = 0; time <= data.info.timeMax; time += data.info.timeStep) {
+	for (var time = 0; time <= data.info.timeMax; time += timeStep) {
 		// Result
-		f = { t: time };
+		f = { t: time, q: 0 };
 		
 		if (data.frames.hasOwnProperty(time)) {
 		
 			// uu 	: unused
 			// yb	: ready & standby
-			max = data.info.threads * data.info.timeStep;
+			max = data.info.threads * timeStep;
 			
 			f.r = Math.round(STRIP_HEIGHT * data.frames[time].running / max);
-			f.uu = Math.round(STRIP_HEIGHT * data.frames[time].idle / max);
+			f.i = Math.round(STRIP_HEIGHT * data.frames[time].idle / max);
 			f.yb = Math.min(STRIP_HEIGHT, Math.round(STRIP_HEIGHT * (data.frames[time].ready + data.frames[time].standby) / max));
 			f.lw = Math.min(STRIP_HEIGHT, Math.round(STRIP_HEIGHT * data.frames[time].lock_wait / max));
 			f.sys = Math.round(STRIP_HEIGHT * (max - data.frames[time].running - data.frames[time].idle) / max);
@@ -82,11 +85,35 @@ function addProfiling(output, profile) {
 			
 		} else {
 			f.r = NaN;
-			f.uu = NaN;
+			f.i = NaN;
 			f.yb = NaN;
 			f.lw = NaN;
 			f.miss = NaN;
 		}
+		
+		// Sequence
+		for (var subTime = Math.max(time, 1); subTime < time + timeStep; subTime++) {
+			if (subTime in data.events.sequences) {
+				
+				// Add previous stat until this new event
+				f.q += q_previousPercentValueByMS * (subTime - Math.max(time, q_previousTime));
+				
+				// Set current stats with found new event stats
+				q_previousTime = subTime;
+				q_previousPercentValueByMS = 100 * data.events.sequences[subTime].c_r / profile.hardware.data.lcores / timeStep;
+			}
+		}
+		
+		// Sequence - end of frame (also empty frame)
+		if (q_previousTime < time + timeStep) {
+			// Add current stat until the end of the frame
+			// NB: if no new stat is found this turn, use previous stat for all the time frame
+			f.q += q_previousPercentValueByMS * (time + timeStep - Math.max(time, q_previousTime));
+		}
+		
+		// Sequence post-treatment
+		f.q = Math.round(f.q);
+		
 
 		// Save
 		output.profiling.push(f);
@@ -121,7 +148,7 @@ function addGauges(output, profile) {
 	max = data.info.threads * (data.info.timeMax + data.info.timeStep);
 	[	{ l: 'r', v: data.stats.running, n: 3 },
 		{ l: 'yb', v: data.stats.ready + data.stats.standby, n: 3 },
-		{ l: 'uu', v: data.stats.idle, n: 3 },
+		{ l: 'i', v: data.stats.idle, n: 3 },
 		{ l: 'lw', v: data.stats.lock_wait, n: 4 }
 	].forEach(function(item) {
 		output.gauges[item.l] = {

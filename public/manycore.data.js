@@ -111,6 +111,7 @@ app.factory('facets', ['colours', function(colours) {
 		ls:		{ label: 'lock success',	title: 'Lock without contention',	desc: desc_ls,	list: 'slocks',		unity: 'events',	cat: 'locks',		attr: 'ls',		colours: colours.sets.Turquoise,	color: colours.list.fTurquoise,	fcolor: colours.list.dTurquoise,gcolor: colours.list.lTurquoise },
 		lf:		{ label: 'lock failure',	title: 'Lock with contention',		desc: desc_lf,	list: 'flocks',		unity: 'events',	cat: 'locks',		attr: 'lf',		colours: colours.sets.Fuschia,	color: colours.list.fFuschia,	fcolor: colours.list.dFuschia,	gcolor: colours.list.lFuschia },
 		
+		q:		{ label: 'Parallelized',	unity: '',	attr: 'q',	colours: colours.sets.Green },
 		q_s:	{ label: 'sequential',		title: 'Sequential sequence',	desc: desc_q_s,	unity: '', cat: '', attr: '',	colours: colours.sets.Orange,	color: colours.list.fOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange },
 		q_p:	{ label: 'parallel',		title: 'Parallel sequence',		desc: desc_q_p,	unity: '', cat: '', attr: '',	colours: colours.sets.Green,	color: colours.list.fGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
 	};
@@ -642,9 +643,10 @@ app.factory('widgets', ['decks', function(decks) {
 app.factory('strips', ['facets', function(facets) {
 	return {
 		r:		{ title: 'Running',				facet: facets.r,	reverse: false },
-		uu:		{ title: 'Unused cores',		facet: facets.uu,	reverse: true },
+		uu:		{ title: 'Unused cores',		facet: facets.i,	reverse: true },
 		yb:		{ title: 'Waiting a core',		facet: facets.yb,	reverse: false },
 		lw:		{ title: 'Waiting a ressource',	facet: facets.lw,	reverse: false },
+		q:		{ title: 'Parallelisation level',	facet: facets.q,	reverse: false },
 		miss:	{ title: 'Cache misses',		facet: facets.miss,	reverse: false }
 	};
 }]);
@@ -654,10 +656,12 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 	var yb =	JSON.parse(JSON.stringify(facets.yb));
 	var lw =	JSON.parse(JSON.stringify(facets.lw));
 	var miss =	JSON.parse(JSON.stringify(facets.miss));
+	var uc =	JSON.parse(JSON.stringify(facets.i));
 	
 	yb.shift = true;
 	lw.shift = true;
 	miss.shift = true;
+	uc.label = "Unused cores"
 	
 	var common = {
 		label: 'Profile', title: 'Profile', icon: 'heartbeat',
@@ -667,7 +671,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 	var tg = {
 		tag: 'tg', cat: 'tg', label: 'Task granularity', title: 'Task granularity', icon: 'tasks', enabled: true,
 		strips: [strips.yb, strips.uu],
-		gauges: [[yb, facets.uu], [facets.s, facets.m]], /* facets.r, */
+		gauges: [[yb, facets.i], [facets.s, facets.m]], /* facets.r, */
 		widgets: [widgets.threadStates, widgets.threadSwitches, widgets.threadMigrations, widgets.threadFruitSalad]
 	};
 	var sy = {
@@ -684,8 +688,8 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 	};
 	var lb = {
 		tag: 'lb', cat: 'lb', label: 'Load balancing', title: 'Load balancing', icon: 'code-fork', enabled: true,
-		strips: [],
-		gauges: [[lw, facets.uu], [facets.m]],
+		strips: [strips.q],
+		gauges: [[uc, lw], [facets.m]],
 		widgets: [widgets.coreIdle, widgets.lockContentions, widgets.threadMigrations, widgets.threadStates, widgets.coreSequences, widgets.threadChains]
 	};
 	var dl = {

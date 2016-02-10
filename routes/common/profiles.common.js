@@ -486,7 +486,7 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 	// Sequential sequences
 	var coreLength = profile.hardware.data.threads;
 	var coreActivity = [];
-	var currentActivity;
+	var isActuallyRunning;
 	for (var cid = 0; cid < coreLength; cid++) coreActivity[cid] = true;
 
 	// Vars
@@ -505,9 +505,9 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 
 		// Sequential or parallel sequences
 		if (element.type == "sw") {
-			currentActivity = element.pid == profile.pid;
-			if (currentActivity != coreActivity[element.cid]) {
-				coreActivity[element.cid] = currentActivity;
+			isActuallyRunning = element.pid == profile.pid;
+			if (isActuallyRunning != coreActivity[element.cid]) {
+				coreActivity[element.cid] = isActuallyRunning;
 
 				// Save new state (override with new states if already exists)
 				data.events.sequences[timeEvent] = { c_r: 0 };
