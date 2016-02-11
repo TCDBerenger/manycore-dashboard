@@ -114,7 +114,7 @@ app.factory('facets', ['colours', function(colours) {
 		lf:		{ label: 'lock failure',	title: 'Lock with contention',		desc: desc_lf,	list: 'flocks',		unity: 'events',	cat: 'locks',		attr: 'lf',		colours: colours.sets.Fuschia,	color: colours.list.fFuschia,	fcolor: colours.list.dFuschia,	gcolor: colours.list.lFuschia },
 		
 		p:		{ label: 'Parallel',		unity: '',	attr: 'p',	colours: colours.sets.GreenYlw },
-		q:		{ label: 'Parallelized',	unity: '',	attr: 'q',	colours: colours.sets.Green },
+		q:		{ label: 'Parallelized',	unity: '',	attr: 'q',	colours: colours.sets.GreenYlw },
 		q_s:	{ label: 'sequential',		title: 'Sequential sequence',	desc: desc_q_s,	unity: '', cat: '', attr: '',	colours: colours.sets.Orange,	color: colours.list.fOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange },
 		q_p:	{ label: 'parallel',		title: 'Parallel sequence',		desc: desc_q_p,	unity: '', cat: '', attr: '',	colours: colours.sets.Green,	color: colours.list.fGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
 	};
