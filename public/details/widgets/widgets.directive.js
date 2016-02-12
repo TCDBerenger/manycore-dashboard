@@ -11,6 +11,7 @@
 var LAYOUT_FH_NULL = 0;
 var LAYOUT_FH_BAND = 40;
 var LAYOUT_FH_NORMAL = 80;
+var FOCUS_OVERLAP_MARGIN = 10;
 
 /**
  * Layout for graphs
@@ -700,17 +701,18 @@ app.directive('chartPercent', function() {
 			}
 
 			// Loop
+			var yLastPosition = null;
 			for (var index = 0; index < r.profiles.length; index++) {
 				// Focus prefix for rules
 				var prefixID = 'rule-' + r.meta.widget.index + '-' + index + '-';
 				
 				// Reuse
 				if (r.iSelection[index] != null) {
-					for (var v = r.deck.v.length - 1; v >= 0; v--) {
+					for (var v = 0; v < r.deck.v.length; v++) {
 						r.iSelection[index].select(".svg-area-" + v).attr("points", p2s(r.iData[index][v + 1].slice(tIndex * 4, tIndex * 4 + 4), r.iData[index][v].slice(tIndex * 4, tIndex * 4 + 4)));
 						
 						// Send new coordinates to controller
-						updateFocusRule(prefixID, y0, index, t, tIndex, v);
+						yLastPosition = updateFocusRule(prefixID, y0, yLastPosition, index, t, tIndex, v);
 					}
 				}
 				// Draw
@@ -718,36 +720,47 @@ app.directive('chartPercent', function() {
 					r.iSelection[index] = r.groupP[index].append("g").attr('class', "svg-selection");
 
 					// Draw
-					for (var v = r.deck.v.length - 1; v >= 0; v--) {
+					for (var v = 0; v < r.deck.v.length; v++) {
 						r.iSelection[index].append("polygon")
 							.attr('class', "svg-area svg-area-" + v)
 							.attr("points", p2s(r.iData[index][v + 1].slice(tIndex * 4, tIndex * 4 + 4), r.iData[index][v].slice(tIndex * 4, tIndex * 4 + 4)))
 							.attr('fill', r.deck.v[v].fcolor);
 						
 						// Send new coordinates to controller
-						updateFocusRule(prefixID, y0, index, t, tIndex, v);
+						yLastPosition = updateFocusRule(prefixID, y0, yLastPosition, index, t, tIndex, v);
 					};
 				}
 			}
 		}
 		
-		function updateFocusRule(prefixID, y0, index, t, tIndex, v) {
+		function updateFocusRule(prefixID, y0, yLastPosition, index, t, tIndex, v) {
 			var facet = r.deck.v[v];
+			var yNormalized;
 			
 			if (t >= r.meta.ends[index] || ! r.profiles[index].currentData.percent[t][facet.attr]) {
 				// Send disable to controller
 				r.scope.focusRuleHandle(prefixID + facet.attr, NaN, NaN, NaN);
+				return null;
 				
 			} else {
 				
 				var value = r.profiles[index].currentData[facet.cat][t][facet.attr];
 				
+				if (index == 1) {
+					yNormalized = Math.max(yLastPosition + FOCUS_OVERLAP_MARGIN, y0 + (r.iData[1][v + 1][tIndex * 4 + 1] + r.iData[1][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[1] + r.meta.vOverflow[0]);
+				} else if (yLastPosition) {
+					yNormalized = Math.min(yLastPosition - FOCUS_OVERLAP_MARGIN, y0 + (r.iData[0][v + 1][tIndex * 4 + 1] + r.iData[0][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[0] + r.meta.vOverflow[0]);
+				} else {
+					yNormalized = y0 + (r.iData[0][v + 1][tIndex * 4 + 1] + r.iData[0][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[0] + r.meta.vOverflow[0];
+				}
+				
 				// Send new coordinates to controller
 				r.scope.focusRuleHandle(
 					prefixID + facet.attr,
-					y0 + (r.iData[index][v + 1][tIndex * 4 + 1] + r.iData[index][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[index] + r.meta.vOverflow[0],
+					yNormalized,
 					value,
 					(facet.unity) ? value + ' ' + facet.unity : value);
+				return yNormalized;
 			}
 		}
 
@@ -919,17 +932,18 @@ app.directive('chartUnits', function() {
 			}
 
 			// Loop
+			var yLastPosition;
 			for (var index = 0; index < r.profiles.length; index++) {
 				// Focus prefix for rules
 				var prefixID = 'rule-' + r.meta.widget.index + '-' + index + '-';
 				
 				// Reuse
 				if (r.iSelection[index] != null) {
-					for (var v = r.deck.v.length - 1; v >= 0; v--) {
+					for (var v = 0; v < r.deck.v.length; v++) {
 						r.iSelection[index].select(".svg-area-" + v).attr("points", p2s(r.iData[index][v + 1].slice(tIndex * 4, tIndex * 4 + 4), r.iData[index][v].slice(tIndex * 4, tIndex * 4 + 4)));
 						
 						// Send new coordinates to controller
-						updateFocusRule(prefixID, y0, index, tIndex, v);
+						yLastPosition = updateFocusRule(prefixID, y0, yLastPosition, index, tIndex, v);
 					}
 				}
 				// Draw
@@ -937,37 +951,48 @@ app.directive('chartUnits', function() {
 					r.iSelection[index] = r.groupP[index].append("g").attr('class', "svg-selection");
 
 					// Draw
-					for (var v = r.deck.v.length - 1; v >= 0; v--) {
+					for (var v = 0; v < r.deck.v.length; v++) {
 						r.iSelection[index].append("polygon")
 							.attr('class', "svg-area svg-area-" + v)
 							.attr("points", p2s(r.iData[index][v + 1].slice(tIndex * 4, tIndex * 4 + 4), r.iData[index][v].slice(tIndex * 4, tIndex * 4 + 4)))
 							.attr('fill', r.deck.v[v].fcolor);
 						
 						// Send new coordinates to controller
-						updateFocusRule(prefixID, y0, index, tIndex, v);
+						yLastPosition = updateFocusRule(prefixID, y0, yLastPosition, index, tIndex, v);
 					};
 				}
 			}
 		}
 		
 		
-		function updateFocusRule(prefixID, y0, index, tIndex, v) {
+		function updateFocusRule(prefixID, y0, yLastPosition, index, tIndex, v) {
 			var facet = r.deck.v[v];
+			var yNormalized;
 			
 			if (tIndex >= r.meta.ends[index] / r.settings.timeGroup) {
 				// Send disable to controller
 				r.scope.focusRuleHandle(prefixID + facet.attr, NaN, NaN, NaN);
+				return null;
 				
 			} else {
 				
 				var value = r.data[index].hasOwnProperty(tIndex) ? r.data[index][tIndex][r.deck.v[v].attr] || 0 : 0;
 				
+				if (index == 1) {
+					yNormalized = Math.max(yLastPosition + FOCUS_OVERLAP_MARGIN, y0 + (r.iData[1][v + 1][tIndex * 4 + 1] + r.iData[1][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[1] + r.meta.vOverflow[0]);
+				} else if (yLastPosition) {
+					yNormalized = Math.min(yLastPosition - FOCUS_OVERLAP_MARGIN, y0 + (r.iData[0][v + 1][tIndex * 4 + 1] + r.iData[0][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[0] + r.meta.vOverflow[0]);
+				} else {
+					yNormalized = y0 + (r.iData[0][v + 1][tIndex * 4 + 1] + r.iData[0][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[0] + r.meta.vOverflow[0];
+				}
+				
 				// Send new coordinates to controller
 				r.scope.focusRuleHandle(
 					prefixID + facet.attr,
-					y0 + (r.iData[index][v + 1][tIndex * 4 + 1] + r.iData[index][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[index] + r.meta.vOverflow[0],
+					yNormalized,
 					value,
 					(facet.unity) ? value + ' ' + facet.unity : value);
+				return yNormalized;
 			}
 		}
 
