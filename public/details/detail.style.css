@@ -196,9 +196,23 @@
 	height: 16px;
 	margin-top: -8px;
 	font-size: 0.7em;
-	font-weight: bold;
-	text-shadow: 0 0 4px #FFF;
 	transition: all 0.2s ease;
+}
+.detail #ruler .facet-rule i {
+	text-shadow: 0 0 4px #FFF;
+	/*text-shadow:
+		-1px -1px 0 rgba(255, 255, 255, .5),  
+		1px -1px 0 rgba(255, 255, 255, .5),
+		-1px  1px 0 rgba(255, 255, 255, .5),
+		1px  1px 0 rgba(255, 255, 255, .5);*/
+}
+.detail #ruler .facet-rule:not(i) {
+	color: white;
+	text-shadow:
+		-1px -1px 0 rgba(0, 0, 0, .5),  
+		1px -1px 0 rgba(0, 0, 0, .5),
+		-1px  1px 0 rgba(0, 0, 0, .5),
+		1px  1px 0 rgba(0, 0, 0, .5);
 }
 .detail #ruler .facet-pin {
 	position: absolute;

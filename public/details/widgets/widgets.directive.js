@@ -11,7 +11,8 @@
 var LAYOUT_FH_NULL = 0;
 var LAYOUT_FH_BAND = 40;
 var LAYOUT_FH_NORMAL = 80;
-var FOCUS_OVERLAP_MARGIN = 10;
+var FOCUS_PIN_MARGIN = 5;
+var FOCUS_PIN_OVERLAP_MARGIN = 10;
 
 /**
  * Layout for graphs
@@ -746,12 +747,28 @@ app.directive('chartPercent', function() {
 				
 				var value = r.profiles[index].currentData[facet.cat][t][facet.attr];
 				
-				if (index == 1) {
-					yNormalized = Math.max(yLastPosition + FOCUS_OVERLAP_MARGIN, y0 + (r.iData[1][v + 1][tIndex * 4 + 1] + r.iData[1][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[1] + r.meta.vOverflow[0]);
-				} else if (yLastPosition) {
-					yNormalized = Math.min(yLastPosition - FOCUS_OVERLAP_MARGIN, y0 + (r.iData[0][v + 1][tIndex * 4 + 1] + r.iData[0][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[0] + r.meta.vOverflow[0]);
+				if (yLastPosition) {
+					if (index == 0) {
+						yNormalized = Math.min(
+							yLastPosition - FOCUS_PIN_OVERLAP_MARGIN,
+							y0 + (r.iData[0][v + 1][tIndex * 4 + 1] + r.iData[0][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[0] + r.meta.vOverflow[0]);
+					} else {
+						yNormalized = Math.max(
+							yLastPosition + FOCUS_PIN_OVERLAP_MARGIN,
+							y0 + (r.iData[1][v + 1][tIndex * 4 + 1] + r.iData[1][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[1] + r.meta.vOverflow[0]);
+					}
 				} else {
-					yNormalized = y0 + (r.iData[0][v + 1][tIndex * 4 + 1] + r.iData[0][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[0] + r.meta.vOverflow[0];
+					if (index == 0) {
+						yNormalized = Math.min(
+							y0 - FOCUS_PIN_MARGIN + 1 + r.layout.profile.y[0] + r.meta.vOverflow[0] + r.layout.profile.height,
+							y0 + (r.iData[0][v + 1][tIndex * 4 + 1] + r.iData[0][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[0] + r.meta.vOverflow[0]
+						);
+					} else {
+						yNormalized = Math.max(
+							y0 + FOCUS_PIN_MARGIN + r.layout.profile.y[1] + r.meta.vOverflow[0],
+							y0 + (r.iData[1][v + 1][tIndex * 4 + 1] + r.iData[1][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[1] + r.meta.vOverflow[0]
+						);
+					}
 				}
 				
 				// Send new coordinates to controller
@@ -978,13 +995,32 @@ app.directive('chartUnits', function() {
 				
 				var value = r.data[index].hasOwnProperty(tIndex) ? r.data[index][tIndex][r.deck.v[v].attr] || 0 : 0;
 				
-				if (index == 1) {
-					yNormalized = Math.max(yLastPosition + FOCUS_OVERLAP_MARGIN, y0 + (r.iData[1][v + 1][tIndex * 4 + 1] + r.iData[1][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[1] + r.meta.vOverflow[0]);
-				} else if (yLastPosition) {
-					yNormalized = Math.min(yLastPosition - FOCUS_OVERLAP_MARGIN, y0 + (r.iData[0][v + 1][tIndex * 4 + 1] + r.iData[0][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[0] + r.meta.vOverflow[0]);
+				if (yLastPosition) {
+					if (index == 0) {
+						yNormalized = Math.min(
+							yLastPosition - FOCUS_PIN_OVERLAP_MARGIN,
+							y0 + (r.iData[0][v + 1][tIndex * 4 + 1] + r.iData[0][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[0] + r.meta.vOverflow[0]
+						);
+					} else {
+						yNormalized = Math.max(
+							yLastPosition + FOCUS_PIN_OVERLAP_MARGIN,
+							y0 + (r.iData[1][v + 1][tIndex * 4 + 1] + r.iData[1][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[1] + r.meta.vOverflow[0]
+						);
+					}
 				} else {
-					yNormalized = y0 + (r.iData[0][v + 1][tIndex * 4 + 1] + r.iData[0][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[0] + r.meta.vOverflow[0];
+					if (index == 0) {
+						yNormalized = Math.min(
+							y0 - FOCUS_PIN_MARGIN + 1 + r.layout.profile.y[0] + r.meta.vOverflow[0] + r.layout.profile.height,
+							y0 + (r.iData[0][v + 1][tIndex * 4 + 1] + r.iData[0][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[0] + r.meta.vOverflow[0]
+						);
+					} else {
+						yNormalized = Math.max(
+							y0 + FOCUS_PIN_MARGIN + r.layout.profile.y[1] + r.meta.vOverflow[0],
+							y0 + (r.iData[1][v + 1][tIndex * 4 + 1] + r.iData[1][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[1] + r.meta.vOverflow[0]
+						);
+					}
 				}
+				
 				
 				// Send new coordinates to controller
 				r.scope.focusRuleHandle(
