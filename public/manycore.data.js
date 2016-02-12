@@ -594,6 +594,9 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			]
 		},
 		pCoordDL: {
+			handling: {
+				time: TIME_NONE,
+			},
 			graph : {
 				h:		limit,
 				plots:	[facets.pn, facets.h, facets.ct, facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf],
