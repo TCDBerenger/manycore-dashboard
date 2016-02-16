@@ -136,6 +136,17 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	/* Generator - Graphical						*/
 	/************************************************/
 	/**
+	 * Generator - checking set value (conform or not)
+	 */
+	var checkSettingValue = function(t, value) {
+		if (t && t == 'positive') {
+			return isFinite(value) && value > 0;
+		} else {
+			return true;
+		}
+	}
+	
+	/**
 	 * Generator - setting
 	 */
 	function initWidget(widget) {
@@ -172,7 +183,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			// Populate settings
 			if (widget.deck.settings != null) {
 				widget.deck.settings.forEach(function(setting) {
-					// Compute value by profile
+					// Compute value by profile (array case)
 					if ('psource' in setting) {
 						setting.value = [];
 						profiles.forEach(function(profile) {
@@ -195,57 +206,34 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 								settings["_" + setting.property] = val;
 							};
 							if (setting.property == 'timeGroup') populateWidgetData(widget);
-							settings.version++;
-							settings.lastChangeProperty = setting.property;
+							if (checkSettingValue(setting.check, settings["_" + setting.property])) {
+								settings.version++;
+								settings.lastChangeProperty = setting.property;
+							}
 						}
 					});
 					
-					// Array case
-					/*if (Array.isArray(setting.value)) {
-						for (var tIndex = 0; tIndex < setting.value.length; tIndex++) {
-							var currentIndex = +tIndex;
-							var currentProperty = setting.property + tIndex;
-							console.log('setting for', currentProperty);
-							settings.__defineGetter__(currentProperty, function () {
-								console.log('get', setting.property, currentIndex, currentProperty, settings["_" + setting.property][currentIndex]);
-								return settings["_" + setting.property][currentIndex];
-							});
-							settings.__defineSetter__(currentProperty, function (val) {
-								if (settings["_" + setting.property][currentIndex] != val) {
-									try {
-										settings["_" + setting.property][currentIndex] = JSON.parse(val);
-									} catch(e) {
-										settings["_" + setting.property][currentIndex] = val;
-									};
-									if (setting.property == 'timeGroup') populateWidgetData(widget);
+					// Set additional accessors (array case)
+					if (Array.isArray(setting.value)) {
+						var setter = function(index, val) {
+							if (settings["_" + setting.property][index] != val) {
+								try {
+									settings["_" + setting.property][index] = JSON.parse(val);
+								} catch(e) {
+									settings["_" + setting.property][index] = val;
+								};
+								
+								if (checkSettingValue(setting.check, settings["_" + setting.property][index])) {
 									settings.version++;
 									settings.lastChangeProperty = setting.property;
 								}
-							});
-						}
-					}*/
-					
-					// Array case
-					/*if (Array.isArray(setting.value)) {
-						
-						settings[setting.property] = new Proxy(setting.value, {
-							set: function(target, property, value, receiver) {
-								target[property] = value;
-								settings.version++;
-								settings.lastChangeProperty = setting.property;
-								console.log('proxy', settings.version, target, property, value, receiver);
-								
-								// Launch events to update UI
-								$scope.$apply();
-								// Proxy: ok
-								return true;
 							}
-						});
-						
-					} else {
-		
-					}*/
-					
+						}
+						setting.value.forEach(function(value, index) {
+							settings.__defineGetter__(setting.property + index, function () { return settings["_" + setting.property][index]; });
+							settings.__defineSetter__(setting.property + index, function (val) { setter(index, val); });
+						}, this);
+					}
 				});
 			}
 			

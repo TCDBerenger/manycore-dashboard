@@ -320,7 +320,7 @@ function directive_bind(scope, element, r, repaint, select, addWidgetY) {
 		
 		var property = r.settings.lastChangeProperty;
 		
-		if (r.meta[property] != r.settings[property]) {
+		if (r.meta[property] != r.settings[property] || Array.isArray(r.meta[property])) {
 			if (property == 'plan') {
 				if (r.plan && r.plan.property) r.meta[r.plan.property] = false;
 				r.meta.plan = r.settings.plan;
