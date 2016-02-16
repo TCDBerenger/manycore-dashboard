@@ -1244,30 +1244,28 @@ app.directive('chartThreads', function() {
 					var x1Period, x2Period;
 					if (r.deck.periods && (!! r.meta.enablePeriods || (r.meta.hasOwnProperty('disablePeriods') && ! r.meta.disablePeriods))) {
 						var periodsData = profile.currentData.threads.periods;
-						r.deck.periods.forEach(function(deck) {
-							if (periodsData[thread.h] && periodsData[thread.h][deck.attr]) {
-								periodsData[thread.h][deck.attr].forEach(function (p) {
-									if (p.s >= r.meta.begin || p.e <= r.meta.end) {
-										x1Period = (p.s) ? r.scaleX(Math.max(p.s, r.meta.begin)) : r.scaleX(Math.max(thread.s, r.meta.begin));
-										x2Period = (p.e) ? r.scaleX(Math.min(p.e, r.meta.end)) : r.scaleX(Math.min(thread.e, r.meta.end));
-										r.groupP[index].append("rect")
-											.attr('class', 'svg-thread svg-thread-period')
-											.attr('x', x1Period)
-											.attr('y', threadY - r.meta.period_Height / 2)
-											.attr("width", x2Period - x1Period)
-											.attr("height", r.meta.period_Height)
-											.attr('fill', (p.hasOwnProperty('c')) ? r.deck.c_periods[p.c] : deck.colours.n);
-									}
-								});
-							}
-						});
+						if (periodsData[thread.h] && periodsData[thread.h][r.deck.periods.attr]) {
+							periodsData[thread.h][r.deck.periods.attr].forEach(function (p) {
+								if (p.s >= r.meta.begin || p.e <= r.meta.end) {
+									x1Period = (p.s) ? r.scaleX(Math.max(p.s, r.meta.begin)) : r.scaleX(Math.max(thread.s, r.meta.begin));
+									x2Period = (p.e) ? r.scaleX(Math.min(p.e, r.meta.end)) : r.scaleX(Math.min(thread.e, r.meta.end));
+									r.groupP[index].append("rect")
+										.attr('class', 'svg-thread svg-thread-period')
+										.attr('x', x1Period)
+										.attr('y', threadY - r.meta.period_Height / 2)
+										.attr("width", x2Period - x1Period)
+										.attr("height", r.meta.period_Height)
+										.attr('fill', (p.hasOwnProperty('c')) ? r.deck.c_periods[p.c] : r.deck.periods.colours.n);
+								}
+							});
+						}
 					}
 					
 					// Draw group ticks
 					if (r.deck.ticks && r.meta.groupTicks) {
-						r.deck.ticks.forEach(function(deck) {
-							if (profile.currentData.threads.ticks[thread.h] && profile.currentData.threads.ticks[thread.h][deck.attr]) {
-								var ticksData = profile.currentData.threads.ticks[thread.h][deck.attr];
+						r.deck.ticks.forEach(function(tick) {
+							if (profile.currentData.threads.ticks[thread.h] && profile.currentData.threads.ticks[thread.h][tick.f.attr]) {
+								var ticksData = profile.currentData.threads.ticks[thread.h][tick.f.attr];
 								var points = [[], []];
 								
 								// Init the tick position
@@ -1275,7 +1273,7 @@ app.directive('chartThreads', function() {
 								while (tickIndex < ticksData.length && ticksData[tickIndex] < r.meta.begin) tickIndex++;
 								
 								if (tickIndex < ticksData.length) {
-									var capacity = profile.hardware.calibration[deck.attr] * r.meta.timeGroup;
+									var capacity = profile.hardware.calibration[tick.f.attr] * r.meta.timeGroup;
 									
 									var tickCount, delta;
 									for (var t = r.meta.begin; t <= r.meta.end; t += r.meta.timeGroup) {
@@ -1292,7 +1290,7 @@ app.directive('chartThreads', function() {
 									r.groupP[index].append("polygon")
 										.attr('class', "svg-limit")
 										.attr("points", p2s(points[0], points[1]))
-										.attr('fill', deck.color);
+										.attr('fill', tick.f.colours.n);
 								}
 							}
 						});
@@ -1302,20 +1300,33 @@ app.directive('chartThreads', function() {
 					if (r.deck.ticks && (!! r.meta.enableTicks || (r.meta.hasOwnProperty('disableTicks') && ! r.meta.disableTicks))) {
 						var ticksData = profile.currentData.threads.ticks[thread.h];
 						var lastTick;
-						r.deck.ticks.forEach(function(deck) {
-							if (ticksData && ticksData[deck.attr]) {
+						r.deck.ticks.forEach(function(tick) {
+							if (ticksData && ticksData[tick.f.attr]) {
 								lastTick = -1;
-								ticksData[deck.attr].forEach(function (t) {
+								ticksData[tick.f.attr].forEach(function (t) {
 									if (t != lastTick && t >= r.meta.begin && t <= r.meta.end) {
-										r.groupP[index].append('line')
-											.attr('class', 'svg-thread svg-thread-tick')
-											.attr('x1', r.scaleX(t)).attr('x2', r.scaleX(t))
-											.attr('y1', threadY - r.meta.tick_Height / 2)
-											.attr('y2', threadY + r.meta.tick_Height / 2)
-											.attr('stroke', deck.color)
-											.attr('stroke-width', 1);
-										lastTick = t;
+										if (tick.char) {
+											r.groupP[index].append('text')
+												.attr('class', 'svg-thread svg-thread-tick svg-thread-character')
+												.attr('x', r.scaleX(t))
+												.attr('y', threadY)
+												.attr('text-anchor', 'middle')
+												.attr('alignment-baseline', 'central')
+												.attr('dominant-baseline', 'central')
+												.attr('font-size', (tick.size || 12) + 'px')
+												.attr('fill', tick.f.colours[tick.colour || 'f'])
+												.text(tick.char || '|');
+										} else {
+											r.groupP[index].append('line')
+												.attr('class', 'svg-thread svg-thread-tick')
+												.attr('x1', r.scaleX(t)).attr('x2', r.scaleX(t))
+												.attr('y1', threadY - r.meta.tick_Height / 2)
+												.attr('y2', threadY + r.meta.tick_Height / 2)
+												.attr('stroke', tick.f.colours.n)
+												.attr('stroke-width', 1);
+										}
 									}
+									lastTick = t;
 								});
 							}
 						});

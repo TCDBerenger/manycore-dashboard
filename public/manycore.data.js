@@ -504,8 +504,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			graph : {
 				h:			limit,		// threads (color)
-				ticks:		[facets.m],
-				periods:	[facets.m],
+				ticks:		[{f: facets.m}],
+				periods:	facets.m,
 				c_periods:	colours.cores,
 			},
 			data: [facets.m],
@@ -541,8 +541,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			graph : {
 				h:	limit,		// threads (color)
-				ticks:		[facets.ls, facets.lf],
-				periods:	[facets.lw],
+				ticks:		[{f: facets.ls, char: '[', size: 14}, {f: facets.lf, char: '╳', colour: 'g', size: 6}],
+				periods:	facets.lw,
 			},
 			data: [facets.lw],
 			legend: {
