@@ -343,7 +343,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			focus: [facets.ls, facets.lf],
 			legend: {
 				axis: [
-					{ b: '-', t: 't. value',	d: 'typical value of expected lock acquisitions (could be changed in settings)',	f: limit, sv: 'calibration', sd: 'lock acquisitions by ms' },
+					{ b: '-', t: 't. value',	d: 'typical value of expected lock acquisitions',	f: limit, sv: 'calibration', sd: 'lock acquisitions by ms' },
 					{ b: 'n×', t: 'excess',		d: 'more lock acquisitions than expected (multiple of the typical value)',			f: limit },
 				],
 				data: [
@@ -412,7 +412,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			focus: [facets.m],
 			legend: {
 				axis: [
-					{ b: '-', t: 't. value',	d: 'typical value of expected thread migrations (could be changed in settings)',	f: limit, sv: 'calibration', sd: 'thread migrations by ms' },
+					{ b: '-', t: 't. value',	d: 'typical value of expected thread migrations',	f: limit, sv: 'calibration', sd: 'thread migrations by ms' },
 					{ b: 'n×', t: 'excess',		d: 'more thread migrations than expected (multiple of the typical value)',			f: limit },
 				],
 				data: [
@@ -446,7 +446,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			focus: [facets.s],
 			legend: {
 				axis: [
-					{ b: '-', t: 't. value',	d: 'typical value of expected context switches (could be changed in settings)',	f: limit, sv: 'calibration', sd: 'context switches by ms' },
+					{ b: '-', t: 't. value',	d: 'typical value of expected context switches',	f: limit, sv: 'calibration', sd: 'context switches by ms' },
 					{ b: 'n×', t: 'excess',		d: 'more context switches than expected (multiple of the typical value)',		f: limit },
 				],
 				data: [
