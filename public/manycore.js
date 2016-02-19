@@ -2,8 +2,13 @@ var app = angular.module('manycoreDashboard', ['ui.router', 'ui.bootstrap', 'ngC
 
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 	$stateProvider
+		.state('welcome', {
+			url: '/welcome',
+			templateUrl: '/welcome/welcome.view.html',
+			controller: 'WelcomeController'
+		})
 		.state('dashboard', {
-			url: '/dashboard',
+			url: '/dashboard/{ids}',
 			templateUrl: '/dashboard/dashboard.view.html',
 			controller: 'DashboardController',
 			resolve: {
@@ -37,7 +42,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 			controller: 'SettingsController'
 		});
 	
-	$urlRouterProvider.otherwise('dashboard');
+	$urlRouterProvider.otherwise('welcome');
 }]);
 
 
@@ -106,6 +111,22 @@ app.run(function($rootScope) {
 	$rootScope.invert = function invert() {
 		return $rootScope.selectedIDs.reverse();
 	};
+	
+	/**
+	 * Clear ids
+	 */
+	$rootScope.clear = function clear() {
+		return $rootScope.selectedIDs.splice(0, $rootScope.selectedIDs.length);
+	};
+	
+	/**
+	 * Handle state changes
+	 */
+	$rootScope.$on('$stateChangeSuccess', function (ev, to, toParams, from, fromParams) {
+		if (to.name == "welcome") {
+			$rootScope.clear();
+		}
+	});
 });
 
 app.filter('iif', [function () {

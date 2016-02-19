@@ -1,6 +1,6 @@
 /* global app */
 /* global angular */
-app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http', '$sce', 'profileService', 'categories' , function($scope, $rootScope, $window, $http, $sce, profileService, categories) {
+app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$stateParams', '$http', '$sce', 'profileService', 'categories' , function($scope, $rootScope, $window, $stateParams, $http, $sce, profileService, categories) {
 	/************************************************/
 	/* Constructor - Init							*/
 	/************************************************/
@@ -15,8 +15,11 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	$scope.categories = categories.all;
 
 	// References
-	$scope.encodeSelectedProfile = $rootScope.encodeSelectedProfile;
-
+	var ids = $stateParams.ids.split('-')
+		.map(function(value) { return +value; })
+		.filter(function(value) { return value === parseInt(value, 10) && value > 0 && value < 99; })
+		.slice(0, 2);
+	
 	// Global binds
 	angular.element($window).on('resize', function() {
 		$scope.$apply();
@@ -257,20 +260,30 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	/**
 	 * Restore
 	 */
-	$scope.restoreSelectedProfiles = function() {
-		// retreive ids
-		var ids = $rootScope.selectedIDs.slice(0);
+	$scope.restoreProfiles = function() {
+		// Select ids
+		var selectedIDs;
+		if (ids && ids.length > 0) {
+			selectedIDs = ids;
+			$rootScope.clear();
+		} else {
+			selectedIDs = $rootScope.selectedIDs.slice(0);
+		}
+		console.log("A", ids, $rootScope.selectedIDs, selectedIDs);
 
 		// For each profile
-		$scope.profiles.forEach(function(profile, index, array) {
-			ids.forEach(function(id) {
-				// If profile was selected in a previous session
-				if (profile.id == id) {
-					// Select this profile
-					$scope.selectProfile(profile);
-				}
-			})
-		});
+		if (selectedIDs && selectedIDs.length > 0) {
+			$scope.profiles.forEach(function(profile, index, array) {
+				selectedIDs.forEach(function(id) {
+					// If profile was selected in a previous session
+					if (profile.id == id) {
+						// Select this profile
+						$scope.selectProfile(profile);
+					}
+				})
+			});
+		}
+		console.log("B", selectedIDs);
 	};
 	
 	
@@ -302,5 +315,5 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$http
 	/* Constructor - Finish							*/
 	/************************************************/
 	// Restore
-	$scope.restoreSelectedProfiles();
+	$scope.restoreProfiles();
 }]);

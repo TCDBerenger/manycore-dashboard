@@ -6,15 +6,15 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand">ManyCore</a>
+		<a ui-sref="welcome" class="navbar-brand">ManyCore</a>
 	</div>
 	<div id="navbar" class="navbar-collapse collapse">
 		<!-- collapsible content -->
 		<ul class="nav navbar-nav">
-			<li ui-sref-active="active"><a ui-sref="dashboard"><i class="fa fa-tachometer"></i> Dashboard</a></li>
+			<li ui-sref-active="active"><a ui-sref="dashboard({ids: encodeSelectedProfile()})"><i class="fa fa-tachometer"></i> Dashboard</a></li>
 			<p class="navbar-text" ng-show="hasDetail()">→</p>
 			<li class="nav-link-detail" ng-show="hasDetail()" dropdown>
-				<a href="#/detail/{{selectedCategory.cat}}/{{encodeSelectedProfile()}}" class="dropdown-toggle" dropdown-toggle><i class="fa fa-{{selectedCategory.icon}}"></i>  {{selectedCategory.label}}  <i class="fa fa-caret-down navbar-caret"></i></a>
+				<a ui-sref="dashboard({cat: selectedCategory.cat, ids: encodeSelectedProfile()})" class="dropdown-toggle" dropdown-toggle><i class="fa fa-{{selectedCategory.icon}}"></i>  {{selectedCategory.label}}  <i class="fa fa-caret-down navbar-caret"></i></a>
 				<ul class="dropdown-menu nav-link-others" role="menu">
 					<li class="nav-link-other" ng-repeat="category in categories"><a href="#/detail/{{category.cat}}/{{encodeSelectedProfile()}}"><i class="fa fa-{{category.icon}}"></i>  {{category.label}}</a></li>
 				</ul>
@@ -22,7 +22,7 @@
 		</ul>
 
 		<!-- collapsible right content -->
-		<p class="navbar-text navbar-right" style="padding-right: 15px;">v 0.12</p>
+		<p class="navbar-text navbar-right" style="padding-right: 15px;">v 0.13</p>
 		<ul class="nav navbar-nav navbar-right">
 			<li ui-sref-active="active"><a ui-sref="settings"><i class="fa fa-sliders"></i> settings</a></li>
 			<!--<li ui-sref-active="active"><a href="http://1drv.ms/1H5iDEK" target="_blank"><i class="fa fa-file-text"></i> motivations</a></li>-->
