@@ -1,6 +1,6 @@
 {
 	"name": "manycoredashboard",
-	"version": "0.12.0",
+	"version": "0.13.0",
 	"dependencies": {
 		"bootswatch-dist": "yeti",
 		"awesome-bootstrap-checkbox": "latest",
