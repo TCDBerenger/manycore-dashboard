@@ -1,0 +1,8 @@
+/*
+ * Welcome layout
+ */
+.welcome {
+	padding: 0px 20px 0px 20px !important;
+	transition: .2s linear all;
+}
+
