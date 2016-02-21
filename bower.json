@@ -8,7 +8,6 @@
 		"angular": "latest",
 		"ui-route": "latest",
 		"angular-bootstrap": "latest",
-		"angular-cookies": "latest",
 		"d3": "latest"
 	},
 	"homepage": "https://github.com/TCDBerenger/manycore-dashboard",
