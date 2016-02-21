@@ -26,6 +26,9 @@
 				<p>If you want to try or discover our prototype, this is the best way, no constraint.</p>
 				<p>Please be gentle with this prototype.</p>
 				<button type="button" ui-sref="dashboard" class="btn btn-info btn-block"><i class="fa fa-tachometer"></i> Dashboard</button>
+				<p>&nbsp;</p>
+				<p>Also, you can use a quick link:</p>
+				<button ng-repeat="xp in quicklinks" type="button" ui-sref='dashboard({ids: xp.ids})' class="btn btn-default btn-block">{{::xp.label}}</button>
 			</div>
 		</div>
 		<div class="col-md-6">
@@ -38,6 +41,7 @@
 				<h2>Experiments</h2>
 				<p>If you're here for an experimentation, first, thanks a million.</p>
 				<p>Then, choose the experiment you want to try:</p>
+				<p class="text-muted"><em>... soon ...</em></p>
 				<button ng-repeat="xp in experiments" type="button" ui-sref='dashboard({ids: xp.ids})' class="btn btn-default btn-block">{{::xp.label}}</button>
 			</div>
 		</div>

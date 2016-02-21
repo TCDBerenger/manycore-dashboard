@@ -269,7 +269,6 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$stat
 		} else {
 			selectedIDs = $rootScope.selectedIDs.slice(0);
 		}
-		console.log("A", ids, $rootScope.selectedIDs, selectedIDs);
 
 		// For each profile
 		if (selectedIDs && selectedIDs.length > 0) {
@@ -283,7 +282,6 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$stat
 				})
 			});
 		}
-		console.log("B", selectedIDs);
 	};
 	
 	
