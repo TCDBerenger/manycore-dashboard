@@ -288,7 +288,6 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				melody_c:	facets.i,
 			},
 			data: [facets.i, facets.r],
-			focus: [facets.i],
 			legend: {
 				axis: [
 					{ b: '⊢', f: limit,	t: '[Y] Cores',	d: 'each line represents a core' }

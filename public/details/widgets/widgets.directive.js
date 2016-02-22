@@ -193,33 +193,32 @@ function directive_init(scope, element, attrs, layoutType, mirror, canOverflow) 
 /**
  * Focus - init
  */
-/*function directive_focus_init(r, repeater) {
-	var prefix;
+function directive_focus_init(r, repeater) {
+	var prefixWidget = 'pin-' + r.meta.widget.index + '-';
 	var valuedPins = [];
+	var prefixProfile;
 	
 	
 	// By profile
 	r.profiles.forEach(function(profile, index) {
-		prefix = 'pin-' + r.meta.widget.index + '-' + index + '-';
+		prefixProfile = prefixWidget + index + '-';
 		
 		// for melody
 		if (r.deck.melody_c) {
 			// Repeat
 			for (var l = 0; l < repeater[index]; l++) {
 				valuedPins.push({
-					id: prefix + 'c-' + l,
-					l: (l == 0) ? r.deck.melody_c.label : '',
+					id: prefixProfile + 'c-' + l,
+					l: /*(l == 0) ? r.deck.melody_c.label :*/ '',
 					f: r.deck.melody_c
 				})
 			}
 		}
-		
-		
-	})
+	});
 	
 	// Push pins
 	r.scope.focusInitPins(valuedPins);
-}*/
+}
 
 
 /**
@@ -1383,7 +1382,7 @@ app.directive('chartLines', function() {
 		];
 		
 		// Init focus pins
-		//directive_focus_init(r, r.meta.linesLength);
+		directive_focus_init(r, r.meta.linesLength);
 		
 		// Init internal data
 		r.iData = {};
@@ -1703,12 +1702,12 @@ app.directive('chartLines', function() {
 				// Loop
 				for (var index = 0; index < r.profiles.length; index++) {
 					// Focus prefix for rules
-					var prefixID = 'rule-' + r.meta.widget.index + '-' + index + '-c-';
+					var prefixID = 'pin-' + r.meta.widget.index + '-' + index + '-c-';
 					
 					// Reuse
 					if (r.iSelection[index] != null) {
 						for (var l = r.meta.linesLength[index] - 1; l >= 0; l--) {
-							r.iSelection[index].select(".svg-area-melody-" + l).attr("points", p2s(r.iData.melody[index][l][1].slice(tIndex * 4, tIndex * 4 + 4), r.iData.melody[index][l][0].slice(tIndex * 4, tIndex * 4 + 4)));
+							r.iSelection[index].select(".svg-area-melody-" + l).attr("points", p2s(r.iData.melody[index][l][1].slice(frameID * 4, frameID * 4 + 4), r.iData.melody[index][l][0].slice(frameID * 4, frameID * 4 + 4)));
 							
 							// Send new coordinates to controller
 							updateMelodyPin(prefixID, l, y0, index, t, frameID);
@@ -1722,7 +1721,8 @@ app.directive('chartLines', function() {
 						for (var l = r.meta.linesLength[index] - 1; l >= 0; l--) {
 							r.iSelection[index].append("polygon")
 								.attr('class', "svg-area svg-area-melody-" + l)
-								.attr("points", p2s(r.iData.melody[index][l][1].slice(tIndex * 4, tIndex * 4 + 4), r.iData.melody[index][l][0].slice(tIndex * 4, tIndex * 4 + 4)))
+								.attr('transform', 'translate(0,' + ((index == 0) ? l * r.meta.lineHeight - (r.meta.linesLength[index] * r.meta.lineHeight) : l * r.meta.lineHeight) + ')')
+								.attr("points", p2s(r.iData.melody[index][l][1].slice(frameID * 4, frameID * 4 + 4), r.iData.melody[index][l][0].slice(frameID * 4, frameID * 4 + 4)))
 								.attr('fill', r.deck.melody_c.colours.f);
 							
 							// Send new coordinates to controller
@@ -1743,11 +1743,7 @@ app.directive('chartLines', function() {
 				if (r.deck.melody_c.unity) value += ' ' + r.deck.melody_c.unity;
 				
 				// Send new coordinates to controller
-				/*r.scope.focusMovePin(
-					prefixID + l,
-					y0 + r.meta.lines[index][l].y + r.layout.profile.y[index] + r.meta.vOverflow[index],
-					value);*/
-				r.scope.focusRuleHandle(
+				r.scope.focusMovePin(
 					prefixID + l,
 					y0 + r.meta.lines[index][l].y + r.layout.profile.y[index] + r.meta.vOverflow[index],
 					value,
