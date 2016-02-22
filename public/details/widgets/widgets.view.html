@@ -1,14 +1,14 @@
-<tabset>
+<uib-tabset>
 	<h4>{{widget.title}}</h4>
 	<div class="btn-group btn-group-sm" ng-if="widget.deck.plans">
 		<label ng-repeat="mode in widget.deck.plans" class="btn btn-default" ng-model="widget.settings.plan" btn-radio="$index" uncheckable>{{mode.label}}</label>
 	</div>
-	<tab disable="!widget.desc">
-		<tab-heading><i class="fa fa-info"></i> description</tab-heading>
+	<uib-tab disable="!widget.desc">
+		<uib-tab-heading><i class="fa fa-info"></i> description</uib-tab-heading>
 		<p>{{widget.desc}}</p>
-	</tab>
-	<tab>
-		<tab-heading><i class="fa fa-bar-chart"></i> legend</tab-heading>
+	</uib-tab>
+	<uib-tab>
+		<uib-tab-heading><i class="fa fa-bar-chart"></i> legend</uib-tab-heading>
 		<div class="row">
 			<div class="col-sm-5">
 				<!--<h5>Axis:</h5>-->
@@ -19,16 +19,16 @@
 				<facet-list list="widget.deck.legend.data"></facet-list>
 			</div>
 		</div>
-	</tab>
-	<tab disable="widget.deck.clues.length == 0">
-		<tab-heading><i class="fa fa-medkit"></i> diagnostic</tab-heading>
+	</uib-tab>
+	<uib-tab disable="widget.deck.clues.length == 0">
+		<uib-tab-heading><i class="fa fa-medkit"></i> diagnostic</uib-tab-heading>
 		<!--<p class="clues-label">
 			Clues about troubleshooting:
 		</p>-->
 		<facet-list list="widget.deck.clues"></facet-list>
-	</tab>
-	<tab disable="widget.deck.settings.length == 0">
-		<tab-heading><i class="fa fa-sliders"></i> settings</tab-heading>
+	</uib-tab>
+	<uib-tab disable="widget.deck.settings.length == 0">
+		<uib-tab-heading><i class="fa fa-sliders"></i> settings</uib-tab-heading>
 		<div class="form-horizontal settings">
 			<div class="form-group" ng-repeat="setting in widget.deck.settings" ng-if="! setting.depends || widget.settings[setting.depends[0]] == setting.depends[1]">
 				<label class="col-sm-2 control-label">{{::setting.label}}</label>
@@ -59,9 +59,9 @@
 				</div>
 			</div>
 		</div>
-	</tab>
-	<tab active="true"><!--  heading="collapse tab"-->
-		<tab-heading><i class="fa fa-eye-slash"></i></tab-heading>
-	</tab>
-</tabset>
+	</uib-tab>
+	<uib-tab active="true"><!--  heading="collapse tab"-->
+		<uib-tab-heading><i class="fa fa-eye-slash"></i></uib-tab-heading>
+	</uib-tab>
+</uib-tabset>
 <div class="profile-body" ng-include="'/details/widgets/' + widget.file + '.widget.html'"></div>
