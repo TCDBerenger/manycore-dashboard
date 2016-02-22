@@ -13,8 +13,8 @@
 		<ul class="nav navbar-nav">
 			<li ui-sref-active="active"><a ui-sref="dashboard({ids: encodeSelectedProfile()})"><i class="fa fa-tachometer"></i> Dashboard</a></li>
 			<p class="navbar-text" ng-show="hasDetail()">→</p>
-			<li class="nav-link-detail" ng-show="hasDetail()" dropdown>
-				<a ui-sref="dashboard({cat: selectedCategory.cat, ids: encodeSelectedProfile()})" class="dropdown-toggle" dropdown-toggle><i class="fa fa-{{selectedCategory.icon}}"></i>  {{selectedCategory.label}}  <i class="fa fa-caret-down navbar-caret"></i></a>
+			<li class="nav-link-detail" ng-show="hasDetail()" uib-dropdown>
+				<a ui-sref="dashboard({cat: selectedCategory.cat, ids: encodeSelectedProfile()})" class="dropdown-toggle" uib-dropdown-toggle><i class="fa fa-{{selectedCategory.icon}}"></i>  {{selectedCategory.label}}  <i class="fa fa-caret-down navbar-caret"></i></a>
 				<ul class="dropdown-menu nav-link-others" role="menu">
 					<li class="nav-link-other" ng-repeat="category in categories"><a href="#/detail/{{category.cat}}/{{encodeSelectedProfile()}}"><i class="fa fa-{{category.icon}}"></i>  {{category.label}}</a></li>
 				</ul>
