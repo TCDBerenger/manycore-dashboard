@@ -1,7 +1,7 @@
 <uib-tabset>
 	<h4>{{widget.title}}</h4>
 	<div class="btn-group btn-group-sm" ng-if="widget.deck.plans">
-		<label ng-repeat="mode in widget.deck.plans" class="btn btn-default" ng-model="widget.settings.plan" btn-radio="$index" uncheckable>{{mode.label}}</label>
+		<label ng-repeat="mode in widget.deck.plans" class="btn btn-default" ng-model="widget.settings.plan" uib-btn-radio="$index" uncheckable>{{mode.label}}</label>
 	</div>
 	<uib-tab disable="!widget.desc">
 		<uib-tab-heading><i class="fa fa-info"></i> description</uib-tab-heading>
@@ -46,7 +46,7 @@
 				</div>
 				<div class="col-sm-10" ng-if="setting.type == 'select'">
 					<div class="btn-group btn-group-sm">
-						<label ng-repeat="choice in setting.choices" class="btn btn-default" ng-model="widget.settings[setting.property]" btn-radio="$index" uncheckable>{{choice}}</label>
+						<label ng-repeat="choice in setting.choices" class="btn btn-default" ng-model="widget.settings[setting.property]" uib-btn-radio="$index" uncheckable>{{choice}}</label>
 					</div>
 				</div>
 				<div class="col-sm-10" ng-if="setting.type == 'pnumeric'">
