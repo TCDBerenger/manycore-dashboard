@@ -66,6 +66,19 @@
 			</p>
 		</div></div>
 		
+		<!-- Global help -->
+		<div ng-if="isStepAnalyse()" class="col-xs-10 col-xs-offset-1">
+			<!-- Help on categories -->
+			<div ng-if="hoveredCategory" class="block block-imp">
+				<span class="block-icon fa-stack text-info">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-{{hoveredCategory.icon}} fa-stack-1x fa-inverse"></i>
+				</span>
+				<h2>{{hoveredCategory.title}}</h2>
+				<p style="margin: 0">{{hoveredCategory.description}}</p>
+			</div>
+		</div>
+		
 		<!-- Step analyse -->
 		<!--<div ng-if="has2Profiles()" class="col-auto" style="max-width: 425px;"><div class="block">
 			<span class="block-icon fa-stack text-info">
@@ -115,7 +128,7 @@
 	<ng-include src="'/template_profile.html'" ng-if="willProfile(1)" ng-init="pindex = 1" class="category-profile-1"></ng-include>
 </div>
 
-<div class="row category div-link" ng-if="hasProfiles()" ng-repeat="category in categories | enabled" ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})'>
+<div class="row category div-link" ng-if="hasProfiles()" ng-repeat="category in categories | enabled" ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})' ng-mouseenter="selectCategory(category)" ng-mouseleave="unselectCategory()">
 	<!--<span id="div-tooltip-{{::$index}}" class="div-tooltip">view {{::category.title}} details <i class="fa fa-external-link"></i></span> ng-mousemove="categoryTooltipMouseMoveHandler($event, $index)"-->
 	
 	<!-- Strips (profile 1) -->
