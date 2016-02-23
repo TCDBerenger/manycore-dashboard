@@ -7,7 +7,7 @@
 			<th><span class="label label-focus table-legend-label">{{stats.focusLabel}}</span></th>
 			<th>{{profiles[0].label}}</th>
 			<th colspan="2" class="table-legend-col-stats-compare">
-				<div class="btn-group btn-group-xs" ng-show="stats.deck.length > 1">
+				<div class="btn-group btn-group-xs" ng-show="stats.deck.length > 1" uib-tooltip="choose the comparison method between stacked usage values (Σ) or usage distribution (%)">
 					<label class="btn btn-default" ng-model="stats.mode" uib-btn-radio="'units'" uncheckable>Σ</label>
 					<label class="btn btn-default" ng-model="stats.mode" uib-btn-radio="'percent'" uncheckable>%</label>
 				</div>
