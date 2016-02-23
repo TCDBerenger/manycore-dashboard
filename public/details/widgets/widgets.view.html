@@ -21,11 +21,22 @@
 		</div>
 	</uib-tab>
 	<uib-tab disable="widget.deck.clues.length == 0">
-		<uib-tab-heading><i class="fa fa-medkit"></i> diagnostic</uib-tab-heading>
-		<!--<p class="clues-label">
-			Clues about troubleshooting:
-		</p>-->
-		<facet-list list="widget.deck.clues"></facet-list>
+		<uib-tab-heading><i class="fa fa-medkit"></i> help</uib-tab-heading>
+		<div class="row" ng-init="clueMode = 1">
+			<div class="col-sm-2">
+				<div class="btn-group-vertical btn-group-sm" role="group" style="width: 100%;">
+					<label class="btn btn-default" ng-model="clueMode" uib-btn-radio="0">typical shapes</label>
+					<label class="btn btn-default" ng-model="clueMode" uib-btn-radio="1">diagnose</label>
+				</div>
+			</div>
+			<div class="col-sm-10"> <!-- col-sm-offset-1 -->
+				<div ng-if="clueMode == 0">
+				</div>
+				<div ng-if="clueMode == 1">
+					<facet-list list="widget.deck.clues"></facet-list>
+				</div>
+			</div>
+		</div>
 	</uib-tab>
 	<uib-tab disable="widget.deck.settings.length == 0">
 		<uib-tab-heading><i class="fa fa-sliders"></i> settings</uib-tab-heading>
