@@ -350,6 +350,15 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			stats.valuesMax[index] = maxValue;
 		}
 		
+		// Change stats "under cursor" to custom time frame
+		if (! isStats) {
+			if (steps[1] && steps[0] != steps[1]) {
+				stats.focusLabel = positions['f' + steps[0]] + ' ms ➜ ' + (positions['f' + steps[0]] + steps[0]) + ' ms / ' + positions['f' + steps[1]] + ' ms ➜ ' + (positions['f' + steps[1]] + steps[1]) + ' ms';
+			} else {
+				stats.focusLabel = positions['f' + steps[0]] + ' ms ➜ ' + (positions['f' + steps[0]] + steps[0]) + ' ms';
+			}
+		}
+		
 		stats.version++;
 	}
 	
