@@ -3,24 +3,23 @@
 	<div class="btn-group btn-group-sm" ng-if="widget.deck.plans" uib-tooltip="change the graph mode">
 		<label ng-repeat="mode in widget.deck.plans" class="btn btn-default" ng-model="widget.settings.plan" uib-btn-radio="$index" uncheckable>{{mode.label}}</label>
 	</div>
-	<uib-tab disable="!widget.desc">
-		<uib-tab-heading><i class="fa fa-info"></i> description</uib-tab-heading>
-		<p>{{widget.desc}}</p>
-	</uib-tab>
-	<uib-tab>
-		<uib-tab-heading><i class="fa fa-bar-chart"></i> legend</uib-tab-heading>
+	<uib-tab active="true">
+		<uib-tab-heading><i class="fa fa-info"></i> info</uib-tab-heading>
 		<div class="row">
+			<div class="col-sm-2">
+				{{widget.desc}}
+			</div>
 			<div class="col-sm-5">
 				<!--<h5>Axis:</h5>-->
 				<facet-list list="widget.deck.legend.axis" prelist="axisList" options="widget.deck.legend.options" profiles="profiles" settings="widget.settings"></facet-list>
 			</div>
-			<div class="col-sm-7">
+			<div class="col-sm-5">
 				<!--<h5>Data:</h5>-->
 				<facet-list list="widget.deck.legend.data"></facet-list>
 			</div>
 		</div>
 	</uib-tab>
-	<uib-tab disable="widget.deck.clues.length == 0">
+	<uib-tab>
 		<uib-tab-heading><i class="fa fa-stethoscope"></i> help</uib-tab-heading>
 		<div class="row" ng-init="clueMode = 1">
 			<div class="col-sm-2">
@@ -39,8 +38,8 @@
 			</div>
 		</div>
 	</uib-tab>
-	<uib-tab disable="widget.deck.settings.length == 0">
-		<uib-tab-heading><i class="fa fa-wrench"></i> settings</uib-tab-heading>
+	<uib-tab ng-if="widget.deck.settings.length > 0">
+		<uib-tab-heading><i class="fa fa-paint-brush"></i> customise</uib-tab-heading>
 		<div class="form-horizontal settings">
 			<div class="form-group" ng-repeat="setting in widget.deck.settings" ng-if="! setting.depends || widget.settings[setting.depends[0]] == setting.depends[1]">
 				<label class="col-sm-2 control-label">{{::setting.label}}</label>
@@ -72,8 +71,8 @@
 			</div>
 		</div>
 	</uib-tab>
-	<uib-tab active="true"><!--  heading="collapse tab"-->
-		<uib-tab-heading><i class="fa fa-eye-slash"></i></uib-tab-heading>
+	<uib-tab><!--  heading="collapse tab"-->
+		<uib-tab-heading><i class="fa fa-eye-slash" uib-tooltip="collapse tabs"></i></uib-tab-heading>
 	</uib-tab>
 </uib-tabset>
 <div class="profile-body" ng-include="'/details/widgets/' + widget.file + '.widget.html'"></div>
