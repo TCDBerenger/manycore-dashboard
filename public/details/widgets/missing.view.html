@@ -1,11 +1,13 @@
-<uibtabset>
+<uib-tabset>
 	<h4>{{widget.title}}</h4>
 	<uib-tab disable="!widget.desc">
-		<uib-tab-heading><i class="fa fa-info"></i> description</uib-tab-heading>
+		<uib-tab-heading><i class="fa fa-info"></i> info</uib-tab-heading>
 		<p>{{widget.desc}}</p>
 	</uib-tab>
-	<uib-tab heading="collapse tab" active="true"></uib-ab>
-</uibtabset>
+	<uib-tab class="uib-tab-collapse-hide">
+		<uib-tab-heading><i class="fa fa-eye-slash" uib-tooltip="collapse tabs"></i></uib-tab-heading>
+	</uib-tab>
+</uib-tabset>
 <div class="jumbotron">
 	<h1><i class="fa fa-database"></i> Data missing !</h1>
 	<p><span ng-repeat="profile in profiles">

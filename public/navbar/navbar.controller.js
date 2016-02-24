@@ -14,6 +14,19 @@ app.controller('NavbarController', ['$scope', '$rootScope', '$stateParams', 'cat
 
 
 	/************************************************/
+	/* UI - Details - Collapse						*/
+	/************************************************/
+	/**
+	 * Details - collapse tabs
+	 */
+	$scope.collapseAll = function() {
+		Array.prototype.forEach.call(document.getElementsByClassName('uib-tab-collapse-hide'), function(element) {
+			angular.element(element).isolateScope().active = true;
+		}, this);
+	}
+
+
+	/************************************************/
 	/* Bind - Style									*/
 	/************************************************/
 	/**
@@ -37,7 +50,7 @@ app.controller('NavbarController', ['$scope', '$rootScope', '$stateParams', 'cat
 	/**
 	 * Flag - detail
 	 */
-	$scope.hasDetail = function() {
-		return $scope.selectedCategory != null;
-	};
+//	$scope.hasDetail = function() {
+//		return $scope.selectedCategory != null;
+//	};
 }]);

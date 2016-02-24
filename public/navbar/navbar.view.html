@@ -12,13 +12,15 @@
 		<!-- collapsible content -->
 		<ul class="nav navbar-nav">
 			<li ui-sref-active="active"><a ui-sref="dashboard({ids: encodeSelectedProfile()})"><i class="fa fa-tachometer"></i> Dashboard</a></li>
-			<p class="navbar-text" ng-show="hasDetail()">→</p>
-			<li class="nav-link-detail" ng-show="hasDetail()" uib-dropdown>
-				<a ui-sref="dashboard({cat: selectedCategory.cat, ids: encodeSelectedProfile()})" class="dropdown-toggle" uib-dropdown-toggle><i class="fa fa-{{selectedCategory.icon}}"></i>  {{selectedCategory.label}}  <i class="fa fa-caret-down navbar-caret"></i></a>
+			<p ng-if="selectedCategory" class="navbar-text" style="cursor: default;"><i class="fa fa-long-arrow-right"></i></p>
+			<li ng-if="selectedCategory" class="nav-link-detail" uib-dropdown>
+				<a ui-sref="detail({cat: selectedCategory.cat, ids: encodeSelectedProfile()})" class="dropdown-toggle" uib-dropdown-toggle><i class="fa fa-{{selectedCategory.icon}}"></i>  {{selectedCategory.label}}  <i class="fa fa-caret-down navbar-caret"></i></a>
 				<ul class="dropdown-menu nav-link-others" role="menu">
-					<li class="nav-link-other" ng-repeat="category in categories"><a href="#/detail/{{category.cat}}/{{encodeSelectedProfile()}}"><i class="fa fa-{{category.icon}}"></i>  {{category.label}}</a></li>
+					<li class="nav-link-other" ng-repeat="category in categories | enabled"><a ui-sref="detail({cat: category.cat, ids: encodeSelectedProfile()})"><i class="fa fa-{{category.icon}}"></i>  {{category.label}}</a></li>
 				</ul>
 			</li>
+			<p ng-if="selectedCategory" class="navbar-text" style="cursor: default; width: 20px;"></p>
+			<li ng-if="selectedCategory"><a ng-click="collapseAll()" ><i class="fa fa-eye-slash"></i> collapse all tabs</a></li>
 		</ul>
 
 		<!-- collapsible right content -->
