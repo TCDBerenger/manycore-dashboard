@@ -68,6 +68,17 @@
 		
 		<!-- Global help -->
 		<div ng-if="isStepAnalyse()" class="col-xs-10 col-xs-offset-1">
+			<!-- Step 2 -->
+			<div ng-if="! hoveredCategory" class="block">
+				<span class="block-icon fa-stack text-info">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-info fa-stack-1x fa-inverse"></i>
+				</span>
+				<h2>What's next?</h2>
+				<p><i class="fa fa-arrow-right text-info"></i> Check all indicators and gauges to identify an overflowing one.</p>
+				<p><i class="fa fa-arrow-right text-info"></i> Choose a category of problems to drill-down.</p>
+			</div>
+			
 			<!-- Help on categories -->
 			<div ng-if="hoveredCategory" class="block">
 				<span class="block-icon fa-stack text-muted">
