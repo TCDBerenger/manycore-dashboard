@@ -1,23 +1,23 @@
 /*
  * Widgets
  */
-.widgets h4 {
+.widget-line h4 {
 	float: left;
 	margin-right: 40px;
 }
-.widgets .btn-group {
+.widget-line .btn-group {
 	float: left;
 	margin-right: 40px;
 }
-.widgets .nav-tabs > li.active:not(:last-of-type) > a {
+.widget-line .nav-tabs > li.active:not(:last-of-type) > a {
 	background-color: #F9F9F9;
 }
-.widgets .nav-tabs > li:last-of-type > a {
+.widget-line .nav-tabs > li:last-of-type > a {
 	background-color: transparent !important;
 	border-color: transparent transparent #DDD !important;
 }
-.widgets .tab-pane:not(:last-of-type) {
-	padding: 10px 0px 15px 0px;
+.widget-line .tab-pane:not(:empty) { /* .widget-line .tab-pane:not(:last-of-type) */
+	padding: 10px;
 	background-color: #F9F9F9;
 	border-bottom: 1px solid #DDD;
 }

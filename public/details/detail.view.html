@@ -102,8 +102,8 @@
 	
 	<!-- Widget line (repeat) -->
 	<div class="col-xs-12 widget-line" ng-repeat="(iw, widget) in meta.widgets" ng-init="initWidget(widget)">
-		<div ng-if="isOutofVersion(widget)" class="widgets" ng-include="'/details/widgets/missing.view.html'"></div>
-		<div ng-if="isUpToVersion(widget) && widget.wide" class="widgets" ng-include="'/details/widgets/widgets.view.html'"></div>
+		<div ng-if="isOutofVersion(widget)" ng-include="'/details/widgets/missing.view.html'"></div>
+		<div ng-if="isUpToVersion(widget) && widget.wide" ng-include="'/details/widgets/widgets.view.html'"></div>
 		<div ng-if="isUpToVersion(widget) && ! widget.wide" class="row">
 			<div class="col-xs-{{layout.colXS.graph}} col-sm-{{layout.colSM.graph}} col-md-{{layout.comMD.graph}} col-lg-{{layout.colLG.graph}} widgets" ng-include="'/details/widgets/widgets.view.html'"></div>
 			<div class="col-xs-{{layout.colXS.data}} col-sm-{{layout.colSM.data}} col-md-{{layout.comMD.data}} col-lg-{{layout.colLG.data}} aside" ng-include="'/details/aside/aside.view.html'"></div>
