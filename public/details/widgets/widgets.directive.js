@@ -22,9 +22,9 @@ var graphLayout = function(favoriteHeight) {
 	var self = this;
 
 	// Constants
-	this.padding	= { top: 10, right: 20, bottom: 10, left: 60, inner: 4 };
+	this.padding	= { top: 10, right: 20, bottom: 10, left: 60, inner: 1 };
 	this.profile	= { favoriteHeight: favoriteHeight };
-	this.xAxis		= { height: 10, text: 6, textShift: 8, arrow: 8, arrowShift: 4 };
+	this.xAxis		= { height: 12, text: 12, textShift: 10, arrow: 8, arrowShift: 8 };
 	this.vAxis		= { fontSize: 10, profileFontSize: 12 };
 
 	// Compute
@@ -378,13 +378,15 @@ function directive_repaint_xAxis(r) {
 		.attr("stroke-width", 2);
 	
 	// Clock symbol
+	/*
 	r.groupX.append('text')
 		.attr('class', 'svg-text')
 		.attr('y', r.layout.xAxis.textShift)
-		.attr('x', -16)
+		.attr('x', -14)
 		.attr('text-anchor', 'end')
-		.attr('font-size', (r.layout.xAxis.text + 4) + 'px')
+		.attr('font-size', r.layout.xAxis.text + 'px')
 		.text('time'); // ⌛ 🕓 elapsed time
+	*/
 	
 	// Labels
 	var texts = r.scaleX.ticks();
@@ -399,7 +401,7 @@ function directive_repaint_xAxis(r) {
 			.attr('text-anchor', function(d, i) { return (i == lastIndex) ? 'end' : "middle"; })
 			.attr('font-size', r.layout.xAxis.text + 'px')
 			.attr('fill', "#FFFFFF")
-			.text(function (d) { return (d == 0) ? 0 : (d / 1000) + ' s'; });
+			.text(function (d) { return (d == 0) ? 0 : (d < 1000) ? d + ' ms' : (d / 1000) + ' s'; });
 }
 
 /**
