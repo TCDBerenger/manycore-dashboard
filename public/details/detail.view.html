@@ -1,88 +1,129 @@
 <!-- Waiting -->
-<div class="row" ng-if="isWaiting()"><div class="col-xs-12 waiting"><div class="block">
-	<i class="fa fa-spinner fa-pulse"></i>
-	<strong>Retrieving data...</strong>
-</div></div></div>
+<div class="row" ng-if="isWaiting()">
+	<!-- Category -->
+	<div class="col-xs-4 profile">
+		<div class="block block-imp">
+			<span class="block-icon fa-stack text-info">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-{{meta.icon}} fa-stack-1x fa-inverse"></i>
+			</span>
+			<h2>{{meta.label}}</h2>
+			<p>&nbsp;</p>
+		</div>
+	</div>
+	<!-- Message -->
+	<div class="col-xs-8">
+		<div class="block">
+			<span class="block-icon fa-stack text-info">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-spinner fa-pulse fa-stack-1x fa-inverse"></i>
+			</span>
+			<h2>Retrieving data...</h2>
+		</div>
+</div></div>
 
 <!-- Display data -->
 <div class="row" ng-if="! isWaiting()">
-	<div class="col-xs-12 profile">
-		<h2>{{meta.label}}</h2> for
-		<span>{{profiles[0].label}}</span>
-		<span class="dropdown profile-versus {{profiles.length == 1 | iif : 'one-profile' : 'two-profiles'}}">
-			<a href class="dropdown-toggle"><spans class="label label-default">{{profiles.length > 1 | iif : 'versus' : 'info'}} <i class="fa fa-caret-down"></i></a>
-			<div class="dropdown-menu">
-			<table class="table table-striped table-hover">
-				<thead ng-if="profiles.length > 1">
-					<tr>
-						<th>{{profiles[0].label}}</th>
-						<th></th>
-						<th ng-if="profiles.length == 2">{{profiles[1].label}}</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr class="info"><td colspan="{{profiles.length > 1 | iif : '3' : '2'}}">Stats</td></tr>
-					<tr>
-						<td><span>ms</span>{{profiles[0].currentData.info.duration}}</td>
-						<td>duration</td>
-						<td ng-if="profiles.length == 2"><span>ms</span>{{profiles[1].currentData.info.duration}}</td>
-					</tr>
-					<tr>
-						<td>{{profiles[0].currentData.stats.h}}</td>
-						<td>threads</td>
-						<td ng-if="profiles.length == 2">{{profiles[1].currentData.stats.h}}</td>
-					</tr>
-					<tr>
-						<td><span>10⁶</span><span>&nbsp;</span><span>×</span>{{profiles[0].currentData.stats.c / 1000000000 | number: 0}}</td>
-						<td>cycles</td>
-						<td ng-if="profiles.length == 2"><span>10⁶</span><span>&nbsp;</span><span>×</span>{{profiles[1].currentData.stats.c / 1000000000 | number: 0}}</td>
-					</tr>
-					<tr>
-						<td><span>%</span>{{profiles[0].currentData.stats.r * 100 / (profiles[0].currentData.stats.r + profiles[0].currentData.stats.y + profiles[0].currentData.stats.s + profiles[0].currentData.stats.w) | number: 0}}</td>
-						<td>running</td>
-						<td ng-if="profiles.length == 2"><span>%</span>{{profiles[1].currentData.stats.r * 100 / (profiles[1].currentData.stats.r + profiles[1].currentData.stats.y + profiles[1].currentData.stats.s + profiles[1].currentData.stats.w) | number: 0}}</td>
-					</tr>
-					<tr class="info"><td colspan="{{profiles.length > 1 | iif : '3' : '2'}}">Hardware</td></tr>
-					<tr>
-						<td>{{profiles[0].hardware.data.pcores}} / {{profiles[0].hardware.data.lcores}}</td>
-						<td>cores (physical&nbsp;/&nbsp;logical)</td>
-						<td ng-if="profiles.length == 2">{{profiles[1].hardware.data.pcores}} / {{profiles[1].hardware.data.lcores}}</td>
-					</tr>
-					<tr>
-						<td>{{profiles[0].hardware.data.type}} bits</td>
-						<td>type</td>
-						<td ng-if="profiles.length == 2">{{profiles[1].hardware.data.type}} bits</td>
-					</tr>
-					<tr>
-						<td><span>GHz</span>{{profiles[0].hardware.data.clock}}</td>
-						<td>clock</td>
-						<td ng-if="profiles.length == 2"><span>GHz</span>{{profiles[1].hardware.data.clock}}</td>
-					</tr>
-					<tr>
-						<td><span>KB</span>{{profiles[0].hardware.data.l1}}</td>
-						<td>cache L1</td>
-						<td ng-if="profiles.length == 2"><span>KB</span>{{profiles[1].hardware.data.l1}}</td>
-					</tr>
-					<tr>
-						<td><span>KB</span>{{profiles[0].hardware.data.l2}}</td>
-						<td>cache L2</td>
-						<td ng-if="profiles.length == 2"><span>KB</span>{{profiles[1].hardware.data.l2}}</td>
-					</tr>
-					<tr>
-						<td><span>KB</span>{{profiles[0].hardware.data.l3}}</td>
-						<td>cache L3</td>
-						<td ng-if="profiles.length == 2"><span>KB</span>{{profiles[1].hardware.data.l3}}</td>
-					</tr>
-					<tr>
-						<td><span>GB</span>{{profiles[0].hardware.data.ram / 1048576 | number : 0}}</td>
-						<td>RAM</td>
-						<td ng-if="profiles.length == 2"><span>GB</span>{{profiles[1].hardware.data.ram / 1048576 | number : 0}}</td>
-					</tr>
-				</tbody>
-			</table>
-			</div>
-		</span>
-		<span ng-if="profiles.length > 1">{{profiles[1].label}}</span>
+	<div class="col-xs-4 profile">
+		
+		<!-- Category -->
+		<div class="block block-imp">
+			<span class="block-icon fa-stack text-info">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-{{meta.icon}} fa-stack-1x fa-inverse"></i>
+			</span>
+			<h2>{{meta.label}}</h2>
+			
+			<!-- Compare profiles -->
+			<div uib-dropdown dropdown-append-to-body><p class="profile-versus">
+				for <span>{{profiles[0].label}}</span><!-- is-open = true -->
+				<span class="label label-info" id="link-compare-profile" uib-dropdown-toggle>{{profiles.length > 1 | iif : 'versus' : 'info'}} <i class="fa fa-caret-down"></i></span>
+				<span ng-if="profiles.length > 1">{{profiles[1].label}}</span>
+				<div ng-class="{'versus-one': profiles.length == 1, 'versus-two': profiles.length == 2}" uib-dropdown-menu role="menu" aria-labelledby="link-compare-profile">
+					<table class="table table-striped table-hover table-versus">
+						<thead ng-if="profiles.length > 1">
+							<tr>
+								<th>{{profiles[0].label}}</th>
+								<th></th>
+								<th ng-if="profiles.length == 2">{{profiles[1].label}}</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="info"><td colspan="{{profiles.length > 1 | iif : '3' : '2'}}">Stats</td></tr>
+							<tr>
+								<td><span>ms</span>{{profiles[0].currentData.info.duration}}</td>
+								<td>duration</td>
+								<td ng-if="profiles.length == 2"><span>ms</span>{{profiles[1].currentData.info.duration}}</td>
+							</tr>
+							<tr>
+								<td>{{profiles[0].currentData.stats.h}}</td>
+								<td>threads</td>
+								<td ng-if="profiles.length == 2">{{profiles[1].currentData.stats.h}}</td>
+							</tr>
+							<tr>
+								<td><span>10⁶</span><span>&nbsp;</span><span>×</span>{{profiles[0].currentData.stats.c / 1000000000 | number: 0}}</td>
+								<td>cycles</td>
+								<td ng-if="profiles.length == 2"><span>10⁶</span><span>&nbsp;</span><span>×</span>{{profiles[1].currentData.stats.c / 1000000000 | number: 0}}</td>
+							</tr>
+							<tr>
+								<td><span>%</span>{{profiles[0].currentData.stats.r * 100 / (profiles[0].currentData.stats.r + profiles[0].currentData.stats.y + profiles[0].currentData.stats.s + profiles[0].currentData.stats.w) | number: 0}}</td>
+								<td>running</td>
+								<td ng-if="profiles.length == 2"><span>%</span>{{profiles[1].currentData.stats.r * 100 / (profiles[1].currentData.stats.r + profiles[1].currentData.stats.y + profiles[1].currentData.stats.s + profiles[1].currentData.stats.w) | number: 0}}</td>
+							</tr>
+							<tr class="info"><td colspan="{{profiles.length > 1 | iif : '3' : '2'}}">Hardware</td></tr>
+							<tr>
+								<td>{{profiles[0].hardware.data.pcores}} / {{profiles[0].hardware.data.lcores}}</td>
+								<td>cores (physical&nbsp;/&nbsp;logical)</td>
+								<td ng-if="profiles.length == 2">{{profiles[1].hardware.data.pcores}} / {{profiles[1].hardware.data.lcores}}</td>
+							</tr>
+							<tr>
+								<td>{{profiles[0].hardware.data.type}} bits</td>
+								<td>type</td>
+								<td ng-if="profiles.length == 2">{{profiles[1].hardware.data.type}} bits</td>
+							</tr>
+							<tr>
+								<td><span>GHz</span>{{profiles[0].hardware.data.clock}}</td>
+								<td>clock</td>
+								<td ng-if="profiles.length == 2"><span>GHz</span>{{profiles[1].hardware.data.clock}}</td>
+							</tr>
+							<tr>
+								<td><span>KB</span>{{profiles[0].hardware.data.l1}}</td>
+								<td>cache L1</td>
+								<td ng-if="profiles.length == 2"><span>KB</span>{{profiles[1].hardware.data.l1}}</td>
+							</tr>
+							<tr>
+								<td><span>KB</span>{{profiles[0].hardware.data.l2}}</td>
+								<td>cache L2</td>
+								<td ng-if="profiles.length == 2"><span>KB</span>{{profiles[1].hardware.data.l2}}</td>
+							</tr>
+							<tr>
+								<td><span>KB</span>{{profiles[0].hardware.data.l3}}</td>
+								<td>cache L3</td>
+								<td ng-if="profiles.length == 2"><span>KB</span>{{profiles[1].hardware.data.l3}}</td>
+							</tr>
+							<tr>
+								<td><span>GB</span>{{profiles[0].hardware.data.ram / 1048576 | number : 0}}</td>
+								<td>RAM</td>
+								<td ng-if="profiles.length == 2"><span>GB</span>{{profiles[1].hardware.data.ram / 1048576 | number : 0}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</p></div>
+		</div>
+	</div>
+	<div class="col-xs-8">
+		<!-- Next step -->
+		<div class="block">
+			<span class="block-icon fa-stack text-info">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-info fa-stack-1x fa-inverse"></i>
+			</span>
+			<h2>What's next?</h2>
+			<p><i class="fa fa-info text-info" style="width: 18px; text-align: center;"></i> Check all the graphs to identify inadequate behaviour.</p>
+			<p><i class="fa fa-stethoscope text-info" style="width: 18px; text-align: center;"></i> Diagnose the problem through typical graph shapes or omnipresent colour.</p>
+			<p><i class="fa fa-paint-brush text-info" style="width: 18px; text-align: center;"></i> Customise the graphs by adapting some settings.</p>
+		</div>
 	</div>
 	
 	<!-- Ruler -->
@@ -110,3 +151,14 @@
 		</div>
 	</div>
 </div>
+
+
+<script type="text/ng-template" id="detail-compare-profile-dropdown.html">
+	<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-to-body">
+		<li role="menuitem"><a href="#">Action</a></li>
+		<li role="menuitem"><a href="#">Another action</a></li>
+		<li role="menuitem"><a href="#">Something else here</a></li>
+		<li class="divider"></li>
+		<li role="menuitem"><a href="#">Separated link</a></li>
+	</ul>
+</script>

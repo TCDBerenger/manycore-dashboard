@@ -5,13 +5,6 @@
 	padding: 0px 20px 0px 20px !important;
 	transition: .2s linear all;
 }
-.detail h2 {
-	margin-top: 0px;
-	padding-right: 20px;
-}
-.detail .profile h2 {
-	display: inline-block;
-}
 .detail .profile h4 {
 	padding-right: 10px;
 	display: inline-block;
@@ -35,67 +28,62 @@
 /*
  * Profile versus
  */
-.detail .profile-versus:hover > .dropdown-menu {
-	display: block;
-}
-.detail .profile-versus a.dropdown-toggle {
+#link-compare-profile {
+	cursor: pointer;
 	margin-left: 6px;
 	margin-right: 6px;
-	text-decoration: none;
 }
-.detail .profile-versus a.dropdown-toggle i {
+#link-compare-profile i {
 	padding-left: 6px;
 }
-.detail .profile-versus div.dropdown-menu {
-	margin-top: 2px;
+.versus-one {
+	width: 200px;
 }
-.detail .one-profile div.dropdown-menu {
-	min-width: 200px;
-	margin-left: -130px;
+.versus-two {
+	width: 400px;
 }
-.detail .two-profiles div.dropdown-menu {
-	min-width: 400px;
-	margin-left: -165px;
+.table-versus {
+	width: 100%;
+	margin-bottom: 0px;
 }
-.detail .profile-versus thead tr td:nth-child(1) {
+.table-versus thead tr td:nth-child(1) {
 	text-align: right;
 }
-.detail .profile-versus thead tr td:nth-child(3) {
+.table-versus thead tr td:nth-child(3) {
 	text-align: left;
 }
-.detail .profile-versus tbody tr.info td {
+.table-versus tbody tr.info td {
 	text-align: center !important;
 	font-weight: bold;
 }
-.detail .profile-versus tbody td:nth-child(1) {
+.table-versus tbody td:nth-child(1) {
 	text-align: right;
 }
-.detail .profile-versus tbody td:nth-child(2) {
+.table-versus tbody td:nth-child(2) {
 	text-align: center;
 	font-weight: bold;
 }
-.detail .profile-versus tbody td:nth-child(3) {
+.table-versus tbody td:nth-child(3) {
 	text-align: left;
 }
-
-.detail .profile-versus tbody td:nth-child(2) span:before {	content: "(";	}
-.detail .profile-versus tbody td:nth-child(2) span:after {		content: ")";	}
-.detail .profile-versus tbody td:nth-child(2) span {
+.table-versus tbody td:nth-child(2) span:before {	content: "(";	}
+.table-versus tbody td:nth-child(2) span:after {	content: ")";	}
+.table-versus tbody td:nth-child(2) span {
 	font-size: 0.8em;
 	font-weight: 400;
 }
-
-.detail .profile-versus tbody td:nth-child(1) span {
+.table-versus tbody td:nth-child(1) span {
 	float: left;
 	font-weight: bold;
 }
-.detail .profile-versus tbody td:nth-child(3) span {
+.table-versus tbody td:nth-child(3) span {
 	float: right;
 	font-weight: bold;
 }
-.detail .profile-versus tbody td font {
+.table-versus tbody td font {
 	color: #797979;
 }
+
 
 
 /*
@@ -131,25 +119,12 @@
 }
 
 
-/*
- * Waiting
- */
-.detail .waiting {
-	text-align: center;
-}
-.detail .waiting .block {
-	margin-top: 150px;
-	font-size: 3em;
-}
-
-
-
 
 /*
  * Widget line
  */
 .detail .widget-line {
-	margin-bottom: 30px;
+	margin-top: 30px;
 }
 
 
