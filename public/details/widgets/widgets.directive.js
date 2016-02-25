@@ -60,7 +60,7 @@ var graphLayout = function(favoriteHeight) {
 /**
  * Meta (parameters)
  */
-var graphMeta = function(scope, attributes, mirror, canOverflow, params, settings) {
+var graphMeta = function(scope, attributes, params, settings) {
 	// Allow seld reference (otherwise this is the caller object)
 	var self = this;
 
@@ -77,15 +77,11 @@ var graphMeta = function(scope, attributes, mirror, canOverflow, params, setting
 	this.durations =	[NaN, NaN];	// Duration of profiles
 	this.steps =		[NaN, NaN];	// Time step of profiles
 
-	// Parameters
-	this.mirror =		(mirror !== undefined) ? mirror : false;
-	this.canOverflow =	(canOverflow !== undefined) ? canOverflow : false;
-
 	// Value axis
-	this.vExpected =	[NaN, NaN];		// if there is an expected value, which value ?
-	this.vMinDisplay =	[NaN, NaN];		// which is the minimum value to display ?
-	this.vStep =		[NaN, NaN];		// what is the step to display the ticks on the axis ?
-	this.vOverflow =	[NaN, NaN];		// Possible overflow by first and second profile
+	this.vExpected =	[NaN, NaN];	// if there is an expected value, which value ?
+	this.vMinDisplay =	[NaN, NaN];	// which is the minimum value to display ?
+	this.vStep =		[NaN, NaN];	// what is the step to display the ticks on the axis ?
+	this.vOverflow =	[NaN, NaN];	// Possible overflow by first and second profile
 
 	// On demand - params
 	if (params)
@@ -126,14 +122,14 @@ var graphMeta = function(scope, attributes, mirror, canOverflow, params, setting
 /**
  * Init directive
  */
-function directive_init(scope, element, attrs, layoutType, mirror, canOverflow) {
+function directive_init(scope, element, attrs, layoutType) {
 	// Layout
 	var container =	element[0];
 	var layout =	new graphLayout(layoutType);
 	
 	// Attributes
 	var deck =		scope.widget.deck.graph;
-	var meta =		new graphMeta(scope, attrs, mirror, canOverflow, scope.widget.deck.params, scope.widget.deck.settings);
+	var meta =		new graphMeta(scope, attrs, scope.widget.deck.params, scope.widget.deck.settings);
 	
 	// Plans modes
 	var plan;
@@ -157,7 +153,7 @@ function directive_init(scope, element, attrs, layoutType, mirror, canOverflow) 
 	var scalesV =	[d3.scale.linear(), d3.scale.linear()];
 
 	// Overflow
-	var overflow =	(canOverflow) ? svg.append("g").attr('class', "svg-overflow") : svg;
+	var overflow =	svg.append("g").attr('class', "svg-overflow");
 
 	// Groups
 	var groupAxisX =	overflow.append("g").attr('class', "svg-axis svg-axis-x");
@@ -250,10 +246,8 @@ function directive_repaint_container(r) {
 	directive_unselect(r);
 
 	// Overflow
-	if (r.meta.canOverflow) {
-		r.meta.vOverflow = [0, 0];
-		r.groupO.attr('transform', null);
-	}
+	r.meta.vOverflow = [0, 0];
+	r.groupO.attr('transform', null);
 }
 
 /**
@@ -268,7 +262,7 @@ function directive_repaint_scales(r, vData, vData2) {
 	// Scales - domains (coordinates)
 	r.scaleX.rangeRound([r.layout.profile.left, r.layout.profile.right]);
 	r.scalesV[0].rangeRound([r.layout.profile.bottom, r.layout.profile.top]);
-	if (r.meta.mirror) r.scalesV[1].rangeRound([r.layout.profile.top, r.layout.profile.bottom]); else r.scalesV[1].rangeRound([r.layout.profile.bottom, r.layout.profile.top]);
+	r.scalesV[1].rangeRound([r.layout.profile.top, r.layout.profile.bottom]);
 }
 
 /**
@@ -287,23 +281,14 @@ function directive_repaint_post(r) {
 			.text(profile.label);
 	});
 		
-	// Overflow
-	if (r.meta.canOverflow) {
-
-		// Top (profile 1)
-		if (r.meta.vOverflow[0] > 0) {
-			r.groupO.attr('transform', "translate(0," + r.meta.vOverflow[0] + ')');
-		}
-
-		// Top (profile 2)
-		if (r.meta.vOverflow[1] > 0 && ! r.meta.mirror) {
-			r.group1.attr('transform', "translate(0," + r.meta.vOverflow[1] + ')');
-		}
-
-		// Top & Bottom (both profiles)
-		d3.select(r.container).style('height', (r.layout.height + r.meta.vOverflow[0] + r.meta.vOverflow[1]) + 'px');
-		r.svg.attr('height', r.layout.height + r.meta.vOverflow[0] + r.meta.vOverflow[1]);
+	// Overflow - Top (profile 1)
+	if (r.meta.vOverflow[0] > 0) {
+		r.groupO.attr('transform', "translate(0," + r.meta.vOverflow[0] + ')');
 	}
+
+	// Overflow - Top & Bottom (both profiles)
+	d3.select(r.container).style('height', (r.layout.height + r.meta.vOverflow[0] + r.meta.vOverflow[1]) + 'px');
+	r.svg.attr('height', r.layout.height + r.meta.vOverflow[0] + r.meta.vOverflow[1]);
 }
 
 /**
@@ -413,7 +398,7 @@ function directive_repaint_VAxis(r, index, valueFunction) {
 
 	// Length
 	var vMax;
-	if (index == 1 && r.meta.canOverflow) {
+	if (index == 1) {
 		vMax = r.scalesV[index].invert(r.layout.profile.height + r.meta.vOverflow[index]);
 	} else {
 		vMax = r.scalesV[index].invert(- r.meta.vOverflow[index]);
@@ -594,7 +579,7 @@ app.directive('chartPercent', function() {
 		console.log("== directive == chartPercent ==");
 
 		// Init vars
-		var r = directive_init(scope, element, attrs, LAYOUT_FH_NORMAL, true, true);
+		var r = directive_init(scope, element, attrs, LAYOUT_FH_NORMAL, true);
 
 		// Enhance meta
 		r.meta.vExpected[0] =	100;	r.meta.vExpected[1] =	100;
@@ -808,7 +793,7 @@ app.directive('chartUnits', function() {
 		console.log("== directive == chartUnits ==");
 
 		// Init vars
-		var r = directive_init(scope, element, attrs, LAYOUT_FH_BAND, true, true, true);
+		var r = directive_init(scope, element, attrs, LAYOUT_FH_BAND, true);
 
 		// Axis label
 		function vAxisLabel(v, index) {
@@ -1064,7 +1049,7 @@ app.directive('chartStack', function() {
 		console.log("== directive == chartStack ==");
 
 		// Init vars
-		var r = directive_init(scope, element, attrs, LAYOUT_FH_NORMAL, true, true);
+		var r = directive_init(scope, element, attrs, LAYOUT_FH_NORMAL, true);
 
 		// Enhance meta
 		r.meta.vExpected[0] =	r.deck.expected(r.profiles[0]);
@@ -1203,7 +1188,7 @@ app.directive('chartThreads', function() {
 		console.log("== directive == chartThreads ==");
 
 		// Init vars
-		var r = directive_init(scope, element, attrs, LAYOUT_FH_NULL, true, true);
+		var r = directive_init(scope, element, attrs, LAYOUT_FH_NULL, true);
 
 		// Enhance meta
 		r.meta.thread_Height = 12;
@@ -1378,7 +1363,7 @@ app.directive('chartLines', function() {
 		console.log("== directive == chartLines ==");
 
 		// Init vars
-		var r = directive_init(scope, element, attrs, LAYOUT_FH_NULL, true, true);
+		var r = directive_init(scope, element, attrs, LAYOUT_FH_NULL, true);
 
 		// Enhance meta
 		if (! r.meta.lineHeight) r.meta.lineHeight = 12;
