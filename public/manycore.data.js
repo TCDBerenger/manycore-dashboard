@@ -646,16 +646,16 @@ app.factory('widgets', ['decks', function(decks) {
 
 
 app.factory('strips', ['facets', function(facets) {
-	var example_good = 'A big amount means an appropriate usage of resources.';
-	var example_ok = 'A big amount means an under-used of resources.';
-	var example_bad = 'A big amount means a problem.';
+	var example_good = 'The biggest is the shape, the more accurate is the use of resources.';
+	var example_ok = 'A big shape means an under-exploitation of resources.';
+	var example_bad = 'A non minimal shape means a problem or a misusing of resources.';
 	return {
-		r:		{ title: 'Running',				facet: facets.r,	reverse: false,	description: 'This graph represents the usage of CPU',	example: example_good },
-		uu:		{ title: 'Unused cores',		facet: facets.i,	reverse: true,	description: 'T2',	example: example_ok },
-		yb:		{ title: 'Waiting a core',		facet: facets.yb,	reverse: false,	description: 'T3',	example: example_bad },
-		lw:		{ title: 'Waiting a ressource',	facet: facets.lw,	reverse: false,	description: 'T4',	example: example_bad },
-		q:		{ title: 'Parallelisation',		facet: facets.p,	reverse: false,	description: 'T5',	example: example_good },
-		miss:	{ title: 'Cache misses',		facet: facets.miss,	reverse: false,	description: 'T6',	example: example_bad }
+		r:		{ title: 'Running',				facet: facets.r,	reverse: false,	description: 'This graph represents the time spent in thread execution.', example: example_good },
+		uu:		{ title: 'Unused cores',		facet: facets.i,	reverse: true,	description: 'This graph shows the time spend by the core waiting a thread to run.', example: example_ok },
+		yb:		{ title: 'Waiting a core',		facet: facets.yb,	reverse: false,	description: 'This graph shows the time spent by threads while waiting a core.', example: example_bad },
+		lw:		{ title: 'Waiting a ressource',	facet: facets.lw,	reverse: false,	description: 'This graph represents the time spent by threads while waiting for a lock.', example: example_bad },
+		q:		{ title: 'Parallelisation',		facet: facets.p,	reverse: false,	description: 'This graph represents the parallelised state of the cores, at least two threads running simultaneously.', example: example_good },
+		miss:	{ title: 'Cache misses',		facet: facets.miss,	reverse: false,	description: 'This graph represents the time spent on locality misses.', example: example_bad }
 	};
 }]);
 
