@@ -154,6 +154,20 @@ function directive_init(scope, element, attrs, layoutType, isOverflowBad) {
 	// SVG styles
 	if (meta.isOverflowBad) {
 		var svgDefs = svg.append('defs');
+		// Text
+		svgDefs.append('pattern')
+			.attr('id', 'pattern-text-stripe')
+			.attr('width', 34)
+			.attr('height', 22)
+			.attr('patternUnits', 'userSpaceOnUse')
+			.attr('patternTransform', 'rotate(-45)')
+			.append('text')
+				.attr('class', 'svg-text')
+				.attr('y', 10)
+				.attr('font-family', 'Avenir')
+				.attr('font-size', 12 + 'px')
+				.attr('fill', '#ff9f7c')
+				.text('high');
 		// Pattern
 		svgDefs.append('pattern')
 			.attr('id', 'pattern-stripe')
@@ -529,15 +543,22 @@ function directive_repaint_Masks(r) {
 		var yExpected = r.scalesV[index](r.meta.vExpected[index]);
 		var yMax = r.scalesV[index](vMax);
 		
-		// Exceed
+		// Exceed - Text
+		r.svgMask.append('rect')
+			.attr('x', r.layout.profile.x)
+			.attr('y', r.layout.profile.y[index] + ((index == 0) ? -5 : yExpected + r.meta.vOverflow[0]))
+			.attr('width', xEnd - xBegin)
+			.attr('height', ((index == 0) ? yExpected - yMax : yMax - yExpected) + 5)
+			.attr('fill', 'url(#pattern-text-stripe)');
+		/*
+		// Exceed - stripes
 		r.svgMask.append('rect')
 			.attr('x', r.layout.profile.x)
 			.attr('y', r.layout.profile.y[index] + ((index == 0) ? -5 : yExpected + r.meta.vOverflow[0]))
 			.attr('width', xEnd - xBegin)
 			.attr('height', ((index == 0) ? yExpected - yMax : yMax - yExpected) + 5)
 			.attr('mask', 'url(#mask-stripe)')
-			.attr('fill', '#FF7F50');
-		
+			.attr('fill', '#ff9f7c');
 		// In bounds
 		/*
 		r.svgMask.append('rect')
