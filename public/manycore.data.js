@@ -35,7 +35,7 @@ app.factory('colours', [function() {
 		Fuschia:	{ t: list.oFuschia,		f: list.dFuschia,	n: list.nFuschia, 	g: list.fFuschia, 	h: list.lFuschia },
 		Grey:		{ t: list.oGrey,		f: list.dGrey,		n: list.nGrey, 		g: list.fGrey,	 	h: list.lGrey },
 		Green:		{ t: list.oGreen,		f: list.dGreen, 	n: list.nGreen, 	g: list.fGreen, 	h: list.lGreen },
-		GreenYlw:	{ t: list.oGreenYlw,	f: list.dGreenYlw, n: list.nGreenYlw, g: list.fGreenYlw, h: list.lGreenYlw },
+		GreenYlw:	{ t: list.oGreenYlw,	f: list.dGreenYlw,	n: list.nGreenYlw,	g: list.fGreenYlw,	h: list.lGreenYlw },
 		Magenta:	{ t: list.oMagenta,		f: list.dMagenta,	n: list.nMagenta, 	g: list.fMagenta, 	h: list.lMagenta },
 		Orange:		{ t: list.oOrange,		f: list.dOrange, 	n: list.nOrange, 	g: list.fOrange, 	h: list.lOrange },
 		Red:		{ t: list.oRed,			f: list.dRed, 		n: list.nRed, 		g: list.fRed, 		h: list.lRed },
@@ -646,13 +646,16 @@ app.factory('widgets', ['decks', function(decks) {
 
 
 app.factory('strips', ['facets', function(facets) {
+	var example_good = 'A big amount means an appropriate usage of resources.';
+	var example_ok = 'A big amount means an under-used of resources.';
+	var example_bad = 'A big amount means a problem.';
 	return {
-		r:		{ title: 'Running',				facet: facets.r,	reverse: false },
-		uu:		{ title: 'Unused cores',		facet: facets.i,	reverse: true },
-		yb:		{ title: 'Waiting a core',		facet: facets.yb,	reverse: false },
-		lw:		{ title: 'Waiting a ressource',	facet: facets.lw,	reverse: false },
-		q:		{ title: 'Parallelisation',		facet: facets.p,	reverse: false },
-		miss:	{ title: 'Cache misses',		facet: facets.miss,	reverse: false }
+		r:		{ title: 'Running',				facet: facets.r,	reverse: false,	description: 'This graph represents the usage of CPU',	example: example_good },
+		uu:		{ title: 'Unused cores',		facet: facets.i,	reverse: true,	description: 'T2',	example: example_ok },
+		yb:		{ title: 'Waiting a core',		facet: facets.yb,	reverse: false,	description: 'T3',	example: example_bad },
+		lw:		{ title: 'Waiting a ressource',	facet: facets.lw,	reverse: false,	description: 'T4',	example: example_bad },
+		q:		{ title: 'Parallelisation',		facet: facets.p,	reverse: false,	description: 'T5',	example: example_good },
+		miss:	{ title: 'Cache misses',		facet: facets.miss,	reverse: false,	description: 'T6',	example: example_bad }
 	};
 }]);
 
