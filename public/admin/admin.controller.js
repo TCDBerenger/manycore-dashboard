@@ -53,7 +53,7 @@ app.controller('AdminController', ['$scope', '$rootScope', '$http', 'profileServ
 	 */
 	$scope.mean = function(profile, attr, round) {
 		if ($scope.stats[attr][profile.id])
-			return Math.round(round * $scope.stats[attr][profile.id] / profile.hardware.data.threads / $scope.stats.durations[profile.id]) / round;
+			return Math.round(round * $scope.stats[attr][profile.id] / profile.hardware.data.lcores / $scope.stats.durations[profile.id]) / round;
 		else
 			return '';
 	};
@@ -69,7 +69,7 @@ app.controller('AdminController', ['$scope', '$rootScope', '$http', 'profileServ
 		
 		$scope.profiles.forEach(function (profile) {
 			if ($scope.stats[attr][profile.id] && excludes.indexOf(profile.id) < 0) {
-				sum += $scope.stats[attr][profile.id] / profile.hardware.data.threads / $scope.stats.durations[profile.id];
+				sum += $scope.stats[attr][profile.id] / profile.hardware.data.lcores / $scope.stats.durations[profile.id];
 				count++;
 			}
 		});

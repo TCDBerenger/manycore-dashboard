@@ -103,7 +103,7 @@ function addCommon(output, id) {
 
 	// Stats
 	output.stats = {
-		h:	data.stats.threads,	// TO MOVE in *.info.threads (actually used for number of logical cores)
+		h:	data.stats.threads,
 		
 	    s:	data.stats.switches,
 	    m:	data.stats.migrations,
@@ -324,7 +324,7 @@ function addTimes(output, id, properties) {
 	if (! output.percent) output.percent = {};
 
 	// Add times
-	max = data.info.threads * data.info.timeStep;
+	max = profiles[id].hardware.data.lcores * data.info.timeStep;
 	for (var timeID = 0; timeID <= data.info.timeMax; timeID+= data.info.timeStep) {
 		// Auto create structure
 		if (! output.percent[timeID]) output.percent[timeID] = {};
@@ -370,13 +370,13 @@ function addTimes(output, id, properties) {
 	// Init return
 	output.cores = {};
 	
-	for (var cid = 0; cid < profiles[id].hardware.data.threads; cid++) {
+	for (var cid = 0; cid < profiles[id].hardware.data.lcores; cid++) {
 		output.cores[cid] = {};
 	}
 
 	// Add times
 	for (var timeID = 0; timeID <= data.info.timeMax; timeID+= data.info.timeStep) {
-		for (var cid = 0; cid < profiles[id].hardware.data.threads; cid++) {
+		for (var cid = 0; cid < profiles[id].hardware.data.lcores; cid++) {
 			output.cores[cid][timeID] = {};
 			
 			if (isR)	output.cores[cid][timeID].r =	Math.round(data.frames[timeID].c[cid].running);

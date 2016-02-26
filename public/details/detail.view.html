@@ -77,9 +77,9 @@
 								<td ng-if="profiles.length == 2">{{profiles[1].hardware.data.pcores}} / {{profiles[1].hardware.data.lcores}}</td>
 							</tr>
 							<tr>
-								<td>{{profiles[0].hardware.data.type}} bits</td>
-								<td>type</td>
-								<td ng-if="profiles.length == 2">{{profiles[1].hardware.data.type}} bits</td>
+								<td>{{profiles[0].hardware.data.arch}} bits</td>
+								<td>architecture</td>
+								<td ng-if="profiles.length == 2">{{profiles[1].hardware.data.arch}} bits</td>
 							</tr>
 							<tr>
 								<td><span>GHz</span>{{profiles[0].hardware.data.clock}}</td>

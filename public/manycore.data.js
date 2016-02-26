@@ -231,7 +231,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		var begin = profile.currentData.info.timeMin;
 		var end = profile.currentData.info.duration;
 		var lines = [];
-		for (var l = 0; l < profile.hardware.data.threads; l++)
+		for (var l = 0; l < profile.hardware.data.lcores; l++)
 			lines.push({ id: l, l: 'core ' + l, s: begin, e: end });
 		return lines;
 	}
@@ -239,7 +239,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		var begin = profile.currentData.info.timeMin;
 		var end = profile.currentData.info.duration;
 		var lines = [];
-		for (var l = 0; l < profile.hardware.data.threads; l++)
+		for (var l = 0; l < profile.hardware.data.lcores; l++)
 			lines.push({ id: l, l: 'core', s: begin, e: end });
 		return lines;
 	}
@@ -356,7 +356,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ id: 2, label: 'linear', property: 'useLinearScale' },
 			],
 			settings: [
-				{ property: 'calibration', type: 'pnumeric', check: 'positive', label: 'Typical values', unit: 'lock acquisitions', psource: function(profile) { return profile.hardware.data.threads * (profile.hardware.calibration.ls + profile.hardware.calibration.lf); } },
+				{ property: 'calibration', type: 'pnumeric', check: 'positive', label: 'Typical values', unit: 'lock acquisitions', psource: function(profile) { return profile.hardware.data.lcores * (profile.hardware.calibration.ls + profile.hardware.calibration.lf); } },
 				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 },
 				{ property: 'highlightOverflow', value: true, type: 'flag', label: 'High zone', desc: 'shows the high area, over the typical value' }
 			]
@@ -428,7 +428,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ id: 2, label: 'linear', property: 'useLinearScale' },
 			],
 			settings: [
-				{ property: 'calibration', type: 'pnumeric', check: 'positive', label: 'Typical values', unit: 'thread migrations', psource: function(profile) { return profile.hardware.data.threads * profile.hardware.calibration.m; } },
+				{ property: 'calibration', type: 'pnumeric', check: 'positive', label: 'Typical values', unit: 'thread migrations', psource: function(profile) { return profile.hardware.data.lcores * profile.hardware.calibration.m; } },
 				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 },
 				{ property: 'highlightOverflow', value: true, type: 'flag', label: 'High zone', desc: 'shows the high area, over the typical value' }
 			]
@@ -462,7 +462,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ id: 2, label: 'linear', property: 'useLinearScale' },
 			],
 			settings: [
-				{ property: 'calibration', type: 'pnumeric', check: 'positive', label: 'Typical values', unit: 'context switches', psource: function(profile) { return profile.hardware.data.threads * profile.hardware.calibration.s; } },
+				{ property: 'calibration', type: 'pnumeric', check: 'positive', label: 'Typical values', unit: 'context switches', psource: function(profile) { return profile.hardware.data.lcores * profile.hardware.calibration.s; } },
 				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 },
 				{ property: 'highlightOverflow', value: true, type: 'flag', label: 'High zone', desc: 'shows the high area, over the typical value' }
 			]

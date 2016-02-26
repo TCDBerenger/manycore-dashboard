@@ -30,7 +30,7 @@ function addStats(output, profile) {
 
 	// Stats
 	output.stats = {
-		h:	data.stats.threads,	// TO MOVE in *.info.threads (actually used for number of logical cores)
+		h:	data.stats.threads,
 		
 	    // s:	data.stats.switches,
 	    // m:	data.stats.migrations,
@@ -69,7 +69,7 @@ function addProfiling(output, profile) {
 		if (data.frames.hasOwnProperty(time)) {
 			// States
 			// yb: ready & standby
-			max = data.info.threads * timeStep;
+			max = profile.hardware.data.lcores * timeStep;
 			
 			f.i = Math.round(STRIP_HEIGHT * data.frames[time].idle / max);
 			f.p = Math.round(STRIP_HEIGHT * data.frames[time].parallel / timeStep);
@@ -128,7 +128,7 @@ function addGauges(output, profile) {
 	};
 	
 	// Add states - by thread duration
-	max = data.info.threads * data.info.duration;
+	max = profile.hardware.data.lcores * data.info.duration;
 	[	{ l: 'r', v: data.stats.running, n: 3 },
 		{ l: 'yb', v: data.stats.ready + data.stats.standby, n: 3 },
 		{ l: 'i', v: data.stats.idle, n: 3 },
@@ -158,7 +158,7 @@ function addGauges(output, profile) {
 		{ l: 'ls', v: data.stats.lock_success, c: profile.hardware.calibration.ls, n: 4 },
 		{ l: 'lf', v: data.stats.lock_failure, c: profile.hardware.calibration.lf, n: 4 },
 	].forEach(function(item) {
-		max = (data.info.timeMax + data.info.timeStep) * data.info.threads * item.c;
+		max = (data.info.timeMax + data.info.timeStep) * profile.hardware.data.lcores * item.c;
 		output.gauges[item.l] = {
 			g: Math.round(100 * item.v / max),
 			l: (item.n <= pv) ? Math.round(10 * item.v / max) / 10 + '×' : '?',
