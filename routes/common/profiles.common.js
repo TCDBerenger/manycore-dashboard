@@ -47,6 +47,40 @@ var hardRoman = {
 	}
 };
 
+var hardSTG = {
+	info: {
+		label:	'Intel i7-860 with 4 GB RAM',
+		cpu: {
+			label:	'Intel® Core™ i7-860',
+			link:	'http://ark.intel.com/products/41316/Intel-Core-i7-860-Processor-8M-Cache-2_80-GHz',
+			model:	'i7-860',
+			type:	'64 bits',
+			cores:	'4 cores / 8 threads',
+			clock:	'2.78 GHz',
+			l1:		'32 KB',
+			l2:		'256 KB',
+			l3:		'8 MB'
+		},
+		ram:	'12 279 MB'
+	},
+	data: {
+		arch:		'x86-64',	// architecture 32 or 64 bits
+		pcores:		4,			// number of physical cores
+		lcores:		8,			// number of logical cores
+		clock:		2.78,		// clock speed in GHz
+		l1:			32,			// cache L1 in KB
+		l2:			256,		// cache L2 in KB
+		l3:			8192,		// cache L3 in KB
+		ram:		4194304		// cache RAM in KB
+	},
+	calibration: {
+		s:	1,				// number of switches by ms by core
+		m:	0.3,			// number of migrations by ms by core
+		ls: 0.01,			// number of success lock acquisition by ms by core
+		lf: 0.003			// number of failure lock acquisition by ms by core
+	}
+};
+
 
 /************************************************/
 /* Variables - profiles							*/
