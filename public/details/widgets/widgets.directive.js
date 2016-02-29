@@ -525,8 +525,7 @@ function directive_repaint_Masks(r) {
 	r.svgMask.selectAll('*').remove();
 	
 	// Tough prerequites
-	r.meta.isOverflowBad = r.meta.highlightOverflow;
-	if (! r.meta.isOverflowBad) return;
+	if (! r.meta.highlightOverflow) return;
 	
 	for (var index = 0; index < r.profiles.length; index++) {
 		// Length
@@ -1033,7 +1032,7 @@ app.directive('chartUnits', function() {
 			});
 			
 			// SVG masks
-			directive_repaint_Masks(r);
+			if (r.meta.isOverflowBad) directive_repaint_Masks(r);
 
 			// Post-treatment
 			directive_repaint_post(r);
