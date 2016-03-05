@@ -16,7 +16,7 @@
 			<li ng-if="selectedCategory" class="nav-link-detail" uib-dropdown>
 				<a ui-sref="detail({cat: selectedCategory.cat, ids: encodeSelectedProfile()})" class="dropdown-toggle" uib-dropdown-toggle><i class="fa fa-{{selectedCategory.icon}}"></i>  {{selectedCategory.label}}  <i class="fa fa-caret-down navbar-caret"></i></a>
 				<ul class="dropdown-menu nav-link-others" role="menu">
-					<li class="nav-link-other" ng-repeat="category in categories | enabled"><a ui-sref="detail({cat: category.cat, ids: encodeSelectedProfile()})"><i class="fa fa-{{category.icon}}"></i>  {{category.label}}</a></li>
+					<li class="nav-link-other" ng-repeat="category in categories | enabled"><a ui-sref="detail({cat: category.cat, ids: encodeSelectedProfile()})"><i class="fa fa-{{category.icon}} fa-20px"></i>  {{category.label}}</a></li>
 				</ul>
 			</li>
 			<p ng-if="selectedCategory" class="navbar-text" style="cursor: default; width: 20px;"></p>

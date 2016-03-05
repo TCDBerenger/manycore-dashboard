@@ -17,6 +17,17 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 				}]
 			}
 		})
+		.state('raw', {
+			url: '/raw/{ids}',
+			templateUrl: '/raw/raw.view.html',
+			controller: 'RawController',
+			controllerAs: 'dc',
+			resolve: {
+				selectedProfiles: ['$stateParams', 'profileService', function($stateParams, profileService) {
+					return profileService.gets($stateParams.ids);
+				}]
+			}
+		})
 		.state('detail', {
 			url: '/detail/{cat:[b-y]{1,2}}/{ids}',
 			templateUrl: '/details/detail.view.html',

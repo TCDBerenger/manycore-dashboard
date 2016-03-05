@@ -117,6 +117,34 @@ span.link:hover {
 }
 
 
+/*
+ * Bootstrap extended tabs
+ */
+.nav-tab-title {
+	float: left;
+	padding: 0px 20px;
+	line-height: 40px;
+	color: #222222;
+	font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 32px;
+	font-weight: 300;
+	cursor: default;
+}
+.nav-tab-spinner {
+	display: inline-block;
+	margin-left: 5px;
+	margin-top: 5px;
+}
+
+
+/*
+ * Font Awsome extended
+ */
+.fa-16px { width: 16px; text-align: center; }
+.fa-20px { width: 20px; text-align: center; }
+.fa-halfpad { padding-right: 0.5em; }
+.fa-pad { padding-right: 1em; }
+
 
 /*
  * Navbar
@@ -292,4 +320,11 @@ span.link:hover {
 .block h2 {
 	margin-top: -14px;
 	margin-bottom: 20px;
+}
+.block p:last-of-type {
+	margin-bottom: 0px;
+}
+.block-list p i:first-of-type {
+	width: 18px;
+	text-align: center;
 }

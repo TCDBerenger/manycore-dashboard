@@ -1,20 +1,10 @@
 <style>
-	.admin .tab-title {
-		float: left;
-		padding: 0px 20px;
-		line-height: 40px;
-		color: #222222;
-		font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-		font-size: 32px;
-		font-weight: 300;
-		cursor: default;
-	}
 	.admin .tab-content {
 		padding-top: 20px;
 	}
 </style>
 <uib-tabset>
-	<span class="tab-title">Admin area</span>
+	<span class="nav-tab-title">Admin area</span>
 	<uib-tab disable="isWaiting()">
 		<uib-tab-heading><i class="fa fa-history"></i> Changelog</uib-tab-heading>
 		<div class="row">
@@ -338,7 +328,7 @@
 			</div>
 		</div>
 	</uib-tab>
-	<div ng-if="isWaiting()" style="display: inline-block; margin-left: 5px; margin-top: 5px;">
+	<div ng-if="isWaiting()" class="nav-tab-spinner">
 		<i class="fa fa-spinner fa-pulse fa-2x"></i>
 	</div>
 </uib-tabset>

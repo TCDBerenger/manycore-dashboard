@@ -1,0 +1,149 @@
+
+<ul class="nav nav-pills" style="margin-bottom: 20px; border-bottom: 1px solid rgb(221, 221, 221);">
+	<span class="nav-tab-title">Expert Dashboard</span>
+	<li class="navbar-right" uib-dropdown>
+		<a uib-dropdown-toggle><i class="fa fa-area-chart fa-halfpad"></i>Categories <span class="caret"></span></a>
+		<ul uib-dropdown-menu>
+			<li ng-repeat="category in categories | enabled"><a ui-sref="detail({cat: category.cat, ids: encodedIDs})"><i class="fa fa-{{::category.icon}} fa-16px fa-pad"></i> {{::category.label}}</a></li>
+		</ul>
+	</li>
+	<li class="navbar-right"><a ui-sref="dashboard({ids: encodedIDs})"><i class="fa fa-tachometer fa-halfpad"></i>Dashoard</a></li>
+	<p class="navbar-text navbar-right" style="margin-right: 10px;">&hellip; or jump to</p>
+	<div class="nav-tab-spinner" ng-if="isWaiting()">
+		<i class="fa fa-spinner fa-pulse fa-2x"></i>
+	</div>
+</ul>
+
+<!-- Heading -->
+<div class="row" ng-if="! isWaiting()">
+	<div class="col-xs-4 col-md-3">
+		<table class="table table-hover table-raw">
+			<thead ng-if="profiles.length > 1">
+				<tr>
+					<th></th>
+					<th>{{profiles[0].label}}</th>
+					<th ng-if="profiles.length == 2">{{profiles[1].label}}</th>
+				</tr>
+			</thead>
+		</table>
+		<uib-accordion close-others="false">
+			<uib-accordion-group class="panel-info" is-open="true">
+				<uib-accordion-heading><i class="fa fa-hourglass-end fa-pad"></i>Time</uib-accordion-heading>
+				<table class="table table-hover table-raw">
+					<tbody>
+						<tr>
+							<td>duration</td>
+							<td>{{profiles[0].raw.info.duration}}<span>ms</span></td>
+							<td ng-if="profiles.length == 2">{{profiles[1].raw.info.duration}}<span>ms</span></td>
+						</tr>
+						<tr>
+							<td>frame step</td>
+							<td>{{profiles[0].raw.info.timeStep}}<span>ms</span></td>
+							<td ng-if="profiles.length == 2">{{profiles[1].raw.info.timeStep}}<span>ms</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</uib-accordion-group>
+			<uib-accordion-group class="panel-info" is-open="true">
+				<uib-accordion-heading><i class="fa fa-code fa-pad"></i>Running</uib-accordion-heading>
+				<table class="table table-hover table-raw">
+					<tbody>
+						<tr>
+							<td>threads</td>
+							<td>{{profiles[0].raw.stats.h}}</td>
+							<td ng-if="profiles.length == 2">{{profiles[1].raw.stats.h}}</td>
+						</tr>
+						<tr>
+							<td>cycles</td>
+							<td>{{profiles[0].raw.stats.c / 1000000000 | number: 0}}<span>.000.000</span></td>
+							<td ng-if="profiles.length == 2">{{profiles[1].raw.stats.c / 1000000000 | number: 0}}<span>.000.000</span></td>
+						</tr>
+						<tr>
+							<td>running</td>
+							<td>{{profiles[0].raw.stats.r * 100 / (profiles[0].raw.stats.r + profiles[0].raw.stats.y + profiles[0].raw.stats.s + profiles[0].raw.stats.w) | number: 0}}<span>%</span></td>
+							<td ng-if="profiles.length == 2">{{profiles[1].raw.stats.r * 100 / (profiles[1].raw.stats.r + profiles[1].raw.stats.y + profiles[1].raw.stats.s + profiles[1].raw.stats.w) | number: 0}}<span>%</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</uib-accordion-group>
+			<uib-accordion-group class="panel-info">
+				<uib-accordion-heading><i class="fa fa-laptop fa-pad"></i>Hardware</uib-accordion-heading>
+				<table class="table table-hover table-raw">
+					<tbody>
+						<tr class="info"><td colspan="{{profiles.length > 1 | iif : '3' : '2'}}">CPU</td></tr>
+						<tr>
+							<td>info</td>
+							<td>{{profiles[0].hardware.info.cpu.label}}</td>
+							<td ng-if="profiles.length == 2">{{profiles[1].hardware.info.cpu.label}}</td>
+						</tr>
+						<tr>
+							<td>cores (physical&nbsp;/&nbsp;logical)</td>
+							<td>{{profiles[0].hardware.data.pcores}} / {{profiles[0].hardware.data.lcores}}</td>
+							<td ng-if="profiles.length == 2">{{profiles[1].hardware.data.pcores}} / {{profiles[1].hardware.data.lcores}}</td>
+						</tr>
+						<tr>
+							<td>architecture</td>
+							<td>{{profiles[0].hardware.data.arch}} bits</td>
+							<td ng-if="profiles.length == 2">{{profiles[1].hardware.data.arch}} bits</td>
+						</tr>
+						<tr>
+							<td>clock</td>
+							<td>{{profiles[0].hardware.data.clock}}<span>GHz</span></td>
+							<td ng-if="profiles.length == 2">{{profiles[1].hardware.data.clock}}<span>GHz</span></td>
+						</tr>
+						<tr>
+							<td>cache L1</td>
+							<td>{{profiles[0].hardware.data.l1}}<span>KB</span></td>
+							<td ng-if="profiles.length == 2">{{profiles[1].hardware.data.l1}}<span>KB</span></td>
+						</tr>
+						<tr>
+							<td>cache L2</td>
+							<td>{{profiles[0].hardware.data.l2}}<span>KB</span></td>
+							<td ng-if="profiles.length == 2">{{profiles[1].hardware.data.l2}}<span>KB</span></td>
+						</tr>
+						<tr>
+							<td>cache L3</td>
+							<td>{{profiles[0].hardware.data.l3}}<span>KB</span></td>
+							<td ng-if="profiles.length == 2">{{profiles[1].hardware.data.l3}}<span>KB</span></td>
+						</tr>
+						<tr class="info"><td colspan="{{profiles.length > 1 | iif : '3' : '2'}}">Memory</td></tr>
+						<tr>
+							<td>RAM</td>
+							<td>{{profiles[0].hardware.data.ram / 1048576 | number : 0}}<span>GB</span></td>
+							<td ng-if="profiles.length == 2">{{profiles[1].hardware.data.ram / 1048576 | number : 0}}<span>GB</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</uib-accordion-group>
+		</uib-accordion>
+	</div>
+	<div class="col-xs-4 col-md-3">
+		<table class="table table-hover table-raw">
+			<thead ng-if="profiles.length > 1">
+				<tr>
+					<th></th>
+					<th>{{profiles[0].label}}</th>
+					<th ng-if="profiles.length == 2">{{profiles[1].label}}</th>
+				</tr>
+			</thead>
+		</table>
+		<uib-accordion close-others="false">
+			<uib-accordion-group is-open="true" ng-repeat="category in categories | enabled">
+				<uib-accordion-heading><i class="fa fa-{{::category.icon}} fa-pad"></i>{{::category.label}}</a></uib-accordion-heading>
+				<table class="table table-hover table-raw">
+					<tbody>
+						<tr style="color: {{::strip.facet.colours.f}}" ng-repeat="strip in category.strips">
+							<td>{{::strip.title}}</td>
+							<td>{{::profiles[0].raw.gauges[strip.facet.attr]}}</td>
+							<td ng-if="profiles.length > 1">{{::profiles[1].raw.gauges[strip.facet.attr]}}</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="external-link"><a ui-sref="detail({cat: category.cat, ids: encodedIDs})">explore {{::category.label}}<i class="fa fa-external-link-square"></i></a></div>
+			</uib-accordion-group>
+		</uib-accordion>
+	</div>			
+						
+	<div class="col-xs-4 col-md-6"><div class="row">
+	</div></div>
+</div>
