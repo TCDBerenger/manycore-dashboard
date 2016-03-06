@@ -68,6 +68,8 @@
 .raw .table-raw tr td:first-child em::after { content: ')'; }
 */
 
-.raw .table-raw hr {
-    margin: 3px 0px 0px 0px;
+/* .raw .table-raw hr { margin: 3px 0px 0px 0px; }*/
+.raw .table-raw div {
+	margin-top: 3px;
+	border-top: 1px solid #dddddd;
 }

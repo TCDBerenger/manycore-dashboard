@@ -96,8 +96,10 @@ app.factory('facets', ['colours', function(colours) {
 		b:	 	{ label: 'Standby',				unity: 'ms',	cat: 'times',	attr: 'b',		colours: colours.sets.Orange,	color: colours.list.nOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.fOrange },
 		yb: 	{ label: 'Ready',				unity: 'ms',	cat: 'times',	attr: 'yb',		colours: colours.sets.Orange,	color: colours.list.nOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.fOrange },
 		i: 		{ label: 'Idle core',			unity: 'ms',	cat: 'times',	attr: 'i',		colours: colours.sets.Blue,		color: colours.list.nBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.fBlue },
+		w:		{ label: 'Waiting',				unity: 'ms',	cat: 'times',	attr: 'w',		colours: colours.sets.Yellow },
 		sys: 	{ label: 'system',				unity: 'ms',	cat: 'times',	attr: 'sys',	colours: colours.sets.Grey,		color: colours.list.lGrey,		fcolor: colours.list.nGrey,		gcolor: colours.list.white },
-		lw:		{ label: 'lock waiting',		unity: 'ms',	cat: 'times',	attr: 'lw',		colours: colours.sets.Yellow,	color: colours.list.nYellow,	fcolor: colours.list.dYellow,	gcolor: colours.list.fYellow },
+		lw:		{ label: 'Lock waiting',		unity: 'ms',	cat: 'times',	attr: 'lw',		colours: colours.sets.Yellow,	color: colours.list.nYellow,	fcolor: colours.list.dYellow,	gcolor: colours.list.fYellow },
+		lh:		{ label: 'Lock holding',		unity: 'ms',	cat: 'times',	attr: 'lh',		colours: colours.sets.Turquoise },
 		uu: 	{ label: 'idle core',			unity: 'ms',	cat: 'times',	attr: 'uu',		colours: colours.sets.Blue,		color: colours.list.nBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.fBlue },
 		
 		ipc:	{ label: 'Executing',			unity: '',	cat: 'locality',	attr: 'ipc',	colours: colours.sets.Green,	color: colours.list.nGreen,	fcolor: colours.list.dGreen,	gcolor: colours.list.fGreen },
@@ -110,8 +112,9 @@ app.factory('facets', ['colours', function(colours) {
 		
 		s:		{ label: 'switches',		title: 'Context switches',			desc: desc_s,	list: 'switches',	unity: 'events',	cat: 'switches',	attr: 's',		colours: colours.sets.GBlue,	color: colours.list.nGBlue,		fcolor: colours.list.dGBlue },
 		m:		{ label: 'migrations',		title: 'Thread migrations',			desc: desc_m,	list: 'migrations',	unity: 'events',	cat: 'migrations',	attr: 'm',		colours: colours.sets.GViol,	color: colours.list.nGViol,		fcolor: colours.list.dGViol },
-		ls:		{ label: 'lock success',	title: 'Lock without contention',	desc: desc_ls,	list: 'slocks',		unity: 'events',	cat: 'locks',		attr: 'ls',		colours: colours.sets.Turquoise,	color: colours.list.fTurquoise,	fcolor: colours.list.dTurquoise,gcolor: colours.list.lTurquoise },
-		lf:		{ label: 'lock failure',	title: 'Lock with contention',		desc: desc_lf,	list: 'flocks',		unity: 'events',	cat: 'locks',		attr: 'lf',		colours: colours.sets.Fuschia,	color: colours.list.fFuschia,	fcolor: colours.list.dFuschia,	gcolor: colours.list.lFuschia },
+		ls:		{ label: 'Lock success',	title: 'Lock without contention',	desc: desc_ls,	list: 'slocks',		unity: 'events',	cat: 'locks',		attr: 'ls',		colours: colours.sets.Turquoise,	color: colours.list.fTurquoise,	fcolor: colours.list.dTurquoise,gcolor: colours.list.lTurquoise },
+		lf:		{ label: 'Lock failure',	title: 'Lock with contention',		desc: desc_lf,	list: 'flocks',		unity: 'events',	cat: 'locks',		attr: 'lf',		colours: colours.sets.Fuschia,	color: colours.list.fFuschia,	fcolor: colours.list.dFuschia,	gcolor: colours.list.lFuschia },
+		lr:		{ label: 'Lock release',		unity: 'events', 	cat: 'locks',	attr: 'lr',	colours: colours.sets.Turquoise },
 		
 		p:		{ label: 'Parallel',		unity: '',	attr: 'p',	colours: colours.sets.GreenYlw },
 		q:		{ label: 'Parallelized',	unity: '',	attr: 'q',	colours: colours.sets.GreenYlw },
