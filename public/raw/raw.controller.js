@@ -1,4 +1,4 @@
-app.controller('RawController', ['$scope', '$rootScope', '$http', 'selectedProfiles', 'categories', function($scope, $rootScope, $http, selectedProfiles, categories) {
+app.controller('RawController', ['$scope', '$rootScope', '$http', 'selectedProfiles', 'categories', 'facets', function($scope, $rootScope, $http, selectedProfiles, categories, facets) {
 	/************************************************/
 	/* Constructor - Init							*/
 	/************************************************/
@@ -7,19 +7,23 @@ app.controller('RawController', ['$scope', '$rootScope', '$http', 'selectedProfi
 	var profileIDs =	selectedProfiles.map(function(profile) { return profile.id; });
 	var encodedIDs =	profileIDs.join('-');
 	
-	// Scope UI
-	var waiting = true;
-	
 	
 	/************************************************/
-	/* Graphics - Scope							*/
+	/* Graphics - Scope								*/
 	/************************************************/
-	/**
-	 * Waiting - is waiting some data
-	 */
-	$scope.isWaiting = function() {
-		return waiting;
-	};
+	$scope.sets = [
+		{
+			title:			'Locks',
+			version:		4,
+			eventFacets:	[facets.ls, facets.lf],
+			timeFacets:		[facets.lw],
+		}, {
+			title:			'Switches',
+			version:		3,
+			eventFacets:	[facets.s, facets.m],
+		}
+	];
+	
 	
 	/************************************************/
 	/* Network - retreive data						*/
@@ -34,24 +38,36 @@ app.controller('RawController', ['$scope', '$rootScope', '$http', 'selectedProfi
 			//
 			profiles.forEach(function(profile) {
 				profile.raw = data[profile.id];
+				$scope.minVersion = Math.min($scope.minVersion, profile.version);
+				$scope.maxVersion = Math.max($scope.maxVersion, profile.version);
+				$scope.canV4 = $scope.canV4 || profile.version >= 4;
+				$scope.canV5 = $scope.canV5 || profile.version >= 5;
 			});
 
 		
 			//
 			//	Finish to wait
 			//
-			waiting = false;
-			console.log(profiles[0].raw.gauges);
+			$scope.isWaiting = false;
 		});
 	}
 	
 	/************************************************/
 	/* Constructor - Finish							*/
 	/************************************************/
+	// Init UI vars
+	$scope.isWaiting = true;
+	$scope.minVersion = 5;
+	$scope.maxVersion = 3;
+	$scope.canV3 = true;
+	$scope.canV4 = false;
+	$scope.canV5 = false;
+	
 	// Export vars
 	$scope.profiles = profiles;
 	$scope.encodedIDs = encodedIDs;
 	$scope.categories = categories.all;
+	$scope.facets = facets;
 	
 	// Data
 	retreiveData();

@@ -57,51 +57,78 @@ function addRaw(profile, output) {
 }
 
 
-
 /**
- * Add gauges data
+ * Add strip data
  */
-function addGauges(profile, output) {
+function addStrips(profile, output) {
 	// Data
 	var data = profile.data;
 	var pv = profile.v;
 	var max;
 	
 	// Init output
-	output.gauges = {};
+	output.strips = {};
 	
-	// Computation - Cache misses
+	// Computation - Cache misses - %
 	max = data.locality.stats.ipc + data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf;
-	output.gauges.ipc = Math.round(100 * data.locality.stats.ipc / max) + ' %';
-	output.gauges.miss = Math.round(100 * (data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf) / max) + ' %';
+//	output.strips.ipc = Math.round(100 * data.locality.stats.ipc / max);
+	output.strips.miss = Math.round(100 * (data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf) / max);
 	
-	// Add states - by thread duration
+	// Add states - by thread duration - %
 	max = profile.hardware.data.lcores * data.info.duration;
-	[	{ l: 'r', v: data.stats.running, n: 3 },
+	[	// { l: 'r', v: data.stats.running, n: 3 },
 		{ l: 'yb', v: data.stats.ready + data.stats.standby, n: 3 },
 		{ l: 'i', v: data.stats.idle, n: 3 },
 		{ l: 'lw', v: data.stats.lock_wait, n: 4 }
 	].forEach(function(item) {
-		output.gauges[item.l] = (item.n <= pv) ? Math.round(100 * item.v / max) + ' %' : '?';
+		output.strips[item.l] = (item.n <= pv) ? Math.round(100 * item.v / max) : '?';
 	});
 	
-	// Add states - by duration
+	// Add states - by duration - %
 	max = data.info.duration;
 	[	{ l: 'p', v: data.stats.parallel, n: 3 },
 	].forEach(function(item) {
-		output.gauges[item.l] = (item.n <= pv) ? Math.round(100 * item.v / max) + ' %' : '?';
+		output.strips[item.l] = (item.n <= pv) ? Math.round(100 * item.v / max) : '?';
 	});
 	
-	// Add calibrations
+	// Add calibrations - ×
+	/*
 	[	{ l: 's', v: data.stats.switches, c: profile.hardware.calibration.s, n: 3 },
 		{ l: 'm', v: data.stats.switches, c: profile.hardware.calibration.m, n: 3 },
 		{ l: 'ls', v: data.stats.lock_success, c: profile.hardware.calibration.ls, n: 4 },
 		{ l: 'lf', v: data.stats.lock_failure, c: profile.hardware.calibration.lf, n: 4 },
 	].forEach(function(item) {
 		max = (data.info.timeMax + data.info.timeStep) * profile.hardware.data.lcores * item.c;
-		output.gauges[item.l] = (item.n <= pv) ? Math.round(10 * item.v / max) / 10 + ' ×' : '?';
+		output.strips[item.l] = (item.n <= pv) ? Math.round(10 * item.v / max) / 10 : '?';
+	});
+	*/
+}
+
+
+/**
+ * Add events
+ */
+function addEvents(profile, output) {
+	// Data
+	var data = profile.data;
+	var pv = profile.v;
+	var max;
+	
+	// Init output
+	output.events = {};
+	
+	[	{ l: 's', v: data.stats.switches, c: profile.hardware.calibration.s, n: 3 },
+		{ l: 'm', v: data.stats.switches, c: profile.hardware.calibration.m, n: 3 },
+		{ l: 'ls', v: data.stats.lock_success, c: profile.hardware.calibration.ls, n: 4 },
+		{ l: 'lf', v: data.stats.lock_failure, c: profile.hardware.calibration.lf, n: 4 },
+	].forEach(function(item) {
+		max = (data.info.timeMax + data.info.timeStep) * profile.hardware.data.lcores * item.c;
+		output.events[item.l] = (item.n <= pv) ? item.v : '?';
+		output.events['expected_' + item.l] = max;
+		output.events['factor_' + item.l] = (item.n <= pv) ? Math.round(10 * item.v / max) / 10 : '?';
 	});
 }
+
 
 
 
@@ -143,7 +170,8 @@ router.get('/*', function(request, response) {
 		// Result
 		output[id] = {};
 		addRaw(profile, output[id]);
-		addGauges(profile, output[id]);
+		addStrips(profile, output[id]);
+		addEvents(profile, output[id]);
 
 		// Comon result
 		output.c.timeMin = Math.min(output[id].info.timeMin, output.c.timeMin | 0);

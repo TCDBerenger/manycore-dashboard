@@ -2,6 +2,7 @@
  * Raw dashboard
  */
 .raw {
+	padding-top: 0px !important;
 	transition: .2s linear all;
 }
 .raw table {
@@ -33,71 +34,36 @@
 /*
  * Raw table
  */
-.raw .table-raw tr *:first-child {
+.raw .table-raw tbody tr.info td,
+.raw .table-raw tbody tr.active td {
+	text-align: center !important;
+}
+
+.raw .table-raw tr > *:first-child {
 	width: 40%;
 	text-align: left;
 }
-.raw .table-raw tr *:not(:first-child) {
+.raw .table-raw tr > *:not(:first-child) {
 	text-align: right;
 }
+
 .raw .table-raw tr td:not(:first-child) span {
 	margin-left: 3px;
 	font-size: 0.8em;
 	font-weight: 400;
 }
-.raw .table-raw tbody tr.info td {
-	text-align: center !important;
-}
 
-/*
-.raw .table-raw thead tr td:nth-child(1) {
-	text-align: right;
-}
-.raw .table-raw thead tr td:nth-child(3) {
-	text-align: left;
-}
-.raw .table-raw tbody tr.info td {
-	text-align: center !important;
-	font-weight: bold;
-}
-.raw .table-raw tbody td:nth-child(1) {
-	text-align: right;
-}
-.raw .table-raw tbody td:nth-child(2) {
-	text-align: center;
-	font-weight: bold;
-}
-.raw .table-raw tbody td:nth-child(3) {
-	text-align: left;
-}
-.raw .table-raw tbody td:nth-child(2) span:before {	content: "(";	}
-.raw .table-raw tbody td:nth-child(2) span:after {	content: ")";	}
-.raw .table-raw tbody td:nth-child(2) span {
+.raw .table-raw tr td:first-child em {
+	margin-left: 6px;
 	font-size: 0.8em;
 	font-weight: 400;
 }
-.raw .table-raw tbody td:nth-child(1) span {
-	float: left;
-	font-weight: bold;
+.raw .table-raw tr td:not(:first-child)  em {
+	margin-right: 6px;
+	font-size: 0.8em;
+	font-weight: 400;
 }
-.raw .table-raw tbody td:nth-child(3) span {
-	float: right;
-	font-weight: bold;
-}
-.raw .table-raw tbody td font {
-	color: #797979;
-}
-*/
-
-
 /*
- * Raw table data
- */
-/*
-.raw .table-raw thead tr th:first-of-type {
-	text-align: left;
-}
-.raw .table-raw tbody tr td:not(:first-of-type) {
-	text-align: center;
-}
+.raw .table-raw tr td:first-child em::before { content: '('; }
+.raw .table-raw tr td:first-child em::after { content: ')'; }
 */
