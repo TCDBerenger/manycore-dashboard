@@ -255,6 +255,20 @@ function directive_focus_init(r, repeater) {
 				})
 			}
 		}
+		
+		// for sequences
+		if (r.deck.sequences) {
+			valuedPins.push({
+				id: prefixProfile + 'q-under',
+				l: r.deck.sequences.under.label,
+				f: r.deck.sequences.under
+			});
+			valuedPins.push({
+				id: prefixProfile + 'q-count',
+				l: r.deck.sequences.count.label,
+				f: r.deck.sequences.count
+			});
+		}
 	});
 	
 	// Push pins
@@ -1476,6 +1490,14 @@ app.directive('chartLines', function() {
 
 		// Enhance meta
 		if (! r.meta.lineHeight) r.meta.lineHeight = 12;
+		if (r.deck.sequences) {
+			r.meta.sequenceKeys = [Object.keys(r.profiles[0].currentData.events.q)];
+			r.meta.sequenceKeysLength = [r.meta.sequenceKeys[0].length];
+			if (r.profiles.length >= 2) {
+				r.meta.sequenceKeys.push(Object.keys(r.profiles[1].currentData.events.q));
+				r.meta.sequenceKeysLength.push(r.meta.sequenceKeys[1].length);
+			}
+		}
 		
 		// lines
 		r.meta.lines = [
@@ -1837,6 +1859,41 @@ app.directive('chartLines', function() {
 					}
 				}
 			}
+			
+			// Select sequence
+			if (r.deck.sequences) {
+				var pinUnder, pinCount, profileData, profileKeys, iKey, profileKeysLength;
+				
+				// Loop
+				for (var index = 0; index < r.profiles.length; index++) {
+					
+					if (t >= r.meta.ends[index]) {
+						updateSequencePin(null, pinUnder, pinCount);
+					} else {
+						// Focus names
+						pinUnder = 'pin-' + r.meta.widget.index + '-' + index + '-q-under';
+						pinCount = 'pin-' + r.meta.widget.index + '-' + index + '-q-count';
+						
+						// Data
+						profileData = r.profiles[index].currentData.events.q;
+						profileKeys = r.meta.sequenceKeys[index];
+						profileKeysLength = r.meta.sequenceKeysLength[index];
+						
+						// Find the sequence
+						iKey = 1;
+						while (iKey < profileKeysLength && positions.t > profileKeys[iKey]) { iKey++; }
+						iKey--;
+						
+						console.log(positions.t, profileKeys[iKey], profileData[profileKeys[iKey]]);
+						
+						if (profileData[profileKeys[iKey]] <= r.meta.sequenceThreshold) {
+							updateSequencePin(pinUnder, pinCount, null, y0, index);
+						} else {
+							updateSequencePin(pinCount, pinUnder, null, y0, index);
+						}
+					}
+				}
+			}
 		}
 		
 		function updateMelodyPin(prefixID, l, y0, index, t, frameID) {
@@ -1855,6 +1912,12 @@ app.directive('chartLines', function() {
 					value,
 					(r.deck.melody_c.unity && r.deck.melody_c.unity.unity) ? value + ' ' + r.deck.melody_c.unity : value);
 			}
+		}
+		
+		function updateSequencePin(labelToShow, labelToHide1, labelToHide2, y0, index) {
+			if (labelToShow) r.scope.focusMovePin(labelToShow, y0 + ((r.layout.profile.height + r.meta.vOverflow[index]) / 2) + r.meta.vOverflow[index], '');
+			if (labelToHide1) r.scope.focusMovePin(labelToHide1, NaN, NaN);
+			if (labelToHide2) r.scope.focusMovePin(labelToHide2, NaN, NaN);
 		}
 
 		// Bind
