@@ -20,7 +20,12 @@ app.controller('RawController', ['$scope', '$rootScope', '$http', 'selectedProfi
 			{ l: 'typical (by ms by core)', a: 'calibration_', u: 'events'}
 		]];
 	
-	// Set facets
+	// Set facets - Threads
+	var h =		JSON.parse(JSON.stringify(facets.h));
+	h.label = 'Threads';
+	h.cat = 'stats';
+	
+	// Set facets - DL
 	var ipc =	JSON.parse(JSON.stringify(facets.ipc));
 	var miss =	JSON.parse(JSON.stringify(facets.miss));
 	[ipc, miss].forEach(function(facet) { facet.unity = 'per cycle'; });
@@ -53,6 +58,8 @@ app.controller('RawController', ['$scope', '$rootScope', '$http', 'selectedProfi
 			title:			'Thread states',
 			version:		3,
 			lists: [[
+				{ main:	h },
+			], [
 				{ main:	facets.r,	details: [[ { l: 'ratio', a: 'percent_', u: '%'} ]] },
 				{ main:	facets.yb,	details: [[ { l: 'ratio', a: 'percent_', u: '%'} ], [ { f: facets.y }, { f: facets.b } ]] },
 				{ main:	facets.w,	details: [[ { l: 'ratio', a: 'percent_', u: '%'} ], [ { f: facets.lw } ]]  },

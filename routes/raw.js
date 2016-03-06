@@ -31,8 +31,8 @@ function addRaw(profile, output) {
 	//
 	output.stats = {
 		h:	data.stats.threads,
-		ts:	data.stats.starts,
-		te:	data.stats.ends,
+		start_h:	data.stats.starts,
+		stop_h:		data.stats.ends,
 		
 	    s:	data.stats.switches,
 	    m:	data.stats.migrations,
