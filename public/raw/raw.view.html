@@ -174,16 +174,20 @@
 					</thead>
 					<tbody ng-if="set.eventFacets">
 						<tr ng-repeat="facet in set.eventFacets">
-							<td>{{::facet.label}}<br/><em>typical value</em><br/><em>ratio</em></td>
+							<td>{{::facet.label}}<br/><hr/><em>typical value</em><br/><em>ratio</em><br/><hr/><em>rate (by ms by core)</em><br/><em>typical (by ms by core)</em></td>
 							<td>
-								{{::profiles[0].raw.events[facet.attr]}}<span>events</span><br/>
+								{{::profiles[0].raw.events[facet.attr]}}<span>events</span><br/><hr/>
 								<em>{{::profiles[0].raw.events['expected_' + facet.attr]}}<span>events</span></em><br/>
-								<em>{{::profiles[0].raw.events['factor_' + facet.attr]}}<span>×</span></em>
+								<em>{{::profiles[0].raw.events['factor_' + facet.attr]}}<span>×</span></em><br/><hr/>
+								<em>{{::profiles[0].raw.events['rate_' + facet.attr]}}<span>events</span></em><br/>
+								<em>{{::profiles[0].raw.events['calibration_' + facet.attr]}}<span>events</span></em>
 							</td>
 							<td ng-if="profiles.length > 1">
-								{{::profiles[1].raw.events[facet.attr]}}<span>events</span><br/>
+								{{::profiles[1].raw.events[facet.attr]}}<span>events</span><br/><hr/>
 								<em>{{::profiles[1].raw.events['expected_' + facet.attr]}}<span>events</span></em><br/>
-								<em>{{::profiles[1].raw.events['factor_' + facet.attr]}}<span>×</span></em>
+								<em>{{::profiles[1].raw.events['factor_' + facet.attr]}}<span>×</span></em><br/><hr/>
+								<em>{{::profiles[1].raw.events['rate_' + facet.attr]}}<span>events</span></em><br/>
+								<em>{{::profiles[1].raw.events['calibration_' + facet.attr]}}<span>events</span></em>
 							</td>
 						</tr>
 					</tbody>

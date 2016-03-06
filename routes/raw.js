@@ -98,7 +98,7 @@ function addStrips(profile, output) {
 		{ l: 'ls', v: data.stats.lock_success, c: profile.hardware.calibration.ls, n: 4 },
 		{ l: 'lf', v: data.stats.lock_failure, c: profile.hardware.calibration.lf, n: 4 },
 	].forEach(function(item) {
-		max = (data.info.timeMax + data.info.timeStep) * profile.hardware.data.lcores * item.c;
+		max = 	data.info.duration * profile.hardware.data.lcores * item.c;
 		output.strips[item.l] = (item.n <= pv) ? Math.round(10 * item.v / max) / 10 : '?';
 	});
 	*/
@@ -122,10 +122,12 @@ function addEvents(profile, output) {
 		{ l: 'ls', v: data.stats.lock_success, c: profile.hardware.calibration.ls, n: 4 },
 		{ l: 'lf', v: data.stats.lock_failure, c: profile.hardware.calibration.lf, n: 4 },
 	].forEach(function(item) {
-		max = (data.info.timeMax + data.info.timeStep) * profile.hardware.data.lcores * item.c;
+		max = data.info.duration * profile.hardware.data.lcores * item.c;
 		output.events[item.l] = (item.n <= pv) ? item.v : '?';
 		output.events['expected_' + item.l] = max;
 		output.events['factor_' + item.l] = (item.n <= pv) ? Math.round(10 * item.v / max) / 10 : '?';
+		output.events['rate_' + item.l] = (item.n <= pv) ? Math.round(1000 * item.v / (data.info.duration * profile.hardware.data.lcores)) / 1000 : '?';
+		output.events['calibration_' + item.l] = item.c;
 	});
 }
 
