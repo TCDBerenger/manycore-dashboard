@@ -19,8 +19,9 @@
 					<li class="nav-link-other" ng-repeat="category in categories | enabled"><a ui-sref="detail({cat: category.cat, ids: encodeSelectedProfile()})"><i class="fa fa-{{category.icon}} fa-20px"></i>  {{category.label}}</a></li>
 				</ul>
 			</li>
-			<p ng-if="selectedCategory" class="navbar-text" style="cursor: default; width: 20px;"></p>
-			<li ng-if="selectedCategory"><a ng-click="collapseAll()" ><i class="fa fa-eye-slash"></i> collapse all tabs</a></li>
+			<p ng-if="selectedCategory || isRawDashSelected" class="navbar-text" style="cursor: default; width: 20px;"></p>
+			<li ng-if="selectedCategory"><a ng-click="collapseAllTabs()" ><i class="fa fa-eye-slash"></i> collapse all tabs</a></li>
+			<li ng-if="isRawDashSelected"><a ng-click="collapseAllAccordions()" ><i class="fa fa-eye-slash"></i> collapse all accordions</a></li>
 		</ul>
 
 		<!-- collapsible right content -->
