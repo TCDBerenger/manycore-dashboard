@@ -261,12 +261,14 @@ function directive_focus_init(r, repeater) {
 			valuedPins.push({
 				id: prefixProfile + 'q-under',
 				l: r.deck.sequences.under.label,
-				f: r.deck.sequences.under
+				f: r.deck.sequences.under,
+				h: true
 			});
 			valuedPins.push({
 				id: prefixProfile + 'q-count',
 				l: r.deck.sequences.count.label,
-				f: r.deck.sequences.count
+				f: r.deck.sequences.count,
+				h: true
 			});
 		}
 	});
@@ -1812,12 +1814,13 @@ app.directive('chartLines', function() {
 
 		// Select
 		function select(positions, y0) {
+			// Time processing
+			var t = positions.t;
 			
 			// Select melody
 			if (r.deck.melody_c && ! r.meta.disableMelody) {
 				
 				// Time ID
-				var t = positions.t;
 				var tIndex = positions.f50;
 				var frameID = positions.i50;
 				t = Math.round(t);
@@ -1866,14 +1869,13 @@ app.directive('chartLines', function() {
 				
 				// Loop
 				for (var index = 0; index < r.profiles.length; index++) {
+					// Focus names
+					pinUnder = 'pin-' + r.meta.widget.index + '-' + index + '-q-under';
+					pinCount = 'pin-' + r.meta.widget.index + '-' + index + '-q-count';
 					
 					if (t >= r.meta.ends[index]) {
 						updateSequencePin(null, pinUnder, pinCount);
 					} else {
-						// Focus names
-						pinUnder = 'pin-' + r.meta.widget.index + '-' + index + '-q-under';
-						pinCount = 'pin-' + r.meta.widget.index + '-' + index + '-q-count';
-						
 						// Data
 						profileData = r.profiles[index].currentData.events.q;
 						profileKeys = r.meta.sequenceKeys[index];
@@ -1881,10 +1883,8 @@ app.directive('chartLines', function() {
 						
 						// Find the sequence
 						iKey = 1;
-						while (iKey < profileKeysLength && positions.t > profileKeys[iKey]) { iKey++; }
+						while (iKey < profileKeysLength && t > profileKeys[iKey]) { iKey++; }
 						iKey--;
-						
-						console.log(positions.t, profileKeys[iKey], profileData[profileKeys[iKey]]);
 						
 						if (profileData[profileKeys[iKey]] <= r.meta.sequenceThreshold) {
 							updateSequencePin(pinUnder, pinCount, null, y0, index);
@@ -1915,9 +1915,9 @@ app.directive('chartLines', function() {
 		}
 		
 		function updateSequencePin(labelToShow, labelToHide1, labelToHide2, y0, index) {
-			if (labelToShow) r.scope.focusMovePin(labelToShow, y0 + ((r.layout.profile.height + r.meta.vOverflow[index]) / 2) + r.meta.vOverflow[index], '');
-			if (labelToHide1) r.scope.focusMovePin(labelToHide1, NaN, NaN);
-			if (labelToHide2) r.scope.focusMovePin(labelToHide2, NaN, NaN);
+			if (labelToShow) r.scope.focusMovePin(labelToShow, y0 + r.layout.profile.y[index] + (r.meta.vOverflow[index] / 2) + ((index == 1) ? r.meta.vOverflow[index] : 0), NaN);
+			if (labelToHide1) r.scope.focusMovePin(labelToHide1, NaN);
+			if (labelToHide2) r.scope.focusMovePin(labelToHide2, NaN);
 		}
 
 		// Bind

@@ -439,7 +439,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			}
 		}
 		// Move (or hide) pin
-		if (isNaN(y) || v < 1) {
+		if (isNaN(y) || (isFinite(v) && v < 1)) {
 			if (pinElements[id]) pinElements[id].style.opacity = 0;
 		} else {
 			if (y && pinElements[id]) {

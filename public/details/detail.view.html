@@ -132,12 +132,12 @@
 		<div class="line"></div>
 		<span class="label label-focus">? ms</span>
 		<div id="{{::rule.id}}" class="facet-rule" ng-repeat="rule in rules">
-			<i class="fa fa-circle" style="color: {{::rule.f.color}}"></i>
+			<i class="fa fa-circle" style="color: {{::rule.f.colours.n}}"></i>
 			<span class="rule-value">?? %</span> {{::rule.f.label}} 
 		</div>
 		<div id="{{::pin.id}}" class="facet-pin facet-pin-value" ng-repeat="pin in valuedPins">
-			<i class="fa fa-circle" style="color: {{::pin.f.color}}"></i>
-			<span class="pin-value">? %</span> {{::pin.l}} 
+			<i class="fa fa-circle" style="color: {{::pin.f.colours.n}}"></i>
+			<span class="pin-value" ng-hide="pin.h">? %</span> {{::pin.l}} 
 		</div>
 	</div>
 	
