@@ -100,7 +100,6 @@ app.factory('facets', ['colours', function(colours) {
 		sys: 	{ label: 'system',				unity: 'ms',	cat: 'times',	attr: 'sys',	colours: colours.sets.Grey,		color: colours.list.lGrey,		fcolor: colours.list.nGrey,		gcolor: colours.list.white },
 		lw:		{ label: 'Lock waiting',		unity: 'ms',	cat: 'times',	attr: 'lw',		colours: colours.sets.Yellow,	color: colours.list.nYellow,	fcolor: colours.list.dYellow,	gcolor: colours.list.fYellow },
 		lh:		{ label: 'Lock holding',		unity: 'ms',	cat: 'times',	attr: 'lh',		colours: colours.sets.Turquoise },
-		uu: 	{ label: 'idle core',			unity: 'ms',	cat: 'times',	attr: 'uu',		colours: colours.sets.Blue,		color: colours.list.nBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.fBlue },
 		
 		ipc:	{ label: 'Executing',			unity: '',	cat: 'locality',	attr: 'ipc',	colours: colours.sets.Green,	color: colours.list.nGreen,	fcolor: colours.list.dGreen,	gcolor: colours.list.fGreen },
 		miss:	{ label: 'Cache misses',		unity: '',	cat: 'locality',	attr: 'miss',	colours: colours.sets.Red,		color: colours.list.nRed,	fcolor: colours.list.dRed,		gcolor: colours.list.fRed },
@@ -120,6 +119,9 @@ app.factory('facets', ['colours', function(colours) {
 		q:		{ label: 'Parallelized',	unity: '',	attr: 'q',	colours: colours.sets.GreenYlw },
 		q_s:	{ label: 'sequential',		title: 'Sequential sequence',	desc: desc_q_s,	unity: '', cat: '', attr: '',	colours: colours.sets.Orange,	color: colours.list.fOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange },
 		q_p:	{ label: 'parallel',		title: 'Parallel sequence',		desc: desc_q_p,	unity: '', cat: '', attr: '',	colours: colours.sets.Green,	color: colours.list.fGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
+		
+		e:		{ label: 'Memory bandwitdh',			unity: 'KB',	attr: 'e',	colours: colours.sets.Magenta },
+		ue:		{ label: 'Available memory bandwitdh',	unity: 'KB',	attr: 'ue',	colours: colours.sets.Grey },
 	};
 }]);
 
@@ -363,6 +365,26 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 },
 				{ property: 'highlightOverflow', value: false, type: 'flag', label: 'High zone', desc: 'shows the high area, over the typical value' }
 			]
+		},
+		memBandwidth: {
+			handling: {
+				time: TIME_PROFILE,
+			},
+			graph: {
+				v:		[facets.e, facets.ue],
+				limit:	limit
+			},
+			data: [facets.e],
+			focus: [facets.e],
+			legend: {
+				axis: [],
+				data: [
+					{ b: '▮', f: facets.e,	d: 'memory bandwitdh used by the program' },
+					{ b: '▮', f: facets.ue,	d: 'non-measured memory bandwitdh (system and available)' }
+				]
+			},
+			clues: [],
+			settings: []
 		},
 		threadChains: {
 			handling: {
@@ -641,6 +663,7 @@ app.factory('widgets', ['decks', function(decks) {
 		coreSequences:		{ id: id(),	v: 3, file: 'chart-lines',		deck: decks.sequences,			wide: false,	title: 'Single thread execution phases',							desc: 'alternating sequential/parallel execution'},
 		lockCounts:			{ id: id(),	v: 4, file: 'chart-units',		deck: decks.lockCounts,			wide: false,	title: 'Lock contentions',											desc: 'Locking with and without contention'},
 		lockContentions:	{ id: id(),	v: 4, file: 'chart-percent',	deck: decks.lockContentions,	wide: false,	title: 'Time waiting for a lock',									desc: ''},
+		memBandwidth:		{ id: id(),	v: 5, file: 'chart-percent',	deck: decks.memBandwidth,		wide: false,	title: 'Remote memory access',										desc: 'Memory bandwitdh'},
 		threadChains:		{ id: id(),	v: 4, file: 'chart-lines',		deck: decks.threadChains,		wide: false,	title: 'Chains of dependencies on locks',							desc: 'synchronisations and waiting between threads'},
 		threadFruitSalad:	{ id: id(),	v: 3, file: 'chart-threads',	deck: decks.threadFruitSalad,	wide: false,	title: 'Migrations by thread',										desc: 'creation, running, moving between cores, termination'},
 		threadLocks:		{ id: id(),	v: 4, file: 'chart-threads',	deck: decks.threadLocks,		wide: false,	title: 'Time each thread spends waiting for locks',					desc: ''},
@@ -657,7 +680,7 @@ app.factory('strips', ['facets', function(facets) {
 	var example_bad = 'A non minimal shape means a problem or a misusing of resources.';
 	return {
 		r:		{ title: 'Running',				facet: facets.r,	reverse: false,	description: 'This graph represents the time spent in thread execution.', example: example_good },
-		uu:		{ title: 'Unused cores',		facet: facets.i,	reverse: true,	description: 'This graph shows the time spend by the core waiting a thread to run.', example: example_ok },
+		i:		{ title: 'Unused cores',		facet: facets.i,	reverse: true,	description: 'This graph shows the time spend by the core waiting a thread to run.', example: example_ok },
 		yb:		{ title: 'Waiting a core',		facet: facets.yb,	reverse: false,	description: 'This graph shows the time spent by threads while waiting a core.', example: example_bad },
 		lw:		{ title: 'Waiting a ressource',	facet: facets.lw,	reverse: false,	description: 'This graph represents the time spent by threads while waiting for a lock.', example: example_bad },
 		q:		{ title: 'Parallelisation',		facet: facets.p,	reverse: false,	description: 'This graph represents the parallelised state of the cores, at least two threads running simultaneously.', example: example_good },
@@ -686,7 +709,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 		tag: 'tg', cat: 'tg', label: 'Task granularity', title: 'Task granularity', icon: 'sliders', enabled: true,
 		description: 'This category helps about the challenge to find enough parallelism to keep the machine busy.',
 		example: 'If there are too many threads, the cost of these overheads can exceed the benefits.',
-		strips: [strips.yb, strips.uu],
+		strips: [strips.yb, strips.i],
 		gauges: [[yb, facets.i], [facets.s, facets.m]], /* facets.r, */
 		widgets: [widgets.threadStates, widgets.threadSwitches, widgets.threadMigrations, widgets.threadFruitSalad]
 	};
@@ -704,7 +727,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 		example: 'These transfers take time, with the result that there is typically a cost to data sharing, particularly when shared variables and data structures are modified.',
 		strips: [],
 		gauges: [[lw, miss]],
-		widgets: [widgets.lockContentions, widgets.cacheInvalid, widgets.cacheMisses]
+		widgets: [widgets.lockContentions, widgets.cacheMisses, widgets.memBandwidth, widgets.cacheInvalid]
 	};
 	var lb = {
 		tag: 'lb', cat: 'lb', label: 'Load balancing', title: 'Load balancing', icon: 'list-ol', enabled: true,

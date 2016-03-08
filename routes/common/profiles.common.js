@@ -37,9 +37,10 @@ var hardRoman = {
 		l1:			32,			// cache L1 in KB
 		l2:			256,		// cache L2 in KB
 		l3:			8192,		// cache L3 in KB
-		ram:		12573696	// cache RAM in KB
+		ram:		12573696,	// cache RAM in KB
+		bandwidth:	26843535	// maximum memory bandwidth by milli-second = 25,599.99 MB/s
 	},
-	calibration: {
+	calibration: {			// TYPICAL VALUES
 		s:	1,				// number of switches by ms by core
 		m:	0.3,			// number of migrations by ms by core
 		ls: 0.01,			// number of success lock acquisition by ms by core
@@ -71,9 +72,10 @@ var hardSTG = {
 		l1:			32,			// cache L1 in KB
 		l2:			256,		// cache L2 in KB
 		l3:			8192,		// cache L3 in KB
-		ram:		4194304		// cache RAM in KB
+		ram:		4194304,	// cache RAM in KB
+		bandwidth:	22369607	// maximum memory bandwidth by second = 21,333.32 MB/s
 	},
-	calibration: {
+	calibration: {			// TYPICAL VALUES
 		s:	1,				// number of switches by ms by core
 		m:	0.3,			// number of migrations by ms by core
 		ls: 0.01,			// number of success lock acquisition by ms by core

@@ -30,7 +30,7 @@ var profiles = require('./common/profiles.common.js');
 	 │	 │	 ├	yb				<integer>	time (in ms) spending in states ready and standby
 	 │	 │	 ├	w				<integer>	time (in ms) spending in state waiting (all reasons)
 	 │	 │	 ├	lw				<integer>	time (in ms) spending in state waiting for a lock aquisition
-	 │	 │	 ├	uu				<integer>	time (in ms) idle (cores)
+	 │	 │	 ├	i				<integer>	time (in ms) idle (cores)
 	 │	 │	 └	sys				<integer>	time (in ms) keeping by the OS
 	 │	 │	...
 	 │	 └	<timeMax>
@@ -139,6 +139,7 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 	var hasE =	eventProperties && eventProperties.length > 0;
 	var hasCF =	coreFrameProperties && coreFrameProperties.length > 0;
 	var isB =	{ s: statProperties.indexOf('b') >= 0,	f: hasF && frameProperties.indexOf('b') >= 0,													 };
+	var isE =	{ s: statProperties.indexOf('e') >= 0,	f: hasF && frameProperties.indexOf('e') >= 0,													 };
 	var isI =	{ s: statProperties.indexOf('i') >= 0,	f: hasF && frameProperties.indexOf('i') >= 0,													cf: hasCF && coreFrameProperties.indexOf('i') >= 0, };
 	var isM =	{ s: statProperties.indexOf('m') >= 0,													e: hasE && eventProperties.indexOf('m') >= 0,	 };
 	var isR =	{ s: statProperties.indexOf('r') >= 0,	f: hasF && frameProperties.indexOf('r') >= 0,													 };
@@ -147,6 +148,7 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 	var isLF =	{ s: statProperties.indexOf('lf') >= 0,													e: hasE && eventProperties.indexOf('lf') >= 0,	 };
 	var isLS =	{ s: statProperties.indexOf('ls') >= 0,													e: hasE && eventProperties.indexOf('ls') >= 0,	 };
 	var isLW =	{ s: statProperties.indexOf('lw') >= 0,	f: hasF && frameProperties.indexOf('lw') >= 0,													 };
+	var isUE =	{										f: hasF && frameProperties.indexOf('ue') >= 0,													 };
 	var isYB =	{ 										f: hasF && frameProperties.indexOf('yb') >= 0,													 };
 	var isSYS =	{ 										f: hasF && frameProperties.indexOf('sys') >= 0,													 };
 	
@@ -158,6 +160,8 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 	var max = {
 		timeProfile: data.info.duration * hardware.data.lcores,
 		timeFrame: data.info.timeStep * hardware.data.lcores,
+		bandwidthProbile: data.info.duration * hardware.data.bandwidth,
+		bandwidthFrame: data.info.timeStep * hardware.data.bandwidth,
 		locality: data.locality.stats.ipc + data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf
 	};
 	
@@ -178,15 +182,16 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 	//
 	// Add stats
 	//
-	if (isB.s) {	output.raw.stats.b =	Math.round(data.stats.standby);			output.raw.statsPercent.b =		Math.round(100 * data.stats.standby / max.timeProfile); }
-	if (isI.s) {	output.raw.stats.i =	Math.round(data.stats.idle);			output.raw.statsPercent.i =		Math.round(100 * data.stats.idle / max.timeProfile); }
+	if (isB.s) {	output.raw.stats.b =	Math.round(data.stats.standby);				output.raw.statsPercent.b =		Math.round(100 * data.stats.standby / max.timeProfile); }
+	if (isE.s) {	output.raw.stats.e =	Math.round(data.stats.bandwidth / 1024);	output.raw.statsPercent.b =		Math.round(100 * data.stats.bandwidth / max.bandwidthProbile); }
+	if (isI.s) {	output.raw.stats.i =	Math.round(data.stats.idle);				output.raw.statsPercent.i =		Math.round(100 * data.stats.idle / max.timeProfile); }
 	if (isM.s) {	output.raw.stats.m =	data.stats.migrations; }
-	if (isR.s) {	output.raw.stats.r =	Math.round(data.stats.running);			output.raw.statsPercent.r =		Math.round(100 * data.stats.running / max.timeProfile); }
+	if (isR.s) {	output.raw.stats.r =	Math.round(data.stats.running);				output.raw.statsPercent.r =		Math.round(100 * data.stats.running / max.timeProfile); }
 	if (isS.s) {	output.raw.stats.s =	data.stats.switches; }
-	if (isY.s) {	output.raw.stats.y =	Math.round(data.stats.ready);			output.raw.statsPercent.y =		Math.round(100 * data.stats.ready / max.timeProfile); }
+	if (isY.s) {	output.raw.stats.y =	Math.round(data.stats.ready);				output.raw.statsPercent.y =		Math.round(100 * data.stats.ready / max.timeProfile); }
 	if (isLF.s) {	output.raw.stats.lf =	Math.round(data.stats.lock_failure); }
 	if (isLS.s) {	output.raw.stats.ls =	Math.round(data.stats.lock_success); }
-	if (isLW.s) {	output.raw.stats.lw =	Math.round(data.stats.lock_wait);		output.raw.statsPercent.lw =	Math.round(100 * data.stats.lock_wait / max.timeProfile); }
+	if (isLW.s) {	output.raw.stats.lw =	Math.round(data.stats.lock_wait);			output.raw.statsPercent.lw =	Math.round(100 * data.stats.lock_wait / max.timeProfile); }
 	if (addDalaLocality) {
 				output.raw.stats.ipc =	Math.round(data.locality.stats.ipc);	output.raw.statsPercent.ipc =	Math.round(100 * data.locality.stats.ipc / max.locality);
 				output.raw.stats.tlb =	Math.round(data.locality.stats.tlb);	output.raw.statsPercent.tlb =	Math.round(100 * data.locality.stats.tlb / max.locality);
@@ -211,16 +216,20 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 				amountPercent = { t: timeID };
 				
 				// Times
-				if (isB.f) { amount.b =		Math.round(data.frames[timeID].standby);								amountPercent.b =	Math.round(100 * (data.frames[timeID].standby) / max.timeFrame); }
+				if (isB.f) { amount.b =		Math.round(data.frames[timeID].standby);								amountPercent.b =	Math.round(100 * data.frames[timeID].standby / max.timeFrame); }
 				if (isI.f) { amount.i =		Math.round(data.frames[timeID].idle);									amountPercent.i =	Math.round(100 * data.frames[timeID].idle / max.timeFrame); }
 				if (isR.f) { amount.r =		Math.round(data.frames[timeID].running);								amountPercent.r =	Math.round(100 * data.frames[timeID].running / max.timeFrame); }
-				if (isY.f) { amount.y =		Math.round(data.frames[timeID].ready);									amountPercent.y =	Math.round(100 * (data.frames[timeID].ready) / max.timeFrame); }
+				if (isY.f) { amount.y =		Math.round(data.frames[timeID].ready);									amountPercent.y =	Math.round(100 * data.frames[timeID].ready / max.timeFrame); }
 				if (isLW.f) { amount.lw =	Math.round(data.frames[timeID].lock_wait);								amountPercent.lw =	Math.round(100 * data.frames[timeID].lock_wait / max.timeFrame); }
 				if (isYB.f) { amount.yb =	Math.round(data.frames[timeID].ready + data.frames[timeID].standby);	amountPercent.yb =	Math.round(100 * (data.frames[timeID].ready + data.frames[timeID].standby) / max.timeFrame); }
 				if (isSYS.f) {
 					amount.sys =		max.timeFrame - Math.round(data.frames[timeID].running) - Math.round(data.frames[timeID].idle);
 					amountPercent.sys =	100 - Math.round(100 * data.frames[timeID].running / max.timeFrame) - Math.round(100 * data.frames[timeID].idle / max.timeFrame);
 				}
+				
+				// Bandwidth
+				if (isE.f) { amount.e =		Math.round(data.frames[timeID].bandwidth / 1024);							amountPercent.e =	Math.round(100 * data.frames[timeID].bandwidth / max.bandwidthFrame); }
+				if (isUE.f) { amount.ue =	Math.round((max.bandwidthFrame - data.frames[timeID].bandwidth) / 1024);	amountPercent.ue =	100 - Math.round(100 * data.frames[timeID].bandwidth / max.bandwidthFrame); }
 				
 				// Core times
 				if (hasCF) {
@@ -316,7 +325,7 @@ function addTimes(output, id, properties) {
 	var isYB =	properties.indexOf('yb') >= 0;
 	var isW =	properties.indexOf('w') >= 0;
 	var isLW =	properties.indexOf('lw') >= 0;
-	var isI =	properties.indexOf('i') >= 0 || properties.indexOf('uu') >= 0;
+	var isI =	properties.indexOf('i') >= 0;
 	var isSYS =	properties.indexOf('sys') >= 0;
 	
 	// Init return
@@ -347,7 +356,6 @@ function addTimes(output, id, properties) {
 			output.percent[timeID].lw =	Math.round(100 * data.frames[timeID].lock_wait / max);
 		}	
 		if (isI) {
-			output.times[timeID].uu =	Math.round(data.frames[timeID].idle); // TO DELETE
 			output.times[timeID].i =	Math.round(data.frames[timeID].idle);
 			output.percent[timeID].i =	Math.round(100 * data.frames[timeID].idle / max);
 		}	
@@ -357,33 +365,6 @@ function addTimes(output, id, properties) {
 		}	
 	}
 }
-
-/**
- * Add times spending by core states
- */
-/*function addCoreTimes(output, id, properties) {
-	// Init vars
-	var data =	profiles[id].data;
-	var isR =	properties.indexOf('r') >= 0;
-	var isUU =	properties.indexOf('uu') >= 0;
-	
-	// Init return
-	output.cores = {};
-	
-	for (var cid = 0; cid < profiles[id].hardware.data.lcores; cid++) {
-		output.cores[cid] = {};
-	}
-
-	// Add times
-	for (var timeID = 0; timeID <= data.info.timeMax; timeID+= data.info.timeStep) {
-		for (var cid = 0; cid < profiles[id].hardware.data.lcores; cid++) {
-			output.cores[cid][timeID] = {};
-			
-			if (isR)	output.cores[cid][timeID].r =	Math.round(data.frames[timeID].c[cid].running);
-			if (isUU)	output.cores[cid][timeID].uu =	Math.round(data.frames[timeID].c[cid].idle);
-		}
-	}
-}*/
 
 /**
  * Add data-locality data
@@ -685,7 +666,7 @@ function jsonDS(profile, id) {
 	addCommon(output, id);
 	
 	// Add raw data for visualisation
-	addRawData(output, id, ['r', 'i', 'lw'], ['i', 'r', 'lw', 'sys'], null, null, true);
+	addRawData(output, id, ['r', 'i', 'lw', 'e'], ['i', 'r', 'lw', 'sys', 'e', 'ue'], null, null, true);
 
 	// Add locks
 	addTimes(output, id, ['r', 'lw', 'i', 'sys']);
@@ -717,7 +698,6 @@ function jsonLB(profile, id) {
 
 	// Add times
 	addTimes(output, id, ['r', 'yb', 'lw', 'i', 'sys']);
-	//addCoreTimes(output, id, ['r', 'uu']);
 
 	// Add locks
 	addLocks(output, id);
