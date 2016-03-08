@@ -751,7 +751,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 		example: 'For example, all cores will typically share a single connection to main memory.',
 		strips: [],
 		gauges: [],
-		widgets: [widgets.lockCounts, widgets.cacheMisses]
+		widgets: [widgets.memBandwidth, widgets.lockCounts, widgets.cacheMisses]
 	};
 	var io = {
 		tag: 'io', cat: 'io', label: 'Input/Output', title: 'Input/Output', icon: 'plug', enabled: false,

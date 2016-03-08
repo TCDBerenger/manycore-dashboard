@@ -750,7 +750,7 @@ function jsonRS(profile, id) {
 	addCommon(output, id);
 	
 	// Add raw data for visualisation
-	addRawData(output, id, ['lf', 'ls'], null, ['lf', 'ls'], null, true);
+	addRawData(output, id, ['lf', 'ls', 'e'], ['e', 'ue'], ['lf', 'ls'], null, true);
 
 	// Add locks
 	addLocks(output, id);
