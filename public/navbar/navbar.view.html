@@ -11,10 +11,17 @@
 	<div id="navbar" class="navbar-collapse collapse">
 		<!-- collapsible content -->
 		<ul class="nav navbar-nav">
-			<li ui-sref-active="active"><a ui-sref="dashboard({ids: encodeSelectedProfile()})"><i class="fa fa-tachometer"></i> Dashboard</a></li>
-			<p ng-if="selectedCategory" class="navbar-text" style="cursor: default;"><i class="fa fa-long-arrow-right"></i></p>
-			<li ng-if="selectedCategory" class="nav-link-detail" uib-dropdown>
-				<a ui-sref="detail({cat: selectedCategory.cat, ids: encodeSelectedProfile()})" class="dropdown-toggle" uib-dropdown-toggle><i class="fa fa-{{selectedCategory.icon}}"></i>  {{selectedCategory.label}}  <i class="fa fa-caret-down navbar-caret"></i></a>
+			<li ui-sref-active="active" ui-sref-active="active"><a ui-sref="dashboard({ids: encodeSelectedProfile()})"><i class="fa fa-tachometer"></i> Dashboard</a></li>
+			<li ng-if="hasProfileSelected()" ui-sref-active="active" uib-dropdown>
+				<a uib-dropdown-toggle><i class="fa fa-caret-down navbar-caret"></i></a>
+				<ul class="dropdown-menu nav-link-others" role="menu">
+					<li class="nav-link-other"><a ui-sref="raw({ids: encodeSelectedProfile()})"><i class="fa fa-graduation-cap"></i> Expert dashboard</a></li>
+				</ul>
+			</li>
+			<p ng-if="hasProfileSelected()" class="navbar-text" style="cursor: default;"><i class="fa fa-long-arrow-right"></i></p>
+			<li ng-if="hasProfileSelected()" class="nav-link-detail" ui-sref-active="active" uib-dropdown>
+				<a ng-if="! selectedCategory" class="dropdown-toggle" uib-dropdown-toggle><i class="fa fa-area-chart"></i> Detailed views <i class="fa fa-caret-down navbar-caret"></i></a>
+				<a ng-if="selectedCategory" class="dropdown-toggle" uib-dropdown-toggle><i class="fa fa-{{selectedCategory.icon}}"></i> {{selectedCategory.label}}  <i class="fa fa-caret-down navbar-caret"></i></a>
 				<ul class="dropdown-menu nav-link-others" role="menu">
 					<li class="nav-link-other" ng-repeat="category in categories | enabled"><a ui-sref="detail({cat: category.cat, ids: encodeSelectedProfile()})"><i class="fa fa-{{category.icon}} fa-20px"></i>  {{category.label}}</a></li>
 				</ul>

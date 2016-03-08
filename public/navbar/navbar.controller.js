@@ -8,6 +8,7 @@ app.controller('NavbarController', ['$scope', '$rootScope', '$stateParams', 'cat
 	$scope.profiles = []; //selected;
 	
 	// Dash
+	$scope.isDashSelected = false;
 	$scope.isRawDashSelected = false;
 	
 	// Details
@@ -46,6 +47,7 @@ app.controller('NavbarController', ['$scope', '$rootScope', '$stateParams', 'cat
 	 */
 	$rootScope.$on('$stateChangeStart',
 		function(event, toState, toParams, fromState, fromParams) {
+			$scope.isDashSelected = (toState.name == 'dashboard');
 			$scope.isRawDashSelected = (toState.name == 'raw');
 			$scope.selectedCategory = (toState.name == 'detail') ? categories[toParams.cat] : null;
 		});
@@ -55,6 +57,13 @@ app.controller('NavbarController', ['$scope', '$rootScope', '$stateParams', 'cat
 	/************************************************/
 	/* Functions - Graphical						*/
 	/************************************************/
+	
+	/**
+	 * Flag - detail
+	 */
+	$scope.hasProfileSelected = function() {
+		return $rootScope.selectedIDs.length > 0;
+	};
 	
 	/**
 	 * Flag - detail

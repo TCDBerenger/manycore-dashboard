@@ -1,20 +1,33 @@
 <div class="container"><div class="row" style="margin-top: 20px;"><div class="col-md-10 col-md-offset-1">
-	
-	<!-- Step 1 (welcome message) -->
-	<div class="block block-imp">
-		<span class="block-icon fa-stack">
-			<i class="fa fa-circle fa-stack-2x"></i>
-			<i class="fa fa-hand-spock-o fa-stack-1x fa-inverse"></i>
-		</span>
-		<h2>Welcome</h2>
-		<p>
-			This prototype is an experimental performance analysis tool focused on parallel programming.
-			<span class="text-info">Because the future is <s>multicore</s> many-core!</span>
-			Our approach is to design the tool focused on performance problems instead hardware-centric.
-			But, don't worry, you should see some low level data.
-		</p>
-	</div>
-	<div class="row" style="margin-top: 50px;">
+	<div class="row">
+		<div class="col-md-6">
+			<!-- Step 1 (welcome message) -->
+			<div class="block block-imp">
+				<span class="block-icon fa-stack">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-hand-spock-o fa-stack-1x fa-inverse"></i>
+				</span>
+				<h2>Welcome</h2>
+				<p>
+					This prototype is an experimental performance analysis tool focused on parallel programming.
+					<span class="text-info">Because the future is <s>multicore</s> many-core!</span>
+					Our approach is to design the tool focused on performance problems instead hardware-centric.
+					But, don't worry, you should see some low level data.
+				</p>
+			</div>
+			<!-- Goto experiments -->
+			<div class="block" style="margin-top: 40px;">
+				<span class="block-icon fa-stack">
+					<i class="fa fa-circle fa-stack-2x text-muted"></i>
+					<i class="fa fa-flask fa-stack-1x fa-inverse"></i>
+				</span>
+				<h2>Experiments</h2>
+				<p>If you're here for an experimentation, first, thanks a million.</p>
+				<p>Then, choose the experiment you want to try:</p>
+				<p class="text-muted"><em>... soon ...</em></p>
+				<button ng-repeat="xp in experiments" type="button" ui-sref='dashboard({ids: xp.ids})' class="btn btn-default btn-block">{{::xp.label}}</button>
+			</div>
+		</div>
 		<div class="col-md-6">
 			<!-- Goto Dashboard -->
 			<div class="block">
@@ -26,23 +39,14 @@
 				<p>If you want to try or discover our prototype, this is the best way, no constraint.</p>
 				<p>Please be gentle with this prototype.</p>
 				<button type="button" ui-sref="dashboard" class="btn btn-info btn-block"><i class="fa fa-tachometer"></i> Dashboard</button>
+				<div ng-repeat="quicklink in quicklinks" class="quicklink">
+					<p ng-class="{'text-primary': quicklink.showEmphasis}"><span ng-if="quicklink.icon" ><i class="fa {{::quicklink.icon}}"></i> </span>{{::quicklink.title}}</p>
+					<div class="btn-group btn-group-justified" ng-repeat="row in quicklink.list">
+						<a ng-repeat="xp in row" type="button" ui-sref='dashboard({ids: xp.ids})' class="btn btn-default">{{::xp.label}}</a>
+					</div><!--  ng-class="{'btn-info': quicklink.showEmphasis}" -->
+					<span ng-if="quicklink.showHardDiff"><b>ᵜ</b> <span class="text-muted">the gathered profiles come from different hardwares.</span></span>
+				</div>
 				<p>&nbsp;</p>
-				<p>Also, you can use a quick link:</p>
-				<button ng-repeat="xp in quicklinks" type="button" ui-sref='dashboard({ids: xp.ids})' class="btn btn-default btn-block">{{::xp.label}}</button>
-			</div>
-		</div>
-		<div class="col-md-6">
-			<!-- Goto experiments -->
-			<div class="block">
-				<span class="block-icon fa-stack">
-					<i class="fa fa-circle fa-stack-2x text-muted"></i>
-					<i class="fa fa-flask fa-stack-1x fa-inverse"></i>
-				</span>
-				<h2>Experiments</h2>
-				<p>If you're here for an experimentation, first, thanks a million.</p>
-				<p>Then, choose the experiment you want to try:</p>
-				<p class="text-muted"><em>... soon ...</em></p>
-				<button ng-repeat="xp in experiments" type="button" ui-sref='dashboard({ids: xp.ids})' class="btn btn-default btn-block">{{::xp.label}}</button>
 			</div>
 		</div>
 	</div>

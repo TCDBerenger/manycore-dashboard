@@ -12,6 +12,17 @@ var profiles = require('./common/profiles.common.js');
 
 
 /************************************************/
+/* Functions - common							*/
+/************************************************/
+/**
+ * Format number
+ */
+function format1(v) { return Math.round(v * 10) / 10;		}
+function format2(v) { return Math.round(v * 100) / 100;		}
+function format3(v) { return Math.round(v * 1000) / 1000;	}
+
+
+/************************************************/
 /* Functions - by category						*/
 /************************************************/
 /**
@@ -150,9 +161,9 @@ function addLocks(profile, output) {
 	].forEach(function(item) {
 		max = data.info.duration * profile.hardware.data.lcores * item.c;
 		output.locks[item.l] = (4 <= pv) ? item.v : '?';
-		output.locks['expected_' + item.l] = max;
-		output.locks['factor_' + item.l] = (4 <= pv) ? Math.round(10 * item.v / max) / 10 : '?';
-		output.locks['rate_' + item.l] = (4 <= pv) ? Math.round(1000 * item.v / (data.info.duration * profile.hardware.data.lcores)) / 1000 : '?';
+		output.locks['expected_' + item.l] = format3(max);
+		output.locks['factor_' + item.l] = (4 <= pv) ? format2(item.v / max) : '?';
+		output.locks['rate_' + item.l] = (4 <= pv) ? format3(item.v / (data.info.duration * profile.hardware.data.lcores)) : '?';
 		output.locks['calibration_' + item.l] = item.c;
 	});
 }

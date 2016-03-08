@@ -110,6 +110,9 @@ var profileMap = {
 		{ id: 19,	label: 'Word',			desc: 'Microsoft Word sample',		hardware: hardRoman, file: 'word',			pid: 2852,	timeStep: 50, v: 3 },
 		{ id: 20,	label: 'Excel',			desc: 'Microsoft Excel sample',		hardware: hardRoman, file: 'excel',			pid: 5176,	timeStep: 50, v: 3, disabled: true },
 
+		{ id: 21,	label: 'Dining ph.  5',	desc: 'Probliem for 5 philosophers dining',		hardware: hardRoman, file: 'philosophers5',		pid: 12220,	timeStep: 50, v: 4 },
+		{ id: 22,	label: 'Dining ph. 45′',desc: 'Probliem for 45 philosophers dining',	hardware: hardRoman, file: 'philosophers45',	pid: 6908,	timeStep: 50, v: 4 },
+
 		{ id: 31,	label: 'P/C 1/1',		desc: '1 producer and 1 consumer',			hardware: hardRoman, file: 'pc1x1',		pid: 67380,	timeStep: 50, v: 4 },
 		{ id: 32,	label: 'P/C 1/10',		desc: '1 producer and 10 consumers',		hardware: hardRoman, file: 'pc1x10',	pid: 73540,	timeStep: 50, v: 4 },
 		{ id: 33,	label: 'P/C 1/100',		desc: '1 producer and 100 consumers',		hardware: hardRoman, file: 'pc1x100',	pid: 76824,	timeStep: 50, v: 4 },
@@ -120,10 +123,8 @@ var profileMap = {
 		{ id: 38,	label: 'P/C 100/10',	desc: '100 producers and 10 consumers',		hardware: hardRoman, file: 'pc100x10',	pid: 90436,	timeStep: 50, v: 4 },
 		{ id: 39,	label: 'P/C 100/100',	desc: '100 producers and 100 consumers',	hardware: hardRoman, file: 'pc100x100',	pid: 93496,	timeStep: 50, v: 4 },
 
-		{ id: 4005,	label: 'Dining ph.  5',	desc: 'Dining philosopher problem for 5 covers',	hardware: hardRoman, file: 'philosophers5',		pid: 12220,	timeStep: 50, v: 4 },
-		{ id: 4045,	label: 'Dining ph. 45',	desc: 'Dining philosopher problem for 45 covers',	hardware: hardRoman, file: 'philosophers45',	pid: 6908,	timeStep: 50, v: 4 },
-		{ id: 4006,	label: 'Dining ph.  6',	desc: 'Dining philosopher problem for 6 covers',	hardware: hardSTG,	 file: 'philosophers6',		pid: 8864,	timeStep: 50, v: 5 },
-		{ id: 4145,	label: 'Dining ph. 45″',desc: 'Dining philosopher problem for 45 covers',	hardware: hardSTG,	 file: 'philosophers45bis',	pid: 5456,	timeStep: 50, v: 4, disabled: true },
+		{ id: 1006,	label: 'Dining ph.  6',	desc: 'Dining philosopher problem for 6 covers',	hardware: hardSTG,	 file: 'philosophers6',		pid: 8864,	timeStep: 50, v: 5 },
+		{ id: 1045,	label: 'Dining ph. 45″',desc: 'Dining philosopher problem for 45 covers',	hardware: hardSTG,	 file: 'philosophers45bis',	pid: 5456,	timeStep: 50, v: 4, disabled: true },
 	]
 };
 

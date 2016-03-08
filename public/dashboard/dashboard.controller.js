@@ -17,7 +17,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$stat
 	// References
 	var ids = $stateParams.ids.split('-')
 		.map(function(value) { return +value; })
-		.filter(function(value) { return value === parseInt(value, 10) && value > 0 && value < 99; })
+		.filter(function(value) { return value === parseInt(value, 10) && value > 0 && value < 9999; })
 		.slice(0, 2);
 	
 	// Global binds
