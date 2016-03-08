@@ -784,7 +784,7 @@ app.directive('chartPercent', function() {
 					r.groupP[index].append("polygon")
 						.attr('class', "svg-data svg-area svg-area-" + v)
 						.attr("points", p2s(r.iData[index][v + 1], r.iData[index][v]))
-						.attr('fill', r.deck.v[v].color);
+						.attr('fill', r.deck.v[v].colours.n);
 				};
 
 				// Value axis
@@ -830,7 +830,7 @@ app.directive('chartPercent', function() {
 						r.iSelection[index].append("polygon")
 							.attr('class', "svg-area svg-area-" + v)
 							.attr("points", p2s(r.iData[index][v + 1].slice(tIndex * 4, tIndex * 4 + 4), r.iData[index][v].slice(tIndex * 4, tIndex * 4 + 4)))
-							.attr('fill', r.deck.v[v].fcolor);
+							.attr('fill', r.deck.v[v].colours.f);
 						
 						// Send new coordinates to controller
 						yLastPosition = updateFocusRule(prefixID, y0, yLastPosition, index, t, tIndex, v);
@@ -1030,7 +1030,7 @@ app.directive('chartUnits', function() {
 					r.groupP[index].append("polygon")
 						.attr('class', "svg-data svg-area svg-area-" + v)
 						.attr("points", p2s(r.iData[index][v + 1], r.iData[index][v]))
-						.attr('fill', r.deck.v[v].color);
+						.attr('fill', r.deck.v[v].colours.n);
 				};
 
 				// Value axis
@@ -1078,7 +1078,7 @@ app.directive('chartUnits', function() {
 						r.iSelection[index].append("polygon")
 							.attr('class', "svg-area svg-area-" + v)
 							.attr("points", p2s(r.iData[index][v + 1].slice(tIndex * 4, tIndex * 4 + 4), r.iData[index][v].slice(tIndex * 4, tIndex * 4 + 4)))
-							.attr('fill', r.deck.v[v].fcolor);
+							.attr('fill', r.deck.v[v].colours.f);
 						
 						// Send new coordinates to controller
 						yLastPosition = updateFocusRule(prefixID, y0, yLastPosition, index, tIndex, v);
