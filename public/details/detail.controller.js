@@ -241,7 +241,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 			if (widget.deck.handling.time == TIME_PROFILE) {
 				data[0] = profiles[0].raw.amount;
 				dataPercent[0] = profiles[0].raw.amountPercent;
-				if (profiles.length) {
+				if (profiles.length > 1) {
 					data[1] = profiles[1].raw.amount;
 					dataPercent[1] = profiles[1].raw.amountPercent;
 				}
