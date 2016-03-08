@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 72;
+var VERSION = 73;
 var PARALLEL_THRESHOLD = 2;
 
 /************************************************/
@@ -110,6 +110,7 @@ var profileMap = {
 
 		{ id: 21,	label: 'Dining ph. 5',	desc: 'Probliem for 5 philosophers dining',		hardware: hardRoman, file: 'philosophers5',		pid: 12220,	timeStep: 50, v: 4 },
 		{ id: 22,	label: 'Dining ph. 45',	desc: 'Probliem for 45 philosophers dining',	hardware: hardRoman, file: 'philosophers45',	pid: 6908,	timeStep: 50, v: 4 },
+		{ id: 28,	label: 'Dining ph.  6',	desc: 'Probliem for 6 philosophers dining',		hardware: hardSTG,	 file: 'philosophers6',		pid: 8864,	timeStep: 50, v: 5 },
 		{ id: 29,	label: 'Dining ph. 45 bis',desc: 'Probliem for 45 philosophers dining',	hardware: hardSTG,	 file: 'philosophers45bis',	pid: 5456,	timeStep: 50, v: 4, disabled: true },
 
 		{ id: 31,	label: 'P/C 1/1',		desc: '1 producer and 1 consumer',			hardware: hardRoman, file: 'pc1x1',		pid: 67380,	timeStep: 50, v: 4 },
@@ -289,6 +290,8 @@ function reloadCache(profile) {
 	var filenameRaw2 = 'data/' + profile.file + '.switches.json';
 	var filenameRaw3 = 'data/' + profile.file + '.dl.json';
 	var filenameRaw4 = 'data/' + profile.file + '.locks.json';
+	var filenameRaw5 = 'data/' + profile.file + '.memory.json';
+	var filenameRaw6 = 'data/' + profile.file + '.coherency.json';
 	var filenameCache = 'data/' + profile.file + '.cache.json';
 
 	// Load raw
@@ -296,10 +299,12 @@ function reloadCache(profile) {
 	var raw2 = JSON.parse(fs.readFileSync(filenameRaw2, 'utf8'));
 	var raw3 = JSON.parse(fs.readFileSync(filenameRaw3, 'utf8'));
 	var raw4 = (profile.v >= 4) ? JSON.parse(fs.readFileSync(filenameRaw4, 'utf8')) : null;
+	var raw5 = (profile.v >= 5) ? JSON.parse(fs.readFileSync(filenameRaw5, 'utf8')) : null;
+	var raw6 = (profile.v >= 5) ? JSON.parse(fs.readFileSync(filenameRaw6, 'utf8')) : null;
 	console.log("[" + profile.id + "] " + profile.file + " raw data loaded");
 
 	// Compute
-	var data = computeData(profile, raw1, raw2, raw3, raw4);
+	var data = computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6);
 	console.log("[" + profile.id + "] " + profile.file + " raw data computed");
 
 	// Save to cache
@@ -312,7 +317,7 @@ function reloadCache(profile) {
 /**
  * Compute data
  */
-function computeData(profile, raw1, raw2, raw3, raw4) {
+function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 
 	// Create structure
 	var data = {
@@ -335,7 +340,10 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 			lock_release:	0,
 			lock_wait:		0,
 			lock_hold:		0,
-			threads:		0
+			threads:		0,
+			bandwidth:		0,
+			invalid_l1:		0,
+			invalid_l2:		0
 		},
 		frames: {},
 		events: {
@@ -405,6 +413,10 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 				migrations:		0,	// how many threads migrating
 				lock_success:	0,	// how many threads successing lock acquisition
 				lock_failure:	0,	// how many threads failing lock acquisition
+				
+				bandwidth:		0,	// how many memory bandwidth is used in bytes
+				invalid_l1:		0,	// how many L1 invalidations (cache coherency misses)
+				invalid_l2:		0,	// how many L2 invalidations (cache coherency misses)
 			}
 		}
 	}
@@ -908,6 +920,46 @@ function computeData(profile, raw1, raw2, raw3, raw4) {
 		}
 	});
 
+
+	/**
+	 *
+	 *	RAW 5:
+	 *		memory bandwidth
+	 *
+	 */
+	if (raw5 != null) raw5.forEach(function(element) {
+		// Compute time ID
+		timeEvent = Math.round(element.dtime / 10000);
+
+		// Check time frame existance
+		checkFrame(timeEvent);
+		
+		// Append memory bandwidth
+		data.stats.bandwidth += element.value | 0;
+		data.frames[timeEvent].bandwidth += element.value | 0;
+		data.frames[timeEvent].c[element.cid].bandwidth = element.value;
+	});
+
+
+	/**
+	 *
+	 *	RAW 6:
+	 *		cache coherency misses
+	 *
+	 */
+	if (raw6 != null) raw6.forEach(function(element) {
+		// Compute time ID
+		timeEvent = Math.round(element.dtime / 10000);
+
+		// Check time frame existance
+		checkFrame(timeEvent);
+		
+		// Append Lx invalidation (cache coherency misses)
+		data.stats['invalid_l' + element.type[1]] += element.value | 0;
+		data.frames[timeEvent]['invalid_l' + element.type[1]] += element.value | 0;
+		data.frames[timeEvent].c[element.cid]['invalid_l' + element.type[1]] = element.value;
+	});
+	
 
 	/**
 	 *
