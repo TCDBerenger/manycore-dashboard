@@ -757,19 +757,16 @@ app.directive('chartPercent', function() {
 				// All - points - data
 				tStep = profileData.info.timeStep;
 				scaleVZero = r.scalesV[index](0);
-				for (var t = r.meta.begin; t < r.meta.end; t += tStep) {
+				for (var t = r.meta.begin; t < r.meta.ends[index]; t += tStep) {
 					for (var v = 0; v < r.deck.v.length; v++) {
-						if (profileData.percent.hasOwnProperty(t) && profileData.percent[t].hasOwnProperty(r.deck.v[v].attr))
-							yPositions[v] = profileData.percent[t][r.deck.v[v].attr];
-						else
-							yPositions[v] = 0;
+						// Get raw data (in percent)
+						yPositions[v] = profileData.raw.amountPercent[t / tStep][r.deck.v[v].attr] | 0;
 
 						// Stack positions
-						if (v > 0)
-							yPositions[v] += yPositions[v-1];
+						if (v > 0) yPositions[v] += yPositions[v-1];
 
 						yScaledPosition = r.scalesV[index](yPositions[v]);
-
+						
 						// Add points to shape (x, y, x, y)
 						//	=> twice for the boxing effect
 						r.iData[index][v + 1].push(r.scaleX(t), yScaledPosition, r.scaleX(t + tStep), yScaledPosition);
@@ -845,52 +842,45 @@ app.directive('chartPercent', function() {
 		function updateFocusRule(prefixID, y0, yLastPosition, index, t, tIndex, v) {
 			var facet = r.deck.v[v];
 			var yNormalized;
+			var value = (tIndex in r.profiles[index].currentData.raw.amount) ? r.profiles[index].currentData.raw.amount[tIndex][facet.attr] | 0 : 0;
 			
-			if (t >= r.meta.ends[index] || ! r.profiles[index].currentData.percent[t][facet.attr]) {
+			if (t >= r.meta.ends[index] || value < 1) {
 				// Send disable to controller
 				r.scope.focusRuleHandle(prefixID + facet.attr, NaN, NaN, NaN);
 				return null;
 				
 			} else {
-				var value = r.profiles[index].currentData[facet.cat][t][facet.attr];
-				
-				if (value >= 1) {
-					if (yLastPosition) {
-						if (index == 0) {
-							yNormalized = Math.min(
-								yLastPosition - FOCUS_PIN_OVERLAP_MARGIN,
-								y0 + (r.iData[0][v + 1][tIndex * 4 + 1] + r.iData[0][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[0] + r.meta.vOverflow[0]);
-						} else {
-							yNormalized = Math.max(
-								yLastPosition + FOCUS_PIN_OVERLAP_MARGIN,
-								y0 + (r.iData[1][v + 1][tIndex * 4 + 1] + r.iData[1][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[1] + r.meta.vOverflow[0]);
-						}
+				if (yLastPosition) {
+					if (index == 0) {
+						yNormalized = Math.min(
+							yLastPosition - FOCUS_PIN_OVERLAP_MARGIN,
+							y0 + (r.iData[0][v + 1][tIndex * 4 + 1] + r.iData[0][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[0] + r.meta.vOverflow[0]);
 					} else {
-						if (index == 0) {
-							yNormalized = Math.min(
-								y0 - FOCUS_PIN_MARGIN + 1 + r.layout.profile.y[0] + r.meta.vOverflow[0] + r.layout.profile.height,
-								y0 + (r.iData[0][v + 1][tIndex * 4 + 1] + r.iData[0][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[0] + r.meta.vOverflow[0]
-							);
-						} else {
-							yNormalized = Math.max(
-								y0 + FOCUS_PIN_MARGIN + r.layout.profile.y[1] + r.meta.vOverflow[0],
-								y0 + (r.iData[1][v + 1][tIndex * 4 + 1] + r.iData[1][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[1] + r.meta.vOverflow[0]
-							);
-						}
+						yNormalized = Math.max(
+							yLastPosition + FOCUS_PIN_OVERLAP_MARGIN,
+							y0 + (r.iData[1][v + 1][tIndex * 4 + 1] + r.iData[1][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[1] + r.meta.vOverflow[0]);
 					}
-					
-					// Send new coordinates to controller
-					r.scope.focusRuleHandle(
-						prefixID + facet.attr,
-						yNormalized,
-						value,
-						(facet.unity) ? value + ' ' + facet.unity : value);
-					return yNormalized;
 				} else {
-					// Send disable to controller
-					r.scope.focusRuleHandle(prefixID + facet.attr, NaN, NaN, NaN);
-					return yLastPosition;
+					if (index == 0) {
+						yNormalized = Math.min(
+							y0 - FOCUS_PIN_MARGIN + 1 + r.layout.profile.y[0] + r.meta.vOverflow[0] + r.layout.profile.height,
+							y0 + (r.iData[0][v + 1][tIndex * 4 + 1] + r.iData[0][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[0] + r.meta.vOverflow[0]
+						);
+					} else {
+						yNormalized = Math.max(
+							y0 + FOCUS_PIN_MARGIN + r.layout.profile.y[1] + r.meta.vOverflow[0],
+							y0 + (r.iData[1][v + 1][tIndex * 4 + 1] + r.iData[1][v][tIndex * 4 + 1]) / 2 + r.layout.profile.y[1] + r.meta.vOverflow[0]
+						);
+					}
 				}
+				
+				// Send new coordinates to controller
+				r.scope.focusRuleHandle(
+					prefixID + facet.attr,
+					yNormalized,
+					value,
+					(facet.unity) ? value + ' ' + facet.unity : value);
+				return yNormalized;
 			}
 		}
 
