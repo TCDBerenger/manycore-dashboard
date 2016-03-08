@@ -202,6 +202,13 @@ app.filter('v4', function() {
 		return results;
 	};
 });
+app.filter('v5', function() {
+	return function(items) {
+		var results = [];
+		items.forEach(function(item) { if (item.version == 5) results.push(item) })
+		return results;
+	};
+});
 
 app.directive('proxyLinkDirective', ['$parse', '$injector', '$compile', function ($parse, $injector, $compile) {
 	return {

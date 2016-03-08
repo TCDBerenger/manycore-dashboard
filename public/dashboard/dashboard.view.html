@@ -32,14 +32,20 @@
 		<h2 ng-if="isStep1()"><strong>Step 1</strong> select a sample</h2>
 		<h2 ng-if="isStep1Compare()"><strong>Step 1 bis</strong> compare</h2>
 		<p>&nbsp;</p>
+		<p style="text-size: 14px">Profiles with all gathered data:</p>
 		<p class="profile-group">
-			<button type="button" class="btn {{ profile.version < 4 | iif : 'btn-default' : 'btn-primary'}} btn-xs" ng-click="selectProfile(profile)" ng-repeat="profile in profiles | enabled | orderBy : 'label'" tooltip="{{::profile.desc}}" ng-disabled="isSelected(profile)">{{::profile.label}}</button>
+			<button type="button" class="btn btn-primary btn-xs" ng-click="selectProfile(profile)" ng-repeat="profile in profiles | enabled | v5 | orderBy : 'label'" uib-tooltip="{{::profile.desc}}" ng-disabled="isSelected(profile)">{{::profile.label}}</button>
+			<!-- ng-class="{'btn-primary': profile.version == 5, 'btn-default': profile.version == 4, 'btn-link': profile.version == 3}" -->
 		</p>
-		<p>
-			<button type="button" class="btn btn-primary btn-xs"></button> all data and counters are found<br />
-			<button type="button" class="btn btn-default btn-xs"></button> thread locks data is missing<br />
-			&nbsp;<i class="fa fa-info-circle"></i> tooltip is available when a description of the sample is provided
+		<p style="text-size: 14px">Profiles without memory bandwidth nor cache coherency misses:</p>
+		<p class="profile-group">
+			<button type="button" class="btn btn-primary btn-xs" ng-click="selectProfile(profile)" ng-repeat="profile in profiles | enabled | v4 | orderBy : 'label'" uib-tooltip="{{::profile.desc}}" ng-disabled="isSelected(profile)">{{::profile.label}}</button>
 		</p>
+		<p style="text-size: 14px">Profiles without locks, memory bandwidth nor cache coherency misses:</p>
+		<p class="profile-group">
+			<button type="button" class="btn btn-primary btn-xs" ng-click="selectProfile(profile)" ng-repeat="profile in profiles | enabled | v3 | orderBy : 'label'" uib-tooltip="{{::profile.desc}}" ng-disabled="isSelected(profile)">{{::profile.label}}</button>
+		</p>
+		<p><i class="fa fa-info-circle"></i> tooltip is available when a description of the profile is provided</p>
 	</div>
 </div>
 
