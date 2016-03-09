@@ -91,7 +91,9 @@ router.get('/stats', function(request, response) {
 		s: {},
 		m: {},
 		ls: {},
-		lf: {}
+		lf: {},
+		il1: {},
+		il2: {}
 	};
 	
 	// Load data
@@ -109,12 +111,20 @@ router.get('/stats', function(request, response) {
 					output.ls[profile.id] = null;
 					output.lf[profile.id] = null;
 				}
+				if (profile.v >= 5) {
+					output.il1[profile.id] = null;
+					output.il2[profile.id] = null;
+				}
 			} else {
 				output.s[profile.id] = profile.data.stats.switches;
 				output.m[profile.id] = profile.data.stats.migrations;
 				if (profile.v >= 4) {
 					output.ls[profile.id] = profile.data.stats.lock_success;
 					output.lf[profile.id] = profile.data.stats.lock_failure;
+				}
+				if (profile.v >= 5) {
+					output.il1[profile.id] = profile.data.stats.invalid_l1;
+					output.il2[profile.id] = profile.data.stats.invalid_l2;
 				}
 				output.durations[profile.id] = profile.data.info.timeMax + profile.data.info.timeStep;
 			}

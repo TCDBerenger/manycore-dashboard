@@ -202,10 +202,24 @@ app.filter('v4', function() {
 		return results;
 	};
 });
+app.filter('v4atleast', function() {
+	return function(items) {
+		var results = [];
+		items.forEach(function(item) { if (item.version >= 4) results.push(item) })
+		return results;
+	};
+});
 app.filter('v5', function() {
 	return function(items) {
 		var results = [];
 		items.forEach(function(item) { if (item.version == 5) results.push(item) })
+		return results;
+	};
+});
+app.filter('v5atleast', function() {
+	return function(items) {
+		var results = [];
+		items.forEach(function(item) { if (item.version >= 5) results.push(item) })
 		return results;
 	};
 });

@@ -343,7 +343,7 @@
 						<th># failure</th>
 						<th>failure / core / ms</th>
 					</tr></thead>
-					<tbody style="text-align: center;"><tr ng-repeat="profile in profiles | v4">
+					<tbody style="text-align: center;"><tr ng-repeat="profile in profiles | enabled | v4atleast">
 						<td>{{profile.id}}</td>
 						<td>{{profile.label}}<span ng-if="profile.disabled"> <span class="text-muted">[disabled]</span></span></td>
 						<td>{{renderVersion_stats(profile)}}</td>
@@ -361,6 +361,40 @@
 						<td>{{profiles[0].hardware.calibration.ls}}</td>
 						<td></td>
 						<td>{{profiles[0].hardware.calibration.lf}}</td>
+					</tr></tbody>
+				</table>
+			</div>
+			
+			<div class="col-sm-6">
+				<h2>Cache line invalidations</h2>
+				<table class="table table-striped table-hover">
+					<thead><tr>
+						<th>#</th>
+						<th></th>
+						<th>cache version</th>
+						<th># L1 inv</th>
+						<th>L1 inv / core / ms</th>
+						<th># L2 inv</th>
+						<th>L2 inv / core / ms</th>
+					</tr></thead>
+					<tbody style="text-align: center;"><tr ng-repeat="profile in profiles | enabled | v5atleast">
+						<td>{{profile.id}}</td>
+						<td>{{profile.label}}<span ng-if="profile.disabled"> <span class="text-muted">[disabled]</span></span></td>
+						<td>{{renderVersion_stats(profile)}}</td>
+						<td>{{stats.il1[profile.id]}}</td>
+						<td>{{mean(profile, 'il1', 1)}}</td>
+						<td>{{stats.il2[profile.id]}}</td>
+						<td>{{mean(profile, 'il2', 1)}}</td>
+					</tr><tr class="info" style="font-weight: bold;">
+						<td colspan="4">average</td>
+						<td>{{average('il1', 1)}}</td>
+						<td></td>
+						<td>{{average('il2', 1)}}</td>
+					</tr><tr class="success" style="font-weight: bold;">
+						<td colspan="4">choosen calibration</td>
+						<td>{{profiles[0].hardware.calibration.il1}}</td>
+						<td></td>
+						<td>{{profiles[0].hardware.calibration.il2}}</td>
 					</tr></tbody>
 				</table>
 			</div>

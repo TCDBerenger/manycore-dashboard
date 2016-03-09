@@ -44,7 +44,9 @@ var hardRoman = {
 		s:	1,				// number of switches by ms by core
 		m:	0.3,			// number of migrations by ms by core
 		ls: 0.01,			// number of success lock acquisition by ms by core
-		lf: 0.003			// number of failure lock acquisition by ms by core
+		lf: 0.003,			// number of failure lock acquisition by ms by core
+		il1:	200000,		// number of L1 cache line invalidations by ms by core
+		il2:	400000		// number of L2 cache line invalidations by ms by core
 	}
 };
 
@@ -79,7 +81,9 @@ var hardSTG = {
 		s:	1,				// number of switches by ms by core
 		m:	0.3,			// number of migrations by ms by core
 		ls: 0.01,			// number of success lock acquisition by ms by core
-		lf: 0.003			// number of failure lock acquisition by ms by core
+		lf: 0.003,			// number of failure lock acquisition by ms by core
+		il1:	200000,		// number of L1 cache line invalidations by ms by core
+		il2:	400000		// number of L2 cache line invalidations by ms by core
 	}
 };
 
