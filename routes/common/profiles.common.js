@@ -75,7 +75,7 @@ var hardSTG = {
 		l2:			256,		// cache L2 in KB
 		l3:			8192,		// cache L3 in KB
 		ram:		4194304,	// cache RAM in KB
-		bandwidth:	22369607	// maximum memory bandwidth by second = 21,333.32 MB/s
+		bandwidth:	22369607	// maximum memory bandwidth in KB by second = 21,333.32 MB/s
 	},
 	calibration: {			// TYPICAL VALUES
 		s:	1,				// number of switches by ms by core
@@ -115,7 +115,7 @@ var profileMap = {
 		{ id: 20,	label: 'Excel',			desc: 'Microsoft Excel sample',		hardware: hardRoman, file: 'excel',			pid: 5176,	timeStep: 50, v: 3, disabled: true },
 
 		{ id: 21,	label: 'Dining ph.  5',	desc: 'Probliem for 5 philosophers dining',		hardware: hardRoman, file: 'philosophers5',		pid: 12220,	timeStep: 50, v: 4 },
-		{ id: 22,	label: 'Dining ph. 45′',desc: 'Probliem for 45 philosophers dining',	hardware: hardRoman, file: 'philosophers45',	pid: 6908,	timeStep: 50, v: 4 },
+		{ id: 22,	label: 'Dining ph. 45',	desc: 'Probliem for 45 philosophers dining',	hardware: hardRoman, file: 'philosophers45',	pid: 6908,	timeStep: 50, v: 4 },
 
 		{ id: 31,	label: 'P/C 1/1',		desc: '1 producer and 1 consumer',			hardware: hardRoman, file: 'pc1x1',		pid: 67380,	timeStep: 50, v: 4 },
 		{ id: 32,	label: 'P/C 1/10',		desc: '1 producer and 10 consumers',		hardware: hardRoman, file: 'pc1x10',	pid: 73540,	timeStep: 50, v: 4 },

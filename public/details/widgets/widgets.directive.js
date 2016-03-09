@@ -959,7 +959,7 @@ app.directive('chartUnits', function() {
 			// Main draw
 			var profileData, yPositions, yLogPosition, yScaledPosition;
 			var tID, scaleVZero;
-			var tStep = r.settings.timeGroup;
+			var tStep = r.settings.timeGroup | r.meta.timeGroup;
 			var dataSource_list, dataSource_length, dataSource_index;
 			r.profiles.forEach(function(profile, index) {
 				// Clean
@@ -975,25 +975,31 @@ app.directive('chartUnits', function() {
 				yPositions = [];
 				r.iData[index] = [[]];
 				for (var v = 0; v < r.deck.v.length; v++) {
-					dataSource_list.push(profileData[r.deck.v[v].list]);
-					dataSource_length.push(profileData[r.deck.v[v].list].length);
-					dataSource_index.push(0);
+					if (! r.deck.useFrameIstead) {
+						dataSource_list.push(profileData[r.deck.v[v].list]);
+						dataSource_length.push(profileData[r.deck.v[v].list].length);
+						dataSource_index.push(0);
+					}
 					yPositions.push(NaN);
 					r.iData[index].push([]);
 				};
 
 				// All - points - data
 				scaleVZero = r.scalesV[index](0);
-				for (var t = r.meta.begin; t < r.meta.end; t += tStep) {
+				for (var t = r.meta.begin; t < r.meta.ends[index]; t += tStep) {
 					tID = t / tStep;
 
 					for (var v = 0; v < r.deck.v.length; v++) {
 						yPositions[v] = 0;
 
 						// Count all values inside the time frame
-						while(dataSource_index[v] < dataSource_length[v] && dataSource_list[v][dataSource_index[v]] < (t + tStep)) {
-							yPositions[v]++;
-							dataSource_index[v]++;
+						if (r.deck.useFrameIstead) {
+							yPositions[v] = profileData.raw.amount[tID][r.deck.v[v].attr];
+						} else {
+							while (dataSource_index[v] < dataSource_length[v] && dataSource_list[v][dataSource_index[v]] < (t + tStep)) {
+								yPositions[v]++;
+								dataSource_index[v]++;
+							}
 						}
 
 						// Stack positions
@@ -1047,7 +1053,7 @@ app.directive('chartUnits', function() {
 		// Select
 		function select(positions, y0) {
 			// Time ID
-			var tIndex = Math.floor(positions.t / r.settings.timeGroup);
+			var tIndex = Math.floor(positions.t / (r.settings.timeGroup | r.meta.timeGroup));
 			if (tIndex == r.meta.lastSelectID) {
 				return;
 			} else {
@@ -1092,13 +1098,14 @@ app.directive('chartUnits', function() {
 			var facet = r.deck.v[v];
 			var yNormalized;
 			
-			if (tIndex >= r.meta.ends[index] / r.settings.timeGroup) {
+			if (tIndex >= r.meta.ends[index] / (r.settings.timeGroup | r.meta.timeGroup)) {
 				// Send disable to controller
 				r.scope.focusRuleHandle(prefixID + facet.attr, NaN, NaN, NaN);
 				return null;
 				
 			} else {
 				var value = r.data[index].hasOwnProperty(tIndex) ? r.data[index][tIndex][r.deck.v[v].attr] || 0 : 0;
+				console.log('value', value, 'tIndex', tIndex, r.data[index]);
 				
 				if (value >= 1) {
 					if (yLastPosition) {
@@ -1158,6 +1165,7 @@ app.directive('chartUnits', function() {
 /**
  * Stack
  */
+/**
 app.directive('chartStack', function() {
 
 	function chart_link(scope, element, attrs, controller) {
@@ -1291,7 +1299,7 @@ app.directive('chartStack', function() {
 		restrict: 'E'
 	}
 });
-
+*/
 
 
 /**
@@ -1618,10 +1626,12 @@ app.directive('chartLines', function() {
 						// Compute points
 						var points = [[], []];
 						var timeStep = profileData.info.timeStep;
+						var max = (r.deck.melody_c_max) ? r.deck.melody_c_max(profile, timeStep) : timeStep;
+						console.log('max', max);
 						var frameIndex;
 						for (var frameID = r.meta.begin; frameID < r.meta.ends[index]; frameID += timeStep) {
 							frameIndex = frameID / timeStep;
-							delta = profileData.raw.amount[frameIndex][r.deck.melody_c.attr + '_c' + line.id] * r.meta.melodyHeight / 2 / timeStep;
+							delta = profileData.raw.amount[frameIndex][r.deck.melody_c.attr + '_c' + line.id] * r.meta.melodyHeight / 2 / max;
 							points[0].push.apply(points[0], [r.scaleX(frameID), lineCenter + delta, r.scaleX(frameID + timeStep), lineCenter + delta]);
 							points[1].push.apply(points[1], [r.scaleX(frameID), lineCenter - delta, r.scaleX(frameID + timeStep), lineCenter - delta]);
 						}

@@ -139,7 +139,7 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 	var hasE =	eventProperties && eventProperties.length > 0;
 	var hasCF =	coreFrameProperties && coreFrameProperties.length > 0;
 	var isB =	{ s: statProperties.indexOf('b') >= 0,	f: hasF && frameProperties.indexOf('b') >= 0,													 };
-	var isE =	{ s: statProperties.indexOf('e') >= 0,	f: hasF && frameProperties.indexOf('e') >= 0,													 };
+	var isE =	{ s: statProperties.indexOf('e') >= 0,	f: hasF && frameProperties.indexOf('e') >= 0,													cf: hasCF && coreFrameProperties.indexOf('e') >= 0, };
 	var isI =	{ s: statProperties.indexOf('i') >= 0,	f: hasF && frameProperties.indexOf('i') >= 0,													cf: hasCF && coreFrameProperties.indexOf('i') >= 0, };
 	var isM =	{ s: statProperties.indexOf('m') >= 0,													e: hasE && eventProperties.indexOf('m') >= 0,	 };
 	var isR =	{ s: statProperties.indexOf('r') >= 0,	f: hasF && frameProperties.indexOf('r') >= 0,													 };
@@ -151,6 +151,8 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 	var isUE =	{										f: hasF && frameProperties.indexOf('ue') >= 0,													 };
 	var isYB =	{ 										f: hasF && frameProperties.indexOf('yb') >= 0,													 };
 	var isSYS =	{ 										f: hasF && frameProperties.indexOf('sys') >= 0,													 };
+	var isIL1 =	{ s: statProperties.indexOf('il1') >= 0,f: hasF && frameProperties.indexOf('il1') >= 0,													cf: hasCF && coreFrameProperties.indexOf('il1') >= 0, };
+	var isIL2 =	{ s: statProperties.indexOf('il2') >= 0,f: hasF && frameProperties.indexOf('il2') >= 0,													cf: hasCF && coreFrameProperties.indexOf('il2') >= 0, };
 	
 	// Find data (real raw data)
 	var data =	profiles[id].data;
@@ -192,6 +194,8 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 	if (isLF.s) {	output.raw.stats.lf =	Math.round(data.stats.lock_failure); }
 	if (isLS.s) {	output.raw.stats.ls =	Math.round(data.stats.lock_success); }
 	if (isLW.s) {	output.raw.stats.lw =	Math.round(data.stats.lock_wait);			output.raw.statsPercent.lw =	Math.round(100 * data.stats.lock_wait / max.timeProfile); }
+	if (isIL1.s) {	output.raw.stats.il1 =	Math.round(data.stats.invalid_l1); }
+	if (isIL2.s) {	output.raw.stats.il2 =	Math.round(data.stats.invalid_l2); }
 	if (addDalaLocality) {
 				output.raw.stats.ipc =	Math.round(data.locality.stats.ipc);	output.raw.statsPercent.ipc =	Math.round(100 * data.locality.stats.ipc / max.locality);
 				output.raw.stats.tlb =	Math.round(data.locality.stats.tlb);	output.raw.statsPercent.tlb =	Math.round(100 * data.locality.stats.tlb / max.locality);
@@ -231,11 +235,18 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 				if (isE.f) { amount.e =		Math.round(data.frames[timeID].bandwidth / 1048576);						amountPercent.e =	Math.round(100 * data.frames[timeID].bandwidth / max.bandwidthFrame); }
 				if (isUE.f) { amount.ue =	Math.round((max.bandwidthFrame - data.frames[timeID].bandwidth) / 1048576);	amountPercent.ue =	100 - Math.round(100 * data.frames[timeID].bandwidth / max.bandwidthFrame); }
 				
+				// Cache line invalidation
+				if (isIL1.f) amount.il1 =	data.frames[timeID].invalid_l1;
+				if (isIL2.f) amount.il2 =	data.frames[timeID].invalid_l2;
+				
 				// Core times
 				if (hasCF) {
 					for (var cid = profiles[id].hardware.data.lcores; cid--; ) {
 						if (isR.cf)	amount['r_c' + cid] =	Math.round(data.frames[timeID].c[cid].running);
 						if (isI.cf)	amount['i_c' + cid] =	Math.round(data.frames[timeID].c[cid].idle);
+						if (isE.cf)	amount['e_c' + cid] =	Math.round(data.frames[timeID].c[cid].bandwidth / 1048576);
+						if (isIL1.cf) amount['il1_c' + cid] =	data.frames[timeID].c[cid].invalid_l1;
+						if (isIL2.cf) amount['il2_c' + cid] =	data.frames[timeID].c[cid].invalid_l2;
 					}
 				}
 				
@@ -666,7 +677,7 @@ function jsonDS(profile, id) {
 	addCommon(output, id);
 	
 	// Add raw data for visualisation
-	addRawData(output, id, ['r', 'i', 'lw', 'e'], ['i', 'r', 'lw', 'sys', 'e', 'ue'], null, null, true);
+	addRawData(output, id, ['r', 'i', 'lw', 'e', 'il1', 'il2'], ['i', 'r', 'lw', 'sys', 'e', 'ue', 'il1', 'il2'], null, ['e'], true);
 
 	// Add locks
 	addTimes(output, id, ['r', 'lw', 'i', 'sys']);
@@ -750,7 +761,7 @@ function jsonRS(profile, id) {
 	addCommon(output, id);
 	
 	// Add raw data for visualisation
-	addRawData(output, id, ['lf', 'ls', 'e'], ['e', 'ue'], ['lf', 'ls'], null, true);
+	addRawData(output, id, ['lf', 'ls', 'e', 'il1', 'il2'], ['e', 'ue', 'il1', 'il2'], ['lf', 'ls'], ['e'], true);
 
 	// Add locks
 	addLocks(output, id);

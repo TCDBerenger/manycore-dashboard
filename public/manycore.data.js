@@ -120,8 +120,12 @@ app.factory('facets', ['colours', function(colours) {
 		q_s:	{ label: 'sequential',		title: 'Sequential sequence',	desc: desc_q_s,	unity: '', cat: '', attr: '',	colours: colours.sets.Orange,	color: colours.list.fOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange },
 		q_p:	{ label: 'parallel',		title: 'Parallel sequence',		desc: desc_q_p,	unity: '', cat: '', attr: '',	colours: colours.sets.Green,	color: colours.list.fGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
 		
-		e:		{ label: 'Memory bandwitdh',			unity: 'MB',	attr: 'e',	colours: colours.sets.Magenta },
-		ue:		{ label: 'Available memory bandwitdh',	unity: 'MB',	attr: 'ue',	colours: colours.sets.Grey },
+		e:		{ label: 'Memory bandwitdh',			unity: 'MB',	attr: 'e',		colours: colours.sets.Magenta },
+		ue:		{ label: 'Available memory bandwitdh',	unity: 'MB',	attr: 'ue',		colours: colours.sets.Blue },
+		se:		{ label: 'System memory bandwitdh',		unity: 'MB',	attr: 'se',		colours: colours.sets.Grey },
+		
+		il1:	{ label: 'L1 cache line invalidations',	unity: '',		attr: 'il1',	colours: colours.sets.Red4 },
+		il2:	{ label: 'L2 cache line invalidations',	unity: '',		attr: 'il2',	colours: colours.sets.Red2 },
 	};
 }]);
 
@@ -249,14 +253,72 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		return lines;
 	}
 
-	var limit = 	{ color: colours.list.fGrey, fcolor: colours.list.dGrey, gcolor: colours.list.lGrey };
-	var text = 		{ color: colours.list.black, fcolor: colours.list.black, gcolor: colours.list.black };
+	var limit = 	{ colours: colours.sets.Grey,	color: colours.list.fGrey, fcolor: colours.list.dGrey, gcolor: colours.list.lGrey };
+	var text = 		{ 								color: colours.list.black, fcolor: colours.list.black, gcolor: colours.list.black };
 
 	// Fruit salad
 	var m =		JSON.parse(JSON.stringify(facets.m));
 	m.colors = ['#b6e3bc', '#b6e3da', '#b6cee3', '#bcb6e3', '#dab6e3', '#e3b6ce', '#e3bcb6', '#e3dab6'];
 	
 	return {
+		cacheBreackdown: {
+			handling: {
+				time: TIME_NONE,
+			},
+			graph : {
+				h:		limit,
+				plots:	[facets.pn, facets.h, facets.ct, facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf],
+				c_scale:[facets.ipc.colours.n, facets.miss.colours.n, facets.miss.colours.n]
+			},
+			legend: {
+				axis: [
+				],
+				data: [
+				],
+				options: { disablePrelist: true }
+			},
+			clues: [],
+			settings: [
+				{ property: 'colorMode', value: 0, type: 'select', label: 'Color by', choices: ['good <--> poor locality', 'process', 'thread'] },
+				{ property: 'colorThreshold', value: 20, type: 'range', label: 'Locality threshold', unit: '%', min: 5, max: 95, step: 5, depends: ['colorMode', 0] },
+			]
+		},
+		cacheInvalid: {
+			handling: {
+				time:	TIME_PROFILE,
+				v:		[facets.il1, facets.il2]
+			},
+			graph : {
+				v:			[facets.il1, facets.il2],
+				limit:		limit,
+				limitLabel:	't. value',
+				useFrameIstead: true
+			},
+			data: [facets.il1, facets.il2],
+			focus: [facets.il1, facets.il2],
+			legend: {
+				axis: [
+					{ b: '-', t: 't. value',	d: 'typical value of expected cache line invalidations',	f: limit, sv: 'calibration', sd: 'cache line invalidations by ms' },
+					{ b: 'n×', t: 'excess',		d: 'more cache line invalidations than expected (multiple of the typical value)',			f: limit },
+				],
+				data: [
+					{ b: '▮', 	d: 'number line invalidations in L2 cache',	f: facets.il2 },
+					{ b: '▮', 	d: 'number line invalidations in L1 cache',	f: facets.il1 }
+				]
+			},
+			clues: [],
+			plans: [
+				{ id: 1, label: 'log₂', property: 'useLogScale' },
+				{ id: 2, label: 'linear', property: 'useLinearScale' },
+			],
+			params: [
+				{ property: 'timeGroup', value: 50 }
+			],
+			settings: [
+				{ property: 'calibration', type: 'pnumeric', check: 'positive', label: 'Typical values', unit: 'line invalidations', psource: function(profile) { return profile.hardware.data.lcores * (profile.hardware.calibration.il1 + profile.hardware.calibration.il2); } },
+				{ property: 'highlightOverflow', value: false, type: 'flag', label: 'High zone', desc: 'shows the high area, over the typical value' }
+			]
+		},
 		cacheMisses: {
 			handling: {
 				time: TIME_PROFILE,
@@ -283,6 +345,33 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			clues: [],
 			settings: []
 		},
+		coreBandwidth: {
+			handling: {
+				time: TIME_PROFILE,
+			},
+			graph : {
+				h:			limit,		// threads (color)
+				lines:		buildCores,
+				melody_c:	facets.e,
+				melody_c_max:	function(profile, timeStep) { return Math.round(profile.hardware.data.bandwidth * timeStep / profile.hardware.data.pcores / 1048576); },
+				// in theory, a single core could use all the bandwidth. However, for the graph,
+				// we devided the max by the number of physical cores (half number of cores).
+				// This is totally arbitrary.
+			},
+			data: [facets.e],
+			legend: {
+				axis: [
+					{ b: '⊢', f: limit,	t: '[Y] Cores',	d: 'each line represents a core' }
+				],
+				data: [
+					{ b: '▮', f: facets.e,	d: 'memory bandwitdh used by the program' },
+				]
+			},
+			clues: [],
+			settings: [
+				{ property: 'melodyHeight', value: 9, type: 'range', label: 'Inactivity height', unit: 'pixels', min: 6, max: 12, step: 1 }
+			]
+		},
 		coreIdle: {
 			handling: {
 				time: TIME_PROFILE,
@@ -298,7 +387,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '⊢', f: limit,	t: '[Y] Cores',	d: 'each line represents a core' }
 				],
 				data: [
-					{ b: '▮', t: 'Idle', d: 'time spend by the core waiting a thread to run (other processes are considfred as idle time)',	 c: colours.list.fGrey }
+					{ b: '▮', f: facets.i, t: 'Idle', d: 'time spend by the core waiting a thread to run (other processes are considfred as idle time)' }
 				]
 			},
 			clues: [],
@@ -619,28 +708,6 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ property: 'disableSequenceBackgound', value: false, type: 'flag', label: 'Parallel sequences', desc: 'hide backgound sequences (parallel/sequential)' },
 				{ property: 'sequenceThreshold', value: 1, type: 'range', label: 'Parallel threshold', unit: 'running threads', min: 0, max: 3, step: 1 },
 			]
-		},
-		pCoordDL: {
-			handling: {
-				time: TIME_NONE,
-			},
-			graph : {
-				h:		limit,
-				plots:	[facets.pn, facets.h, facets.ct, facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf],
-				c_scale:[facets.ipc.colours.n, facets.miss.colours.n, facets.miss.colours.n]
-			},
-			legend: {
-				axis: [
-				],
-				data: [
-				],
-				options: { disablePrelist: true }
-			},
-			clues: [],
-			settings: [
-				{ property: 'colorMode', value: 0, type: 'select', label: 'Color by', choices: ['good <--> poor locality', 'process', 'thread'] },
-				{ property: 'colorThreshold', value: 20, type: 'range', label: 'Locality threshold', unit: '%', min: 5, max: 95, step: 5, depends: ['colorMode', 0] },
-			]
 		}
 	};
 }]);
@@ -656,9 +723,10 @@ app.factory('widgets', ['decks', function(decks) {
 	//	- stats:		data and UI computed for focus or not
 	
 	return {
-		cacheBreackdown:	{ id: id(),	v: 3, file: 'chart-d3-pcoords',	deck: decks.pCoordDL,			wide: true,		title: 'Breakdown of time spent on locality misses',				desc: ''},
-		cacheInvalid:		{ id: id(),	v: 3, file: 'chart-todo',		deck: null,						wide: true,		title: 'Cache misses from updating shared data',					desc: ''},
+		cacheBreackdown:	{ id: id(),	v: 3, file: 'chart-d3-pcoords',	deck: decks.cacheBreackdown,	wide: true,		title: 'Breakdown of time spent on locality misses',				desc: ''},
+		cacheInvalid:		{ id: id(),	v: 5, file: 'chart-units',		deck: decks.cacheInvalid,		wide: false,	title: 'Cache misses from updating shared data',					desc: ''},
 		cacheMisses:		{ id: id(),	v: 3, file: 'chart-percent',	deck: decks.cacheMisses,		wide: false,	title: 'Percentage of time spent on locality misses',				desc: ''},
+		coreBandwidth:		{ id: id(),	v: 5, file: 'chart-lines',		deck: decks.coreBandwidth,		wide: false,	title: 'Remote memory access by core',								desc: 'Memory bandwitdh'},
 		coreIdle:			{ id: id(),	v: 3, file: 'chart-lines',		deck: decks.coreIdle,			wide: false,	title: 'Idle cores',												desc: 'Times that cores are idle'},
 		coreSequences:		{ id: id(),	v: 3, file: 'chart-lines',		deck: decks.sequences,			wide: false,	title: 'Single thread execution phases',							desc: 'alternating sequential/parallel execution'},
 		lockCounts:			{ id: id(),	v: 4, file: 'chart-units',		deck: decks.lockCounts,			wide: false,	title: 'Lock contentions',											desc: 'Locking with and without contention'},
@@ -727,7 +795,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 		example: 'These transfers take time, with the result that there is typically a cost to data sharing, particularly when shared variables and data structures are modified.',
 		strips: [],
 		gauges: [[lw, miss]],
-		widgets: [widgets.lockContentions, widgets.cacheMisses, widgets.memBandwidth, widgets.cacheInvalid]
+		widgets: [widgets.lockContentions, widgets.cacheMisses, widgets.cacheInvalid, widgets.memBandwidth, widgets.coreBandwidth]
 	};
 	var lb = {
 		tag: 'lb', cat: 'lb', label: 'Load balancing', title: 'Load balancing', icon: 'list-ol', enabled: true,
@@ -751,7 +819,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 		example: 'For example, all cores will typically share a single connection to main memory.',
 		strips: [],
 		gauges: [],
-		widgets: [widgets.memBandwidth, widgets.lockCounts, widgets.cacheMisses]
+		widgets: [widgets.memBandwidth, widgets.coreBandwidth, widgets.lockCounts, widgets.cacheMisses, widgets.cacheInvalid]
 	};
 	var io = {
 		tag: 'io', cat: 'io', label: 'Input/Output', title: 'Input/Output', icon: 'plug', enabled: false,
