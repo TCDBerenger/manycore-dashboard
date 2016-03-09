@@ -135,6 +135,10 @@ span.link:hover {
 	margin-left: 5px;
 	margin-top: 5px;
 }
+.nav-tab-text {
+	float: left;
+	margin: 10px 12px 10px 12px;
+}
 
 
 /*
