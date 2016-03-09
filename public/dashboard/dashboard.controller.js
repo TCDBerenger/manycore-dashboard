@@ -242,12 +242,12 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$stat
 	$scope.selectProfile = function(profile) {
 		// Download data for graphs
 		if (profile.data.hasOwnProperty('dash')) {
-			$scope._selectProfile_withData(profile);
+			_selectProfile_withData(profile);
 		} else {
-			$scope.downloadData(profile);
+			downloadData(profile);
 		}
 	};
-	$scope._selectProfile_withData = function(profile) {
+	function _selectProfile_withData(profile) {
 		// add to selection
 		$scope.selectedProfiles.push(profile);
 		
@@ -322,7 +322,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$stat
 	/**
 	 * Load
 	 */
-	$scope.downloadData = function(profile) {
+	function downloadData(profile) {
 		waitingProfiles.push(profile);
 		$scope.howWaiting++;
 
@@ -331,7 +331,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$stat
 
 			$scope.brushing.timeMax = Math.max($scope.brushing.timeMax, data.info.duration);
 
-			$scope._selectProfile_withData(profile);
+			_selectProfile_withData(profile);
 
 			waitingProfiles.splice(waitingProfiles.indexOf(profile), 1);
 			$scope.howWaiting--;
