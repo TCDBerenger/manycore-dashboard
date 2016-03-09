@@ -183,7 +183,7 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 	// Add stats
 	//
 	if (isB.s) {	output.raw.stats.b =	Math.round(data.stats.standby);				output.raw.statsPercent.b =		Math.round(100 * data.stats.standby / max.timeProfile); }
-	if (isE.s) {	output.raw.stats.e =	Math.round(data.stats.bandwidth / 1024);	output.raw.statsPercent.b =		Math.round(100 * data.stats.bandwidth / max.bandwidthProbile); }
+	if (isE.s) {	output.raw.stats.e =	Math.round(data.stats.bandwidth / 1048576);	output.raw.statsPercent.b =		Math.round(100 * data.stats.bandwidth / max.bandwidthProbile); }
 	if (isI.s) {	output.raw.stats.i =	Math.round(data.stats.idle);				output.raw.statsPercent.i =		Math.round(100 * data.stats.idle / max.timeProfile); }
 	if (isM.s) {	output.raw.stats.m =	data.stats.migrations; }
 	if (isR.s) {	output.raw.stats.r =	Math.round(data.stats.running);				output.raw.statsPercent.r =		Math.round(100 * data.stats.running / max.timeProfile); }
@@ -228,8 +228,8 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 				}
 				
 				// Bandwidth
-				if (isE.f) { amount.e =		Math.round(data.frames[timeID].bandwidth / 1024);							amountPercent.e =	Math.round(100 * data.frames[timeID].bandwidth / max.bandwidthFrame); }
-				if (isUE.f) { amount.ue =	Math.round((max.bandwidthFrame - data.frames[timeID].bandwidth) / 1024);	amountPercent.ue =	100 - Math.round(100 * data.frames[timeID].bandwidth / max.bandwidthFrame); }
+				if (isE.f) { amount.e =		Math.round(data.frames[timeID].bandwidth / 1048576);						amountPercent.e =	Math.round(100 * data.frames[timeID].bandwidth / max.bandwidthFrame); }
+				if (isUE.f) { amount.ue =	Math.round((max.bandwidthFrame - data.frames[timeID].bandwidth) / 1048576);	amountPercent.ue =	100 - Math.round(100 * data.frames[timeID].bandwidth / max.bandwidthFrame); }
 				
 				// Core times
 				if (hasCF) {

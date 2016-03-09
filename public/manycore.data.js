@@ -120,8 +120,8 @@ app.factory('facets', ['colours', function(colours) {
 		q_s:	{ label: 'sequential',		title: 'Sequential sequence',	desc: desc_q_s,	unity: '', cat: '', attr: '',	colours: colours.sets.Orange,	color: colours.list.fOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.lOrange },
 		q_p:	{ label: 'parallel',		title: 'Parallel sequence',		desc: desc_q_p,	unity: '', cat: '', attr: '',	colours: colours.sets.Green,	color: colours.list.fGreen,		fcolor: colours.list.dGreen,	gcolor: colours.list.lGreen },
 		
-		e:		{ label: 'Memory bandwitdh',			unity: 'KB',	attr: 'e',	colours: colours.sets.Magenta },
-		ue:		{ label: 'Available memory bandwitdh',	unity: 'KB',	attr: 'ue',	colours: colours.sets.Grey },
+		e:		{ label: 'Memory bandwitdh',			unity: 'MB',	attr: 'e',	colours: colours.sets.Magenta },
+		ue:		{ label: 'Available memory bandwitdh',	unity: 'MB',	attr: 'ue',	colours: colours.sets.Grey },
 	};
 }]);
 
