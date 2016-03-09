@@ -13,3 +13,23 @@
 .welcome .quicklink {
 	margin-top: 15px;
 }
+
+
+/*
+ * Welcome table compare
+ */
+.welcome .table-compare-list {
+	width: 100%;
+}
+.welcome .table-compare-list > tbody > tr > td:nth-of-type(2) {
+	padding: 10px;
+}
+.welcome .table-compare td {
+	padding: 0;
+}
+.welcome .table-compare th {
+	white-space: nowrap;
+}
+.welcome .table-compare-list button, .welcome .table-compare-list a {
+	width: 100%;
+}
