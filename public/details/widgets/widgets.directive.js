@@ -1105,7 +1105,6 @@ app.directive('chartUnits', function() {
 				
 			} else {
 				var value = r.data[index].hasOwnProperty(tIndex) ? r.data[index][tIndex][r.deck.v[v].attr] || 0 : 0;
-				console.log('value', value, 'tIndex', tIndex, r.data[index]);
 				
 				if (value >= 1) {
 					if (yLastPosition) {
@@ -1627,7 +1626,6 @@ app.directive('chartLines', function() {
 						var points = [[], []];
 						var timeStep = profileData.info.timeStep;
 						var max = (r.deck.melody_c_max) ? r.deck.melody_c_max(profile, timeStep) : timeStep;
-						console.log('max', max);
 						var frameIndex;
 						for (var frameID = r.meta.begin; frameID < r.meta.ends[index]; frameID += timeStep) {
 							frameIndex = frameID / timeStep;
