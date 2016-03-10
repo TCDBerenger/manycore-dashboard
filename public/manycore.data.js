@@ -236,7 +236,15 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			return buildThreads(profile);
 		}
 	}
-	function buildCores(profile) {
+	function buildPhysicalCores(profile) {
+		var begin = profile.currentData.info.timeMin;
+		var end = profile.currentData.info.duration;
+		var lines = [];
+		for (var l = 0; l < profile.hardware.data.pcores; l++)
+			lines.push({ id: l, l: 'core ' + l, s: begin, e: end });
+		return lines;
+	}
+	function buildLogicalCores(profile) {
 		var begin = profile.currentData.info.timeMin;
 		var end = profile.currentData.info.duration;
 		var lines = [];
@@ -244,7 +252,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			lines.push({ id: l, l: 'core ' + l, s: begin, e: end });
 		return lines;
 	}
-	function buildCoresAnonymously(profile) {
+	function buildLogicalCoresAnonymously(profile) {
 		var begin = profile.currentData.info.timeMin;
 		var end = profile.currentData.info.duration;
 		var lines = [];
@@ -351,7 +359,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			graph : {
 				h:			limit,		// threads (color)
-				lines:		buildCores,
+				lines:		buildPhysicalCores,
 				melody_c:	facets.e,
 				melody_c_max:	function(profile, timeStep) { return Math.round(profile.hardware.data.bandwidth * timeStep / profile.hardware.data.pcores / 1048576); },
 				// in theory, a single core could use all the bandwidth. However, for the graph,
@@ -378,7 +386,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			graph : {
 				h:			limit,		// threads (color)
-				lines:		buildCores,
+				lines:		buildLogicalCores,
 				melody_c:	facets.i,
 			},
 			data: [facets.i, facets.r],
@@ -683,7 +691,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			graph : {
 				h:			limit,		// threads (color)
-				lines:		buildCoresAnonymously,
+				lines:		buildLogicalCoresAnonymously,
 				sequences:	{ under: facets.q_s, count: facets.q_p }
 			},
 			data: [facets.r, facets.i],

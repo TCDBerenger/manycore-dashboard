@@ -153,6 +153,8 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 	var isSYS =	{ 										f: hasF && frameProperties.indexOf('sys') >= 0,													 };
 	var isIL1 =	{ s: statProperties.indexOf('il1') >= 0,f: hasF && frameProperties.indexOf('il1') >= 0,													cf: hasCF && coreFrameProperties.indexOf('il1') >= 0, };
 	var isIL2 =	{ s: statProperties.indexOf('il2') >= 0,f: hasF && frameProperties.indexOf('il2') >= 0,													cf: hasCF && coreFrameProperties.indexOf('il2') >= 0, };
+	var hasCFP =	isE.cf;
+	var hasCFL =	isI.cf || isIL1.cf || isIL2.cf;
 	
 	// Find data (real raw data)
 	var data =	profiles[id].data;
@@ -240,11 +242,15 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 				if (isIL2.f) amount.il2 =	data.frames[timeID].invalid_l2;
 				
 				// Core times
-				if (hasCF) {
+				if (hasCFP) {
+					for (var cid = profiles[id].hardware.data.pcores; cid--; ) {
+						if (isE.cf)	amount['e_c' + cid] =	Math.round(data.frames[timeID].c[cid].bandwidth / 1048576);
+					}
+				}
+				if (hasCFL) {
 					for (var cid = profiles[id].hardware.data.lcores; cid--; ) {
 						if (isR.cf)	amount['r_c' + cid] =	Math.round(data.frames[timeID].c[cid].running);
 						if (isI.cf)	amount['i_c' + cid] =	Math.round(data.frames[timeID].c[cid].idle);
-						if (isE.cf)	amount['e_c' + cid] =	Math.round(data.frames[timeID].c[cid].bandwidth / 1048576);
 						if (isIL1.cf) amount['il1_c' + cid] =	data.frames[timeID].c[cid].invalid_l1;
 						if (isIL2.cf) amount['il2_c' + cid] =	data.frames[timeID].c[cid].invalid_l2;
 					}
@@ -677,7 +683,7 @@ function jsonDS(profile, id) {
 	addCommon(output, id);
 	
 	// Add raw data for visualisation
-	addRawData(output, id, ['r', 'i', 'lw', 'e', 'il1', 'il2'], ['i', 'r', 'lw', 'sys', 'e', 'ue', 'il1', 'il2'], null, ['e'], true);
+	addRawData(output, id, ['r', 'i', 'lw', 'e', 'il1', 'il2'], ['i', 'r', 'lw', 'sys', 'e', 'ue', 'il1', 'il2'], ['il1', 'il2'], ['e'], true);
 
 	// Add locks
 	addTimes(output, id, ['r', 'lw', 'i', 'sys']);
@@ -761,7 +767,7 @@ function jsonRS(profile, id) {
 	addCommon(output, id);
 	
 	// Add raw data for visualisation
-	addRawData(output, id, ['lf', 'ls', 'e', 'il1', 'il2'], ['e', 'ue', 'il1', 'il2'], ['lf', 'ls'], ['e'], true);
+	addRawData(output, id, ['lf', 'ls', 'e', 'il1', 'il2'], ['e', 'ue', 'il1', 'il2'], ['lf', 'ls', 'il1', 'il2'], ['e'], true);
 
 	// Add locks
 	addLocks(output, id);

@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 73;
+var VERSION = 74;
 var PARALLEL_THRESHOLD = 2;
 
 /************************************************/
@@ -935,16 +935,18 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 	 *
 	 */
 	if (raw5 != null) raw5.forEach(function(element) {
-		// Compute time ID
-		timeEvent = Math.round(element.dtime / 10000);
+		if (element.cid % 2 == 0) {
+			// Compute time ID
+			timeEvent = Math.round(element.dtime / 10000);
 
-		// Check time frame existance
-		checkFrame(timeEvent);
-		
-		// Append memory bandwidth
-		data.stats.bandwidth += element.value | 0;
-		data.frames[timeEvent].bandwidth += element.value | 0;
-		data.frames[timeEvent].c[element.cid].bandwidth = element.value;
+			// Check time frame existance
+			checkFrame(timeEvent);
+			
+			// Append memory bandwidth
+			data.stats.bandwidth += element.value | 0;
+			data.frames[timeEvent].bandwidth += element.value | 0;
+			data.frames[timeEvent].c[element.cid / 2].bandwidth = element.value;
+		}
 	});
 
 
