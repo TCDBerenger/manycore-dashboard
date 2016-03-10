@@ -144,7 +144,7 @@
 	</div>
 	
 	<!-- Templates -->
-	<ng-include src="'/template_accordion_complete.html'" ng-repeat="set in sets"></ng-include>
+	<ng-include src="'/template_accordion_complete.html'" ng-repeat="columnSet in sets"></ng-include>
 </div>
 
 
@@ -152,13 +152,10 @@
 <!-- Events -->
 <script type="text/ng-template" id="/template_accordion_complete.html">
 	<div class="col-xs-4 col-md-3">
-		<uib-accordion>
-			<uib-accordion-group ng-if="maxVersion < set.version">
-				<uib-accordion-heading>{{::set.title}} (data not available)</uib-accordion-heading>
-			</uib-accordion-group>
-			<uib-accordion-group panel-class="panel-accordion panel-info" ng-if="maxVersion >= set.version" is-open="true">
-				<uib-accordion-heading>{{::set.title}}</uib-accordion-heading>
-				<table class="table table-hover table-raw">
+		<uib-accordion close-others="false">
+			<uib-accordion-group panel-class="panel-accordion panel-info" is-open="true" ng-repeat="set in columnSet">
+				<uib-accordion-heading>{{::set.title}} <span ng-if="maxVersion < set.version">(data not available)</span></uib-accordion-heading>
+				<table class="table table-hover table-raw" ng-if="maxVersion >= set.version">
 					<thead ng-if="profiles.length > 1">
 						<tr>
 							<th></th>
