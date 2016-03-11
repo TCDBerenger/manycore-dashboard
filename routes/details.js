@@ -247,7 +247,7 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 				
 				// Cache line invalidation
 				if (isIL1.f) { amount.il1 = data.frames[timeID].invalid_l1;	amountPercent.il1 = Math.round(100 * data.frames[timeID].invalid_l1 / max.L1Frame); }
-				if (isIL2.f) { amount.il2 = data.frames[timeID].invalid_l2;	amountPercent.il1 = Math.round(100 * data.frames[timeID].invalid_l2 / max.L2Frame); }
+				if (isIL2.f) { amount.il2 = data.frames[timeID].invalid_l2;	amountPercent.il2 = Math.round(100 * data.frames[timeID].invalid_l2 / max.L2Frame); }
 				
 				// Core times
 				if (hasCFP) {
