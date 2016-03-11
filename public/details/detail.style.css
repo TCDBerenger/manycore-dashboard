@@ -167,12 +167,12 @@
 .detail #ruler .facet-rule {
 	position: absolute;
 	left: -4px;
-	min-width: 150px;
 	height: 16px;
 	margin-top: -8px;
 	font-size: 0.7em;
 	font-weight: bold;
 	text-shadow: 0 0 4px #FFF;
+	white-space: nowrap !important;
 	transition: all 0.2s ease;
 }
 .detail #ruler .facet-rule i {
@@ -188,13 +188,13 @@
 }
 .detail #ruler .facet-pin {
 	position: absolute;
-	min-width: 150px;
 	height: 16px;
 	margin-top: -8px;
 	margin-left: -4px;
 	font-size: 0.7em;
 	font-weight: bold;
 	text-shadow: 0 0 4px #FFF;
+	white-space: nowrap !important;
 	transition: all 0.2s ease;
 }
 .detail #ruler .facet-pin:not(i) {
