@@ -323,9 +323,51 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ property: 'timeGroup', value: 50 }
 			],
 			settings: [
-				{ property: 'calibration', type: 'pnumeric', check: 'positive', label: 'Typical values', unit: 'line invalidations', psource: function(profile) { return profile.hardware.data.lcores * (profile.hardware.calibration.il1 + profile.hardware.calibration.il2); } },
+				{ property: 'calibration', type: 'pnumeric', check: 'positive', label: 'Typical values', unit: 'line invalidations', psource: function(profile) { return 0.1 * profile.hardware.data.cycles * (profile.hardware.data.l1caches + profile.hardware.data.l2caches - 2); } },
 				{ property: 'highlightOverflow', value: false, type: 'flag', label: 'High zone', desc: 'shows the high area, over the typical value' }
 			]
+		},
+		cacheInvalidL1: {
+			handling: {
+				time: TIME_PROFILE,
+			},
+			graph: {
+				v:		[facets.il1],
+				limit:	limit
+			},
+			data: [facets.il1, facets.il2],
+			focus: [facets.il1],
+			legend: {
+				axis: [
+					{ b: '%', t: '[Y] Percent',	d: 'theoretical maximum of possible L1 cache invalidations', c: colours.list.fGrey}
+				],
+				data: [
+					{ b: '▮', 	d: 'number line invalidations in L1 cache',	f: facets.il1 }
+				]
+			},
+			clues: [],
+			settings: []
+		},
+		cacheInvalidL2: {
+			handling: {
+				time: TIME_PROFILE,
+			},
+			graph: {
+				v:		[facets.il2],
+				limit:	limit
+			},
+			data: [facets.il1, facets.il2],
+			focus: [facets.il2],
+			legend: {
+				axis: [
+					{ b: '%', t: '[Y] Percent',	d: 'theoretical maximum of possible L2 cache invalidations', c: colours.list.fGrey}
+				],
+				data: [
+					{ b: '▮', 	d: 'number line invalidations in L2 cache',	f: facets.il2 }
+				]
+			},
+			clues: [],
+			settings: []
 		},
 		cacheMisses: {
 			handling: {
@@ -468,7 +510,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				time: TIME_PROFILE,
 			},
 			graph: {
-				v:		[facets.e, facets.ue],
+				v:		[facets.e, facets.ue, facets.se],
 				limit:	limit
 			},
 			data: [facets.e],
@@ -477,7 +519,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				axis: [],
 				data: [
 					{ b: '▮', f: facets.e,	d: 'memory bandwitdh used by the program' },
-					{ b: '▮', f: facets.ue,	d: 'non-measured memory bandwitdh (system and available)' }
+					{ b: '▮', f: facets.ue,	d: 'available memory bandwitdh' },
+					{ b: '▮', f: facets.se,	d: 'non-available memory bandwitdh, used by the system and other programs' }
 				]
 			},
 			clues: [],
@@ -733,6 +776,8 @@ app.factory('widgets', ['decks', function(decks) {
 	return {
 		cacheBreackdown:	{ id: id(),	v: 3, file: 'chart-d3-pcoords',	deck: decks.cacheBreackdown,	wide: true,		title: 'Breakdown of time spent on locality misses',				desc: ''},
 		cacheInvalid:		{ id: id(),	v: 5, file: 'chart-units',		deck: decks.cacheInvalid,		wide: false,	title: 'Cache misses from updating shared data',					desc: ''},
+		cacheInvalidL1:		{ id: id(),	v: 5, file: 'chart-percent',	deck: decks.cacheInvalidL1,		wide: false,	title: 'Percentage of time spent on L1 cache line invalidations',	desc: ''},
+		cacheInvalidL2:		{ id: id(),	v: 5, file: 'chart-percent',	deck: decks.cacheInvalidL1,		wide: false,	title: 'Percentage of time spent on L2 cache line invalidations',	desc: ''},
 		cacheMisses:		{ id: id(),	v: 3, file: 'chart-percent',	deck: decks.cacheMisses,		wide: false,	title: 'Percentage of time spent on locality misses',				desc: ''},
 		coreBandwidth:		{ id: id(),	v: 5, file: 'chart-lines',		deck: decks.coreBandwidth,		wide: false,	title: 'Remote memory access by core',								desc: 'Memory bandwitdh'},
 		coreIdle:			{ id: id(),	v: 3, file: 'chart-lines',		deck: decks.coreIdle,			wide: false,	title: 'Idle cores',												desc: 'Times that cores are idle'},
@@ -803,7 +848,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 		example: 'These transfers take time, with the result that there is typically a cost to data sharing, particularly when shared variables and data structures are modified.',
 		strips: [],
 		gauges: [[lw, miss]],
-		widgets: [widgets.lockContentions, widgets.cacheMisses, widgets.cacheInvalid, widgets.memBandwidth, widgets.coreBandwidth]
+		widgets: [widgets.lockContentions, widgets.cacheMisses, , widgets.cacheInvalidL1, widgets.cacheInvalidL2, widgets.cacheInvalid, widgets.memBandwidth, widgets.coreBandwidth]
 	};
 	var lb = {
 		tag: 'lb', cat: 'lb', label: 'Load balancing', title: 'Load balancing', icon: 'list-ol', enabled: true,
@@ -827,7 +872,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 		example: 'For example, all cores will typically share a single connection to main memory.',
 		strips: [],
 		gauges: [],
-		widgets: [widgets.memBandwidth, widgets.coreBandwidth, widgets.lockCounts, widgets.cacheMisses, widgets.cacheInvalid]
+		widgets: [widgets.memBandwidth, widgets.coreBandwidth, widgets.lockCounts, widgets.cacheMisses, widgets.cacheInvalidL1, widgets.cacheInvalidL2, widgets.cacheInvalid]
 	};
 	var io = {
 		tag: 'io', cat: 'io', label: 'Input/Output', title: 'Input/Output', icon: 'plug', enabled: false,
