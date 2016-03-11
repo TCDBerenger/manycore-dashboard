@@ -33,7 +33,11 @@ var hardRoman = {
 		arch:		'x86-64',	// architecture 32 or 64 bits
 		pcores:		4,			// number of physical cores
 		lcores:		8,			// number of logical cores
+		l1caches:	4,			// number of caches L1
+		l2caches:	2,			// number of caches L2
+		l3caches:	1,			// number of caches L3
 		clock:		3.06,		// clock speed in GHz
+		cycles:		306000,		// max cycles by ms
 		l1:			32,			// cache L1 in KB
 		l2:			256,		// cache L2 in KB
 		l3:			8192,		// cache L3 in KB
@@ -70,7 +74,11 @@ var hardSTG = {
 		arch:		'x86-64',	// architecture 32 or 64 bits
 		pcores:		4,			// number of physical cores
 		lcores:		8,			// number of logical cores
+		l1caches:	4,			// number of caches L1
+		l2caches:	2,			// number of caches L2
+		l3caches:	1,			// number of caches L3
 		clock:		2.78,		// clock speed in GHz
+		cycles:		280000,		// max cycles by ms
 		l1:			32,			// cache L1 in KB
 		l2:			256,		// cache L2 in KB
 		l3:			8192,		// cache L3 in KB
@@ -964,9 +972,9 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 		checkFrame(timeEvent);
 		
 		// Append Lx invalidation (cache coherency misses)
+		// Sum values by threads
 		data.stats['invalid_l' + element.type[1]] += element.value | 0;
 		data.frames[timeEvent]['invalid_l' + element.type[1]] += element.value | 0;
-		data.frames[timeEvent].c[element.cid]['invalid_l' + element.type[1]] = element.value;
 	});
 	
 
