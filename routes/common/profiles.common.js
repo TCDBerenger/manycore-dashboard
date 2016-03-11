@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 75;
+var VERSION = 76;
 var PARALLEL_THRESHOLD = 2;
 
 /************************************************/
@@ -975,6 +975,10 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 		// Sum values by threads
 		data.stats['invalid_l' + element.type[1]] += element.value | 0;
 		data.frames[timeEvent]['invalid_l' + element.type[1]] += element.value | 0;
+		
+		// Temporary treatment
+		if (element.cid < profile.hardware.data['l' + element.type[1] + 'caches'])
+			data.frames[timeEvent].c[element.cid]['invalid_l' + element.type[1]] = element.value;
 	});
 	
 
