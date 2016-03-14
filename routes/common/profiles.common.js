@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 78;
+var VERSION = 79;
 var PARALLEL_THRESHOLD = 2;
 
 /************************************************/
@@ -1013,6 +1013,8 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 	 *		cache coherency misses
 	 *
 	 */
+	var coreCount = profile.hardware.data.lcores;
+	var lxID, pxID, value, cxID;
 	if (raw6 != null) raw6.forEach(function(element) {
 		if (element.pid == profile.pid) {
 			// Compute time ID
@@ -1021,11 +1023,20 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 			// Check time frame existance
 			checkFrame(timeEvent);
 			
+			// Compute id
+			lxID = element.type[1];
+			pxID = 'invalid_l' + lxID;
+			cxID = Math.floor(element.cid / (coreCount / profile.hardware.data['l' +  + 'caches']));
+			value = element.value | 0;
+			
 			// Append Lx invalidation (cache coherency misses)
 			// Sum values by threads
-			data.stats['invalid_l' + element.type[1]] += element.value | 0;
-			data.frames[timeEvent]['invalid_l' + element.type[1]] += element.value | 0;
-			data.frames[timeEvent].c[element.cid]['invalid_l' + element.type[1]] = (data.frames[timeEvent].c[element.cid]['invalid_l' + element.type[1]] | 0) + (element.value | 0);
+			data.stats[pxID] += value;
+			data.frames[timeEvent][pxID] += value;
+			
+			// Append Lx invalidation (cache coherency misses)
+			// Sum values by threads for cache ID
+			data.frames[timeEvent].c[cxID][pxID] = (data.frames[timeEvent].c[cxID][pxID] | 0) + value;
 		}
 	});
 	
