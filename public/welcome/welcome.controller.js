@@ -33,8 +33,8 @@ app.controller('WelcomeController', ['$scope', function($scope) {
 			list: splitArray([
 				{ label: '5', ids: '21' },
 				{ label: '6', ids: '1006' },
+				{ label: '12', ids: '1012' },
 				{ label: '45', ids: '22' },
-				{ label: '45 (2)', ids: '1045' },
 				{ label: '5 vs. 6 ᵜ', ids: '21-1006' },
 				{ label: '5 vs. 45', ids: '21-22' },
 				{ label: '6 vs. 45', ids: '1006-1045' },

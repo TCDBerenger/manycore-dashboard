@@ -167,10 +167,10 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 		timeFrame: data.info.timeStep * hardware.data.lcores,
 		bandwidthProbile: data.info.duration * hardware.data.bandwidth,
 		bandwidthFrame: data.info.timeStep * hardware.data.bandwidth,
-		L1Profile: data.info.duration * hardware.data.cycles * (hardware.data.l1caches - 1),
-		L1Frame: data.info.timeStep * hardware.data.cycles * (hardware.data.l1caches - 1),
-		L2Profile: data.info.duration * hardware.data.cycles * (hardware.data.l2caches - 1),
-		L2Frame: data.info.timeStep * hardware.data.cycles * (hardware.data.l2caches - 1),
+		L1Profile: data.info.duration * hardware.data.cycles,// * (hardware.data.l1caches - 1),
+		L1Frame: data.info.timeStep * hardware.data.cycles,// * (hardware.data.l1caches - 1),
+		L2Profile: data.info.duration * hardware.data.cycles,// * (hardware.data.l2caches - 1),
+		L2Frame: data.info.timeStep * hardware.data.cycles,// * (hardware.data.l2caches - 1),
 		locality: data.locality.stats.ipc + data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf
 	};
 	
@@ -241,9 +241,12 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 				}
 				
 				// Bandwidth
-				if (isE.f) { amount.e =		Math.round(data.frames[timeID].bandwidth / 1048576);						amountPercent.e =	Math.round(100 * data.frames[timeID].bandwidth / max.bandwidthFrame); }
-				if (isUE.f) { amount.ue =	Math.round((max.bandwidthFrame - data.frames[timeID].bandwidth) / 1048576);	amountPercent.ue =	100 - Math.round(100 * data.frames[timeID].bandwidth / max.bandwidthFrame); }
-				if (isSE.f) { amount.ue =	0;																			amountPercent.se =	0; }
+				if (isE.f) { amount.e =		Math.round(data.frames[timeID].bandwidth / 1048576);		amountPercent.e =	Math.round(100 * data.frames[timeID].bandwidth / max.bandwidthFrame); }
+				if (isSE.f) { amount.se =	Math.round(data.frames[timeID].sysBandwidth / 1048576);		amountPercent.se =	Math.round(100 * data.frames[timeID].sysBandwidth / max.bandwidthFrame); }
+				if (isUE.f) {
+					amount.ue =			Math.round((max.bandwidthFrame - data.frames[timeID].bandwidth - data.frames[timeID].sysBandwidth) / 1048576);
+					amountPercent.ue =	100 - Math.round(100 * (data.frames[timeID].bandwidth + data.frames[timeID].sysBandwidth) / max.bandwidthFrame);
+				}
 				
 				// Cache line invalidation
 				if (isIL1.f) { amount.il1 = data.frames[timeID].invalid_l1;	amountPercent.il1 = Math.round(100 * data.frames[timeID].invalid_l1 / max.L1Frame); }
@@ -699,7 +702,7 @@ function jsonDS(profile, id) {
 	addCommon(output, id);
 	
 	// Add raw data for visualisation
-	addRawData(output, id, ['r', 'i', 'lw', 'e', 'il1', 'il2'], ['i', 'r', 'lw', 'sys', 'e', 'ue', 'il1', 'il2'], ['il1', 'il2'], ['e'], true);
+	addRawData(output, id, ['r', 'i', 'lw', 'e', 'il1', 'il2'], ['i', 'r', 'lw', 'sys', 'e', 'ue', 'se', 'il1', 'il2'], ['il1', 'il2'], ['e'], true);
 
 	// Add locks
 	addTimes(output, id, ['r', 'lw', 'i', 'sys']);
@@ -783,7 +786,7 @@ function jsonRS(profile, id) {
 	addCommon(output, id);
 	
 	// Add raw data for visualisation
-	addRawData(output, id, ['lf', 'ls', 'e', 'il1', 'il2'], ['e', 'ue', 'il1', 'il2'], ['lf', 'ls'], ['e', 'il1', 'il2'], true);
+	addRawData(output, id, ['lf', 'ls', 'e', 'il1', 'il2'], ['e', 'ue', 'se', 'il1', 'il2'], ['lf', 'ls'], ['e', 'il1', 'il2'], true);
 
 	// Add locks
 	addLocks(output, id);

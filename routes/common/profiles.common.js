@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 76;
+var VERSION = 78;
 var PARALLEL_THRESHOLD = 2;
 
 /************************************************/
@@ -37,7 +37,7 @@ var hardRoman = {
 		l2caches:	2,			// number of caches L2
 		l3caches:	1,			// number of caches L3
 		clock:		3.06,		// clock speed in GHz
-		cycles:		306000,		// max cycles by ms
+		cycles:		3060000,	// max cycles by ms
 		l1:			32,			// cache L1 in KB
 		l2:			256,		// cache L2 in KB
 		l3:			8192,		// cache L3 in KB
@@ -78,7 +78,7 @@ var hardSTG = {
 		l2caches:	2,			// number of caches L2
 		l3caches:	1,			// number of caches L3
 		clock:		2.78,		// clock speed in GHz
-		cycles:		280000,		// max cycles by ms
+		cycles:		2800000,	// max cycles by ms
 		l1:			32,			// cache L1 in KB
 		l2:			256,		// cache L2 in KB
 		l3:			8192,		// cache L3 in KB
@@ -135,13 +135,21 @@ var profileMap = {
 		{ id: 38,	label: 'P/C 100/10',	desc: '100 producers and 10 consumers',		hardware: hardRoman, file: 'pc100x10',	pid: 90436,	timeStep: 50, v: 4 },
 		{ id: 39,	label: 'P/C 100/100',	desc: '100 producers and 100 consumers',	hardware: hardRoman, file: 'pc100x100',	pid: 93496,	timeStep: 50, v: 4 },
 
-		{ id: 1006,	label: 'Dining ph.  6',	desc: 'Dining philosopher problem for 6 covers',	hardware: hardSTG,	 file: 'philosophers6',		pid: 8864,	timeStep: 50, v: 5 },
+		{ id: 1006,	label: 'Dining ph.  6',	desc: 'Dining philosopher problem for 6 covers',	hardware: hardSTG,	 file: 'philosophers6',		pid: 8864,	timeStep: 50, v: 5, disabled: true },
+		{ id: 1012,	label: 'Dining ph. 12',	desc: 'Dining philosopher problem for 12 covers',	hardware: hardSTG,	 file: 'philosophers12' },
 		{ id: 1045,	label: 'Dining ph. 45″',desc: 'Dining philosopher problem for 45 covers',	hardware: hardSTG,	 file: 'philosophers45bis',	pid: 5456,	timeStep: 50, v: 4, disabled: true },
 	]
 };
 
-// Indexing
-profileMap.all.forEach(function (profile) { profileMap[profile.id] = profile; });
+// Global treatment
+profileMap.all.forEach(function (profile) {
+	// Missing data
+	if (! profile.timeStep) profile.timeStep = 50;
+	if (! profile.v) profile.v = 5;
+	
+	// Indexing
+	profileMap[profile.id] = profile;
+});
 
 
 /************************************************/
@@ -333,7 +341,6 @@ function reloadCache(profile) {
  * Compute data
  */
 function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
-
 	// Create structure
 	var data = {
 		info: {
@@ -357,6 +364,7 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 			lock_hold:		0,
 			threads:		0,
 			bandwidth:		0,
+			sysBandwidth:	0,
 			invalid_l1:		0,
 			invalid_l2:		0
 		},
@@ -430,6 +438,8 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 				lock_failure:	0,	// how many threads failing lock acquisition
 				
 				bandwidth:		0,	// how many memory bandwidth is used in bytes
+				sysBandwidth:	0,	// how many memory bandwidth is used by the system in bytes
+				
 				invalid_l1:		0,	// how many L1 invalidations (cache coherency misses)
 				invalid_l2:		0,	// how many L2 invalidations (cache coherency misses)
 			}
@@ -438,11 +448,22 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 
 	/**
 	 *
+	 *	Profile treatment
+	 *
+	 */
+	// Missing data
+	if (! profile.pid) {
+		profile.pid = raw4[0].pid;
+		console.log('0> add pid', profile.pid);
+	}
+	
+
+	/**
+	 *
 	 *	RAW 1:
 	 *		states
 	 *
 	 */
-
 	// Analyse element by element and group them by time
 	var statThreads = {};
 	raw1.forEach(function(element) {
@@ -710,7 +731,6 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 			data.frames[timeID].runcores += q_previousRunningCoreByMs * (timeID + timeStep - Math.max(timeID, q_previousEventTime));
 			data.frames[timeID].parallel += (q_previousRunningCoreS >= PARALLEL_THRESHOLD) ? (timeID + timeStep - Math.max(timeID, q_previousEventTime)) : 0;
 		}
-		console.log(timeID, data.frames[timeID].parallel, 100 * data.frames[timeID].runcores / 8);
 		
 		// Sequence post-treatment
 		data.stats.parallel += data.frames[timeID].parallel;
@@ -821,7 +841,7 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 			data.events.threads[element.tid].ls.push(timeEvent);
 
 			// Save when lock is holding
-			if (hold_map[element.value] != null && hold_map[element.value] != element.dtime) console.log("incoherent: lock already holded", element.value, hold_map[element.value], element.dtime);
+			if (hold_map[element.value] != null && hold_map[element.value] != element.dtime) console.log("4> incoherent: lock already holded", element.value, hold_map[element.value], element.dtime);
 			hold_map[element.value] = element.dtime;
 
 			// Save lock life
@@ -838,7 +858,7 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 
 			// Save the failure duration
 			if (duration > 0) {
-				if (wait_map[element.tid] == null || ! wait_map.hasOwnProperty(element.tid)) console.log('incoherent: duration positive but no starting time', duration, wait_map[element.tid]);
+				if (wait_map[element.tid] == null || ! wait_map.hasOwnProperty(element.tid)) console.log('4> incoherent: duration positive but no starting time', duration, wait_map[element.tid]);
 
 				// Check event list existance
 				if (! data.periods.threads.hasOwnProperty(element.tid))
@@ -886,7 +906,7 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 			data.events.threads[element.tid].lf.push(timeEvent);
 
 			// Save when a thread fail
-			if (wait_map[element.tid] != null && wait_map[element.tid] != element.dtime) console.log("incoherent: thread already waiting", wait_map[element.tid], element.dtime);
+			if (wait_map[element.tid] != null && wait_map[element.tid] != element.dtime) console.log("4> incoherent: thread already waiting", wait_map[element.tid], element.dtime);
 			wait_map[element.tid] = element.dtime;
 
 			// Save lock life
@@ -942,20 +962,49 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 	 *		memory bandwidth
 	 *
 	 */
-	if (raw5 != null) raw5.forEach(function(element) {
-		if (element.cid % 2 == 0) {
+	var systemBandwidth = [];
+	if (raw5 != null) {
+		// Treat all elements
+		raw5.forEach(function(element) {
 			// Compute time ID
 			timeEvent = Math.round(element.dtime / 10000);
-
-			// Check time frame existance
-			checkFrame(timeEvent);
 			
 			// Append memory bandwidth
-			data.stats.bandwidth += element.value | 0;
-			data.frames[timeEvent].bandwidth += element.value | 0;
-			data.frames[timeEvent].c[element.cid / 2].bandwidth = element.value;
-		}
-	});
+			if (element.cid % 2 == 0 && element.type == 'drambw') {
+
+				// Check time frame existance
+				checkFrame(timeEvent);
+				
+				// Append memory bandwidth
+				data.stats.bandwidth += element.value | 0;
+				data.frames[timeEvent].bandwidth += element.value | 0;
+				data.frames[timeEvent].c[element.cid / 2].bandwidth = element.value;
+			}
+			
+			// Save system + app memory bandwidth
+			else if (element.type == 'MC_read' || element.type == 'MC_write') {
+				console.log('5> info', element.type, timeEvent);
+				systemBandwidth[timeEvent] = (systemBandwidth[timeEvent] | 0) + (element.value | 0);
+			}
+		});
+		
+		// Compute system events
+		var diff;
+		systemBandwidth.forEach(function(value, t) {
+			// Check time frame existance
+			checkFrame(t);
+			
+			// Compute value
+			diff = value - data.frames[t].bandwidth;
+			console.log('5> info', t, 'total', value, 'app', data.frames[t].bandwidth, 'diff', diff);
+			if (diff < 0) console.log('5> negative bandwidth', t, 'total', value, 'app', data.frames[t].bandwidth);
+			diff = Math.max(diff, 0);
+			
+			// Append system memory bandwidth
+			data.frames[t].sysBandwidth = diff;
+			data.stats.sysBandwidth += diff;
+		})
+	}
 
 
 	/**
@@ -965,20 +1014,19 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 	 *
 	 */
 	if (raw6 != null) raw6.forEach(function(element) {
-		// Compute time ID
-		timeEvent = Math.round(element.dtime / 10000);
+		if (element.pid == profile.pid) {
+			// Compute time ID
+			timeEvent = Math.round(element.dtime / 10000);
 
-		// Check time frame existance
-		checkFrame(timeEvent);
-		
-		// Append Lx invalidation (cache coherency misses)
-		// Sum values by threads
-		data.stats['invalid_l' + element.type[1]] += element.value | 0;
-		data.frames[timeEvent]['invalid_l' + element.type[1]] += element.value | 0;
-		
-		// Temporary treatment
-		if (element.cid < profile.hardware.data['l' + element.type[1] + 'caches'])
-			data.frames[timeEvent].c[element.cid]['invalid_l' + element.type[1]] = element.value;
+			// Check time frame existance
+			checkFrame(timeEvent);
+			
+			// Append Lx invalidation (cache coherency misses)
+			// Sum values by threads
+			data.stats['invalid_l' + element.type[1]] += element.value | 0;
+			data.frames[timeEvent]['invalid_l' + element.type[1]] += element.value | 0;
+			data.frames[timeEvent].c[element.cid]['invalid_l' + element.type[1]] = (data.frames[timeEvent].c[element.cid]['invalid_l' + element.type[1]] | 0) + (element.value | 0);
+		}
 	});
 	
 
