@@ -9,6 +9,9 @@
  */
 var LAYOUT_PARALLEL_COORDINATES_MIN = 300;
 var LAYOUT_PARALLEL_COORDINATES_STEP = 10;
+var LAYOUT_CACHES_CORE_HEIGHT = 30;
+var LAYOUT_CACHES_STRIP_HEIGHT = 30;
+var LAYOUT_CACHES_LINK_HEIGHT = 5;
 
 /**
  * Layout for external graphs
@@ -18,13 +21,17 @@ var d3_layout = function(initialVars) {
 	var self = this;
 
 	// Constants
-	this.padding	= { top: 30, right: 0, bottom: 20, left: 0, inner: 0 };
-	this.vars		= initialVars;
+	this.padding = {	top: initialVars.paddingTop | 30,
+						right: initialVars.paddingRight | 0,
+						bottom: initialVars.paddingBottom | 20,
+						left: initialVars.paddingLeft | 0,
+						inner: initialVars.paddingInner | 0 };
+	this.vars = initialVars;
 
 	// Compute
 	this.refresh = function(container, items, callback) {
 		self.width =	container.clientWidth;
-		self.height	=	self.padding.top + self.vars.favoriteHeight + self.padding.bottom;
+		self.height	=	self.padding.top + items * self.vars.favoriteHeight + (items - 1) * self.padding.inner + self.padding.bottom;
 
 		if (callback !== undefined) callback();
 	};
@@ -140,12 +147,12 @@ function d3_directive_init(scope, element, attrs, layoutVars) {
 /**
  * Repaint - container
  */
-function d3_directive_repaint_container(r) {
+function d3_directive_repaint_container(r, layoutItems) {
 	// Parameters - Data
 	r.meta.refresh(r);
 
 	// Sizes
-	r.layout.refresh(r.container, r.profiles);
+	r.layout.refresh(r.container, layoutItems);
 
 	// Sizes - container
 	d3.select(r.container)
@@ -394,7 +401,7 @@ app.directive('chartPcoords', function() {
 		// Redraw
 		function repaint() {
 			// Repaint container
-			d3_directive_repaint_container(r);
+			d3_directive_repaint_container(r, 1);
 			
 			// Plots
 			r.scaleX.rangePoints([0, r.layout.width], 1);
@@ -479,6 +486,70 @@ app.directive('chartPcoords', function() {
 				element.b.style('display', toInclude ? 'none' : null);
 				element.f.style('display', toInclude ? null : 'none');
 			});
+		}
+
+		// Bind
+		d3_directive_bind(scope, r, repaint);
+	}
+
+	return {
+		link: chart_link,
+		restrict: 'E'
+	}
+});
+
+
+
+/**
+ * CPU / Cores / Caches
+ */
+app.directive('chartCaches', function() {
+
+	function chart_link(scope, element, attrs, controller) {
+		console.log('== directive == chartCaches ==');
+
+		// Init vars
+		var r = d3_directive_init(scope, element, attrs, {
+			paddingTop: 20,
+			paddingBottom: 20,
+			paddingInner: 20,
+			coreHeight: LAYOUT_CACHES_CORE_HEIGHT,
+			stripHeight: LAYOUT_CACHES_STRIP_HEIGHT,
+			linkHeight: LAYOUT_CACHES_LINK_HEIGHT,
+		});
+		
+		// Init favorite height
+		r.meta.levelCount = r.deck.levels.length;
+		r.layout.vars.favoriteHeight = r.layout.vars.coreHeight + r.meta.levelCount * (r.layout.vars.stripHeight + r.layout.vars.linkHeight);
+		
+		// Plots position scales
+		r.scalesX = [];
+		for (var l = r.meta.levelCount - 1; l--; ) {
+			r.scalesX.push(
+				d3.scale.linear()
+					.domain([0, r.meta.durations])
+			);
+		}
+		
+		// Plot value scale
+		r.scaleV = d3.scale.linear()
+			.domain([0, 100])
+			.range([r.layout.vars.stripHeight, 0]);
+		
+		
+		// Build internal data
+		r.iData = {};
+		for (var l = r.meta.levelCount - 1; l--; ) {
+			r.iData[l] = [[], []];
+		}
+		
+		// Redraw
+		function repaint() {
+			// Repaint container
+			d3_directive_repaint_container(r, r.profiles.length);
+			
+			// Plots
+			r.scaleX.rangePoints([0, r.layout.width], 1);
 		}
 
 		// Bind

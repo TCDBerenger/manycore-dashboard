@@ -291,6 +291,31 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ property: 'colorThreshold', value: 20, type: 'range', label: 'Locality threshold', unit: '%', min: 5, max: 95, step: 5, depends: ['colorMode', 0] },
 			]
 		},
+		cacheInvalidations: {
+			handling: {
+				time: TIME_NONE,
+			},
+			graph : {
+				levels:	[
+					{
+						f: facets.il1,
+						count: function(profile) { return profile.hardware.data.l1caches; }, 
+						value_max: function(profile) { return profile.info.timeStep * profile.hardware.data.cycles; } 
+					}, {
+						f: facets.il2,
+						count: function(profile) { return profile.hardware.data.l2caches; }, 
+						value_max: function(profile) { return profile.info.timeStep * profile.hardware.data.cycles; } 
+					}
+				]
+			},
+			legend: {
+				axis: [],
+				data: [],
+				options: { disablePrelist: true }
+			},
+			clues: [],
+			settings: []
+		},
 		cacheInvalid: {
 			handling: {
 				time:	TIME_PROFILE,
@@ -775,6 +800,7 @@ app.factory('widgets', ['decks', function(decks) {
 	
 	return {
 		cacheBreackdown:	{ id: id(),	v: 3, file: 'chart-d3-pcoords',	deck: decks.cacheBreackdown,	wide: true,		title: 'Breakdown of time spent on locality misses',				desc: ''},
+		cacheInvalidations:	{ id: id(),	v: 3, file: 'chart-d3-pcoords',	deck: decks.cacheInvalidations,	wide: true,		title: 'Cache line invalidations',									desc: ''},
 		cacheInvalid:		{ id: id(),	v: 5, file: 'chart-units',		deck: decks.cacheInvalid,		wide: false,	title: 'Cache misses from updating shared data',					desc: ''},
 		cacheInvalidL1:		{ id: id(),	v: 5, file: 'chart-percent',	deck: decks.cacheInvalidL1,		wide: false,	title: 'Percentage of time spent on L1 cache line invalidations',	desc: ''},
 		cacheInvalidL2:		{ id: id(),	v: 5, file: 'chart-percent',	deck: decks.cacheInvalidL2,		wide: false,	title: 'Percentage of time spent on L2 cache line invalidations',	desc: ''},
