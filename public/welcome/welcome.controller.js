@@ -26,7 +26,7 @@ app.controller('WelcomeController', ['$scope', function($scope) {
 				{ label: 'Particules', ids: '5-4' },
 			], 2)
 		}, {
-			title: 'Explore dinning philosophers problem:',
+			title: 'Explore dining philosophers problem:',
 			icon: 'fa-cutlery',
 			showEmphasis: true,
 			showHardDiff: true,
