@@ -184,6 +184,7 @@ app.directive('facetList', [function() {
 						d: item.d,
 						s: ('sv' in item) ? getSettings(item) : null
 					});
+					if (! item.c && (! item.f || ! item.f.colours)) console.log('legend missing colour', item);
 					styles += '#' + itemID + ':before {' +
 							'content: "' + (('b' in item) ? item.b : '▮') + '";' +
 							'color: ' + (('c' in item) ? item.c : ('f' in item) ? item.f.colours.n : '#000') + ';' +
