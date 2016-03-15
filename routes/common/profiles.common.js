@@ -1026,7 +1026,7 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 			// Compute id
 			lxID = element.type[1];
 			pxID = 'invalid_l' + lxID;
-			cxID = Math.floor(element.cid / (coreCount / profile.hardware.data['l' +  + 'caches']));
+			cxID = Math.floor(element.cid / (coreCount / profile.hardware.data['l' + lxID + 'caches']));
 			value = element.value | 0;
 			
 			// Append Lx invalidation (cache coherency misses)
