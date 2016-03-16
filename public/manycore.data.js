@@ -298,13 +298,13 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			graph : {
 				levels:	[
 					{
+						l: 'cache L1',
 						f: facets.il1,
 						count: function(profile) { return profile.hardware.data.l1caches; }, 
-						value_max: function(profile) { return profile.currentData.info.timeStep * profile.hardware.data.cycles; } 
 					}, {
+						l: 'cache L2',
 						f: facets.il2,
 						count: function(profile) { return profile.hardware.data.l2caches; }, 
-						value_max: function(profile) { return profile.currentData.info.timeStep * profile.hardware.data.cycles; } 
 					}
 				]
 			},

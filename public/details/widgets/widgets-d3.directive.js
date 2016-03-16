@@ -134,8 +134,6 @@ function d3_directive_init(scope, element, attrs, layoutVars) {
 		meta:		meta,
 		profiles:	profiles,
 		svg:		svg,
-		scaleX:		null,
-		scalesV:	[null, null],
 		groupO:		overflow,
 		groupP:		[null, null],
 		iData:		null,
@@ -547,8 +545,8 @@ app.directive('chartCaches', function() {
 			width:	NaN,							subWidth:	NaN,
 		}
 		r.layout.strips = [
-			{ height: r.layout.vars.core.height,	width:	NaN },
-			{ height: r.layout.vars.core.height,	width:	NaN }
+			{ height: r.layout.vars.strip.height,	width:	NaN },
+			{ height: r.layout.vars.strip.height,	width:	NaN }
 		]
 		
 		// Init layout height
@@ -565,18 +563,17 @@ app.directive('chartCaches', function() {
 						.attr('transform', 'translate(' + r.layout.vars.column.width + ',' + (r.layout.vars.favoriteHeight + r.layout.padding.inner) + ')');
 		
 		// Plots position scales
+		// domain is depending of the size of the box (depending how many)
+		// range is usually fixed by the incremental y is added to directly find the absolute position depending of the level
 		r.scalesX = [];
-		for (var l = r.meta.levelCount - 1; l--; ) {
-			r.scalesX.push(
-				d3.scale.linear()
-					.domain([0, r.meta.durations])
-			);
+		for (var l = r.meta.levelCount; l--; ) {
+			r.scalesX.push(d3.scale.linear());
 		}
 		
 		// Plot value scale
-		r.scaleV = d3.scale.linear()
-			.domain([0, 100])
-			.range([r.layout.vars.stripHeight, 0]);
+		// domain is fixed from 0% to 100%
+		// range is usually fixed by the incremental y is added to directly find the absolute position depending of the level
+		r.scaleV = d3.scale.linear().domain([0, 100]);
 		
 		
 		// Build internal data
@@ -591,10 +588,10 @@ app.directive('chartCaches', function() {
 		var yInc;
 		var xInc = r.layout.vars.column.width - r.layout.vars.column.textShift;
 		var storeys = [
-			{ l: 'CPU',			y: r.layout.vars.head.tickHeight / 2,	yInc: 0 },
-			{ l: 'cores',		y: r.layout.core.height / 2,			yInc: r.layout.vars.head.height },
-			{ l: 'cache L1',	y: r.layout.strips[0].height / 2,		yInc: r.layout.core.height + r.layout.vars.linkHeight },
-			{ l: 'cache L2',	y: r.layout.strips[1].height / 2,		yInc: r.layout.strips[0].height + r.layout.vars.linkHeight },
+			{ l: 'CPU',					y: r.layout.vars.head.tickHeight / 2,	yInc: 0 },
+			{ l: 'cores',				y: r.layout.core.height / 2,			yInc: r.layout.vars.head.height },
+			{ l: r.deck.levels[0].l,	y: r.layout.strips[0].height / 2,		yInc: r.layout.core.height + r.layout.vars.linkHeight },
+			{ l: r.deck.levels[1].l,	y: r.layout.strips[1].height / 2,		yInc: r.layout.strips[0].height + r.layout.vars.linkHeight },
 		]
 		r.profiles.forEach(function(profile, iP) {
 			// Profile title
@@ -634,8 +631,15 @@ app.directive('chartCaches', function() {
 			r.layout.profile.width = r.layout.width - r.layout.padding.left - r.layout.padding.right - r.layout.vars.column.width;
 			
 			// By profile
+			var beginID, endID, endMaxID;
 			var yInc, xInc, xSub;
+			var facet, points, value;
 			r.profiles.forEach(function(profile, iP) {
+				// Time
+				beginID = r.meta.begin / r.meta.steps[iP];
+				endID = r.meta.durations[iP] / r.meta.steps[iP];
+				endMaxID = r.meta.duration / r.meta.steps[iP];
+			
 				// Layout - Cores
 				r.layout.core.width = (r.layout.profile.width - 2 * r.layout.vars.core.paddingOutter - (r.meta.pcores[iP] - 1) * r.layout.vars.core.paddingInner) / r.meta.pcores[iP];
 				r.layout.core.subWidth = (r.layout.core.width - 2 * r.layout.vars.core.paddingSubOut - (r.meta.lcores[iP] - 1) * r.layout.vars.core.paddingSubIn) / r.meta.lcores[iP];
@@ -733,20 +737,42 @@ app.directive('chartCaches', function() {
 					yInc += storeys[2 + l].yInc;
 					
 					// Scale
-	//				r.scalesX[l].range([0, r.layout.width]);
+					r.scalesX[l].domain([beginID, endMaxID]);
+					
+					// Facet
+					facet = r.deck.levels[l].f;
+					
+					// Scale
+					r.scaleV.range([yInc + LAYOUT_CACHES_STRIP_HEIGHT, yInc]);
 					
 					// All elements
 					for (var iL = 0; iL < r.meta.counts[l][iP] ; iL++) {
 						xInc = r.layout.vars.core.paddingOutter + iL * (r.layout.vars.core.paddingInner + r.layout.strips[l].width);
 						
-						// Physical core
+						// Scale
+						r.scalesX[l].range([xInc, xInc + r.layout.strips[l].width]);
+						
+						// Cache data
+						points = [r.scalesX[l](beginID), r.scaleV(0)];
+						for (var tID = beginID; tID < endID; tID++) {
+							value = profile.raw.amountPercent[tID][facet.attr + '_c' + iL];
+							points.push.apply(points, [r.scalesX[l](tID), r.scaleV(value), r.scalesX[l](tID + 1), r.scaleV(value)]);
+						}
+						points.push.apply(points, [r.scalesX[l](endID), r.scaleV(0)]);
+						
+						// Cache graph
+						r.groupP[iP].append("polygon")
+							.attr('class', "svg-limit")
+							.attr("points", p2s(points))
+							.attr('fill', facet.colours.n);
+						
+						// Cache border
 						r.groupP[iP].append('rect')
 							.attr('x', xInc)
 							.attr('y', yInc)
 							.attr('width', r.layout.strips[l].width)
 							.attr('height', r.layout.strips[l].height)
-//							.attr('fill', 'none')
-							.attr('fill', '#F9F9F9')
+							.attr('fill', 'none')
 							.attr('stroke', '#222222');
 					
 						// Links

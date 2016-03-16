@@ -267,11 +267,13 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 				if (isIL1.cf) {
 					for (var cid = profiles[id].hardware.data.l1caches; cid--; ) {
 						amount['il1_c' + cid] =	data.frames[timeID].c[cid].invalid_l1;
+						amountPercent['il1_c' + cid] =	Math.round(100 * data.frames[timeID].c[cid].invalid_l1 / max.L1Frame);
 					}
 				}
 				if (isIL2.cf) {
 					for (var cid = profiles[id].hardware.data.l2caches; cid--; ) {
 						amount['il2_c' + cid] =	data.frames[timeID].c[cid].invalid_l2;
+						amountPercent['il2_c' + cid] =	Math.round(100 * data.frames[timeID].c[cid].invalid_l2 / max.L1Frame);
 					}
 				}
 				
