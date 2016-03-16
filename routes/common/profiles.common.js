@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 79;
+var VERSION = 80;
 var PARALLEL_THRESHOLD = 2;
 
 /************************************************/
@@ -345,6 +345,7 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 	var data = {
 		info: {
 			version:		VERSION,
+			capability:		[!!raw1, !!raw2, !!raw3, !!raw4 && raw4.length > 0, !!raw5, !!raw6],
 			timeStep:		profile.timeStep,
 			timeMin:		0,
 			timeMax:		0,
@@ -1079,10 +1080,11 @@ function exportInfo(output, profile) {
 
 	// Infos
 	output.info = {
-		timeMin:		data.info.timeMin,
-		timeMax:		data.info.timeMax,
-		timeStep:		data.info.timeStep,
-		duration:		data.info.duration
+		capability:	data.info.capability,
+		timeMin:	data.info.timeMin,
+		timeMax:	data.info.timeMax,
+		timeStep:	data.info.timeStep,
+		duration:	data.info.duration
 	};
 }
 
