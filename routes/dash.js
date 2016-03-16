@@ -14,7 +14,16 @@ var profiles = require('./common/profiles.common.js');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var STRIP_HEIGHT = 50;
+// Dash
+const STRIP_HEIGHT = 50;
+
+// Capability
+const CAPABILITY_STATE =	0;
+const CAPABILITY_SWITCH =	1;
+const CAPABILITY_LOCALITY =	2;
+const CAPABILITY_LOCK =		3;
+const CAPABILITY_MEMORY =	4;
+const CAPABILITY_COHERENCY =5;
 
 
 
@@ -57,9 +66,17 @@ function addProfiling(output, profile) {
 	var timeStep = data.info.timeStep;
 
 	// Data
-	var max, f;
+	var f;
 	var parallel_threshold = Math.round(profile.hardware.data.lcores / 3 + .33);
 	var parallel_max = profile.hardware.data.lcores - parallel_threshold;
+	
+	// Compute some data
+	var max = {
+		time:		timeStep * profile.hardware.data.lcores,
+		bandwidth:	timeStep * profile.hardware.data.bandwidth,
+		locality:	NaN,
+		coherency:	timeStep * profile.hardware.data.cycles, // * (hardware.data.l1caches + hardware.data.l2caches - 2)
+	};
 	
 	// Loop
 	for (var time = 0; time <= data.info.timeMax; time += timeStep) {
@@ -69,14 +86,12 @@ function addProfiling(output, profile) {
 		if (data.frames.hasOwnProperty(time)) {
 			// States
 			// yb: ready & standby
-			max = profile.hardware.data.lcores * timeStep;
-			
-			f.i = Math.round(STRIP_HEIGHT * data.frames[time].idle / max);
+			f.i = Math.round(STRIP_HEIGHT * data.frames[time].idle / max.time);
 			f.p = Math.round(STRIP_HEIGHT * data.frames[time].parallel / timeStep);
-			f.r = Math.round(STRIP_HEIGHT * data.frames[time].running / max);
-			f.yb = Math.min(STRIP_HEIGHT, Math.round(STRIP_HEIGHT * (data.frames[time].ready + data.frames[time].standby) / max));
-			f.lw = Math.min(STRIP_HEIGHT, Math.round(STRIP_HEIGHT * data.frames[time].lock_wait / max));
-			f.sys = Math.round(STRIP_HEIGHT * (max - data.frames[time].running - data.frames[time].idle) / max);
+			f.r = Math.round(STRIP_HEIGHT * data.frames[time].running / max.time);
+			f.yb = Math.min(STRIP_HEIGHT, Math.round(STRIP_HEIGHT * (data.frames[time].ready + data.frames[time].standby) / max.time));
+			f.lw = Math.min(STRIP_HEIGHT, Math.round(STRIP_HEIGHT * data.frames[time].lock_wait / max.time));
+			f.sys = Math.round(STRIP_HEIGHT * (max.time - data.frames[time].running - data.frames[time].idle) / max.time);
 			
 			// Sequential (parallilisation)
 			// q: running cores
@@ -84,9 +99,14 @@ function addProfiling(output, profile) {
 			f.q = Math.round(STRIP_HEIGHT * Math.max(0, data.frames[time].runcores - parallel_threshold) / parallel_max);
 			
 			// Cache misses
-			max = data.locality.byFrames[time].ipc + data.locality.byFrames[time].tlb + data.locality.byFrames[time].l1 + data.locality.byFrames[time].l2 + data.locality.byFrames[time].l3 + data.locality.byFrames[time].hpf;
+			max.locality = data.locality.byFrames[time].ipc + data.locality.byFrames[time].tlb + data.locality.byFrames[time].l1 + data.locality.byFrames[time].l2 + data.locality.byFrames[time].l3 + data.locality.byFrames[time].hpf;
+			f.miss = STRIP_HEIGHT - Math.round(STRIP_HEIGHT * data.locality.byFrames[time].ipc / max.locality);
 			
-			f.miss =	STRIP_HEIGHT - Math.round(STRIP_HEIGHT * data.locality.byFrames[time].ipc / max);
+			// Memory bandwidth
+			f.e = Math.round(STRIP_HEIGHT * data.frames[time].bandwidth / max.bandwidth);
+			
+			// Cache coherency
+			f.il = Math.round(STRIP_HEIGHT * (data.frames[time].invalid_l1 + data.frames[time].invalid_l2) / max.coherency);
 			
 		} else {
 			f.i = NaN;
@@ -96,6 +116,8 @@ function addProfiling(output, profile) {
 			f.lw = NaN;
 			f.q = NaN;
 			f.miss = NaN;
+			f.e = NaN;
+			f.il = NaN;
 		}
 
 		// Save
@@ -110,60 +132,62 @@ function addGauges(output, profile) {
 	// Data
 	var data = profile.data;
 	var pv = profile.v;
-	var max;
+	var capabilities = profile.data.info.capability;
+	var unableGauge = { g: 0, l: '?', u: 0 };
 	
-	// Computation - Cache misses
-	max = data.locality.stats.ipc + data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf;
-	var ipc = Math.round(100 * data.locality.stats.ipc / max);
-	var miss = Math.round(100 * (data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf) / max);
+	// Outout
+	output.gauges = {};
 	
-	// Stats
-	output.gauges = {
-		ipc: {	g: ipc,
-				l: ipc + '%',
-				u: Math.round(data.locality.stats.ipc) },
-		miss: {	g: miss,
-				l: miss + '%',
-				u: Math.round(data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf) },
+	// Max
+	var max = {
+		time:		profile.hardware.data.lcores * data.info.duration,
+		locality:	data.locality.stats.ipc + data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf,
+		eventBase:	data.info.duration * profile.hardware.data.lcores,
+		bandwidth:	data.info.duration * profile.hardware.data.bandwidth,
+		coherency:	data.info.duration * profile.hardware.data.cycles, // * (profile.hardware.data.l1caches + profile.hardware.data.l2caches - 2)
 	};
 	
-	// Add states - by thread duration
-	max = profile.hardware.data.lcores * data.info.duration;
-	[	{ l: 'r', v: data.stats.running, n: 3 },
-		{ l: 'yb', v: data.stats.ready + data.stats.standby, n: 3 },
-		{ l: 'i', v: data.stats.idle, n: 3 },
-		{ l: 'lw', v: data.stats.lock_wait, n: 4 }
+	// Add percent
+	var roundedValue;
+	[	{ l: 'e',	v: data.stats.bandwidth,					m: max.bandwidth,			c: CAPABILITY_MEMORY },
+	 	{ l: 'i',	v: data.stats.idle,							m: max.time,				c: CAPABILITY_STATE },
+		{ l: 'p',	v: data.stats.parallel,						m: data.info.duration,		c: CAPABILITY_STATE }, 
+		{ l: 'r',	v: data.stats.running,						m: max.time,				c: CAPABILITY_STATE },
+		{ l: 'il',	v: data.stats.invalid_l1 + data.stats.invalid_l1,	m: max.coherency,	c: CAPABILITY_COHERENCY },
+		{ l: 'lw',	v: data.stats.lock_wait,					m: max.time,				c: CAPABILITY_LOCK },
+		{ l: 'yb',	v: data.stats.ready + data.stats.standby,	m: max.time,				c: CAPABILITY_STATE },
+		{ l: 'ipc',	v: data.locality.stats.ipc,					m: max.locality,			c: CAPABILITY_LOCALITY },
+		{ l: 'miss',v: data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf,	m: max.locality,		c: CAPABILITY_LOCALITY },
 	].forEach(function(item) {
-		output.gauges[item.l] = {
-			g: Math.round(100 * item.v / max),
-			l: (item.n <= pv) ? Math.round(100 * item.v / max) + '%' : '?',
-			u: Math.round(item.v)
-		};
+		if (capabilities[item.c]) {
+			roundedValue = Math.round(100 * item.v / item.m);
+			output.gauges[item.l] = {
+				g: roundedValue,
+				l: roundedValue + '%',
+				u: Math.round(item.v)
+			};
+		}
+		else
+			output.gauges[item.l] = unableGauge;
 	});
 	
-	// Add states - by duration
-	max = data.info.duration;
-	[	{ l: 'p', v: data.stats.parallel, n: 3 },
+	// Add ratio
+	var calibratedMax;
+	[	{ l: 's',	v: data.stats.switches,		m: profile.hardware.calibration.s,	c: CAPABILITY_SWITCH },
+		{ l: 'm',	v: data.stats.switches,		m: profile.hardware.calibration.m,	c: CAPABILITY_SWITCH },
+		{ l: 'ls',	v: data.stats.lock_success,	m: profile.hardware.calibration.ls,	c: CAPABILITY_LOCK },
+		{ l: 'lf',	v: data.stats.lock_failure,	m: profile.hardware.calibration.lf,	c: CAPABILITY_LOCK },
 	].forEach(function(item) {
-		output.gauges[item.l] = {
-			g: Math.round(100 * item.v / max),
-			l: (item.n <= pv) ? Math.round(100 * item.v / max) + '%' : '?',
-			u: Math.round(item.v)
-		};
-	});
-	
-	// Add calibrations
-	[	{ l: 's', v: data.stats.switches, c: profile.hardware.calibration.s, n: 3 },
-		{ l: 'm', v: data.stats.switches, c: profile.hardware.calibration.m, n: 3 },
-		{ l: 'ls', v: data.stats.lock_success, c: profile.hardware.calibration.ls, n: 4 },
-		{ l: 'lf', v: data.stats.lock_failure, c: profile.hardware.calibration.lf, n: 4 },
-	].forEach(function(item) {
-		max = (data.info.timeMax + data.info.timeStep) * profile.hardware.data.lcores * item.c;
-		output.gauges[item.l] = {
-			g: Math.round(100 * item.v / max),
-			l: (item.n <= pv) ? Math.round(10 * item.v / max) / 10 + '×' : '?',
-			u: item.v
-		};
+		if (capabilities[item.c]) {
+			calibratedMax = max.eventBase * item.m;
+			output.gauges[item.l] = {
+				g: Math.round(100 * item.v / calibratedMax),
+				l: Math.round(10 * item.v / calibratedMax) / 10 + '×',
+				u: Math.round(item.v)
+			};
+		}
+		else
+			output.gauges[item.l] = unableGauge;
 	});
 }
 
