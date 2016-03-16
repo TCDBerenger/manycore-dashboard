@@ -188,6 +188,7 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$stat
 	};
 	*/
 	
+	
 	/************************************************/
 	/* Graphical - Help selection					*/
 	/************************************************/
@@ -219,6 +220,16 @@ app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$stat
 	}
 	
 	
+	/************************************************/
+	/* Functions - Capabilities						*/
+	/************************************************/
+	/**
+	 * Capability - strip
+	 */
+	$scope.isStripCapable = function() {
+		return $scope.selectedProfiles[this.pindex].data.dash.info.capability[this.strip.facet.capability];
+	//	return strip.facet.capability;
+	}
 
 	/************************************************/
 	/* Functions - Handle data						*/

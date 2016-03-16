@@ -154,18 +154,15 @@
 .dashboard section:hover .strip-gauge {
 	font-weight: bold !important;
 }
-.dashboard .profile section.no-strip {
+.dashboard .profile section .no-strip {
 	padding-left: 4px;
 	line-height: 50px;
 	font-size: 18px;
 	font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-weight: 300;
-	
-	/*
-	color: white;
-	background-attachment: fixed;
-	background-image: url("../assets/blank.jpg");
-	*/
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 

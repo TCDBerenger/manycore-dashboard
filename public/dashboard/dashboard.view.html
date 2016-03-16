@@ -238,10 +238,10 @@
 	<div class="col-xs-3 profile"><div class="tile">
 		<section class="strip" ng-repeat="strip in category.strips">
             <span class="strip-gauge" style="color: {{::strip.facet.colours.n}}">{{selectedProfiles[pindex].data.dash.gauges[strip.facet.attr].l}}</span>
-			<chart-strip class="widget-graph" ng-mouseenter="$parent.selectStrip(strip)" ng-mouseleave="$parent.unselectStrip()"></chart-strip>
-		</section>
-		<section class="no-strip" ng-if="category.strips.length == 0">
-			Data missing !
+			<chart-strip ng-if="isStripCapable()" class="widget-graph" ng-mouseenter="$parent.selectStrip(strip)" ng-mouseleave="$parent.unselectStrip()"></chart-strip>
+			<div class="no-strip" ng-if="! isStripCapable()" style="color: {{::strip.facet.colours.n}}">
+				Missing data for {{::strip.title}}
+			</div>
 		</section>
 	</div></div>
 </script>
