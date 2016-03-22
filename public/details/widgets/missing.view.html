@@ -12,9 +12,9 @@
 	<h1><i class="fa fa-database"></i> Data missing !</h1>
 	<p><span ng-repeat="profile in profiles">
 		<br ng-if="$index > 0" />
-		<i class="fa fa-check text-info" ng-if="widget.v <= profile.version"></i>
-		<i class="fa fa-times text-danger" ng-if="widget.v > profile.version" style="width: 23px; text-align: center;"></i>
+		<i class="fa fa-check text-info" ng-if="isCapable(profile)"></i>
+		<i class="fa fa-times text-danger" ng-if="isNotCapable(profile)" style="width: 23px; text-align: center;"></i>
 		{{profile.label}}
-		<span ng-if="widget.v > profile.version && profiles.length == 2">(<a ui-sref='detail({cat: meta.tag, ids: profiles[1 - $index].id})'>unselect</a>)</span>
+		<span ng-if="isNotCapable(profile) && profiles.length == 2">(<a ui-sref='detail({cat: meta.tag, ids: profiles[1 - $index].id})'>unselect</a>)</span>
 	</span></p>
 </div>

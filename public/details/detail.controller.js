@@ -118,17 +118,25 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	};
 	
 	/**
-	 * Version - is too old
+	 * Capability - can
 	 */
-	$scope.isOutofVersion = function(widget) {
-		return widget.v > profiles[0].version || (profiles[1] && widget.v > profiles[1].version);
+	$scope.isCapable = function(profile) {
+		if (profile) {
+			return profile.currentData.info.capability[this.widget.c];
+		} else {
+			return profiles[0].currentData.info.capability[this.widget.c] && (profiles.length == 1 || profiles[1].currentData.info.capability[this.widget.c]);
+		}
 	};
 	
 	/**
-	 * Version - is new enough
+	 * Capability - cannot
 	 */
-	$scope.isUpToVersion = function(widget) {
-		return widget.v <= profiles[0].version && (profiles.length == 1 || widget.v <= profiles[1].version);
+	$scope.isNotCapable = function(profile) {
+		if (profile) {
+			return ! profile.currentData.info.capability[this.widget.c];
+		} else {
+			return ! (profiles[0].currentData.info.capability[this.widget.c] && (profiles.length == 1 || profiles[1].currentData.info.capability[this.widget.c]));
+		}
 	};
 
 
