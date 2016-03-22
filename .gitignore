@@ -4,6 +4,8 @@ npm-debug.log
 *.sublime-*
 data/*.cache.json
 data/tmp
+log
+*.log.*
 public/libs
 public/libs.main
 .settings
