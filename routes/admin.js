@@ -123,8 +123,8 @@ router.get('/stats', function(request, response) {
 					output.lf[profile.id] = profile.data.stats.lock_failure;
 				}
 				if (profile.v >= 5) {
-					output.il1[profile.id] = profile.data.stats.invalid_l1;
-					output.il2[profile.id] = profile.data.stats.invalid_l2;
+					output.il1[profile.id] = profile.data.stats.l1_invalid;
+					output.il2[profile.id] = profile.data.stats.l2_invalid;
 				}
 				output.durations[profile.id] = profile.data.info.timeMax + profile.data.info.timeStep;
 			}

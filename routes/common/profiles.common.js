@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 81;
+var VERSION = 82;
 var PARALLEL_THRESHOLD = 2;
 
 /************************************************/
@@ -367,8 +367,10 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 			lock_hold:		0,
 			threads:		0,
 			bandwidth:		0,
-			invalid_l1:		0,
-			invalid_l2:		0
+			l1_miss:		0,
+			l1_invalid:		0,
+			l2_miss:		0,
+			l2_invalid:		0
 		},
 		frames: {},
 		events: {
@@ -441,8 +443,10 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 				
 				bandwidth:		0,	// how many memory bandwidth is used in bytes
 				
-				invalid_l1:		0,	// how many L1 invalidations (cache coherency misses)
-				invalid_l2:		0,	// how many L2 invalidations (cache coherency misses)
+				l1_miss:		0,	// how many L1 miss
+				l1_invalid:		0,	// how many L1 invalidations (cache coherency misses)
+				l2_miss:		0,	// how many L2 miss
+				l2_invalid:		0,	// how many L2 invalidations (cache coherency misses)
 			}
 		}
 	}
@@ -1002,16 +1006,22 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 			
 			// Compute id
 			lxID = element.type[1];
-			pxID = 'invalid_l' + lxID;
 			cxID = Math.floor(element.cid / (coreCount / profile.hardware.data['l' + lxID + 'caches']));
 			value = element.value | 0;
 			
-			// Append Lx invalidation (cache coherency misses)
+			// Compute property
+			if (element.type == 'l1Invalidations' || element.type == 'l2Invalidations') {
+				pxID = 'l' + lxID + '_invalid';
+			} else if (element.type == 'l1miss' || element.type == 'l2miss') {
+				pxID = 'l' + lxID + '_miss';
+			}
+			
+			// Append Lx invalidation (cache coherency misses) or miss
 			// Sum values by threads
 			data.stats[pxID] += value;
 			data.frames[timeEvent][pxID] += value;
 			
-			// Append Lx invalidation (cache coherency misses)
+			// Append Lx invalidation (cache coherency misses) or miss
 			// Sum values by threads for cache ID
 			data.frames[timeEvent].c[cxID][pxID] = (data.frames[timeEvent].c[cxID][pxID] | 0) + value;
 		}

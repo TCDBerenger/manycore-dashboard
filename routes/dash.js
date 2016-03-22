@@ -75,7 +75,7 @@ function addProfiling(output, profile) {
 		time:		timeStep * profile.hardware.data.lcores,
 		bandwidth:	timeStep * profile.hardware.data.bandwidth,
 		locality:	NaN,
-		coherency:	timeStep * profile.hardware.data.cycles, // * (hardware.data.l1caches + hardware.data.l2caches - 2)
+		coherency:	NaN,
 	};
 	
 	// Loop
@@ -106,7 +106,9 @@ function addProfiling(output, profile) {
 			f.e = Math.round(STRIP_HEIGHT * data.frames[time].bandwidth / max.bandwidth);
 			
 			// Cache coherency
-			f.il = Math.round(STRIP_HEIGHT * (data.frames[time].invalid_l1 + data.frames[time].invalid_l2) / max.coherency);
+			max.coherency = data.frames[time].l1_miss + data.frames[time].l2_miss;
+			f.il = Math.round(STRIP_HEIGHT * (data.frames[time].l1_invalid + data.frames[time].l2_invalid) / max.coherency);
+			if (f.il >= STRIP_HEIGHT) console.log('admin', time, Math.round(100 * (data.frames[time].l1_invalid + data.frames[time].l2_invalid) / max.coherency), 'l1', data.frames[time].l1_invalid, data.frames[time].l1_miss, 'l2', data.frames[time].l2_invalid, data.frames[time].l2_miss);
 			
 		} else {
 			f.i = NaN;
@@ -144,7 +146,7 @@ function addGauges(output, profile) {
 		locality:	data.locality.stats.ipc + data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf,
 		eventBase:	data.info.duration * profile.hardware.data.lcores,
 		bandwidth:	data.info.duration * profile.hardware.data.bandwidth,
-		coherency:	data.info.duration * profile.hardware.data.cycles, // * (profile.hardware.data.l1caches + profile.hardware.data.l2caches - 2)
+		coherency:	data.stats.l1_miss + data.stats.l2_miss,
 	};
 	
 	// Add percent
@@ -153,7 +155,7 @@ function addGauges(output, profile) {
 	 	{ l: 'i',	v: data.stats.idle,							m: max.time,				c: CAPABILITY_STATE },
 		{ l: 'p',	v: data.stats.parallel,						m: data.info.duration,		c: CAPABILITY_STATE }, 
 		{ l: 'r',	v: data.stats.running,						m: max.time,				c: CAPABILITY_STATE },
-		{ l: 'il',	v: data.stats.invalid_l1 + data.stats.invalid_l1,	m: max.coherency,	c: CAPABILITY_COHERENCY },
+		{ l: 'il',	v: data.stats.l1_invalid + data.stats.l2_invalid,	m: max.coherency,	c: CAPABILITY_COHERENCY },
 		{ l: 'lw',	v: data.stats.lock_wait,					m: max.time,				c: CAPABILITY_LOCK },
 		{ l: 'yb',	v: data.stats.ready + data.stats.standby,	m: max.time,				c: CAPABILITY_STATE },
 		{ l: 'ipc',	v: data.locality.stats.ipc,					m: max.locality,			c: CAPABILITY_LOCALITY },
