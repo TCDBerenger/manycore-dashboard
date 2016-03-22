@@ -126,9 +126,8 @@ app.factory('facets', ['colours', function(colours) {
 		q_s:	{ label: 'Sequential sequence',		capability: CAPABILITY_STATE,	attr: '',	unity: '', cat: '', colours: colours.sets.Orange },
 		q_p:	{ label: 'Parallel sequence',		capability: CAPABILITY_STATE,	attr: '',	unity: '', cat: '', colours: colours.sets.Green },
 		
-		e:		{ label: 'Memory bandwidth',			capability: CAPABILITY_MEMORY,	attr: 'e',	unity: 'MB',	colours: colours.sets.Magenta },
-		ue:		{ label: 'Available memory bandwidth',	capability: CAPABILITY_MEMORY,	attr: 'ue',	unity: 'MB',	colours: colours.sets.Blue },
-		se:		{ label: 'System memory bandwidth',		capability: CAPABILITY_MEMORY,	attr: 'se',	unity: 'MB',	colours: colours.sets.Grey },
+		e:		{ label: 'Memory bandwidth',		capability: CAPABILITY_MEMORY,	attr: 'e',	unity: 'MB',	colours: colours.sets.Magenta },
+		ue:		{ label: 'Unused memory bandwidth',	capability: CAPABILITY_MEMORY,	attr: 'ue',	unity: 'MB',	colours: colours.sets.Grey },
 		
 		il:		{ label: 'Cache line invalidations',	capability: CAPABILITY_COHERENCY,	attr: 'il',		unity: '',	colours: colours.sets.Red3 },
 		il1:	{ label: 'L1 cache line invalidations',	capability: CAPABILITY_COHERENCY,	attr: 'il1',	unity: '',	colours: colours.sets.Red4 },
@@ -446,7 +445,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '⊢', f: limit,	t: '[Y] Cores',	d: 'each line represents a core' }
 				],
 				data: [
-					{ b: '▮', f: facets.e,	d: 'memory bandwidth used by the program' },
+					{ b: '▮', f: facets.e,	d: 'the bandwidth used by physical cores for this program' },
 				]
 			},
 			clues: [],
@@ -542,7 +541,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				time: TIME_PROFILE,
 			},
 			graph: {
-				v:		[facets.e, facets.ue, facets.se],
+				v:		[facets.e, facets.ue],
 				limit:	limit
 			},
 			data: [facets.e],
@@ -550,9 +549,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			legend: {
 				axis: [],
 				data: [
-					{ b: '▮', f: facets.e,	d: 'memory bandwidth used by the program' },
-					{ b: '▮', f: facets.ue,	d: 'available memory bandwidth' },
-					{ b: '▮', f: facets.se,	d: 'non-available memory bandwidth, used by the system and other programs' }
+					{ b: '▮', f: facets.e,	d: 'the bandwidth used by the program' },
+					{ b: '▮', f: facets.ue,	d: 'the other bandwidth, available or used by other programs' }
 				]
 			},
 			clues: [],

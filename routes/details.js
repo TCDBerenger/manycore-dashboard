@@ -150,7 +150,6 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 	var isLW =	{ s: statProperties.indexOf('lw') >= 0,	f: hasF && frameProperties.indexOf('lw') >= 0 };
 	var isUE =	{ s: statProperties.indexOf('ue') >= 0,	f: hasF && frameProperties.indexOf('ue') >= 0 };
 	var isYB =	{ 										f: hasF && frameProperties.indexOf('yb') >= 0 };
-	var isSE =	{ s: statProperties.indexOf('se') >= 0,	f: hasF && frameProperties.indexOf('se') >= 0 };
 	var isSYS =	{ 										f: hasF && frameProperties.indexOf('sys') >= 0 };
 	var isIL1 =	{ s: statProperties.indexOf('il1') >= 0,f: hasF && frameProperties.indexOf('il1') >= 0,													cf: hasCF && coreFrameProperties.indexOf('il1') >= 0 };
 	var isIL2 =	{ s: statProperties.indexOf('il2') >= 0,f: hasF && frameProperties.indexOf('il2') >= 0,													cf: hasCF && coreFrameProperties.indexOf('il2') >= 0 };
@@ -202,7 +201,6 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 	if (isLS.s) {	output.raw.stats.ls =	Math.round(data.stats.lock_success); }
 	if (isLW.s) {	output.raw.stats.lw =	Math.round(data.stats.lock_wait);			output.raw.statsPercent.lw =	Math.round(100 * data.stats.lock_wait / max.timeProfile); }
 	if (isUE.s) {	output.raw.stats.ue =	Math.round((max.bandwidthProbile - data.stats.bandwidth) / 1048576);	output.raw.statsPercent.ue =	100 - Math.round(100 * data.stats.bandwidth / max.bandwidthProbile); }
-	if (isSE.s) {	output.raw.stats.se =	0;																		output.raw.statsPercent.se =	0 }
 	if (isIL1.s) {	output.raw.stats.il1 =	Math.round(data.stats.invalid_l1);			output.raw.statsPercent.il1 =	Math.round(100 * data.stats.invalid_l1 / max.L1Profile); }
 	if (isIL2.s) {	output.raw.stats.il2 =	Math.round(data.stats.invalid_l2);			output.raw.statsPercent.il2 =	Math.round(100 * data.stats.invalid_l2 / max.L2Profile); }
 	if (addDalaLocality) {
@@ -241,11 +239,13 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 				}
 				
 				// Bandwidth
-				if (isE.f) { amount.e =		Math.round(data.frames[timeID].bandwidth / 1048576);		amountPercent.e =	Math.round(100 * data.frames[timeID].bandwidth / max.bandwidthFrame); }
-				if (isSE.f) { amount.se =	Math.round(data.frames[timeID].sysBandwidth / 1048576);		amountPercent.se =	Math.round(100 * data.frames[timeID].sysBandwidth / max.bandwidthFrame); }
+				if (isE.f) {
+					amount.e =			Math.round(data.frames[timeID].bandwidth / 1048576);
+					amountPercent.e =	Math.round(100 * data.frames[timeID].bandwidth / max.bandwidthFrame);
+				}
 				if (isUE.f) {
-					amount.ue =			Math.round((max.bandwidthFrame - data.frames[timeID].bandwidth - data.frames[timeID].sysBandwidth) / 1048576);
-					amountPercent.ue =	100 - Math.round(100 * (data.frames[timeID].bandwidth + data.frames[timeID].sysBandwidth) / max.bandwidthFrame);
+					amount.ue =			Math.round((max.bandwidthFrame - data.frames[timeID].bandwidth) / 1048576);
+					amountPercent.ue =	100 - Math.round(100 * data.frames[timeID].bandwidth / max.bandwidthFrame);
 				}
 				
 				// Cache line invalidation
@@ -704,7 +704,7 @@ function jsonDS(profile, id) {
 	addCommon(output, id);
 	
 	// Add raw data for visualisation
-	addRawData(output, id, ['r', 'i', 'lw', 'e', 'il1', 'il2'], ['i', 'r', 'lw', 'sys', 'e', 'ue', 'se', 'il1', 'il2'], null, ['e', 'il1', 'il2'], true);
+	addRawData(output, id, ['r', 'i', 'lw', 'e', 'il1', 'il2'], ['i', 'r', 'lw', 'sys', 'e', 'ue', 'il1', 'il2'], null, ['e', 'il1', 'il2'], true);
 
 	// Add locks
 	addTimes(output, id, ['r', 'lw', 'i', 'sys']);
@@ -788,7 +788,7 @@ function jsonRS(profile, id) {
 	addCommon(output, id);
 	
 	// Add raw data for visualisation
-	addRawData(output, id, ['lf', 'ls', 'e', 'il1', 'il2'], ['e', 'ue', 'se', 'il1', 'il2'], ['lf', 'ls'], ['e', 'il1', 'il2'], true);
+	addRawData(output, id, ['lf', 'ls', 'e', 'il1', 'il2'], ['e', 'ue', 'il1', 'il2'], ['lf', 'ls'], ['e', 'il1', 'il2'], true);
 
 	// Add locks
 	addLocks(output, id);
