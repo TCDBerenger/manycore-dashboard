@@ -17,4 +17,4 @@
 *.RTF	diff=astextplain
 
 # Custom
-data/*.json		binary
+data/**.json		binary

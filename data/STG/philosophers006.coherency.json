@@ -1,0 +1,3362 @@
+[
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358243435455,
+    "dtime": 0,
+    "value": 7096320.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358243435455,
+    "dtime": 0,
+    "value": 18531961.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358243435455,
+    "dtime": 0,
+    "value": 7096320.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358243435455,
+    "dtime": 0,
+    "value": 18574752.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358243435455,
+    "dtime": 0,
+    "value": 4386816.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358243435455,
+    "dtime": 0,
+    "value": 18689766.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358243435455,
+    "dtime": 0,
+    "value": 4386816.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358243435455,
+    "dtime": 0,
+    "value": 18658165.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358243435455,
+    "dtime": 0,
+    "value": 11827200.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358243435455,
+    "dtime": 0,
+    "value": 18801595.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358243435455,
+    "dtime": 0,
+    "value": 11827200.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358243435455,
+    "dtime": 0,
+    "value": 18954177.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358243435455,
+    "dtime": 0,
+    "value": 12816384.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358243435455,
+    "dtime": 0,
+    "value": 19198587.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358243435455,
+    "dtime": 0,
+    "value": 12816384.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358243435455,
+    "dtime": 0,
+    "value": 19363858.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358243935455,
+    "dtime": 500000,
+    "value": 11870208.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358243935455,
+    "dtime": 500000,
+    "value": 19557796.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358243935455,
+    "dtime": 500000,
+    "value": 11870208.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358243935455,
+    "dtime": 500000,
+    "value": 19629592.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358243935455,
+    "dtime": 500000,
+    "value": 10450944.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358243935455,
+    "dtime": 500000,
+    "value": 19588854.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358243935455,
+    "dtime": 500000,
+    "value": 10450944.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358243935455,
+    "dtime": 500000,
+    "value": 19636510.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358243935455,
+    "dtime": 500000,
+    "value": 13418496.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358243935455,
+    "dtime": 500000,
+    "value": 19567882.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358243935455,
+    "dtime": 500000,
+    "value": 13418496.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358243935455,
+    "dtime": 500000,
+    "value": 19585656.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358243935455,
+    "dtime": 500000,
+    "value": 11139072.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358243935455,
+    "dtime": 500000,
+    "value": 19431865.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358243935455,
+    "dtime": 500000,
+    "value": 11139072.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358243935455,
+    "dtime": 500000,
+    "value": 19328101.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358244435455,
+    "dtime": 1000000,
+    "value": 13891584.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358244435455,
+    "dtime": 1000000,
+    "value": 20509695.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358244435455,
+    "dtime": 1000000,
+    "value": 13891584.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358244435455,
+    "dtime": 1000000,
+    "value": 20482960.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358244435455,
+    "dtime": 1000000,
+    "value": 12515328.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358244435455,
+    "dtime": 1000000,
+    "value": 20446747.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358244435455,
+    "dtime": 1000000,
+    "value": 12515328.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358244435455,
+    "dtime": 1000000,
+    "value": 20456895.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358244435455,
+    "dtime": 1000000,
+    "value": 12730368.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358244435455,
+    "dtime": 1000000,
+    "value": 20357901.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358244435455,
+    "dtime": 1000000,
+    "value": 12730368.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358244435455,
+    "dtime": 1000000,
+    "value": 20435275.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358244435455,
+    "dtime": 1000000,
+    "value": 12042240.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358244435455,
+    "dtime": 1000000,
+    "value": 20374867.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358244435455,
+    "dtime": 1000000,
+    "value": 12042240.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358244435455,
+    "dtime": 1000000,
+    "value": 20387023.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358244935455,
+    "dtime": 1500000,
+    "value": 8214528.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358244935455,
+    "dtime": 1500000,
+    "value": 19103241.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358244935455,
+    "dtime": 1500000,
+    "value": 8214528.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358244935455,
+    "dtime": 1500000,
+    "value": 19250800.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358244935455,
+    "dtime": 1500000,
+    "value": 12601344.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358244935455,
+    "dtime": 1500000,
+    "value": 19122144.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358244935455,
+    "dtime": 1500000,
+    "value": 12601344.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358244935455,
+    "dtime": 1500000,
+    "value": 19121349.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358244935455,
+    "dtime": 1500000,
+    "value": 8300544.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358244935455,
+    "dtime": 1500000,
+    "value": 19110231.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358244935455,
+    "dtime": 1500000,
+    "value": 8300544.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358244935455,
+    "dtime": 1500000,
+    "value": 19219450.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358244935455,
+    "dtime": 1500000,
+    "value": 6150144.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358244935455,
+    "dtime": 1500000,
+    "value": 19531648.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358244935455,
+    "dtime": 1500000,
+    "value": 6150144.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358244935455,
+    "dtime": 1500000,
+    "value": 19615243.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358245435455,
+    "dtime": 2000000,
+    "value": 8687616.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358245435455,
+    "dtime": 2000000,
+    "value": 19769256.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358245435455,
+    "dtime": 2000000,
+    "value": 8687616.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358245435455,
+    "dtime": 2000000,
+    "value": 19673070.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358245435455,
+    "dtime": 2000000,
+    "value": 12171264.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358245435455,
+    "dtime": 2000000,
+    "value": 19637983.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358245435455,
+    "dtime": 2000000,
+    "value": 12171264.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358245435455,
+    "dtime": 2000000,
+    "value": 19541523.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358245435455,
+    "dtime": 2000000,
+    "value": 12429312.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358245435455,
+    "dtime": 2000000,
+    "value": 19498618.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358245435455,
+    "dtime": 2000000,
+    "value": 12429312.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358245435455,
+    "dtime": 2000000,
+    "value": 19530934.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358245435455,
+    "dtime": 2000000,
+    "value": 13289472.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358245435455,
+    "dtime": 2000000,
+    "value": 19356997.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358245435455,
+    "dtime": 2000000,
+    "value": 13289472.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358245435455,
+    "dtime": 2000000,
+    "value": 19434300.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358245935455,
+    "dtime": 2500000,
+    "value": 13805568.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358245935455,
+    "dtime": 2500000,
+    "value": 19526421.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358245935455,
+    "dtime": 2500000,
+    "value": 13805568.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358245935455,
+    "dtime": 2500000,
+    "value": 19505136.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358245935455,
+    "dtime": 2500000,
+    "value": 15482880.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358245935455,
+    "dtime": 2500000,
+    "value": 19523440.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358245935455,
+    "dtime": 2500000,
+    "value": 15482880.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358245935455,
+    "dtime": 2500000,
+    "value": 19464582.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358245935455,
+    "dtime": 2500000,
+    "value": 13676544.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358245935455,
+    "dtime": 2500000,
+    "value": 19449103.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358245935455,
+    "dtime": 2500000,
+    "value": 13676544.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358245935455,
+    "dtime": 2500000,
+    "value": 19510689.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358245935455,
+    "dtime": 2500000,
+    "value": 12730368.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358245935455,
+    "dtime": 2500000,
+    "value": 19553848.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358245935455,
+    "dtime": 2500000,
+    "value": 12730368.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358245935455,
+    "dtime": 2500000,
+    "value": 19540921.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358246435455,
+    "dtime": 3000000,
+    "value": 9676800.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358246435455,
+    "dtime": 3000000,
+    "value": 19390981.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358246435455,
+    "dtime": 3000000,
+    "value": 9676800.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358246435455,
+    "dtime": 3000000,
+    "value": 19375491.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358246435455,
+    "dtime": 3000000,
+    "value": 13891584.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358246435455,
+    "dtime": 3000000,
+    "value": 19346544.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358246435455,
+    "dtime": 3000000,
+    "value": 13891584.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358246435455,
+    "dtime": 3000000,
+    "value": 19404510.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358246435455,
+    "dtime": 3000000,
+    "value": 7354368.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358246435455,
+    "dtime": 3000000,
+    "value": 19327792.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358246435455,
+    "dtime": 3000000,
+    "value": 7354368.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358246435455,
+    "dtime": 3000000,
+    "value": 19371799.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358246435455,
+    "dtime": 3000000,
+    "value": 8386560.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358246435455,
+    "dtime": 3000000,
+    "value": 19511226.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358246435455,
+    "dtime": 3000000,
+    "value": 8386560.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358246435455,
+    "dtime": 3000000,
+    "value": 19575685.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358246935455,
+    "dtime": 3500000,
+    "value": 15310848.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358246935455,
+    "dtime": 3500000,
+    "value": 20537794.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358246935455,
+    "dtime": 3500000,
+    "value": 15310848.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358246935455,
+    "dtime": 3500000,
+    "value": 20522496.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358246935455,
+    "dtime": 3500000,
+    "value": 16128000.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358246935455,
+    "dtime": 3500000,
+    "value": 20480086.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358246935455,
+    "dtime": 3500000,
+    "value": 16128000.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358246935455,
+    "dtime": 3500000,
+    "value": 20338606.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358246935455,
+    "dtime": 3500000,
+    "value": 15482880.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358246935455,
+    "dtime": 3500000,
+    "value": 20359867.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358246935455,
+    "dtime": 3500000,
+    "value": 15482880.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358246935455,
+    "dtime": 3500000,
+    "value": 20349027.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358246935455,
+    "dtime": 3500000,
+    "value": 11999232.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358246935455,
+    "dtime": 3500000,
+    "value": 20211538.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358246935455,
+    "dtime": 3500000,
+    "value": 11999232.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358246935455,
+    "dtime": 3500000,
+    "value": 20153421.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358247435455,
+    "dtime": 4000000,
+    "value": 10838016.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358247435455,
+    "dtime": 4000000,
+    "value": 19595052.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358247435455,
+    "dtime": 4000000,
+    "value": 10838016.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358247435455,
+    "dtime": 4000000,
+    "value": 19478590.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358247435455,
+    "dtime": 4000000,
+    "value": 13375488.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358247435455,
+    "dtime": 4000000,
+    "value": 19243557.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358247435455,
+    "dtime": 4000000,
+    "value": 13375488.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358247435455,
+    "dtime": 4000000,
+    "value": 19217562.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358247435455,
+    "dtime": 4000000,
+    "value": 13246464.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358247435455,
+    "dtime": 4000000,
+    "value": 19216609.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358247435455,
+    "dtime": 4000000,
+    "value": 13246464.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358247435455,
+    "dtime": 4000000,
+    "value": 19189686.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358247435455,
+    "dtime": 4000000,
+    "value": 9289728.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358247435455,
+    "dtime": 4000000,
+    "value": 19073098.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358247435455,
+    "dtime": 4000000,
+    "value": 9289728.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358247435455,
+    "dtime": 4000000,
+    "value": 18943302.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358247935455,
+    "dtime": 4500000,
+    "value": 10106880.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358247935455,
+    "dtime": 4500000,
+    "value": 20889433.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358247935455,
+    "dtime": 4500000,
+    "value": 10106880.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358247935455,
+    "dtime": 4500000,
+    "value": 20828332.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358247935455,
+    "dtime": 4500000,
+    "value": 9418752.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358247935455,
+    "dtime": 4500000,
+    "value": 20817276.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358247935455,
+    "dtime": 4500000,
+    "value": 9418752.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358247935455,
+    "dtime": 4500000,
+    "value": 20865877.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358247935455,
+    "dtime": 4500000,
+    "value": 16084992.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358247935455,
+    "dtime": 4500000,
+    "value": 20711442.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358247935455,
+    "dtime": 4500000,
+    "value": 16084992.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358247935455,
+    "dtime": 4500000,
+    "value": 20644831.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358247935455,
+    "dtime": 4500000,
+    "value": 7612416.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358247935455,
+    "dtime": 4500000,
+    "value": 20788092.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358247935455,
+    "dtime": 4500000,
+    "value": 7612416.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358247935455,
+    "dtime": 4500000,
+    "value": 20853367.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358248435455,
+    "dtime": 5000000,
+    "value": 989184.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358248435455,
+    "dtime": 5000000,
+    "value": 19535727.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358248435455,
+    "dtime": 5000000,
+    "value": 989184.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358248435455,
+    "dtime": 5000000,
+    "value": 19483761.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358248435455,
+    "dtime": 5000000,
+    "value": 8128512.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358248435455,
+    "dtime": 5000000,
+    "value": 19506220.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358248435455,
+    "dtime": 5000000,
+    "value": 8128512.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358248435455,
+    "dtime": 5000000,
+    "value": 19561257.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358248435455,
+    "dtime": 5000000,
+    "value": 11354112.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358248435455,
+    "dtime": 5000000,
+    "value": 19756930.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358248435455,
+    "dtime": 5000000,
+    "value": 11354112.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358248435455,
+    "dtime": 5000000,
+    "value": 19692423.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358248435455,
+    "dtime": 5000000,
+    "value": 13805568.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358248435455,
+    "dtime": 5000000,
+    "value": 19791757.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358248435455,
+    "dtime": 5000000,
+    "value": 13805568.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358248435455,
+    "dtime": 5000000,
+    "value": 19826076.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358248935455,
+    "dtime": 5500000,
+    "value": 14063616.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358248935455,
+    "dtime": 5500000,
+    "value": 19177693.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358248935455,
+    "dtime": 5500000,
+    "value": 14063616.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358248935455,
+    "dtime": 5500000,
+    "value": 19298182.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358248935455,
+    "dtime": 5500000,
+    "value": 13719552.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358248935455,
+    "dtime": 5500000,
+    "value": 19468945.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358248935455,
+    "dtime": 5500000,
+    "value": 13719552.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358248935455,
+    "dtime": 5500000,
+    "value": 19536837.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358248935455,
+    "dtime": 5500000,
+    "value": 17547264.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358248935455,
+    "dtime": 5500000,
+    "value": 19807543.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358248935455,
+    "dtime": 5500000,
+    "value": 17547264.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358248935455,
+    "dtime": 5500000,
+    "value": 19844155.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358248935455,
+    "dtime": 5500000,
+    "value": 10838016.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358248935455,
+    "dtime": 5500000,
+    "value": 19986640.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358248935455,
+    "dtime": 5500000,
+    "value": 10838016.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358248935455,
+    "dtime": 5500000,
+    "value": 20115283.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358249435455,
+    "dtime": 6000000,
+    "value": 7483392.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358249435455,
+    "dtime": 6000000,
+    "value": 17924361.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358249435455,
+    "dtime": 6000000,
+    "value": 7483392.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358249435455,
+    "dtime": 6000000,
+    "value": 17849289.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358249435455,
+    "dtime": 6000000,
+    "value": 12816384.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358249435455,
+    "dtime": 6000000,
+    "value": 18010944.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358249435455,
+    "dtime": 6000000,
+    "value": 12816384.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358249435455,
+    "dtime": 6000000,
+    "value": 17935266.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358249435455,
+    "dtime": 6000000,
+    "value": 13590528.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358249435455,
+    "dtime": 6000000,
+    "value": 17885646.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358249435455,
+    "dtime": 6000000,
+    "value": 13590528.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358249435455,
+    "dtime": 6000000,
+    "value": 17892801.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358249435455,
+    "dtime": 6000000,
+    "value": 9805824.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358249435455,
+    "dtime": 6000000,
+    "value": 18111738.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358249435455,
+    "dtime": 6000000,
+    "value": 9805824.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358249435455,
+    "dtime": 6000000,
+    "value": 18062703.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358249935455,
+    "dtime": 6500000,
+    "value": 15912960.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358249935455,
+    "dtime": 6500000,
+    "value": 19735683.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358249935455,
+    "dtime": 6500000,
+    "value": 15912960.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358249935455,
+    "dtime": 6500000,
+    "value": 19791945.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358249935455,
+    "dtime": 6500000,
+    "value": 17117184.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358249935455,
+    "dtime": 6500000,
+    "value": 19881763.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358249935455,
+    "dtime": 6500000,
+    "value": 17117184.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358249935455,
+    "dtime": 6500000,
+    "value": 19926894.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358249935455,
+    "dtime": 6500000,
+    "value": 17375232.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358249935455,
+    "dtime": 6500000,
+    "value": 19869288.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358249935455,
+    "dtime": 6500000,
+    "value": 17375232.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358249935455,
+    "dtime": 6500000,
+    "value": 19879344.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358249935455,
+    "dtime": 6500000,
+    "value": 10493952.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358249935455,
+    "dtime": 6500000,
+    "value": 19951530.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358249935455,
+    "dtime": 6500000,
+    "value": 10493952.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358249935455,
+    "dtime": 6500000,
+    "value": 20127522.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358250435455,
+    "dtime": 7000000,
+    "value": 11569152.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358250435455,
+    "dtime": 7000000,
+    "value": 19053241.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358250435455,
+    "dtime": 7000000,
+    "value": 11569152.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358250435455,
+    "dtime": 7000000,
+    "value": 18904969.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358250435455,
+    "dtime": 7000000,
+    "value": 15009792.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358250435455,
+    "dtime": 7000000,
+    "value": 18925102.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358250435455,
+    "dtime": 7000000,
+    "value": 15009792.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358250435455,
+    "dtime": 7000000,
+    "value": 18871828.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358250435455,
+    "dtime": 7000000,
+    "value": 14837760.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358250435455,
+    "dtime": 7000000,
+    "value": 18776736.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358250435455,
+    "dtime": 7000000,
+    "value": 14837760.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358250435455,
+    "dtime": 7000000,
+    "value": 18587217.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358250435455,
+    "dtime": 7000000,
+    "value": 11440128.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358250435455,
+    "dtime": 7000000,
+    "value": 18542353.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358250435455,
+    "dtime": 7000000,
+    "value": 11440128.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358250435455,
+    "dtime": 7000000,
+    "value": 18481269.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358250935455,
+    "dtime": 7500000,
+    "value": 9375744.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358250935455,
+    "dtime": 7500000,
+    "value": 19953357.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358250935455,
+    "dtime": 7500000,
+    "value": 9375744.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358250935455,
+    "dtime": 7500000,
+    "value": 19908699.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358250935455,
+    "dtime": 7500000,
+    "value": 17977344.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358250935455,
+    "dtime": 7500000,
+    "value": 19814640.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358250935455,
+    "dtime": 7500000,
+    "value": 17977344.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358250935455,
+    "dtime": 7500000,
+    "value": 19834498.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358250935455,
+    "dtime": 7500000,
+    "value": 15267840.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358250935455,
+    "dtime": 7500000,
+    "value": 19685281.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358250935455,
+    "dtime": 7500000,
+    "value": 15267840.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358250935455,
+    "dtime": 7500000,
+    "value": 19611370.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358250935455,
+    "dtime": 7500000,
+    "value": 15525888.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358250935455,
+    "dtime": 7500000,
+    "value": 19584510.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358250935455,
+    "dtime": 7500000,
+    "value": 15525888.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358250935455,
+    "dtime": 7500000,
+    "value": 19504833.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358251435455,
+    "dtime": 8000000,
+    "value": 10407936.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358251435455,
+    "dtime": 8000000,
+    "value": 19798063.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358251435455,
+    "dtime": 8000000,
+    "value": 10407936.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358251435455,
+    "dtime": 8000000,
+    "value": 19802368.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358251435455,
+    "dtime": 8000000,
+    "value": 10622976.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358251435455,
+    "dtime": 8000000,
+    "value": 19827046.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358251435455,
+    "dtime": 8000000,
+    "value": 10622976.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358251435455,
+    "dtime": 8000000,
+    "value": 19760803.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358251435455,
+    "dtime": 8000000,
+    "value": 11655168.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358251435455,
+    "dtime": 8000000,
+    "value": 19674606.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358251435455,
+    "dtime": 8000000,
+    "value": 11655168.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358251435455,
+    "dtime": 8000000,
+    "value": 19629526.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358251435455,
+    "dtime": 8000000,
+    "value": 9375744.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358251435455,
+    "dtime": 8000000,
+    "value": 19580757.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358251435455,
+    "dtime": 8000000,
+    "value": 9375744.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358251435455,
+    "dtime": 8000000,
+    "value": 19551493.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358251935455,
+    "dtime": 8500000,
+    "value": 13934592.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358251935455,
+    "dtime": 8500000,
+    "value": 19852035.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358251935455,
+    "dtime": 8500000,
+    "value": 13934592.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358251935455,
+    "dtime": 8500000,
+    "value": 19797441.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358251935455,
+    "dtime": 8500000,
+    "value": 15998976.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358251935455,
+    "dtime": 8500000,
+    "value": 19781074.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358251935455,
+    "dtime": 8500000,
+    "value": 15998976.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358251935455,
+    "dtime": 8500000,
+    "value": 19867126.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358251935455,
+    "dtime": 8500000,
+    "value": 13203456.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358251935455,
+    "dtime": 8500000,
+    "value": 19957405.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358251935455,
+    "dtime": 8500000,
+    "value": 13203456.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358251935455,
+    "dtime": 8500000,
+    "value": 19981434.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358251935455,
+    "dtime": 8500000,
+    "value": 15224832.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358251935455,
+    "dtime": 8500000,
+    "value": 20005236.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358251935455,
+    "dtime": 8500000,
+    "value": 15224832.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358251935455,
+    "dtime": 8500000,
+    "value": 20006490.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358252435455,
+    "dtime": 9000000,
+    "value": 5591040.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358252435455,
+    "dtime": 9000000,
+    "value": 19949635.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358252435455,
+    "dtime": 9000000,
+    "value": 5591040.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358252435455,
+    "dtime": 9000000,
+    "value": 19942183.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358252435455,
+    "dtime": 9000000,
+    "value": 12988416.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358252435455,
+    "dtime": 9000000,
+    "value": 20023504.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358252435455,
+    "dtime": 9000000,
+    "value": 12988416.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358252435455,
+    "dtime": 9000000,
+    "value": 20098764.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358252435455,
+    "dtime": 9000000,
+    "value": 13590528.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358252435455,
+    "dtime": 9000000,
+    "value": 20147073.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358252435455,
+    "dtime": 9000000,
+    "value": 13590528.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358252435455,
+    "dtime": 9000000,
+    "value": 20335933.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358252435455,
+    "dtime": 9000000,
+    "value": 12214272.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358252435455,
+    "dtime": 9000000,
+    "value": 20378518.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358252435455,
+    "dtime": 9000000,
+    "value": 12214272.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358252435455,
+    "dtime": 9000000,
+    "value": 20518206.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358252935455,
+    "dtime": 9500000,
+    "value": 11483136.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358252935455,
+    "dtime": 9500000,
+    "value": 19711801.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358252935455,
+    "dtime": 9500000,
+    "value": 11483136.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358252935455,
+    "dtime": 9500000,
+    "value": 19712298.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358252935455,
+    "dtime": 9500000,
+    "value": 12816384.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358252935455,
+    "dtime": 9500000,
+    "value": 19700982.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358252935455,
+    "dtime": 9500000,
+    "value": 12816384.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358252935455,
+    "dtime": 9500000,
+    "value": 19681960.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358252935455,
+    "dtime": 9500000,
+    "value": 13719552.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358252935455,
+    "dtime": 9500000,
+    "value": 19625932.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358252935455,
+    "dtime": 9500000,
+    "value": 13719552.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358252935455,
+    "dtime": 9500000,
+    "value": 19635787.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358252935455,
+    "dtime": 9500000,
+    "value": 13977600.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358252935455,
+    "dtime": 9500000,
+    "value": 19616842.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358252935455,
+    "dtime": 9500000,
+    "value": 13977600.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358252935455,
+    "dtime": 9500000,
+    "value": 19624990.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358253435455,
+    "dtime": 10000000,
+    "value": 9246720.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358253435455,
+    "dtime": 10000000,
+    "value": 19572210.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358253435455,
+    "dtime": 10000000,
+    "value": 9246720.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358253435455,
+    "dtime": 10000000,
+    "value": 19544170.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358253435455,
+    "dtime": 10000000,
+    "value": 14063616.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358253435455,
+    "dtime": 10000000,
+    "value": 19500460.5,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358253435455,
+    "dtime": 10000000,
+    "value": 14063616.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358253435455,
+    "dtime": 10000000,
+    "value": 19483053.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358253435455,
+    "dtime": 10000000,
+    "value": 12214272.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358253435455,
+    "dtime": 10000000,
+    "value": 19509792.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358253435455,
+    "dtime": 10000000,
+    "value": 12214272.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358253435455,
+    "dtime": 10000000,
+    "value": 19740288.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358253435455,
+    "dtime": 10000000,
+    "value": 8171520.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358253435455,
+    "dtime": 10000000,
+    "value": 19717680.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "l1Invalidations",
+    "program": "N/A",
+    "time": 635930358253435455,
+    "dtime": 10000000,
+    "value": 8171520.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "l2Invalidations",
+    "program": "N/A",
+    "time": 635930358253435455,
+    "dtime": 10000000,
+    "value": 19752987.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  }
+]
