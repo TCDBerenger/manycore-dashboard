@@ -370,7 +370,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			focus: [facets.il1],
 			legend: {
 				axis: [
-					{ b: '%', t: '[Y] Percent',	d: 'theoretical maximum of possible L1 cache invalidations', c: colours.list.fGrey}
+					{ b: '%', t: 'Percent',	d: 'theoretical maximum of possible L1 cache invalidations', c: colours.list.fGrey}
 				],
 				data: [
 					{ b: '▮', 	d: 'number line invalidations in L1 cache',	f: facets.il1 }
@@ -391,7 +391,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			focus: [facets.il2],
 			legend: {
 				axis: [
-					{ b: '%', t: '[Y] Percent',	d: 'theoretical maximum of possible L2 cache invalidations', c: colours.list.fGrey}
+					{ b: '%', t: 'Percent',	d: 'theoretical maximum of possible L2 cache invalidations', c: colours.list.fGrey}
 				],
 				data: [
 					{ b: '▮', 	d: 'number line invalidations in L2 cache',	f: facets.il2 }
@@ -412,7 +412,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			focus: [facets.ipc, facets.tlb, facets.l1, facets.l2, facets.l3, facets.hpf],
 			legend: {
 				axis: [
-					{ b: '%', t: '[Y] Percent',	d: 'ratio of time spent on locality misses compared to time spent on executing', c: colours.list.fGrey}
+					{ b: '%', t: 'Percent',	d: 'ratio of time spent on locality misses compared to time spent on executing', c: colours.list.fGrey}
 				],
 				data: [
 					{ b: '▮', f: facets.ipc,	d: 'instructions per clock cycle' },
@@ -442,7 +442,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			data: [facets.e],
 			legend: {
 				axis: [
-					{ b: '⊢', f: limit,	t: '[Y] Cores',	d: 'each line represents a core' }
+					{ b: '⊢', f: limit,	t: 'Cores',	d: 'each line represents a core' }
 				],
 				data: [
 					{ b: '▮', f: facets.e,	d: 'the bandwidth used by physical cores for this program' },
@@ -465,7 +465,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			data: [facets.i, facets.r],
 			legend: {
 				axis: [
-					{ b: '⊢', f: limit,	t: '[Y] Cores',	d: 'each line represents a core' }
+					{ b: '⊢', f: limit,	t: 'Cores',	d: 'each line represents a core' }
 				],
 				data: [
 					{ b: '▮', f: facets.i, t: 'Idle', d: 'time spend by the core waiting a thread to run (other processes are considfred as idle time)' }
@@ -489,9 +489,9 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			focus: [facets.sys, facets.i, facets.r, facets.lw],
 			legend: {
 				axis: [
-					{ b: '◓',	f: facets.lw,	t: '[Y] Over capacity',				d: 'time spent by threads while waiting for a lock' },
-					{ b: '▪▪',	f: facets.i,	t: '[Y] Limit of core capacity',	d: 'capacity of CPU computation' },
-					{ b: '◒',	f: facets.r,	t: '[Y] Core capacity',				d: 'time spent in thread execution, idle, or used by the OS' }
+					{ b: '◓',	f: facets.lw,	t: 'Over capacity',				d: 'time spent by threads while waiting for a lock' },
+					{ b: '▪▪',	f: facets.i,	t: 'Limit of core capacity',	d: 'capacity of CPU computation' },
+					{ b: '◒',	f: facets.r,	t: 'Core capacity',				d: 'time spent in thread execution, idle, or used by the OS' }
 				],
 				data: [
 					{ b: '▮', f: facets.lw,		d: 'threads are not ready to be processed because they waiting to acquire a lock' },
@@ -579,7 +579,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			data: [facets.ls, facets.lf],
 			legend: {
 				axis: [
-					{ b: '⊢', f: limit,	t: '[Y] Threads',	d: 'each line represents a thread complying with the start and end times' },
+					{ b: '⊢', f: limit,	t: 'Threads',	d: 'each line represents a thread complying with the start and end times' },
 				],
 				data: [
 					{ b: '×', f: facets.lf,									d: 'attempt to acquire a lock' },
@@ -675,9 +675,9 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			focus: [facets.sys, facets.i, facets.r, facets.yb],
 			legend: {
 				axis: [
-					{ b: '◓',	f: facets.yb,	t: '[Y] Over capacity',				d: 'time spent by threads while waiting a core' },
-					{ b: '▪▪',	f: facets.i,	t: '[Y] Limit of core capacity',	d: 'capacity of CPU computation' },
-					{ b: '◒',	f: facets.r,	t: '[Y] Core capacity',				d: 'time spent in thread execution, idle, or used by the OS' }
+					{ b: '◓',	f: facets.yb,	t: 'Over capacity',				d: 'time spent by threads while waiting a core' },
+					{ b: '▪▪',	f: facets.i,	t: 'Limit of core capacity',	d: 'capacity of CPU computation' },
+					{ b: '◒',	f: facets.r,	t: 'Core capacity',				d: 'time spent in thread execution, idle, or used by the OS' }
 				],
 				data: [
 					{ b: '▮', f: facets.yb,		t: 'ready + standby',	d: 'thread is ready to run but is is waiting for a core to become available'},
@@ -708,7 +708,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			data: [facets.m],
 			legend: {
 				axis: [
-					{ b: '⊢', f: limit,	t: '[Y] Threads',	d: 'each line represents a thread complying with the start and end times' }
+					{ b: '⊢', f: limit,	t: 'Threads',	d: 'each line represents a thread complying with the start and end times' }
 				],
 				data: [
 					{ b: '|',				d:'thread migrates to another core', f: facets.m },
@@ -744,7 +744,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			data: [facets.lw],
 			legend: {
 				axis: [
-					{ b: '⊢', f: limit,	t: '[Y] Threads',	d: 'each line represents a thread complying with the start and end times' }
+					{ b: '⊢', f: limit,	t: 'Threads',	d: 'each line represents a thread complying with the start and end times' }
 				],
 				data: [
 					{ b: '╳', t: 'Lock with contention',		d: 'failure of lock acquisition',	f: facets.lf },
@@ -770,7 +770,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			data: [facets.r, facets.i],
 			legend: {
 				axis: [
-					{ b: '⊢', f: limit,	t: '[Y] Cores',	d: 'each line represents a core, not in the right order, not with the right thread' }
+					{ b: '⊢', f: limit,	t: 'Cores',	d: 'each line represents a core, not in the right order, not with the right thread' }
 				],
 				data: [
 					{ b: '─', t: 'Sequential line',			d: 'core is idle (sequential sequence)',		f: facets.q_s },
