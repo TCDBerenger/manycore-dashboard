@@ -166,10 +166,6 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 		timeFrame: data.info.timeStep * hardware.data.lcores,
 		bandwidthProbile: data.info.duration * hardware.data.bandwidth,
 		bandwidthFrame: data.info.timeStep * hardware.data.bandwidth,
-		L1Profile: data.info.duration * hardware.data.cycles,// * (hardware.data.l1caches - 1),
-		L1Frame: data.info.timeStep * hardware.data.cycles,// * (hardware.data.l1caches - 1),
-		L2Profile: data.info.duration * hardware.data.cycles,// * (hardware.data.l2caches - 1),
-		L2Frame: data.info.timeStep * hardware.data.cycles,// * (hardware.data.l2caches - 1),
 		locality: data.locality.stats.ipc + data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf
 	};
 	
@@ -201,8 +197,8 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 	if (isLS.s) {	output.raw.stats.ls =	Math.round(data.stats.lock_success); }
 	if (isLW.s) {	output.raw.stats.lw =	Math.round(data.stats.lock_wait);			output.raw.statsPercent.lw =	Math.round(100 * data.stats.lock_wait / max.timeProfile); }
 	if (isUE.s) {	output.raw.stats.ue =	Math.round((max.bandwidthProbile - data.stats.bandwidth) / 1048576);	output.raw.statsPercent.ue =	100 - Math.round(100 * data.stats.bandwidth / max.bandwidthProbile); }
-	if (isIL1.s) {	output.raw.stats.il1 =	Math.round(data.stats.l1_invalid);			output.raw.statsPercent.il1 =	Math.round(100 * data.stats.l1_invalid / max.L1Profile); }
-	if (isIL2.s) {	output.raw.stats.il2 =	Math.round(data.stats.l2_invalid);			output.raw.statsPercent.il2 =	Math.round(100 * data.stats.l2_invalid / max.L2Profile); }
+	if (isIL1.s) {	output.raw.stats.il1 =	Math.round(data.stats.l1_invalid);			output.raw.statsPercent.il1 =	Math.round(100 * data.stats.l1_invalid / data.stats.l1_miss); }
+	if (isIL2.s) {	output.raw.stats.il2 =	Math.round(data.stats.l2_invalid);			output.raw.statsPercent.il2 =	Math.round(100 * data.stats.l2_invalid / data.stats.l2_miss); }
 	if (addDalaLocality) {
 				output.raw.stats.ipc =	Math.round(data.locality.stats.ipc);	output.raw.statsPercent.ipc =	Math.round(100 * data.locality.stats.ipc / max.locality);
 				output.raw.stats.tlb =	Math.round(data.locality.stats.tlb);	output.raw.statsPercent.tlb =	Math.round(100 * data.locality.stats.tlb / max.locality);
@@ -249,8 +245,8 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 				}
 				
 				// Cache line invalidation
-				if (isIL1.f) { amount.il1 = data.frames[timeID].l1_invalid;	amountPercent.il1 = Math.round(100 * data.frames[timeID].l1_invalid / max.L1Frame); }
-				if (isIL2.f) { amount.il2 = data.frames[timeID].l2_invalid;	amountPercent.il2 = Math.round(100 * data.frames[timeID].l2_invalid / max.L2Frame); }
+				if (isIL1.f) { amount.il1 = data.frames[timeID].l1_invalid;	amountPercent.il1 = Math.round(100 * data.frames[timeID].l1_invalid / data.frames[timeID].l1_miss); }
+				if (isIL2.f) { amount.il2 = data.frames[timeID].l2_invalid;	amountPercent.il2 = Math.round(100 * data.frames[timeID].l2_invalid / data.frames[timeID].l2_miss); }
 				
 				// Core times
 				if (hasCFP) {
@@ -267,13 +263,13 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 				if (isIL1.cf) {
 					for (var cid = profiles[id].hardware.data.l1caches; cid--; ) {
 						amount['il1_c' + cid] =	data.frames[timeID].c[cid].l1_invalid;
-						amountPercent['il1_c' + cid] =	Math.round(100 * data.frames[timeID].c[cid].l1_invalid / max.L1Frame);
+						amountPercent['il1_c' + cid] =	Math.round(100 * data.frames[timeID].c[cid].l1_invalid / data.frames[timeID].l1_miss);
 					}
 				}
 				if (isIL2.cf) {
 					for (var cid = profiles[id].hardware.data.l2caches; cid--; ) {
 						amount['il2_c' + cid] =	data.frames[timeID].c[cid].l2_invalid;
-						amountPercent['il2_c' + cid] =	Math.round(100 * data.frames[timeID].c[cid].l2_invalid / max.L1Frame);
+						amountPercent['il2_c' + cid] =	Math.round(100 * data.frames[timeID].c[cid].l2_invalid / data.frames[timeID].l2_miss);
 					}
 				}
 				
