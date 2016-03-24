@@ -103,7 +103,7 @@ app.factory('facets', ['colours', function(colours) {
 		yb: 	{ label: 'Ready',				capability: CAPABILITY_STATE,		attr: 'yb',		unity: 'ms', cat: 'times',	colours: colours.sets.Orange,	color: colours.list.nOrange,	fcolor: colours.list.dOrange,	gcolor: colours.list.fOrange },
 		i: 		{ label: 'Idle core',			capability: CAPABILITY_STATE,		attr: 'i',		unity: 'ms', cat: 'times',	colours: colours.sets.Blue,		color: colours.list.nBlue,		fcolor: colours.list.dBlue,		gcolor: colours.list.fBlue },
 		w:		{ label: 'Waiting',				capability: CAPABILITY_STATE,		attr: 'w',		unity: 'ms', cat: 'times',	colours: colours.sets.Yellow },
-		sys: 	{ label: 'system',				capability: CAPABILITY_STATE,		attr: 'sys',	unity: 'ms', cat: 'times',	colours: colours.sets.Grey,		color: colours.list.lGrey,		fcolor: colours.list.nGrey,		gcolor: colours.list.white },
+		sys: 	{ label: 'System',				capability: CAPABILITY_STATE,		attr: 'sys',	unity: 'ms', cat: 'times',	colours: colours.sets.Grey,		color: colours.list.lGrey,		fcolor: colours.list.nGrey,		gcolor: colours.list.white },
 		lw:		{ label: 'Lock waiting',		capability: CAPABILITY_LOCK,		attr: 'lw',		unity: 'ms', cat: 'times',	colours: colours.sets.Yellow,	color: colours.list.nYellow,	fcolor: colours.list.dYellow,	gcolor: colours.list.fYellow },
 		lh:		{ label: 'Lock holding',		capability: CAPABILITY_LOCK,		attr: 'lh',		unity: 'ms', cat: 'times',	colours: colours.sets.Turquoise },
 		
@@ -126,8 +126,9 @@ app.factory('facets', ['colours', function(colours) {
 		q_s:	{ label: 'Sequential sequence',		capability: CAPABILITY_STATE,	attr: '',	unity: '', cat: '', colours: colours.sets.Orange },
 		q_p:	{ label: 'Parallel sequence',		capability: CAPABILITY_STATE,	attr: '',	unity: '', cat: '', colours: colours.sets.Green },
 		
-		e:		{ label: 'Memory bandwidth',		capability: CAPABILITY_MEMORY,	attr: 'e',	unity: 'MB',	colours: colours.sets.Magenta },
-		ue:		{ label: 'Unused memory bandwidth',	capability: CAPABILITY_MEMORY,	attr: 'ue',	unity: 'MB',	colours: colours.sets.Grey },
+		e:		{ label: 'Memory bandwidth',			capability: CAPABILITY_MEMORY,	attr: 'e',	unity: 'MB',	colours: colours.sets.Magenta },
+		ue:		{ label: 'Idle memory bandwidth',	capability: CAPABILITY_MEMORY,	attr: 'ue',	unity: 'MB',	colours: colours.sets.Blue },
+		se:		{ label: 'System memory bandwidth',		capability: CAPABILITY_MEMORY,	attr: 'se',	unity: 'MB',	colours: colours.sets.Grey },
 		
 		il:		{ label: 'Cache line invalidations',	capability: CAPABILITY_COHERENCY,	attr: 'il',		unity: '',	colours: colours.sets.Red3 },
 		il1:	{ label: 'L1 cache line invalidations',	capability: CAPABILITY_COHERENCY,	attr: 'il1',	unity: '',	colours: colours.sets.Red4 },
@@ -445,7 +446,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '⊢', f: limit,	t: 'Cores',	d: 'each line represents a core' }
 				],
 				data: [
-					{ b: '▮', f: facets.e,	d: 'the bandwidth used by physical cores for this program' },
+					{ b: '▮', f: facets.e,	d: 'use by core for this program' },
 				]
 			},
 			clues: [],
@@ -541,16 +542,17 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				time: TIME_PROFILE,
 			},
 			graph: {
-				v:		[facets.e, facets.ue],
+				v:		[facets.e, facets.ue, facets.se],
 				limit:	limit
 			},
-			data: [facets.e],
-			focus: [facets.e],
+			data: [facets.e, facets.ue],
+			focus: [facets.e, facets.ue, facets.se],
 			legend: {
 				axis: [],
 				data: [
-					{ b: '▮', f: facets.e,	d: 'the bandwidth used by the program' },
-					{ b: '▮', f: facets.ue,	d: 'the other bandwidth, available or used by other programs' }
+					{ b: '▮', f: facets.e,	d: 'use for this program' },
+					{ b: '▮', f: facets.ue,	d: 'available memory bandwidth' },
+					{ b: '▮', f: facets.se,	d: 'use by other programs' }
 				]
 			},
 			clues: [],

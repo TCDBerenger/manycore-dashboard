@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 82;
+var VERSION = 83;
 var PARALLEL_THRESHOLD = 2;
 
 /************************************************/
@@ -367,6 +367,7 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 			lock_hold:		0,
 			threads:		0,
 			bandwidth:		0,
+			sysBandwidth:	0,
 			l1_miss:		0,
 			l1_invalid:		0,
 			l2_miss:		0,
@@ -442,6 +443,7 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 				lock_failure:	0,	// how many threads failing lock acquisition
 				
 				bandwidth:		0,	// how many memory bandwidth is used in bytes
+				sysBandwidth:	0,	// how many memory bandwidth is used by the system in bytes
 				
 				l1_miss:		0,	// how many L1 miss
 				l1_invalid:		0,	// how many L1 invalidations (cache coherency misses)
@@ -967,6 +969,7 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 	 *		memory bandwidth
 	 *
 	 */
+	var systemBandwidth = [];
 	if (raw5 != null) {
 		// Treat all elements
 		raw5.forEach(function(element) {
@@ -984,7 +987,28 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 				data.frames[timeEvent].bandwidth += element.value | 0;
 				data.frames[timeEvent].c[element.cid / 2].bandwidth = element.value;
 			}
+			
+			// Save system + app memory bandwidth
+			else if (element.type == 'MC_read' || element.type == 'MC_write') {
+				systemBandwidth[timeEvent] = (systemBandwidth[timeEvent] | 0) + (element.value | 0);
+			}
 		});
+		
+		// Compute system events
+		var diff;
+		systemBandwidth.forEach(function(value, t) {
+			// Check time frame existance
+			checkFrame(t);
+			
+			// Compute value
+			diff = value - data.frames[t].bandwidth;
+			if (diff < 0) console.error('5> ERROR negative bandwidth', t, 'total', value, 'app', data.frames[t].bandwidth);
+			diff = Math.max(diff, 0);
+			
+			// Append system memory bandwidth
+			data.frames[t].sysBandwidth = diff;
+			data.stats.sysBandwidth += diff;
+		})
 	}
 
 
