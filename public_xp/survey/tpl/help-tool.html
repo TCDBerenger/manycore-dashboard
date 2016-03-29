@@ -1,0 +1,40 @@
+<header class="panel-heading"><h1>About Visualisation</h1></header> 
+<div id="panel-content" class="panel-body">
+
+	<div class="col-md-12">
+		<p class="alert alert-info">You will now be presented with a visualisation tool that shows performance data along with the source-code of the programs. Please read the following to understand how the visualisation work and what is shown on the screen.</p>
+
+		<h2>Proportional View</h2>
+		<p>This view allows you to compare various components as a proportional estimation of CPU activity, adding up to 100%. The pane on the left allows to show/hide unnecessary dimensions and applies the selection to every view on the screen.</p>
+		<img src="https://s3.amazonaws.com/cdn.misakai.com/www-temp/vis/1.gif" />
+
+		<hr />
+		<h2>Timeline View</h2>
+		<p>This view allows you to visualise the programs running over time. The color-scheme is exactly the same as in the proportional view showed above.</p>
+		<img src="https://s3.amazonaws.com/cdn.misakai.com/www-temp/vis/2.gif" />
+
+		<hr />
+		<h2>Worker View</h2>
+		<p>This view allows you to see the same data per thread. Each line represents a particular thread and each line can be colored by:
+			<ul>
+				<li><b>Locality</b>: a function that represents the effectiveness of data-locality patterns, variying from green to red. Green represents an optimal data locality (ie: low cache and tlb misses and no page faults) while red represents the opposite.</li>
+				<li><b>Process</b>: each thread is colored by the process it belongs to.</li>
+				<li><b>Thread</b>: each thread is given a unique color.</li>
+			</ul>
+		</p>
+		<p>
+			In addition to the previous dimensions that represent CPU Activity (eg: Loading from L2) there are "Thread", "Process" and "Core Time". The first two axes show the thread ID and the process it belongs to while the <b>"Core Time"</b> shows a percentage of time the thread has spent on a core, executing code or waiting for data.
+		</p>
+		<p>Finally, as you can see on the image below, it is possible to refine the data by clicking and dragging on a particular axis.</p>
+		<img src="https://s3.amazonaws.com/cdn.misakai.com/www-temp/vis/3.gif" />
+		
+	</div>
+
+	<div class="panel-footer">
+		<nav>
+		  <ul class="pager">
+		    <li class="next"><a ng-click="nextPage('/eval-tool')">Next <span aria-hidden="true">&rarr;</span></a></li>
+		  </ul>
+		</nav>
+	</div>
+</div>

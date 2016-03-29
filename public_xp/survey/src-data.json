@@ -1,0 +1,30 @@
+{
+	"kji": "parallel_for (0, n, [&](int k) {\n   for (int j=0; j<n; j++) {\n      int r = b[k][j];\n      for (int i=0; i<n; i++)\n         c[i][j] += a[i][k] * r;\n   }\n});",
+	"kij": "parallel_for (0, n, [&](int k) {\n   for (int i=0; i<n; i++) {\n      int r = a[i][k];\n      for (int j=0; j<n; j++)\n         c[i][j] += r * b[k][j];\n   }\n});",
+	"particles": "struct Particle {\n   float x, y, z, w;\n   float vx, vy, vz, vw;\n};\n\nParticle *particles;\nint count;\n\nvoid update(float dt) {\n   for (int i = 0; i<count; i++) {\n      auto p = particles[i];\n      p.x += p.vx * dt;\n      p.y += p.vy * dt;\n      p.z += p.vz * dt;\n      p.w += p.vw * dt;\n   }\n}",
+	"particlep": "struct Particle {\n   float x, y, z, w;\n   float vx, vy, vz, vw;\n};\n\nParticle *particles;\nint count;\n\nvoid update(float dt) {\n   parallel_for(0, count, [&](int i) {\n      auto p = particles[i];\n      p.x += p.vx * dt;\n      p.y += p.vy * dt;\n      p.z += p.vz * dt;\n      p.w += p.vw * dt;\n   });\n}",
+	"accounta": "struct Account {\n   long id;\n   char name[50], address[300];\n   float reputation;\n}\n\nvoid update(){\n   for (int i = 0; i < 100; ++i){\n      parallel_for(0, count, [&](int i) {\n         accounts[i].reputation += 2.5;\n      });\n   }\n}\n",
+	"accountb": "struct AccountInfo {\n   char name[50], address[300];\n};\n\nstruct Account {\n   long id;\n   AccountInfo* info;\n   float reputation;\n};\n\nvoid update(){\n   for (int i = 0; i < 100; ++i){\n      parallel_for(0, count, [&](int i) {\n         accounts[i].reputation += 2.5;\n      });\n   }\n}\n",
+	"phaseb": "void update(int* vector){\n   // for loop on every 100th element of the vector\n   for (int m = 0; m < 1000; m++){\n      parallel_for(0, count, 100, [&](int i) {\n         vector[i] = vector[i] * m;\n      });\n   }\n\n   // for loop on every element of the vector\n   for (int m = 0; m < 10; m++){\n      parallel_for(0, count, [&](int i) {\n         vector[i] = vector[i] * m;\n      });\n   }\n}",
+	"phasea": "void update(float* vector){\n   // for loop on every 100th element of the vector\n   for (int m = 0; m < 1000; m++){\n      parallel_for(0, count, 100, [&](int i) {\n         vector[i] = vector[i] * m;\n      });\n   }\n\n   // for loop on every element of the vector\n   for (int m = 0; m < 10; m++){\n      parallel_for(0, count, [&](int i) {\n         vector[i] = vector[i] * m;\n      });\n   }\n}",
+
+	"matmul": "The programs below represent two implementations of mathematical matrix multiplication performed on large matrices (5000x5000). Matrix A and B are multiplied and the result is stored in the Matrix C.",
+	"account": "The programs below represent two implementations of a simple in-memory database containing several million user accounts. The experiment consits of daily routine where the reputation of each account is updated by a constant. The programs differ by their database schema.",
+	"particle": "The programs below represent two implementations of a simple particle system. The experiment consists of calling an update() function on each particle, from a large amount of particles (several millions). The update function in Program A is implemented using a parallel for loop, while Program B has a serial implementation.",
+	"phase": "The programs below represent two implementations of various parallel for loops. They performs some simple operations on a vector (array) of numbers. The only difference between two implementations consists of the data type (ie: Program A uses 32-bit floats and Program B uses 32-bit integers).",
+
+	"data": [
+		["particlep", "particles", "particle"],
+		["accounta", "accountb", "account"],
+    	["kji", "kij", "matmul"],
+    	["phasea", "phaseb", "phase"]
+  	],
+  	"groups": [
+  		[1, 0, 2, 3],
+  		[3, 2, 0, 1],
+  		[2, 3, 1, 0],
+  		[0, 1, 3, 2]
+  	]
+}
+
+

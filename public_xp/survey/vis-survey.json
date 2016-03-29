@@ -1,0 +1,55 @@
+[{
+  "id": 1, "text": "Which program will finish the execution first?",
+  "choices": [
+    "Program A will finish before Program B.", 
+    "Program B will finish before Program A.", 
+    "They both would finish at about the same time.", 
+    "I don't know / I need more data."
+  ]
+  },{
+  "id": 2, "text": "Which described program has better data locality?",
+  "choices": [
+    "Program A has better data locality than Program B.",
+    "Program B has better data locality than Program A.", 
+    "They have a similar data locality performance.",
+    "I don't know / I need more data."
+  ]}
+  ,{
+  "id": 3, "text": "How would you describe data locality of Program A?",
+  "choices": [
+    "Very efficient",
+    "Efficient", 
+    "Neutral",
+    "Inefficient",
+    "Very inefficient",
+    "I don't know / I need more data."
+  ]
+  },{
+  "id": 4, "text": "How would you describe data locality of Program B?",
+  "choices": [
+    "Very efficient",
+    "Efficient", 
+    "Neutral",
+    "Inefficient",
+    "Very inefficient",
+    "I don't know / I need more data."
+  ]
+  },{
+  "id": 5, "text": "How challenging was the problem?",
+  "choices": [
+    "Very Difficult",
+    "Difficult", 
+    "Medium",
+    "Easy",
+    "Very Easy"
+  ]
+  },{
+  "id": 6, "text": "How would you explain the difference in performance between the two programs?",
+  "choices": []
+  },{
+  "id": 7, "text": "Looking at the visualization alone, which threads have the best scope for improving performance (i.e. where would you start looking)?",
+  "choices": []
+  },{
+  "id": 8, "text": "Is there anything about the visualization which surprises you in any way and if yes, how?",
+  "choices": []
+}]
