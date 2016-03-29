@@ -6,7 +6,6 @@ data/*.cache.json
 data/tmp
 log
 *.log.*
-public/libs
-public/libs.main
+public_libs
 .settings
 .vscode

@@ -17,10 +17,13 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
+// Public server
+app.use('/', express.static(path.join(__dirname, 'public')));
+app.use('/libs', express.static(path.join(__dirname, 'public_libs')));
+app.use('/xp', express.static(path.join(__dirname, 'public_xp')));
 
 // Server endpoints and pages
-app.use('/', require('./routes/pages'));
 app.use('/service/profiles', require('./routes/profiles'));
 app.use('/service/details', require('./routes/details'));
 app.use('/service/dash', require('./routes/dash'));

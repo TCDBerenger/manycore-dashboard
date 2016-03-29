@@ -53,6 +53,7 @@ app.controller('WelcomeController', ['$scope', function($scope) {
 		}
 	]
 	$scope.experiments = [
+		{ label: 'test', url: '/xp' },
 	]
 	
 	

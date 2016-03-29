@@ -162,7 +162,7 @@ span.link:hover {
  */
 #content {
 	width: 100%;
-	padding: 40px 20px 0px 20px; /* TO DELETE */
+	padding: 0px 20px 0px 20px; /* TO DELETE */
 	transition: all 0.2s ease;
 }
 
