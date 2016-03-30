@@ -14,21 +14,25 @@ app.set('view engine', 'ejs');
 // Express
 app.use(favicon(__dirname + '/public/assets/favicon.ico'));
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+// JSON data in requests
+//app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({ extended: false })); // true for parsing application/x-www-form-urlencoded
 
 // Public server
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use('/libs', express.static(path.join(__dirname, 'public_libs')));
 app.use('/xp', express.static(path.join(__dirname, 'public_xp')));
 
-// Server endpoints and pages
-app.use('/service/profiles', require('./routes/profiles'));
-app.use('/service/details', require('./routes/details'));
-app.use('/service/dash', require('./routes/dash'));
-app.use('/service/raw', require('./routes/raw'));
+// Server endpoints
 app.use('/service/admin', require('./routes/admin'));
+app.use('/service/collect', require('./routes/collect'));
+app.use('/service/dash', require('./routes/dash'));
+app.use('/service/details', require('./routes/details'));
+app.use('/service/profiles', require('./routes/profiles'));
+app.use('/service/raw', require('./routes/raw'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
