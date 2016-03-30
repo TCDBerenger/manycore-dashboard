@@ -12,5 +12,9 @@
 		<!-- collapsible content -->
 		<ul class="nav navbar-nav">
 		</ul>
+		
+		<!-- collapsible right content -->
+		<p ng-if="isXPset()" class="navbar-text navbar-right" style="padding-right: 15px;">experiment {{xp.id}}</p>
+		<p ng-if="! isXPset()" class="navbar-text navbar-right" style="padding-right: 15px;">no experiment selected</p>
 	</div>
 </div>

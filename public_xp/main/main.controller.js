@@ -1,37 +1,15 @@
-var app = angular.module('surveyApp', ['gist', 'mcq', 'ngRoute', 'ngAnimate']);
-app.config(['$routeProvider', '$sceDelegateProvider',
-  function($routeProvider, $sceDelegateProvider) {
-    $sceDelegateProvider.resourceUrlWhitelist(['**']);
-    $routeProvider.
-      when('/index', { templateUrl: 'survey/tpl/help-intro.html'}).
-      when('/about-code', { templateUrl: 'survey/tpl/help-code.html'}).
-      when('/about-tool', { templateUrl: 'survey/tpl/help-tool.html'}).
-      when('/eval-code', { templateUrl: 'survey/tpl/eval-code.html'}).
-      when('/eval-tool', { templateUrl: 'survey/tpl/eval-tool.html'}).
-      when('/thankyou', {templateUrl: 'survey/tpl/thankyou.html'}).
-      otherwise({
-        redirectTo: '/index'
-      });
-  }]);
-
-// Experiment group
-var groupNumber = localStorage.getItem('group');
-if (groupNumber == null){
-    groupNumber = Math.floor(Math.random() * 4)
-    localStorage.setItem('group', groupNumber);
-}
-console.log("Group: " + groupNumber);
-
-// The main controller
-app.controller('AppController', ['$scope', '$http', '$location', '$sce', 
-  function($scope, $http, $location, $sce) {
+xpapp.controller('manycoreMainController', ['$scope', '$rootScope', '$http', '$location', '$sce', function($scope, $rootScope, $http, $location, $sce) {
+	testtmp1 = true;	// useless
+	$scope.testtmp2 = true;
+	
+	
   $scope.trustSrc = function(src) {
     return $sce.trustAsResourceUrl(src);
   }
 
   // Load the code snippets
   $http.get('survey/src-data.json').then(function(res){
-    $scope.group = res.data.groups[groupNumber];
+    $scope.group = res.data.groups[$rootScope.xp.group];
     $scope.groupHalf = $scope.group.length / 2;
     $scope.srcData = res.data;
     $scope.current = $scope.group[0];
@@ -159,13 +137,11 @@ app.controller('AppController', ['$scope', '$http', '$location', '$sce',
 	// Writes the data object to the log file
 	$scope.write = function(payload){
 		console.log('WRITE (1): ' + JSON.stringify(payload));
-		//var url = window.location.href.indexOf("manycore") > -1 ? "http://manycore.scss.tcd.ie" : "http://multicore.scss.tcd.ie";
-		var url = '../service/collect';
 		/*$http.post(url, payload)
 			.success(function(data, status, headers, config, statusText) {
 			console.log('WRITE (2): ' + status, data, config.url); 
 			});*/
-		$http.post(url, payload)
+		$http.post('/service/collect', payload)
 			.then(function successCallback(response) {
 				// this callback will be called asynchronously
 				// when the response is available
@@ -176,6 +152,4 @@ app.controller('AppController', ['$scope', '$http', '$location', '$sce',
 				console.error('WRITE (2): KO', response.status, response.data, response.config.url); 
 			});	
 	};
-
-
 }]);
