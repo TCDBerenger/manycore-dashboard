@@ -7,5 +7,6 @@ data/tmp
 log
 *.log.*
 public_libs
+results
 .settings
 .vscode

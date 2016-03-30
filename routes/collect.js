@@ -33,18 +33,21 @@ function zeroPad(value) {
 /* Functions - Global							*/
 /************************************************/
 /**
- * Get details data
+ * Post (collect) xp experiment
  */
-
-// POST /api/users gets JSON bodies
-router.post('/api/users', jsonParser, function (req, res) {
+router.post('/', jsonParser, function (request, response) {
+	console.log('post', request.body);
 	// Precondition
-	if (! request.body) return response.status(400).send('Missing content');
-	
+	if (! request.body) {
+		console.log(400, 'Missing content');
+		console.error(400, 'Missing content');
+		return response.status(400).send('Missing content');
+	}
 	// Collect xp data
 	var xp = {
 		id:			normalInteger(request.body.id),
 		version:	normalInteger(request.body.version),
+		group:		normalInteger(request.body.group),
 		step:		normalInteger(request.body.step),
 		data:		request.body.data,
 	}

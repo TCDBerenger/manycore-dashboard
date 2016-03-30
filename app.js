@@ -2,7 +2,7 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
+//var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var app = express();
@@ -14,7 +14,7 @@ app.set('view engine', 'ejs');
 // Express
 app.use(favicon(__dirname + '/public/assets/favicon.ico'));
 app.use(logger('dev'));
-app.use(cookieParser());
+//app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // JSON data in requests
