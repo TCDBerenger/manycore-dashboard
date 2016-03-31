@@ -1,4 +1,4 @@
-xpapp.controller('manycoreMainController', ['$scope', '$rootScope', '$http', '$location', '$sce', function($scope, $rootScope, $http, $location, $sce) {
+app.controller('manycoreMainController', ['$scope', '$rootScope', '$http', '$location', '$sce', function($scope, $rootScope, $http, $location, $sce) {
 	testtmp1 = true;	// useless
 	$scope.testtmp2 = true;
 	
@@ -6,31 +6,7 @@ xpapp.controller('manycoreMainController', ['$scope', '$rootScope', '$http', '$l
   $scope.trustSrc = function(src) {
     return $sce.trustAsResourceUrl(src);
   }
-
-  /*
-  // Load the code snippets
-  $http.get('survey/src-data.json').then(function(res){
-    $scope.group = res.data.groups[$rootScope.xp.group];
-    $scope.groupHalf = $scope.group.length / 2;
-    $scope.srcData = res.data;
-    $scope.current = $scope.group[0];
-  });
-
-  // Load the questions on the code
-  $http.get('survey/src-survey.json').then(function(res){
-    $scope.srcSurvey = res.data;
-  });
-
-  // Load the visualisation URLs
-  $http.get('survey/vis-data.json').then(function(res){
-    $scope.visData = res.data;
-  });
-
-  // Load the questions on the code
-  $http.get('survey/vis-survey.json').then(function(res){
-    $scope.visSurvey = res.data;
-  });
-  */
+  
 
   // Information about the participant
   $scope.info = {
@@ -107,12 +83,6 @@ xpapp.controller('manycoreMainController', ['$scope', '$rootScope', '$http', '$l
     return $scope.phase == 1;
   }
 
-  // Start the experiment
-  $scope.startExperiment = function(){
-    $scope.write($scope.info);
-    $scope.nextPage('/about-code');
-  }
-
   // Logs a page change and goes to the page
   $scope.nextPage = function(href){
     $location.path(href);
@@ -135,21 +105,4 @@ xpapp.controller('manycoreMainController', ['$scope', '$rootScope', '$http', '$l
       cnf[i].value = 0;
     window.scrollTo(0, 0);
   }
-
-	// Writes the data object to the log file
-	$scope.write = function(payload) {
-		var xpStep = JSON.parse(JSON.stringify($rootScope.xp));
-		xpStep.date = null;
-		xpStep.step = null;
-		xpStep.data = payload;
-		
-		$http.post('/service/collect', xpStep)
-			.then(function successCallback(response) {
-				console.debug('OLD Collect: OK', response.status, response.statusText);
-			}, function errorCallback(response) {
-				$rootScope.network.hasErrors = true;
-				$rootScope.network.errors.push(response);
-				console.error('OLD Collect: KO', response.status, response.statusText);
-			});	
-	};
 }]);

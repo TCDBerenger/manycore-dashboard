@@ -11,6 +11,10 @@ xpapp.factory('threads', function() {
 			steps: [
 				// init a form:					form:m { ... }
 				// display next in sidebar:		nextInSidebar: true
+/* 1 */				{ label: 'Terminology' },
+/* 2 */				{ label: 'Source Code', form: {} },
+/* 3 */				{ label: 'Visualisation' },
+/* 4 */				{ label: 'Tool', form: {} },
 			]
 		},
 	];
@@ -21,8 +25,8 @@ xpapp.factory('threads', function() {
 	// ID treatment
 	var threads = [];
 	looseThreads.forEach(function (thread) {
-		thread.steps.unshift({label: 'introduction', state: 'intro', form: {}});
-		thread.steps.push({label: 'the end', state: 'thankyou'});
+		thread.steps.unshift({ label: 'Introduction', state: 'intro', form: {} });
+		thread.steps.push({ label: 'The end', state: 'thankyou' });
 		thread.steps.forEach(function(step, index) { step.id = index; });
 		threads[thread.id] = thread;
 	});

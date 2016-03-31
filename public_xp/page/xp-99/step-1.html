@@ -1,4 +1,5 @@
-<header class="panel-heading"><h1>Terminology</h1></header> 
+<section class="panel panel-shadow">
+<header class="panel-heading"><h1>Terminology</h1></header>
 <div id="panel-content" class="panel-body">
 
 
@@ -11,10 +12,10 @@
 		
     	<div class="well well-lg">
 			<p>Consider a hypothetical computer with a fast, single-line cache of <b>8 bytes</b> (analogous to a CPU cache) and a slow buffer (analogous to RAM) in which a 4x4 greyscale image data resides to illustrate the example. This simplified cache system can only cache data in blocks of 8 bytes (an 8-byte cache line).</p>
-			<img src="survey/img/data-locality.png" />
+			<img src="assets/xp-99/data-locality.png" />
 
 			<p>First iteration of the loop touches 4 bytes (#0, #4, #8 and #12), two cache misses occur including the first load, as the image data needs to be loaded from memory into the cache line for CPU to use it. During the entire execution of the program, the total of 8 cache misses occurs. This means that our hypothetical CPU loads 8 * 8 = 64 bytes in total from our slow buffer into the cache.</p>
-			<img src="survey/img/data-locality-2.png" />
+			<img src="assets/xp-99/data-locality-2.png" />
 		</div>
 
 
@@ -23,9 +24,10 @@
 	<div class="panel-footer">
 		<nav>
 		  <ul class="pager">
-		    <li class="next"><a ng-click="nextPage('/eval-code')">Next <span aria-hidden="true">&rarr;</span></a></li>
+		    <li class="next"><a ng-click="actionNext()">Next <i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></a></li>
 		  </ul>
 		</nav>
 	</div>
 
 </div>
+</section>

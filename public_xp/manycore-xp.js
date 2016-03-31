@@ -3,13 +3,21 @@ var xpapp = angular.module('manycoreXP', ['ngSanitize', 'ui.router', 'ui.bootstr
 /************************************************/
 /* UI States									*/
 /************************************************/
-xpapp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+xpapp.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', function($stateProvider, $urlRouterProvider, $controllerProvider) {
 	$stateProvider
-		.state('error', {		url:'/error',		controller: 'PageController', templateUrl: 'page/common/error.html'})
-		.state('intro', {		url:'/intro',		controller: 'PageController', templateUrl: 'page/common/introduction.html'})
-		.state('thankyou', {	url:'/thankyou',	controller: 'PageController', templateUrl: 'page/common/thankyou.html'})
+		.state('error', {		url:'/error',				controller: 'PageController', templateUrl: 'page/common/error.html'})
+		.state('intro', {		url:'/intro',				controller: 'PageController', templateUrl: 'page/common/introduction.html'})
+		.state('thankyou', {	url:'/thankyou',			controller: 'PageController', templateUrl: 'page/common/thankyou.html'})
+		.state('page', {		url:'/page/{xp}/{step}',
+			controllerProvider: function($stateParams) {
+				var controllerName = 'XP' + $stateParams.xp + 'Controller';
+				return $controllerProvider.has(controllerName) ? controllerName : 'PageController';
+			},
+			templateUrl: function ($stateParams) {
+				return 'page/xp-' + $stateParams.xp + '/step-' + $stateParams.step + '.html';
+			}
+	 	})
 		
-		.state('about-code', {	url:'/about-code',	templateUrl: 'survey/tpl/help-code.html'})
 		.state('about-tool', {	url:'/about-tool',	templateUrl: 'survey/tpl/help-tool.html'})
 		.state('eval-code', {	url:'/eval-code',	templateUrl: 'survey/tpl/eval-code.html'})
 		.state('eval-tool', {	url:'/eval-tool',	templateUrl: 'survey/tpl/eval-tool.html'})
@@ -176,7 +184,10 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 		// Go to next page
 		$rootScope.step = nextStep;
 		$rootScope.xp.step = nextStep.id;
-		$state.go(nextStep.state);
+		if (nextStep.state)
+			$state.go(nextStep.state);
+		else
+			$state.go('page', {xp: $rootScope.thread.id, step: nextStep.id});
 	}
 	
 	/**
