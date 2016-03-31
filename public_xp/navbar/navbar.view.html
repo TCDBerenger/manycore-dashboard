@@ -19,7 +19,7 @@
 		</ul>
 		
 		<!-- collapsible right content -->
-		<p ng-if="isXPset()" class="navbar-text navbar-right" style="padding-right: 15px;">#{{thread.id}}-{{thread.version}}</p>
+		<p ng-if="isXPset()" class="navbar-text navbar-right" style="padding-right: 15px;">{{thread.id}}<span style="padding: 0 2px;">/</span>{{xp.user}}</p>
 		<ul ng-if="hasNetworkError()" class="nav navbar-nav navbar-right">
 			<li uib-dropdown>
 				<a href id="network-errors-dropdown" style="font-weight: bold;" uib-dropdown-toggle><i class="fa fa-exclamation-triangle" style="padding-right: 10px"></i>Network errors</a>

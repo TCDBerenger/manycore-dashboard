@@ -1,5 +1,8 @@
-var xpapp = angular.module('manycoreXP', ['ui.router', 'ui.bootstrap']); // , 'gist', 'mcq', 'ngAnimate'
+var xpapp = angular.module('manycoreXP', ['ngSanitize', 'ui.router', 'ui.bootstrap']); // , 'gist', 'mcq', 'ngAnimate'
 
+/************************************************/
+/* UI States									*/
+/************************************************/
 xpapp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('error', {		url:'/error',		controller: 'PageController', templateUrl: 'page/common/error.html'})
@@ -18,51 +21,10 @@ xpapp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $
 	$urlRouterProvider.otherwise('/xp/99');
 }]);
 
-/************************************************/
-/* Functions - Utils							*/
-/************************************************/
-/**
- * Validate number
- */
-function normalInteger(value) {
-	return (value < 100 && value > 0 && value == ~~value) ? value : 0; 
-}
 
 /************************************************/
-/* Experiment thread data						*/
+/* Root scope enhancement						*/
 /************************************************/
-xpapp.factory('threads', function() {
-	var looseThreads = [
-		{
-			id: 99, version: 1,
-			title: 'Test',
-			steps: [
-				// init a form:					form:m { ... }
-				// display next in sidebar:		nextInSidebar: true
-			]
-		},
-	];
-	
-
-	// ID treatment
-	var threads = [];
-	looseThreads.forEach(function (thread) {
-		thread.steps.unshift({label: 'introduction', state: 'intro', form: {}});
-		thread.steps.push({label: 'the end', state: 'thankyou'});
-		thread.steps.forEach(function(step, index) { step.id = index; });
-		threads[thread.id] = thread;
-	});
-	
-	return threads;
-});
-
-
-
-/**********************************************************/
-/*														  */
-/* Root scope enhancement								  */
-/*														  */
-/**********************************************************/
 xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $state, $http, threads) { // $location 
 	/** 
 	 * Flags
@@ -74,7 +36,6 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 	 */
 	$rootScope.xp = {
 		id:			NaN,
-		version:	NaN,
 		user:		NaN,
 		group:		NaN,
 		step:		NaN,
@@ -105,9 +66,8 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 		// Thread
 		$rootScope.thread = thread;
 	
-		// ID and version
+		// ID
 		$rootScope.xp.id = thread.id;
-		$rootScope.xp.version = thread.version;
 		
 		// User
 		var userID = localStorage.getItem('user');
@@ -174,10 +134,10 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 				// Collect page change
 				$rootScope.actionWrite({
 					type: 'change',
-					to: toState.name,
-//					toParams: toParams,
-					from: fromState.name,
-//					fromParams: fromParams,
+					page_from: fromState.name,
+//					page_fromParams: fromParams,
+					page_to: toState.name,
+//					page_toParams: toParams,
 				});
 			}
 		}
@@ -194,8 +154,9 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 		// Collect data
 		if (currentStep) {
 			$rootScope.actionWrite({
-				type: 'page',
-				form: $rootScope.thread.form,
+				type:		'page',
+				user_group:	$rootScope.xp.group,
+				data_form:	$rootScope.step.form,
 			});
 		}
 		
@@ -208,10 +169,16 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 	/**
 	 * Action - Collect
 	 */
-	$rootScope.actionWrite = function(data) {
-		var sentData = JSON.parse(JSON.stringify($rootScope.xp));
-		for (var attr in data && data[attr]) if (data.hasOwnProperty(attr)) sentData[attr] = data[attr];
-		sentData.date = new Date();
+	$rootScope.actionWrite = function(payload) {
+		sentData = {
+			type:		null, // to be overwritten but set in first position for an easy treatment
+			date:		new Date(),
+			xp_id:		$rootScope.xp.id,
+			step_id:	$rootScope.xp.step,
+			user_id:	$rootScope.xp.user,
+		}
+		for (var attr in payload) sentData[attr] = payload[attr];
+		console.debug('Collecting', sentData, payload);
 		
 		$http.post('/service/collect', sentData)
 			.then(function successCallback(response) {
@@ -224,17 +191,10 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 	}
 }]);
 
+/************************************************/
+/* Filters										*/
+/************************************************/
 
-/**********************************************************/
-/*														  */
-/* Global filters										  */
-/*														  */
-/**********************************************************/
-
-
-
-/**********************************************************/
-/*														  */
-/* Global directives									  */
-/*														  */
-/**********************************************************/
+/************************************************/
+/* Directives									*/
+/************************************************/

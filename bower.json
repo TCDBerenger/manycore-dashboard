@@ -6,6 +6,7 @@
 		"awesome-bootstrap-checkbox": "latest",
 		"font-awesome": "latest",
 		"angular": "latest",
+		"angular-sanitize": "latest",
 		"ui-route": "latest",
 		"angular-bootstrap": "latest",
 		"d3": "latest",

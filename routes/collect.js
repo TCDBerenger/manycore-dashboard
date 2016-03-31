@@ -36,30 +36,21 @@ function zeroPad(value) {
  * Post (collect) xp experiment
  */
 router.post('/', jsonParser, function (request, response) {
-	console.log('post', request.body);
 	// Precondition
 	if (! request.body) {
 		console.log(400, 'Missing content');
 		console.error(400, 'Missing content');
 		return response.status(400).send('Missing content');
 	}
-	// Collect xp data
-	var xp = {
-		id:			normalInteger(request.body.id),
-		version:	normalInteger(request.body.version),
-		group:		normalInteger(request.body.group),
-		step:		normalInteger(request.body.step),
-		data:		request.body.data,
-	}
 	
-	// Collect meta data
-	var meta = {
-		user:		request.body.user,
-		folder:		'./results/xp-' + zeroPad(xp.id) + '.' + xp.version + '/',
-		file:		request.body.user +'.txt',
-	};
+	// Collect data
+	var xp_id =			normalInteger(request.body.xp_id);
+	var user_id =		request.body.user_id.substr(0, 8);
+	var meta_folder =	'./results/xp-' + zeroPad(xp_id) + '/';
+	var meta_path =		meta_folder + user_id +'.log';
+	
 	// Check folder
-	mkdirp(meta.folder, function(folderError) {
+	mkdirp(meta_folder, function(folderError) {
 		// Error while handle file folder
 		if (folderError) {
 			console.error('KO folder', folderError, meta, xp);
@@ -68,12 +59,12 @@ router.post('/', jsonParser, function (request, response) {
 		// Folder is ok, go ahead
 		else {
 			// Append data
-			fs.appendFile(meta.folder + meta.file, xp.data + '\n', function (fileError) {
+			fs.appendFile(meta_path, JSON.stringify(request.body) + '\r\n', function (fileError) {
 				if (fileError) {
-					console.error('KO file', fileError, meta, xp);
+					console.error('KO file', fileError, xp_id, user_id, meta_path);
 					return response.status(500).send('The server failed to save the experiment gathered data.');
 				} else {
-					console.log('OK', meta.user, xp.step);
+					console.log('OK', user_id);
 					return response.send('The server successfully saved the experiment gathered data.');
 				}
 			});
