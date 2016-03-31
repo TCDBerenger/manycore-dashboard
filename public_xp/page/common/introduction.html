@@ -1,6 +1,6 @@
 <section class="panel panel-shadow">
 
-<header class="panel-heading"><h1><b>InfoVis</b> Experiment</h1></header> 
+<header class="panel-heading"><h1><b>{{thread.title}}</b> Experiment</h1></header> 
 <div id="panel-content" class="panel-body">
 
 <div class="well">
@@ -34,57 +34,57 @@
 
   <div class="form-group">
     <label>Email address (only for prize pool)</label>
-    <input ng-model="info.email" type="text" class="form-control" placeholder="Enter your email">
+    <input ng-model="form.email" type="text" class="form-control" placeholder="Enter your email">
   </div>
 
 	<div class="form-group">
 		<label>Your age demographic</label><br/>
 		<div class="btn-group">
-			<label class="btn btn-default btn-sm" ng-model="info.age" uib-btn-radio="1" uncheckable>0-17 years</label>
-			<label class="btn btn-default btn-sm" ng-model="info.age" uib-btn-radio="2" uncheckable>18-25 years</label>
-			<label class="btn btn-default btn-sm" ng-model="info.age" uib-btn-radio="3" uncheckable>26-35 years</label>
-			<label class="btn btn-default btn-sm" ng-model="info.age" uib-btn-radio="4" uncheckable>36-45 years</label>
-			<label class="btn btn-default btn-sm" ng-model="info.age" uib-btn-radio="5" uncheckable>46-55 years</label>
-			<label class="btn btn-default btn-sm" ng-model="info.age" uib-btn-radio="6" uncheckable>56-65 years</label>
-			<label class="btn btn-default btn-sm" ng-model="info.age" uib-btn-radio="7" uncheckable>65+ years</label>
+			<label class="btn btn-default btn-sm" ng-model="form.age" uib-btn-radio="1" uncheckable>0-17 years</label>
+			<label class="btn btn-default btn-sm" ng-model="form.age" uib-btn-radio="2" uncheckable>18-25 years</label>
+			<label class="btn btn-default btn-sm" ng-model="form.age" uib-btn-radio="3" uncheckable>26-35 years</label>
+			<label class="btn btn-default btn-sm" ng-model="form.age" uib-btn-radio="4" uncheckable>36-45 years</label>
+			<label class="btn btn-default btn-sm" ng-model="form.age" uib-btn-radio="5" uncheckable>46-55 years</label>
+			<label class="btn btn-default btn-sm" ng-model="form.age" uib-btn-radio="6" uncheckable>56-65 years</label>
+			<label class="btn btn-default btn-sm" ng-model="form.age" uib-btn-radio="7" uncheckable>65+ years</label>
 		</div>
 	</div>
 
 	<div class="form-group">
 		<label>Your gender</label><br/>
 		<div class="btn-group">
-			<label class="btn btn-default btn-sm" ng-model="info.gender" uib-btn-radio="1" uncheckable>Male</label>
-			<label class="btn btn-default btn-sm" ng-model="info.gender" uib-btn-radio="2" uncheckable>Female</label>
-			<label class="btn btn-default btn-sm" ng-model="info.gender" uib-btn-radio="3" uncheckable>Other</label>
+			<label class="btn btn-default btn-sm" ng-model="form.gender" uib-btn-radio="1" uncheckable>Male</label>
+			<label class="btn btn-default btn-sm" ng-model="form.gender" uib-btn-radio="2" uncheckable>Female</label>
+			<label class="btn btn-default btn-sm" ng-model="form.gender" uib-btn-radio="3" uncheckable>Other</label>
 		</div>
 	</div>
 
 	<div class="form-group">
 		<label>Highest level of education</label><br/>
 		<div class="btn-group">
-			<label class="btn btn-default btn-sm" ng-model="info.education" uib-btn-radio="1" uncheckable>High School or Less</label>
-			<label class="btn btn-default btn-sm" ng-model="info.education" uib-btn-radio="2" uncheckable>Bachelors/Polytechnical Degree</label>
-			<label class="btn btn-default btn-sm" ng-model="info.education" uib-btn-radio="3" uncheckable>Masters Degree</label>
-			<label class="btn btn-default btn-sm" ng-model="info.education" uib-btn-radio="4" uncheckable>Doctoral Degree</label>
+			<label class="btn btn-default btn-sm" ng-model="form.education" uib-btn-radio="1" uncheckable>High School or Less</label>
+			<label class="btn btn-default btn-sm" ng-model="form.education" uib-btn-radio="2" uncheckable>Bachelors/Polytechnical Degree</label>
+			<label class="btn btn-default btn-sm" ng-model="form.education" uib-btn-radio="3" uncheckable>Masters Degree</label>
+			<label class="btn btn-default btn-sm" ng-model="form.education" uib-btn-radio="4" uncheckable>Doctoral Degree</label>
 		</div>
 	</div>
 
 	<div class="form-group">
 		<label>Self-assessed expertise in parallel programming</label><br/>
 		<div class="btn-group">
-			<label class="btn btn-default btn-sm" ng-model="info.expertise" uib-btn-radio="1" uncheckable>Novice</label>
-			<label class="btn btn-default btn-sm" ng-model="info.expertise" uib-btn-radio="2" uncheckable>Average</label>
-			<label class="btn btn-default btn-sm" ng-model="info.expertise" uib-btn-radio="3" uncheckable>Above Average</label>
-			<label class="btn btn-default btn-sm" ng-model="info.expertise" uib-btn-radio="4" uncheckable>Expert</label>
+			<label class="btn btn-default btn-sm" ng-model="form.expertise" uib-btn-radio="1" uncheckable>Novice</label>
+			<label class="btn btn-default btn-sm" ng-model="form.expertise" uib-btn-radio="2" uncheckable>Average</label>
+			<label class="btn btn-default btn-sm" ng-model="form.expertise" uib-btn-radio="3" uncheckable>Above Average</label>
+			<label class="btn btn-default btn-sm" ng-model="form.expertise" uib-btn-radio="4" uncheckable>Expert</label>
 		</div>
 	</div>
 
 	<div class="form-group">
 		<label>Years of professional experience</label><br/>
 		<div class="btn-group">
-			<label class="btn btn-default btn-sm" ng-model="info.experience" uib-btn-radio="1" uncheckable>0-5 years</label>
-			<label class="btn btn-default btn-sm" ng-model="info.experience" uib-btn-radio="2" uncheckable>6-10 years</label>
-			<label class="btn btn-default btn-sm" ng-model="info.experience" uib-btn-radio="3" uncheckable>10+ years</label>
+			<label class="btn btn-default btn-sm" ng-model="form.experience" uib-btn-radio="1" uncheckable>0-5 years</label>
+			<label class="btn btn-default btn-sm" ng-model="form.experience" uib-btn-radio="2" uncheckable>6-10 years</label>
+			<label class="btn btn-default btn-sm" ng-model="form.experience" uib-btn-radio="3" uncheckable>10+ years</label>
 		</div>
 	</div>
 
@@ -107,7 +107,7 @@
 
   <div class="checkbox">
     <label>
-      <input ng-model="info.consent" type="checkbox"> 
+      <input ng-model="form.consent" type="checkbox"> 
 
       I have read the <a target="_blank" href="/xp/documents/survey.pdf">informed consent form</a> and consent to participate in this study conducted by Bérenger Arnaud in the School of Computer Science and Statistics, Trinity College, Dublin under the supervision of Dr. Gavin Doherty and I confirm that I am over 18 years old.  
     </label>
@@ -118,7 +118,7 @@
 <div class="panel-footer">
 	<nav>
 	  <div class="pager">
-	    <a ng-show="info.consent" ng-click="startExperiment()" class="btn btn-primary" >Begin the experiment <span aria-hidden="true">&rarr;</span></a>
+	    <a ng-show="form.consent" ng-click="actionNext()" class="btn btn-primary" >Begin the experiment <i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></a>
 	  </div>
 	</nav>
 </div>

@@ -7,6 +7,7 @@ xpapp.controller('manycoreMainController', ['$scope', '$rootScope', '$http', '$l
     return $sce.trustAsResourceUrl(src);
   }
 
+  /*
   // Load the code snippets
   $http.get('survey/src-data.json').then(function(res){
     $scope.group = res.data.groups[$rootScope.xp.group];
@@ -29,6 +30,7 @@ xpapp.controller('manycoreMainController', ['$scope', '$rootScope', '$http', '$l
   $http.get('survey/vis-survey.json').then(function(res){
     $scope.visSurvey = res.data;
   });
+  */
 
   // Information about the participant
   $scope.info = {
@@ -135,21 +137,19 @@ xpapp.controller('manycoreMainController', ['$scope', '$rootScope', '$http', '$l
   }
 
 	// Writes the data object to the log file
-	$scope.write = function(payload){
-		console.log('WRITE (1): ' + JSON.stringify(payload));
-		/*$http.post(url, payload)
-			.success(function(data, status, headers, config, statusText) {
-			console.log('WRITE (2): ' + status, data, config.url); 
-			});*/
-		$http.post('/service/collect', payload)
+	$scope.write = function(payload) {
+		var xpStep = JSON.parse(JSON.stringify($rootScope.xp));
+		xpStep.date = null;
+		xpStep.step = null;
+		xpStep.data = payload;
+		
+		$http.post('/service/collect', xpStep)
 			.then(function successCallback(response) {
-				// this callback will be called asynchronously
-				// when the response is available
-				console.log('WRITE (2): OK', response.status, response.data, response.config.url); 
+				console.debug('OLD Collect: OK', response.status, response.statusText);
 			}, function errorCallback(response) {
-				// called asynchronously if an error occurs
-				// or server returns response with an error status.
-				console.error('WRITE (2): KO', response.status, response.data, response.config.url); 
+				$rootScope.network.hasErrors = true;
+				$rootScope.network.errors.push(response);
+				console.error('OLD Collect: KO', response.status, response.statusText);
 			});	
 	};
 }]);
