@@ -137,9 +137,9 @@ var profileMap = {
 		{ id: 38,	label: 'P/C 100/10',	desc: '100 producers and 10 consumers',		hardware: hardRoman, file: 'pc100x10',	pid: 90436,	timeStep: 50, v: 4 },
 		{ id: 39,	label: 'P/C 100/100',	desc: '100 producers and 100 consumers',	hardware: hardRoman, file: 'pc100x100',	pid: 93496,	timeStep: 50, v: 4 },
 
-		{ id: 1006,	label: 'Dining ph.  6',	desc: 'Dining philosopher problem for 6 covers',	hardware: hardSTG,	 file: 'philosophers006',	pid: 8864,	timeStep: 50, v: 5, disabled: true },
+		{ id: 1006,	label: 'Dining ph.  6',	desc: 'Dining philosopher problem for 6 covers',	hardware: hardSTG,	 file: 'philosophers006', disabled: true },
 		{ id: 1012,	label: 'Dining ph. 12',	desc: 'Dining philosopher problem for 12 covers',	hardware: hardSTG,	 file: 'philosophers012' },
-		{ id: 1045,	label: 'Dining ph. 45″',desc: 'Dining philosopher problem for 45 covers',	hardware: hardSTG,	 file: 'philosophers045',	pid: 5456,	timeStep: 50, v: 4, disabled: true },
+		{ id: 1045,	label: 'Dining ph. 45″',desc: 'Dining philosopher problem for 45 covers',	hardware: hardSTG,	 file: 'philosophers045', v: 4, disabled: true },
 	]
 };
 
@@ -460,7 +460,11 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 	 */
 	// Missing data
 	if (! profile.pid) {
-		profile.pid = raw4[0].pid;
+		var i = raw1.length;
+		while (i-- && ! profile.pid) {
+			console.log('0> search pid', i, ! profile.pid);
+			if (raw1[i].program == 'Matmul') profile.pid = raw1[i].pid;
+		}
 		console.log('0> add pid', profile.pid);
 	}
 	
