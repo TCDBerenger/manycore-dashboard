@@ -80,12 +80,25 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 		$rootScope.xp.user = userID;
 		
 		// Group
-		var groupNumber = localStorage.getItem('group');
-		if (groupNumber == null) {
-			groupNumber = Math.floor(Math.random() * 4)
-			localStorage.setItem('group', groupNumber);
+		if ($rootScope.thread.groups > 1) {
+			var groupNumber = localStorage.getItem('group' + $rootScope.thread.id);
+			if (groupNumber == null) {
+				// We don't directly use Math.rand to be sure to have a uniform distribution
+				var currentMax = 0;
+				var currentRand;
+				for (var id = $rootScope.thread.groups; id > 0; id--) {
+					currentRand = Math.random();
+					if (currentRand > currentMax) {
+						currentMax = currentRand;
+						groupNumber = id;
+					}
+				}
+				localStorage.setItem('group' + $rootScope.thread.id, groupNumber);
+			}
+			$rootScope.xp.group = groupNumber;
+		} else {
+			$rootScope.xp.group = 1;
 		}
-		$rootScope.xp.group = groupNumber;
 		
 		// Activate XP
 		$rootScope.xp.step = -1;

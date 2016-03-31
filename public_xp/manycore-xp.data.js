@@ -5,7 +5,8 @@
 xpapp.factory('threads', function() {
 	var looseThreads = [
 		{
-			id: 99, title: 'Test',
+			id: 99, groups: 4,
+			title: 'Test',
 			goal: 'The goal of this survey is to evaluate a prototype visualisation for identifying the presence of <b>data-locality</b> issues.',
 			steps: [
 				// init a form:					form:m { ... }
