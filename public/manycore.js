@@ -53,6 +53,12 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 			controller: 'SettingsController'
 		});
 	
+	$urlRouterProvider.when('/xp/{opts}/{path:.*}', ['$match', '$rootScope', '$timeout', function ($match, $rootScope, $timeout) {
+		$timeout(function() {
+			$rootScope.xpActivate($match.opts.split('-'));
+		});
+		return $match.path;
+	}]);
 	$urlRouterProvider.otherwise('welcome');
 }]);
 
@@ -62,13 +68,21 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 /* Root scope enhancement								  */
 /*														  */
 /**********************************************************/
-app.run(function($rootScope) {
+app.run(['$rootScope', '$state', '$location', function($rootScope, $state, $location) {
 	/**
 	 * Handlers - states
 	 */
-	var initialContentClasses = document.getElementById('content').className;
-	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) { 
-		document.getElementById('content').className = initialContentClasses + ' ' + toState.name;
+	var mainContainerElement = document.getElementById('content');
+	var mainContainerInitialClasses = mainContainerElement.className;
+	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+		// CSS automation
+		mainContainerElement.className = mainContainerInitialClasses + ' ' + toState.name;
+		// XP Heatmap
+		if ($rootScope.xpRunning) $rootScope.xpSuspend();
+	});
+	$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+		// XP Heatmap
+		if ($rootScope.xpRunning) $rootScope.xpReactivate();
 	});
 	
 	/**
@@ -138,7 +152,34 @@ app.run(function($rootScope) {
 			$rootScope.clear();
 		}
 	});
-});
+	
+	/**
+	 * XP - Activation
+	 */
+	$rootScope.xpActivate = function(options) {
+		$rootScope.xpRunning = true;
+		$rootScope.xpOptions = options;
+		$rootScope.xpHeatmap = [];
+	};
+	
+	/**
+	 * XP - Before changing page, suspend heatmap
+	 */
+	$rootScope.xpSuspend = function() {
+		console.log('suspend');
+	};
+	
+	/**
+	 * XP - After changing page, reactivate heatmap
+	 */
+	$rootScope.xpReactivate = function() {
+		console.log('reactivate');
+		$rootScope.hmHover = [];
+		$rootScope.hmClick = [];
+		$rootScope.xpHeatmap.push({ u: $location.path(), h: $rootScope.hmHover, c: $rootScope.hmClick });
+		console.log('update heatmap', $rootScope.xpHeatmap);
+	};
+}]);
 
 app.filter('iif', [function () {
    return function(input, trueValue, falseValue) {
