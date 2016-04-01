@@ -23,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Public server
 app.use('/', express.static(path.join(__dirname, 'public')));
+app.use('/libs', express.static(path.join(__dirname, 'public_libs_static')));
 app.use('/libs', express.static(path.join(__dirname, 'public_libs')));
 app.use('/xp', express.static(path.join(__dirname, 'public_xp')));
 
