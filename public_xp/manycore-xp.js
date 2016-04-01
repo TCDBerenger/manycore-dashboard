@@ -5,9 +5,9 @@ var xpapp = angular.module('manycoreXP', ['ngSanitize', 'ui.router', 'ui.bootstr
 /************************************************/
 xpapp.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', function($stateProvider, $urlRouterProvider, $controllerProvider) {
 	$stateProvider
-		.state('error', {		url:'/error',				controller: 'PageController', templateUrl: 'page/common/error.html'})
-		.state('intro', {		url:'/intro',				controller: 'PageController', templateUrl: 'page/common/introduction.html'})
-		.state('thankyou', {	url:'/thankyou',			controller: 'PageController', templateUrl: 'page/common/thankyou.html'})
+		.state('error', {		url:'/error',									  templateUrl: 'page/common/error.html'})
+		.state('intro', {		url:'/intro',		controller: 'PageController', templateUrl: 'page/common/introduction.html'})
+		.state('thankyou', {	url:'/thankyou',	controller: 'PageController', templateUrl: 'page/common/thankyou.html'})
 		.state('page', {		url:'/page/{xp}/{step}',
 			controllerProvider: function($stateParams) {
 				var controllerName = 'XP' + $stateParams.xp + 'Controller';
@@ -16,13 +16,18 @@ xpapp.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', fun
 			templateUrl: function ($stateParams) {
 				return 'page/xp-' + $stateParams.xp + '/step-' + $stateParams.step + '.html';
 			}
-	 	})
-		
-		.state('about-tool', {	url:'/about-tool',	templateUrl: 'survey/tpl/help-tool.html'})
-		.state('eval-code', {	url:'/eval-code',	templateUrl: 'survey/tpl/eval-code.html'})
-		.state('eval-tool', {	url:'/eval-tool',	templateUrl: 'survey/tpl/eval-tool.html'})
-		
-		.state('xp', {			url: '/xp/{id}' });
+	 	});
+	
+	// XP init
+	$urlRouterProvider.when('/xp/{id:[0-9]{1,2}}', ['$match', '$rootScope', '$timeout', 'threads', function ($match, $rootScope, $timeout, threads) {
+		$timeout(function() {
+			$rootScope.initXP(threads[$match.id]);
+			$rootScope.actionNext();
+		});
+		return true;
+	}]);
+	
+	// Default path
 	$urlRouterProvider.otherwise('error');
 	
 	// TO DELETE
@@ -71,6 +76,9 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 	 * Init the xp
 	 */
 	$rootScope.initXP = function(thread) {
+		// Prerequites
+		if (! thread) $rootScope.actionError();
+		
 		// Thread
 		$rootScope.thread = thread;
 	
@@ -119,51 +127,31 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 	 * UI State control
 	 */
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options) {
-		// Page Error
-		if (toState.name == 'error') {
-			// Continue, do nothing
+		// Redirect to error if no xp is set
+		if (toState.name != 'error' && ! $rootScope.isXPset) {
+			console.log('stateChangeStart', toState.name, $rootScope.isXPset, 'to error');
+			event.preventDefault();
+			$state.go('error');			//		TO UNCOMMENT
+//			$state.go('xp', {id: 99});	//		TO DELETE
 		}
-		
-		// Page XP - Select the experiment (if exists)
-		else if (toState.name == 'xp') {
-			if (threads[toParams.id]) {
-				// Init XP
-				$rootScope.initXP(threads[toParams.id]);
-				
-				// Start XP
-				event.preventDefault();
-				$rootScope.actionNext();
-			} else {
-				// Error
-				event.preventDefault();
-				$rootScope.actionNext();
-			}
-		}
-		
-		// All other pages - Experiment
-		else {
-			
-			// Experiment not selected
-			if (! $rootScope.isXPset) {
-				event.preventDefault();
-//				$state.go('error');			TO UNCOMMENT
-				$state.go('xp', {id: 99});	//		TO DELETE
-			}
-			
-			// Next page
-			else {
-				// Collect page change
-				$rootScope.actionWrite({
-					type: 'change',
-					page_from: fromState.name,
-//					page_fromParams: fromParams,
-					page_to: toState.name,
-//					page_toParams: toParams,
-				});
-			}
-		}
-		
     });
+	$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+		// Collect page change
+		$rootScope.actionWrite({
+			type: 'change',
+			page_from: fromState.name,
+//			page_fromParams: fromParams,
+			page_to: toState.name,
+//			page_toParams: toParams,
+		});
+	});
+	
+	/**
+	 * Action - Error page
+	 */
+	$rootScope.actionError = function() {
+		$state.go('error');
+	}
 	
 	/**
 	 * Action - Next page
@@ -194,7 +182,7 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 	 * Action - Collect
 	 */
 	$rootScope.actionWrite = function(payload) {
-		sentData = {
+		var sentData = {
 			type:		null, // to be overwritten but set in first position for an easy treatment
 			date:		new Date(),
 			xp_id:		$rootScope.xp.id,
