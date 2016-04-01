@@ -6,8 +6,6 @@ app.controller('AdminController', ['$scope', '$rootScope', '$http', 'profileServ
 	$scope.profiles = profileService.all;
 	$scope.p_exclude_sm = [5, 9, 31, 32, 33, 34, 35, 36, 37, 38, 39];
 	
-	console.log($scope.profiles);
-	
 	// Versions
 	$scope.versions = null;
 	$scope.versions_expected = null;
@@ -44,8 +42,6 @@ app.controller('AdminController', ['$scope', '$rootScope', '$http', 'profileServ
 	 * Text - version
 	 */
 	$scope.renderVersion = function(profile) {
-		console.log(profile, $scope.profiles);
-		
 		var v = $scope.versions[profile.id];
 		return (!isNaN(parseFloat(v)) && isFinite(v)) ? v : "no cache";
 	};
@@ -172,7 +168,6 @@ app.controller('AdminController', ['$scope', '$rootScope', '$http', 'profileServ
 		loadProfiles(loadCacheVersions);
 	};
 	function loadCacheVersions() {
-		console.log($scope.profiles);
 		$http.get('/service/admin/cache-versions').success(function(data) {
 			$scope.versions = data.versions;
 			$scope.versions_expected = data.expected;
