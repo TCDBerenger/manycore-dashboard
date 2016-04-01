@@ -181,6 +181,13 @@ app.run(['$rootScope', '$state', '$location', '$window', '$document', '$timeout'
 				zIndex: '-1',
 				border: '4px solid #00526E'
 			});
+			
+			$document.find('body').eq(0).append($rootScope.xpCanvas);
+			$rootScope.xpHeatmapRender = simpleheat("xpHeatmap");
+			$rootScope.xpHeatmapRender.max(10);
+			$rootScope.xpHeatmapRender.radius(25, 15);
+			$rootScope.xpHeatmapRenderRequest = null;
+			$rootScope.xpCanvas.remove();
 		}
 		
 		// Heatmap resize handling
@@ -210,6 +217,7 @@ app.run(['$rootScope', '$state', '$location', '$window', '$document', '$timeout'
 		if ($rootScope.xpOptions.feedback) {
 			$rootScope.xpCanvas.css({ height: '0px' });
 			$rootScope.xpCanvas.remove();
+			$rootScope.xpHeatmapRender.clear();
 		}
 	};
 	
@@ -251,7 +259,9 @@ app.run(['$rootScope', '$state', '$location', '$window', '$document', '$timeout'
 			
 			// Heatmap feedback (option)
 			if ($rootScope.xpOptions.feedback) {
-				
+				$rootScope.xpHeatmapRender.add([event.layerX, event.layerY, 1]);
+				console.log([event.layerX, event.layerY, 1]);
+				$rootScope.xpHeatmapRenderRequest = $rootScope.xpHeatmapRenderRequest || window.requestAnimationFrame($rootScope.xpHeatmapRenderDraw);
 			}
 		}
 	};
@@ -261,6 +271,14 @@ app.run(['$rootScope', '$state', '$location', '$window', '$document', '$timeout'
 			if ($rootScope.hmClick[event.layerX][event.layerY])	$rootScope.hmClick[event.layerX][event.layerY]++;
 			else												$rootScope.hmClick[event.layerX][event.layerY] = 1;
 		}
+	};
+	
+	/**
+	 * XP - Heatmap render drawing
+	 */
+	$rootScope.xpHeatmapRenderDraw = function() {
+		$rootScope.xpHeatmapRender.draw();
+		$rootScope.xpHeatmapRenderRequest = null;
 	};
 }]);
 
