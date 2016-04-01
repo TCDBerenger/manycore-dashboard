@@ -68,7 +68,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 /* Root scope enhancement								  */
 /*														  */
 /**********************************************************/
-app.run(['$rootScope', '$state', '$location', function($rootScope, $state, $location) {
+app.run(['$rootScope', '$state', '$location', '$window', '$document', '$timeout', function($rootScope, $state, $location, $window, $document, $timeout) {
 	/**
 	 * Handlers - states
 	 */
@@ -78,11 +78,11 @@ app.run(['$rootScope', '$state', '$location', function($rootScope, $state, $loca
 		// CSS automation
 		mainContainerElement.className = mainContainerInitialClasses + ' ' + toState.name;
 		// XP Heatmap
-		if ($rootScope.xpRunning) $rootScope.xpSuspend();
+		if ($rootScope.xpIsRunning) $rootScope.xpSuspend();
 	});
 	$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
 		// XP Heatmap
-		if ($rootScope.xpRunning) $rootScope.xpReactivate();
+		if ($rootScope.xpIsRunning) $timeout(function () { $rootScope.xpReactivate(); });
 	});
 	
 	/**
@@ -157,27 +157,110 @@ app.run(['$rootScope', '$state', '$location', function($rootScope, $state, $loca
 	 * XP - Activation
 	 */
 	$rootScope.xpActivate = function(options) {
-		$rootScope.xpRunning = true;
-		$rootScope.xpOptions = options;
+		// Vars
+		$rootScope.xpIsRunning = true;
+		$rootScope.xpOptions = {
+			feedback: false,
+		};
+		options.forEach(function(option) { if (option in $rootScope.xpOptions) $rootScope.xpOptions[option] = true; });
+		console.log('options', $rootScope.xpOptions);
+		
+		// Heatmap
+		$rootScope.xpIsCapturing = false;
+		$rootScope.xpWidth = Math.max(document.documentElement.scrollWidth, document.documentElement.clientWidth);
 		$rootScope.xpHeatmap = [];
+		
+		// Heatmap feedback (option)
+		if ($rootScope.xpOptions.feedback) {
+			$rootScope.xpCanvas = angular.element('<canvas id="xpHeatmap"></canvas>');
+			$rootScope.xpCanvas.css({
+				position: 'absolute',
+				top: '0px',
+				left: '0px',
+				width: '100%',
+				zIndex: '-1',
+				border: '4px solid #00526E'
+			});
+		}
+		
+		// Heatmap resize handling
+		angular.element($window).bind('resize', function() {
+			if ($rootScope.xpIsCapturing) {
+				var currentCapture = $rootScope.xpHeatmap[$rootScope.xpHeatmap.length - 1];
+				if (currentCapture.h != Math.max(document.documentElement.scrollHeight, document.documentElement.clientHeight) ||
+					currentCapture.w != Math.max(document.documentElement.scrollWidth, document.documentElement.clientWidth)) {
+					$rootScope.xpReactivate();
+				}
+			}
+		});
+		
+		// Capturing
+		document.onmousemove = $rootScope.xpCapturingMove;
+		document.onclick = $rootScope.xpCapturingClick;
 	};
 	
 	/**
 	 * XP - Before changing page, suspend heatmap
 	 */
 	$rootScope.xpSuspend = function() {
-		console.log('suspend');
+		// Suspend capturing
+		$rootScope.xpIsCapturing = false;
+		
+		// Heatmap feedback (option)
+		if ($rootScope.xpOptions.feedback) {
+			$rootScope.xpCanvas.css({ height: '0px' });
+			$rootScope.xpCanvas.remove();
+		}
 	};
 	
 	/**
 	 * XP - After changing page, reactivate heatmap
 	 */
 	$rootScope.xpReactivate = function() {
-		console.log('reactivate');
+		// Temporarily suspend capturing
+		if ($rootScope.xpIsCapturing) {
+			$rootScope.xpSuspend();
+		}
+		
+		// Heatmap feedback (option)
+		if ($rootScope.xpOptions.feedback)  {
+			$document.find('body').eq(0).append($rootScope.xpCanvas);
+			var maxHeight = Math.max(document.documentElement.scrollHeight, document.documentElement.clientHeight);
+			var maxWidth = Math.max(document.documentElement.scrollWidth, document.documentElement.clientWidth);
+			$rootScope.xpCanvas.css({ height: maxHeight + 'px' });
+		}
+		
+		// Reset capturing lists
+		// for new page or new screen size
 		$rootScope.hmHover = [];
 		$rootScope.hmClick = [];
-		$rootScope.xpHeatmap.push({ u: $location.path(), h: $rootScope.hmHover, c: $rootScope.hmClick });
-		console.log('update heatmap', $rootScope.xpHeatmap);
+		$rootScope.xpHeatmap.push({ u: $location.path(), h: maxHeight, w: maxWidth, o: $rootScope.hmHover, c: $rootScope.hmClick });
+		
+		// Activate capturing
+		$rootScope.xpIsCapturing = true;
+	};
+	
+	/**
+	 * XP - Capturing
+	 */
+	$rootScope.xpCapturingMove = function(event) {
+		if ($rootScope.xpIsCapturing && event.layerX >= 0 && event.layerX >= 0) {
+			if (! $rootScope.hmHover[event.layerX])				$rootScope.hmHover[event.layerX] = [];
+			if ($rootScope.hmHover[event.layerX][event.layerY])	$rootScope.hmHover[event.layerX][event.layerY]++;
+			else												$rootScope.hmHover[event.layerX][event.layerY] = 1;
+			
+			// Heatmap feedback (option)
+			if ($rootScope.xpOptions.feedback) {
+				
+			}
+		}
+	};
+	$rootScope.xpCapturingClick = function(event) {
+		if ($rootScope.xpIsCapturing && event.layerX >= 0 && event.layerX >= 0) {
+			if (! $rootScope.hmClick[event.layerX])				$rootScope.hmClick[event.layerX] = [];
+			if ($rootScope.hmClick[event.layerX][event.layerY])	$rootScope.hmClick[event.layerX][event.layerY]++;
+			else												$rootScope.hmClick[event.layerX][event.layerY] = 1;
+		}
 	};
 }]);
 
