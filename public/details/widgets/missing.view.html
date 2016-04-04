@@ -15,6 +15,6 @@
 		<i class="fa fa-check text-info" ng-if="isCapable(profile)"></i>
 		<i class="fa fa-times text-danger" ng-if="isNotCapable(profile)" style="width: 23px; text-align: center;"></i>
 		{{profile.label}}
-		<span ng-if="isNotCapable(profile) && profiles.length == 2">(<a ui-sref='detail({cat: meta.tag, ids: profiles[1 - $index].id})'>unselect</a>)</span>
+		<span ng-if="isNotCapable(profile) && profiles.length == 2">(<a ui-sref='detail({cat: meta.tag, ids: profiles[1 - $index].id})'>deselect</a>)</span>
 	</span></p>
 </div>
