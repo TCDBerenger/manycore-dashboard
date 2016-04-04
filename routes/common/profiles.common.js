@@ -1048,13 +1048,34 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 			
 			// Append Lx invalidation (cache coherency misses) or miss
 			// Sum values by threads
-			data.stats[pxID] += value;
 			data.frames[timeEvent][pxID] += value;
 			
 			// Append Lx invalidation (cache coherency misses) or miss
 			// Sum values by threads for cache ID
 			data.frames[timeEvent].c[cxID][pxID] = (data.frames[timeEvent].c[cxID][pxID] | 0) + value;
 		}
+	});
+	if (raw6 != null) Object.keys(data.frames).forEach(function(timeEvent) {
+		if (timeEvent >= 0 && data.frames[timeEvent].c['0'].l1_invalid) {
+			// Truncate values
+			data.frames[timeEvent].l1_invalid = Math.min(data.frames[timeEvent].l1_invalid, data.frames[timeEvent].l1_miss);
+			data.frames[timeEvent].l2_invalid = Math.min(data.frames[timeEvent].l2_invalid, data.frames[timeEvent].l2_miss);
+			
+			// Truncate values by cache ID
+			for (var cxID = 0; cxID < profile.hardware.data.l1caches; cxID++) {
+				data.frames[timeEvent].c[cxID].l1_invalid = Math.min(data.frames[timeEvent].c[cxID].l1_invalid, data.frames[timeEvent].c[cxID].l1_miss);
+			}
+			for (var cxID = 0; cxID < profile.hardware.data.l2caches; cxID++) {
+				data.frames[timeEvent].c[cxID].l2_invalid = Math.min(data.frames[timeEvent].c[cxID].l2_invalid, data.frames[timeEvent].c[cxID].l2_miss);
+			}
+			
+			// Append (truncated) stats
+			data.stats.l1_invalid += data.frames[timeEvent].l1_invalid;
+			data.stats.l2_invalid += data.frames[timeEvent].l2_invalid;
+			data.stats.l1_miss += data.frames[timeEvent].l1_miss;
+			data.stats.l2_miss += data.frames[timeEvent].l2_miss;
+		}
+		
 	});
 	
 

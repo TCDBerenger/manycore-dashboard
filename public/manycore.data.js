@@ -56,6 +56,8 @@ app.factory('colours', [function() {
 		
 		GBlue:	{ t: list.oGBlue,	f: list.dGBlue,	n: list.nGBlue,	g: list.fGBlue,	h: list.lGBlue },
 		GViol:	{ t: list.oGViol,	f: list.dGViol,	n: list.nGViol,	g: list.fGViol,	h: list.lGViol },
+		
+		white:	{ t: list.white,	f: list.white,	n: list.white,	g: list.white,	h: list.white },
 	}
 	
 	var cores = ['#b6e3bc', '#b6e3da', '#b6cee3', '#bcb6e3', '#dab6e3', '#e3b6ce', '#e3bcb6', '#e3dab6'];
@@ -127,12 +129,13 @@ app.factory('facets', ['colours', function(colours) {
 		q_p:	{ label: 'Parallel sequence',		capability: CAPABILITY_STATE,	attr: '',	unity: '', cat: '', colours: colours.sets.Green },
 		
 		e:		{ label: 'Memory bandwidth',			capability: CAPABILITY_MEMORY,	attr: 'e',	unity: 'MB',	colours: colours.sets.Magenta },
-		ue:		{ label: 'Idle memory bandwidth',	capability: CAPABILITY_MEMORY,	attr: 'ue',	unity: 'MB',	colours: colours.sets.Blue },
+		ue:		{ label: 'Idle memory bandwidth',		capability: CAPABILITY_MEMORY,	attr: 'ue',	unity: 'MB',	colours: colours.sets.Blue },
 		se:		{ label: 'System memory bandwidth',		capability: CAPABILITY_MEMORY,	attr: 'se',	unity: 'MB',	colours: colours.sets.Grey },
 		
 		il:		{ label: 'Cache line invalidations',	capability: CAPABILITY_COHERENCY,	attr: 'il',		unity: '',	colours: colours.sets.Red3 },
 		il1:	{ label: 'L1 cache line invalidations',	capability: CAPABILITY_COHERENCY,	attr: 'il1',	unity: '',	colours: colours.sets.Red4 },
 		il2:	{ label: 'L2 cache line invalidations',	capability: CAPABILITY_COHERENCY,	attr: 'il2',	unity: '',	colours: colours.sets.Red2 },
+		pil1:	{										capability: CAPABILITY_COHERENCY,	attr: 'pil1',				colours: colours.sets.white },
 	};
 }]);
 
@@ -300,101 +303,22 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		},
 		cacheInvalidations: {
 			handling: {
-				time: TIME_NONE,
+				time: TIME_PROFILE,
 			},
-			graph : {
-				levels:	[
-					{
-						l: 'cache L1',
-						f: facets.il1,
-						count: function(profile) { return profile.hardware.data.l1caches; }, 
-					}, {
-						l: 'cache L2',
-						f: facets.il2,
-						count: function(profile) { return profile.hardware.data.l2caches; }, 
-					}
-				]
-			},
-			legend: {
-				axis: [],
-				data: [],
-				options: { disablePrelist: true }
-			},
-			clues: [],
-			settings: []
-		},
-		cacheInvalid: {
-			handling: {
-				time:	TIME_PROFILE,
-				v:		[facets.il1, facets.il2]
-			},
-			graph : {
-				v:			[facets.il1, facets.il2],
-				limit:		limit,
-				limitLabel:	't. value',
-				useFrameIstead: true
+			graph: {
+				v:				[facets.il1, facets.pil1, facets.il2],
+				limit:			limit,
+				value_divider:	2,
+				axis_label: 	function(v, index, r) { return (v == 100 || v == 50) ? '100%' : '50%'; }
 			},
 			data: [facets.il1, facets.il2],
 			focus: [facets.il1, facets.il2],
 			legend: {
 				axis: [
-					{ b: '-', t: 't. value',	d: 'typical value of expected cache line invalidations',	f: limit, sv: 'calibration', sd: 'cache line invalidations by ms' },
-					{ b: 'n×', t: 'excess',		d: 'more cache line invalidations than expected (multiple of the typical value)',			f: limit },
-				],
-				data: [
-					{ b: '▮', 	d: 'number line invalidations in L2 cache',	f: facets.il2 },
-					{ b: '▮', 	d: 'number line invalidations in L1 cache',	f: facets.il1 }
-				]
-			},
-			clues: [],
-			plans: [
-				{ id: 1, label: 'log₂', property: 'useLogScale' },
-				{ id: 2, label: 'linear', property: 'useLinearScale' },
-			],
-			params: [
-				{ property: 'timeGroup', value: 50 }
-			],
-			settings: [
-				{ property: 'calibration', type: 'pnumeric', check: 'positive', label: 'Typical values', unit: 'line invalidations', psource: function(profile) { return 0.1 * profile.hardware.data.cycles * (profile.hardware.data.l1caches + profile.hardware.data.l2caches - 2); } },
-				{ property: 'highlightOverflow', value: false, type: 'flag', label: 'High zone', desc: 'shows the high area, over the typical value' }
-			]
-		},
-		cacheInvalidL1: {
-			handling: {
-				time: TIME_PROFILE,
-			},
-			graph: {
-				v:		[facets.il1],
-				limit:	limit
-			},
-			data: [facets.il1, facets.il2],
-			focus: [facets.il1],
-			legend: {
-				axis: [
 					{ b: '%', t: 'Percent',	d: 'theoretical maximum of possible L1 cache invalidations', c: colours.list.fGrey}
 				],
 				data: [
-					{ b: '▮', 	d: 'number line invalidations in L1 cache',	f: facets.il1 }
-				]
-			},
-			clues: [],
-			settings: []
-		},
-		cacheInvalidL2: {
-			handling: {
-				time: TIME_PROFILE,
-			},
-			graph: {
-				v:		[facets.il2],
-				limit:	limit
-			},
-			data: [facets.il1, facets.il2],
-			focus: [facets.il2],
-			legend: {
-				axis: [
-					{ b: '%', t: 'Percent',	d: 'theoretical maximum of possible L2 cache invalidations', c: colours.list.fGrey}
-				],
-				data: [
+					{ b: '▮', 	d: 'number line invalidations in L1 cache',	f: facets.il1 },
 					{ b: '▮', 	d: 'number line invalidations in L2 cache',	f: facets.il2 }
 				]
 			},
@@ -476,6 +400,31 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			settings: [
 				{ property: 'melodyHeight', value: 9, type: 'range', label: 'Inactivity height', unit: 'pixels', min: 6, max: 12, step: 1 }
 			]
+		},
+		coreInvalidations: {
+			handling: {
+				time: TIME_NONE,
+			},
+			graph : {
+				levels:	[
+					{
+						l: 'cache L1',
+						f: facets.il1,
+						count: function(profile) { return profile.hardware.data.l1caches; }, 
+					}, {
+						l: 'cache L2',
+						f: facets.il2,
+						count: function(profile) { return profile.hardware.data.l2caches; }, 
+					}
+				]
+			},
+			legend: {
+				axis: [],
+				data: [],
+				options: { disablePrelist: true }
+			},
+			clues: [],
+			settings: []
 		},
 		lockContentions: {
 			handling: {
@@ -807,13 +756,11 @@ app.factory('widgets', ['decks', function(decks) {
 	
 	return {
 		cacheBreackdown:	{ id: id(),	c: CAPABILITY_LOCALITY,	 file: 'chart-d3-pcoords',	deck: decks.cacheBreackdown,	wide: true,		title: 'Breakdown of time spent on locality misses',				desc: ''},
-		cacheInvalidations:	{ id: id(),	c: CAPABILITY_COHERENCY, file: 'chart-d3-caches',	deck: decks.cacheInvalidations,	wide: true,		title: 'Cache line invalidations',									desc: ''},
-		cacheInvalid:		{ id: id(),	c: CAPABILITY_COHERENCY, file: 'chart-units',		deck: decks.cacheInvalid,		wide: false,	title: 'Cache misses from updating shared data',					desc: ''},
-		cacheInvalidL1:		{ id: id(),	c: CAPABILITY_COHERENCY, file: 'chart-percent',		deck: decks.cacheInvalidL1,		wide: false,	title: 'Percentage of time spent on L1 cache line invalidations',	desc: ''},
-		cacheInvalidL2:		{ id: id(),	c: CAPABILITY_COHERENCY, file: 'chart-percent',		deck: decks.cacheInvalidL2,		wide: false,	title: 'Percentage of time spent on L2 cache line invalidations',	desc: ''},
+		cacheInvalidations:	{ id: id(),	c: CAPABILITY_COHERENCY, file: 'chart-percent',		deck: decks.cacheInvalidations,	wide: false,	title: 'Percentage of time spent on cache line invalidations',	desc: ''},
 		cacheMisses:		{ id: id(),	c: CAPABILITY_LOCALITY,	 file: 'chart-percent',		deck: decks.cacheMisses,		wide: false,	title: 'Percentage of time spent on locality misses',				desc: ''},
 		coreBandwidth:		{ id: id(),	c: CAPABILITY_MEMORY,	 file: 'chart-lines',		deck: decks.coreBandwidth,		wide: false,	title: 'Remote memory access by core',								desc: 'Memory bandwidth'},
 		coreIdle:			{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-lines',		deck: decks.coreIdle,			wide: false,	title: 'Idle cores',												desc: 'Times that cores are idle'},
+		coreInvalidations:	{ id: id(),	c: CAPABILITY_COHERENCY, file: 'chart-d3-caches',	deck: decks.coreInvalidations,	wide: true,		title: 'Cache line invalidations',									desc: ''},
 		coreSequences:		{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-lines',		deck: decks.sequences,			wide: false,	title: 'Single thread execution phases',							desc: 'alternating sequential/parallel execution'},
 		lockCounts:			{ id: id(),	c: CAPABILITY_LOCK,		 file: 'chart-units',		deck: decks.lockCounts,			wide: false,	title: 'Lock contentions',											desc: 'Locking with and without contention'},
 		lockContentions:	{ id: id(),	c: CAPABILITY_LOCK,		 file: 'chart-percent',		deck: decks.lockContentions,	wide: false,	title: 'Time waiting for a lock',									desc: ''},
@@ -883,7 +830,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 		example: 'These transfers take time, with the result that there is typically a cost to data sharing, particularly when shared variables and data structures are modified.',
 		strips: [strips.il],
 		gauges: [[lw, miss]],
-		widgets: [widgets.lockContentions, widgets.cacheMisses, widgets.cacheInvalidL1, widgets.cacheInvalidL2, widgets.cacheInvalid, widgets.cacheInvalidations, widgets.memBandwidth, widgets.coreBandwidth]
+		widgets: [widgets.lockContentions, widgets.cacheMisses, widgets.cacheInvalidations, widgets.coreInvalidations, widgets.memBandwidth, widgets.coreBandwidth]
 	};
 	var lb = {
 		tag: 'lb', cat: 'lb', label: 'Load balancing', title: 'Load balancing', icon: 'list-ol', enabled: true,
@@ -907,7 +854,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 		example: 'For example, all cores will typically share a single connection to main memory.',
 		strips: [strips.e],
 		gauges: [],
-		widgets: [widgets.memBandwidth, widgets.coreBandwidth, widgets.lockCounts, widgets.cacheMisses, widgets.cacheInvalidL1, widgets.cacheInvalidL2, widgets.cacheInvalid, widgets.cacheInvalidations]
+		widgets: [widgets.memBandwidth, widgets.coreBandwidth, widgets.lockCounts, widgets.cacheMisses, widgets.cacheInvalidations, widgets.coreInvalidations]
 	};
 	var io = {
 		tag: 'io', cat: 'io', label: 'Input/Output', title: 'Input/Output', icon: 'plug', enabled: false,

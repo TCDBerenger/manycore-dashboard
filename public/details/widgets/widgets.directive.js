@@ -709,7 +709,9 @@ app.directive('chartPercent', function() {
 		r.meta.vStep[0] =		25;		r.meta.vStep[1] =		25;
 		
 		// Value axis labels
-		if (r.deck.axis && r.deck.axis.labels == 'cores') {
+		if (r.deck.axis_label) {
+			r.meta.vAxisLabel = r.deck.axis_label;
+		} else if (r.deck.axis && r.deck.axis.labels == 'cores') {
 			r.meta.vAxisLabel = function(v, index) {
 				if (v == r.meta.vExpected[index]) {
 					return 'CPU';
@@ -761,6 +763,7 @@ app.directive('chartPercent', function() {
 					for (var v = 0; v < r.deck.v.length; v++) {
 						// Get raw data (in percent)
 						yPositions[v] = profileData.raw.amountPercent[t / tStep][r.deck.v[v].attr] | 0;
+						if (r.deck.value_divider) yPositions[v] = yPositions[v] / r.deck.value_divider;
 
 						// Stack positions
 						if (v > 0) yPositions[v] += yPositions[v-1];
