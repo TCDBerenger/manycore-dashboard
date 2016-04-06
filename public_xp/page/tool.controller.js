@@ -1,9 +1,9 @@
-xpapp.controller('ToolController', ['$scope', '$rootScope', function($scope, $rootScope) {
+xpapp.controller('ToolController', ['$scope', '$sce', function($scope, $sce) {
 	/************************************************/
 	/* Constructor - Init							*/
 	/************************************************/
 	// Form data
-	$scope.path = '/#/xp/feedback' + $scope.step.path;
+	$scope.path = $sce.trustAsResourceUrl('/#/xp/feedback' + $scope.step.path);
 	
 	
 	/************************************************/

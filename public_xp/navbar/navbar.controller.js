@@ -15,11 +15,19 @@ xpapp.controller('NavbarController', ['$scope', '$rootScope', '$stateParams', fu
 	$scope.isXPset = function() {
 		return $rootScope.isXPset;
 	}
+	
 	/**
 	 * XP - could display next button
 	 */
 	$scope.hasNext = function() {
 		return $rootScope.step && $rootScope.step.nextInSidebar;
+	}
+	
+	/**
+	 * XP - could display next button
+	 */
+	$scope.goNext = function() {
+		$rootScope.actionNext();
 	}
 	
 	/**
