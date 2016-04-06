@@ -6,7 +6,8 @@ var xpapp = angular.module('manycoreXP', ['ngSanitize', 'ui.router', 'ui.bootstr
 xpapp.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', function($stateProvider, $urlRouterProvider, $controllerProvider) {
 	$stateProvider
 		.state('error', {		url:'/error',									  templateUrl: 'page/common/error.html'})
-		.state('intro', {		url:'/intro',		controller: 'PageController', templateUrl: 'page/common/introduction.html'})
+		.state('consent', {		url:'/consent',		controller: 'PageController', templateUrl: 'page/common/consent.html'})
+		.state('user', {		url:'/user',		controller: 'PageController', templateUrl: 'page/common/user.html'})
 		.state('thankyou', {	url:'/thankyou',								  templateUrl: 'page/common/thankyou.html'})
 		.state('toolall', {		url:'/toolall',		controller: 'ToolController', templateUrl: 'page/common/tool-all.html'})
 		.state('toolpage', {	url:'/toolpage',	controller: 'ToolController', templateUrl: 'page/common/tool-page.html'})
@@ -189,6 +190,7 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 				type:		'page',
 				user_group:	$rootScope.xp.group,
 				data_form:	$rootScope.step.form,
+				data_track: (currentStep.mousetrack) ? null : null,
 			});
 		}
 		

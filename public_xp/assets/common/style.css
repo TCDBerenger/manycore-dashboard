@@ -7,10 +7,19 @@
 	transition: all 0.2s ease;
 }
 
-iframe.tool-page {
-	margin-top: -40px;
-}
-
-iframe.tool-all {
+div.tool {
+	position: absolute;
+	top: -1px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
 	
+	padding: 0px 15px 15px 15px;
+	
+	background-attachment: fixed;
+	background-image: url("stripes.jpg");
+	/*background: repeating-linear-gradient(45deg, #ffffff,#ffffff 10px,#007196 10px,#007196 20px);*/
+}
+div.tool-all {
+	top: 45px;
 }
