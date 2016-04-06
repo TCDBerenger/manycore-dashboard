@@ -7,7 +7,9 @@ xpapp.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', fun
 	$stateProvider
 		.state('error', {		url:'/error',									  templateUrl: 'page/common/error.html'})
 		.state('intro', {		url:'/intro',		controller: 'PageController', templateUrl: 'page/common/introduction.html'})
-		.state('thankyou', {	url:'/thankyou',	controller: 'PageController', templateUrl: 'page/common/thankyou.html'})
+		.state('thankyou', {	url:'/thankyou',								  templateUrl: 'page/common/thankyou.html'})
+		.state('toolall', {		url:'/toolall',		controller: 'ToolController', templateUrl: 'page/common/tool-all.html'})
+		.state('toolpage', {	url:'/toolpage',	controller: 'ToolController', templateUrl: 'page/common/tool-page.html'})
 		.state('page', {		url:'/page/{xp}/{step}',
 			controllerProvider: function($stateParams) {
 				var controllerName = 'XP' + $stateParams.xp + 'Controller';
@@ -31,7 +33,7 @@ xpapp.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', fun
 	$urlRouterProvider.otherwise('error');
 	
 	// TO DELETE
-	$urlRouterProvider.otherwise('/xp/99');
+	$urlRouterProvider.otherwise('/xp/1');
 }]);
 
 
@@ -175,7 +177,7 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 		if (nextStep.state)
 			$state.go(nextStep.state);
 		else
-			$state.go('page', {xp: $rootScope.thread.id, step: nextStep.id});
+			$state.go('page', {xp: $rootScope.thread.id, step: nextStep.pageID});
 	}
 	
 	/**
