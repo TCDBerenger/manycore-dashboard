@@ -13,6 +13,7 @@ xpapp.factory('threads', function() {
 				// display next in sidebar:		nextInSidebar: true
 				// dashboard path:				path: '/admin'
 				// collect the mouse tracking:	mousetrack: true
+				// Forbid go back to edit:		editable: false
 				{ label: 'Tool', state: 'toolall', path: '/admin', mousetrack: true, nextInSidebar: true },
 				{ label: 'Tool', state: 'toolpage', path: '/admin', mousetrack: true, nextInSidebar: true },
 			]
@@ -22,8 +23,6 @@ xpapp.factory('threads', function() {
 			title: 'Test 99',
 			goal: 'The goal of this survey is to evaluate a prototype visualisation for identifying the presence of <b>data-locality</b> issues.',
 			steps: [
-				// init a form:					form:m { ... }
-				// display next in sidebar:		nextInSidebar: true
 				{ label: 'Terminology',		pageID: 1 },
 				{ label: 'Source Code',		pageID: 2, form: {} },
 				{ label: 'Visualisation',	pageID: 3 },
@@ -39,7 +38,7 @@ xpapp.factory('threads', function() {
 	var threads = [];
 	looseThreads.forEach(function (thread) {
 		thread.steps.unshift(
-			{ label: 'Consent form', state: 'consent', form: {} },
+			{ label: 'Consent form', state: 'consent', form: {}, editable: false },
 			{ label: 'About you', state: 'user', form: {} }
 		);
 		thread.steps.push({ label: 'The end', state: 'thankyou' });

@@ -12,7 +12,9 @@
 		<!-- collapsible content -->
 		<p ng-if="isXPset()" class="navbar-text">{{thread.title}}</p>
 		<ul ng-if="isXPset()" class="nav navbar-nav">
-			<li ng-repeat="step in getSteps()" ng-class="{active: isStepActive(), disabled: isStepDisabled()}" uib-tooltip="{{step.label}}" tooltip-placement="bottom"><a>{{$index + 1}}</a></li>
+			<li ng-repeat="step in getSteps()" ng-class="{active: isStepActive(), disabled: isStepDisabled()}" uib-tooltip="{{step.label}}" tooltip-placement="bottom">
+				<a href ng-click="goBack()">{{$index + 1}}</a>
+			</li>
 		</ul>
 		<ul class="nav navbar-nav" style="margin-left: 40px;">
 			<li ng-if="hasNext()" uib-tooltip="You've done everything you wanted" tooltip-placement="bottom"><a href ng-click="goNext()">Go next <i class="fa fa-hand-o-right" style="padding-left: 4px;"></i></a></li>

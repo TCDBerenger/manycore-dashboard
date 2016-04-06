@@ -46,6 +46,7 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 	 * Flags
 	 */
 	$rootScope.isXPset = false;
+	$rootScope.isXPfinished = false;
 	
 	/**
 	 * XP
@@ -132,10 +133,12 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 	 * Clear the xp
 	 */
 	$rootScope.clearXP = function(thread) {
+		$rootScope.isXPfinished = true;
 		localStorage.removeItem('user');
 		localStorage.removeItem('group' + $rootScope.thread.id);
 		localStorage.removeItem('currentXP');
 		localStorage.removeItem('currentStep');
+		$rootScope.thread.steps.forEach(function(step) { if (step.form) step.form = {}; });
 	}
 	
 	/**
@@ -186,6 +189,7 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 		
 		// Collect data
 		if (currentStep) {
+			if (! currentStep.hasOwnProperty('editable')) currentStep.editable = true;
 			var frameXP = (currentStep.mousetrack) ? document.getElementById("toolFrame").contentWindow.xp : null;
 			$rootScope.actionWrite({
 				type:		'page',
