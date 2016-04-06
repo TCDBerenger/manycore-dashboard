@@ -122,7 +122,19 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 		$rootScope.xp.step = -1;
 		$rootScope.isXPset = true;
 		
+		// Save current state
+		localStorage.setItem('currentXP', thread.id);
 		console.log('XP', $rootScope.xp);
+	}
+	
+	/**
+	 * Clear the xp
+	 */
+	$rootScope.clearXP = function(thread) {
+		localStorage.removeItem('user');
+		localStorage.removeItem('group' + $rootScope.thread.id);
+		localStorage.removeItem('currentXP');
+		localStorage.removeItem('currentStep');
 	}
 	
 	/**
@@ -131,21 +143,30 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options) {
 		// Redirect to error if no xp is set
 		if (toState.name != 'error' && ! $rootScope.isXPset) {
-			console.log('stateChangeStart', toState.name, $rootScope.isXPset, 'to error');
-			event.preventDefault();
-			$state.go('error');			//		TO UNCOMMENT
-//			$state.go('xp', {id: 99});	//		TO DELETE
+			if (localStorage.getItem('currentXP') && threads[localStorage.getItem('currentXP')] && threads[localStorage.getItem('currentXP')].steps[localStorage.getItem('currentStep')]) {
+				$rootScope.initXP(threads[localStorage.getItem('currentXP')]);
+				$rootScope.actionNext(localStorage.getItem('currentStep'));
+			} else {
+				event.preventDefault();
+				$state.go('error');
+			}
 		}
     });
 	$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
 		// Collect page change
-		$rootScope.actionWrite({
-			type: 'change',
-			page_from: fromState.name,
-//			page_fromParams: fromParams,
-			page_to: toState.name,
-//			page_toParams: toParams,
-		});
+		if ($rootScope.isXPset) {
+			$rootScope.actionWrite({
+				type: 'change',
+				page_from: fromState.name,
+//				page_fromParams: fromParams,
+				page_to: toState.name,
+//				page_toParams: toParams,
+			});
+		}
+		
+		if (toState.name == 'thankyou') {
+			$rootScope.clearXP();
+		}
 	});
 	
 	/**
@@ -158,9 +179,9 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 	/**
 	 * Action - Next page
 	 */
-	$rootScope.actionNext = function() {
+	$rootScope.actionNext = function(stepID) {
 		var currentStep = ($rootScope.xp.step >= 0) ? $rootScope.thread.steps[$rootScope.xp.step] : null;
-		var nextStep = $rootScope.thread.steps[$rootScope.xp.step + 1];
+		var nextStep = $rootScope.thread.steps[stepID || $rootScope.xp.step + 1];
 		
 		// Collect data
 		if (currentStep) {
@@ -178,6 +199,9 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 			$state.go(nextStep.state);
 		else
 			$state.go('page', {xp: $rootScope.thread.id, step: nextStep.pageID});
+		
+		// Save current state
+		localStorage.setItem('currentStep', nextStep.id);
 	}
 	
 	/**
