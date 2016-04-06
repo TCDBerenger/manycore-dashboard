@@ -11,8 +11,10 @@ xpapp.factory('threads', function() {
 			steps: [
 				// init a form:					form:m { ... }
 				// display next in sidebar:		nextInSidebar: true
-				{ label: 'Tool', state: 'toolall', mousetrack: true, nextInSidebar: true },
-				{ label: 'Tool', state: 'toolpage', mousetrack: true, nextInSidebar: true },
+				// dashboard path:				path: '/admin'
+				// collect the mouse tracking:	mousetrack: true
+				{ label: 'Tool', state: 'toolall', path: '/admin', mousetrack: true, nextInSidebar: true },
+				{ label: 'Tool', state: 'toolpage', path: '/admin', mousetrack: true, nextInSidebar: true },
 			]
 		},
 		{

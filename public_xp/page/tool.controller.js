@@ -3,7 +3,7 @@ xpapp.controller('ToolController', ['$scope', '$rootScope', function($scope, $ro
 	/* Constructor - Init							*/
 	/************************************************/
 	// Form data
-	$scope.form = $scope.step.form;
+	$scope.path = '/#/xp/feedback' + $scope.step.path;
 	
 	
 	/************************************************/

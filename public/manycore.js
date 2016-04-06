@@ -65,10 +65,26 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 
 /**********************************************************/
 /*														  */
+/* XP environment										  */
+/*														  */
+/**********************************************************/
+app.value('xp', {
+	isRunning:		false,
+	isCapturing:	false,
+	options: {
+		feedback:	false
+	},
+	width:			null,
+	heatmap:		[],
+});
+
+
+/**********************************************************/
+/*														  */
 /* Root scope enhancement								  */
 /*														  */
 /**********************************************************/
-app.run(['$rootScope', '$state', '$location', '$window', '$document', '$timeout', function($rootScope, $state, $location, $window, $document, $timeout) {
+app.run(['$rootScope', '$state', '$location', '$window', '$document', '$timeout', 'xp', function($rootScope, $state, $location, $window, $document, $timeout, xp) {
 	/**
 	 * Handlers - states
 	 */
@@ -78,11 +94,11 @@ app.run(['$rootScope', '$state', '$location', '$window', '$document', '$timeout'
 		// CSS automation
 		mainContainerElement.className = mainContainerInitialClasses + ' ' + toState.name;
 		// XP Heatmap
-		if ($rootScope.xpIsRunning) $rootScope.xpSuspend();
+		if (xp.isRunning) $rootScope.xpSuspend();
 	});
 	$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
 		// XP Heatmap
-		if ($rootScope.xpIsRunning) $timeout(function () { $rootScope.xpReactivate(); });
+		if (xp.isRunning) $timeout(function () { $rootScope.xpReactivate(); });
 	});
 	
 	/**
@@ -158,20 +174,18 @@ app.run(['$rootScope', '$state', '$location', '$window', '$document', '$timeout'
 	 */
 	$rootScope.xpActivate = function(options) {
 		// Vars
-		$rootScope.xpIsRunning = true;
-		$rootScope.xpOptions = {
-			feedback: false,
-		};
-		options.forEach(function(option) { if (option in $rootScope.xpOptions) $rootScope.xpOptions[option] = true; });
-		console.log('options', $rootScope.xpOptions);
+		xp.isRunning = true;
+		options.forEach(function(option) { if (option in xp.options) xp.options[option] = true; });
+		
+		// Expose XP
+		$window.xp = xp;
 		
 		// Heatmap
-		$rootScope.xpIsCapturing = false;
-		$rootScope.xpWidth = Math.max(document.documentElement.scrollWidth, document.documentElement.clientWidth);
-		$rootScope.xpHeatmap = [];
+		xp.isCapturing = false;
+		xp.width = Math.max(document.documentElement.scrollWidth, document.documentElement.clientWidth);
 		
 		// Heatmap feedback (option)
-		if ($rootScope.xpOptions.feedback) {
+		if (xp.options.feedback) {
 			$rootScope.xpCanvas = angular.element('<canvas id="xpHeatmap"></canvas>');
 			$rootScope.xpCanvas.css({
 				position: 'absolute',
@@ -192,8 +206,8 @@ app.run(['$rootScope', '$state', '$location', '$window', '$document', '$timeout'
 		
 		// Heatmap resize handling
 		angular.element($window).bind('resize', function() {
-			if ($rootScope.xpIsCapturing) {
-				var currentCapture = $rootScope.xpHeatmap[$rootScope.xpHeatmap.length - 1];
+			if (xp.isCapturing) {
+				var currentCapture = xp.heatmap[xp.heatmap.length - 1];
 				if (currentCapture.h != Math.max(document.documentElement.scrollHeight, document.documentElement.clientHeight) ||
 					currentCapture.w != Math.max(document.documentElement.scrollWidth, document.documentElement.clientWidth)) {
 					$rootScope.xpReactivate();
@@ -211,10 +225,10 @@ app.run(['$rootScope', '$state', '$location', '$window', '$document', '$timeout'
 	 */
 	$rootScope.xpSuspend = function() {
 		// Suspend capturing
-		$rootScope.xpIsCapturing = false;
+		xp.isCapturing = false;
 		
 		// Heatmap feedback (option)
-		if ($rootScope.xpOptions.feedback) {
+		if (xp.options.feedback) {
 			$rootScope.xpCanvas.css({ height: '0px' });
 			$rootScope.xpCanvas.remove();
 			$rootScope.xpHeatmapRender.clear();
@@ -226,12 +240,12 @@ app.run(['$rootScope', '$state', '$location', '$window', '$document', '$timeout'
 	 */
 	$rootScope.xpReactivate = function() {
 		// Temporarily suspend capturing
-		if ($rootScope.xpIsCapturing) {
+		if (xp.isCapturing) {
 			$rootScope.xpSuspend();
 		}
 		
 		// Heatmap feedback (option)
-		if ($rootScope.xpOptions.feedback)  {
+		if (xp.options.feedback)  {
 			$document.find('body').eq(0).append($rootScope.xpCanvas);
 			var maxHeight = Math.max(document.documentElement.scrollHeight, document.documentElement.clientHeight);
 			var maxWidth = Math.max(document.documentElement.scrollWidth, document.documentElement.clientWidth);
@@ -242,34 +256,39 @@ app.run(['$rootScope', '$state', '$location', '$window', '$document', '$timeout'
 		// for new page or new screen size
 		$rootScope.hmHover = [];
 		$rootScope.hmClick = [];
-		$rootScope.xpHeatmap.push({ u: $location.path(), h: maxHeight, w: maxWidth, o: $rootScope.hmHover, c: $rootScope.hmClick });
+		xp.heatmap.push({ u: $location.path(), h: maxHeight, w: maxWidth, o: $rootScope.hmHover, c: $rootScope.hmClick });
 		
 		// Activate capturing
-		$rootScope.xpIsCapturing = true;
+		xp.isCapturing = true;
 	};
 	
 	/**
 	 * XP - Capturing
 	 */
 	$rootScope.xpCapturingMove = function(event) {
-		if ($rootScope.xpIsCapturing && event.layerX >= 0 && event.layerX >= 0) {
-			if (! $rootScope.hmHover[event.layerX])				$rootScope.hmHover[event.layerX] = [];
-			if ($rootScope.hmHover[event.layerX][event.layerY])	$rootScope.hmHover[event.layerX][event.layerY]++;
-			else												$rootScope.hmHover[event.layerX][event.layerY] = 1;
+		if (xp.isCapturing && event.clientX >= 0 && event.clientX >= 0) {
+			$rootScope.hmHover.push([event.clientX, event.clientY]);
+			/*
+			if (! $rootScope.hmHover[event.clientX])				$rootScope.hmHover[event.clientX] = [];
+			if ($rootScope.hmHover[event.clientX][event.clientY])	$rootScope.hmHover[event.clientX][event.clientY]++;
+			else												$rootScope.hmHover[event.clientX][event.clientY] = 1;
+			*/
 			
 			// Heatmap feedback (option)
-			if ($rootScope.xpOptions.feedback) {
-				$rootScope.xpHeatmapRender.add([event.layerX, event.layerY, 1]);
-				console.log([event.layerX, event.layerY, 1]);
+			if (xp.options.feedback) {
+				$rootScope.xpHeatmapRender.add([event.clientX, event.clientY, 1]);
 				$rootScope.xpHeatmapRenderRequest = $rootScope.xpHeatmapRenderRequest || window.requestAnimationFrame($rootScope.xpHeatmapRenderDraw);
 			}
 		}
 	};
 	$rootScope.xpCapturingClick = function(event) {
-		if ($rootScope.xpIsCapturing && event.layerX >= 0 && event.layerX >= 0) {
-			if (! $rootScope.hmClick[event.layerX])				$rootScope.hmClick[event.layerX] = [];
-			if ($rootScope.hmClick[event.layerX][event.layerY])	$rootScope.hmClick[event.layerX][event.layerY]++;
-			else												$rootScope.hmClick[event.layerX][event.layerY] = 1;
+		if (xp.isCapturing && event.clientX >= 0 && event.clientX >= 0) {
+			$rootScope.hmClick.push([event.clientX, event.clientY]);
+			/*
+			if (! $rootScope.hmClick[event.clientX])				$rootScope.hmClick[event.clientX] = [];
+			if ($rootScope.hmClick[event.clientX][event.clientY])	$rootScope.hmClick[event.clientX][event.clientY]++;
+			else												$rootScope.hmClick[event.clientX][event.clientY] = 1;
+			*/
 		}
 	};
 	

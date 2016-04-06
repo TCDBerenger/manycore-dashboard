@@ -186,11 +186,12 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 		
 		// Collect data
 		if (currentStep) {
+			var frameXP = (currentStep.mousetrack) ? document.getElementById("toolFrame").contentWindow.xp : null;
 			$rootScope.actionWrite({
 				type:		'page',
 				user_group:	$rootScope.xp.group,
 				data_form:	$rootScope.step.form,
-				data_track: (currentStep.mousetrack) ? null : null,
+				data_track: (currentStep.mousetrack && frameXP) ? frameXP.heatmap : null,
 			});
 		}
 		
