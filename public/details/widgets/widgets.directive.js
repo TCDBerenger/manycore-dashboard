@@ -636,7 +636,7 @@ function directive_repaint_VCustomAxis(r, index, facet, values) {
 function directive_unselect(r) {
 	r.svg.selectAll(".svg-selection").remove();
 	r.iSelection = [null, null];
-	r.meta.lastSelectID = null;
+	r.meta.lastSelectIDs = [null, null];
 }
 
 
@@ -801,12 +801,20 @@ app.directive('chartPercent', function() {
 		// Select
 		function select(positions, y0) {
 			// Time ID
-			var tIndex = positions.i50;
-			var t = positions.f50;
-			if (tIndex == r.meta.lastSelectID) {
+			var times = [
+				positions['f' + r.profiles[0].currentData.info.timeStep],
+				(r.profiles.length > 1) ? positions['f' + r.profiles[1].currentData.info.timeStep] : null
+			];
+			var timesIndex = [
+				positions['i' + r.profiles[0].currentData.info.timeStep],
+				(r.profiles.length > 1) ? positions['i' + r.profiles[1].currentData.info.timeStep] : null
+			];
+			
+			// Prerequisites for refresh
+			if (r.meta.lastSelectIDs[0] == timesIndex[0] && r.meta.lastSelectIDs[1] == timesIndex[1]) {
 				return;
 			} else {
-				r.meta.lastSelectID = tIndex;
+				r.meta.lastSelectIDs = timesIndex;
 			}
 
 			// Loop
@@ -818,10 +826,10 @@ app.directive('chartPercent', function() {
 				// Reuse
 				if (r.iSelection[index] != null) {
 					for (var v = 0; v < r.deck.v.length; v++) {
-						r.iSelection[index].select(".svg-area-" + v).attr("points", p2s(r.iData[index][v + 1].slice(tIndex * 4, tIndex * 4 + 4), r.iData[index][v].slice(tIndex * 4, tIndex * 4 + 4)));
+						r.iSelection[index].select(".svg-area-" + v).attr("points", p2s(r.iData[index][v + 1].slice(timesIndex[index] * 4, timesIndex[index] * 4 + 4), r.iData[index][v].slice(timesIndex[index] * 4, timesIndex[index] * 4 + 4)));
 						
 						// Send new coordinates to controller
-						yLastPosition = updateFocusRule(prefixID, y0, yLastPosition, index, t, tIndex, v);
+						yLastPosition = updateFocusRule(prefixID, y0, yLastPosition, index, times[index], timesIndex[index], v);
 					}
 				}
 				// Draw
@@ -832,11 +840,11 @@ app.directive('chartPercent', function() {
 					for (var v = 0; v < r.deck.v.length; v++) {
 						r.iSelection[index].append("polygon")
 							.attr('class', "svg-area svg-area-" + v)
-							.attr("points", p2s(r.iData[index][v + 1].slice(tIndex * 4, tIndex * 4 + 4), r.iData[index][v].slice(tIndex * 4, tIndex * 4 + 4)))
+							.attr("points", p2s(r.iData[index][v + 1].slice(timesIndex[index] * 4, timesIndex[index] * 4 + 4), r.iData[index][v].slice(timesIndex[index] * 4, timesIndex[index] * 4 + 4)))
 							.attr('fill', r.deck.v[v].colours.f);
 						
 						// Send new coordinates to controller
-						yLastPosition = updateFocusRule(prefixID, y0, yLastPosition, index, t, tIndex, v);
+						yLastPosition = updateFocusRule(prefixID, y0, yLastPosition, index, times[index], timesIndex[index], v);
 					};
 				}
 			}
@@ -1057,10 +1065,10 @@ app.directive('chartUnits', function() {
 		function select(positions, y0) {
 			// Time ID
 			var tIndex = Math.floor(positions.t / (r.settings.timeGroup | r.meta.timeGroup));
-			if (tIndex == r.meta.lastSelectID) {
+			if (tIndex == r.meta.lastSelectIDs[0]) {
 				return;
 			} else {
-				r.meta.lastSelectID = tIndex;
+				r.meta.lastSelectIDs[0] = tIndex;
 			}
 
 			// Loop
@@ -1266,7 +1274,7 @@ app.directive('chartStack', function() {
 			if (tIndex >= r.meta.ends[index] / r.settings.timeGroup) {
 				return;
 			} else {
-				r.meta.lastSelectID = tIndex;
+				r.meta.lastSelectIDs[0] = tIndex;
 			}
 
 			// Loop
@@ -1825,10 +1833,10 @@ app.directive('chartLines', function() {
 				var tIndex = positions.f50;
 				var frameID = positions.i50;
 				t = Math.round(t);
-				if (tIndex == r.meta.lastSelectID) {
+				if (tIndex == r.meta.lastSelectIDs[0]) {
 					return;
 				} else {
-					r.meta.lastSelectID = tIndex;
+					r.meta.lastSelectIDs[0] = tIndex;
 				}
 	
 				// Loop
