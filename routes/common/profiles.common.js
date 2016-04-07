@@ -137,18 +137,29 @@ var profileMap = {
 		{ id: 38,	label: 'P/C 100/10',	desc: '100 producers and 10 consumers',		hardware: hardRoman, file: 'pc100x10',	pid: 90436,	timeStep: 50, v: 4 },
 		{ id: 39,	label: 'P/C 100/100',	desc: '100 producers and 100 consumers',	hardware: hardRoman, file: 'pc100x100',	pid: 93496,	timeStep: 50, v: 4 },
 
-		{ id: 1006,	label: 'Dining ph.  6',	desc: 'Dining philosopher problem for 6 covers',	hardware: hardSTG,	 file: 'philosophers006', disabled: true },
-		{ id: 1012,	label: 'Dining ph. 12',	desc: 'Dining philosopher problem for 12 covers',	hardware: hardSTG,	 file: 'philosophers012' },
-		{ id: 1045,	label: 'Dining ph. 45″',desc: 'Dining philosopher problem for 45 covers',	hardware: hardSTG,	 file: 'philosophers045', v: 4, disabled: true },
+//		{ id: 101,	label: 'Matmul IJK',	desc: 'Matrix multiplication IJK in parallel', 	hardware: hardSTG, file: 'matmul-p-ijk', disabled: true },
+//		{ id: 102,	label: 'Matmul IKJ',	desc: 'Matrix multiplication IKJ in parallel', 	hardware: hardSTG, file: 'matmul-p-ikj', disabled: true },
+//		{ id: 103,	label: 'Matmul JIK',	desc: 'Matrix multiplication JIK in parallel', 	hardware: hardSTG, file: 'matmul-p-jik', disabled: true },
+//		{ id: 104,	label: 'Matmul JKI',	desc: 'Matrix multiplication JKI in parallel', 	hardware: hardSTG, file: 'matmul-p-jki', disabled: true },
+		{ id: 105,	label: 'Matmul KIJ',	desc: 'Matrix multiplication KIJ in parallel', 	hardware: hardSTG, file: 'matmul-p-kij' },
+//		{ id: 106,	label: 'Matmul KJI',	desc: 'Matrix multiplication KJI in parallel', 	hardware: hardSTG, file: 'matmul-p-kji', disabled: true },
+//		{ id: 107,	label: 'Matmul IJK',	desc: 'Matrix multiplication IJK sequentially', 	hardware: hardSTG, file: 'matmul-s-ijk', disabled: true },
+//		{ id: 108,	label: 'Matmul IKJ',	desc: 'Matrix multiplication IKJ sequentially', 	hardware: hardSTG, file: 'matmul-s-ikj', disabled: true },
+//		{ id: 109,	label: 'Matmul JIK',	desc: 'Matrix multiplication JIK sequentially', 	hardware: hardSTG, file: 'matmul-s-jik', disabled: true },
+//		{ id: 110,	label: 'Matmul JKI',	desc: 'Matrix multiplication JKI sequentially', 	hardware: hardSTG, file: 'matmul-s-jki', disabled: true },
+//		{ id: 111,	label: 'Matmul KIJ',	desc: 'Matrix multiplication KIJ sequentially', 	hardware: hardSTG, file: 'matmul-s-kij', disabled: true },
+//		{ id: 112,	label: 'Matmul KJI',	desc: 'Matrix multiplication KJI sequentially', 	hardware: hardSTG, file: 'matmul-s-kji', disabled: true },
 		
-        { id: 101,	label: 'Matmul KJI',	desc: 'Matrix multiplication KJI', 	hardware: hardSTG, file: 'matmul', timeStep: 25 },
+		{ id: 1006,	label: 'Dining ph.  6',	desc: 'Dining philosopher problem for 6 covers',	hardware: hardSTG,	 file: 'philosophers006', timeStep: 50, disabled: true },
+		{ id: 1012,	label: 'Dining ph. 12',	desc: 'Dining philosopher problem for 12 covers',	hardware: hardSTG,	 file: 'philosophers012', timeStep: 50 },
+		{ id: 1045,	label: 'Dining ph. 45',	desc: 'Dining philosopher problem for 45 covers',	hardware: hardSTG,	 file: 'philosophers045', timeStep: 50, v: 4, disabled: true },
 	]
 };
 
 // Global treatment
 profileMap.all.forEach(function (profile) {
 	// Missing data
-	if (! profile.timeStep) profile.timeStep = 50;
+	if (! profile.timeStep) profile.timeStep = 25;
 	if (! profile.v) profile.v = 5;
 	
 	// Indexing
