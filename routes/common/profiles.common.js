@@ -141,7 +141,7 @@ var profileMap = {
 		{ id: 1012,	label: 'Dining ph. 12',	desc: 'Dining philosopher problem for 12 covers',	hardware: hardSTG,	 file: 'philosophers012' },
 		{ id: 1045,	label: 'Dining ph. 45″',desc: 'Dining philosopher problem for 45 covers',	hardware: hardSTG,	 file: 'philosophers045', v: 4, disabled: true },
 		
-        { id: 101,	label: 'Matmul KJI',	desc: 'Matrix multiplication KJI', 	hardware: hardSTG, file: 'matmul' },
+        { id: 101,	label: 'Matmul KJI',	desc: 'Matrix multiplication KJI', 	hardware: hardSTG, file: 'matmul', timeStep: 25 },
 	]
 };
 
