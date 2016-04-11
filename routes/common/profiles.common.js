@@ -141,7 +141,7 @@ var profileMap = {
 //		{ id: 102,	label: 'Matmul IKJ',	desc: 'Matrix multiplication IKJ in parallel', 	hardware: hardSTG, file: 'matmul-p-ikj', disabled: true },
 //		{ id: 103,	label: 'Matmul JIK',	desc: 'Matrix multiplication JIK in parallel', 	hardware: hardSTG, file: 'matmul-p-jik', disabled: true },
 //		{ id: 104,	label: 'Matmul JKI',	desc: 'Matrix multiplication JKI in parallel', 	hardware: hardSTG, file: 'matmul-p-jki', disabled: true },
-		{ id: 105,	label: 'Matmul KIJ',	desc: 'Matrix multiplication KIJ in parallel', 	hardware: hardSTG, file: 'matmul-p-kij' },
+		{ id: 105,	label: 'Matmul KIJ',	desc: 'Matrix multiplication KIJ in parallel', 	hardware: hardSTG, file: 'matmul-p-kij', disabled: true },
 //		{ id: 106,	label: 'Matmul KJI',	desc: 'Matrix multiplication KJI in parallel', 	hardware: hardSTG, file: 'matmul-p-kji', disabled: true },
 //		{ id: 107,	label: 'Matmul IJK',	desc: 'Matrix multiplication IJK sequentially', 	hardware: hardSTG, file: 'matmul-s-ijk', disabled: true },
 //		{ id: 108,	label: 'Matmul IKJ',	desc: 'Matrix multiplication IKJ sequentially', 	hardware: hardSTG, file: 'matmul-s-ikj', disabled: true },
