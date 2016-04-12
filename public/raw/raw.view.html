@@ -1,6 +1,6 @@
 
 <ul class="nav nav-pills" style="margin-bottom: 20px; border-bottom: 1px solid rgb(221, 221, 221);">
-	<span class="nav-tab-title">Expert Dashboard</span>
+	<span class="nav-tab-title">Numerical Dashboard</span>
 	<p class="navbar-text" ng-if="! isWaiting">for <b>{{::profiles[0].label}}</b><span ng-if="profiles.length > 1"> and <b>{{::profiles[1].label}}</b></span></p>
 	<li class="navbar-right" uib-dropdown>
 		<a uib-dropdown-toggle><i class="fa fa-area-chart fa-halfpad"></i>Categories <span class="caret"></span></a>
@@ -8,7 +8,7 @@
 			<li ng-repeat="category in categories | enabled"><a ui-sref="detail({cat: category.cat, ids: encodedIDs})"><i class="fa fa-{{::category.icon}} fa-16px fa-pad"></i> {{::category.label}}</a></li>
 		</ul>
 	</li>
-	<li class="navbar-right"><a ui-sref="dashboard({ids: encodedIDs})"><i class="fa fa-tachometer fa-halfpad"></i>Dashoard</a></li>
+	<li class="navbar-right"><a ui-sref="dashboard({ids: encodedIDs})"><i class="fa fa-tachometer fa-halfpad"></i>Graphical Dashoard</a></li>
 	<p class="navbar-text navbar-right" style="margin-right: 10px;">&hellip; or jump to</p>
 	<div class="nav-tab-spinner" ng-if="isWaiting">
 		<i class="fa fa-spinner fa-pulse fa-2x"></i>
@@ -146,7 +146,6 @@
 	<!-- Templates -->
 	<ng-include src="'/template_accordion_complete.html'" ng-repeat="columnSet in sets"></ng-include>
 </div>
-
 
 
 <!-- Events -->
