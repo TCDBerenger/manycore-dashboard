@@ -403,6 +403,7 @@ app.directive('chartGauges', function() {
 						.attr("fill", facet.colours.n);
 					
 					// Label - unit
+					/*
 					group.append("text")
 						.attr('class', "svg-label svg-label-unit svg-data-" + gauge_index + "-" + facet_index)
 						.attr("y", layout.gauge[gauge_index].facet[facet_index] + layout.groups.row_height / 2)
@@ -410,6 +411,7 @@ app.directive('chartGauges', function() {
 						.attr("alignment-baseline", 'central')
 						.attr("dominant-baseline", 'central')
 						.attr("fill", facet.colours.h);
+					*/
 				});
 			});
 			
@@ -468,12 +470,15 @@ app.directive('chartGauges', function() {
 						// Label - title
 						groupP[profile_index].selectAll('.svg-label-title.svg-data-' + gauge_index + '-' + facet_index)
 							.attr('x', (profile_index == 0) ? xs[2] - 2 : xs[2] + 2)
+//							.attr('font-weight', (((profile_index == 0) ? xs[1] - xs[2] : xs[2] - xs[1]) > 0) ? 'bold' : 'normal')
 							.text(profile.data.dash.gauges[facet.attr].l);
 					
 						// Label - unit
+						/*
 						groupP[profile_index].selectAll('.svg-label-unit.svg-data-' + gauge_index + '-' + facet_index)
 							.attr('x', (profile_index == 0) ? (xs[0] + xs[2]) / 2 : (xs[2] + xs[0]) / 2)
 							.text(dash_unit(facet, profile.data.dash.gauges[facet.attr].u));
+						*/
 					});
 				});
 			});
