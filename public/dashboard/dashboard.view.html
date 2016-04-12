@@ -168,8 +168,7 @@
 		</span>
 	</div>
 	<h4>{{category.title}}</h4>
-	<p>{{category.description}}</p>
-	<p>{{category.example}}</p>
+	<p ng-repeat="text in category.tooltip">{{text}}</p>
 </script>
 
 <!-- Tooltip - Strip -->
@@ -181,6 +180,5 @@
 		</span>
 	</div>
 	<h4>{{strip.title}}</h4>
-	<p>{{strip.description}}</p>
-	<p>{{strip.example}}</p>
+	<p ng-repeat="text in strip.tooltip">{{text}}</p>
 </script>

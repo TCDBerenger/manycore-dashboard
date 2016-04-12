@@ -779,15 +779,41 @@ app.factory('strips', ['facets', function(facets) {
 	var example_good = 'The biggest is the shape, the more accurate is the use of resources.';
 	var example_ok = 'A big shape means an under-exploitation of resources.';
 	var example_bad = 'A non minimal shape means a problem or a misusing of resources.';
+	
+	var tooltip_r = [
+		'This graph represents the time spent in thread execution.',
+		example_good];
+	var tooltip_i = [
+		'This graph shows the time spend by the core waiting a thread to run.',
+		example_ok];
+	var tooltip_yb = [
+		'This graph shows the time spent by threads while waiting a core.',
+		example_bad];
+	var tooltip_lw = [
+		'This graph represents the time spent by threads while waiting for a lock.',
+		example_bad];
+	var tooltip_q = [
+		'This graph represents the parallelised state of the cores, at least two threads running simultaneously.',
+		example_good];
+	var tooltip_miss = [
+		'This graph represents the time spent on locality misses.',
+		example_bad];
+	var tooltip_e = [
+		'This graph shows the amount memory bandwidth used.',
+		example_bad];
+	var tooltip_il = [
+		'This graph shows the amount of invalidations of shared memory by cores.',
+		example_bad];
+	
 	return {
-		r:		{ title: 'Running',					facet: facets.r,	reverse: false,	description: 'This graph represents the time spent in thread execution.', example: example_good },
-		i:		{ title: 'Unused cores',			facet: facets.i,	reverse: true,	description: 'This graph shows the time spend by the core waiting a thread to run.', example: example_ok },
-		yb:		{ title: 'Waiting for a core',		facet: facets.yb,	reverse: false,	description: 'This graph shows the time spent by threads while waiting a core.', example: example_bad },
-		lw:		{ title: 'Waiting for a ressource',	facet: facets.lw,	reverse: false,	description: 'This graph represents the time spent by threads while waiting for a lock.', example: example_bad },
-		q:		{ title: 'Parallelisation',			facet: facets.p,	reverse: false,	description: 'This graph represents the parallelised state of the cores, at least two threads running simultaneously.', example: example_good },
-		miss:	{ title: 'Cache misses',			facet: facets.miss,	reverse: false,	description: 'This graph represents the time spent on locality misses.', example: example_bad },
-		e:		{ title: 'Memory bandwidth',		facet: facets.e,	reverse: false,	description: 'This graph shows the amount memory bandwidth used.', example: example_bad },
-		il:		{ title: 'Cache coherency',			facet: facets.il,	reverse: false,	description: 'This graph shows the amount of invalidations of shared memory by cores.', example: example_bad }
+		r:		{ title: 'Running',					facet: facets.r,	reverse: false,	tooltip: tooltip_r },
+		i:		{ title: 'Unused cores',			facet: facets.i,	reverse: true,	tooltip: tooltip_i },
+		yb:		{ title: 'Waiting for a core',		facet: facets.yb,	reverse: false,	tooltip: tooltip_yb },
+		lw:		{ title: 'Waiting for a ressource',	facet: facets.lw,	reverse: false,	tooltip: tooltip_lw },
+		q:		{ title: 'Parallelisation',			facet: facets.p,	reverse: false,	tooltip: tooltip_q },
+		miss:	{ title: 'Cache misses',			facet: facets.miss,	reverse: false,	tooltip: tooltip_miss },
+		e:		{ title: 'Memory bandwidth',		facet: facets.e,	reverse: false,	tooltip: tooltip_e },
+		il:		{ title: 'Cache coherency',			facet: facets.il,	reverse: false,	tooltip: tooltip_il }
 	};
 }]);
 
@@ -810,56 +836,70 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 	};
 	var tg = {
 		tag: 'tg', cat: 'tg', label: 'Task granularity', title: 'Task granularity', icon: 'sliders', enabled: true,
-		description: 'This category helps about the challenge to find enough parallelism to keep the machine busy.',
-		example: 'If there are too many threads, the cost of these overheads can exceed the benefits.',
+		tooltip: [
+			'This category helps about the challenge to find enough parallelism to keep the machine busy.',	
+			'If there are too many threads, the cost of these overheads can exceed the benefits.',
+		],
 		strips: [strips.yb, strips.i],
 		gauges: [[yb, facets.i], [facets.s, facets.m]], /* facets.r, */
 		widgets: [widgets.threadStates, widgets.threadSwitches, widgets.threadMigrations, widgets.threadFruitSalad]
 	};
 	var sy = {
 		tag: 'sy', cat: 'sy', label: 'Synchronisation', title: 'Synchronisation', icon: 'refresh', enabled: true,
-		description: 'This category helps about the synchronisation needed to ensure that all threads get a consistent view of a shared memory. The common mechanism is the lock.',
-		example: 'If the algorithm requires a large amount of synchronization, the overhead can offset much of the benefits of parallelism.',
+		tooltip: [
+			'This category helps about the synchronisation needed to ensure that all threads get a consistent view of a shared memory. The common mechanism is the lock.',	
+			'If the algorithm requires a large amount of synchronization, the overhead can offset much of the benefits of parallelism.',
+		],
 		strips: [strips.lw],
 		gauges: [[lw], [facets.ls, facets.lf]],
 		widgets: [widgets.lockCounts, widgets.lockContentions, widgets.threadLocks]
 	};
 	var ds = {
 		tag: 'ds', cat: 'ds', label: 'Data sharing', title: 'Data sharing', icon: 'exchange', enabled: true,
-		description: 'This category helps about the data shared between cores.',
-		example: 'These transfers take time, with the result that there is typically a cost to data sharing, particularly when shared variables and data structures are modified.',
+		tooltip: [
+			'This category helps about the data shared between cores.',	
+			'These transfers take time, with the result that there is typically a cost to data sharing, particularly when shared variables and data structures are modified.',
+		],
 		strips: [strips.il],
 		gauges: [[lw, miss]],
 		widgets: [widgets.lockContentions, widgets.cacheMisses, widgets.cacheInvalidations, widgets.coreInvalidations, widgets.memBandwidth, widgets.coreBandwidth]
 	};
 	var lb = {
 		tag: 'lb', cat: 'lb', label: 'Load balancing', title: 'Load balancing', icon: 'list-ol', enabled: true,
-		description: 'This category helps about the attempt to divide work evenly among the cores.',
-		example: 'Dividing the work in this way is usually, but not always, beneficial.',
+		tooltip: [
+			'This category helps about the attempt to divide work evenly among the cores.',	
+			'Dividing the work in this way is usually, but not always, beneficial.',
+		],
 		strips: [strips.q],
 		gauges: [[uc, lw], [facets.m]],
 		widgets: [widgets.coreIdle, widgets.lockContentions, widgets.threadMigrations, widgets.threadStates, widgets.coreSequences, widgets.threadChains]
 	};
 	var dl = {
 		tag: 'dl', cat: 'dl', label: 'Data locality', title: 'Data locality', icon: 'compass', enabled: true,
-		description: 'This category helps about identifying which memory is used: CPU, RAM and disk.',
-		example: 'More the memory is away from the core, more processor cycles are needed to read a value.',
+		tooltip: [
+			'This category helps about identifying which memory is used: CPU, RAM and disk.',	
+			'More the memory is away from the core, more processor cycles are needed to read a value.',
+		],
 		strips: [strips.miss],
 		gauges: [[miss]], /* facets.ipc, */
 		widgets: [widgets.cacheMisses, widgets.cacheBreackdown]
 	};
 	var rs = {
 		tag: 'rs', cat: 'rs', label: 'Resource sharing', title: 'Resource sharing', icon: 'sitemap', enabled: true,
-		description: 'This category helps about sharing resources between all threads.',
-		example: 'For example, all cores will typically share a single connection to main memory.',
+		tooltip: [
+			'This category helps about sharing resources between all threads.',	
+			'For example, all cores will typically share a single connection to main memory.',
+		],
 		strips: [strips.e],
 		gauges: [],
 		widgets: [widgets.memBandwidth, widgets.coreBandwidth, widgets.lockCounts, widgets.cacheMisses, widgets.cacheInvalidations, widgets.coreInvalidations]
 	};
 	var io = {
 		tag: 'io', cat: 'io', label: 'Input/Output', title: 'Input/Output', icon: 'plug', enabled: false,
-		description: 'This category helps about the degradation of performance while compete for I/O resources.',
-		example: 'I/O contentions are often seen in instances of heavy workloads and causes latency and bottlenecks.',
+		tooltip: [
+			'This category helps about the degradation of performance while compete for I/O resources.',	
+			'I/O contentions are often seen in instances of heavy workloads and causes latency and bottlenecks.',
+		],
 		strips: [],
 		gauges: [],
 		widgets: []
