@@ -78,7 +78,7 @@ app.factory('colours', [function() {
 
 app.factory('facets', ['colours', function(colours) {
 	/*  DESCRIPTIONS TO MOVE INTO LEGENDS AND DELETE HERE  */
-	var desc_w = 'threads are not ready to be processed because they waiting ressource(s)';
+	var desc_w = 'threads are not ready to be processed because they waiting resource(s)';
 	var desc_lw = 'threads are not ready to be processed because they waiting to acquire a lock';
 	var desc_i = 'no thread running on core';
 	var desc_miss = 'time spent on locality misses';
@@ -793,24 +793,26 @@ app.factory('strips', ['facets', function(facets) {
 		'This graph represents the time spent by threads while waiting for a lock.',
 		example_bad];
 	var tooltip_q = [
-		'This graph represents the parallelised state of the cores, at least two threads running simultaneously.',
+		'Proportion of parallelism sequences.',
+		'The parallelism phase occurs when at least two threads running simultaneously. Otherwise, it\' a sequencial phase.',
 		example_good];
 	var tooltip_miss = [
-		'This graph represents the time spent on locality misses.',
+		'Percentage of time spent on locality misses.',
+		'A locality miss (TLB, L1, ..., HPF) occurs when the storage of a data is not right.',
 		example_bad];
 	var tooltip_e = [
-		'This graph shows the amount memory bandwidth used.',
+		'Proportion of memory bandwidth used.',
 		example_bad];
 	var tooltip_il = [
-		'This graph shows the amount of invalidations of shared memory by cores.',
+		'Percentage of cache line invalidations (L1 and L2) of shared memory by cores.',
 		example_bad];
 	
 	return {
 		r:		{ title: 'Running',					facet: facets.r,	reverse: false,	tooltip: tooltip_r },
 		i:		{ title: 'Unused cores',			facet: facets.i,	reverse: true,	tooltip: tooltip_i },
 		yb:		{ title: 'Waiting for a core',		facet: facets.yb,	reverse: false,	tooltip: tooltip_yb },
-		lw:		{ title: 'Waiting for a ressource',	facet: facets.lw,	reverse: false,	tooltip: tooltip_lw },
-		q:		{ title: 'Parallelisation',			facet: facets.p,	reverse: false,	tooltip: tooltip_q },
+		lw:		{ title: 'Waiting for a resource',	facet: facets.lw,	reverse: false,	tooltip: tooltip_lw },
+		q:		{ title: 'Parallelisation phases',	facet: facets.p,	reverse: false,	tooltip: tooltip_q },
 		miss:	{ title: 'Cache misses',			facet: facets.miss,	reverse: false,	tooltip: tooltip_miss },
 		e:		{ title: 'Memory bandwidth',		facet: facets.e,	reverse: false,	tooltip: tooltip_e },
 		il:		{ title: 'Cache coherency',			facet: facets.il,	reverse: false,	tooltip: tooltip_il }
@@ -819,15 +821,15 @@ app.factory('strips', ['facets', function(facets) {
 
 
 app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, strips, facets) {
-	var yb =	JSON.parse(JSON.stringify(facets.yb));
-	var lw =	JSON.parse(JSON.stringify(facets.lw));
-	var miss =	JSON.parse(JSON.stringify(facets.miss));
-	var uc =	JSON.parse(JSON.stringify(facets.i));
-	
-	yb.shift = true;
-	lw.shift = true;
-	miss.shift = true;
-	uc.label = "Unused cores"
+	var gauge_yb =	{ l: 'Waiting for a core',				f: facets.yb };
+	var gauge_uc =	{ l: 'Unused cores',					f: facets.i };
+	var gauge_s =	{ l: 'Expected context switches',		f: facets.s };
+	var gauge_m =	{ l: 'Expected thread migrations',		f: facets.m };
+	var gauge_lw =	{ l: 'Waiting for a lock',				f: facets.lw };
+	var gauge_ls =	{ l: 'Expected locks',					f: facets.ls };
+	var gauge_lf =	{ l: 'Expected locks with contention',	f: facets.lf };
+	var gauge_miss ={ 										f: facets.miss };
+	var gauge_il =	{ 										f: facets.il };
 	
 	var common = {
 		label: 'Profile', title: 'Profile', icon: 'heartbeat',
@@ -841,7 +843,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 			'If there are too many threads, the cost of these overheads can exceed the benefits.',
 		],
 		strips: [strips.yb, strips.i],
-		gauges: [[yb, facets.i], [facets.s, facets.m]], /* facets.r, */
+		gauges: [[gauge_yb, gauge_uc], [gauge_s, gauge_m]],
 		widgets: [widgets.threadStates, widgets.threadSwitches, widgets.threadMigrations, widgets.threadFruitSalad]
 	};
 	var sy = {
@@ -851,7 +853,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 			'If the algorithm requires a large amount of synchronization, the overhead can offset much of the benefits of parallelism.',
 		],
 		strips: [strips.lw],
-		gauges: [[lw], [facets.ls, facets.lf]],
+		gauges: [[gauge_lw], [gauge_ls, gauge_lf]],
 		widgets: [widgets.lockCounts, widgets.lockContentions, widgets.threadLocks]
 	};
 	var ds = {
@@ -861,7 +863,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 			'These transfers take time, with the result that there is typically a cost to data sharing, particularly when shared variables and data structures are modified.',
 		],
 		strips: [strips.il],
-		gauges: [[lw, miss]],
+		gauges: [[gauge_lw], [gauge_il, gauge_miss]],
 		widgets: [widgets.lockContentions, widgets.cacheMisses, widgets.cacheInvalidations, widgets.coreInvalidations, widgets.memBandwidth, widgets.coreBandwidth]
 	};
 	var lb = {
@@ -871,7 +873,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 			'Dividing the work in this way is usually, but not always, beneficial.',
 		],
 		strips: [strips.q],
-		gauges: [[uc, lw], [facets.m]],
+		gauges: [[gauge_uc, gauge_lw], [gauge_m]],
 		widgets: [widgets.coreIdle, widgets.lockContentions, widgets.threadMigrations, widgets.threadStates, widgets.coreSequences, widgets.threadChains]
 	};
 	var dl = {
@@ -881,7 +883,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 			'More the memory is away from the core, more processor cycles are needed to read a value.',
 		],
 		strips: [strips.miss],
-		gauges: [[miss]], /* facets.ipc, */
+		gauges: [[gauge_miss]],
 		widgets: [widgets.cacheMisses, widgets.cacheBreackdown]
 	};
 	var rs = {
@@ -891,7 +893,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 			'For example, all cores will typically share a single connection to main memory.',
 		],
 		strips: [strips.e],
-		gauges: [],
+		gauges: [[gauge_lw], [gauge_il, gauge_miss]],
 		widgets: [widgets.memBandwidth, widgets.coreBandwidth, widgets.lockCounts, widgets.cacheMisses, widgets.cacheInvalidations, widgets.coreInvalidations]
 	};
 	var io = {
