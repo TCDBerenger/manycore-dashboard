@@ -3,26 +3,6 @@
 <!--	Wizard						  -->
 <!-- -- -- -- -- -- -- -- -- -- -- -- -->
 <div class="wizard alert alert-info" ng-class="{'hidden': ! canAddProfile()}">
-	
-	<!-- Step analyse -->
-	<div class="tile" ng-if="false && isStepAnalyse()">
-		<span class="tile-icon fa-stack">
-			<i class="fa fa-circle fa-stack-2x"></i>
-			<i class="fa fa-hand-o-right fa-stack-1x text-info"></i>
-		</span>
-		<h2><strong>Step 2</strong> find Waldo</h2>
-		<p>Check all the indicators. <i class="fa fa-question-circle" style="cursor: help;" tooltip-html="stepTooltipAnalyse"></i></p>
-		<!--<div>
-			<span class="label label-info" style="margin-right: 6px;">info</span>
-			<p style="display: inline-block; vertical-align: text-top;">
-				<span class="text-success">green</span>: it works!<br />
-				<span class="text-primary">blue</span>: area for improvement<br />
-				<span class="text-danger">red</span>, <span class="text-warning">yellow</span> and <span class="text-muted">all other colours</span>: possible problem
-			</p>
-		</div>-->
-		<p>If an indicator seems dubious, click on it to show detailled information and follow the investigation.</p>
-	</div>
-	
 	<!-- Step 1 and 1bis (selection) -->
 	<div class="tile">
 		<span class="tile-icon fa-stack">
@@ -86,51 +66,6 @@
 				<p><i class="fa fa-graduation-cap text-info"></i> for experts: <a ui-sref='raw({ids: encodeSelectedProfile()})'>check the raw data</a></p>
 			</div>
 		</div>
-		
-		<!-- Step analyse -->
-		<!--<div ng-if="has2Profiles()" class="col-auto" style="max-width: 425px;"><div class="block">
-			<span class="block-icon fa-stack text-info">
-				<i class="fa fa-circle fa-stack-2x"></i>
-				<i class="fa fa-hand-o-right fa-stack-1x fa-inverse"></i>
-			</span>
-			<h2><strong class="text-info">Step 2</strong> find Waldo</h2>
-			<p>Check all the indicators. <i class="text-info fa fa-question-circle" style="cursor: help;" tooltip-html="stepTooltipAnalyse"></i></p>
-			<p>If an indicator seems dubious, click on it to show detailled information and follow the investigation.</p>
-		</div></div>-->
-		
-		<!-- Category -->
-		<!--<div ng-if="has2Profiles()" class="col-auto"><div class="block">
-			<span class="block-icon fa-stack">
-				<i class="fa fa-circle fa-stack-2x"></i>
-				<i class="fa fa-eye fa-stack-1x fa-inverse"></i>
-			</span>
-			<h2>Quick access</h2>
-			<div class="category-group">
-				<a ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})' ng-repeat="category in categories | enabled"><button type="button" class="btn btn-link btn-xs"><i class="fa fa-{{::category.icon}}"></i>{{::category.title}}</button></a>
-			</div>
-		</div></div>-->
-		
-		<!-- Control -->
-		<!--
-		<div ng-if="has2Profiles()" class="col-auto ctrl"><div class="block">
-			<span class="block-icon fa-stack">
-				<i class="fa fa-circle fa-stack-2x"></i>
-				<i class="fa fa-wrench fa-stack-1x fa-inverse"></i>
-			</span>
-			<p><a class="action" href ng-click="unselectAllProfiles()">
-				<span class="fa-stack icon">
-					<i class="fa fa-thumb-tack fa-stack-1x"></i>
-					<i class="fa fa-ban fa-stack-2x"></i>
-				</span><span class="text">deselect all</span>
-			</a></p>
-			<p><a class="action" href ng-click="invertProfiles()">
-				<span class="fa-stack icon">
-					<i class="fa fa-circle fa-stack-2x"></i>
-					<i class="fa fa-exchange fa-stack-1x fa-inverse"></i>
-				</span><span class="text">invert</span>
-			</a></p>
-		</div></div>
-		-->
 	</div></div>
 	
 	<ng-include src="'/template_profile.html'" ng-if="willProfile(1)" ng-init="pindex = 1" class="category-profile-1"></ng-include>
