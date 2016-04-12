@@ -838,9 +838,11 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 	};
 	var tg = {
 		tag: 'tg', cat: 'tg', label: 'Task granularity', title: 'Task granularity', icon: 'sliders', enabled: true,
+		description: 'In parallel programs it is often a challenge to find enough parallelism to keep the machine busy. A key focus of parallel software development is designing algorithms that expose more parallelism. However, there are overheads associated with starting, managing and switching between parallel threads. If there are too many threads, the cost of these overheads can exceed the benefits',
+		issues: ['oversubscription', 'task start/stop overhead', 'thread migration'],
 		tooltip: [
-			'This category helps about the challenge to find enough parallelism to keep the machine busy.',	
-			'If there are too many threads, the cost of these overheads can exceed the benefits.',
+			'This category describes the level of parallelism exhibited by the application.',	
+			'For instance, if there are too many threads, the cost can exceed the benefits.',
 		],
 		strips: [strips.yb, strips.i],
 		gauges: [[gauge_yb, gauge_uc], [gauge_s, gauge_m]],
