@@ -331,7 +331,7 @@ function directive_repaint_scales(r, vData, vData2) {
  */
 function directive_repaint_post(r) {
 	// Profile label
-	r.profiles.forEach(function(profile, index) {
+	if (r.profiles.length > 1) r.profiles.forEach(function(profile, index) {
 		r.groupV[index].append('text')
 			.attr('class', "svg-text svg-profile-label")
 			.attr('text-anchor', (index == 0) ? "start" : 'end')
