@@ -9,8 +9,8 @@
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-hand-o-right fa-stack-1x text-info"></i>
 		</span>
-		<h2 ng-if="isStep1()"><strong>Step 1</strong> select a sample</h2>
-		<h2 ng-if="isStep1Compare()"><strong>Step 1 bis</strong> compare</h2>
+		<h2 ng-if="isStep1()">Select a sample</h2>
+		<h2 ng-if="isStep1Compare()">Compare with</h2>
 		<p>&nbsp;</p>
 		<p style="text-size: 14px">Profiles with all gathered data:</p>
 		<p class="profile-group">
@@ -61,9 +61,9 @@
 					<i class="fa fa-info fa-stack-1x fa-inverse"></i>
 				</span>
 				<h2>What's next?</h2>
-				<p><i class="fa fa-arrow-right text-info"></i> Check all indicators and gauges to identify an overflowing one.</p>
-				<p><i class="fa fa-arrow-right text-info"></i> Choose a category of problems to drill-down.</p>
-				<p><i class="fa fa-graduation-cap text-info"></i> for experts: <a ui-sref='raw({ids: encodeSelectedProfile()})'>check the raw data</a></p>
+				<p><i class="fa fa-arrow-right text-info"></i> Check all indicators and gauges for overflow or lack</p>
+				<p><i class="fa fa-arrow-right text-info"></i> Choose a category to drill-down through the problem</p>
+				<p><i class="fa fa-graduation-cap text-info"></i> For experts: <a ui-sref='raw({ids: encodeSelectedProfile()})'>check the raw data</a></p>
 			</div>
 		</div>
 	</div></div>
