@@ -75,7 +75,7 @@
 		<!-- Global help -->
 		<div ng-if="isStepAnalyse()" class="col-xs-10 col-xs-offset-1">
 			<!-- Step 2 -->
-			<div ng-if="! hoveredCategory && ! hoveredStrip" class="block block-list">
+			<div class="block block-list">
 				<span class="block-icon fa-stack text-info">
 					<i class="fa fa-circle fa-stack-2x"></i>
 					<i class="fa fa-info fa-stack-1x fa-inverse"></i>
@@ -84,28 +84,6 @@
 				<p><i class="fa fa-arrow-right text-info"></i> Check all indicators and gauges to identify an overflowing one.</p>
 				<p><i class="fa fa-arrow-right text-info"></i> Choose a category of problems to drill-down.</p>
 				<p><i class="fa fa-graduation-cap text-info"></i> for experts: <a ui-sref='raw({ids: encodeSelectedProfile()})'>check the raw data</a></p>
-			</div>
-			
-			<!-- Help on categories -->
-			<div ng-if="hoveredCategory && ! hoveredStrip" class="block">
-				<span class="block-icon fa-stack text-muted">
-					<i class="fa fa-circle fa-stack-2x"></i>
-					<i class="fa fa-{{hoveredCategory.icon}} fa-stack-1x fa-inverse"></i>
-				</span>
-				<h2>{{hoveredCategory.title}}</h2>
-				<p>{{hoveredCategory.description}}</p>
-				<p>{{hoveredCategory.example}}</p>
-			</div>
-			
-			<!-- Help on strips -->
-			<div ng-if="hoveredStrip" class="block">
-				<span class="block-icon fa-stack" style="color: {{hoveredStrip.facet.colours.n}}">
-					<i class="fa fa-circle fa-stack-2x"></i>
-					<i class="fa fa-area-chart fa-stack-1x fa-inverse"></i>
-				</span>
-				<h2>{{hoveredStrip.title}}</h2>
-				<p>{{hoveredStrip.description}}</p>
-				<p>{{hoveredStrip.example}}</p>
 			</div>
 		</div>
 		
@@ -158,14 +136,14 @@
 	<ng-include src="'/template_profile.html'" ng-if="willProfile(1)" ng-init="pindex = 1" class="category-profile-1"></ng-include>
 </div>
 
-<div class="row category div-link" ng-if="hasProfiles()" ng-repeat="category in categories | enabled" ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})' ng-mouseenter="selectCategory(category)" ng-mouseleave="unselectCategory()">
+<div class="row category div-link" ng-if="hasProfiles()" ng-repeat="category in categories | enabled" ui-sref='detail({cat: category.tag, ids: encodeSelectedProfile()})'>
 	<!--<span id="div-tooltip-{{::$index}}" class="div-tooltip">view {{::category.title}} details <i class="fa fa-external-link"></i></span> ng-mousemove="categoryTooltipMouseMoveHandler($event, $index)"-->
 	
 	<!-- Strips (profile 1) -->
 	<ng-include src="'/template_profile_strips.html'" ng-init="pindex = 0" class="category-profile-0"></ng-include>
 	
 	<!-- Main -->
-	<div class="col-xs-6 category-main">
+	<div class="col-xs-6 category-main" uib-tooltip-template="'template_tooltip_category.html'">
 		<!-- Title -->
 		<!--<div class="title" ng-class="{'for1': has1Profile(), 'for2': has2Profiles()}">
 			<hr/><i class="fa fa-{{::category.icon}} text-muted"></i><span>{{::category.title}}</span><i class="fa fa-{{category.icon}} text-muted"></i><hr/>
@@ -228,7 +206,7 @@
 	<div class="tile">
 		<section class="strip" ng-repeat="strip in commonCategory.strips">
             <span class="strip-gauge" style="color: {{::strip.facet.colours.n}}">{{selectedProfiles[pindex].data.dash.gauges[strip.facet.attr].l}}</span>
-			<chart-strip class="widget-graph" ng-mouseenter="$parent.selectStrip(strip)" ng-mouseleave="$parent.unselectStrip()"></chart-strip>
+			<chart-strip class="widget-graph" uib-tooltip-template="'template_tooltip_strip.html'"></chart-strip>
 		</section>
 	</div></div>
 </script>
@@ -238,10 +216,36 @@
 	<div class="col-xs-3 profile"><div class="tile">
 		<section class="strip" ng-repeat="strip in category.strips">
             <span ng-if="isStripCapable()" class="strip-gauge" style="color: {{::strip.facet.colours.n}}">{{selectedProfiles[pindex].data.dash.gauges[strip.facet.attr].l}}</span>
-			<chart-strip ng-if="isStripCapable()" class="widget-graph" ng-mouseenter="$parent.selectStrip(strip)" ng-mouseleave="$parent.unselectStrip()"></chart-strip>
+			<chart-strip ng-if="isStripCapable()" class="widget-graph" uib-tooltip-template="'template_tooltip_strip.html'"></chart-strip>
 			<div class="no-strip" ng-if="! isStripCapable()" style="color: {{::strip.facet.colours.n}}">
 				Missing data for {{::strip.title}}
 			</div>
 		</section>
 	</div></div>
+</script>
+
+<!-- Tooltip - Category -->
+<script type="text/ng-template" id="template_tooltip_category.html">
+	<div class="block-icon">
+		<span class="fa-stack text-muted">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-{{category.icon}} fa-stack-1x fa-inverse"></i>
+		</span>
+	</div>
+	<h4>{{category.title}}</h4>
+	<p>{{category.description}}</p>
+	<p>{{category.example}}</p>
+</script>
+
+<!-- Tooltip - Strip -->
+<script type="text/ng-template" id="template_tooltip_strip.html">
+	<div class="block-icon">
+		<span class="fa-stack" style="color: {{strip.facet.colours.n}}">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-area-chart fa-stack-1x fa-inverse"></i>
+		</span>
+	</div>
+	<h4>{{strip.title}}</h4>
+	<p>{{strip.description}}</p>
+	<p>{{strip.example}}</p>
 </script>

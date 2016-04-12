@@ -5,34 +5,9 @@
 	padding: 0px 20px 0px 20px !important;
 	transition: .2s linear all;
 }
-/*
-.dashboard h2 {
-	margin-top: 0px;
-}
-*/
 .dashboard svg text {
 	pointer-events: none;
 }
-/*
-.dashboard .div-link {
-	cursor: pointer;
-}
-.dashboard .div-link .div-tooltip {
-	position: absolute;
-	z-index: 1000;
-	display: none;
-	width: 200px;
-	margin-left: -200px;
-	
-	font-size: 0.7em;
-	font-weight: bold;
-	text-align: right;
-	text-shadow: 0 0 4px #FFF;
-}
-.dashboard .div-link:hover .div-tooltip {
-	display: block;
-}
-*/
 
 
 /**
@@ -310,4 +285,33 @@
 }
 .dashboard .svg-gauges .svg-test {
 	fill: rgba(0, 0, 0, 0.2);
+}
+
+
+
+/**
+ * Dashboard tooltip
+ */
+.dashboard .tooltip-inner {
+	max-width: 300px;
+}
+.dashboard .tooltip .block-icon {
+	float: left;
+	overflow: hidden;
+	margin: -3px 0px 0px -8px;
+	height: 36px;
+	width: 36px;
+}
+.dashboard .tooltip .block-icon .fa-stack {
+	font-size: 2em;
+	margin-top: -9px;
+	margin-left: -9px;
+}
+.dashboard .tooltip h4 {
+	margin-top: 4px;
+	margin-bottom: 10px;
+}
+.dashboard .tooltip p i:first-of-type {
+	width: 18px;
+	text-align: center;
 }
