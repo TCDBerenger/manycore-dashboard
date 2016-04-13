@@ -96,7 +96,7 @@ function addProfiling(output, profile) {
 			// Sequential (parallilisation)
 			// q: running cores
 //			f.q = Math.round(STRIP_HEIGHT * ((data.frames[time].runcores >= parallel_threshold) ? 1 : 0));
-			f.q = Math.round(STRIP_HEIGHT * Math.max(0, data.frames[time].runcores - parallel_threshold) / parallel_max);
+			f.q = STRIP_HEIGHT - Math.round(STRIP_HEIGHT * Math.max(0, data.frames[time].runcores - parallel_threshold) / parallel_max);
 			
 			// Cache misses
 			max.locality = data.locality.byFrames[time].ipc + data.locality.byFrames[time].tlb + data.locality.byFrames[time].l1 + data.locality.byFrames[time].l2 + data.locality.byFrames[time].l3 + data.locality.byFrames[time].hpf;
