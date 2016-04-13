@@ -830,6 +830,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 	var gauge_lf =	{ l: 'Expected locks with contention',	f: facets.lf };
 	var gauge_miss ={ 										f: facets.miss };
 	var gauge_il =	{ 										f: facets.il };
+	var gauge_e =	{ 										f: facets.e };
 	
 	var common = {
 		label: 'Profile', title: 'Profile', icon: 'heartbeat',
@@ -895,7 +896,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 			'For example, all cores will typically share a single connection to main memory.',
 		],
 		strips: [strips.e],
-		gauges: [[gauge_lw], [gauge_il, gauge_miss]],
+		gauges: [[gauge_e, gauge_lw], [gauge_il]],
 		widgets: [widgets.memBandwidth, widgets.coreBandwidth, widgets.lockCounts, widgets.cacheMisses, widgets.cacheInvalidations, widgets.coreInvalidations]
 	};
 	var io = {

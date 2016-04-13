@@ -132,7 +132,7 @@
 		</section>
 		
 		<!-- Sequence -->
-		<section class="sequence">
+		<section class="sequence" uib-tooltip-template="'template_tooltip_duration.html'">
 			<chart-sequence class="widget-graph"></chart-sequence>
 		</section>
 	</div>
@@ -157,6 +157,18 @@
 			</div>
 		</section>
 	</div></div>
+</script>
+
+<!-- Tooltip - Timeline -->
+<script type="text/ng-template" id="template_tooltip_duration.html">
+	<div class="block-icon">
+		<span class="fa-stack text-info">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-hourglass-end fa-stack-1x fa-inverse"></i>
+		</span>
+	</div>
+	<h4>Duration</h4>
+	<p>This application ran for {{iProfile().data.dash.info.duration}} ms</p>
 </script>
 
 <!-- Tooltip - Category -->
