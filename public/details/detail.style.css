@@ -24,6 +24,13 @@
 	width: 100%;
 }
 
+/*
+ * Icons
+ */
+.detail .nav-tab-title .fa {
+	margin-right: 6px;
+}
+
 
 /*
  * Profile versus
