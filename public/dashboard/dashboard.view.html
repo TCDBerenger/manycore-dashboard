@@ -140,7 +140,7 @@
 	<!-- Running -->
 	<div class="tile">
 		<section class="strip" ng-repeat="strip in commonCategory.strips">
-            <span class="strip-gauge" style="color: {{::strip.facet.colours.n}}">{{selectedProfiles[pindex].data.dash.gauges[strip.facet.attr].l}}</span>
+            <span class="strip-gauge" style="color: {{::strip.facet.colours.n}}">{{selectedProfiles[pindex].data.dash.gauges[strip.facet.attr].p}}</span>
 			<chart-strip class="widget-graph" uib-tooltip-template="'template_tooltip_strip.html'"></chart-strip>
 		</section>
 	</div></div>
@@ -150,7 +150,7 @@
 <script type="text/ng-template" id="/template_profile_strips.html">
 	<div class="col-xs-3 profile"><div class="tile">
 		<section class="strip" ng-repeat="strip in category.strips">
-            <span ng-if="isStripCapable()" class="strip-gauge" style="color: {{::strip.facet.colours.n}}">{{selectedProfiles[pindex].data.dash.gauges[strip.facet.attr].l}}</span>
+            <span ng-if="isStripCapable()" class="strip-gauge" style="color: {{::strip.facet.colours.n}}">{{selectedProfiles[pindex].data.dash.gauges[strip.facet.attr].p}}</span>
 			<chart-strip ng-if="isStripCapable()" class="widget-graph" uib-tooltip-template="'template_tooltip_strip.html'"></chart-strip>
 			<div class="no-strip" ng-if="! isStripCapable()" style="color: {{::strip.facet.colours.n}}">
 				&lt;no data for {{::strip.title}}&gt;

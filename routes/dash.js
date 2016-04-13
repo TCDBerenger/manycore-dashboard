@@ -151,21 +151,22 @@ function addGauges(output, profile) {
 	
 	// Add percent
 	var roundedValue;
-	[	{ l: 'e',	v: data.stats.bandwidth,					m: max.bandwidth,			c: CAPABILITY_MEMORY },
-	 	{ l: 'i',	v: data.stats.idle,							m: max.time,				c: CAPABILITY_STATE },
-		{ l: 'r',	v: data.stats.running,						m: max.time,				c: CAPABILITY_STATE },
-		{ l: 'il',	v: data.stats.l1_invalid + data.stats.l2_invalid,	m: max.coherency,	c: CAPABILITY_COHERENCY },
-		{ l: 'lw',	v: data.stats.lock_wait,							m: max.time,		c: CAPABILITY_LOCK },
-		{ l: 'qs',	v: data.info.duration - data.stats.parallel,	m: data.info.duration,	c: CAPABILITY_STATE }, 
-		{ l: 'yb',	v: data.stats.ready + data.stats.standby,	m: max.time,				c: CAPABILITY_STATE },
-		{ l: 'ipc',	v: data.locality.stats.ipc,					m: max.locality,			c: CAPABILITY_LOCALITY },
-		{ l: 'miss',v: data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf,	m: max.locality,		c: CAPABILITY_LOCALITY },
+	[	{ l: 'e',	 v: data.stats.bandwidth,							m: max.bandwidth,		c: CAPABILITY_MEMORY },
+	 	{ l: 'i',	 v: data.stats.idle,								m: max.time,			c: CAPABILITY_STATE },
+		{ l: 'r',	 v: data.stats.running,								m: max.time,			c: CAPABILITY_STATE },
+		{ l: 'il',	 v: data.stats.l1_invalid + data.stats.l2_invalid,	m: max.coherency,		c: CAPABILITY_COHERENCY },
+		{ l: 'lw',	 v: data.stats.lock_wait,							m: max.time,			c: CAPABILITY_LOCK },
+		{ l: 'qs',	 v: data.info.duration - data.stats.parallel,		m: data.info.duration,	c: CAPABILITY_STATE }, 
+		{ l: 'yb',	 v: data.stats.ready + data.stats.standby,			m: max.time,			c: CAPABILITY_STATE },
+		{ l: 'ipc',	 v: data.locality.stats.ipc,						m: max.locality,		c: CAPABILITY_LOCALITY },
+		{ l: 'miss', v: data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf, m: max.locality, c: CAPABILITY_LOCALITY },
 	].forEach(function(item) {
 		if (capabilities[item.c]) {
 			roundedValue = Math.round(100 * item.v / item.m);
 			output.gauges[item.l] = {
 				g: roundedValue,
-				l: roundedValue + '%',
+				p: roundedValue + '%',
+				l: (roundedValue < 1) ? '✔' : roundedValue + '%',
 			};
 		}
 		else
@@ -184,7 +185,7 @@ function addGauges(output, profile) {
 			gaugeValue = item.v / calibratedMax;
 			output.gauges[item.l] = {
 				g: Math.max(Math.round(100 * gaugeValue - 100), 0),
-				l: (gaugeValue < 1) ? '<1×' : Math.round(10 * gaugeValue) / 10 + '×',
+				l: (gaugeValue < 1) ? '✔' : Math.round(10 * gaugeValue) / 10 + '×',
 			};
 		}
 		else
