@@ -87,7 +87,7 @@ function addProfiling(output, profile) {
 			// States
 			// yb: ready & standby
 			f.i = Math.round(STRIP_HEIGHT * data.frames[time].idle / max.time);
-			f.p = Math.round(STRIP_HEIGHT * data.frames[time].parallel / timeStep);
+			f.qs = STRIP_HEIGHT - Math.round(STRIP_HEIGHT * data.frames[time].parallel / timeStep);
 			f.r = Math.round(STRIP_HEIGHT * data.frames[time].running / max.time);
 			f.yb = Math.min(STRIP_HEIGHT, Math.round(STRIP_HEIGHT * (data.frames[time].ready + data.frames[time].standby) / max.time));
 			f.lw = Math.min(STRIP_HEIGHT, Math.round(STRIP_HEIGHT * data.frames[time].lock_wait / max.time));
@@ -112,7 +112,7 @@ function addProfiling(output, profile) {
 			
 		} else {
 			f.i = NaN;
-			f.p = NaN;
+			f.qs = NaN;
 			f.r = NaN;
 			f.yb = NaN;
 			f.lw = NaN;
@@ -135,7 +135,7 @@ function addGauges(output, profile) {
 	var data = profile.data;
 	var pv = profile.v;
 	var capabilities = profile.data.info.capability;
-	var unableGauge = { g: 0, l: '?', u: 0 };
+	var unableGauge = { g: 0, l: '<no data>', u: 0 };
 	
 	// Outout
 	output.gauges = {};
@@ -153,10 +153,10 @@ function addGauges(output, profile) {
 	var roundedValue;
 	[	{ l: 'e',	v: data.stats.bandwidth,					m: max.bandwidth,			c: CAPABILITY_MEMORY },
 	 	{ l: 'i',	v: data.stats.idle,							m: max.time,				c: CAPABILITY_STATE },
-		{ l: 'p',	v: data.stats.parallel,						m: data.info.duration,		c: CAPABILITY_STATE }, 
 		{ l: 'r',	v: data.stats.running,						m: max.time,				c: CAPABILITY_STATE },
 		{ l: 'il',	v: data.stats.l1_invalid + data.stats.l2_invalid,	m: max.coherency,	c: CAPABILITY_COHERENCY },
-		{ l: 'lw',	v: data.stats.lock_wait,					m: max.time,				c: CAPABILITY_LOCK },
+		{ l: 'lw',	v: data.stats.lock_wait,							m: max.time,		c: CAPABILITY_LOCK },
+		{ l: 'qs',	v: data.info.duration - data.stats.parallel,	m: data.info.duration,	c: CAPABILITY_STATE }, 
 		{ l: 'yb',	v: data.stats.ready + data.stats.standby,	m: max.time,				c: CAPABILITY_STATE },
 		{ l: 'ipc',	v: data.locality.stats.ipc,					m: max.locality,			c: CAPABILITY_LOCALITY },
 		{ l: 'miss',v: data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf,	m: max.locality,		c: CAPABILITY_LOCALITY },
@@ -173,7 +173,7 @@ function addGauges(output, profile) {
 	});
 	
 	// Add ratio
-	var calibratedMax;
+	var gaugeValue, calibratedMax;
 	[	{ l: 's',	v: data.stats.switches,		m: profile.hardware.calibration.s,	c: CAPABILITY_SWITCH },
 		{ l: 'm',	v: data.stats.switches,		m: profile.hardware.calibration.m,	c: CAPABILITY_SWITCH },
 		{ l: 'ls',	v: data.stats.lock_success,	m: profile.hardware.calibration.ls,	c: CAPABILITY_LOCK },
@@ -181,9 +181,10 @@ function addGauges(output, profile) {
 	].forEach(function(item) {
 		if (capabilities[item.c]) {
 			calibratedMax = max.eventBase * item.m;
+			gaugeValue = item.v / calibratedMax;
 			output.gauges[item.l] = {
-				g: Math.max(Math.round(100 * item.v / calibratedMax - 100), 0),
-				l: Math.round(10 * item.v / calibratedMax) / 10 + '×',
+				g: Math.max(Math.round(100 * gaugeValue - 100), 0),
+				l: (gaugeValue < 1) ? '<1×' : Math.round(10 * gaugeValue) / 10 + '×',
 			};
 		}
 		else
