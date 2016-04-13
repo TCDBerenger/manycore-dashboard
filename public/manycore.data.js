@@ -128,7 +128,7 @@ app.factory('facets', ['colours', function(colours) {
 		q_s:	{ label: 'Sequential sequence',		capability: CAPABILITY_STATE,	attr: '',	unity: '', cat: '', colours: colours.sets.Orange },
 		q_p:	{ label: 'Parallel sequence',		capability: CAPABILITY_STATE,	attr: '',	unity: '', cat: '', colours: colours.sets.Green },
 		
-		e:		{ label: 'Memory bandwidth',			capability: CAPABILITY_MEMORY,	attr: 'e',	unity: 'MB',	colours: colours.sets.Magenta },
+		e:		{ label: 'Program memory bandwidth',	capability: CAPABILITY_MEMORY,	attr: 'e',	unity: 'MB',	colours: colours.sets.Magenta },
 		ue:		{ label: 'Idle memory bandwidth',		capability: CAPABILITY_MEMORY,	attr: 'ue',	unity: 'MB',	colours: colours.sets.Blue },
 		se:		{ label: 'System memory bandwidth',		capability: CAPABILITY_MEMORY,	attr: 'se',	unity: 'MB',	colours: colours.sets.Grey },
 		
@@ -306,20 +306,20 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				time: TIME_PROFILE,
 			},
 			graph: {
-				v:				[facets.il1, facets.pil1, facets.il2],
+				v:				[facets.pil1, facets.il1, facets.il2],
 				limit:			limit,
 				value_divider:	2,
-				axis_label: 	function(v, index, r) { return (v == 100 || v == 50) ? '100%' : '50%'; }
+				axis_label: 	function(v, index, r) { return (v == 100) ? '100%' : (v == 50) ? '0%' : '50%'; }
 			},
 			data: [facets.il1, facets.il2],
 			focus: [facets.il1, facets.il2],
 			legend: {
 				axis: [
-					{ b: '%', t: 'Percent',	d: 'theoretical maximum of possible L1 cache invalidations', c: colours.list.fGrey}
+					{ b: '%', t: 'Percent',	d: 'maximum possible cache line invalidations', c: colours.list.fGrey}
 				],
 				data: [
-					{ b: '▮', 	d: 'number line invalidations in L1 cache',	f: facets.il1 },
-					{ b: '▮', 	d: 'number line invalidations in L2 cache',	f: facets.il2 }
+					{ b: '▮', 	d: '',	f: facets.il1 },
+					{ b: '▮', 	d: '',	f: facets.il2 }
 				]
 			},
 			clues: [],
@@ -340,7 +340,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '%', t: 'Percent',	d: 'ratio of time spent on locality misses compared to time spent on executing', c: colours.list.fGrey}
 				],
 				data: [
-					{ b: '▮', f: facets.ipc,	d: 'instructions per clock cycle' },
+					{ b: '▮', f: facets.ipc,	d: 'number of instructions' },
 					{ b: '▮', f: facets.tlb,	d: 'address translation (TLB) misses' },
 					{ b: '▮', f: facets.l1,		d: 'level 1 cache miss, loading data from L2 cache' },
 					{ b: '▮', f: facets.l2,		d: 'level 2 cache miss, loading data from L3 cache' },
@@ -370,7 +370,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '⊢', f: limit,	t: 'Cores',	d: 'each line represents a core' }
 				],
 				data: [
-					{ b: '▮', f: facets.e,	d: 'use by core for this program' },
+					{ b: '▮', f: facets.e,	d: 'usage by core' },
 				]
 			},
 			clues: [],
@@ -420,8 +420,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			legend: {
 				axis: [],
-				data: [],
-				options: { disablePrelist: true }
+				data: [
+					{ b: '▮', 	d: '',	f: facets.il1 },
+					{ b: '▮', 	d: '',	f: facets.il2 }
+				]
 			},
 			clues: [],
 			settings: []
@@ -471,8 +473,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: 'n×', t: 'excess',		d: 'more lock acquisitions than expected (multiple of the typical value)',			f: limit },
 				],
 				data: [
-					{ b: '▮', t: 'Lock with contention',	d: 'number failure of lock acquisition',	f: facets.lf },
-					{ b: '▮', t: 'Lock without contention',	d: 'number success of lock acquisition',	f: facets.ls }
+					{ b: '▮', t: 'Lock with contention',	d: 'number of failed lock acquisitions',	f: facets.lf },
+					{ b: '▮', t: 'Lock without contention',	d: 'number of succesful lock acquisitions',	f: facets.ls }
 				]
 			},
 			clues: [],
@@ -499,9 +501,9 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			legend: {
 				axis: [],
 				data: [
-					{ b: '▮', f: facets.e,	d: 'use for this program' },
+					{ b: '▮', f: facets.e,	d: 'used by this program' },
 					{ b: '▮', f: facets.ue,	d: 'available memory bandwidth' },
-					{ b: '▮', f: facets.se,	d: 'use by other programs' }
+					{ b: '▮', f: facets.se,	d: 'used by other programs' }
 				]
 			},
 			clues: [],
@@ -755,12 +757,12 @@ app.factory('widgets', ['decks', function(decks) {
 	//	- stats:		data and UI computed for focus or not
 	
 	return {
-		cacheBreackdown:	{ id: id(),	c: CAPABILITY_LOCALITY,	 file: 'chart-d3-pcoords',	deck: decks.cacheBreackdown,	wide: true,		title: 'Breakdown of time spent on locality misses',				desc: ''},
-		cacheInvalidations:	{ id: id(),	c: CAPABILITY_COHERENCY, file: 'chart-percent',		deck: decks.cacheInvalidations,	wide: false,	title: 'Percentage of time spent on cache line invalidations',	desc: ''},
-		cacheMisses:		{ id: id(),	c: CAPABILITY_LOCALITY,	 file: 'chart-percent',		deck: decks.cacheMisses,		wide: false,	title: 'Percentage of time spent on locality misses',				desc: ''},
+		cacheBreackdown:	{ id: id(),	c: CAPABILITY_LOCALITY,	 file: 'chart-d3-pcoords',	deck: decks.cacheBreackdown,	wide: true,		title: 'Breakdown of cost by cause of locality misses',				desc: ''},
+		cacheInvalidations:	{ id: id(),	c: CAPABILITY_COHERENCY, file: 'chart-percent',		deck: decks.cacheInvalidations,	wide: false,	title: 'Proportion of cache line invalidations',	                desc: 'A cache line invalidation can occur when multiple cores modify a shared memory location'},
+		cacheMisses:		{ id: id(),	c: CAPABILITY_LOCALITY,	 file: 'chart-percent',		deck: decks.cacheMisses,		wide: false,	title: 'Proportion of locality misses',				                desc: 'Data cache misses as a proportion of instructions executed'},
 		coreBandwidth:		{ id: id(),	c: CAPABILITY_MEMORY,	 file: 'chart-lines',		deck: decks.coreBandwidth,		wide: false,	title: 'Remote memory access by core',								desc: 'Memory bandwidth'},
 		coreIdle:			{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-lines',		deck: decks.coreIdle,			wide: false,	title: 'Idle cores',												desc: 'Times that cores are idle'},
-		coreInvalidations:	{ id: id(),	c: CAPABILITY_COHERENCY, file: 'chart-d3-caches',	deck: decks.coreInvalidations,	wide: true,		title: 'Cache line invalidations',									desc: ''},
+		coreInvalidations:	{ id: id(),	c: CAPABILITY_COHERENCY, file: 'chart-d3-caches',	deck: decks.coreInvalidations,	wide: true,		title: 'Breakdown of cache line invalidations by core',             desc: ''},
 		coreSequences:		{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-lines',		deck: decks.sequences,			wide: false,	title: 'Single thread execution phases',							desc: 'alternating sequential/parallel execution'},
 		lockCounts:			{ id: id(),	c: CAPABILITY_LOCK,		 file: 'chart-units',		deck: decks.lockCounts,			wide: false,	title: 'Lock contentions',											desc: 'Locking with and without contention'},
 		lockContentions:	{ id: id(),	c: CAPABILITY_LOCK,		 file: 'chart-percent',		deck: decks.lockContentions,	wide: false,	title: 'Time waiting for a lock',									desc: ''},
@@ -776,43 +778,39 @@ app.factory('widgets', ['decks', function(decks) {
 
 
 app.factory('strips', ['facets', function(facets) {
-	var example_good = 'The biggest is the shape, the more accurate is the use of resources.';
-	var example_ok = 'A big shape means an under-exploitation of resources.';
-	var example_bad = 'A non minimal shape means a problem or a misusing of resources.';
-	
 	var tooltip_r = [
-		'This graph represents the time spent in thread execution.',
-		example_good];
+		'Time spent executing threads in this program.',
+		'A larger shape indicates more time spent executing.'];
 	var tooltip_i = [
-		'This graph shows the time spend by the core waiting a thread to run.',
-		example_ok];
+		'Idle time across all cores.',
+		'A larger shape indicates under-utilisation of resources.'];
 	var tooltip_yb = [
-		'This graph shows the time spent by threads while waiting a core.',
-		example_bad];
+		'Time spent waiting for a core.',
+		'A larger shape indicates a problem or a misuse of resources.'];
 	var tooltip_lw = [
-		'This graph represents the time spent by threads while waiting for a lock.',
-		example_bad];
+		'Time spent waiting for a locked resource.','A resource (data) is locked if it is currently being held by another thread.',
+		'A larger shape indicates a problem or a misuse of resources.'];
 	var tooltip_q = [
-		'Proportion of parallelism sequences.',
-		'The parallelism phase occurs when at least two threads running simultaneously. Otherwise, it\' a sequencial phase.',
-		example_good];
+		// 'Proportion of parallelism sequences.',
+        'Percentage of time spent by the machine executing the program on less than two cores. Program might not execute or might execute on a single core.',
+		'A larger shape indicates more time is spent executing in sequential.'];
 	var tooltip_miss = [
-		'Percentage of time spent on locality misses.',
+		'Cache misses as a percentage of instructions executed.',
 		'A locality miss (TLB, L1, ..., HPF) occurs when the storage of a data is not right.',
-		example_bad];
+		'A larger shape indicates a problem or a misuse of resources.'];
 	var tooltip_e = [
-		'Proportion of memory bandwidth used.',
-		example_bad];
+		'Percentage of memory bandwidth used.',
+		'A larger shape might indicate a problem or a misuse of resources.'];
 	var tooltip_il = [
 		'Percentage of cache line invalidations (L1 and L2) of shared memory by cores.',
-		example_bad];
+		'A larger shape indicates a problem or a misuse of resources.'];
 	
 	return {
 		r:		{ title: 'Running',					facet: facets.r,	reverse: false,	tooltip: tooltip_r },
-		i:		{ title: 'Unused cores',			facet: facets.i,	reverse: true,	tooltip: tooltip_i },
+		i:		{ title: 'Available CPU time',		facet: facets.i,	reverse: true,	tooltip: tooltip_i },
 		yb:		{ title: 'Waiting for a core',		facet: facets.yb,	reverse: false,	tooltip: tooltip_yb },
 		lw:		{ title: 'Waiting for a resource',	facet: facets.lw,	reverse: false,	tooltip: tooltip_lw },
-		q:		{ title: 'Parallelisation phases',	facet: facets.p,	reverse: false,	tooltip: tooltip_q },
+		q:		{ title: 'Single-core execution', 	facet: facets.p,	reverse: false,	tooltip: tooltip_q },
 		miss:	{ title: 'Cache misses',			facet: facets.miss,	reverse: false,	tooltip: tooltip_miss },
 		e:		{ title: 'Memory bandwidth',		facet: facets.e,	reverse: false,	tooltip: tooltip_e },
 		il:		{ title: 'Cache coherency',			facet: facets.il,	reverse: false,	tooltip: tooltip_il }
@@ -822,7 +820,7 @@ app.factory('strips', ['facets', function(facets) {
 
 app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, strips, facets) {
 	var gauge_yb =	{ l: 'Waiting for a core',				f: facets.yb };
-	var gauge_uc =	{ l: 'Unused cores',					f: facets.i };
+	var gauge_uc =	{ l: 'Available CPU time',					f: facets.i };
 	var gauge_s =	{ l: 'Expected context switches',		f: facets.s };
 	var gauge_m =	{ l: 'Expected thread migrations',		f: facets.m };
 	var gauge_lw =	{ l: 'Waiting for a lock',				f: facets.lw };
