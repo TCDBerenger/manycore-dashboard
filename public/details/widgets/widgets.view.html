@@ -1,6 +1,6 @@
 <uib-tabset>
 	<h4>{{widget.title}}</h4>
-	<div class="btn-group btn-group-sm" ng-if="widget.deck.plans" uib-tooltip="change the graph mode">
+	<div class="btn-group btn-group-sm" ng-if="widget.deck.plans" uib-tooltip="change the vertical scale (values)">
 		<label ng-repeat="mode in widget.deck.plans" class="btn btn-default" ng-model="widget.settings.plan" uib-btn-radio="$index" uncheckable>{{mode.label}}</label>
 	</div>
 	<uib-tab active="true">
@@ -32,7 +32,7 @@
 				<div ng-if="clueMode == 0">
 				</div>
 				<div ng-if="clueMode == 1">
-					<p class="clues-label">Is there a unifor color?</p>
+					<p class="clues-label">Is there a uniform color?</p>
 					<facet-list list="widget.deck.clues"></facet-list>
 				</div>
 			</div>

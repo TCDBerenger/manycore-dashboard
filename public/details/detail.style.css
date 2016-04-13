@@ -24,6 +24,13 @@
 	width: 100%;
 }
 
+/*
+ * Icons
+ */
+.detail .nav-tab-title .fa {
+	margin-right: 6px;
+}
+
 
 /*
  * Profile versus
@@ -37,7 +44,7 @@
 	padding-left: 6px;
 }
 .versus-one {
-	width: 200px;
+	width: 300px;
 }
 .versus-two {
 	width: 400px;
@@ -46,37 +53,35 @@
 	width: 100%;
 	margin-bottom: 0px;
 }
-.table-versus thead tr td:nth-child(1) {
+.table-versus thead tr td.left {
 	text-align: right;
 }
-.table-versus thead tr td:nth-child(3) {
+.table-versus thead tr td.right {
 	text-align: left;
 }
 .table-versus tbody tr.info td {
 	text-align: center !important;
 	font-weight: bold;
 }
-.table-versus tbody td:nth-child(1) {
+.table-versus tbody td.left {
 	text-align: right;
 }
-.table-versus tbody td:nth-child(2) {
+.table-versus tbody td.center {
 	text-align: center;
 	font-weight: bold;
 }
-.table-versus tbody td:nth-child(3) {
+.table-versus tbody td.right {
 	text-align: left;
 }
-.table-versus tbody td:nth-child(2) span:before {	content: "(";	}
-.table-versus tbody td:nth-child(2) span:after {	content: ")";	}
-.table-versus tbody td:nth-child(2) span {
+.table-versus tbody td:not(.center) span {
 	font-size: 0.8em;
 	font-weight: 400;
 }
-.table-versus tbody td:nth-child(1) span {
+.table-versus tbody td.left span {
 	float: left;
 	font-weight: bold;
 }
-.table-versus tbody td:nth-child(3) span {
+.table-versus tbody td.right span {
 	float: right;
 	font-weight: bold;
 }

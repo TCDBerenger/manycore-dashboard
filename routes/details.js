@@ -350,58 +350,6 @@ function addMigrations(output, id) {
 
 
 /**
- * Add times spending in thread of core states
- */
-function addTimes(output, id, properties) {
-	// Init vars
-	var max;
-	var data =	profiles[id].data;
-	var isR =	properties.indexOf('r') >= 0;
-	var isYB =	properties.indexOf('yb') >= 0;
-	var isW =	properties.indexOf('w') >= 0;
-	var isLW =	properties.indexOf('lw') >= 0;
-	var isI =	properties.indexOf('i') >= 0;
-	var isSYS =	properties.indexOf('sys') >= 0;
-	
-	// Init return
-	output.times = {};
-	if (! output.percent) output.percent = {};
-
-	// Add times
-	max = profiles[id].hardware.data.lcores * data.info.timeStep;
-	for (var timeID = 0; timeID <= data.info.timeMax; timeID+= data.info.timeStep) {
-		// Auto create structure
-		if (! output.percent[timeID]) output.percent[timeID] = {};
-		output.times[timeID] = {};
-		
-		if (isR) {
-			output.times[timeID].r =	Math.round(data.frames[timeID].running);
-			output.percent[timeID].r =	Math.round(100 * data.frames[timeID].running / max);
-		}	
-		if (isYB) {
-			output.times[timeID].yb =	Math.round(data.frames[timeID].ready + data.frames[timeID].standby);
-			output.percent[timeID].yb =	Math.round(100 * (data.frames[timeID].ready + data.frames[timeID].standby) / max);
-		}	
-		if (isW) {
-			output.times[timeID].w =	Math.round(data.frames[timeID].wait);
-			output.percent[timeID].w =	Math.round(100 * data.frames[timeID].wait / max);
-		}	
-		if (isLW) {
-			output.times[timeID].lw =	Math.round(data.frames[timeID].lock_wait);
-			output.percent[timeID].lw =	Math.round(100 * data.frames[timeID].lock_wait / max);
-		}	
-		if (isI) {
-			output.times[timeID].i =	Math.round(data.frames[timeID].idle);
-			output.percent[timeID].i =	Math.round(100 * data.frames[timeID].idle / max);
-		}	
-		if (isSYS) {
-			output.times[timeID].sys =		max - Math.round(data.frames[timeID].running) - Math.round(data.frames[timeID].idle);
-			output.percent[timeID].sys =	100 - Math.round(100 * data.frames[timeID].running / max) - Math.round(100 * data.frames[timeID].idle / max);
-		}	
-	}
-}
-
-/**
  * Add data-locality data
  */
 function addLocality(output, id, simplified) {
@@ -640,10 +588,7 @@ function jsonTG(profile, id) {
 	addCommon(output, id);
 	
 	// Add raw data for visualisation
-	addRawData(output, id, ['b', 'i', 'm', 'r', 's', 'y'], ['b', 'i', 'r', 'y', 'sys'], ['m', 's'], null, false);
-
-	// for potential parallelism
-	addTimes(output, id, ['r', 'yb', 'i', 'sys']);
+	addRawData(output, id, ['b', 'i', 'm', 'r', 's', 'y'], ['b', 'i', 'r', 'y', 'yb', 'sys'], ['m', 's'], null, false);
 
 	// for context switches
 	addSwitches(output, id);
@@ -676,7 +621,6 @@ function jsonSY(profile, id) {
 
 	// Add locks
 	addLocks(output, id);
-	addTimes(output, id, ['r', 'lw', 'i', 'sys']);
 	
 	// Add ticks
 	addThreadTicks(output, id, ['ls', 'lf']);
@@ -703,9 +647,6 @@ function jsonDS(profile, id) {
 	// Add raw data for visualisation
 	addRawData(output, id, ['r', 'i', 'lw', 'e', 'ue', 'il1', 'il2'], ['i', 'r', 'lw', 'sys', 'e', 'ue', 'se', 'il1', 'pil1', 'il2'], null, ['e', 'il1', 'il2'], true);
 
-	// Add locks
-	addTimes(output, id, ['r', 'lw', 'i', 'sys']);
-
 	// Add locality
 	addLocality(output, id, false);
 
@@ -726,13 +667,10 @@ function jsonLB(profile, id) {
 	addCommon(output, id);
 	
 	// Add raw data for visualisation
-	addRawData(output, id, ['b', 'i', 'm', 'r', 'y', 'lf', 'ls', 'lw'], ['b', 'i', 'r', 'y', 'lw', 'sys'], ['m'], ['i'], false);
+	addRawData(output, id, ['b', 'i', 'm', 'r', 'y', 'lf', 'ls', 'lw'], ['b', 'i', 'r', 'y', 'yb', 'lw', 'sys'], ['m'], ['i'], false);
 
 	// for migrations
 	addMigrations(output, id);
-
-	// Add times
-	addTimes(output, id, ['r', 'yb', 'lw', 'i', 'sys']);
 
 	// Add locks
 	addLocks(output, id);

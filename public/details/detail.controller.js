@@ -593,6 +593,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	$scope.isWaiting = isWaiting;
 	$scope.initWidget = initWidget;
 	$scope.layout = layout;
+	$scope.categories = categories.all;
 	$scope.meta = categories[tag];
 	$scope.mouseOver = mouseOver;
 	$scope.mouseLeave = mouseLeave;

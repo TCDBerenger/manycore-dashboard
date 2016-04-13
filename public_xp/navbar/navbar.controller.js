@@ -15,11 +15,28 @@ xpapp.controller('NavbarController', ['$scope', '$rootScope', '$stateParams', fu
 	$scope.isXPset = function() {
 		return $rootScope.isXPset;
 	}
+	
 	/**
 	 * XP - could display next button
 	 */
 	$scope.hasNext = function() {
 		return $rootScope.step && $rootScope.step.nextInSidebar;
+	}
+	
+	/**
+	 * XP - could display next button
+	 */
+	$scope.goBack = function() {
+		if (! $rootScope.isXPfinished && this.step.editable) {
+			$rootScope.actionNext(this.$index);
+		}
+	}
+	
+	/**
+	 * XP - could display next button
+	 */
+	$scope.goNext = function() {
+		$rootScope.actionNext();
 	}
 	
 	/**
@@ -33,14 +50,14 @@ xpapp.controller('NavbarController', ['$scope', '$rootScope', '$stateParams', fu
 	 * XP - Style - Step active
 	 */
 	$scope.isStepActive = function() {
-		return this.$index <= $rootScope.xp.step;
+		return (this.step.editable && ! $rootScope.isXPfinished) || this.$index == $rootScope.xp.step;
 	}
 	
 	/**
 	 * XP - Style - Step disabled
 	 */
 	$scope.isStepDisabled = function() {
-		return this.$index > $rootScope.xp.step;
+		return	($rootScope.isXPfinished || ! this.step.editable) && this.$index != $rootScope.xp.step;
 	}
 	
 	/**

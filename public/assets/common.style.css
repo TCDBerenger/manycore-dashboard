@@ -325,6 +325,9 @@ span.link:hover {
 	margin-top: -14px;
 	margin-bottom: 20px;
 }
+.block h4 {
+	margin-top: -10px;
+}
 .block p:last-of-type {
 	margin-bottom: 0px;
 }

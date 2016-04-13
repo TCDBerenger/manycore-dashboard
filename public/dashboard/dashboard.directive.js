@@ -51,7 +51,7 @@ var gaugeLayout = function() {
 	// Allow seld reference (otherwise this is the caller object)
 	var self = this;
 	
-	this.groups		= { gap: 4, padding: 4, row_height: 14, column_width: 100 };
+	this.groups		= { gap: 4, padding: 4, row_height: 14, column_width: 150 , column_half_width: 75 };
 	this.gauge		= [];
 	
 	this.initialize = function(gauges) {
@@ -82,9 +82,9 @@ var gaugeLayout = function() {
 		self.middle 	= Math.round(width / 2);
 		
 		self.column = {
-			left:		self.middle - self.groups.column_width / 2,
-			right:		self.middle + self.groups.column_width / 2,
-			threshold:	Math.round(.15 * (self.middle - self.groups.column_width / 2)) // Math.round(3 * width / 16) // ⅜ width + ¼
+			left:		self.middle - self.groups.column_half_width,
+			right:		self.middle + self.groups.column_half_width,
+			threshold:	Math.round(.15 * (self.middle - self.groups.column_half_width)) // Math.round(3 * width / 16) // ⅜ width + ¼
 		};
 	};
 };
@@ -349,67 +349,41 @@ app.directive('chartGauges', function() {
 		var scales = [d3.scale.linear().domain([0, 100, 1000]), d3.scale.linear().domain([0, 100, 1000])];
 		
 		// Draw
+		var facet;
 		gauges.forEach(function(gauge, gauge_index) {
-			// Starting point
-			/*
-			groupC.append("line")
-				.attr('class', "svg-line svg-start svg-item-1")
-				.attr("x1", 0).attr("x2", 0)
-				.attr("y1", layout.gauge[gauge_index].top).attr("y2", layout.gauge[gauge_index].bottom);
-			groupC.append("line")
-				.attr('class', "svg-line svg-start svg-item-2")
-				.attr("x1", layout.groups.column_width).attr("x2", layout.groups.column_width)
-				.attr("y1", layout.gauge[gauge_index].top).attr("y2", layout.gauge[gauge_index].bottom);
-			*/
-			
 			// Facets
-			gauge.forEach(function(facet, facet_index) {
+			gauge.forEach(function(line, line_index) {
+				facet = line.f;
+				
 				// Label
 				groupC.append("text")
 					.attr('class', "svg-label")
-					.attr("x", layout.groups.column_width / 2)
-					.attr("y", layout.gauge[gauge_index].facet[facet_index] + layout.groups.row_height / 2)
+					.attr("x", layout.groups.column_half_width)
+					.attr("y", layout.gauge[gauge_index].facet[line_index] + layout.groups.row_height / 2)
 					.attr("text-anchor", 'middle')
 					.attr("alignment-baseline", 'central')
 					.attr("dominant-baseline", 'central')
 					.attr("fill", facet.colours.n)
-					.text(facet.label);
+					.text(line.l || facet.label);
 				
 				// Indicators
 				groupP.forEach(function(group, group_index) {
-					// Bar OK
-					group.append("rect")
-						.attr('class', "svg-data svg-data-ok svg-data-" + gauge_index + "-" + facet_index)
-						.attr('x', 0)
-						.attr("y", layout.gauge[gauge_index].facet[facet_index] + 1)
-						.attr("height", layout.groups.row_height - 2)
-						.attr("fill", facet.colours.g);
-					
 					// Bar KO
 					group.append("rect")
-						.attr('class', "svg-data svg-data-ko svg-data-" + gauge_index + "-" + facet_index)
+						.attr('class', "svg-data svg-data-ko svg-data-" + gauge_index + "-" + line_index)
 						.attr('x', 0)
-						.attr("y", layout.gauge[gauge_index].facet[facet_index] + 1)
+						.attr("y", layout.gauge[gauge_index].facet[line_index] + 1)
 						.attr("height", layout.groups.row_height - 2)
 						.attr("fill", facet.colours.n);
 					
 					// Label - title
 					group.append("text")
-						.attr('class', "svg-label svg-label-title svg-data-" + gauge_index + "-" + facet_index)
-						.attr("y", layout.gauge[gauge_index].facet[facet_index] + layout.groups.row_height / 2)
+						.attr('class', "svg-label svg-label-title svg-data-" + gauge_index + "-" + line_index)
+						.attr("y", layout.gauge[gauge_index].facet[line_index] + layout.groups.row_height / 2)
 						.attr("text-anchor", group_index == 0 ? 'end' : 'start')
 						.attr("alignment-baseline", 'central')
 						.attr("dominant-baseline", 'central')
 						.attr("fill", facet.colours.n);
-					
-					// Label - unit
-					group.append("text")
-						.attr('class', "svg-label svg-label-unit svg-data-" + gauge_index + "-" + facet_index)
-						.attr("y", layout.gauge[gauge_index].facet[facet_index] + layout.groups.row_height / 2)
-						.attr("text-anchor", 'middle')
-						.attr("alignment-baseline", 'central')
-						.attr("dominant-baseline", 'central')
-						.attr("fill", facet.colours.h);
 				});
 			});
 			
@@ -440,40 +414,30 @@ app.directive('chartGauges', function() {
 			// Moves
 			groupC.attr("transform", "translate(" + layout.column.left + ",0)");
 			group2.attr("transform", "translate(" + layout.column.right + ",0)");
-			group1.selectAll(".svg-threshold").attr("x1", layout.column.left - layout.column.threshold).attr("x2", layout.column.left - layout.column.threshold)
-			if (has2Profiles) group2.selectAll(".svg-threshold").attr("x1", layout.column.threshold).attr("x2", layout.column.threshold)
+			group1.selectAll(".svg-threshold").attr("x1", layout.column.left).attr("x2", layout.column.left)
+			if (has2Profiles) group2.selectAll(".svg-threshold").attr("x1", 0).attr("x2", 0)
 			
 			// Adapt
-			var value;
-			var xs = [0, 100, 0];
+			var facet, value;
+			var xs = [null, null];
 			gauges.forEach(function(gauge, gauge_index) {
-				gauge.forEach(function(facet, facet_index) {
+				gauge.forEach(function(line, line_index) {
+					facet = line.f;
 					profiles.forEach(function(profile, profile_index) {
 						// Positions of bars (near to far)
 						value = profile.data.dash.gauges[facet.attr].g;
-						xs[0] = scales[profile_index]((facet.shift) ? 100 : Math.max(100 - value, 0));
-						xs[1] = scales[profile_index](100);
-						xs[2] = scales[profile_index]((facet.shift) ? value + 100 : Math.max(value, 100));
-						
-						// Bars OK
-						groupP[profile_index].selectAll('.svg-data-ok.svg-data-' + gauge_index + '-' + facet_index)
-							.attr('x', (profile_index == 0) ? xs[1] : xs[0])
-							.attr("width", (profile_index == 0) ? xs[0] - xs[1] : xs[1] - xs[0]);
+						xs[0] = scales[profile_index](0);
+						xs[1] = scales[profile_index](value);
 						
 						// Bars KO
-						groupP[profile_index].selectAll('.svg-data-ko.svg-data-' + gauge_index + '-' + facet_index)
-							.attr('x', (profile_index == 0) ? xs[2] : xs[1])
-							.attr("width", (profile_index == 0) ? xs[1] - xs[2] : xs[2] - xs[1]);
+						groupP[profile_index].selectAll('.svg-data-ko.svg-data-' + gauge_index + '-' + line_index)
+							.attr('x', (profile_index == 0) ? xs[1] : xs[0])
+							.attr("width", (profile_index == 0) ? xs[0] - xs[1] : xs[1] - xs[0]);
 							
 						// Label - title
-						groupP[profile_index].selectAll('.svg-label-title.svg-data-' + gauge_index + '-' + facet_index)
-							.attr('x', (profile_index == 0) ? xs[2] - 2 : xs[2] + 2)
+						groupP[profile_index].selectAll('.svg-label-title.svg-data-' + gauge_index + '-' + line_index)
+							.attr('x', (profile_index == 0) ? xs[1] - 2 : xs[1] + 2)
 							.text(profile.data.dash.gauges[facet.attr].l);
-					
-						// Label - unit
-						groupP[profile_index].selectAll('.svg-label-unit.svg-data-' + gauge_index + '-' + facet_index)
-							.attr('x', (profile_index == 0) ? (xs[0] + xs[2]) / 2 : (xs[2] + xs[0]) / 2)
-							.text(dash_unit(facet, profile.data.dash.gauges[facet.attr].u));
 					});
 				});
 			});

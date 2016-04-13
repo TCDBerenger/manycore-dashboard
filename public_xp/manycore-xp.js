@@ -6,8 +6,11 @@ var xpapp = angular.module('manycoreXP', ['ngSanitize', 'ui.router', 'ui.bootstr
 xpapp.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', function($stateProvider, $urlRouterProvider, $controllerProvider) {
 	$stateProvider
 		.state('error', {		url:'/error',									  templateUrl: 'page/common/error.html'})
-		.state('intro', {		url:'/intro',		controller: 'PageController', templateUrl: 'page/common/introduction.html'})
-		.state('thankyou', {	url:'/thankyou',	controller: 'PageController', templateUrl: 'page/common/thankyou.html'})
+		.state('consent', {		url:'/consent',		controller: 'PageController', templateUrl: 'page/common/consent.html'})
+		.state('user', {		url:'/user',		controller: 'PageController', templateUrl: 'page/common/user.html'})
+		.state('thankyou', {	url:'/thankyou',								  templateUrl: 'page/common/thankyou.html'})
+		.state('toolall', {		url:'/toolall',		controller: 'ToolController', templateUrl: 'page/common/tool-all.html'})
+		.state('toolpage', {	url:'/toolpage',	controller: 'ToolController', templateUrl: 'page/common/tool-page.html'})
 		.state('page', {		url:'/page/{xp}/{step}',
 			controllerProvider: function($stateParams) {
 				var controllerName = 'XP' + $stateParams.xp + 'Controller';
@@ -31,7 +34,7 @@ xpapp.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', fun
 	$urlRouterProvider.otherwise('error');
 	
 	// TO DELETE
-	$urlRouterProvider.otherwise('/xp/99');
+	$urlRouterProvider.otherwise('/xp/1');
 }]);
 
 
@@ -43,6 +46,7 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 	 * Flags
 	 */
 	$rootScope.isXPset = false;
+	$rootScope.isXPfinished = false;
 	
 	/**
 	 * XP
@@ -120,7 +124,21 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 		$rootScope.xp.step = -1;
 		$rootScope.isXPset = true;
 		
+		// Save current state
+		localStorage.setItem('currentXP', thread.id);
 		console.log('XP', $rootScope.xp);
+	}
+	
+	/**
+	 * Clear the xp
+	 */
+	$rootScope.clearXP = function(thread) {
+		$rootScope.isXPfinished = true;
+		localStorage.removeItem('user');
+		localStorage.removeItem('group' + $rootScope.thread.id);
+		localStorage.removeItem('currentXP');
+		localStorage.removeItem('currentStep');
+		$rootScope.thread.steps.forEach(function(step) { if (step.form) step.form = {}; });
 	}
 	
 	/**
@@ -129,21 +147,30 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options) {
 		// Redirect to error if no xp is set
 		if (toState.name != 'error' && ! $rootScope.isXPset) {
-			console.log('stateChangeStart', toState.name, $rootScope.isXPset, 'to error');
-			event.preventDefault();
-			$state.go('error');			//		TO UNCOMMENT
-//			$state.go('xp', {id: 99});	//		TO DELETE
+			if (localStorage.getItem('currentXP') && threads[localStorage.getItem('currentXP')] && threads[localStorage.getItem('currentXP')].steps[localStorage.getItem('currentStep')]) {
+				$rootScope.initXP(threads[localStorage.getItem('currentXP')]);
+				$rootScope.actionNext(localStorage.getItem('currentStep'));
+			} else {
+				event.preventDefault();
+				$state.go('error');
+			}
 		}
     });
 	$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
 		// Collect page change
-		$rootScope.actionWrite({
-			type: 'change',
-			page_from: fromState.name,
-//			page_fromParams: fromParams,
-			page_to: toState.name,
-//			page_toParams: toParams,
-		});
+		if ($rootScope.isXPset) {
+			$rootScope.actionWrite({
+				type: 'change',
+				page_from: fromState.name,
+//				page_fromParams: fromParams,
+				page_to: toState.name,
+//				page_toParams: toParams,
+			});
+		}
+		
+		if (toState.name == 'thankyou') {
+			$rootScope.clearXP();
+		}
 	});
 	
 	/**
@@ -156,16 +183,19 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 	/**
 	 * Action - Next page
 	 */
-	$rootScope.actionNext = function() {
+	$rootScope.actionNext = function(stepID) {
 		var currentStep = ($rootScope.xp.step >= 0) ? $rootScope.thread.steps[$rootScope.xp.step] : null;
-		var nextStep = $rootScope.thread.steps[$rootScope.xp.step + 1];
+		var nextStep = $rootScope.thread.steps[stepID || $rootScope.xp.step + 1];
 		
 		// Collect data
 		if (currentStep) {
+			if (! currentStep.hasOwnProperty('editable')) currentStep.editable = true;
+			var frameXP = (currentStep.mousetrack) ? document.getElementById("toolFrame").contentWindow.xp : null;
 			$rootScope.actionWrite({
 				type:		'page',
 				user_group:	$rootScope.xp.group,
 				data_form:	$rootScope.step.form,
+				data_track: (currentStep.mousetrack && frameXP) ? frameXP.heatmap : null,
 			});
 		}
 		
@@ -175,7 +205,10 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 		if (nextStep.state)
 			$state.go(nextStep.state);
 		else
-			$state.go('page', {xp: $rootScope.thread.id, step: nextStep.id});
+			$state.go('page', {xp: $rootScope.thread.id, step: nextStep.pageID});
+		
+		// Save current state
+		localStorage.setItem('currentStep', nextStep.id);
 	}
 	
 	/**

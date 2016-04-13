@@ -166,7 +166,6 @@ function addGauges(output, profile) {
 			output.gauges[item.l] = {
 				g: roundedValue,
 				l: roundedValue + '%',
-				u: Math.round(item.v)
 			};
 		}
 		else
@@ -183,9 +182,8 @@ function addGauges(output, profile) {
 		if (capabilities[item.c]) {
 			calibratedMax = max.eventBase * item.m;
 			output.gauges[item.l] = {
-				g: Math.round(100 * item.v / calibratedMax),
+				g: Math.max(Math.round(100 * item.v / calibratedMax - 100), 0),
 				l: Math.round(10 * item.v / calibratedMax) / 10 + '×',
-				u: Math.round(item.v)
 			};
 		}
 		else

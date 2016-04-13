@@ -5,16 +5,28 @@
 xpapp.factory('threads', function() {
 	var looseThreads = [
 		{
-			id: 99, groups: 4,
-			title: 'Test',
+			id: 1, groups: 1,
+			title: 'Test 1',
 			goal: 'The goal of this survey is to evaluate a prototype visualisation for identifying the presence of <b>data-locality</b> issues.',
 			steps: [
 				// init a form:					form:m { ... }
 				// display next in sidebar:		nextInSidebar: true
-/* 1 */				{ label: 'Terminology' },
-/* 2 */				{ label: 'Source Code', form: {} },
-/* 3 */				{ label: 'Visualisation' },
-/* 4 */				{ label: 'Tool', form: {} },
+				// dashboard path:				path: '/admin'
+				// collect the mouse tracking:	mousetrack: true
+				// Forbid go back to edit:		editable: false
+				{ label: 'Tool', state: 'toolall', path: '/admin', mousetrack: true, nextInSidebar: true },
+				{ label: 'Tool', state: 'toolpage', path: '/admin', mousetrack: true, nextInSidebar: true },
+			]
+		},
+		{
+			id: 99, groups: 4,
+			title: 'Test 99',
+			goal: 'The goal of this survey is to evaluate a prototype visualisation for identifying the presence of <b>data-locality</b> issues.',
+			steps: [
+				{ label: 'Terminology',		pageID: 1 },
+				{ label: 'Source Code',		pageID: 2, form: {} },
+				{ label: 'Visualisation',	pageID: 3 },
+				{ label: 'Tool',			pageID: 4, form: {} },
 			]
 		},
 	];
@@ -25,7 +37,10 @@ xpapp.factory('threads', function() {
 	// ID treatment
 	var threads = [];
 	looseThreads.forEach(function (thread) {
-		thread.steps.unshift({ label: 'Introduction', state: 'intro', form: {} });
+		thread.steps.unshift(
+			{ label: 'Consent form', state: 'consent', form: {}, editable: false },
+			{ label: 'About you', state: 'user', form: {} }
+		);
 		thread.steps.push({ label: 'The end', state: 'thankyou' });
 		thread.steps.forEach(function(step, index) { step.id = index; });
 		threads[thread.id] = thread;

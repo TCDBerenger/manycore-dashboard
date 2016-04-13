@@ -1,0 +1,80 @@
+<section class="modal-content">
+	<div class="modal-header">
+		<h1 class="modal-title">About you</h1>
+	</div>
+	
+	<div class="modal-body">
+		<form class="form-horizontal"><fieldset>
+			<div class="form-group">
+				<label for="inputEmail" class="col-lg-2 control-label">Email</label>
+				<div class="col-lg-10">
+					<input ng-model="form.email" class="form-control" id="inputEmail" placeholder="Enter your email" type="email"/>
+					<span class="help-block"><i class="fa fa-info-circle text-primary"></i> <span class="text-primary">only for prize pool</span></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">Age demographic</label>
+				<div class="col-lg-10">
+					<div class="btn-group">
+						<label class="btn btn-default btn-sm" ng-model="form.age" uib-btn-radio="1" uncheckable>0-17 years</label>
+						<label class="btn btn-default btn-sm" ng-model="form.age" uib-btn-radio="2" uncheckable>18-25 years</label>
+						<label class="btn btn-default btn-sm" ng-model="form.age" uib-btn-radio="3" uncheckable>26-35 years</label>
+						<label class="btn btn-default btn-sm" ng-model="form.age" uib-btn-radio="4" uncheckable>36-45 years</label>
+						<label class="btn btn-default btn-sm" ng-model="form.age" uib-btn-radio="5" uncheckable>46-55 years</label>
+						<label class="btn btn-default btn-sm" ng-model="form.age" uib-btn-radio="6" uncheckable>56-65 years</label>
+						<label class="btn btn-default btn-sm" ng-model="form.age" uib-btn-radio="7" uncheckable>65+ years</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">Gender</label>
+				<div class="col-lg-10">
+					<div class="btn-group">
+						<label class="btn btn-default btn-sm" ng-model="form.gender" uib-btn-radio="1" uncheckable>Male</label>
+						<label class="btn btn-default btn-sm" ng-model="form.gender" uib-btn-radio="2" uncheckable>Female</label>
+						<label class="btn btn-default btn-sm" ng-model="form.gender" uib-btn-radio="3" uncheckable>Other</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">Last degree</label>
+				<div class="col-lg-10">
+					<div class="btn-group">
+						<label class="btn btn-default btn-sm" ng-model="form.education" uib-btn-radio="1" uncheckable>High School or Less</label>
+						<label class="btn btn-default btn-sm" ng-model="form.education" uib-btn-radio="2" uncheckable>Bachelors/Polytechnical Degree</label>
+						<label class="btn btn-default btn-sm" ng-model="form.education" uib-btn-radio="3" uncheckable>Masters Degree</label>
+						<label class="btn btn-default btn-sm" ng-model="form.education" uib-btn-radio="4" uncheckable>Doctoral Degree</label>
+					</div>
+					<span class="help-block">Your highest level of educatione</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">Expertise</label>
+				<div class="col-lg-10">
+					<div class="btn-group">
+						<label class="btn btn-default btn-sm" ng-model="form.expertise" uib-btn-radio="1" uncheckable>Novice</label>
+						<label class="btn btn-default btn-sm" ng-model="form.expertise" uib-btn-radio="2" uncheckable>Average</label>
+						<label class="btn btn-default btn-sm" ng-model="form.expertise" uib-btn-radio="3" uncheckable>Above Average</label>
+						<label class="btn btn-default btn-sm" ng-model="form.expertise" uib-btn-radio="4" uncheckable>Expert</label>
+					</div>
+					<span class="help-block">Self-assessed expertise in parallel programming</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">Experience</label>
+				<div class="col-lg-10">
+					<div class="btn-group">
+						<label class="btn btn-default btn-sm" ng-model="form.experience" uib-btn-radio="1" uncheckable>0-5 years</label>
+						<label class="btn btn-default btn-sm" ng-model="form.experience" uib-btn-radio="2" uncheckable>6-10 years</label>
+						<label class="btn btn-default btn-sm" ng-model="form.experience" uib-btn-radio="3" uncheckable>10+ years</label>
+					</div>
+					<span class="help-block">How many years of professional experience</span>
+				</div>
+			</div>
+		</fieldset></form>
+	</div>
+	
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" type="button" ng-click="actionNext()">Next <i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
+	</div>
+</section>

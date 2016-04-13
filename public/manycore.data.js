@@ -78,7 +78,7 @@ app.factory('colours', [function() {
 
 app.factory('facets', ['colours', function(colours) {
 	/*  DESCRIPTIONS TO MOVE INTO LEGENDS AND DELETE HERE  */
-	var desc_w = 'threads are not ready to be processed because they waiting ressource(s)';
+	var desc_w = 'threads are not ready to be processed because they waiting resource(s)';
 	var desc_lw = 'threads are not ready to be processed because they waiting to acquire a lock';
 	var desc_i = 'no thread running on core';
 	var desc_miss = 'time spent on locality misses';
@@ -482,7 +482,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			],
 			settings: [
 				{ property: 'calibration', type: 'pnumeric', check: 'positive', label: 'Typical values', unit: 'lock acquisitions', psource: function(profile) { return profile.hardware.data.lcores * (profile.hardware.calibration.ls + profile.hardware.calibration.lf); } },
-				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 },
+				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 5 },
 				{ property: 'highlightOverflow', value: false, type: 'flag', label: 'High zone', desc: 'shows the high area, over the typical value' }
 			]
 		},
@@ -575,7 +575,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			],
 			settings: [
 				{ property: 'calibration', type: 'pnumeric', check: 'positive', label: 'Typical values', unit: 'thread migrations', psource: function(profile) { return profile.hardware.data.lcores * profile.hardware.calibration.m; } },
-				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 },
+				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 5 },
 				{ property: 'highlightOverflow', value: false, type: 'flag', label: 'High zone', desc: 'shows the high area, over the typical value' }
 			]
 		},
@@ -609,7 +609,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			],
 			settings: [
 				{ property: 'calibration', type: 'pnumeric', check: 'positive', label: 'Typical values', unit: 'context switches', psource: function(profile) { return profile.hardware.data.lcores * profile.hardware.calibration.s; } },
-				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 },
+				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 5 },
 				{ property: 'highlightOverflow', value: false, type: 'flag', label: 'High zone', desc: 'shows the high area, over the typical value' }
 			]
 		},
@@ -679,7 +679,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ id: 3, label: 'core affinity', property: 'enablePeriods' }
 			],
 			settings: [
-				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 10 }, // depends: ['plan', 0]
+				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 5 }, // depends: ['plan', 0]
 			]
 		},
 		threadLocks: {
@@ -779,29 +779,58 @@ app.factory('strips', ['facets', function(facets) {
 	var example_good = 'The biggest is the shape, the more accurate is the use of resources.';
 	var example_ok = 'A big shape means an under-exploitation of resources.';
 	var example_bad = 'A non minimal shape means a problem or a misusing of resources.';
+	
+	var tooltip_r = [
+		'This graph represents the time spent in thread execution.',
+		example_good];
+	var tooltip_i = [
+		'This graph shows the time spend by the core waiting a thread to run.',
+		example_ok];
+	var tooltip_yb = [
+		'This graph shows the time spent by threads while waiting a core.',
+		example_bad];
+	var tooltip_lw = [
+		'This graph represents the time spent by threads while waiting for a lock.',
+		example_bad];
+	var tooltip_q = [
+		'Proportion of parallelism sequences.',
+		'The parallelism phase occurs when at least two threads running simultaneously. Otherwise, it\' a sequencial phase.',
+		example_good];
+	var tooltip_miss = [
+		'Percentage of time spent on locality misses.',
+		'A locality miss (TLB, L1, ..., HPF) occurs when the storage of a data is not right.',
+		example_bad];
+	var tooltip_e = [
+		'Proportion of memory bandwidth used.',
+		example_bad];
+	var tooltip_il = [
+		'Percentage of cache line invalidations (L1 and L2) of shared memory by cores.',
+		example_bad];
+	
 	return {
-		r:		{ title: 'Running',					facet: facets.r,	reverse: false,	description: 'This graph represents the time spent in thread execution.', example: example_good },
-		i:		{ title: 'Unused cores',			facet: facets.i,	reverse: true,	description: 'This graph shows the time spend by the core waiting a thread to run.', example: example_ok },
-		yb:		{ title: 'Waiting for a core',		facet: facets.yb,	reverse: false,	description: 'This graph shows the time spent by threads while waiting a core.', example: example_bad },
-		lw:		{ title: 'Waiting for a ressource',	facet: facets.lw,	reverse: false,	description: 'This graph represents the time spent by threads while waiting for a lock.', example: example_bad },
-		q:		{ title: 'Parallelisation',			facet: facets.p,	reverse: false,	description: 'This graph represents the parallelised state of the cores, at least two threads running simultaneously.', example: example_good },
-		miss:	{ title: 'Cache misses',			facet: facets.miss,	reverse: false,	description: 'This graph represents the time spent on locality misses.', example: example_bad },
-		e:		{ title: 'Memory bandwidth',		facet: facets.e,	reverse: false,	description: 'This graph shows the amount memory bandwidth used.', example: example_bad },
-		il:		{ title: 'Cache coherency',			facet: facets.il,	reverse: false,	description: 'This graph shows the amount of invalidations of shared memory by cores.', example: example_bad }
+		r:		{ title: 'Running',					facet: facets.r,	reverse: false,	tooltip: tooltip_r },
+		i:		{ title: 'Unused cores',			facet: facets.i,	reverse: true,	tooltip: tooltip_i },
+		yb:		{ title: 'Waiting for a core',		facet: facets.yb,	reverse: false,	tooltip: tooltip_yb },
+		lw:		{ title: 'Waiting for a resource',	facet: facets.lw,	reverse: false,	tooltip: tooltip_lw },
+		q:		{ title: 'Parallelisation phases',	facet: facets.p,	reverse: false,	tooltip: tooltip_q },
+		miss:	{ title: 'Cache misses',			facet: facets.miss,	reverse: false,	tooltip: tooltip_miss },
+		e:		{ title: 'Memory bandwidth',		facet: facets.e,	reverse: false,	tooltip: tooltip_e },
+		il:		{ title: 'Cache coherency',			facet: facets.il,	reverse: false,	tooltip: tooltip_il }
 	};
 }]);
 
 
 app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, strips, facets) {
-	var yb =	JSON.parse(JSON.stringify(facets.yb));
-	var lw =	JSON.parse(JSON.stringify(facets.lw));
-	var miss =	JSON.parse(JSON.stringify(facets.miss));
-	var uc =	JSON.parse(JSON.stringify(facets.i));
-	
-	yb.shift = true;
-	lw.shift = true;
-	miss.shift = true;
-	uc.label = "Unused cores"
+	var gauge_yb =	{ l: 'Waiting for a core',				f: facets.yb };
+	var gauge_uc =	{ l: 'Unused cores',					f: facets.i };
+	var gauge_s =	{ l: 'Expected context switches',		f: facets.s };
+	var gauge_m =	{ l: 'Expected thread migrations',		f: facets.m };
+	var gauge_lw =	{ l: 'Waiting for a lock',				f: facets.lw };
+	var gauge_ls =	{ l: 'Expected locks',					f: facets.ls };
+	var gauge_lf =	{ l: 'Expected locks with contention',	f: facets.lf };
+	var gauge_miss ={ 										f: facets.miss };
+	var gauge_il =	{ 										f: facets.il };
+	var gauge_e =	{ 										f: facets.e };
 	
 	var common = {
 		label: 'Profile', title: 'Profile', icon: 'heartbeat',
@@ -810,56 +839,84 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 	};
 	var tg = {
 		tag: 'tg', cat: 'tg', label: 'Task granularity', title: 'Task granularity', icon: 'sliders', enabled: true,
-		description: 'This category helps about the challenge to find enough parallelism to keep the machine busy.',
-		example: 'If there are too many threads, the cost of these overheads can exceed the benefits.',
+		description: 'In parallel programs it is often a challenge to find enough parallelism to keep the machine busy. A key focus of parallel software development is designing algorithms that expose more parallelism. However, there are overheads associated with starting, managing and switching between parallel threads. If there are too many threads, the cost of these overheads can exceed the benefits',
+		issues: ['oversubscription', 'task start/stop overhead', 'thread migration'],
+		tooltip: [
+			'This category describes the level of parallelism exhibited by the application.',	
+			'For instance, if there are too many threads, the cost can exceed the benefits.',
+		],
 		strips: [strips.yb, strips.i],
-		gauges: [[yb, facets.i], [facets.s, facets.m]], /* facets.r, */
+		gauges: [[gauge_yb, gauge_uc], [gauge_s, gauge_m]],
 		widgets: [widgets.threadStates, widgets.threadSwitches, widgets.threadMigrations, widgets.threadFruitSalad]
 	};
 	var sy = {
 		tag: 'sy', cat: 'sy', label: 'Synchronisation', title: 'Synchronisation', icon: 'refresh', enabled: true,
-		description: 'This category helps about the synchronisation needed to ensure that all threads get a consistent view of a shared memory. The common mechanism is the lock.',
-		example: 'If the algorithm requires a large amount of synchronization, the overhead can offset much of the benefits of parallelism.',
+		description: 'Our focus is on multicore systems with a shared-memory programming model. Where data is shared and updated some sort of synchronisation is needed to ensure that all threads get a consistent view of memory. Synchronization always causes some overhead. If the algorithm requires a large amount of synchronization, the overhead can offset much of the benefits of parallelism. Perhaps the most common synchronisation mechanism is the lock; other mechanisms include barriers, semaphores, and the atomic instructions used in so-called “lock-free” and “wait-free” data structures.',
+		issues: ['Low work to synchronisation ratio', 'Lock contention', 'Lock convoy', 'Badly-behaved spinlocks'],
+		tooltip: [
+			'This category helps about the synchronisation needed to ensure that all threads get a consistent view of a shared memory. The common mechanism is the lock.',	
+			'If the algorithm requires a large amount of synchronization, the overhead can offset much of the benefits of parallelism.',
+		],
 		strips: [strips.lw],
-		gauges: [[lw], [facets.ls, facets.lf]],
+		gauges: [[gauge_lw], [gauge_ls, gauge_lf]],
 		widgets: [widgets.lockCounts, widgets.lockContentions, widgets.threadLocks]
 	};
 	var ds = {
 		tag: 'ds', cat: 'ds', label: 'Data sharing', title: 'Data sharing', icon: 'exchange', enabled: true,
-		description: 'This category helps about the data shared between cores.',
-		example: 'These transfers take time, with the result that there is typically a cost to data sharing, particularly when shared variables and data structures are modified.',
+		description: 'Threads within a process communicate through data in shared memory. Sharing data between cores involves physically transmitting the data along wires between the cores. On shared memory computers these data transfers happen automatically through the caching hardware. However these transfers nonetheless take time, with the result that there is typically a cost to data sharing, particularly when shared variables and data structures are modified.',
+		issues: ['True sharing of updated data', 'Sharing of data between CPUs on NUMA systems', 'Sharing of lock data structures', 'Sharing data between distant cores'],
+		tooltip: [
+			'This category helps about the data shared between cores.',	
+			'These transfers take time, with the result that there is typically a cost to data sharing, particularly when shared variables and data structures are modified.',
+		],
 		strips: [strips.il],
-		gauges: [[lw, miss]],
+		gauges: [[gauge_lw], [gauge_il, gauge_miss]],
 		widgets: [widgets.lockContentions, widgets.cacheMisses, widgets.cacheInvalidations, widgets.coreInvalidations, widgets.memBandwidth, widgets.coreBandwidth]
 	};
 	var lb = {
 		tag: 'lb', cat: 'lb', label: 'Load balancing', title: 'Load balancing', icon: 'list-ol', enabled: true,
-		description: 'This category helps about the attempt to divide work evenly among the cores.',
-		example: 'Dividing the work in this way is usually, but not always, beneficial.',
+		description: 'Load balancing is the attempt to divide work evenly among the cores. Dividing the work in this way is usually, but not always, beneficial. There is an overhead in dividing work between parallel cores and it can sometimes be more efficient to not use all the available cores. Nonetheless, a poor load balance is one of the most easily understood performance problems.',
+		issues: ['Undersubscription', 'Alternating sequential/parallel execution', 'Chains of data dependencies, too little parallelism', 'Bad threads to cores ratio'],
+		tooltip: [
+			'This category helps about the attempt to divide work evenly among the cores.',	
+			'Dividing the work in this way is usually, but not always, beneficial.',
+		],
 		strips: [strips.q],
-		gauges: [[uc, lw], [facets.m]],
+		gauges: [[gauge_uc, gauge_lw], [gauge_m]],
 		widgets: [widgets.coreIdle, widgets.lockContentions, widgets.threadMigrations, widgets.threadStates, widgets.coreSequences, widgets.threadChains]
 	};
 	var dl = {
 		tag: 'dl', cat: 'dl', label: 'Data locality', title: 'Data locality', icon: 'compass', enabled: true,
-		description: 'This category helps about identifying which memory is used: CPU, RAM and disk.',
-		example: 'More the memory is away from the core, more processor cycles are needed to read a value.',
+		description: 'This is not a specifically multicore problem, but it is impossible to talk about single or multicore performance without talking about locality. In the early 1980s a typical computer could read a value from main memory in one or two CPU cycles. However, between 1984 and 2004 processing speeds increased by around 50% per year, whereas the time to access DRAM memory fell by only 10%-15% per year. The result is that it now takes hundreds of processor cycles to read a value from main memory. This problem is often called the “memory wall”.',
+		issues: ['Cache Locality', 'TLB Locality', 'DRAM memory pages', 'Page faults'],
+		tooltip: [
+			'This category helps about identifying which memory is used: CPU, RAM and disk.',	
+			'More the memory is away from the core, more processor cycles are needed to read a value.',
+		],
 		strips: [strips.miss],
-		gauges: [[miss]], /* facets.ipc, */
+		gauges: [[gauge_miss]],
 		widgets: [widgets.cacheMisses, widgets.cacheBreackdown]
 	};
 	var rs = {
 		tag: 'rs', cat: 'rs', label: 'Resource sharing', title: 'Resource sharing', icon: 'sitemap', enabled: true,
-		description: 'This category helps about sharing resources between all threads.',
-		example: 'For example, all cores will typically share a single connection to main memory.',
+		description: 'Those who are new to parallel programming often expect linear performance scaling: code running on four cores will be four times faster than on one core. There are many reasons why this is seldom true, but perhaps the most self-explanatory is that those four cores share and must compete for access to other parts of the hardware that have not been replicated four times. For example, all cores will typically share a single connection to main memory.',
+		issues: ['Exceeding memory bandwidth', 'Competition between threads sharing a cache', 'False data sharing'],
+		tooltip: [
+			'This category helps about sharing resources between all threads.',	
+			'For example, all cores will typically share a single connection to main memory.',
+		],
 		strips: [strips.e],
-		gauges: [],
+		gauges: [[gauge_e, gauge_lw], [gauge_il]],
 		widgets: [widgets.memBandwidth, widgets.coreBandwidth, widgets.lockCounts, widgets.cacheMisses, widgets.cacheInvalidations, widgets.coreInvalidations]
 	};
 	var io = {
 		tag: 'io', cat: 'io', label: 'Input/Output', title: 'Input/Output', icon: 'plug', enabled: false,
-		description: 'This category helps about the degradation of performance while compete for I/O resources.',
-		example: 'I/O contentions are often seen in instances of heavy workloads and causes latency and bottlenecks.',
+		description: 'Degradation of performance can occur when threads compete for I/O resources such disk, file system or network. I/O contentions are often seen in instances of heavy workloads and causes latency and bottlenecks.',
+		issues: [],
+		tooltip: [
+			'This category helps about the degradation of performance while compete for I/O resources.',	
+			'I/O contentions are often seen in instances of heavy workloads and causes latency and bottlenecks.',
+		],
 		strips: [],
 		gauges: [],
 		widgets: []
