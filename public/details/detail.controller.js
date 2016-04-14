@@ -589,6 +589,7 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	 */
 	$scope.widgets = widgets;
 	$scope.ids = ids;
+	$scope.encodedIDs = $stateParams.ids;
 	$scope.profiles = profiles;
 	$scope.isWaiting = isWaiting;
 	$scope.initWidget = initWidget;

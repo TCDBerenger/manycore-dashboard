@@ -595,7 +595,7 @@ app.directive('chartCaches', function() {
 		]
 		r.profiles.forEach(function(profile, iP) {
 			// Profile title
-			r.groupO.append('text')
+			if (r.profiles.length > 1) r.groupO.append('text')
 				.attr('class', "svg-text svg-profile-label")
 				.attr('text-anchor', 'middle')
 				.attr('font-size', '12px')

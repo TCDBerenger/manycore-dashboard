@@ -123,10 +123,8 @@ app.factory('facets', ['colours', function(colours) {
 		lf:		{ label: 'Lock with contention',	capability: CAPABILITY_LOCK,	attr: 'lf',		unity: 'events', cat: 'locks',		list: 'flocks',		colours: colours.sets.Fuschia },
 		lr:		{ label: 'Lock release',			capability: CAPABILITY_LOCK,	attr: 'lr',		unity: 'events', cat: 'locks',							colours: colours.sets.Turquoise },
 		
-		p:		{ label: 'Parallel',				capability: CAPABILITY_STATE,	attr: 'p',	unity: '',			colours: colours.sets.GreenYlw },
-		q:		{ label: 'Parallelized',			capability: CAPABILITY_STATE,	attr: 'q',	unity: '',			colours: colours.sets.GreenYlw },
-		q_s:	{ label: 'Sequential sequence',		capability: CAPABILITY_STATE,	attr: '',	unity: '', cat: '', colours: colours.sets.Orange },
-		q_p:	{ label: 'Parallel sequence',		capability: CAPABILITY_STATE,	attr: '',	unity: '', cat: '', colours: colours.sets.Green },
+		qs:		{ label: 'Sequential sequence',		capability: CAPABILITY_STATE,	attr: 'qs',	unity: '', cat: '', colours: colours.sets.Orange },
+		qp:		{ label: 'Parallel sequence',		capability: CAPABILITY_STATE,	attr: 'qp',	unity: '', cat: '', colours: colours.sets.Green },
 		
 		e:		{ label: 'Program memory bandwidth',	capability: CAPABILITY_MEMORY,	attr: 'e',	unity: 'MB',	colours: colours.sets.Magenta },
 		ue:		{ label: 'Idle memory bandwidth',		capability: CAPABILITY_MEMORY,	attr: 'ue',	unity: 'MB',	colours: colours.sets.Blue },
@@ -718,7 +716,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			graph : {
 				h:			limit,		// threads (color)
 				lines:		buildLogicalCoresAnonymously,
-				sequences:	{ under: facets.q_s, count: facets.q_p }
+				sequences:	{ under: facets.qs, count: facets.qp }
 			},
 			data: [facets.r, facets.i],
 			legend: {
@@ -726,10 +724,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '⊢', f: limit,	t: 'Cores',	d: 'each line represents a core, not in the right order, not with the right thread' }
 				],
 				data: [
-					{ b: '─', t: 'Sequential line',			d: 'core is idle (sequential sequence)',		f: facets.q_s },
-					{ b: '▮', t: 'Sequential executing',	d: 'one core only is executing a thread',		f: facets.q_s },
-					{ b: '─', t: 'Parallel line',			d: 'core is idle (parallel sequence)',			f: facets.q_p },
-					{ b: '▮', t: 'Parallel executing',		d: 'more than one core is executing a thread',	f: facets.q_p }
+					{ b: '─', t: 'Sequential line',			d: 'core is idle (sequential sequence)',		f: facets.qs },
+					{ b: '▮', t: 'Sequential executing',	d: 'one core only is executing a thread',		f: facets.qs },
+					{ b: '─', t: 'Parallel line',			d: 'core is idle (parallel sequence)',			f: facets.qp },
+					{ b: '▮', t: 'Parallel executing',		d: 'more than one core is executing a thread',	f: facets.qp }
 				]
 			},
 			clues: [],
@@ -790,8 +788,7 @@ app.factory('strips', ['facets', function(facets) {
 	var tooltip_lw = [
 		'Time spent waiting for a locked resource.','A resource (data) is locked if it is currently being held by another thread.',
 		'A larger shape indicates a problem or a misuse of resources.'];
-	var tooltip_q = [
-		// 'Proportion of parallelism sequences.',
+	var tooltip_qs = [
         'Percentage of time spent by the machine executing the program on less than two cores. Program might not execute or might execute on a single core.',
 		'A larger shape indicates more time is spent executing in sequential.'];
 	var tooltip_miss = [
@@ -810,7 +807,7 @@ app.factory('strips', ['facets', function(facets) {
 		i:		{ title: 'Available CPU time',		facet: facets.i,	reverse: true,	tooltip: tooltip_i },
 		yb:		{ title: 'Waiting for a core',		facet: facets.yb,	reverse: false,	tooltip: tooltip_yb },
 		lw:		{ title: 'Waiting for a resource',	facet: facets.lw,	reverse: false,	tooltip: tooltip_lw },
-		q:		{ title: 'Single-core execution', 	facet: facets.p,	reverse: false,	tooltip: tooltip_q },
+		q:		{ title: 'Single-core execution', 	facet: facets.qs,	reverse: false,	tooltip: tooltip_qs },
 		miss:	{ title: 'Cache misses',			facet: facets.miss,	reverse: false,	tooltip: tooltip_miss },
 		e:		{ title: 'Memory bandwidth',		facet: facets.e,	reverse: false,	tooltip: tooltip_e },
 		il:		{ title: 'Cache coherency',			facet: facets.il,	reverse: false,	tooltip: tooltip_il }
@@ -820,15 +817,15 @@ app.factory('strips', ['facets', function(facets) {
 
 app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, strips, facets) {
 	var gauge_yb =	{ l: 'Waiting for a core',				f: facets.yb };
-	var gauge_uc =	{ l: 'Available CPU time',					f: facets.i };
-	var gauge_s =	{ l: 'Expected context switches',		f: facets.s };
-	var gauge_m =	{ l: 'Expected thread migrations',		f: facets.m };
+	var gauge_uc =	{ l: 'Unused CPU',						f: facets.i };
+	var gauge_s =	{ l: 'Context switches',				f: facets.s };
+	var gauge_m =	{ l: 'Thread migrations',				f: facets.m };
 	var gauge_lw =	{ l: 'Waiting for a lock',				f: facets.lw };
-	var gauge_ls =	{ l: 'Expected locks',					f: facets.ls };
-	var gauge_lf =	{ l: 'Expected locks with contention',	f: facets.lf };
+	var gauge_ls =	{ l: 'Locks',							f: facets.ls };
+	var gauge_lf =	{ l: 'Locks with contention',			f: facets.lf };
 	var gauge_miss ={ 										f: facets.miss };
 	var gauge_il =	{ 										f: facets.il };
-	var gauge_e =	{ 										f: facets.e };
+	var gauge_e =	{ l: 'Memory bandwidth', 				f: facets.e };
 	
 	var common = {
 		label: 'Profile', title: 'Profile', icon: 'heartbeat',

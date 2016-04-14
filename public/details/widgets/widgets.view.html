@@ -6,8 +6,8 @@
 	<uib-tab active="true">
 		<uib-tab-heading><i class="fa fa-info"></i> info</uib-tab-heading>
 		<div class="row">
-			<div class="col-sm-2">
-				{{widget.desc}}
+			<div ng-if="widget.desc" class="col-sm-2">
+				<small>{{widget.desc}}</small>
 			</div>
 			<div class="col-sm-5">
 				<!--<h5>Axis:</h5>-->
