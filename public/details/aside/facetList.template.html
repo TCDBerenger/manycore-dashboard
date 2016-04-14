@@ -1,7 +1,7 @@
 <style>{{::dv.styles}}</style>
 <ul class="facet-list" style="font-size: 0.85em;">
 	<li id="{{::item.i}}" ng-repeat="item in dv.provider">
-		<strong>{{item.t}}</strong>: {{::item.d}}
+		<strong>{{item.t}}</strong><span ng-if="item.d">: {{::item.d}}</span>
 		<span ng-if="item.s"><br/>Values by default: <em>(editable in settings tab)</em></span>
 		<ul ng-if="item.s"><li ng-repeat="subItem in item.s track by $index">{{::subItem}}</li></ul>
 	</li>
