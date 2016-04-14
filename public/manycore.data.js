@@ -306,14 +306,14 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			graph: {
 				v:				[facets.pil1, facets.il1, facets.il2],
 				limit:			limit,
-				value_divider:	2,
-				axis_label: 	function(v, index, r) { return (v == 100) ? '100%' : (v == 50) ? '0%' : '50%'; }
+//				value_divider:	1,
+				axis_label: 	function(v, index, r) { return ((v > 100) ? v - 100 : 100 - v) + '%'; }
 			},
 			data: [facets.il1, facets.il2],
 			focus: [facets.il1, facets.il2],
 			legend: {
 				axis: [
-					{ b: '%', t: 'Percent',	d: 'maximum possible cache line invalidations', c: colours.list.fGrey}
+					{ b: '%', t: 'Percent',	d: 'maximum possible cache line invalidations per cache (L1 or L2)', c: colours.list.fGrey}
 				],
 				data: [
 					{ b: '▮', 	d: '',	f: facets.il1 },
@@ -461,14 +461,14 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			graph : {
 				v:			[facets.ls, facets.lf],
 				limit:		limit,
-				limitLabel:	't. value',
+				limitLabel:	'μ',
 			},
 			data: [facets.ls, facets.lf],
 			focus: [facets.ls, facets.lf],
 			legend: {
 				axis: [
-					{ b: '-', t: 't. value',	d: 'typical value of expected lock acquisitions',	f: limit, sv: 'calibration', sd: 'lock acquisitions by ms' },
-					{ b: 'n×', t: 'excess',		d: 'more lock acquisitions than expected (multiple of the typical value)',			f: limit },
+					{ b: 'μ', t: 'Typical value',	d: 'the expected value of lock acquisitions',	f: limit, sv: 'calibration', sd: 'lock acquisitions by ms' },
+					{ b: '2×', t: 'Excess',		d: 'more lock acquisitions than expected (multiple of the typical value)',			f: limit },
 				],
 				data: [
 					{ b: '▮', t: 'Lock with contention',	d: 'number of failed lock acquisitions',	f: facets.lf },
@@ -552,14 +552,14 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			graph : {
 				v:		[facets.m],
 				limit:		limit,
-				limitLabel:	't. value',
+				limitLabel:	'μ',
 			},
 			data: [facets.m],
 			focus: [facets.m],
 			legend: {
 				axis: [
-					{ b: '-', t: 't. value',	d: 'typical value of expected thread migrations',	f: limit, sv: 'calibration', sd: 'thread migrations by ms' },
-					{ b: 'n×', t: 'excess',		d: 'more thread migrations than expected (multiple of the typical value)',			f: limit },
+					{ b: 'μ', t: 'Typical value',	d: 'the expected value of thread migrations',	f: limit, sv: 'calibration', sd: 'thread migrations by ms' },
+					{ b: '×', t: 'Excess',			d: 'more thread migrations than expected (multiple of the typical value)',			f: limit },
 				],
 				data: [
 					{ b: '▮', d:'thread migrates to another core', f: facets.m }
@@ -587,14 +587,14 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			graph : {
 				v:			[facets.s],
 				limit:		limit,
-				limitLabel:	't. value',
+				limitLabel:	'μ',
 			},
 			data: [facets.s],
 			focus: [facets.s],
 			legend: {
 				axis: [
-					{ b: '-', t: 't. value',	d: 'typical value of expected context switches',	f: limit, sv: 'calibration', sd: 'context switches by ms' },
-					{ b: 'n×', t: 'excess',		d: 'more context switches than expected (multiple of the typical value)',		f: limit },
+					{ b: 'μ', t: 'Typical value',	d: 'the expected value of context switches',	f: limit, sv: 'calibration', sd: 'context switches by ms' },
+					{ b: '2×', t: 'Excess',		d: 'more context switches than expected (multiple of the typical value)',		f: limit },
 				],
 				data: [
 					{ b: '▮', d: 'cores switching from one thread to another', f: facets.s }
