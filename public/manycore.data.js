@@ -566,8 +566,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				]
 			},
 			clues: [
-				{ c: colours.base,	t: 'Thread migrations',							d: 'too many migrations' },
-				{ c: colours.base,	t: 'Alternating sequential/parallel execution',	d: 'alternating period of high and low thread migrations' }
+				{ f: facets.m,	t: 'Thread migrations',							d: 'too many migrations' },
+				{ f: facets.m,	t: 'Alternating sequential/parallel execution',	d: 'alternating period of high and low thread migrations' }
 			],
 			plans: [
 				{ id: 1, label: 'log₂', property: 'useLogScale' },
@@ -601,7 +601,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				]
 			},
 			clues: [
-				{ c: colours.base,	t: 'Oversubscription',	d: 'high frequency' }
+				{ f: facets.s,	t: 'Oversubscription',	d: 'high frequency' }
 			],
 			plans: [
 				{ id: 1, label: 'log₂', property: 'useLogScale' },
@@ -612,6 +612,40 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 5 },
 				{ property: 'highlightOverflow', value: false, type: 'flag', label: 'High zone', desc: 'shows the high area, over the typical value' }
 			]
+		},
+		threadAllStates: {
+			handling: {
+				time: TIME_PROFILE,
+			},
+			graph : {
+				v:		[facets.sys, facets.i, facets.r, facets.yb, facets.lw],
+				limit:	facets.i,
+				axis:	{ labels: 'cores' }
+			},
+			data: [facets.lw, facets.b, facets.y, facets.r, facets.i],
+			focus: [facets.sys, facets.i, facets.r, facets.yb, facets.lw],
+			legend: {
+				axis: [
+					{ b: '◓',	f: facets.lw,	t: 'Over capacity',				d: 'time spent by threads while waiting for a lock' },
+					{ b: '◓',	f: facets.yb,	t: 'Over capacity',				d: 'time spent by threads while waiting a core' },
+					{ b: '▪▪',	f: facets.i,	t: 'Limit of core capacity',	d: 'capacity of CPU computation' },
+					{ b: '◒',	f: facets.r,	t: 'Core capacity',				d: 'time spent in thread execution, idle, or used by the OS' }
+				],
+				data: [
+					{ b: '▮', f: facets.lw,		d: 'threads are not ready to be processed because they waiting to acquire a lock' },
+					{ b: '▮', f: facets.yb,		t: 'ready + standby',	d: 'thread is ready to run but is is waiting for a core to become available'},
+					{ b: '▮', f: facets.r,		d: 'thread is actively executing', },
+					{ b: '▮', f: facets.i,		d: 'no thread running on core' },
+					{ b: '▮', f: facets.sys,	d: 'Core occupied by other program',	 c: colours.list.fGrey }
+				]
+			},
+			clues: [
+				{ f: facets.y,	t: 'Oversubscription', 			d: 'too many threads' },
+				{ f: facets.y,	t: 'Thread migrations', 		d: 'too many threads' },
+				{ f: facets.y,	t: 'Bad thread to core ratio', 	d: 'too many threads' },
+				{ f: facets.i,	t: 'Underscubscription', 		d: 'not enough threads' }
+			],
+			settings: []
 		},
 		threadStates: {
 			handling: {
@@ -638,10 +672,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				]
 			},
 			clues: [
-				{ c: colours.bad,	t: 'Oversubscription', 			d: 'too many threads' },
-				{ c: colours.bad,	t: 'Thread migrations', 		d: 'too many threads' },
-				{ c: colours.bad,	t: 'Bad thread to core ratio', 	d: 'too many threads' },
-				{ c: colours.plus,	t: 'Underscubscription', 		d: 'not enough threads' }
+				{ f: facets.y,	t: 'Oversubscription', 			d: 'too many threads' },
+				{ f: facets.y,	t: 'Thread migrations', 		d: 'too many threads' },
+				{ f: facets.y,	t: 'Bad thread to core ratio', 	d: 'too many threads' },
+				{ f: facets.i,	t: 'Underscubscription', 		d: 'not enough threads' }
 			],
 			settings: []
 		},
@@ -667,11 +701,11 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				]
 			},
 			clues: [
-				{ c: colours.unkn,	t: 'Task start/stop overhead',	d: 'too many creations' },
-				{ c: colours.alt,	t: 'Oversubscription',			d: 'too many threads' },
-				{ c: colours.base,	t: 'Thread migrations',			d: 'too many threads' },
-				{ c: colours.alt,	t: 'Thread migrations',			d: 'too many migrations' },
-				{ c: colours.unkn,	t: 'Task start/stop overhead',	d: 'too short lifetime' }
+				{ f: facets.m,	t: 'Task start/stop overhead',	d: 'too many creations' },
+				{ f: limit,		t: 'Oversubscription',			d: 'too many threads' },
+				{ f: limit,		t: 'Thread migrations',			d: 'too many threads' },
+				{ f: facets.m,	t: 'Thread migrations',			d: 'too many migrations' },
+				{ f: facets.m,	t: 'Task start/stop overhead',	d: 'too short lifetime' }
 			],
 			plans: [
 				{ id: 1, label: 'rate', property: 'groupTicks' },
@@ -770,6 +804,7 @@ app.factory('widgets', ['decks', function(decks) {
 		threadLocks:		{ id: id(),	c: CAPABILITY_LOCK,		 file: 'chart-threads',		deck: decks.threadLocks,		wide: false,	title: 'Time each thread spends waiting for locks',					desc: ''},
 		threadMigrations:	{ id: id(),	c: CAPABILITY_SWITCH,	 file: 'chart-units',		deck: decks.threadMigrations,	wide: false,	title: 'Rate of thread migrations',									desc: 'thread switching the core on which it is executing'},
 		threadStates:		{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-percent',		deck: decks.threadStates,		wide: false,	title: 'Breakdown of thread states compared to number of cores',	desc: 'number of threads compared to number of cores'},
+		threadAllStates:	{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-percent',		deck: decks.threadAllStates,	wide: false,	title: 'Breakdown of thread states compared to number of cores',	desc: 'number of threads compared to number of cores'},
 		threadSwitches:		{ id: id(),	c: CAPABILITY_SWITCH,	 file: 'chart-units',		deck: decks.threadSwitches,		wide: false,	title: 'Core switching the thread it is executing',					desc: 'thread switches'},
 	};
 }]);
@@ -866,7 +901,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 		],
 		strips: [strips.il],
 		gauges: [[gauge_lw], [gauge_il, gauge_miss]],
-		widgets: [widgets.lockContentions, widgets.cacheMisses, widgets.cacheInvalidations, widgets.coreInvalidations, widgets.memBandwidth, widgets.coreBandwidth]
+		widgets: [widgets.lockContentions, widgets.threadChains, widgets.memBandwidth, widgets.coreBandwidth, widgets.cacheMisses, widgets.cacheInvalidations, widgets.coreInvalidations]
 	};
 	var lb = {
 		tag: 'lb', cat: 'lb', label: 'Load balancing', title: 'Load balancing', icon: 'list-ol', enabled: true,
@@ -878,7 +913,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 		],
 		strips: [strips.q],
 		gauges: [[gauge_uc, gauge_lw], [gauge_m]],
-		widgets: [widgets.coreIdle, widgets.lockContentions, widgets.threadMigrations, widgets.threadStates, widgets.coreSequences, widgets.threadChains]
+		widgets: [widgets.coreIdle, widgets.threadAllStates, widgets.threadMigrations, widgets.coreSequences, widgets.threadChains]
 	};
 	var dl = {
 		tag: 'dl', cat: 'dl', label: 'Data locality', title: 'Data locality', icon: 'compass', enabled: true,
