@@ -391,7 +391,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '⊢', f: limit,	t: 'Cores',	d: 'each line represents a core' }
 				],
 				data: [
-					{ b: '▮', f: facets.i, t: 'Idle', d: 'time spend by the core waiting a thread to run (other processes are considfred as idle time)' }
+					{ b: '▮', f: facets.i, t: 'Idle', d: 'time spent by the core waiting for a thread of this program to run (work from other programs is considered as idle time)' }
 				]
 			},
 			clues: [],
@@ -725,9 +725,9 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				],
 				data: [
 					{ b: '─', t: 'Sequential line',			d: 'core is idle (sequential sequence)',		f: facets.qs },
-					{ b: '▮', t: 'Sequential executing',	d: 'one core only is executing a thread',		f: facets.qs },
+					{ b: '▮', t: 'Sequential execution',	d: 'one core only is executing a thread',		f: facets.qs },
 					{ b: '─', t: 'Parallel line',			d: 'core is idle (parallel sequence)',			f: facets.qp },
-					{ b: '▮', t: 'Parallel executing',		d: 'more than one core is executing a thread',	f: facets.qp }
+					{ b: '▮', t: 'Parallel execution',		d: 'more than one core is executing a thread',	f: facets.qp }
 				]
 			},
 			clues: [],
@@ -761,7 +761,7 @@ app.factory('widgets', ['decks', function(decks) {
 		coreBandwidth:		{ id: id(),	c: CAPABILITY_MEMORY,	 file: 'chart-lines',		deck: decks.coreBandwidth,		wide: false,	title: 'Remote memory access by core',								desc: 'Memory bandwidth'},
 		coreIdle:			{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-lines',		deck: decks.coreIdle,			wide: false,	title: 'Idle cores',												desc: 'Times that cores are idle'},
 		coreInvalidations:	{ id: id(),	c: CAPABILITY_COHERENCY, file: 'chart-d3-caches',	deck: decks.coreInvalidations,	wide: true,		title: 'Breakdown of cache line invalidations by core',             desc: ''},
-		coreSequences:		{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-lines',		deck: decks.sequences,			wide: false,	title: 'Single thread execution phases',							desc: 'alternating sequential/parallel execution'},
+		coreSequences:		{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-lines',		deck: decks.sequences,			wide: false,	title: 'Execution phases',                 							desc: 'phase of execution (sequential or parallel)'},
 		lockCounts:			{ id: id(),	c: CAPABILITY_LOCK,		 file: 'chart-units',		deck: decks.lockCounts,			wide: false,	title: 'Lock contentions',											desc: 'Locking with and without contention'},
 		lockContentions:	{ id: id(),	c: CAPABILITY_LOCK,		 file: 'chart-percent',		deck: decks.lockContentions,	wide: false,	title: 'Time waiting for a lock',									desc: ''},
 		memBandwidth:		{ id: id(),	c: CAPABILITY_MEMORY,	 file: 'chart-percent',		deck: decks.memBandwidth,		wide: false,	title: 'Remote memory access',										desc: 'Memory bandwidth'},
