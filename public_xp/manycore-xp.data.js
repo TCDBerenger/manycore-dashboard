@@ -14,8 +14,11 @@ xpapp.factory('threads', function() {
 				// dashboard path:				path: '/admin'
 				// collect the mouse tracking:	mousetrack: true
 				// Forbid go back to edit:		editable: false
-				{ label: 'Tool', state: 'toolall', path: '/admin', mousetrack: true, nextInSidebar: true },
-				{ label: 'Tool', state: 'toolpage', path: '/admin', mousetrack: true, nextInSidebar: true },
+				{ pageID: 'habits',		label: 'Your tools',			form: {} },
+				{ pageID: 'info',		label: 'Explanations' },
+				{ state: 'toolall',		label: 'Test Merge & Sort',		path: '/dashboard/9-8', mousetrack: true, nextInSidebar: true },
+				{ state: 'toolall',		label: 'Test Particules',		path: '/dashboard/5-4', mousetrack: true, nextInSidebar: true },
+//				{ label: 'Tool', state: 'toolpage', path: '/admin', mousetrack: true, nextInSidebar: true },
 			]
 		},
 		{
@@ -39,7 +42,7 @@ xpapp.factory('threads', function() {
 	looseThreads.forEach(function (thread) {
 		thread.steps.unshift(
 			{ label: 'Consent form', state: 'consent', form: {}, editable: false },
-			{ label: 'About you', state: 'user', form: {} }
+			{ label: 'About you', state: 'user', form: {}, required: ['position', 'expertise', 'experience'] }
 		);
 		thread.steps.push({ label: 'The end', state: 'thankyou' });
 		thread.steps.forEach(function(step, index) { step.id = index; });

@@ -3,7 +3,7 @@ xpapp.controller('PageController', ['$scope', '$rootScope', function($scope, $ro
 	/* Constructor - Init							*/
 	/************************************************/
 	// Form data
-	$scope.form = $scope.step.form;
+	$scope.form = $rootScope.step.form;
 	
 	
 	/************************************************/
@@ -13,6 +13,40 @@ xpapp.controller('PageController', ['$scope', '$rootScope', function($scope, $ro
 	/************************************************/
 	/* Functions - UI								*/
 	/************************************************/
+	$scope.allRequiredFileds = function() {
+		var canContinue = true;
+		$rootScope.step.required.forEach(function(field) {
+			canContinue = canContinue && !! $scope.form[field];
+		});
+		return canContinue; 
+	}
+	
+	/**
+	 * Action - Next tab
+	 */
+	$rootScope.actionNextTab = function() {
+		if ($scope.tabIndex == $scope.tabs.length - 1) {
+			$rootScope.actionNext();
+		} else {
+			$scope.tabIndex++;
+		}
+	}
+	
+	/**
+	 * Action - Previous tab
+	 */
+	$rootScope.actionPreviousTab = function() {
+		if ($scope.tabIndex != 0) {
+			$scope.tabIndex--;
+		}
+	}
+	
+	/**
+	 * Could - Previous tab
+	 */
+	$rootScope.couldPreviousTab = function() {
+		return $scope.tabIndex != 0;
+	}
 	
 	/************************************************/
 	/* Constructor - Finish							*/

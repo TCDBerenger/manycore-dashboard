@@ -17,7 +17,7 @@ xpapp.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', fun
 				return $controllerProvider.has(controllerName) ? controllerName : 'PageController';
 			},
 			templateUrl: function ($stateParams) {
-				return 'page/xp-' + $stateParams.xp + '/step-' + $stateParams.step + '.html';
+				return 'page/xp-' + $stateParams.xp + '/' + $stateParams.step + '.html';
 			}
 	 	});
 	
