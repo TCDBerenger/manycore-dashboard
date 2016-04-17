@@ -23,3 +23,24 @@ div.tool {
 div.tool-all {
 	top: 45px;
 }
+
+
+/*
+ * Page layout
+ */
+.more-readable-block p,
+.more-readable-block li {
+	font-size: 1.2em;
+}
+
+
+/*
+ * Sub tab
+ */
+.nav-subtab {
+	margin-top: 10px;
+	text-align: right;
+}
+.well-subtab {
+	margin-left: -30px;
+}

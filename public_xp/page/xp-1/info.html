@@ -1,13 +1,88 @@
 <section class="modal-content">
 	<div class="modal-header">
-		<h1 class="modal-title">Explainations about {{tabs[tabIndex]}}</h1>
+		<h1 class="modal-title">Explainations about {{tabs[tabIndex].t}}</h1>
 	</div>
 	
-	<div class="modal-body">
+	<!-- Experimentation -->
+	<div ng-if="tabIndex == 0" class="modal-body more-readable-block">
+		<p>
+			<i class="fa fa-hand-spock-o fa-2x fa-pull-left text-muted" aria-hidden="true"></i>
+			In this experimentation, you are going to test our approach and tool about the <span class="text-primary">software performance analysis</span> focused on multicore systems.
+		</p><p>
+			After asked a little bit about you, we going to explain you our vision and let you try our tool before starting the experimentation.
+		</p><p>
+			Then, you will diagnose a potential problem with or without our tool.
+		</p><p>
+			To finish, we will ask your opinion and feedback.
+		</p><p>
+			Thank you for your help.
+		</p>
+	</div>
+	
+	<!-- Parallel -->
+	<div ng-if="tabIndex == 1" class="modal-body">
+		
+	</div>
+	
+	<!-- Approache -->
+	<div ng-if="tabIndex == 2" class="modal-body more-readable-block">
+		<h2>Listing of issues</h2>
+		<p>
+			Actually, there isn’t any exhausted list, classification or consensus about issues the programmers will face while developing software in a multicore system.
+		</p>
+		
+		<h2>Terminology</h2>
+		<div class="row">
+			<div class="col-sm-6 col-md-4"><div class="thumbnail">
+				<div class="caption">
+					<h4>Thumbnail label</h4>
+					<p>...</p>
+				</div>
+			</div></div>
+			<div class="col-sm-6 col-md-4"><div class="thumbnail">
+				<div class="caption">
+					<h4>Thumbnail label</h4>
+					<p>...</p>
+				</div>
+			</div></div>
+			<div class="col-sm-6 col-md-4"><div class="thumbnail">
+				<div class="caption">
+					<h4>Thumbnail label</h4>
+					<p>...</p>
+				</div>
+			</div></div>
+		</div>
+		
+		<h2>Taxonomy</h2>
+		<p>
+			Our vision.
+		</p>
+		<div class="row">
+			<div class="col-sm-3">
+				<ul class="nav nav-pills nav-stacked nav-subtab">
+					<li ng-repeat="tax in taxonomy" ng-class="{active: isSubTabActive('taxonomy')}">
+						<a href ng-click="selectSubTabActive('taxonomy')">{{::tax.t}}</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col-sm-9">
+				<div class="well tab-content well-subtab">
+					<div ng-repeat="tax in taxonomy" class="tab-pane" ng-class="{active: isSubTabActive('taxonomy')}">
+						<p>{{::tax.d}}</p><p>Related issues:</p><ul>
+							<li ng-repeat="issue in tax.s">{{::issue}}</li>
+						</ul>
+					</div>
+				</div>
+			</div> 
+		</div>
+	</div>
+	
+	<!-- Tool -->
+	<div ng-if="tabIndex == 3" class="modal-body">
 	</div>
 	
 	<div class="modal-footer">
-		<button ng-if="couldPreviousTab()" type="button" class="btn btn-link" type="button" ng-click="actionPreviousTab()"><i class="fa fa-hand-o-left" style="padding-right: 8px;"></i>Previous</button>
+		<button ng-if="couldPreviousTab()" type="button" class="btn btn-link" type="button" ng-click="actionPreviousTab()"><i class="fa fa-hand-o-left" style="padding-right: 8px;"></i>Previous ({{tabs[tabIndex - 1].t}})</button>
 		<button type="button" class="btn btn-primary" type="button" ng-click="actionNextTab()">Next<i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
 	</div>
 </section>

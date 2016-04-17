@@ -13,6 +13,10 @@ xpapp.controller('PageController', ['$scope', '$rootScope', function($scope, $ro
 	/************************************************/
 	/* Functions - UI								*/
 	/************************************************/
+	
+	/************************************************/
+	/* Functions - UI - Tab							*/
+	/************************************************/
 	$scope.allRequiredFileds = function() {
 		var canContinue = true;
 		$rootScope.step.required.forEach(function(field) {
@@ -24,7 +28,7 @@ xpapp.controller('PageController', ['$scope', '$rootScope', function($scope, $ro
 	/**
 	 * Action - Next tab
 	 */
-	$rootScope.actionNextTab = function() {
+	$scope.actionNextTab = function() {
 		if ($scope.tabIndex == $scope.tabs.length - 1) {
 			$rootScope.actionNext();
 		} else {
@@ -35,7 +39,7 @@ xpapp.controller('PageController', ['$scope', '$rootScope', function($scope, $ro
 	/**
 	 * Action - Previous tab
 	 */
-	$rootScope.actionPreviousTab = function() {
+	$scope.actionPreviousTab = function() {
 		if ($scope.tabIndex != 0) {
 			$scope.tabIndex--;
 		}
@@ -44,8 +48,26 @@ xpapp.controller('PageController', ['$scope', '$rootScope', function($scope, $ro
 	/**
 	 * Could - Previous tab
 	 */
-	$rootScope.couldPreviousTab = function() {
+	$scope.couldPreviousTab = function() {
 		return $scope.tabIndex != 0;
+	}
+	
+	/************************************************/
+	/* Functions - UI - Sub tab						*/
+	/************************************************/
+	/**
+	 * Style - Is sub tab active
+	 */
+	$scope.isSubTabActive = function(variable) {
+		if (! $scope.hasOwnProperty(variable + 'Index')) $scope[variable + 'Index'] = 0;
+		return $scope[variable + 'Index'] == this.$index;
+	}
+	
+	/**
+	 * Action - Select the subtab
+	 */
+	$scope.selectSubTabActive = function(variable) {
+		$scope[variable + 'Index'] = this.$index;
 	}
 	
 	/************************************************/
