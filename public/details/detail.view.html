@@ -12,6 +12,13 @@
 		<b ng-if="profiles.length > 1">{{::profiles[1].label}}</b>
 	</p>
 	<li class="navbar-right" uib-dropdown>
+		<a uib-dropdown-toggle><i class="fa fa-tachometer fa-halfpad"></i>Dashboard <span class="caret"></span></a>
+		<ul uib-dropdown-menu>
+			<li><a ui-sref="dashboard({ids: encodedIDs})"><i class="fa fa-tachometer fa-16px fa-pad"></i> Graphical</a></li>
+			<li><a ui-sref="raw({ids: encodedIDs})"><i class="fa fa-graduation-cap fa-16px fa-pad"></i> Numerical</a></li>
+		</ul>
+	</li>
+	<li class="navbar-right" uib-dropdown>
 		<a uib-dropdown-toggle><i class="fa fa-area-chart fa-halfpad"></i>Categories <span class="caret"></span></a>
 		<ul uib-dropdown-menu>
 			<li ng-repeat="category in categories | enabled"><a ui-sref="detail({cat: category.cat, ids: encodedIDs})"><i class="fa fa-{{::category.icon}} fa-16px fa-pad"></i> {{::category.label}}</a></li>
