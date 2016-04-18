@@ -1,12 +1,12 @@
 <section class="modal-content">
 	<div class="modal-header">
-		<h1 class="modal-title">Explainations about {{tabs[tabIndex].t}}</h1>
+		<h1 class="modal-title">{{tabs[tabIndex].t}}</h1>
 	</div>
 	
 	<!-- Experimentation -->
-	<div ng-if="tabIndex == 0" class="modal-body more-readable-block">
+	<div ng-if="tabIndex == 0" class="modal-body">
 		<p>
-			<i class="fa fa-hand-spock-o fa-2x fa-pull-left text-muted" aria-hidden="true"></i>
+			<i class="fa fa-hand-spock-o fa-3x fa-pull-left text-muted" aria-hidden="true"></i>
 			In this experimentation, you are going to test our approach and tool about the <span class="text-primary">software performance analysis</span> focused on multicore systems.
 		</p><p>
 			After asked a little bit about you, we going to explain you our vision and let you try our tool before starting the experimentation.
@@ -21,42 +21,38 @@
 	
 	<!-- Parallel -->
 	<div ng-if="tabIndex == 1" class="modal-body">
-		
+		<p>
+			Summary
+		</p>
+		<p>&nbsp;</p>
+		<h2>Terminology</h2>
+		<div class="row">
+			<div class="col-sm-3">
+				<ul class="nav nav-pills nav-stacked nav-subtab">
+					<li ng-repeat="item in terminology" ng-class="{active: isSubTabActive('terminology')}">
+						<a href ng-click="selectSubTabActive('terminology')">{{::item.t}}</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col-sm-9">
+				<div class="well tab-content well-subtab">
+					<div ng-repeat="item in terminology" class="tab-pane" ng-class="{active: isSubTabActive('terminology')}">
+						<p>{{::item.d}}</p>
+						<p><a href="{{::item.url}}"><i class="fa fa-external-link" aria-hidden="true"></i>
+ {{::item.link}}</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	
-	<!-- Approache -->
-	<div ng-if="tabIndex == 2" class="modal-body more-readable-block">
-		<h2>Listing of issues</h2>
+	<!-- Approach -->
+	<div ng-if="tabIndex == 2" class="modal-body">
 		<p>
 			Actually, there isn’t any exhausted list, classification or consensus about issues the programmers will face while developing software in a multicore system.
 		</p>
-		
-		<h2>Terminology</h2>
-		<div class="row">
-			<div class="col-sm-6 col-md-4"><div class="thumbnail">
-				<div class="caption">
-					<h4>Thumbnail label</h4>
-					<p>...</p>
-				</div>
-			</div></div>
-			<div class="col-sm-6 col-md-4"><div class="thumbnail">
-				<div class="caption">
-					<h4>Thumbnail label</h4>
-					<p>...</p>
-				</div>
-			</div></div>
-			<div class="col-sm-6 col-md-4"><div class="thumbnail">
-				<div class="caption">
-					<h4>Thumbnail label</h4>
-					<p>...</p>
-				</div>
-			</div></div>
-		</div>
-		
-		<h2>Taxonomy</h2>
-		<p>
-			Our vision.
-		</p>
+		<p>&nbsp;</p>
+		<h2>Our taxonomy</h2>
 		<div class="row">
 			<div class="col-sm-3">
 				<ul class="nav nav-pills nav-stacked nav-subtab">
@@ -67,9 +63,63 @@
 			</div>
 			<div class="col-sm-9">
 				<div class="well tab-content well-subtab">
-					<div ng-repeat="tax in taxonomy" class="tab-pane" ng-class="{active: isSubTabActive('taxonomy')}">
-						<p>{{::tax.d}}</p><p>Related issues:</p><ul>
-							<li ng-repeat="issue in tax.s">{{::issue}}</li>
+					<!-- TG -->
+					<div class="tab-pane" ng-class="{active: isSubTabActive('taxonomy', 0)}">
+						<p>
+							{{::taxonomy[0].d}}
+						</p><p>Related issues:</p><ul>
+							<li ng-repeat="issue in taxonomy[0].s">{{::issue}}</li>
+						</ul>
+					</div>
+					<!-- SY -->
+					<div class="tab-pane" ng-class="{active: isSubTabActive('taxonomy', 1)}">
+						<p>
+							{{::taxonomy[1].d}}
+						</p><p>Related issues:</p><ul>
+							<li ng-repeat="issue in taxonomy[1].s">{{::issue}}</li>
+						</ul>
+					</div>
+					<!-- DS -->
+					<div class="tab-pane" ng-class="{active: isSubTabActive('taxonomy', 2)}">
+						<p>
+							{{::taxonomy[2].d}}
+						</p><p>Related issues:</p><ul>
+							<li ng-repeat="issue in taxonomy[2].s">{{::issue}}</li>
+						</ul>
+					</div>
+					<!-- LB -->
+					<div class="tab-pane" ng-class="{active: isSubTabActive('taxonomy', 3)}">
+						<p>
+							{{::taxonomy[3].d}}
+						</p><p>Related issues:</p><ul>
+							<li ng-repeat="issue in taxonomy[3].s">{{::issue}}</li>
+						</ul>
+					</div>
+					<!-- Data Locality -->
+					<div class="tab-pane" ng-class="{active: isSubTabActive('taxonomy', 4)}">
+						<p>
+							{{::taxonomy[4].d}}
+						</p><p>Related issues:</p><ul>
+							<li ng-repeat="issue in taxonomy[4].s">{{::issue}}</li>
+						</ul><blockquote>
+							<p>Locality of reference, also known as the principle of locality, is a phenomenon describing the same value, or related storage locations, being frequently accessed. There are two basic types of reference locality – temporal and spatial locality. Temporal locality refers to the reuse of specific data, and/or resources, within a relatively small time duration. Spatial locality refers to the use of data elements within relatively close storage locations. Sequential locality, a special case of spatial locality, occurs when data elements are arranged and accessed linearly, such as, traversing the elements in a one-dimensional array.</p>
+							<small><a href="http://en.wikipedia.org/wiki/Locality_of_reference" target="_blank">Wikipedia</a></small>
+						</blockquote><p>
+							Consider a hypothetical computer with a fast, single-line cache of <b>8 bytes</b> (analogous to a CPU cache) and a slow buffer (analogous to RAM) in which a 4x4 greyscale image data resides to illustrate the example. This simplified cache system can only cache data in blocks of 8 bytes (an 8-byte cache line).
+						</p><center>
+							<img src="assets/xp-99/data-locality.png" />
+						</center></p>
+							First iteration of the loop touches 4 bytes (#0, #4, #8 and #12), two cache misses occur including the first load, as the image data needs to be loaded from memory into the cache line for CPU to use it. During the entire execution of the program, the total of 8 cache misses occurs. This means that our hypothetical CPU loads 8 * 8 = 64 bytes in total from our slow buffer into the cache.
+						</p><center>
+							<img src="assets/xp-99/data-locality-2.png" />
+						</center>
+					</div>
+					<!-- RS -->
+					<div class="tab-pane" ng-class="{active: isSubTabActive('taxonomy', 5)}">
+						<p>
+							{{::taxonomy[5].d}}
+						</p><p>Related issues:</p><ul>
+							<li ng-repeat="issue in taxonomy[5].s">{{::issue}}</li>
 						</ul>
 					</div>
 				</div>
@@ -81,8 +131,23 @@
 	<div ng-if="tabIndex == 3" class="modal-body">
 	</div>
 	
+	<!-- Before continue -->
+	<div ng-if="tabIndex == 4" class="modal-body">
+		<p>
+			You're now going to try the tool wit two samples. Each one is a comparison of the same program with a sequential version and an parallel (optimised) version.
+		</p><p>
+			The first sample is "merge and sort" and the second is "particules".
+		</p><p>
+			Take your time, but it's only an help to understand our tool. So the real experiment starts after this samples.
+		</p><p>
+			<i class="fa fa-info-circle fa-3x fa-pull-left text-muted" aria-hidden="true"></i>
+			Since our tool take all the page space, the next button will be placed in the top navigation bar.
+			<img class="screenshot" src="assets/xp-1/navbar-next.gif"/>
+		</p>
+	</div>
+	
 	<div class="modal-footer">
-		<button ng-if="couldPreviousTab()" type="button" class="btn btn-link" type="button" ng-click="actionPreviousTab()"><i class="fa fa-hand-o-left" style="padding-right: 8px;"></i>Previous ({{tabs[tabIndex - 1].t}})</button>
+		<button ng-if="couldPreviousTab()" type="button" class="btn btn-link" type="button" ng-click="actionPreviousTab()"><i class="fa fa-hand-o-left" style="padding-right: 8px;"></i>Previous ({{tabs[tabIndex - 1].l}})</button>
 		<button type="button" class="btn btn-primary" type="button" ng-click="actionNextTab()">Next<i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
 	</div>
 </section>

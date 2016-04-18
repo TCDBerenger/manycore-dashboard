@@ -1,0 +1,29 @@
+<section class="modal-content">
+	<div class="modal-header">
+		<h1 class="modal-title">{{tabs[tabIndex].t}}</h1>
+	</div>
+	
+	<!-- Experimentation -->
+	<div ng-if="tabIndex == 0" class="modal-body">
+		<p>
+			<i class="fa fa-info-circle fa-3x fa-pull-left text-muted" aria-hidden="true"></i>
+			Thanks for your tests. We're now going to start the experimentation.
+		</p><p>
+			TODO
+		</p>
+	</div>
+	
+	<!-- Before continue -->
+	<div ng-if="tabIndex == 4" class="modal-body">
+		<p>
+			<i class="fa fa-info-circle fa-3x fa-pull-left text-muted" aria-hidden="true"></i>
+			Since our tool take all the page space, the next button will be placed in the top navigation bar.
+			<img class="screenshot" src="assets/xp-1/navbar-next.gif"/>
+		</p>
+	</div>
+	
+	<div class="modal-footer">
+		<button ng-if="couldPreviousTab()" type="button" class="btn btn-link" type="button" ng-click="actionPreviousTab()"><i class="fa fa-hand-o-left" style="padding-right: 8px;"></i>Previous ({{tabs[tabIndex - 1].l}})</button>
+		<button type="button" class="btn btn-primary" type="button" ng-click="actionNextTab()">Next<i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
+	</div>
+</section>

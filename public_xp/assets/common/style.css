@@ -11,10 +11,11 @@ div.tool {
 	position: absolute;
 	top: -1px;
 	right: 0px;
-	bottom: 0px;
+	bottom: 4px;
 	left: 0px;
 	
-	padding: 0px 15px 15px 15px;
+	/* padding: 0px 15px 15px 15px; */
+	padding: 0px;
 	
 	background-attachment: fixed;
 	background-image: url("stripes-alt.jpg");
@@ -43,4 +44,13 @@ div.tool-all {
 }
 .well-subtab {
 	margin-left: -30px;
+}
+
+
+/*
+ * Screenshots
+ */
+img.screenshot {
+	margin-top: 6px;
+	box-shadow: 0px 5px 5px rgb(136, 136, 136);
 }

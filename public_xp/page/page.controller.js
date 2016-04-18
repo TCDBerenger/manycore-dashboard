@@ -58,9 +58,9 @@ xpapp.controller('PageController', ['$scope', '$rootScope', function($scope, $ro
 	/**
 	 * Style - Is sub tab active
 	 */
-	$scope.isSubTabActive = function(variable) {
+	$scope.isSubTabActive = function(variable, index) {
 		if (! $scope.hasOwnProperty(variable + 'Index')) $scope[variable + 'Index'] = 0;
-		return $scope[variable + 'Index'] == this.$index;
+		return (index != undefined) ? $scope[variable + 'Index'] == index : $scope[variable + 'Index'] == this.$index;
 	}
 	
 	/**

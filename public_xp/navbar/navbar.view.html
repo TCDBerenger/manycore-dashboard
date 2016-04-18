@@ -6,11 +6,11 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand">ManyCore Experiment</a>
+		<a ng-if="! isXPset()" class="navbar-brand">ManyCore Experiment</a>
+		<a ng-if="isXPset()" class="navbar-brand">{{thread.title}}</a>
 	</div>
 	<div id="navbar" class="navbar-collapse collapse">
 		<!-- collapsible content -->
-		<p ng-if="isXPset()" class="navbar-text">{{thread.title}}</p>
 		<ul ng-if="isXPset()" class="nav navbar-nav">
 			<li ng-repeat="step in getSteps()" ng-class="{active: isStepActive(), disabled: isStepDisabled()}" uib-tooltip="{{step.label}}" tooltip-placement="bottom">
 				<a href ng-click="goBack()">{{$index + 1}}</a>
