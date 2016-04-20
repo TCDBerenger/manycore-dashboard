@@ -22,34 +22,39 @@
 	<!-- Parallel -->
 	<div ng-if="tabIndex == 1" class="modal-body">
 		<p>
-			Summary
+			In software engineering, there is several way to get clues about the efficiency and accuracy of a particular software.
+			Here, we're focusing on the performances by analysing several indicators and measurments of a run of an application.
+			Differents runs could produce differents values mostly because there are context-depending. But the analysis should be quite similar.
 		</p>
 		<p>&nbsp;</p>
-		<h2>Terminology</h2>
-		<div class="row">
-			<div class="col-sm-3">
-				<ul class="nav nav-pills nav-stacked nav-subtab">
-					<li ng-repeat="item in terminology" ng-class="{active: isSubTabActive('terminology')}">
-						<a href ng-click="selectSubTabActive('terminology')">{{::item.t}}</a>
-					</li>
-				</ul>
-			</div>
-			<div class="col-sm-9">
-				<div class="well tab-content well-subtab">
-					<div ng-repeat="item in terminology" class="tab-pane" ng-class="{active: isSubTabActive('terminology')}">
-						<p>{{::item.d}}</p>
-						<p><a href="{{::item.url}}"><i class="fa fa-external-link" aria-hidden="true"></i>
- {{::item.link}}</a></p>
-					</div>
-				</div>
-			</div>
-		</div>
+		<div class="col-xs-5" style="float: right;"><a class="thumbnail" href="assets/xp-1/theory-programing.jpeg" target="_blank">
+			<img src="assets/xp-1/theory-programing.jpeg" alt="">
+		</a></div>
+		<h2>Parallel performance</h2>
+		<p>
+			Very simple explaination (for beginers).
+		</p>
+		<p>
+			More complete explainations (for intermediate).
+		</p>
+		<p>
+			Deep explainations (for experts).
+		</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
 	</div>
 	
 	<!-- Approach -->
 	<div ng-if="tabIndex == 2" class="modal-body">
 		<p>
-			Actually, there isn’t any exhausted list, classification or consensus about issues the programmers will face while developing software in a multicore system.
+			Yet, the parallel performance analysis keep displaying and handling data from the operating system and counters from the hardware. It's an explert focused-approach.
+			So we've worked on an different approach, for all kind of programmers, widely understandable, for both beginners and experts.
+		</p><p>
+			Our approach is problem-focused instead of hardware-focued.
+			However, there is no list, classification or consensus about all the problems we can faced in parallel programming.
+		</p><p>
+			Based on surveys, we create a taxonomy for this kind of problems (see below). It is composed by 6 categories which each have 3~5 problems.
 		</p>
 		<p>&nbsp;</p>
 		<h2>Our taxonomy</h2>
@@ -129,6 +134,36 @@
 	
 	<!-- Tool -->
 	<div ng-if="tabIndex == 3" class="modal-body">
+		<p>
+			Based on our taxonomy, we build a tool to visualise and compare (two) profiles.
+		</p><p>
+			A profile is a set of values harvested while a program/software/application running.
+			The data comes from OS and harware.
+		</p>
+		<center><img src="assets/xp-1/dash-overview.png"/></center>
+		<p>&nbsp;</p>
+		<h2>Dashboard: overview</h2>
+		<div class="col-xs-5" style="float: right;"><a class="thumbnail" href="assets/xp-1/dash-checked.png" target="_blank">
+			<img src="assets/xp-1/dash-checked.png" alt="">
+		</a></div>
+		<p>
+			The top-level of our webapp is the Dashboard where you could compare the profiles and, more important, have a overview of all categories (first level in our taxonomy).
+			The aim is to quickly identify one or more categories involved in the issue(s).  
+		</p><p>
+			Once catogories are identified, you could drill-down to find the real cause of the issue.
+		</p>
+		<p>&nbsp;</p>
+		<h2>Details of a category: drill-down</h2>
+		<div class="col-xs-5" style="float: right;"><a class="thumbnail" href="assets/xp-1/detail-sample.png" target="_blank">
+			<img src="assets/xp-1/detail-sample.png" alt="">
+		</a></div>
+		<p>
+			In each page, there is a set of graph that could help you to find the root of the problem.
+		</p><p>
+			To help you, you can customise each graph via the "Customise" tab in order to adapt and manipulate the data shown.
+		</p><p>
+			Also you coul find some interesting information in the "help" tab in particular if you are not familiar with the concept shown. 
+		</p>
 	</div>
 	
 	<!-- Before continue -->

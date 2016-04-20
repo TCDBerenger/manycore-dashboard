@@ -138,7 +138,7 @@ xpapp.controller('XP1Controller', ['$controller', '$scope', '$rootScope', '$http
 	
 	
 	/************************************************/
-	/* Feedback									*/
+	/* Feedback										*/
 	/************************************************/
 	function initFeedback() {
 		// Tabs
