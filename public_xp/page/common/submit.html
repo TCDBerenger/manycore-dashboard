@@ -1,0 +1,32 @@
+<section class="modal-content">
+	<div class="modal-header">
+		<h1 class="modal-title">Submit</h1>
+	</div>
+	
+	<div class="modal-body">
+		<form class="form-horizontal"><fieldset>
+			<div class="form-group">
+				<div class="col-lg-10 col-lg-offset-2">
+					You are going to sumbit your answers.
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-10 col-lg-offset-2">
+					If you wish to receive the participant incentive of £10, please leave your email address.
+					Your email address will only be used in order to deliver this incentive, and for no other purpose.
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputEmail" class="col-lg-2 control-label">Email</label>
+				<div class="col-lg-10">
+					<input ng-model="form.email" class="form-control" id="inputEmail" placeholder="Enter your email" type="email"/>
+					<span class="help-block"><i class="fa fa-info-circle text-primary"></i> <span class="text-primary">only for prize pool</span></span>
+				</div>
+			</div>
+		</fieldset></form>
+	</div>
+	
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" type="button" ng-click="actionNext()">Submit your answers <i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
+	</div>
+</section>

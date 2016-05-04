@@ -44,9 +44,10 @@ xpapp.factory('threads', function() {
 	var threads = [];
 	looseThreads.forEach(function (thread) {
 		thread.steps.unshift(
-			{ label: 'Consent form', state: 'consent', form: {}, editable: false },
-			{ label: 'About you', state: 'user', form: {}, required: ['position', 'expertise', 'experience'] }
+			{ label: 'We need your consent', state: 'consent', form: {}, editable: false },
+			{ label: 'About you', state: 'user', form: {}, required: ['expertise', 'experience'] }
 		);
+		thread.steps.push({ label: 'Submit your answers', state: 'submit', form: {} });
 		thread.steps.push({ label: 'The end', state: 'thankyou' });
 		thread.steps.forEach(function(step, index) { step.id = index; });
 		threads[thread.id] = thread;
