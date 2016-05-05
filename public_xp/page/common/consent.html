@@ -31,8 +31,6 @@
 		</ul><p>
 			<strong class="font-variant: small-caps;">Queries And Debriefing:</strong>
 			You may contact the Principal Investigator for this project before or after participation at <a href="mailto:&#071;&#097;&#118;&#105;&#110;&#046;&#068;&#111;&#104;&#101;&#114;&#116;&#121;&#064;&#116;&#099;&#100;&#046;&#105;&#101;">&#071;&#097;&#118;&#105;&#110;&#046;&#068;&#111;&#104;&#101;&#114;&#116;&#121;&#064;&#116;&#099;&#100;&#046;&#105;&#101;</a> with any questions or queries you may have, or if you wish to receive copies of any publications on the study. 
-		</p><p>
-			<i class="fa fa-file-pdf-o text-primary" aria-hidden="true"></i> Dowload the <a href="assets/docs/information.pdf" target="_blank">PDF</a> version.
 		</p>
 	</div>
 	
@@ -83,12 +81,12 @@
 			<dd><a href="mailto:&#071;&#097;&#118;&#105;&#110;&#046;&#068;&#111;&#104;&#101;&#114;&#116;&#121;&#064;&#116;&#099;&#100;&#046;&#105;&#101;">&#071;&#097;&#118;&#105;&#110;&#046;&#068;&#111;&#104;&#101;&#114;&#116;&#121;&#064;&#116;&#099;&#100;&#046;&#105;&#101;</a></dd>
 			<dt style="font-weight: initial; font-style: italic;">Address:</dt>
 			<dd>School of Computer Science & Statistics<br/>Trinity College, University of Dublin, Dublin 2,<br/>IRELAND</dd>
-		</dl><p>
-			<i class="fa fa-file-pdf-o text-primary" aria-hidden="true"></i> Dowload the <a href="assets/docs/consent.pdf" target="_blank">PDF</a> version.
-		</p>
+		</dl>
 	</div>
 	
 	<div class="modal-footer">
+		<a ng-if="tabIndex == 0" href="assets/docs/information.pdf" target="_blank" type="button" class="btn btn-link pull-left" type="button"><i class="fa fa-file-pdf-o" style="padding-right: 8px;"></i>PDF version of information sheet</a>
+		<a ng-if="tabIndex == 1" href="assets/docs/consent.pdf" target="_blank" type="button" class="btn btn-link pull-left" type="button"><i class="fa fa-file-pdf-o" style="padding-right: 8px;"></i>PDF version of consent form</a>
 		<button ng-if="couldPreviousTab()" type="button" class="btn btn-link" type="button" ng-click="actionPreviousTab()"><i class="fa fa-hand-o-left" style="padding-right: 8px;"></i>Previous ({{tabs[tabIndex - 1].l}})</button>
 		<span ng-show="tabIndex == 1 && ! form.consent" class="text-danger">You need to agree to the terms to start the experiment.</span>
 		<button ng-show="tabIndex == 0" type="button" class="btn btn-primary" type="button" ng-click="actionNextTab()">Next<i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
