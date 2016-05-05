@@ -119,7 +119,7 @@ xpapp.controller('XP1Controller', ['$controller', '$scope', '$rootScope', '$http
 		$scope.tabIndex = 0;
 		$scope.tabs = [
 			{ l: 'the experiment',		t: 'Start the experiment' },
-			{							t: 'Before continue' },
+			{							t: 'Sample questions' },
 		];
 	};
 	

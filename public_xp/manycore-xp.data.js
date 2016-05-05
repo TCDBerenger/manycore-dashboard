@@ -17,8 +17,8 @@ xpapp.factory('threads', function() {
 				{ pageID: 'habits',		label: 'Your tools',			form: {} },
 				{ pageID: 'info',		label: 'Explanations' },
 				{ state: 'toolpage',	label: 'Test Merge & Sort',		path: '/dashboard/9-8', mousetrack: true, nextInSidebar: true },
-				{ state: 'toolall',		label: 'Test Particules',		path: '/dashboard/5-4', mousetrack: true, nextInSidebar: true },
-				{ pageID: 'start',		label: 'Experimentation' },
+//				{ state: 'toolall',		label: 'Test Particules',		path: '/dashboard/5-4', mousetrack: true, nextInSidebar: true },
+				{ pageID: 'start',		label: 'Experimentation',		form: {} },
 				{ state: 'toolall',		label: 'Test Particules',		path: '/dashboard/1012', mousetrack: true, nextInSidebar: true },
 				{ pageID: 'questions',	label: 'Questions' },
 				{ pageID: 'feedback',	label: 'Feedback' }
