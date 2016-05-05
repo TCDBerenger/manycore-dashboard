@@ -4,14 +4,6 @@ xpapp.controller('XP1Controller', ['$controller', '$scope', '$rootScope', '$http
 	/************************************************/
 	$controller('PageController', {$scope: $scope, $rootScope: $rootScope});
 	
-	switch ($rootScope.step.pageID) {
-		case 'habits':		initHabits();		break;
-		case 'info':		initInfo();			break;
-		case 'start':		initStart();		break;
-		case 'questions':	initQuestions();	break;
-		case 'feedback':	initFeedback();		break;
-	}
-	
 	
 	/************************************************/
 	/* Constructor - Data							*/
@@ -65,6 +57,15 @@ xpapp.controller('XP1Controller', ['$controller', '$scope', '$rootScope', '$http
 			url: 'http://',
 		}
 	];
+	
+	// Init data for each context
+	switch ($rootScope.step.pageID) {
+		case 'habits':		initHabits();		break;
+		case 'info':		initInfo();			break;
+		case 'start':		initStart();		break;
+		case 'questions':	initQuestions();	break;
+		case 'feedback':	initFeedback();		break;
+	}
 	
 	
 	/************************************************/
@@ -148,8 +149,21 @@ xpapp.controller('XP1Controller', ['$controller', '$scope', '$rootScope', '$http
 			{ l: 'usefulness',		t: 'Usefulness' },
 			{ l: 'taxonomy',		t: 'Taxonomy' },
 			{ l: 'charts',			t: 'Charts' },
-			{ l: 'educational',		t: 'Educational' },
-			{						t: 'Comments' },
+			{ l: 'comments',		t: 'Comments' },
 		];
+		
+		// Usability UI
+		$scope.usability = [
+			{ l: 'Overall tool' },
+			{ l: 'Dashboard (graphical)' },
+			{ l: 'profiles',	isSub: true },
+			{ l: 'comparison',	isSub: true },
+			{ l: 'strips',		isSub: true },
+			{ l: 'gauges',		isSub: true },
+			{ l: 'Numerical dashboard' },
+		];
+		$scope.taxonomy.forEach(function(tax) {
+			$scope.usability.push({ l: tax.t });
+		}, this);
 	};
 }]);
