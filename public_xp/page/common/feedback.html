@@ -109,7 +109,7 @@
 	<div ng-if="tabIndex == 2" class="modal-body">
 		<form class="form-horizontal"><fieldset>
 			<div ng-repeat="(uiIndex, uipart) in taxonomy" class="form-group">
-				<label for="ui{{uiIndex}}" class="col-lg-2 control-label" style="font-weight: bold;">{{uipart.t}}</label>
+				<label for="ui{{uiIndex}}" class="col-lg-2 control-label" style="font-weight: bold;">{{uipart.l}}</label>
 				<div class="col-lg-3" style="font-size: 1.8em;">
 					<uib-rating ng-model="form['taxonomy_' + uiIndex + '_g']" max="5" aria-labelledby="default-rating"></uib-rating>
 					<span class="help-block">Understanding</span>

@@ -5,13 +5,14 @@ var xpapp = angular.module('manycoreXP', ['ngSanitize', 'ui.router', 'ui.bootstr
 /************************************************/
 xpapp.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', function($stateProvider, $urlRouterProvider, $controllerProvider) {
 	$stateProvider
-		.state('error', {		url:'/error',									  templateUrl: 'page/common/error.html'})
-		.state('consent', {		url:'/consent',		controller: 'TabController',  templateUrl: 'page/common/consent.html'})
-		.state('user', {		url:'/user',		controller: 'PageController', templateUrl: 'page/common/user.html'})
-		.state('submit', {		url:'/submit',		controller: 'PageController', templateUrl: 'page/common/submit.html'})
-		.state('thankyou', {	url:'/thankyou',								  templateUrl: 'page/common/thankyou.html'})
-		.state('toolall', {		url:'/toolall',		controller: 'ToolController', templateUrl: 'page/common/tool-all.html'})
-		.state('toolpage', {	url:'/toolpage',	controller: 'ToolController', templateUrl: 'page/common/tool-page.html'})
+		.state('error', {		url:'/error',											templateUrl: 'page/common/error.html'})
+		.state('consent', {		url:'/consent',		controller: 'TabController',		templateUrl: 'page/common/consent.html'})
+		.state('user', {		url:'/user',		controller: 'PageController',		templateUrl: 'page/common/user.html'})
+		.state('feedback', {	url:'/feedback',	controller: 'FeedbackController',	templateUrl: 'page/common/feedback.html'})
+		.state('submit', {		url:'/submit',		controller: 'PageController',		templateUrl: 'page/common/submit.html'})
+		.state('thankyou', {	url:'/thankyou',										templateUrl: 'page/common/thankyou.html'})
+		.state('toolall', {		url:'/toolall',		controller: 'ToolController',		templateUrl: 'page/common/tool-all.html'})
+		.state('toolpage', {	url:'/toolpage',	controller: 'ToolController',		templateUrl: 'page/common/tool-page.html'})
 		.state('page', {		url:'/page/{xp}/{step}',
 			controllerProvider: function($stateParams) {
 				var controllerName = 'XP' + $stateParams.xp + 'Controller';
