@@ -165,5 +165,35 @@ xpapp.controller('XP1Controller', ['$controller', '$scope', '$rootScope', '$http
 		$scope.taxonomy.forEach(function(tax) {
 			$scope.usability.push({ l: tax.t });
 		}, this);
+		
+		// Usefulness UI
+		$scope.usefulness = [
+			{ l: 'Dashboard (graphical)' },
+			{ l: 'profile selection',	isSub: true },
+			{ l: 'profile data',		isSub: true },
+			{ l: 'duration comparison',	isSub: true },
+			{ l: 'categories',			isSub: true },
+			{ l: 'strips',				isSub: true },
+			{ l: 'gauges',				isSub: true },
+			{ l: 'Numerical dashboard' },
+			{ l: 'hardware',			isSub: true },
+			{ l: 'stats & categories',	isSub: true },
+			{ l: 'all other parts',		isSub: true },
+			{ l: 'Categories' },
+			{ l: 'descriptions',			isSub: true },
+			{ l: 'hardware comparison',		isSub: true },
+			{ l: 'visualisations (graphs)',	isSub: true },
+			{ l: 'statistics (side)',		isSub: true },
+			{ l: 'legends (tab)',			isSub: true },
+			{ l: 'help (tab)',				isSub: true },
+			{ l: 'customisation (tab)',		isSub: true },
+			{ l: 'mouse hovering',			isSub: true },
+		];
+		
+		// Taxonomy UI
+		$scope.taxonomyUI = [];
+		$scope.taxonomy.forEach(function(tax) {
+			$scope.taxonomyUI.push({ l: tax.t, s: tax.s });
+		}, this);
 	};
 }]);
