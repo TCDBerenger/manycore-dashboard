@@ -25,7 +25,7 @@
 				</div>
 				<div class="col-lg-3">
 					Reactivity
-					<span class="help-block">Is is responsive and fast enough?</span>
+					<span class="help-block">Is it responsive and fast enough?</span>
 				</div>
 			</div>
 			<div ng-repeat="uipart in usability" class="form-group">
@@ -76,7 +76,7 @@
 				</div>
 				<div class="col-lg-3">
 					Helping
-					<span class="help-block">Is is useful?</span>
+					<span class="help-block">Is it useful?</span>
 				</div>
 			</div>
 			<div ng-repeat="uipart in usefulness" class="form-group">
@@ -180,10 +180,67 @@
 	
 	<!-- Charts -->
 	<div ng-if="tabIndex == 3" class="modal-body">
+		<div class="row">
+			<div class="col-lg-9 col-lg-offset-2">
+				<div class="thumbnail">
+					<img style="height: 200px; width: 100%; display: block; background-color: #EEEEEE;" alt="TODO: screenshot of hovering element">
+				</div>
+			</div>
+		</div>
+		
+		<form class="form-horizontal"><fieldset>
+			<div ng-repeat="uipart in graphs" class="form-group">
+				<label for="ui{{$index}}" class="col-lg-3 control-label" style="font-weight: bold;">{{uipart.l}}</label>
+				<div class="col-lg-3" style="font-size: 1.8em;">
+					<span class="help-block">What is your overall evaluation?</span>
+					<uib-rating ng-model="form['chart_' + $index + '_e']" max="5" aria-labelledby="default-rating"></uib-rating>
+				</div>
+				<div class="col-lg-3" style="font-size: 1.8em;">
+					<span class="help-block">Is it helping you in anyway?</span>
+					<uib-rating ng-model="form['chart_' + $index + '_u']" max="5" aria-labelledby="default-rating"></uib-rating>
+				</div>
+				
+				<div ng-if="(form['chart_' + $index + '_e'] && form['chart_' + $index + '_e'] < 4) || (form['chart_' + $index + '_u'] && form['chart_' + $index + '_u'] < 4)" class="col-lg-9 col-lg-offset-3">
+					<div style="display: flex;">
+						<a class="btn btn-link disabled">Why?</a>
+						<div style="flex-grow: 1;">
+							<textarea class="form-control" rows="3" id="textArea"></textarea>
+							<span class="help-block">what do you think is wrong?</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-9 col-lg-offset-3">
+					<a class="btn btn-link disabled">How helpfuls is the grpahs for these issues:</a>
+					<div ng-repeat="uisubpart in uipart.p" class="row">
+						<label for="ui{{uisubpart.id}}" class="col-lg-5 control-label">{{uisubpart.l}}</label>
+						<div class="col-lg-7 text-muted">
+							<uib-rating ng-model="form['chart_' + uisubpart.id]" max="10" aria-labelledby="default-rating" state-on="'glyphicon-ok-sign'" state-off="'glyphicon-remove-circle'" style="font-size: 1.4em;"></uib-rating>
+							<span ng-if="form['chart_' + uisubpart.id] >= 0">{{form['chart_' + uisubpart.id] * 10}}%</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-9 col-lg-offset-3">
+					<div class="row">
+						<label class="col-lg-5 control-label text-muted">Reasons</label>
+						<div class="col-lg-7">
+							<textarea class="form-control" rows="3" id="textArea"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+		</fieldset></form>
 	</div>
 	
 	<!-- Comments -->
 	<div ng-if="tabIndex == 4" class="modal-body">
+		<form class="form-horizontal"><fieldset>
+			<div ng-repeat="uipart in comments" class="form-group">
+				<label for="ui{{$index}}" class="col-lg-2 control-label" style="font-weight: bold;">{{uipart.l}}</label>
+				<div class="col-lg-10" style="font-size: 1.8em;">
+					<textarea class="form-control" rows="3" id="textArea"></textarea>
+				</div>
+			</div>
+		</fieldset></form>
 	</div>
 	
 	<div class="modal-footer">
