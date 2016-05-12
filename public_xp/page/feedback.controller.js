@@ -182,6 +182,6 @@ xpapp.controller('FeedbackController', ['$controller', '$scope', '$rootScope', '
 		{ l: 'Unexpected or surprising elements' },
 		{ l: 'Expected (predictable) things' },
 		{ l: 'Missing features' },
-		{ l: 'Free comments' },
+		{ l: 'Comments' },
 	];
 }]);
