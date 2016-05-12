@@ -214,7 +214,7 @@
 					<div ng-repeat="uisubpart in uipart.p" class="row">
 						<label for="ui{{uisubpart.id}}" class="col-lg-5 control-label">{{uisubpart.l}}</label>
 						<div class="col-lg-7 text-muted">
-							<uib-rating ng-model="form['chart_' + uisubpart.id]" max="10" aria-labelledby="default-rating" state-on="'glyphicon-ok-sign'" state-off="'glyphicon-remove-circle'" style="font-size: 1.4em;"></uib-rating>
+							<uib-rating ng-model="form['chart_' + uisubpart.id]" max="10" aria-labelledby="default-rating" state-on="'fa-thumbs-up fa-fw'" state-off="'fa-thumbs-o-down fa-fw'" style="font-size: 1.4em;"></uib-rating>
 							<span ng-if="form['chart_' + uisubpart.id] >= 0">{{form['chart_' + uisubpart.id] * 10}}%</span>
 						</div>
 					</div>
