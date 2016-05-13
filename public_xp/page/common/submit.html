@@ -27,6 +27,24 @@
 	</div>
 	
 	<div class="modal-footer">
+		<button type="button" class="btn btn-link pull-left" type="button" ng-click="openModal('common-submit-cancelXP.html', cancelXP)"><i class="fa fa-trash" style="padding-right: 8px;"></i>Cancel the experimentation</button>
 		<button type="button" class="btn btn-primary" type="button" ng-click="actionNext()">Submit your answers <i class="fa fa-check" style="padding-left: 8px;"></i></button>
 	</div>
 </section>
+
+<script type="text/ng-template" id="common-submit-cancelXP.html">
+	<div class="modal-header">
+		<h3 class="modal-title">Confirmation</h3>
+	</div>
+	<div class="modal-body">
+		<p>
+			Are you sure you want to cancel the experimentation?
+		</p><p>
+			All yours answer will be lost.
+		</p>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-click="cancel()">Return to the experimentation</button>
+		<button class="btn btn-danger" type="button" ng-click="ok()">Delete answers and exit</button>
+	</div>
+</script>

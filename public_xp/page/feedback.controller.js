@@ -1,8 +1,8 @@
-xpapp.controller('FeedbackController', ['$controller', '$scope', '$rootScope', '$http', function($controller, $scope, $rootScope, $http) {
+xpapp.controller('FeedbackController', ['$controller', '$scope', '$rootScope', '$uibModal', function($controller, $scope, $rootScope, $uibModal) {
 	/************************************************/
 	/* Constructor - Init							*/
 	/************************************************/
-	$controller('PageController', {$scope: $scope, $rootScope: $rootScope});
+	$controller('PageController', {$scope: $scope, $rootScope: $rootScope, $uibModal: $uibModal});
 	
 	
 	/************************************************/

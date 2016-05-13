@@ -1,8 +1,8 @@
-xpapp.controller('XP1Controller', ['$controller', '$scope', '$rootScope', '$http', function($controller, $scope, $rootScope, $http) {
+xpapp.controller('XP1Controller', ['$controller', '$scope', '$rootScope', '$uibModal', function($controller, $scope, $rootScope, $uibModal) {
 	/************************************************/
 	/* Constructor - Init							*/
 	/************************************************/
-	$controller('PageController', {$scope: $scope, $rootScope: $rootScope});
+	$controller('PageController', {$scope: $scope, $rootScope: $rootScope, $uibModal: $uibModal});
 	
 	
 	/************************************************/
@@ -102,10 +102,10 @@ xpapp.controller('XP1Controller', ['$controller', '$scope', '$rootScope', '$http
 		// Tabs
 		$scope.tabIndex = 0;
 		$scope.tabs = [
-			{ l: 'the experimentation',		t: 'Explainations about the experimentation' },
-			{ l: 'parallel performance',	t: 'Explainations about parallel performance' },
-			{ l: 'our approach',			t: 'Explainations about our approach' },
-			{ l: 'our tool',				t: 'Explainations about our tool' },
+			{ l: 'the experimentation',		t: 'Experimental details' },
+			{ l: 'parallel performance',	t: 'Explanations for parallel performance' },
+			{ l: 'our approach',			t: 'Explanations for our approach' },
+			{ l: 'our tool',				t: 'Explanations for our tool' },
 			{								t: 'Before continue' },
 		];
 	};

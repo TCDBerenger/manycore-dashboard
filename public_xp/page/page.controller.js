@@ -1,4 +1,4 @@
-xpapp.controller('PageController', ['$scope', '$rootScope', function($scope, $rootScope) {
+xpapp.controller('PageController', ['$scope', '$rootScope', '$uibModal', function($scope, $rootScope, $uibModal) {
 	/************************************************/
 	/* Constructor - Init							*/
 	/************************************************/
@@ -69,6 +69,26 @@ xpapp.controller('PageController', ['$scope', '$rootScope', function($scope, $ro
 	$scope.selectSubTabActive = function(variable) {
 		$scope[variable + 'Index'] = this.$index;
 	}
+	
+	/************************************************/
+	/* Functions - UI - Modal						*/
+	/************************************************/
+	$scope.openModal = function (template, okHandle, koHandle) {
+		var modalInstance = $uibModal.open({
+			templateUrl: template,
+			controller: function ($scope, $uibModalInstance) {
+				$scope.ok = function () {
+					$uibModalInstance.close();
+					if (okHandle) okHandle();
+				};
+				$scope.cancel = function () {
+					$uibModalInstance.dismiss();
+					if (koHandle) koHandle();
+				};
+			}
+		});
+	};
+	
 	
 	/************************************************/
 	/* Constructor - Finish							*/

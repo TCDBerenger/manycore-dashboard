@@ -11,6 +11,7 @@ xpapp.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', fun
 		.state('feedback', {	url:'/feedback',	controller: 'FeedbackController',	templateUrl: 'page/common/feedback.html'})
 		.state('submit', {		url:'/submit',		controller: 'PageController',		templateUrl: 'page/common/submit.html'})
 		.state('thankyou', {	url:'/thankyou',										templateUrl: 'page/common/thankyou.html'})
+		.state('cancelled', {	url:'/cancelled',										templateUrl: 'page/common/cancelled.html'})
 		.state('toolall', {		url:'/toolall',		controller: 'ToolController',		templateUrl: 'page/common/tool-all.html'})
 		.state('toolpage', {	url:'/toolpage',	controller: 'ToolController',		templateUrl: 'page/common/tool-page.html'})
 		.state('page', {		url:'/page/{xp}/{step}',
@@ -170,7 +171,7 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 			});
 		}
 		
-		if (toState.name == 'thankyou') {
+		if (toState.name == 'thankyou' || toState.name == 'cancelled') {
 			$rootScope.clearXP();
 		}
 	});
@@ -235,6 +236,14 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 				$rootScope.network.errors.push(response);
 				console.error('Collect: KO', response.status, response.statusText);
 			});	
+	}
+	
+	/**
+	 * Action - Cancel XP
+	 */
+	$rootScope.cancelXP = function() {
+		$rootScope.actionWrite({ type: 'cancel' });
+		$state.go('cancelled');
 	}
 }]);
 
