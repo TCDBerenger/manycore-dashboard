@@ -1,0 +1,164 @@
+<section class="modal-content">
+	<div class="modal-header">
+		<h1 class="modal-title">{{tabs[tabIndex].t}}</h1>
+	</div>
+	
+	<!-- Experimentation -->
+	<div ng-if="tabIndex == 0" class="modal-body">
+		<p>
+			<i class="fa fa-info-circle fa-3x fa-pull-left text-muted" aria-hidden="true"></i>
+			Thanks for your tests. We're now going to start the experimentation.
+		</p><p>
+			TODO
+		</p>
+	</div>
+	
+	<!-- Sample questions -->
+	<div ng-if="tabIndex == 1" class="modal-body">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="thumbnail">
+					<img style="height: 200px; width: 100%; display: block; background-color: #EEEEEE;" alt="something here">
+					<div class="caption">
+						<h3>Sample A</h3>
+						<p>description A</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="thumbnail">
+					<img style="height: 200px; width: 100%; display: block; background-color: #EEEEEE;" alt="something here">
+					<div class="caption">
+						<h3>Sample B</h3>
+						<p>description B</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<form class="form-horizontal"><fieldset>
+			<div class="form-group">
+				<div class="col-lg-4 col-lg-offset-8">
+					<span style="float: left">doubtful ←</span>
+					<span style="float: right">→ confident</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="faster" class="col-lg-2 control-label">Quickest</label>
+				<div class="col-lg-6">
+					<div class="btn-group btn-group-justified">
+						<label class="btn btn-default btn-sm" ng-model="form.quickest_a" uib-btn-radio="1" uncheckable>A</label>
+						<label class="btn btn-default btn-sm" ng-model="form.quickest_a" uib-btn-radio="2" uncheckable>B</label>
+						<label class="btn btn-default btn-sm" ng-model="form.quickest_a" uib-btn-radio="3" uncheckable>both</label>
+						<label class="btn btn-default btn-sm" ng-model="form.quickest_a" uib-btn-radio="0" uncheckable>unknown</label>
+					</div>
+					<span class="help-block">Which program will finish the execution first?</span>
+				</div>
+				<div class="col-lg-4">
+					<div class="btn-group btn-group-justified">
+						<label class="btn btn-default btn-sm" ng-model="form.quickest_c" uib-btn-radio="1" uncheckable>1</label>
+						<label class="btn btn-default btn-sm" ng-model="form.quickest_c" uib-btn-radio="2" uncheckable>2</label>
+						<label class="btn btn-default btn-sm" ng-model="form.quickest_c" uib-btn-radio="3" uncheckable>3</label>
+						<label class="btn btn-default btn-sm" ng-model="form.quickest_c" uib-btn-radio="4" uncheckable>4</label>
+						<label class="btn btn-default btn-sm" ng-model="form.quickest_c" uib-btn-radio="5" uncheckable>5</label>
+					</div>
+					<span class="help-block">How confident are you in your answer?</span>
+				</div>
+			</div>
+			<!--
+			<div class="form-group">
+				<label for="faster" class="col-lg-2 control-label">Best implementation</label>
+				<div class="col-lg-7">
+					<div class="btn-group btn-group-justified">
+						<label class="btn btn-default btn-sm" ng-model="form.best_a" uib-btn-radio="1" uncheckable>A</label>
+						<label class="btn btn-default btn-sm" ng-model="form.best_a" uib-btn-radio="2" uncheckable>B</label>
+						<label class="btn btn-default btn-sm" ng-model="form.best_a" uib-btn-radio="3" uncheckable>both</label>
+						<label class="btn btn-default btn-sm" ng-model="form.best_a" uib-btn-radio="0" uncheckable>unknown</label>
+					</div>
+					<span class="help-block">Which described program is better?</span>
+				</div>
+				<div class="col-lg-3">
+					<div class="btn-group btn-group-justified">
+						<label class="btn btn-default btn-sm" ng-model="form.best_c" uib-btn-radio="1" uncheckable>1</label>
+						<label class="btn btn-default btn-sm" ng-model="form.best_c" uib-btn-radio="2" uncheckable>2</label>
+						<label class="btn btn-default btn-sm" ng-model="form.best_c" uib-btn-radio="3" uncheckable>3</label>
+						<label class="btn btn-default btn-sm" ng-model="form.best_c" uib-btn-radio="4" uncheckable>4</label>
+						<label class="btn btn-default btn-sm" ng-model="form.best_c" uib-btn-radio="5" uncheckable>5</label>
+					</div>
+					<span class="help-block">How confident are you in your answer?</span>
+				</div>
+			</div>
+			-->
+			<div ng-repeat="tax in taxonomy" class="form-group">
+				<label for="faster" class="col-lg-2 control-label">{{tax.t}}</label>
+				<div class="col-lg-6">
+					<div class="btn-group btn-group-justified">
+						<label class="btn btn-default btn-sm" ng-model="form['best_' + $index + '_a' ]" uib-btn-radio="1" uncheckable>A</label>
+						<label class="btn btn-default btn-sm" ng-model="form['best_' + $index + '_a' ]" uib-btn-radio="2" uncheckable>B</label>
+						<label class="btn btn-default btn-sm" ng-model="form['best_' + $index + '_a' ]" uib-btn-radio="3" uncheckable>both</label>
+						<label class="btn btn-default btn-sm" ng-model="form['best_' + $index + '_a' ]" uib-btn-radio="0" uncheckable>unknown</label>
+					</div>
+					<span class="help-block">Which described program has better {{tax.t}}?</span>
+				</div>
+				<div class="col-lg-4">
+					<div class="btn-group btn-group-justified">
+						<label class="btn btn-default btn-sm" ng-model="form['best_' + $index + '_c' ]" uib-btn-radio="1" uncheckable>1</label>
+						<label class="btn btn-default btn-sm" ng-model="form['best_' + $index + '_c' ]" uib-btn-radio="2" uncheckable>2</label>
+						<label class="btn btn-default btn-sm" ng-model="form['best_' + $index + '_c' ]" uib-btn-radio="3" uncheckable>3</label>
+						<label class="btn btn-default btn-sm" ng-model="form['best_' + $index + '_c' ]" uib-btn-radio="4" uncheckable>4</label>
+						<label class="btn btn-default btn-sm" ng-model="form['best_' + $index + '_c' ]" uib-btn-radio="5" uncheckable>5</label>
+					</div>
+					<span class="help-block">How confident are you in your answer?</span>
+				</div>
+				
+				<div class="col-lg-9 col-lg-offset-2">
+					<div style="display: flex;">
+						<a class="btn btn-link disabled">A:</a>
+						<div>
+							<div class="btn-group btn-group-justified" role="group">
+								<label class="btn btn-default btn-sm" ng-model="form['best_' + $index + '_e_a' ]" uib-btn-radio="5" uncheckable>Very efficient</label>
+								<label class="btn btn-default btn-sm" ng-model="form['best_' + $index + '_e_a' ]" uib-btn-radio="4" uncheckable>Efficient</label>
+								<label class="btn btn-default btn-sm" ng-model="form['best_' + $index + '_e_a' ]" uib-btn-radio="3" uncheckable>Neutral</label>
+								<label class="btn btn-default btn-sm" ng-model="form['best_' + $index + '_e_a' ]" uib-btn-radio="2" uncheckable>Ineficient</label>
+								<label class="btn btn-default btn-sm" ng-model="form['best_' + $index + '_e_a' ]" uib-btn-radio="1" uncheckable>Very ineficient</label>
+								<label class="btn btn-default btn-sm" ng-model="form['best_' + $index + '_e_a' ]" uib-btn-radio="0" uncheckable>Unknown</label>
+							</div>
+							<span class="help-block">How would you describe data locality of Program A?</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-9 col-lg-offset-2">
+					<div style="display: flex;">
+						<a class="btn btn-link disabled">B:</a>
+						<div>
+							<div class="btn-group btn-group-justified" role="group">
+								<label class="btn btn-default btn-sm" ng-model="form['best_' + $index + '_e_b' ]" uib-btn-radio="5" uncheckable>Very efficient</label>
+								<label class="btn btn-default btn-sm" ng-model="form['best_' + $index + '_e_b' ]" uib-btn-radio="4" uncheckable>Efficient</label>
+								<label class="btn btn-default btn-sm" ng-model="form['best_' + $index + '_e_b' ]" uib-btn-radio="3" uncheckable>Neutral</label>
+								<label class="btn btn-default btn-sm" ng-model="form['best_' + $index + '_e_b' ]" uib-btn-radio="2" uncheckable>Ineficient</label>
+								<label class="btn btn-default btn-sm" ng-model="form['best_' + $index + '_e_b' ]" uib-btn-radio="1" uncheckable>Very ineficient</label>
+								<label class="btn btn-default btn-sm" ng-model="form['best_' + $index + '_e_b' ]" uib-btn-radio="0" uncheckable>Unknown</label>
+							</div>
+							<span class="help-block">How would you describe data locality of Program B?</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</fieldset></form>
+		
+	</div>
+	
+	<!-- Before continue -->
+	<div ng-if="tabIndex == 2" class="modal-body">
+		<p>
+			<i class="fa fa-info-circle fa-3x fa-pull-left text-muted" aria-hidden="true"></i>
+			Since our tool take all the page space, the next button will be placed in the top navigation bar.
+			<img class="screenshot" src="assets/xp-1/navbar-next.gif"/>
+		</p>
+	</div>
+	
+	<div class="modal-footer">
+		<button ng-if="couldPreviousTab()" type="button" class="btn btn-link" type="button" ng-click="actionPreviousTab()"><i class="fa fa-hand-o-left" style="padding-right: 8px;"></i>Previous ({{tabs[tabIndex - 1].l}})</button>
+		<button type="button" class="btn btn-primary" type="button" ng-click="actionNextTab()">Next<i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
+	</div>
+</section>

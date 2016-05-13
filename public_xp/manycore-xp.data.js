@@ -23,8 +23,22 @@ xpapp.factory('threads', function() {
 				{ pageID: 'questions',	label: 'Questions' },
 				{ state: 'feedback',	label: 'Feedback' }
 			]
-		},
-		{
+		}, {
+			id: 98, groups: 1,
+			title: 'Experimentation (test)',
+			goal: 'The goal of this survey is to evaluate a prototype tool for parallel performance analysis.',
+			steps: [
+				// init a form:					form:m { ... }
+				// display next in sidebar:		nextInSidebar: true
+				// dashboard path:				path: '/admin'
+				// collect the mouse tracking:	mousetrack: true
+				// Forbid go back to edit:		editable: false
+				{ pageID: 'habits',		label: 'Your tools',			form: {} },
+				{ pageID: 'info',		label: 'Explanations' },
+				{ state: 'toolpage',	label: 'Test Merge & Sort',		path: '/dashboard/9-8', mousetrack: true, nextInSidebar: true },
+				{ pageID: 'start',		label: 'Experimentation',		form: {} },
+			]
+		}, {
 			id: 99, groups: 4,
 			title: 'Test 99',
 			goal: 'The goal of this survey is to evaluate a prototype visualisation for identifying the presence of <b>data-locality</b> issues.',
