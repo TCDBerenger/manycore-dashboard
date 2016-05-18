@@ -17,10 +17,17 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<label for="inputName" class="col-lg-2 control-label">Name</label>
+				<div class="col-lg-10">
+					<input ng-model="form.name" class="form-control" id="inputName" placeholder="Enter your full name" type="text"/>
+					<span class="help-block"><i class="fa fa-info-circle text-primary"></i> <span class="text-primary">only for prize pool:</span> <span class="text-warning">both name and email required</span></span>
+				</div>
+			</div>
+			<div class="form-group">
 				<label for="inputEmail" class="col-lg-2 control-label">Email</label>
 				<div class="col-lg-10">
 					<input ng-model="form.email" class="form-control" id="inputEmail" placeholder="Enter your email" type="email"/>
-					<span class="help-block"><i class="fa fa-info-circle text-primary"></i> <span class="text-primary">only for prize pool</span></span>
+					<span class="help-block"><i class="fa fa-info-circle text-primary"></i> <span class="text-primary">only for prize pool:</span> <span class="text-warning">both name and email required</span></span>
 				</div>
 			</div>
 		</fieldset></form>
