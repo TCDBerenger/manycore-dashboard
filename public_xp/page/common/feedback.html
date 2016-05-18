@@ -45,7 +45,7 @@
 					<div style="display: flex;">
 						<a class="btn btn-link disabled">Why?</a>
 						<div style="flex-grow: 1;">
-							<textarea class="form-control" rows="3" id="textArea"></textarea>
+							<textarea ng-model="form['usability_' + $index + '_w']" class="form-control" rows="3" id="textArea"></textarea>
 							<span class="help-block">what do you think is wrong?</span>
 						</div>
 					</div>
@@ -96,7 +96,7 @@
 					<div style="display: flex;">
 						<a class="btn btn-link disabled">Why?</a>
 						<div style="flex-grow: 1;">
-							<textarea class="form-control" rows="3" id="textArea"></textarea>
+							<textarea ng-model="form['usefulness_' + $index + '_w']" class="form-control" rows="3" id="textArea"></textarea>
 							<span class="help-block">what do you think is wrong?</span>
 						</div>
 					</div>
@@ -127,7 +127,7 @@
 					<div style="display: flex;">
 						<a class="btn btn-link disabled">Why?</a>
 						<div style="flex-grow: 1;">
-							<textarea class="form-control" rows="3" id="textArea"></textarea>
+							<textarea ng-model="form['taxonomy_' + $index + '_w']" class="form-control" rows="3" id="textArea"></textarea>
 							<span class="help-block">what do you think is wrong?</span>
 						</div>
 					</div>
@@ -136,7 +136,7 @@
 					<div style="display: flex;">
 						<a class="btn btn-link disabled">Explains</a>
 						<div style="flex-grow: 1;">
-							<textarea class="form-control" rows="3" id="textArea"></textarea>
+							<textarea ng-model="form['taxonomy_' + $index + '_x']" class="form-control" rows="3" id="textArea"></textarea>
 							<span class="help-block">What did you understand about this category of issues?</span>
 						</div>
 					</div>
@@ -161,7 +161,7 @@
 						<div style="display: flex;">
 							<a class="btn btn-link disabled">Why?</a>
 							<div style="flex-grow: 1;">
-								<textarea class="form-control" rows="3" id="textArea"></textarea>
+								<textarea ng-model="form[['taxonomy_' +  + '_sub' + $index + '_w']" class="form-control" rows="3" id="textArea"></textarea>
 								<span class="help-block">what do you think is wrong?</span>
 							</div>
 						</div>
@@ -170,7 +170,7 @@
 				<div class="col-lg-10 col-lg-offset-2">
 					<label for="ui{{$index}}MP" class="col-lg-3 control-label" style="font-weight: bold;">Missing problems</label>
 					<div class="col-lg-8">
-						<textarea class="form-control" rows="3" id="textArea"></textarea>
+						<textarea ng-model="form['taxonomy_' + $index + '_m']" class="form-control" rows="3" id="textArea"></textarea>
 						<span class="help-block">What did you understand about this category of issues?</span>
 					</div>
 				</div>
@@ -204,7 +204,7 @@
 					<div style="display: flex;">
 						<a class="btn btn-link disabled">Why?</a>
 						<div style="flex-grow: 1;">
-							<textarea class="form-control" rows="3" id="textArea"></textarea>
+							<textarea ng-model="form['chart_' + $index + '_w']" class="form-control" rows="3" id="textArea"></textarea>
 							<span class="help-block">what do you think is wrong?</span>
 						</div>
 					</div>
@@ -223,7 +223,7 @@
 					<div class="row">
 						<label class="col-lg-5 control-label text-muted">Reasons</label>
 						<div class="col-lg-7">
-							<textarea class="form-control" rows="3" id="textArea"></textarea>
+							<textarea ng-model="form['chart_' + $index + '_r']" class="form-control" rows="3" id="textArea"></textarea>
 						</div>
 					</div>
 				</div>
@@ -237,7 +237,7 @@
 			<div ng-repeat="uipart in comments" class="form-group">
 				<label for="ui{{$index}}" class="col-lg-2 control-label" style="font-weight: bold;">{{uipart.l}}</label>
 				<div class="col-lg-10" style="font-size: 1.8em;">
-					<textarea class="form-control" rows="3" id="textArea"></textarea>
+					<textarea ng-model="form['comment_' + $index]" class="form-control" rows="3" id="textArea"></textarea>
 				</div>
 			</div>
 		</fieldset></form>
