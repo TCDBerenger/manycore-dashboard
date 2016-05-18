@@ -712,6 +712,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ id: 2, label: 'events', property: 'enableTicks' },
 				{ id: 3, label: 'core affinity', property: 'enablePeriods' }
 			],
+			plansTooltip: 'change the graph mode',
 			settings: [
 				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 5 }, // depends: ['plan', 0]
 			]

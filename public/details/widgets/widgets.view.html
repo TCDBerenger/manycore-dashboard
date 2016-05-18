@@ -1,6 +1,6 @@
 <uib-tabset>
 	<h4>{{widget.title}}</h4>
-	<div class="btn-group btn-group-sm" ng-if="widget.deck.plans" uib-tooltip="change the vertical scale (values)">
+	<div class="btn-group btn-group-sm" ng-if="widget.deck.plans" uib-tooltip="{{ widget.deck.plansTooltip || 'change the vertical scale (values)' }}">
 		<label ng-repeat="mode in widget.deck.plans" class="btn btn-default" ng-model="widget.settings.plan" uib-btn-radio="$index" uncheckable>{{mode.label}}</label>
 	</div>
 	<uib-tab active="true">
