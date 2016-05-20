@@ -336,3 +336,15 @@ span.link:hover {
 	width: 18px;
 	text-align: center;
 }
+
+
+
+/**
+ * XP
+ */
+body.no-navbar {
+	padding-top: 30px;
+}
+body.no-navbar > nav {
+	display: none;
+}

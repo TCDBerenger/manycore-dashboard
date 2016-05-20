@@ -16,10 +16,10 @@ xpapp.factory('threads', function() {
 				// Forbid go back to edit:		editable: false
 				{ pageID: 'habits',		label: 'Your tools',			form: {} },
 				{ pageID: 'info',		label: 'Explanations' },
-				{ state: 'toolpage',	label: 'Test Merge & Sort',		path: '/dashboard/9-8', mousetrack: true, nextInSidebar: true },
-//				{ state: 'toolall',		label: 'Test Particules',		path: '/dashboard/5-4', mousetrack: true, nextInSidebar: true },
+				{ state: 'tool',		label: 'Test Merge & Sort',		path: '/dashboard/9-8', mousetrack: true, nextInSidebar: true },
+//				{ state: 'tool',		label: 'Test Particules',		path: '/dashboard/5-4', mousetrack: true, nextInSidebar: true },
 				{ pageID: 'start',		label: 'Experimentation',		form: {} },
-				{ state: 'toolall',		label: 'Test Particules',		path: '/dashboard/1012', mousetrack: true, nextInSidebar: true },
+				{ state: 'tool',		label: 'Test Particules',		path: '/dashboard/1012', mousetrack: true, nextInSidebar: true },
 				{ pageID: 'questions',	label: 'Questions' },
 				{ state: 'feedback',	label: 'Feedback' }
 			]
@@ -35,7 +35,7 @@ xpapp.factory('threads', function() {
 				// Forbid go back to edit:		editable: false
 				{ pageID: 'habits',		label: 'Your tools',			form: {} },
 				{ pageID: 'info',		label: 'Explanations' },
-				{ state: 'toolpage',	label: 'Test Merge & Sort',		path: '/dashboard/9-8', mousetrack: true, nextInSidebar: true },
+				{ state: 'tool',		label: 'Test Merge & Sort',		path: '/dashboard/9-8', mousetrack: true, nextInSidebar: true },
 				{ pageID: 'start',		label: 'Experimentation',		form: {} },
 			]
 		}, {

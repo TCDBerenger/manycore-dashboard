@@ -12,8 +12,7 @@ xpapp.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', fun
 		.state('submit', {		url:'/submit',		controller: 'PageController',		templateUrl: 'page/common/submit.html'})
 		.state('thankyou', {	url:'/thankyou',										templateUrl: 'page/common/thankyou.html'})
 		.state('cancelled', {	url:'/cancelled',										templateUrl: 'page/common/cancelled.html'})
-		.state('toolall', {		url:'/toolall',		controller: 'ToolController',		templateUrl: 'page/common/tool-all.html'})
-		.state('toolpage', {	url:'/toolpage',	controller: 'ToolController',		templateUrl: 'page/common/tool-page.html'})
+		.state('tool', {		url:'/tool',		controller: 'ToolController',		templateUrl: 'page/common/tool.html'})
 		.state('page', {		url:'/page/{xp}/{step}',
 			controllerProvider: function($stateParams) {
 				var controllerName = 'XP' + $stateParams.xp + 'Controller';
