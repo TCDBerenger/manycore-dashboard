@@ -28,18 +28,13 @@ app.controller('RawController', ['$scope', '$rootScope', '$http', 'selectedProfi
 	// Set facets - DL
 	var f_ipc =	JSON.parse(JSON.stringify(facets.ipc));
 	f_ipc.label = 'Instructions';
-	var f_il1 =	JSON.parse(JSON.stringify(facets.il1));
-	var f_il2 =	JSON.parse(JSON.stringify(facets.il2));
-	f_il1.label = 'L1 invalidations';
-	f_il2.label = 'L2 invalidations';
 	
 	// Sets
 	$scope.sets = [[
 		{
 			title:		'Thread states',
-			version:	3,
 			lists: [[
-				{ main:	h },
+				{ main:	h,	details: [[ { l: 'ratio per logcial core', a: 'rate_', u: ''} ]]  },
 			], [
 				{ main:	facets.r,	details: [[ { l: 'ratio', a: 'percent_', u: '%'} ]] },
 				{ main:	facets.yb,	details: [[ { l: 'ratio', a: 'percent_', u: '%'} ], [ { f: facets.y }, { f: facets.b } ]] },
@@ -47,7 +42,6 @@ app.controller('RawController', ['$scope', '$rootScope', '$http', 'selectedProfi
 			]]
 		},{
 			title:		'Locks',
-			version:	4,
 			lists: [[
 				{ main:	facets.lf,	details: subEvents },
 				{ main:	facets.lw },
@@ -60,7 +54,6 @@ app.controller('RawController', ['$scope', '$rootScope', '$http', 'selectedProfi
 	], [
 		{
 			title:		'Core states',
-			version:	3,
 			lists: [[
 				{ main:	facets.i,	details: [[ { l: 'ratio', a: 'percent_', u: '%'} ]]  },
 			], [
@@ -70,17 +63,15 @@ app.controller('RawController', ['$scope', '$rootScope', '$http', 'selectedProfi
 			]]
 		}, {
 			title:		'Core cache',
-			version:	3,
 			lists: [[
-				{ main:	f_il1,	details: [[ { l: 'ratio per cycle', a: 'percent_', u: '%'} ]] },
+				{ main:	facets.il1,	details: [[ { l: 'ratio per cycle', a: 'percent_', u: '%'} ]] },
 			], [
-				{ main:	f_il2,	details: [[ { l: 'ratio per cycle', a: 'percent_', u: '%'} ]] },
+				{ main:	facets.il2,	details: [[ { l: 'ratio per cycle', a: 'percent_', u: '%'} ]] },
 			]]
 		}
 	], [
 		{
 			title:		'Data locality',
-			version:	3,
 			lists: [[
 				{ main:	f_ipc,			details: [[ { l: 'ratio IPC/Cache Miss', a: 'percent_', u: '%'} ]] },
 				{ main:	facets.miss,	details: [[ { l: 'ratio IPC/Cache Miss', a: 'percent_', u: '%'} ]] },
@@ -108,10 +99,6 @@ app.controller('RawController', ['$scope', '$rootScope', '$http', 'selectedProfi
 			//
 			profiles.forEach(function(profile) {
 				profile.raw = data[profile.id];
-				$scope.minVersion = Math.min($scope.minVersion, profile.version);
-				$scope.maxVersion = Math.max($scope.maxVersion, profile.version);
-				$scope.canV4 = $scope.canV4 || profile.version >= 4;
-				$scope.canV5 = $scope.canV5 || profile.version >= 5;
 			});
 
 		
@@ -127,11 +114,6 @@ app.controller('RawController', ['$scope', '$rootScope', '$http', 'selectedProfi
 	/************************************************/
 	// Init UI vars
 	$scope.isWaiting = true;
-	$scope.minVersion = 5;
-	$scope.maxVersion = 3;
-	$scope.canV3 = true;
-	$scope.canV4 = false;
-	$scope.canV5 = false;
 	
 	// Export vars
 	$scope.profiles = profiles;
