@@ -58,8 +58,8 @@
 						</tr>
 						<tr>
 							<td>running</td>
-							<td>{{profiles[0].raw.stats.r * 100 / (profiles[0].raw.stats.r + profiles[0].raw.stats.y + profiles[0].raw.stats.s + profiles[0].raw.stats.w) | number: 0}}<span>%</span></td>
-							<td ng-if="profiles.length == 2">{{profiles[1].raw.stats.r * 100 / (profiles[1].raw.stats.r + profiles[1].raw.stats.y + profiles[1].raw.stats.s + profiles[1].raw.stats.w) | number: 0}}<span>%</span></td>
+							<td>{{profiles[0].raw.extra.r * 100 / (profiles[0].raw.extra.r + profiles[0].raw.extra.y + profiles[0].raw.extra.s + profiles[0].raw.extra.w) | number: 0}}<span>%</span></td>
+							<td ng-if="profiles.length == 2">{{profiles[1].raw.extra.r * 100 / (profiles[1].raw.extra.r + profiles[1].raw.extra.y + profiles[1].raw.extra.s + profiles[1].raw.extra.w) | number: 0}}<span>%</span></td>
 						</tr>
 					</tbody>
 				</table>
@@ -171,15 +171,15 @@
 								</div>
 							</td>
 							<td>
-								{{::profiles[0].raw[rowFacet.main.cat][rowFacet.main.attr]}}<span>{{::rowFacet.main.unity}}</span>
+								{{::profiles[0].raw.extra[rowFacet.main.attr]}}<span>{{::rowFacet.main.unity}}</span>
 								<div ng-repeat="subFacets in rowFacet.details">
-									<em ng-repeat="subFacet in subFacets">{{::profiles[0].raw[(subFacet.f) ? subFacet.f.cat : rowFacet.main.cat][(subFacet.f) ? subFacet.f.attr : subFacet.a + rowFacet.main.attr]}}<span>{{::(subFacet.f) ? subFacet.f.unity : subFacet.u}}</span><br ng-if="! $last" /></em>
+									<em ng-repeat="subFacet in subFacets">{{::profiles[0].raw.extra[(subFacet.f) ? subFacet.f.attr : subFacet.a + rowFacet.main.attr]}}<span>{{::(subFacet.f) ? subFacet.f.unity : subFacet.u}}</span><br ng-if="! $last" /></em>
 								</div>
 							</td>
 							<td ng-if="profiles.length > 1">
-								{{::profiles[1].raw[rowFacet.main.cat][rowFacet.main.attr]}}<span>{{::rowFacet.main.unity}}</span>
+								{{::profiles[1].raw.extra[rowFacet.main.attr]}}<span>{{::rowFacet.main.unity}}</span>
 								<div ng-repeat="subFacets in rowFacet.details">
-									<em ng-repeat="subFacet in subFacets">{{::profiles[1].raw[(subFacet.f) ? subFacet.f.cat : rowFacet.main.cat][(subFacet.f) ? subFacet.f.attr : subFacet.a + rowFacet.main.attr]}}<span>{{::(subFacet.f) ? subFacet.f.unity : subFacet.u}}</span><br ng-if="! $last" /></em>
+									<em ng-repeat="subFacet in subFacets">{{::profiles[1].raw.extra[(subFacet.f) ? subFacet.f.attr : subFacet.a + rowFacet.main.attr]}}<span>{{::(subFacet.f) ? subFacet.f.unity : subFacet.u}}</span><br ng-if="! $last" /></em>
 								</div>
 							</td>
 						</tr>
