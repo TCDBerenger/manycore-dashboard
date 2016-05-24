@@ -133,7 +133,6 @@ function addProfiling(output, profile) {
 function addGauges(output, profile) {
 	// Data
 	var data = profile.data;
-	var pv = profile.v;
 	var capabilities = profile.data.info.capability;
 	var unableGauge = { g: 0, l: '<no data>', u: 0 };
 	
