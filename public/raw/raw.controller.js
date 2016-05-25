@@ -19,6 +19,8 @@ app.controller('RawController', ['$scope', '$rootScope', '$http', 'selectedProfi
 			{ l: 'mean (by ms by core)', a: 'rate_', u: 'events'},
 			{ l: 'typical (by ms by core)', a: 'calibration_', u: 'events'}
 		]];
+	var subPercent = [[ { l: 'ratio', a: 'percent_', u: '%'} ]];
+	var subLocality = [[ { l: 'ratio IPC/Cache Miss', a: 'percent_', u: '%'} ]];
 	
 	// Set facets - Threads
 	var h =		JSON.parse(JSON.stringify(facets.h));
@@ -36,7 +38,9 @@ app.controller('RawController', ['$scope', '$rootScope', '$http', 'selectedProfi
 			lists: [[
 				{ main:	h,	details: [[ { l: 'ratio per logcial core', a: 'rate_', u: ''} ]]  },
 			], [
-				{ main:	facets.r,	details: [[ { l: 'ratio', a: 'percent_', u: '%'} ]] },
+				{ main:	facets.r,	details: subPercent },
+				{ main:	facets.p,	details: subPercent },
+			], [
 				{ main:	facets.yb,	details: [[ { l: 'ratio', a: 'percent_', u: '%'} ], [ { f: facets.y }, { f: facets.b } ]] },
 				{ main:	facets.w,	details: [[ { l: 'ratio', a: 'percent_', u: '%'} ], [ { f: facets.lw } ]]  },
 			]]
@@ -55,7 +59,8 @@ app.controller('RawController', ['$scope', '$rootScope', '$http', 'selectedProfi
 		{
 			title:		'Core states',
 			lists: [[
-				{ main:	facets.i,	details: [[ { l: 'ratio', a: 'percent_', u: '%'} ]]  },
+				{ main:	facets.i,	details: subPercent  },
+				{ main:	facets.o,	details: subPercent },
 			], [
 				{ main:	facets.s,	details: subEvents },
 			], [
@@ -64,8 +69,9 @@ app.controller('RawController', ['$scope', '$rootScope', '$http', 'selectedProfi
 		}, {
 			title:		'Core cache',
 			lists: [[
-				{ main:	facets.il1,	details: [[ { l: 'ratio per cycle', a: 'percent_', u: '%'} ]] },
+				{ main:	facets.il,	details: [[ { l: 'ratio per cycle', a: 'percent_', u: '%'} ]] },
 			], [
+				{ main:	facets.il1,	details: [[ { l: 'ratio per cycle', a: 'percent_', u: '%'} ]] },
 				{ main:	facets.il2,	details: [[ { l: 'ratio per cycle', a: 'percent_', u: '%'} ]] },
 			]]
 		}
@@ -73,12 +79,22 @@ app.controller('RawController', ['$scope', '$rootScope', '$http', 'selectedProfi
 		{
 			title:		'Data locality',
 			lists: [[
-				{ main:	f_ipc,			details: [[ { l: 'ratio IPC/Cache Miss', a: 'percent_', u: '%'} ]] },
-				{ main:	facets.miss,	details: [[ { l: 'ratio IPC/Cache Miss', a: 'percent_', u: '%'} ]] },
+				{ main:	f_ipc,			details: subLocality },
+				{ main:	facets.miss,	details: subLocality },
 			], [
-				{ main:	facets.tlb,		details: [[ { l: 'ratio IPC/Cache Miss', a: 'percent_', u: '%'} ]] },
-				{ main:	facets.l1,		details: [[ { l: 'ratio IPC/Cache Miss', a: 'percent_', u: '%'} ]] },
-				{ main:	facets.l2,		details: [[ { l: 'ratio IPC/Cache Miss', a: 'percent_', u: '%'} ]] },
+				{ main:	facets.tlb,		details: subLocality },
+				{ main:	facets.l1,		details: subLocality },
+				{ main:	facets.l2,		details: subLocality },
+				{ main:	facets.l3,		details: subLocality },
+				{ main:	facets.hpf,		details: subLocality },
+			]]
+		}
+	], [
+		{
+			title:		'Memory',
+			lists: [[
+				{ main:	facets.e,		details: subPercent },
+			], [
 				{ main:	facets.l3,		details: [[ { l: 'ratio IPC/Cache Miss', a: 'percent_', u: '%'} ]] },
 				{ main:	facets.hpf,		details: [[ { l: 'ratio IPC/Cache Miss', a: 'percent_', u: '%'} ]] },
 			]]

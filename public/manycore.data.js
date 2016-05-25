@@ -108,6 +108,8 @@ app.factory('facets', ['colours', function(colours) {
 		sys: 	{ label: 'System',				capability: CAPABILITY_STATE,		attr: 'sys',	unity: 'ms', cat: 'times',	colours: colours.sets.Grey,		color: colours.list.lGrey,		fcolor: colours.list.nGrey,		gcolor: colours.list.white },
 		lw:		{ label: 'Lock waiting',		capability: CAPABILITY_LOCK,		attr: 'lw',		unity: 'ms', cat: 'times',	colours: colours.sets.Yellow,	color: colours.list.nYellow,	fcolor: colours.list.dYellow,	gcolor: colours.list.fYellow },
 		lh:		{ label: 'Lock holding',		capability: CAPABILITY_LOCK,		attr: 'lh',		unity: 'ms', cat: 'times',	colours: colours.sets.Turquoise },
+		o:		{ label: 'Single-code execution',capability: CAPABILITY_STATE,		attr: 'o',		unity: 'ms', cat: '',		colours: colours.sets.Orange },
+		p:		{ label: 'Parallel execution',	capability: CAPABILITY_STATE,		attr: 'p',		unity: 'ms', cat: '',		colours: colours.sets.Green },
 		
 		ipc:	{ label: 'Executing',			capability: CAPABILITY_LOCALITY,	attr: 'ipc',	unity: '', cat: 'locality',	colours: colours.sets.Green,	color: colours.list.nGreen,	fcolor: colours.list.dGreen,	gcolor: colours.list.fGreen },
 		miss:	{ label: 'Cache misses',		capability: CAPABILITY_LOCALITY,	attr: 'miss',	unity: '', cat: 'locality',	colours: colours.sets.Red,		color: colours.list.nRed,	fcolor: colours.list.dRed,		gcolor: colours.list.fRed },
