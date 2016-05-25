@@ -36,7 +36,7 @@ app.controller('RawController', ['$scope', '$rootScope', '$http', 'selectedProfi
 		{
 			title:		'Thread states',
 			lists: [[
-				{ main:	h,	details: [[ { l: 'ratio per logcial core', a: 'rate_', u: ''} ]]  },
+				{ main:	h,	details: [[ { l: 'threads by logical core', a: 'rate_', u: ''} ]]  },
 			], [
 				{ main:	facets.r,	details: subPercent },
 				{ main:	facets.p,	details: subPercent },

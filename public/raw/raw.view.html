@@ -53,8 +53,8 @@
 					<tbody>
 						<tr>
 							<td>cycles</td>
-							<td>{{profiles[0].raw.stats.c / 1000000000 | number: 0}}<span>.000.000</span></td>
-							<td ng-if="profiles.length == 2">{{profiles[1].raw.stats.c / 1000000000 | number: 0}}<span>.000.000</span></td>
+							<td>{{profiles[0].raw.stats.c / 1000000 | number: 0}}<span>,000,000</span></td>
+							<td ng-if="profiles.length == 2">{{profiles[1].raw.stats.c / 1000000 | number: 0}}<span>,000,000</span></td>
 						</tr>
 						<tr>
 							<td>running</td>
