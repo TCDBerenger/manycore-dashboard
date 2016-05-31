@@ -645,8 +645,11 @@ function jsonDS(profile, id) {
 	addCommon(output, id);
 	
 	// Add raw data for visualisation
-	addRawData(output, id, ['r', 'i', 'lw', 'e', 'ue', 'il1', 'il2'], ['i', 'r', 'lw', 'sys', 'e', 'ue', 'se', 'il1', 'pil1', 'il2'], null, ['e', 'il1', 'il2'], true);
+	addRawData(output, id, ['r', 'i', 'lf', 'ls', 'lw', 'e', 'ue', 'il1', 'il2'], ['i', 'r', 'lw', 'sys', 'e', 'ue', 'se', 'il1', 'pil1', 'il2'], null, ['e', 'il1', 'il2'], true);
 
+	// Add dependencies for locks
+	addDependencies(output, id);
+	
 	// Add locality
 	addLocality(output, id, false);
 

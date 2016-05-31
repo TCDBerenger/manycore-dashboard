@@ -1,0 +1,86 @@
+<section class="modal-content">
+	<div class="modal-header">
+		<h1 class="modal-title">Experiences with other tools</h1>
+	</div>
+	
+	<div class="modal-body">
+		<form class="form-horizontal"><fieldset>
+			<div class="form-group">
+				<div class="col-lg-6 col-lg-offset-2">
+					<span style="float: left">novice ←</span>
+					<span style="float: right">→ expert</span>
+					<center>Expertise</center>
+				</div>
+				<div class="col-lg-4">
+					<center>Experience</center>
+				</div>
+			</div>
+			<div class="form-group" ng-repeat="tool in existingTools">
+				<label for="inputEmail" class="col-lg-2 control-label" uib-tooltip="{{::tool.t}}">{{::tool.l}}</label>
+				<div class="col-lg-6">
+					<div class="btn-group btn-group-justified">
+						<label class="btn btn-default btn-sm" ng-model="form[tool.id + '-m']" uib-btn-radio="0" uncheckable>0</label>
+						<label class="btn btn-default btn-sm" ng-model="form[tool.id + '-m']" uib-btn-radio="1" uncheckable>1</label>
+						<label class="btn btn-default btn-sm" ng-model="form[tool.id + '-m']" uib-btn-radio="2" uncheckable>2</label>
+						<label class="btn btn-default btn-sm" ng-model="form[tool.id + '-m']" uib-btn-radio="3" uncheckable>3</label>
+						<label class="btn btn-default btn-sm" ng-model="form[tool.id + '-m']" uib-btn-radio="4" uncheckable>4</label>
+						<label class="btn btn-default btn-sm" ng-model="form[tool.id + '-m']" uib-btn-radio="5" uncheckable>5</label>
+						<label class="btn btn-default btn-sm" ng-model="form[tool.id + '-m']" uib-btn-radio="6" uncheckable>6</label>
+						<label class="btn btn-default btn-sm" ng-model="form[tool.id + '-m']" uib-btn-radio="7" uncheckable>7</label>
+						<label class="btn btn-default btn-sm" ng-model="form[tool.id + '-m']" uib-btn-radio="8" uncheckable>8</label>
+						<label class="btn btn-default btn-sm" ng-model="form[tool.id + '-m']" uib-btn-radio="9" uncheckable>9</label>
+						<label class="btn btn-default btn-sm" ng-model="form[tool.id + '-m']" uib-btn-radio="10" uncheckable>10</label>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="btn-group btn-group-justified">
+						<label ng-disabled="form[tool.id + '-m'] == 0" class="btn btn-default btn-sm" ng-model="form[tool.id + '-e']" uib-btn-radio="1" uncheckable>0-5 years</label>
+						<label ng-disabled="form[tool.id + '-m'] == 0" class="btn btn-default btn-sm" ng-model="form[tool.id + '-e']" uib-btn-radio="2" uncheckable>6-10 years</label>
+						<label ng-disabled="form[tool.id + '-m'] == 0" class="btn btn-default btn-sm" ng-model="form[tool.id + '-e']" uib-btn-radio="3" uncheckable>10+ years</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group" ng-repeat="tool in form.addedTools">
+				<div class="col-lg-2">
+					<div class="input-group">
+						<input ng-model="tool.l" class="form-control" placeholder="Tool name" type="text"/>
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="button" ng-click="removeExistingTool()" style="padding-left: 4px; padding-right: 4px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+						</span>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="btn-group btn-group-justified">
+						<label ng-disabled="true" class="btn btn-default btn-sm" ng-model="tool.m" uib-btn-radio="0">0</label>
+						<label class="btn btn-default btn-sm" ng-model="tool.m" uib-btn-radio="1" uncheckable>1</label>
+						<label class="btn btn-default btn-sm" ng-model="tool.m" uib-btn-radio="2" uncheckable>2</label>
+						<label class="btn btn-default btn-sm" ng-model="tool.m" uib-btn-radio="3" uncheckable>3</label>
+						<label class="btn btn-default btn-sm" ng-model="tool.m" uib-btn-radio="4" uncheckable>4</label>
+						<label class="btn btn-default btn-sm" ng-model="tool.m" uib-btn-radio="5" uncheckable>5</label>
+						<label class="btn btn-default btn-sm" ng-model="tool.m" uib-btn-radio="6" uncheckable>6</label>
+						<label class="btn btn-default btn-sm" ng-model="tool.m" uib-btn-radio="7" uncheckable>7</label>
+						<label class="btn btn-default btn-sm" ng-model="tool.m" uib-btn-radio="8" uncheckable>8</label>
+						<label class="btn btn-default btn-sm" ng-model="tool.m" uib-btn-radio="9" uncheckable>9</label>
+						<label class="btn btn-default btn-sm" ng-model="tool.m" uib-btn-radio="10" uncheckable>10</label>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="btn-group btn-group-justified">
+						<label ng-disabled="tool.m == 0" class="btn btn-default btn-sm" ng-model="tool.e" uib-btn-radio="1">0-5 years</label>
+						<label ng-disabled="tool.m == 0" class="btn btn-default btn-sm" ng-model="tool.e" uib-btn-radio="2">6-10 years</label>
+						<label ng-disabled="tool.m == 0" class="btn btn-default btn-sm" ng-model="tool.e" uib-btn-radio="3">10+ years</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-10 col-lg-offset-2">
+					<button type="button" class="btn btn-sm btn-success" type="button" ng-click="addExistingTool()"><i class="fa fa-plus" style="padding-right: 8px;"></i>Add another tool</button>
+				</div>
+			</div>
+		</fieldset></form>
+	</div>
+	
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" type="button" ng-click="actionNext()">Next <i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
+	</div>
+</section>

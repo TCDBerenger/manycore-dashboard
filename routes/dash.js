@@ -133,7 +133,6 @@ function addProfiling(output, profile) {
 function addGauges(output, profile) {
 	// Data
 	var data = profile.data;
-	var pv = profile.v;
 	var capabilities = profile.data.info.capability;
 	var unableGauge = { g: 0, l: '<no data>', u: 0 };
 	
@@ -176,7 +175,7 @@ function addGauges(output, profile) {
 	// Add ratio
 	var gaugeValue, calibratedMax;
 	[	{ l: 's',	v: data.stats.switches,		m: profile.hardware.calibration.s,	c: CAPABILITY_SWITCH },
-		{ l: 'm',	v: data.stats.switches,		m: profile.hardware.calibration.m,	c: CAPABILITY_SWITCH },
+		{ l: 'm',	v: data.stats.migrations,	m: profile.hardware.calibration.m,	c: CAPABILITY_SWITCH },
 		{ l: 'ls',	v: data.stats.lock_success,	m: profile.hardware.calibration.ls,	c: CAPABILITY_LOCK },
 		{ l: 'lf',	v: data.stats.lock_failure,	m: profile.hardware.calibration.lf,	c: CAPABILITY_LOCK },
 	].forEach(function(item) {

@@ -108,6 +108,8 @@ app.factory('facets', ['colours', function(colours) {
 		sys: 	{ label: 'System',				capability: CAPABILITY_STATE,		attr: 'sys',	unity: 'ms', cat: 'times',	colours: colours.sets.Grey,		color: colours.list.lGrey,		fcolor: colours.list.nGrey,		gcolor: colours.list.white },
 		lw:		{ label: 'Lock waiting',		capability: CAPABILITY_LOCK,		attr: 'lw',		unity: 'ms', cat: 'times',	colours: colours.sets.Yellow,	color: colours.list.nYellow,	fcolor: colours.list.dYellow,	gcolor: colours.list.fYellow },
 		lh:		{ label: 'Lock holding',		capability: CAPABILITY_LOCK,		attr: 'lh',		unity: 'ms', cat: 'times',	colours: colours.sets.Turquoise },
+		o:		{ label: 'Single-code execution',capability: CAPABILITY_STATE,		attr: 'o',		unity: 'ms', cat: '',		colours: colours.sets.Orange },
+		p:		{ label: 'Parallel execution',	capability: CAPABILITY_STATE,		attr: 'p',		unity: 'ms', cat: '',		colours: colours.sets.Green },
 		
 		ipc:	{ label: 'Executing',			capability: CAPABILITY_LOCALITY,	attr: 'ipc',	unity: '', cat: 'locality',	colours: colours.sets.Green,	color: colours.list.nGreen,	fcolor: colours.list.dGreen,	gcolor: colours.list.fGreen },
 		miss:	{ label: 'Cache misses',		capability: CAPABILITY_LOCALITY,	attr: 'miss',	unity: '', cat: 'locality',	colours: colours.sets.Red,		color: colours.list.nRed,	fcolor: colours.list.dRed,		gcolor: colours.list.fRed },
@@ -306,14 +308,14 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			graph: {
 				v:				[facets.pil1, facets.il1, facets.il2],
 				limit:			limit,
-				value_divider:	2,
-				axis_label: 	function(v, index, r) { return (v == 100) ? '100%' : (v == 50) ? '0%' : '50%'; }
+//				value_divider:	1,
+				axis_label: 	function(v, index, r) { return ((v > 100) ? v - 100 : 100 - v) + '%'; }
 			},
 			data: [facets.il1, facets.il2],
 			focus: [facets.il1, facets.il2],
 			legend: {
 				axis: [
-					{ b: '%', t: 'Percent',	d: 'maximum possible cache line invalidations', c: colours.list.fGrey}
+					{ b: '%', t: 'Percent',	d: 'maximum possible cache line invalidations per cache (L1 or L2)', c: colours.list.fGrey}
 				],
 				data: [
 					{ b: '▮', 	d: '',	f: facets.il1 },
@@ -461,14 +463,14 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			graph : {
 				v:			[facets.ls, facets.lf],
 				limit:		limit,
-				limitLabel:	't. value',
+				limitLabel:	'μ',
 			},
 			data: [facets.ls, facets.lf],
 			focus: [facets.ls, facets.lf],
 			legend: {
 				axis: [
-					{ b: '-', t: 't. value',	d: 'typical value of expected lock acquisitions',	f: limit, sv: 'calibration', sd: 'lock acquisitions by ms' },
-					{ b: 'n×', t: 'excess',		d: 'more lock acquisitions than expected (multiple of the typical value)',			f: limit },
+					{ b: 'μ', t: 'Typical value',	d: 'the expected value of lock acquisitions',	f: limit, sv: 'calibration', sd: 'lock acquisitions by ms' },
+					{ b: '2×', t: 'Excess',		d: 'more lock acquisitions than expected (multiple of the typical value)',			f: limit },
 				],
 				data: [
 					{ b: '▮', t: 'Lock with contention',	d: 'number of failed lock acquisitions',	f: facets.lf },
@@ -552,22 +554,22 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			graph : {
 				v:		[facets.m],
 				limit:		limit,
-				limitLabel:	't. value',
+				limitLabel:	'μ',
 			},
 			data: [facets.m],
 			focus: [facets.m],
 			legend: {
 				axis: [
-					{ b: '-', t: 't. value',	d: 'typical value of expected thread migrations',	f: limit, sv: 'calibration', sd: 'thread migrations by ms' },
-					{ b: 'n×', t: 'excess',		d: 'more thread migrations than expected (multiple of the typical value)',			f: limit },
+					{ b: 'μ', t: 'Typical value',	d: 'the expected value of thread migrations',	f: limit, sv: 'calibration', sd: 'thread migrations by ms' },
+					{ b: '×', t: 'Excess',			d: 'more thread migrations than expected (multiple of the typical value)',			f: limit },
 				],
 				data: [
 					{ b: '▮', d:'thread migrates to another core', f: facets.m }
 				]
 			},
 			clues: [
-				{ c: colours.base,	t: 'Thread migrations',							d: 'too many migrations' },
-				{ c: colours.base,	t: 'Alternating sequential/parallel execution',	d: 'alternating period of high and low thread migrations' }
+				{ f: facets.m,	t: 'Thread migrations',							d: 'too many migrations' },
+				{ f: facets.m,	t: 'Alternating sequential/parallel execution',	d: 'alternating period of high and low thread migrations' }
 			],
 			plans: [
 				{ id: 1, label: 'log₂', property: 'useLogScale' },
@@ -587,21 +589,21 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			graph : {
 				v:			[facets.s],
 				limit:		limit,
-				limitLabel:	't. value',
+				limitLabel:	'μ',
 			},
 			data: [facets.s],
 			focus: [facets.s],
 			legend: {
 				axis: [
-					{ b: '-', t: 't. value',	d: 'typical value of expected context switches',	f: limit, sv: 'calibration', sd: 'context switches by ms' },
-					{ b: 'n×', t: 'excess',		d: 'more context switches than expected (multiple of the typical value)',		f: limit },
+					{ b: 'μ', t: 'Typical value',	d: 'the expected value of context switches',	f: limit, sv: 'calibration', sd: 'context switches by ms' },
+					{ b: '2×', t: 'Excess',		d: 'more context switches than expected (multiple of the typical value)',		f: limit },
 				],
 				data: [
 					{ b: '▮', d: 'cores switching from one thread to another', f: facets.s }
 				]
 			},
 			clues: [
-				{ c: colours.base,	t: 'Oversubscription',	d: 'high frequency' }
+				{ f: facets.s,	t: 'Oversubscription',	d: 'high frequency' }
 			],
 			plans: [
 				{ id: 1, label: 'log₂', property: 'useLogScale' },
@@ -612,6 +614,40 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 5 },
 				{ property: 'highlightOverflow', value: false, type: 'flag', label: 'High zone', desc: 'shows the high area, over the typical value' }
 			]
+		},
+		threadAllStates: {
+			handling: {
+				time: TIME_PROFILE,
+			},
+			graph : {
+				v:		[facets.sys, facets.i, facets.r, facets.yb, facets.lw],
+				limit:	facets.i,
+				axis:	{ labels: 'cores' }
+			},
+			data: [facets.lw, facets.b, facets.y, facets.r, facets.i],
+			focus: [facets.sys, facets.i, facets.r, facets.yb, facets.lw],
+			legend: {
+				axis: [
+					{ b: '◓',	f: facets.lw,	t: 'Over capacity',				d: 'time spent by threads while waiting for a lock' },
+					{ b: '◓',	f: facets.yb,	t: 'Over capacity',				d: 'time spent by threads while waiting a core' },
+					{ b: '▪▪',	f: facets.i,	t: 'Limit of core capacity',	d: 'capacity of CPU computation' },
+					{ b: '◒',	f: facets.r,	t: 'Core capacity',				d: 'time spent in thread execution, idle, or used by the OS' }
+				],
+				data: [
+					{ b: '▮', f: facets.lw,		d: 'threads are not ready to be processed because they waiting to acquire a lock' },
+					{ b: '▮', f: facets.yb,		t: 'ready + standby',	d: 'thread is ready to run but is is waiting for a core to become available'},
+					{ b: '▮', f: facets.r,		d: 'thread is actively executing', },
+					{ b: '▮', f: facets.i,		d: 'no thread running on core' },
+					{ b: '▮', f: facets.sys,	d: 'Core occupied by other program',	 c: colours.list.fGrey }
+				]
+			},
+			clues: [
+				{ f: facets.y,	t: 'Oversubscription', 			d: 'too many threads' },
+				{ f: facets.y,	t: 'Thread migrations', 		d: 'too many threads' },
+				{ f: facets.y,	t: 'Bad thread to core ratio', 	d: 'too many threads' },
+				{ f: facets.i,	t: 'Underscubscription', 		d: 'not enough threads' }
+			],
+			settings: []
 		},
 		threadStates: {
 			handling: {
@@ -638,10 +674,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				]
 			},
 			clues: [
-				{ c: colours.bad,	t: 'Oversubscription', 			d: 'too many threads' },
-				{ c: colours.bad,	t: 'Thread migrations', 		d: 'too many threads' },
-				{ c: colours.bad,	t: 'Bad thread to core ratio', 	d: 'too many threads' },
-				{ c: colours.plus,	t: 'Underscubscription', 		d: 'not enough threads' }
+				{ f: facets.y,	t: 'Oversubscription', 			d: 'too many threads' },
+				{ f: facets.y,	t: 'Thread migrations', 		d: 'too many threads' },
+				{ f: facets.y,	t: 'Bad thread to core ratio', 	d: 'too many threads' },
+				{ f: facets.i,	t: 'Underscubscription', 		d: 'not enough threads' }
 			],
 			settings: []
 		},
@@ -667,17 +703,18 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				]
 			},
 			clues: [
-				{ c: colours.unkn,	t: 'Task start/stop overhead',	d: 'too many creations' },
-				{ c: colours.alt,	t: 'Oversubscription',			d: 'too many threads' },
-				{ c: colours.base,	t: 'Thread migrations',			d: 'too many threads' },
-				{ c: colours.alt,	t: 'Thread migrations',			d: 'too many migrations' },
-				{ c: colours.unkn,	t: 'Task start/stop overhead',	d: 'too short lifetime' }
+				{ f: facets.m,	t: 'Task start/stop overhead',	d: 'too many creations' },
+				{ f: limit,		t: 'Oversubscription',			d: 'too many threads' },
+				{ f: limit,		t: 'Thread migrations',			d: 'too many threads' },
+				{ f: facets.m,	t: 'Thread migrations',			d: 'too many migrations' },
+				{ f: facets.m,	t: 'Task start/stop overhead',	d: 'too short lifetime' }
 			],
 			plans: [
 				{ id: 1, label: 'rate', property: 'groupTicks' },
 				{ id: 2, label: 'events', property: 'enableTicks' },
 				{ id: 3, label: 'core affinity', property: 'enablePeriods' }
 			],
+			plansTooltip: 'change the graph mode',
 			settings: [
 				{ property: 'timeGroup', value: 50, type: 'range', label: 'Group by', unit: 'ms', min: 10, max: 50, step: 5 }, // depends: ['plan', 0]
 			]
@@ -755,22 +792,23 @@ app.factory('widgets', ['decks', function(decks) {
 	//	- stats:		data and UI computed for focus or not
 	
 	return {
-		cacheBreackdown:	{ id: id(),	c: CAPABILITY_LOCALITY,	 file: 'chart-d3-pcoords',	deck: decks.cacheBreackdown,	wide: true,		title: 'Breakdown of cost by cause of locality misses',				desc: ''},
-		cacheInvalidations:	{ id: id(),	c: CAPABILITY_COHERENCY, file: 'chart-percent',		deck: decks.cacheInvalidations,	wide: false,	title: 'Proportion of cache line invalidations',	                desc: 'A cache line invalidation can occur when multiple cores modify a shared memory location'},
-		cacheMisses:		{ id: id(),	c: CAPABILITY_LOCALITY,	 file: 'chart-percent',		deck: decks.cacheMisses,		wide: false,	title: 'Proportion of locality misses',				                desc: 'Data cache misses as a proportion of instructions executed'},
-		coreBandwidth:		{ id: id(),	c: CAPABILITY_MEMORY,	 file: 'chart-lines',		deck: decks.coreBandwidth,		wide: false,	title: 'Remote memory access by core',								desc: 'Memory bandwidth'},
-		coreIdle:			{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-lines',		deck: decks.coreIdle,			wide: false,	title: 'Idle cores',												desc: 'Times that cores are idle'},
-		coreInvalidations:	{ id: id(),	c: CAPABILITY_COHERENCY, file: 'chart-d3-caches',	deck: decks.coreInvalidations,	wide: true,		title: 'Breakdown of cache line invalidations by core',             desc: ''},
-		coreSequences:		{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-lines',		deck: decks.sequences,			wide: false,	title: 'Execution phases',                 							desc: 'phase of execution (sequential or parallel)'},
-		lockCounts:			{ id: id(),	c: CAPABILITY_LOCK,		 file: 'chart-units',		deck: decks.lockCounts,			wide: false,	title: 'Lock contentions',											desc: 'Locking with and without contention'},
-		lockContentions:	{ id: id(),	c: CAPABILITY_LOCK,		 file: 'chart-percent',		deck: decks.lockContentions,	wide: false,	title: 'Time waiting for a lock',									desc: ''},
-		memBandwidth:		{ id: id(),	c: CAPABILITY_MEMORY,	 file: 'chart-percent',		deck: decks.memBandwidth,		wide: false,	title: 'Remote memory access',										desc: 'Memory bandwidth'},
-		threadChains:		{ id: id(),	c: CAPABILITY_LOCK,		 file: 'chart-lines',		deck: decks.threadChains,		wide: false,	title: 'Chains of dependencies on locks',							desc: 'synchronisations and waiting between threads'},
-		threadFruitSalad:	{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-threads',		deck: decks.threadFruitSalad,	wide: false,	title: 'Migrations by thread',										desc: 'creation, running, moving between cores, termination'},
-		threadLocks:		{ id: id(),	c: CAPABILITY_LOCK,		 file: 'chart-threads',		deck: decks.threadLocks,		wide: false,	title: 'Time each thread spends waiting for locks',					desc: ''},
-		threadMigrations:	{ id: id(),	c: CAPABILITY_SWITCH,	 file: 'chart-units',		deck: decks.threadMigrations,	wide: false,	title: 'Rate of thread migrations',									desc: 'thread switching the core on which it is executing'},
-		threadStates:		{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-percent',		deck: decks.threadStates,		wide: false,	title: 'Breakdown of thread states compared to number of cores',	desc: 'number of threads compared to number of cores'},
-		threadSwitches:		{ id: id(),	c: CAPABILITY_SWITCH,	 file: 'chart-units',		deck: decks.threadSwitches,		wide: false,	title: 'Core switching the thread it is executing',					desc: 'thread switches'},
+/* 00 */	cacheBreackdown:	{ id: id(),	c: CAPABILITY_LOCALITY,	 file: 'chart-d3-pcoords',	deck: decks.cacheBreackdown,	wide: true,		title: 'Breakdown of cost by cause of locality misses',				desc: ''},
+/* 01 */	cacheInvalidations:	{ id: id(),	c: CAPABILITY_COHERENCY, file: 'chart-percent',		deck: decks.cacheInvalidations,	wide: false,	title: 'Proportion of cache line invalidations',	                desc: 'A cache line invalidation can occur when multiple cores modify a shared memory location'},
+/* 02 */	cacheMisses:		{ id: id(),	c: CAPABILITY_LOCALITY,	 file: 'chart-percent',		deck: decks.cacheMisses,		wide: false,	title: 'Proportion of locality misses',				                desc: 'Data cache misses as a proportion of instructions executed'},
+/* 03 */	coreBandwidth:		{ id: id(),	c: CAPABILITY_MEMORY,	 file: 'chart-lines',		deck: decks.coreBandwidth,		wide: false,	title: 'Remote memory access by core',								desc: 'Memory bandwidth'},
+/* 04 */	coreIdle:			{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-lines',		deck: decks.coreIdle,			wide: false,	title: 'Idle cores',												desc: 'Times that cores are idle'},
+/* 05 */	coreInvalidations:	{ id: id(),	c: CAPABILITY_COHERENCY, file: 'chart-d3-caches',	deck: decks.coreInvalidations,	wide: true,		title: 'Breakdown of cache line invalidations by core',             desc: ''},
+/* 06 */	coreSequences:		{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-lines',		deck: decks.sequences,			wide: false,	title: 'Execution phases',                 							desc: 'phase of execution (sequential or parallel)'},
+/* 07 */	lockCounts:			{ id: id(),	c: CAPABILITY_LOCK,		 file: 'chart-units',		deck: decks.lockCounts,			wide: false,	title: 'Lock contentions',											desc: 'Locking with and without contention'},
+/* 08 */	lockContentions:	{ id: id(),	c: CAPABILITY_LOCK,		 file: 'chart-percent',		deck: decks.lockContentions,	wide: false,	title: 'Time waiting for a lock',									desc: ''},
+/* 09 */	memBandwidth:		{ id: id(),	c: CAPABILITY_MEMORY,	 file: 'chart-percent',		deck: decks.memBandwidth,		wide: false,	title: 'Remote memory access',										desc: 'Memory bandwidth'},
+/* 10 */	threadChains:		{ id: id(),	c: CAPABILITY_LOCK,		 file: 'chart-lines',		deck: decks.threadChains,		wide: false,	title: 'Chains of dependencies on locks',							desc: 'synchronisations and waiting between threads'},
+/* 11 */	threadFruitSalad:	{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-threads',		deck: decks.threadFruitSalad,	wide: false,	title: 'Migrations by thread',										desc: 'creation, running, moving between cores, termination'},
+/* 12 */	threadLocks:		{ id: id(),	c: CAPABILITY_LOCK,		 file: 'chart-threads',		deck: decks.threadLocks,		wide: false,	title: 'Time each thread spends waiting for locks',					desc: ''},
+/* 13 */	threadMigrations:	{ id: id(),	c: CAPABILITY_SWITCH,	 file: 'chart-units',		deck: decks.threadMigrations,	wide: false,	title: 'Rate of thread migrations',									desc: 'thread switching the core on which it is executing'},
+/* 14 */	threadStates:		{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-percent',		deck: decks.threadStates,		wide: false,	title: 'Breakdown of thread states compared to number of cores',	desc: 'number of threads compared to number of cores'},
+/* 15 */	threadAllStates:	{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-percent',		deck: decks.threadAllStates,	wide: false,	title: 'Breakdown of thread states compared to number of cores',	desc: 'number of threads compared to number of cores'},
+/* 16 */	threadSwitches:		{ id: id(),	c: CAPABILITY_SWITCH,	 file: 'chart-units',		deck: decks.threadSwitches,		wide: false,	title: 'Core switching the thread it is executing',					desc: 'thread switches'},
 	};
 }]);
 
@@ -866,7 +904,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 		],
 		strips: [strips.il],
 		gauges: [[gauge_lw], [gauge_il, gauge_miss]],
-		widgets: [widgets.lockContentions, widgets.cacheMisses, widgets.cacheInvalidations, widgets.coreInvalidations, widgets.memBandwidth, widgets.coreBandwidth]
+		widgets: [widgets.lockContentions, widgets.threadChains, widgets.memBandwidth, widgets.coreBandwidth, widgets.cacheMisses, widgets.cacheInvalidations, widgets.coreInvalidations]
 	};
 	var lb = {
 		tag: 'lb', cat: 'lb', label: 'Load balancing', title: 'Load balancing', icon: 'list-ol', enabled: true,
@@ -878,7 +916,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 		],
 		strips: [strips.q],
 		gauges: [[gauge_uc, gauge_lw], [gauge_m]],
-		widgets: [widgets.coreIdle, widgets.lockContentions, widgets.threadMigrations, widgets.threadStates, widgets.coreSequences, widgets.threadChains]
+		widgets: [widgets.coreIdle, widgets.threadAllStates, widgets.threadMigrations, widgets.coreSequences, widgets.threadChains]
 	};
 	var dl = {
 		tag: 'dl', cat: 'dl', label: 'Data locality', title: 'Data locality', icon: 'compass', enabled: true,

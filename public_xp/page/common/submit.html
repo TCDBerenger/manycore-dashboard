@@ -1,0 +1,57 @@
+<section class="modal-content">
+	<div class="modal-header">
+		<h1 class="modal-title">Submit</h1>
+	</div>
+	
+	<div class="modal-body">
+		<form class="form-horizontal"><fieldset>
+			<div class="form-group">
+				<div class="col-lg-10 col-lg-offset-2">
+					You are going to sumbit your answers.
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-10 col-lg-offset-2">
+					If you wish to receive the participant incentive of £10, please leave your email address.
+					Your email address will only be used in order to deliver this incentive, and for no other purpose.
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputName" class="col-lg-2 control-label">Name</label>
+				<div class="col-lg-10">
+					<input ng-model="form.name" class="form-control" id="inputName" placeholder="Enter your full name" type="text"/>
+					<span class="help-block"><i class="fa fa-info-circle text-primary"></i> <span class="text-primary">only for prize pool:</span> <span class="text-warning">both name and email required</span></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputEmail" class="col-lg-2 control-label">Email</label>
+				<div class="col-lg-10">
+					<input ng-model="form.email" class="form-control" id="inputEmail" placeholder="Enter your email" type="email"/>
+					<span class="help-block"><i class="fa fa-info-circle text-primary"></i> <span class="text-primary">only for prize pool:</span> <span class="text-warning">both name and email required</span></span>
+				</div>
+			</div>
+		</fieldset></form>
+	</div>
+	
+	<div class="modal-footer">
+		<button type="button" class="btn btn-link pull-left" type="button" ng-click="openModal('common-submit-cancelXP.html', cancelXP)"><i class="fa fa-trash" style="padding-right: 8px;"></i>Cancel the experimentation</button>
+		<button type="button" class="btn btn-primary" type="button" ng-click="actionNext()">Submit your answers <i class="fa fa-check" style="padding-left: 8px;"></i></button>
+	</div>
+</section>
+
+<script type="text/ng-template" id="common-submit-cancelXP.html">
+	<div class="modal-header">
+		<h3 class="modal-title">Confirmation</h3>
+	</div>
+	<div class="modal-body">
+		<p>
+			Are you sure you want to cancel the experimentation?
+		</p><p>
+			All yours answer will be lost.
+		</p>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-click="cancel()">Return to the experimentation</button>
+		<button class="btn btn-danger" type="button" ng-click="ok()">Delete answers and exit</button>
+	</div>
+</script>

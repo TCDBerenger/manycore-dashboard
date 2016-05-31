@@ -6,13 +6,6 @@
 	<div class="modal-body">
 		<form class="form-horizontal"><fieldset>
 			<div class="form-group">
-				<label for="inputEmail" class="col-lg-2 control-label">Email</label>
-				<div class="col-lg-10">
-					<input ng-model="form.email" class="form-control" id="inputEmail" placeholder="Enter your email" type="email"/>
-					<span class="help-block"><i class="fa fa-info-circle text-primary"></i> <span class="text-primary">only for prize pool</span></span>
-				</div>
-			</div>
-			<div class="form-group">
 				<label class="col-lg-2 control-label">Age demographic</label>
 				<div class="col-lg-10">
 					<div class="btn-group">
@@ -49,32 +42,45 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-lg-2 control-label">Expertise</label>
+				<label class="col-lg-2 control-label">Position</label>
 				<div class="col-lg-10">
 					<div class="btn-group">
-						<label class="btn btn-default btn-sm" ng-model="form.expertise" uib-btn-radio="1" uncheckable>Novice</label>
-						<label class="btn btn-default btn-sm" ng-model="form.expertise" uib-btn-radio="2" uncheckable>Average</label>
-						<label class="btn btn-default btn-sm" ng-model="form.expertise" uib-btn-radio="3" uncheckable>Above Average</label>
-						<label class="btn btn-default btn-sm" ng-model="form.expertise" uib-btn-radio="4" uncheckable>Expert</label>
+						<label class="btn btn-default btn-sm" ng-model="form.position" uib-btn-radio="1" uncheckable>Student</label>
+						<label class="btn btn-default btn-sm" ng-model="form.position" uib-btn-radio="2" uncheckable>Industry programmer</label>
+						<label class="btn btn-default btn-sm" ng-model="form.position" uib-btn-radio="3" uncheckable>Research programmer</label>
+						<label class="btn btn-default btn-sm" ng-model="form.position" uib-btn-radio="4" uncheckable>Educator</label>
 					</div>
-					<span class="help-block">Self-assessed expertise in parallel programming</span>
+					<span class="help-block">Main or more appropiate job activity</span>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-lg-2 control-label">Experience</label>
+				<label class="col-lg-2 control-label">Expertise <span class="text-danger">✲</span></label>
 				<div class="col-lg-10">
 					<div class="btn-group">
-						<label class="btn btn-default btn-sm" ng-model="form.experience" uib-btn-radio="1" uncheckable>0-5 years</label>
-						<label class="btn btn-default btn-sm" ng-model="form.experience" uib-btn-radio="2" uncheckable>6-10 years</label>
-						<label class="btn btn-default btn-sm" ng-model="form.experience" uib-btn-radio="3" uncheckable>10+ years</label>
+						<label class="btn btn-default btn-sm" ng-model="form.expertise" uib-btn-radio="1">Novice</label>
+						<label class="btn btn-default btn-sm" ng-model="form.expertise" uib-btn-radio="2">Average</label>
+						<label class="btn btn-default btn-sm" ng-model="form.expertise" uib-btn-radio="3">Above Average</label>
+						<label class="btn btn-default btn-sm" ng-model="form.expertise" uib-btn-radio="4">Expert</label>
 					</div>
-					<span class="help-block">How many years of professional experience</span>
+					<span class="help-block"><span class="text-danger">Required.</span> Self-assessed expertise <strong>in parallel programming</strong></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">Experience <span class="text-danger">✲</span></label>
+				<div class="col-lg-10">
+					<div class="btn-group">
+						<label class="btn btn-default btn-sm" ng-model="form.experience" uib-btn-radio="1">0-5 years</label>
+						<label class="btn btn-default btn-sm" ng-model="form.experience" uib-btn-radio="2">6-10 years</label>
+						<label class="btn btn-default btn-sm" ng-model="form.experience" uib-btn-radio="3">10+ years</label>
+					</div>
+					<span class="help-block"><span class="text-danger">Required.</span> How many years of professional experience</span>
 				</div>
 			</div>
 		</fieldset></form>
 	</div>
 	
 	<div class="modal-footer">
-		<button type="button" class="btn btn-primary" type="button" ng-click="actionNext()">Next <i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
+		<span ng-show="! allRequiredFileds()" class="text-danger">Please fill the required fields to continue.</span>
+		<button ng-show="allRequiredFileds()" type="button" class="btn btn-primary" type="button" ng-click="actionNext()">Next <i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
 	</div>
 </section>

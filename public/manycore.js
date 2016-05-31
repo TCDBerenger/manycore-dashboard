@@ -72,7 +72,8 @@ app.value('xp', {
 	isRunning:		false,
 	isCapturing:	false,
 	options: {
-		feedback:	false
+		feedback:	false,
+		nonavbar:	false,
 	},
 	width:			null,
 	heatmap:		[],
@@ -176,6 +177,9 @@ app.run(['$rootScope', '$state', '$location', '$window', '$document', '$timeout'
 		// Vars
 		xp.isRunning = true;
 		options.forEach(function(option) { if (option in xp.options) xp.options[option] = true; });
+		
+		// Simplify HTML (including hide navbar)
+		if (xp.options.nonavbar) document.body.className += " no-navbar";
 		
 		// Expose XP
 		$window.xp = xp;

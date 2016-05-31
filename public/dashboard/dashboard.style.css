@@ -26,6 +26,9 @@
 	outline: 0px none;
 	overflow: auto;
 }
+body.no-navbar .dashboard .wizard {
+	padding-top: 30px;
+}
 .dashboard .wizard.hidden {
 	right: 35%;
 	transition: 1s;

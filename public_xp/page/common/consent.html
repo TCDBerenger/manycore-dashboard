@@ -1,62 +1,98 @@
 <section class="modal-content">
 	<div class="modal-header">
-		<h1 class="modal-title"><b>{{thread.title}}</b> Experiment</h1>
+		<h1 class="modal-title">{{tabs[tabIndex].t}} <small>for {{thread.title}}</small></h1>
 	</div>
 	
-	<div class="modal-body">
-		<h4>Goal</h4>
-		<p ng-bind-html="thread.goal"></p>
-
-		<h4>Scope</h4>
+	<!-- Information sheet -->
+	<div ng-if="tabIndex == 0" class="modal-body">
 		<p>
-			For the purpose of this work, we make assumptions
-			about the type of multicore computer where the performance problems occur on. We're looking at the kind of machine that is found
-			on the typical desktop: A machine with multiple cores and a shared
-			memory with hardware cache coherency, and which runs an operating
-			system. We assume a shared-memory programming model based on threads,
-			with locks, barriers, semaphores, critical sections and similar
-			mechanisms as the main synchronization mechanism. The machine might
-			have multiple CPU chips, but all operate on a shared memory with cache
-			coherency.
+			<strong class="font-variant: small-caps;">Background of Research:</strong>
+			The purpose of the study is to investigate how visualizations of performance data can support parallel programming. It is being conducted as part of the Lero Software Engineering Research Centre, and is enabled by funding from Science Foundation Ireland. We have built a prototype tool to visualize parallel performance data, and would like your help in evaluating the effects and potential benefits of using such tools.
+		</p><p>
+			<strong class="font-variant: small-caps;">Procedures Of This Study:</strong>
+			The study should take approximately 30 minutes of your time. You will be asked a number of questions about your programming experience. As experience forms part of the analysis, these questions must be answered if you wish to participate in the experiment. You will then be shown a series of visualizations of parallel performance data and asked to identify problems that might be present in these programs. Following the experiment, you will be asked to fill in a usability questionnaire. You may contact the research team by email before or after the experiment. An incentive of a £10 voucher is offered in appreciation of your input, you will be asked for your name and email address if you wish to receive this. This data will be held separately to your experiment data and only used for the distribution of the incentive and for financial records. All data will be held on a secure server in the School of Computer Science and Statistics at Trinity College Dublin.
 
-			The cores of the machine may support hardware multithreading; that is
-			a single core may be able to execute more than one thread either by
-			switching thread every machine cycle (classical multithreading), or by
-			intermixing instructions from more than one thread in the execution
-			pipeline. <a href="assets/common/survey.pdf" target="_blank">[PDF]</a>
+		</p><p>
+			<strong class="font-variant: small-caps;">Publication:</strong>
+			The results of the experiment may be used in scholarly publications. No personally identifying information will be published. Copies of the research results will be available on request from the Principal Investigator (details on next page).
+		</p><p>
+			<strong class="font-variant: small-caps;">Declarations:</strong>
+			You will be asked to make the following declarations on the consent form:
+		</p><ul style="list-style-type: disc; padding: 10px 20px; font-size: 11px; border: 1px dashed">
+			<li>I am 18 years or older and am competent to provide consent.</li>
+			<li>I have read, or had read to me, a document providing information about this research and this consent form. I have had the opportunity to contact the research team to ask questions and all my questions have been answered to my satisfaction and understand the description of the research that is being provided to me.</li>
+			<li>I understand that my interaction with the system will be logged.</li>
+			<li>I agree that my data is used for scientific purposes and I have no objection that my data is published in scientific publications in a way that does not reveal my identity.</li>
+			<li>I understand that if I make illicit activities known, these will be reported to appropriate authorities.</li>
+			<li>I freely and voluntarily agree to be part of this research study, though without prejudice to my legal and ethical rights.</li>
+			<li>I understand that participation in this study is entirely voluntary and that I can withdraw from the study at any time without giving a reason.</li>
+			<li>I understand that my participation is fully anonymous and that no personal details about me will be recorded beyond my email address which I can optionally provide in order to receive the incentive, and which will be deleted afterwards.</li>
+			<li>I understand that I can make subsequent contact with the Principal Investigator Dr. Gavin Doherty (via email: <a href="mailto:&#071;&#097;&#118;&#105;&#110;&#046;&#068;&#111;&#104;&#101;&#114;&#116;&#121;&#064;&#116;&#099;&#100;&#046;&#105;&#101;">&#071;&#097;&#118;&#105;&#110;&#046;&#068;&#111;&#104;&#101;&#114;&#116;&#121;&#064;&#116;&#099;&#100;&#046;&#105;&#101;</a>) if I wish to obtain a copy of any papers derived from the research.</li>
+			<li>I understand that if I, or anyone in my family, have a history of epilepsy then I am preceding at my own risk.</li>
+			<li>I have received a printable copy of this agreement.</li>
+		</ul><p>
+			<strong class="font-variant: small-caps;">Queries And Debriefing:</strong>
+			You may contact the Principal Investigator for this project before or after participation at <a href="mailto:&#071;&#097;&#118;&#105;&#110;&#046;&#068;&#111;&#104;&#101;&#114;&#116;&#121;&#064;&#116;&#099;&#100;&#046;&#105;&#101;">&#071;&#097;&#118;&#105;&#110;&#046;&#068;&#111;&#104;&#101;&#114;&#116;&#121;&#064;&#116;&#099;&#100;&#046;&#105;&#101;</a> with any questions or queries you may have, or if you wish to receive copies of any publications on the study. 
 		</p>
 	</div>
 	
-	<div class="modal-body">
-		<form role="form">
-			<div class="form-group">
-				<label>Informed Consent</label>
-				<ul style="list-style-type: disc; padding: 10px 20px; font-size: 11px; border: 1px dashed">
-					<li>I understand that my participation in this study will involve using a computer program, answering to survey questions and discussing my actions in one or more retrospective interviews.</li>
-					<li>I understand that my interaction with the system/survey will be logged.</li>
-					<li>I understand that the recorded data will be made anonymous and be accessible to a small team of researcher (i.e. a research team of 4 people) for study purposes.</li>
-					<li>I understand that even though the recorded data will be made anonymous it will not be available to other people outside of the mentioned research team.</li>
-					<li>I understand that participation in this study is entirely voluntary and that I can withdraw from the study at any time without giving a reason.</li>
-					<li>I understand that I am free to ask any questions at any time. I am free to withdraw without providing a reason, or to discuss my concerns with the experimenter.</li>
-					<li>I agree that my data is used for scientific purposes and I have no objection that my data is published in scientific publications in a way that does not reveal my identity.</li>
-					<li>I understand that I can make subsequent contact with the researcher conducting this survey Bérenger Arnaud (via email: arnaudb@tcd.ie) if I wish to obtain a copy of any papers derived from the research.</li>
-					<li>In the extremely unlikely event that illicit activity is reported to me during the survey I will be obliged to report it to appropriate authorities.</li>
-					<li>I understand that if I, or anyone in my family, have a history of epilepsy then I am preceding at my own risk.</li>
-					<li><b>I understand that the information provided by me will be held anonymously so that it is impossible to trace this information back to me individually. In accordance with the Data Protection Act this information may be retained indefinitely</b></li>
-				</ul>
-			</div>
-
+	<!-- Consent form -->
+	<div ng-if="tabIndex == 1" class="modal-body">
+		<p>
+			<strong class="font-variant: small-caps;">Researchers:</strong>
+			Dr. Gavin Doherty, Dr. David Gregg & Research Team
+		</p><p>
+			<strong class="font-variant: small-caps;">Background of Research:</strong>
+			The purpose of the study is to investigate how visualizations of performance data can support parallel programming.
+		</p><p>
+			<strong class="font-variant: small-caps;">Procedures Of This Study:</strong>
+			The study should take approximately 30 minutes of your time. You will be asked a number of questions about your programming experience. As experience forms part of the analysis, these questions must be answered if you wish to participate in the experiment. You will then be shown a series of visualizations of parallel performance data and asked to identify problems that might be present in these programs. Following the experiment, you will be asked to fill in a usability questionnaire. You may contact the research team by email before or after the experiment. An incentive of a £10 voucher is offered in appreciation of your input, you will be asked for your name and email address if you wish to receive this. This data will be held separately to your experiment data and only used for the distribution of the incentive and for financial records. All data will be held on a secure server in the School of Computer Science and Statistics at Trinity College Dublin.
+		</p><p>
+			<strong class="font-variant: small-caps;">Publication:</strong>
+			The results of the experiment may be used in scholarly publications. No personally identifying information will be published. Copies of the research results will be available on request.
+		</p><p>
+			<strong class="font-variant: small-caps;">Declarations:</strong>
+		</p><ul style="list-style-type: disc; padding: 10px 20px; font-size: 11px; border: 1px dashed">
+			<li>I am 18 years or older and am competent to provide consent.</li>
+			<li>I have read, or had read to me, a document providing information about this research and this consent form. I have had the opportunity to contact the research team to ask questions and all my questions have been answered to my satisfaction and understand the description of the research that is being provided to me.</li>
+			<li>I understand that my interaction with the system will be logged.</li>
+			<li>I agree that my data is used for scientific purposes and I have no objection that my data is published in scientific publications in a way that does not reveal my identity.</li>
+			<li>I understand that if I make illicit activities known, these will be reported to appropriate authorities.</li>
+			<li>I freely and voluntarily agree to be part of this research study, though without prejudice to my legal and ethical rights.</li>
+			<li>I understand that participation in this study is entirely voluntary and that I can withdraw from the study at any time without giving a reason.</li>
+			<li>I understand that my participation is anonymous in the sense that no personal details about me will be recorded with my experiment data.</li>
+			<li>If I choose to receive the participant incentive, I understand that my details will be held separate to my experiment data for the disbursement of the participant incentive and for financial records.</li>
+			<li>I understand that I can make subsequent contact with the Principal Investigator Dr. Gavin Doherty (via email: <a href="mailto:&#071;&#097;&#118;&#105;&#110;&#046;&#068;&#111;&#104;&#101;&#114;&#116;&#121;&#064;&#116;&#099;&#100;&#046;&#105;&#101;">&#071;&#097;&#118;&#105;&#110;&#046;&#068;&#111;&#104;&#101;&#114;&#116;&#121;&#064;&#116;&#099;&#100;&#046;&#105;&#101;</a>) if I wish to obtain a copy of any papers derived from the research.</li>
+			<li>I understand that if I, or anyone in my family, have a history of epilepsy then I am preceding at my own risk.</li>
+			<li>I have received a printable copy of this agreement</li> 
+		</ul><p>
 			<div class="checkbox">
-				<label>
+				<label class="text-primary" style="font-weight: bold;">
 					<input ng-model="form.consent" type="checkbox"> 
-					I have read the <a target="_blank" href="assets/common/survey.pdf">informed consent form</a> and consent to participate in this study conducted by Bérenger Arnaud in the School of Computer Science and Statistics, Trinity College, Dublin under the supervision of Dr. Gavin Doherty and I confirm that I am over 18 years old.  
+					By ticking this box I indicate agreement with the above declarations
 				</label>
 			</div>
-		</form>
+		</p><p>
+			<strong class="font-variant: small-caps;">Statement of investigator’s responsibility:</strong>
+			I have provided materials to explain the nature and purpose of this research study, the procedures to be undertaken and any risks that may be involved. I have offered to answer any questions and fully answered such questions when contacted. 
+		</p><p>
+			Contact details of the Principal Investigator:
+		</p>
+		<dl class="dl-horizontal">
+			<dd>Dr. Gavin Doherty</dd>
+			<dt style="font-weight: initial; font-style: italic;">Email:</dt>
+			<dd><a href="mailto:&#071;&#097;&#118;&#105;&#110;&#046;&#068;&#111;&#104;&#101;&#114;&#116;&#121;&#064;&#116;&#099;&#100;&#046;&#105;&#101;">&#071;&#097;&#118;&#105;&#110;&#046;&#068;&#111;&#104;&#101;&#114;&#116;&#121;&#064;&#116;&#099;&#100;&#046;&#105;&#101;</a></dd>
+			<dt style="font-weight: initial; font-style: italic;">Address:</dt>
+			<dd>School of Computer Science & Statistics<br/>Trinity College, University of Dublin, Dublin 2,<br/>IRELAND</dd>
+		</dl>
 	</div>
 	
 	<div class="modal-footer">
-		<span ng-show="! form.consent" class="text-danger">You need to agree to the terms to start the experiment</span>
-		<button ng-show="form.consent" type="button" class="btn btn-primary" type="button" ng-click="actionNext()">Begin the experiment <i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
+		<a ng-if="tabIndex == 0" href="assets/docs/information.pdf" target="_blank" type="button" class="btn btn-link pull-left" type="button"><i class="fa fa-file-pdf-o" style="padding-right: 8px;"></i>PDF version of information sheet</a>
+		<a ng-if="tabIndex == 1" href="assets/docs/consent.pdf" target="_blank" type="button" class="btn btn-link pull-left" type="button"><i class="fa fa-file-pdf-o" style="padding-right: 8px;"></i>PDF version of consent form</a>
+		<button ng-if="couldPreviousTab()" type="button" class="btn btn-link" type="button" ng-click="actionPreviousTab()"><i class="fa fa-hand-o-left" style="padding-right: 8px;"></i>Previous ({{tabs[tabIndex - 1].l}})</button>
+		<span ng-show="tabIndex == 1 && ! form.consent" class="text-danger">You need to agree to the terms to start the experiment.</span>
+		<button ng-show="tabIndex == 0" type="button" class="btn btn-primary" type="button" ng-click="actionNextTab()">Next<i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
+		<button ng-show="tabIndex == 1 && form.consent" type="button" class="btn btn-primary" type="button" ng-click="actionNext()">Begin the experiment <i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
 	</div>
 </section>

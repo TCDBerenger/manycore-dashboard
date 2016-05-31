@@ -1,0 +1,188 @@
+<section class="modal-content">
+	<div class="modal-header">
+		<h1 class="modal-title">{{tabs[tabIndex].t}}</h1>
+	</div>
+	
+	<!-- Experimentation -->
+	<div ng-if="tabIndex == 0" class="modal-body">
+		<p>
+			<i class="fa fa-hand-spock-o fa-3x fa-pull-left text-muted" aria-hidden="true"></i>
+			In this experimentation, you are going to test our approach and tool about the <span class="text-primary">software performance analysis</span> focused on multicore systems.
+		</p><p>
+			After asked a little bit about you, we going to explain you our vision and let you try our tool before starting the experimentation.
+		</p><p>
+			Then, you will diagnose a potential problem with or without our tool.
+		</p><p>
+			To finish, we will ask your opinion and feedback.
+		</p><p>
+			Thank you for your help.
+		</p>
+	</div>
+	
+	<!-- Parallel -->
+	<div ng-if="tabIndex == 1" class="modal-body">
+		<p>
+			In software engineering, there is several way to get clues about the efficiency and accuracy of a particular software.
+			Here, we're focusing on the performances by analysing several indicators and measurments of a run of an application.
+			Differents runs could produce differents values mostly because there are context-depending. But the analysis should be quite similar.
+		</p>
+		<p>&nbsp;</p>
+		<div class="col-xs-5" style="float: right;"><a class="thumbnail" href="assets/xp-1/theory-programing.jpeg" target="_blank">
+			<img src="assets/xp-1/theory-programing.jpeg" alt="">
+		</a></div>
+		<h2>Parallel performance</h2>
+		<p>
+			<span style="color: red;">[TODO 4a]</span> Very simple explanation (for beginers).
+		</p>
+		<p>
+			<span style="color: red;">[TODO 4b]</span> More complete explanations (for intermediate).
+		</p>
+		<p>
+			<span style="color: red;">[TODO 4c]</span> Deep explanations (for experts).
+		</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+	</div>
+	
+	<!-- Approach -->
+	<div ng-if="tabIndex == 2" class="modal-body">
+		<p>
+			Yet, the parallel performance analysis keep displaying and handling data from the operating system and counters from the hardware. It's an explert focused-approach.
+			So we've worked on an different approach, for all kind of programmers, widely understandable, for both beginners and experts.
+		</p><p>
+			Our approach is problem-focused instead of hardware-focued.
+			However, there is no list, classification or consensus about all the problems we can faced in parallel programming.
+		</p><p>
+			Based on surveys, we create a taxonomy for this kind of problems (see below). It is composed by 6 categories which each have 3~5 problems.
+		</p>
+		<p>&nbsp;</p>
+		<h2>Our taxonomy</h2>
+		<div class="row">
+			<div class="col-sm-3">
+				<ul class="nav nav-pills nav-stacked nav-subtab">
+					<li ng-repeat="tax in taxonomy" ng-class="{active: isSubTabActive('taxonomy')}">
+						<a href ng-click="selectSubTabActive('taxonomy')">{{::tax.t}}</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col-sm-9">
+				<div class="well tab-content well-subtab">
+					<!-- TG -->
+					<div class="tab-pane" ng-class="{active: isSubTabActive('taxonomy', 0)}">
+						<p>
+							{{::taxonomy[0].d}}
+						</p><p>Related issues:</p><ul>
+							<li ng-repeat="issue in taxonomy[0].s">{{::issue}}</li>
+						</ul>
+					</div>
+					<!-- SY -->
+					<div class="tab-pane" ng-class="{active: isSubTabActive('taxonomy', 1)}">
+						<p>
+							{{::taxonomy[1].d}}
+						</p><p>Related issues:</p><ul>
+							<li ng-repeat="issue in taxonomy[1].s">{{::issue}}</li>
+						</ul>
+					</div>
+					<!-- DS -->
+					<div class="tab-pane" ng-class="{active: isSubTabActive('taxonomy', 2)}">
+						<p>
+							{{::taxonomy[2].d}}
+						</p><p>Related issues:</p><ul>
+							<li ng-repeat="issue in taxonomy[2].s">{{::issue}}</li>
+						</ul>
+					</div>
+					<!-- LB -->
+					<div class="tab-pane" ng-class="{active: isSubTabActive('taxonomy', 3)}">
+						<p>
+							{{::taxonomy[3].d}}
+						</p><p>Related issues:</p><ul>
+							<li ng-repeat="issue in taxonomy[3].s">{{::issue}}</li>
+						</ul>
+					</div>
+					<!-- Data Locality -->
+					<div class="tab-pane" ng-class="{active: isSubTabActive('taxonomy', 4)}">
+						<p>
+							{{::taxonomy[4].d}}
+						</p><p>Related issues:</p><ul>
+							<li ng-repeat="issue in taxonomy[4].s">{{::issue}}</li>
+						</ul><blockquote>
+							<p>Locality of reference, also known as the principle of locality, is a phenomenon describing the same value, or related storage locations, being frequently accessed. There are two basic types of reference locality – temporal and spatial locality. Temporal locality refers to the reuse of specific data, and/or resources, within a relatively small time duration. Spatial locality refers to the use of data elements within relatively close storage locations. Sequential locality, a special case of spatial locality, occurs when data elements are arranged and accessed linearly, such as, traversing the elements in a one-dimensional array.</p>
+							<small><a href="http://en.wikipedia.org/wiki/Locality_of_reference" target="_blank">Wikipedia</a></small>
+						</blockquote><p>
+							Consider a hypothetical computer with a fast, single-line cache of <b>8 bytes</b> (analogous to a CPU cache) and a slow buffer (analogous to RAM) in which a 4x4 greyscale image data resides to illustrate the example. This simplified cache system can only cache data in blocks of 8 bytes (an 8-byte cache line).
+						</p><center>
+							<img src="assets/xp-99/data-locality.png" />
+						</center></p>
+							First iteration of the loop touches 4 bytes (#0, #4, #8 and #12), two cache misses occur including the first load, as the image data needs to be loaded from memory into the cache line for CPU to use it. During the entire execution of the program, the total of 8 cache misses occurs. This means that our hypothetical CPU loads 8 * 8 = 64 bytes in total from our slow buffer into the cache.
+						</p><center>
+							<img src="assets/xp-99/data-locality-2.png" />
+						</center>
+					</div>
+					<!-- RS -->
+					<div class="tab-pane" ng-class="{active: isSubTabActive('taxonomy', 5)}">
+						<p>
+							{{::taxonomy[5].d}}
+						</p><p>Related issues:</p><ul>
+							<li ng-repeat="issue in taxonomy[5].s">{{::issue}}</li>
+						</ul>
+					</div>
+				</div>
+			</div> 
+		</div>
+	</div>
+	
+	<!-- Tool -->
+	<div ng-if="tabIndex == 3" class="modal-body">
+		<p>
+			Based on our taxonomy, we build a tool to visualise and compare (two) profiles.
+		</p><p>
+			A profile is a set of values harvested while a program/software/application running.
+			The data comes from OS and harware.
+		</p>
+		<center><img src="assets/xp-1/dash-overview.png"/></center>
+		<p>&nbsp;</p>
+		<h2>Dashboard: overview</h2>
+		<div class="col-xs-5" style="float: right;"><a class="thumbnail" href="assets/xp-1/dash-checked.png" target="_blank">
+			<img src="assets/xp-1/dash-checked.png" alt="">
+		</a></div>
+		<p>
+			The top-level of our webapp is the Dashboard where you could compare the profiles and, more important, have a overview of all categories (first level in our taxonomy).
+			The aim is to quickly identify one or more categories involved in the issue(s).  
+		</p><p>
+			Once catogories are identified, you could drill-down to find the real cause of the issue.
+		</p>
+		<p>&nbsp;</p>
+		<h2>Details of a category: drill-down</h2>
+		<div class="col-xs-5" style="float: right;"><a class="thumbnail" href="assets/xp-1/detail-sample.png" target="_blank">
+			<img src="assets/xp-1/detail-sample.png" alt="">
+		</a></div>
+		<p>
+			In each page, there is a set of graph that could help you to find the root of the problem.
+		</p><p>
+			To help you, you can customise each graph via the "Customise" tab in order to adapt and manipulate the data shown.
+		</p><p>
+			Also you coul find some interesting information in the "help" tab in particular if you are not familiar with the concept shown. 
+		</p>
+	</div>
+	
+	<!-- Before continue -->
+	<div ng-if="tabIndex == 4" class="modal-body">
+		<p>
+			You're now going to try the tool wit two samples. Each one is a comparison of the same program with a sequential version and an parallel (optimised) version.
+		</p><p>
+			The first sample is "merge and sort" and the second is "particules".
+		</p><p>
+			Take your time, but it's only an help to understand our tool. So the real experiment starts after this samples.
+		</p><p>
+			<i class="fa fa-info-circle fa-3x fa-pull-left text-muted" aria-hidden="true"></i>
+			Since our tool take all the page space, the next button will be placed in the top navigation bar.
+			<img class="screenshot" src="assets/xp-1/navbar-next.gif"/>
+		</p>
+	</div>
+	
+	<div class="modal-footer">
+		<button ng-if="couldPreviousTab()" type="button" class="btn btn-link" type="button" ng-click="actionPreviousTab()"><i class="fa fa-hand-o-left" style="padding-right: 8px;"></i>Previous ({{tabs[tabIndex - 1].l}})</button>
+		<button type="button" class="btn btn-primary" type="button" ng-click="actionNextTab()">Next<i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
+	</div>
+</section>

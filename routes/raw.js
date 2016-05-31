@@ -10,6 +10,17 @@ var router = express.Router();
 /************************************************/
 var profiles = require('./common/profiles.common.js');
 
+/************************************************/
+/* Constants									*/
+/************************************************/
+// Capability
+const CAPABILITY_STATE =	0;
+const CAPABILITY_SWITCH =	1;
+const CAPABILITY_LOCALITY =	2;
+const CAPABILITY_LOCK =		3;
+const CAPABILITY_MEMORY =	4;
+const CAPABILITY_COHERENCY =5;
+
 
 /************************************************/
 /* Functions - common							*/
@@ -42,20 +53,12 @@ function addRaw(profile, output) {
 	//
 	output.stats = {
 		h:	data.stats.threads,
-		start_h:	data.stats.starts,
-		stop_h:		data.stats.ends,
+		ha:	data.stats.starts,
+		hz:	data.stats.ends,
 		
-	    s:	data.stats.switches,
-	    m:	data.stats.migrations,
 		c:	data.stats.cycles,
 		
 		p:	data.stats.parallel,
-
-		i:	Math.round(data.stats.idle),
-		r:	Math.round(data.stats.running),
-		y:	Math.round(data.stats.ready),
-		b:	Math.round(data.stats.standby),
-		w:	Math.round(data.stats.wait),
 	};
 	
 
@@ -75,6 +78,100 @@ function addRaw(profile, output) {
 
 
 /**
+ * Add extra stats
+ */
+function addExtraStats(profile, output) {
+	// Data
+	var data = profile.data;
+	var capabilities = profile.data.info.capability;
+	
+	// Max
+	var max = {
+		time:		profile.hardware.data.lcores * data.info.duration,
+		locality:	data.locality.stats.ipc + data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf,
+		eventBase:	data.info.duration * profile.hardware.data.lcores,
+		bandwidth:	data.info.duration * profile.hardware.data.bandwidth,
+		coherency:	data.stats.l1_miss + data.stats.l2_miss,
+	};
+	
+	// Init output
+	output.extra = {};
+	
+	// Add states based on a simple maximum ratio
+	[	{ l: 'b',	 v: data.stats.standby,								m: max.time,			c: CAPABILITY_STATE },
+		{ l: 'e',	 v: data.stats.bandwidth,							m: max.bandwidth,		c: CAPABILITY_MEMORY },
+	 	{ l: 'i',	 v: data.stats.idle,								m: max.time,			c: CAPABILITY_STATE },
+		{ l: 'o',	 v: max.time - data.stats.parallel,					m: max.time,			c: CAPABILITY_STATE },
+		{ l: 'p',	 v: data.stats.parallel,							m: max.time,			c: CAPABILITY_STATE },
+		{ l: 'r',	 v: data.stats.running,								m: max.time,			c: CAPABILITY_STATE },
+	 	{ l: 'w',	 v: data.stats.wait,								m: max.time,			c: CAPABILITY_STATE },
+		{ l: 'y',	 v: data.stats.ready,								m: max.time,			c: CAPABILITY_STATE },
+		{ l: 'il',	 v: data.stats.l1_invalid + data.stats.l2_invalid,	m: max.coherency,		c: CAPABILITY_COHERENCY },
+		{ l: 'il1',	 v: data.stats.l1_invalid,							m: data.stats.l1_miss,	c: CAPABILITY_COHERENCY },
+		{ l: 'il2',	 v: data.stats.l2_invalid,							m: data.stats.l2_miss,	c: CAPABILITY_COHERENCY },
+		{ l: 'lh',	 v: data.stats.lock_hold,							m: max.time,			c: CAPABILITY_LOCK },
+		{ l: 'lw',	 v: data.stats.lock_wait,							m: max.time,			c: CAPABILITY_LOCK },
+		{ l: 'qs',	 v: data.info.duration - data.stats.parallel,		m: data.info.duration,	c: CAPABILITY_STATE }, 
+		{ l: 'yb',	 v: data.stats.ready + data.stats.standby,			m: max.time,			c: CAPABILITY_STATE },
+		{ l: 'ipc',	 v: data.locality.stats.ipc,						m: max.locality,		c: CAPABILITY_LOCALITY },
+		{ l: 'tlb',	 v: data.locality.stats.tlb,						m: max.locality,		c: CAPABILITY_LOCALITY },
+		{ l: 'l1',	 v: data.locality.stats.l1,							m: max.locality,		c: CAPABILITY_LOCALITY },
+		{ l: 'l2',	 v: data.locality.stats.l2,							m: max.locality,		c: CAPABILITY_LOCALITY },
+		{ l: 'l3',	 v: data.locality.stats.l3,							m: max.locality,		c: CAPABILITY_LOCALITY },
+		{ l: 'hpf',	 v: data.locality.stats.hpf,						m: max.locality,		c: CAPABILITY_LOCALITY },
+		{ l: 'miss', v: data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf, m: max.locality, c: CAPABILITY_LOCALITY },
+	].forEach(function(item) {
+		if (capabilities[item.c]) {
+			output.extra[item.l] = Math.round(item.v);
+			output.extra['percent_' + item.l] = Math.round(100 * item.v / item.m);
+		} else {
+			output.extra[item.l] = '?';
+			output.extra['percent_' + item.l] = '?';
+		}
+	});
+	
+	// Add events based
+	var calibratedMax;
+	[	{ l: 's',	v: data.stats.switches,		m: profile.hardware.calibration.s,	c: CAPABILITY_SWITCH },
+		{ l: 'm',	v: data.stats.migrations,	m: profile.hardware.calibration.m,	c: CAPABILITY_SWITCH },
+		{ l: 'ls',	v: data.stats.lock_success,	m: profile.hardware.calibration.ls,	c: CAPABILITY_LOCK },
+		{ l: 'lf',	v: data.stats.lock_failure,	m: profile.hardware.calibration.lf,	c: CAPABILITY_LOCK },
+		{ l: 'lr',	v: data.stats.lock_release,	m: profile.hardware.calibration.ls,	c: CAPABILITY_LOCK },
+	].forEach(function(item) {
+		if (capabilities[item.c]) {
+			calibratedMax = max.eventBase * item.m;
+			output.extra[item.l] = item.v;
+			output.extra['expected_' + item.l] = format3(calibratedMax);
+			output.extra['factor_' + item.l] = format2(item.v / calibratedMax);
+			output.extra['rate_' + item.l] = format3(item.v / max.eventBase);
+			output.extra['calibration_' + item.l] = item.m;
+		}
+		else {
+			output.extra[item.l] = '?';
+			output.extra['expected_' + item.l] = '?';
+			output.extra['factor_' + item.l] = '?';
+			output.extra['rate_' + item.l] = '?';
+			output.extra['calibration_' + item.l] = '?';
+		}
+	});
+	
+	// Add simple ratio
+	[	{ l: 'h',	v: data.stats.threads,	m: profile.hardware.data.lcores,	c: CAPABILITY_STATE },
+	].forEach(function(item) {
+		if (capabilities[item.c]) {
+			output.extra[item.l] = item.v;
+			output.extra['rate_' + item.l] = format3(item.v / item.m);
+		}
+		else {
+			output.extra[item.l] = '?';
+			output.extra['rate_' + item.l] = '?';
+		}
+	});
+}
+
+
+
+/**
  * Add strip data
  */
 function addStrips(profile, output) {
@@ -88,7 +185,6 @@ function addStrips(profile, output) {
 	
 	// Computation - Cache misses - %
 	max = data.locality.stats.ipc + data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf;
-//	output.strips.ipc = Math.round(100 * data.locality.stats.ipc / max);
 	output.strips.miss = Math.round(100 * (data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf) / max);
 	
 	// Add states - by thread duration - %
@@ -107,125 +203,7 @@ function addStrips(profile, output) {
 	].forEach(function(item) {
 		output.strips[item.l] = (item.n <= pv) ? Math.round(100 * item.v / max) : '?';
 	});
-	
-	// Add calibrations - ×
-	/*
-	[	{ l: 's', v: data.stats.switches, c: profile.hardware.calibration.s, n: 3 },
-		{ l: 'm', v: data.stats.switches, c: profile.hardware.calibration.m, n: 3 },
-		{ l: 'ls', v: data.stats.lock_success, c: profile.hardware.calibration.ls, n: 4 },
-		{ l: 'lf', v: data.stats.lock_failure, c: profile.hardware.calibration.lf, n: 4 },
-	].forEach(function(item) {
-		max = 	data.info.duration * profile.hardware.data.lcores * item.c;
-		output.strips[item.l] = (item.n <= pv) ? Math.round(10 * item.v / max) / 10 : '?';
-	});
-	*/
 }
-
-/**
- * Add switches and migrations
- */
-function addSwitches(profile, output) {
-	// Data
-	var data = profile.data;
-	var max;
-	
-	[	{ l: 's', v: data.stats.switches, c: profile.hardware.calibration.s, t: 'switches' },
-		{ l: 'm', v: data.stats.switches, c: profile.hardware.calibration.m, t: 'migrations' },
-	].forEach(function(item) {
-		if (! (item.t in output)) output[item.t] = {};
-		max = data.info.duration * profile.hardware.data.lcores * item.c;
-		output[item.t][item.l] = item.v;
-		output[item.t]['expected_' + item.l] = max;
-		output[item.t]['factor_' + item.l] = Math.round(10 * item.v / max) / 1;
-		output[item.t]['rate_' + item.l] = Math.round(1000 * item.v / (data.info.duration * profile.hardware.data.lcores)) / 1;
-		output[item.t]['calibration_' + item.l] = item.c;
-	});
-}
-
-/**
- * Add locks
- */
-function addLocks(profile, output) {
-	// Data
-	var data = profile.data;
-	var pv = profile.v;
-	var max;
-	
-	// Init output
-	output.locks = {
-		lr:	(profile.v >= 4) ? data.stats.lock_release : '?'
-	};
-	
-	[	{ l: 'ls', v: data.stats.lock_success, c: profile.hardware.calibration.ls },
-		{ l: 'lf', v: data.stats.lock_failure, c: profile.hardware.calibration.lf },
-	].forEach(function(item) {
-		max = data.info.duration * profile.hardware.data.lcores * item.c;
-		output.locks[item.l] = (4 <= pv) ? item.v : '?';
-		output.locks['expected_' + item.l] = format3(max);
-		output.locks['factor_' + item.l] = (4 <= pv) ? format2(item.v / max) : '?';
-		output.locks['rate_' + item.l] = (4 <= pv) ? format3(item.v / (data.info.duration * profile.hardware.data.lcores)) : '?';
-		output.locks['calibration_' + item.l] = item.c;
-	});
-}
-
-
-/**
- * Add events
- */
-function addTimes(profile, output) {
-	// Data
-	var data = profile.data;
-	var pv = profile.v;
-	var max;
-	
-	// Init output
-	output.times = {};
-	
-	// Add states - by thread duration
-	max = profile.hardware.data.lcores * data.info.duration;
-	[	{ l: 'r', v: data.stats.running, n: 3 },
-		{ l: 'y', v: data.stats.ready, n: 3 },
-		{ l: 'b', v: data.stats.standby, n: 3 },
-		{ l: 'yb', v: data.stats.ready + data.stats.standby, n: 3 },
-		{ l: 'i', v: data.stats.idle, n: 3 },
-		{ l: 'w', v: data.stats.wait, n: 3 },
-		{ l: 'lw', v: data.stats.lock_wait, n: 4 },
-		{ l: 'lh', v: data.stats.lock_hold, n: 4 },
-	].forEach(function(item) {
-		output.times[item.l] = Math.round(item.v);
-		output.times['percent_' + item.l] = (item.n <= pv) ? Math.round(100 * item.v / max) : '?';
-	});
-}
-
-
-/**
- * Add data locality
- */
-function addLocality(profile, output) {
-	// Data
-	var data = profile.data;
-	var max_miss = data.locality.stats.tlb + data.locality.stats.l1 + data.locality.stats.l2 + data.locality.stats.l3 + data.locality.stats.hpf;
-	var max_dl = data.locality.stats.ipc + max_miss;
-	
-	// Init output
-	output.locality = {};
-	
-	// Add states - by thread duration
-	max = profile.hardware.data.lcores * data.info.duration;
-	[	{ l: 'miss',	v: max_miss },
-		{ l: 'ipc',		v: data.locality.stats.ipc },
-		{ l: 'tlb',		v: data.locality.stats.tlb },
-		{ l: 'l1',		v: data.locality.stats.l1 },
-		{ l: 'l2',		v: data.locality.stats.l2 },
-		{ l: 'l3',		v: data.locality.stats.l3 },
-		{ l: 'hpf',		v: data.locality.stats.hpf }
-	].forEach(function(item) {
-		output.locality[item.l] = Math.round(item.v);
-		output.locality['percent_' + item.l] = Math.round(100 * item.v / max_dl);
-	});
-	
-}
-
 
 
 
@@ -267,11 +245,8 @@ router.get('/*', function(request, response) {
 		// Result
 		output[id] = {};
 		addRaw(profile, output[id]);
-		addStrips(profile, output[id]);
-		addSwitches(profile, output[id]);
-		addLocks(profile, output[id]);
-		addTimes(profile, output[id]);
-		addLocality(profile, output[id]);
+		addExtraStats(profile, output[id]);
+//		addStrips(profile, output[id]);
 
 		// Comon result
 		output.c.timeMin = Math.min(output[id].info.timeMin, output.c.timeMin | 0);

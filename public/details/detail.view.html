@@ -2,15 +2,25 @@
 <!-- Header -->
 <ul class="nav nav-pills" style="margin-bottom: 20px; border-bottom: 1px solid rgb(221, 221, 221);">
 	<span class="nav-tab-title"><i class="fa fa-{{meta.icon}} fa-32px text-info"></i>{{meta.label}}</span>
+	
 	<!-- Compare profiles -->
-	<p class="navbar-text" ng-if="! isWaiting()">
+	<p ng-if="! isWaiting()" class="navbar-text">
 		for <b>{{::profiles[0].label}}</b>
-		<div uib-dropdown>
-			<span class="label label-info" id="link-compare-profile" uib-dropdown-toggle>{{profiles.length > 1 | iif : 'versus' : 'info'}} <i class="fa fa-caret-down"></i></span>
-			<div uib-dropdown-menu template-url="template_compare_table.html" aria-labelledby="link-compare-profile"></div>
-		</div>
-		<b ng-if="profiles.length > 1">{{::profiles[1].label}}</b>
+		<span ng-if="profiles.length > 1">and <b>{{::profiles[1].label}}</b></span>
 	</p>
+	<li ng-if="! isWaiting()" uib-dropdown>
+		<a uib-dropdown-toggle><i class="fa fa-laptop fa-halfpad"></i>{{profiles.length > 1 | iif : 'hardwares' : 'hardware'}} <span class="caret"></span></a>
+		<div uib-dropdown-menu template-url="template_compare_table.html" aria-labelledby="link-compare-profile"></div>
+	</li>
+	
+	<!-- Links -->
+	<li class="navbar-right" uib-dropdown>
+		<a uib-dropdown-toggle><i class="fa fa-tachometer fa-halfpad"></i>Dashboards <span class="caret"></span></a>
+		<ul uib-dropdown-menu>
+			<li><a ui-sref="dashboard({ids: encodedIDs})"><i class="fa fa-tachometer fa-16px fa-pad"></i> Graphical</a></li>
+			<li><a ui-sref="raw({ids: encodedIDs})"><i class="fa fa-graduation-cap fa-16px fa-pad"></i> Numerical</a></li>
+		</ul>
+	</li>
 	<li class="navbar-right" uib-dropdown>
 		<a uib-dropdown-toggle><i class="fa fa-area-chart fa-halfpad"></i>Categories <span class="caret"></span></a>
 		<ul uib-dropdown-menu>
@@ -22,11 +32,15 @@
 	<li class="navbar-right"><a ui-sref="dashboard({ids: encodedIDs})"><i class="fa fa-tachometer fa-halfpad"></i>Graphical Dashoard</a></li>
 	-->
 	<p class="navbar-text navbar-right" style="margin-right: 10px;">&hellip; or try</p>
-	<div ng-if="isWaiting()" class="nav-tab-spinner"><i class="fa fa-spinner fa-pulse fa-2x"></i></div>
-	<p ng-if="isWaiting()" class="navbar-text" style="margin-right: 10px;">Retrieving data</p>
+	
+	<!-- Waiting -->
+	<p ng-if="isWaiting()" class="navbar-text" style="margin-right: 10px;">
+		<i class="fa fa-spinner fa-pulse fa-fw"></i>
+		Retrieving data
+	</p>
 </ul>
 
-<div class="row" ng-if="! isWaiting()" ng-init="profilesLength = profiles.length; hasTwoProfiles = profiles.length == 2; lastProfileID = profiles.length - 1">
+<div class="row" ng-if="! isWaiting()">
 	<div class="col-xs-4 profile">
 		<div class="block block-imp">
 			<h4>What's here?</h4>
@@ -82,7 +96,7 @@
 </div>
 
 <script type="text/ng-template" id="template_compare_table.html">
-	<div ng-class="{'versus-one': profilesLength == 1, 'versus-two': hasTwoProfiles}" uib-dropdown-menu role="menu" aria-labelledby="link-compare-profile">
+	<div ng-class="{'versus-one': profilesLength == 1, 'versus-two': hasTwoProfiles}" uib-dropdown-menu role="menu" aria-labelledby="link-compare-profile"  ng-init="profilesLength = profiles.length; hasTwoProfiles = profiles.length == 2; lastProfileID = profiles.length - 1">
 		<table class="table table-striped table-hover table-versus">
 			<thead ng-if="hasTwoProfiles">
 				<tr>
