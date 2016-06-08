@@ -872,11 +872,22 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 	};
 	var tg = {
 		tag: 'tg', cat: 'tg', label: 'Task granularity', title: 'Task granularity', icon: 'sliders', enabled: true,
-		description: 'In parallel programs it is often a challenge to find enough parallelism (performing many calculations simultaneously) to keep the machine busy. A key focus of parallel software development is designing algorithms that expose more parallelism. However, there are overheads associated with starting, managing and switching between parallel threads. If the tasks are too small (fine-grained parallelism), the cost of these overheads can exceed the benefits. Conversely, if tasks are too large (coarse-grained parallelism) some resources might be under utilized. Choosing the correct task granularity is critical.',
-		issues: ['oversubscription: When there are a lot more parallel tasks than cores.', 'task start/stop overhead: Overheads associated with starting and stopping between threads.', 'thread migration: Overheads associated with managing and migrating threads between cores.'],
-		tooltip: [
+		descriptionDash: [
 			'This category describes the level of parallelism exhibited by the application.',	
 			'For instance, if there are too many threads, the cost can exceed the benefits.',
+		],
+		descriptionDetails: [
+			'In parallel programs it is often a challenge to find enough parallelism (performing many calculations simultaneously) to keep the machine busy.\
+			 A key focus of parallel software development is designing algorithms that expose more parallelism.',
+			'However, there are overheads associated with starting, managing and switching between parallel threads.\
+			 If the tasks are too small (fine-grained parallelism), the cost of these overheads can exceed the benefits.\
+			 Conversely, if tasks are too large (coarse-grained parallelism) some resources might be under utilized.',
+			'Choosing the correct task granularity is critical.'
+		],
+		issues: [
+			{ t: 'Oversubscription',			d: 'not enough free cores available' },
+			{ t: 'Task start/stop overhead',	d: 'a dedicated thread is not justified for the amount of work performed' },
+			{ t: 'Thread migration',			d: 'a thread cannot executing on the same core' }
 		],
 		strips: [strips.yb, strips.i],
 		gauges: [[gauge_yb, gauge_uc], [gauge_s, gauge_m]],
@@ -884,11 +895,22 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 	};
 	var sy = {
 		tag: 'sy', cat: 'sy', label: 'Synchronisation', title: 'Synchronisation', icon: 'refresh', enabled: true,
-		description: 'In a shared-memory programming model, where data is shared and updated by multiple threads; some sort of synchronisation is needed to ensure that all threads get a consistent view of memory. Synchronization always causes some overhead. If the algorithm requires a large amount of synchronization, the overhead can offset much of the benefits of parallelism. Perhaps the most common synchronisation mechanism is the lock; other mechanisms include barriers, semaphores, and the atomic instructions used in so-called “lock-free” and “wait-free” data structures.',
-		issues: ['Low work to synchronisation ratio: Ratio of time spent by threads executing code versus waiting for locks.', 'Lock contention: Scenario where one thread attempts to acquire a lock held by another thread.', 'Lock convoy: Occurs when multiple threads of the same priority attempt to acquire the same lock.', 'Badly-behaved spinlocks: Causes thread to wait in a loop attempting to acquire a lock until it\'s released.'],
-		tooltip: [
+		descriptionDash: [
 			'This category helps about the synchronisation needed to ensure that all threads get a consistent view of a shared memory. The common mechanism is the lock.',	
 			'If the algorithm requires a large amount of synchronization, the overhead can offset much of the benefits of parallelism.',
+		],
+		descriptionDetails: [
+			'In a shared-memory programming model, where data is shared and updated by multiple threads;\
+			 some sort of synchronisation is needed to ensure that all threads get a consistent view of memory.',
+			'Synchronization always causes some overhead.',
+			'If the algorithm requires a large amount of synchronization, the overhead can offset much of the benefits of parallelism.\
+			 Perhaps the most common synchronisation mechanism is the lock;\
+			 other mechanisms include barriers, semaphores, and the atomic instructions used in so-called “lock-free” and “wait-free” data structures.'
+		],
+		issues: [
+			{ t: 'Low work to synchronisation ratio',	d: 'the thread synchronisation is not justified for the amount of work performed' },
+			{ t: 'Lock contention',						d: 'a thread attempts to acquire a lock held by another thread' },
+			{ t: 'Badly-behaved spinlocks',				d: 'a thread attempts to acquire a lock repeatedly until it becomes available' }
 		],
 		strips: [strips.lw],
 		gauges: [[gauge_lw], [gauge_ls, gauge_lf]],
@@ -896,11 +918,21 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 	};
 	var ds = {
 		tag: 'ds', cat: 'ds', label: 'Data sharing', title: 'Data sharing', icon: 'exchange', enabled: true,
-		description: 'Threads within a process communicate through data in shared memory. Sharing data between cores involves physically transferring the data along wires between the cores. On shared memory computers these data transfers happen automatically through the caching hardware. However these transfers take time, along with a cost to data sharing, particularly when shared variables and data structures are modified.',
-		issues: ['True sharing of updated data: LOOK AT DAVID\'s EMAIL EXPLANATION PDF THINGAMAJIG', 'Sharing of data between CPUs on NUMA systems', 'Sharing of lock data structures: Frequent acquiring and releasing of locks by multiple threads', 'Sharing data between distant cores: High cost of transferring data between two threads on distant cores.'],
-		tooltip: [
+		descriptionDash: [
 			'This category helps about the data shared between cores.',	
 			'These transfers take time, with the result that there is typically a cost to data sharing, particularly when shared variables and data structures are modified.',
+		],
+		descriptionDetails: [
+			'Threads within a process communicate through data in shared memory.\
+			 Sharing data between cores involves physically transferring the data along wires between the cores.',
+			'On shared memory computers these data transfers happen automatically through the caching hardware.',
+			'However these transfers take time, along with a cost to data sharing, particularly when shared variables and data structures are modified.'
+		],
+		issues: [
+			{ t: 'True sharing of updated data',					d: 'the same variable is writte/read by different cores' },
+			{ t: 'Sharing of data between CPUs on NUMA systems',	d: 'different parts of the data may be in different local memories' },
+			{ t: 'Sharing of lock data structures',					d: 'large number of locks acquired or released' },
+			{ t: 'Sharing data between distant cores',				d: 'transferring shared data between threads on distant cores' }
 		],
 		strips: [strips.il],
 		gauges: [[gauge_lw], [gauge_il, gauge_miss]],
@@ -908,11 +940,21 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 	};
 	var lb = {
 		tag: 'lb', cat: 'lb', label: 'Load balancing', title: 'Load balancing', icon: 'list-ol', enabled: true,
-		description: 'Load balancing is the attempt to divide work evenly among the cores. Dividing the work in this way is usually, but not always, beneficial. There is an overhead in dividing work between parallel cores and it can sometimes be more efficient to not use all the available cores. Nonetheless, a poor load balance is one of the most easily understood performance problems.',
-		issues: ['Undersubscription', 'Alternating sequential/parallel execution', 'Chains of data dependencies, too little parallelism', 'Bad threads to cores ratio'],
-		tooltip: [
+		descriptionDash: [
 			'This category helps about the attempt to divide work evenly among the cores.',	
 			'Dividing the work in this way is usually, but not always, beneficial.',
+		],
+		descriptionDetails: [
+			'Load balancing is the attempt to divide work evenly among the cores.\
+			 Dividing the work in this way is usually, but not always, beneficial.',
+			'There is an overhead in dividing work between parallel cores and it can sometimes be more efficient to not use all the available cores.\
+			 Nonetheless, a poor load balance is one of the most easily understood performance problems.',
+		],
+		issues: [
+			{ t: 'Undersubscription',									d: 'too few threads actively running' },
+			{ t: 'Alternating sequential/parallel execution',			d: 'the sequential phases slow down the system' },
+			{ t: 'Chains of data dependencies, too little parallelism',	d: 'a thread is waiting for the result produced by another thread' },
+			{ t: 'Bad threads to cores ratio',							d: 'the work is divided into chunks not matching appropriaely the number of cores' }
 		],
 		strips: [strips.q],
 		gauges: [[gauge_uc, gauge_lw], [gauge_m]],
@@ -920,11 +962,23 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 	};
 	var dl = {
 		tag: 'dl', cat: 'dl', label: 'Data locality', title: 'Data locality', icon: 'compass', enabled: true,
-		description: 'This is not a specifically multicore problem, but it is impossible to talk about single or multicore performance without talking about locality. In the early 1980s a typical computer could read a value from main memory in one or two CPU cycles. However, between 1984 and 2004 processing speeds increased by around 50% per year, whereas the time to access DRAM memory fell by only 10%-15% per year. The result is that it now takes hundreds of processor cycles to read a value from main memory. This problem is often called the “memory wall”.',
-		issues: ['Cache Locality', 'TLB Locality', 'DRAM memory pages', 'Page faults'],
-		tooltip: [
+		descriptionDash: [
 			'This category helps about identifying which memory is used: CPU, RAM and disk.',	
 			'More the memory is away from the core, more processor cycles are needed to read a value.',
+		],
+		descriptionDetails: [
+			'This is not a specifically multicore problem, but it is impossible to talk about single or multicore performance without talking about locality.',
+			'In the early 1980s a typical computer could read a value from main memory in one or two CPU cycles.\
+			 However, between 1984 and 2004 processing speeds increased by around 50% per year, whereas the time to access DRAM memory fell by only 10%-15% per year.',
+			'The result is that it now takes hundreds of processor cycles to read a value from main memory.\
+			 This problem is often called the “memory wall”.',
+		],
+		issues: [
+			{ t: 'Cache Locality',		d: 'data is not present on a reasonably nearby location' },
+			{ t: '<abbr title="Translation Lookaside Buffer">TLB</abbr> Locality',
+										d: 'too large number of pages of memory' },
+			{ t: 'DRAM memory pages',	d: 'the memory accessess are not targeting the same physical DRAM pages' },
+			{ t: 'Page faults',			d: 'not enough physical memory' }
 		],
 		strips: [strips.miss],
 		gauges: [[gauge_miss]],
@@ -932,32 +986,25 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 	};
 	var rs = {
 		tag: 'rs', cat: 'rs', label: 'Resource sharing', title: 'Resource sharing', icon: 'sitemap', enabled: true,
-		description: 'Those who are new to parallel programming often expect linear performance scaling: code running on four cores will be four times faster than on one core. There are many reasons why this is seldom true, but perhaps the most self-explanatory is that those four cores share and must compete for access to other parts of the hardware that have not been replicated four times. For example, all cores will typically share a single connection to main memory.',
-		issues: ['Exceeding memory bandwidth', 'Competition between threads sharing a cache', 'False data sharing'],
-		tooltip: [
+		descriptionDash: [
 			'This category helps about sharing resources between all threads.',	
 			'For example, all cores will typically share a single connection to main memory.',
+		],
+		descriptionDetails: [
+			'Those who are new to parallel programming often expect linear performance scaling: code running on four cores will be four times faster than on one core. There are many reasons why this is seldom true, but perhaps the most self-explanatory is that those four cores share and must compete for access to other parts of the hardware that have not been replicated four times. For example, all cores will typically share a single connection to main memory.',
+		],
+		issues: [
+			{ t: 'Exceeding memory bandwidth',					d: 'the memory bus is satured with requests' },
+			{ t: 'False data sharing',							d: 'a group of data is invalidated due to a variable (updated by another core) but the thread aims to read/write a different variable' }
 		],
 		strips: [strips.e],
 		gauges: [[gauge_e, gauge_lw], [gauge_il]],
 		widgets: [widgets.memBandwidth, widgets.coreBandwidth, widgets.lockCounts, widgets.cacheMisses, widgets.cacheInvalidations, widgets.coreInvalidations]
 	};
-	var io = {
-		tag: 'io', cat: 'io', label: 'Input/Output', title: 'Input/Output', icon: 'plug', enabled: false,
-		description: 'Degradation of performance can occur when threads compete for I/O resources such disk, file system or network. I/O contentions are often seen in instances of heavy workloads and causes latency and bottlenecks.',
-		issues: [],
-		tooltip: [
-			'This category helps about the degradation of performance while compete for I/O resources.',	
-			'I/O contentions are often seen in instances of heavy workloads and causes latency and bottlenecks.',
-		],
-		strips: [],
-		gauges: [],
-		widgets: []
-	};
 
 	var output = {
-		all: [tg, sy, ds, lb, dl, rs, io],
-		tg: tg, sy: sy, ds: ds, lb: lb, dl: dl, rs: rs, io: io, common: common
+		all: [tg, sy, ds, lb, dl, rs],
+		tg: tg, sy: sy, ds: ds, lb: lb, dl: dl, rs: rs, common: common
 	};
 	
 	return output;
