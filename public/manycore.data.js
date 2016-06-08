@@ -872,8 +872,8 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 	};
 	var tg = {
 		tag: 'tg', cat: 'tg', label: 'Task granularity', title: 'Task granularity', icon: 'sliders', enabled: true,
-		description: 'In parallel programs it is often a challenge to find enough parallelism to keep the machine busy. A key focus of parallel software development is designing algorithms that expose more parallelism. However, there are overheads associated with starting, managing and switching between parallel threads. If there are too many threads, the cost of these overheads can exceed the benefits',
-		issues: ['oversubscription', 'task start/stop overhead', 'thread migration'],
+		description: 'In parallel programs it is often a challenge to find enough parallelism (performing many calculations simultaneously) to keep the machine busy. A key focus of parallel software development is designing algorithms that expose more parallelism. However, there are overheads associated with starting, managing and switching between parallel threads. If the tasks are too small (fine-grained parallelism), the cost of these overheads can exceed the benefits. Conversely, if tasks are too large (coarse-grained parallelism) some resources might be under utilized. Choosing the correct task granularity is critical.',
+		issues: ['oversubscription: When there are a lot more parallel tasks than cores.', 'task start/stop overhead: Overheads associated with starting and stopping between threads.', 'thread migration: Overheads associated with managing and migrating threads between cores.'],
 		tooltip: [
 			'This category describes the level of parallelism exhibited by the application.',	
 			'For instance, if there are too many threads, the cost can exceed the benefits.',
@@ -884,8 +884,8 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 	};
 	var sy = {
 		tag: 'sy', cat: 'sy', label: 'Synchronisation', title: 'Synchronisation', icon: 'refresh', enabled: true,
-		description: 'Our focus is on multicore systems with a shared-memory programming model. Where data is shared and updated some sort of synchronisation is needed to ensure that all threads get a consistent view of memory. Synchronization always causes some overhead. If the algorithm requires a large amount of synchronization, the overhead can offset much of the benefits of parallelism. Perhaps the most common synchronisation mechanism is the lock; other mechanisms include barriers, semaphores, and the atomic instructions used in so-called “lock-free” and “wait-free” data structures.',
-		issues: ['Low work to synchronisation ratio', 'Lock contention', 'Lock convoy', 'Badly-behaved spinlocks'],
+		description: 'In a shared-memory programming model, where data is shared and updated by multiple threads; some sort of synchronisation is needed to ensure that all threads get a consistent view of memory. Synchronization always causes some overhead. If the algorithm requires a large amount of synchronization, the overhead can offset much of the benefits of parallelism. Perhaps the most common synchronisation mechanism is the lock; other mechanisms include barriers, semaphores, and the atomic instructions used in so-called “lock-free” and “wait-free” data structures.',
+		issues: ['Low work to synchronisation ratio: Ratio of time spent by threads executing code versus waiting for locks.', 'Lock contention: Scenario where one thread attempts to acquire a lock held by another thread.', 'Lock convoy: Occurs when multiple threads of the same priority attempt to acquire the same lock.', 'Badly-behaved spinlocks: Causes thread to wait in a loop attempting to acquire a lock until it\'s released.'],
 		tooltip: [
 			'This category helps about the synchronisation needed to ensure that all threads get a consistent view of a shared memory. The common mechanism is the lock.',	
 			'If the algorithm requires a large amount of synchronization, the overhead can offset much of the benefits of parallelism.',
@@ -896,8 +896,8 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 	};
 	var ds = {
 		tag: 'ds', cat: 'ds', label: 'Data sharing', title: 'Data sharing', icon: 'exchange', enabled: true,
-		description: 'Threads within a process communicate through data in shared memory. Sharing data between cores involves physically transmitting the data along wires between the cores. On shared memory computers these data transfers happen automatically through the caching hardware. However these transfers nonetheless take time, with the result that there is typically a cost to data sharing, particularly when shared variables and data structures are modified.',
-		issues: ['True sharing of updated data', 'Sharing of data between CPUs on NUMA systems', 'Sharing of lock data structures', 'Sharing data between distant cores'],
+		description: 'Threads within a process communicate through data in shared memory. Sharing data between cores involves physically transferring the data along wires between the cores. On shared memory computers these data transfers happen automatically through the caching hardware. However these transfers take time, along with a cost to data sharing, particularly when shared variables and data structures are modified.',
+		issues: ['True sharing of updated data: LOOK AT DAVID\'s EMAIL EXPLANATION PDF THINGAMAJIG', 'Sharing of data between CPUs on NUMA systems', 'Sharing of lock data structures: Frequent acquiring and releasing of locks by multiple threads', 'Sharing data between distant cores: High cost of transferring data between two threads on distant cores.'],
 		tooltip: [
 			'This category helps about the data shared between cores.',	
 			'These transfers take time, with the result that there is typically a cost to data sharing, particularly when shared variables and data structures are modified.',
