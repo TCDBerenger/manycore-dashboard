@@ -5,7 +5,7 @@ const TIME_NONE = 0;
 const TIME_PROFILE = 10;
 const TIME_CUSTOM = 20;
 
-app.controller('DetailController', ['$scope', '$rootScope', '$window', '$stateParams', '$http', 'selectedProfiles', 'categories', 'widgets', function($scope, $rootScope, $window, $stateParams, $http, selectedProfiles, categories, widgets) {
+app.controller('DetailController', ['$scope', '$rootScope', '$window', '$stateParams', '$http', '$sce', 'selectedProfiles', 'categories', 'widgets', function($scope, $rootScope, $window, $stateParams, $http, $sce, selectedProfiles, categories, widgets) {
 	/************************************************/
 	/* Constructor - Init							*/
 	/************************************************/
@@ -139,6 +139,12 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		}
 	};
 
+	/**
+	 * Issue - title
+	 */
+	$scope.issueHTMLTitle = function(issue) {
+		return $sce.trustAsHtml(issue.t);
+	}
 
 	/************************************************/
 	/* Generator - Graphical						*/

@@ -213,3 +213,67 @@
 .detail #ruler .facet-pin i {
 	text-shadow: 0 0 4px #FFF;
 }
+
+
+/**
+ * Description
+ */
+.detail .description {
+	box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+
+	margin-bottom: 20px;
+	padding: 20px 20px 20px 20px;
+
+	outline: 0px none;
+
+	background-color: #333333;
+	background-clip: padding-box;
+
+	color: #fff;
+	/*
+	font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-style: normal;
+	font-weight: 300;
+	letter-spacing: normal;
+	line-break: auto;
+	line-height: 1.4;
+	text-align: left;
+	text-align: start;
+	text-decoration: none;
+	text-shadow: none;
+	text-transform: none;
+	white-space: normal;
+	word-break: normal;
+	word-spacing: normal;
+	word-wrap: normal;
+	*/
+}
+.detail .description .arrow {
+	position: absolute;
+	display: block;
+	top: -19px;
+	left: 32px;
+
+	width: 0;
+	height: 0;
+
+	border: 20px solid transparent;
+	border-top-width: 0;
+	border-bottom-color: rgb(51, 51, 51);
+}
+
+
+/**
+ * Issues
+ */
+.detail .issues ul {
+	margin: 0;
+	padding-left: 14px;
+	list-style: none;
+}
+.detail .issues ul li:before {    
+	font-family: 'FontAwesome';
+	content: '\f101';
+	color: #5bc0de;
+	margin: 0 3px 0 -16px;
+}

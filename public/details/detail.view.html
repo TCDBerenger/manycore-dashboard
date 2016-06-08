@@ -1,4 +1,3 @@
-
 <!-- Header -->
 <ul class="nav nav-pills" style="margin-bottom: 20px; border-bottom: 1px solid rgb(221, 221, 221);">
 	<span class="nav-tab-title"><i class="fa fa-{{meta.icon}} fa-32px text-info"></i>{{meta.label}}</span>
@@ -31,7 +30,7 @@
 	<li class="navbar-right"><a ui-sref="dashboard({ids: encodedIDs})"><i class="fa fa-graduation-cap fa-halfpad"></i>Numerical Dashoard</a></li>
 	<li class="navbar-right"><a ui-sref="dashboard({ids: encodedIDs})"><i class="fa fa-tachometer fa-halfpad"></i>Graphical Dashoard</a></li>
 	-->
-	<p class="navbar-text navbar-right" style="margin-right: 10px;">&hellip; or try</p>
+	<p class="navbar-text navbar-right hidden-xs hidden-sm" style="margin-right: 10px;">&hellip; or try</p>
 	
 	<!-- Waiting -->
 	<p ng-if="isWaiting()" class="navbar-text" style="margin-right: 10px;">
@@ -40,35 +39,35 @@
 	</p>
 </ul>
 
-<div class="row" ng-if="! isWaiting()">
-	<div class="col-xs-4 profile">
-		<div class="block block-imp">
-			<h4>What's here?</h4>
-			<p>{{meta.description}}</p>
+<!-- Descriptions -->
+<div class="row">
+	<!-- Description -->
+	<div class="col-sm-6 col-xs-12">
+		<div class="description">
+			<div class="arrow hidden-xs"></div>
+			<p ng-repeat="description in meta.descriptionDetails">{{description}}</p>
 		</div>
 	</div>
-	<div class="col-xs-3 profile">
-		<div class="block block-imp">
-			<h4>Potential issues</h4>
+	<!-- Issues -->
+	<div class="col-sm-6 col-xs-12">
+		<div class="block issues">
+			<span class="block-icon fa-stack text-info">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-exclamation fa-stack-1x fa-inverse"></i>
+			</span>
+			<h2>Potential issues</h2>
 			<ul>
-				<li ng-repeat="issue in meta.issues">{{issue}}</li>
+				<li ng-repeat="issue in meta.issues">
+					<strong ng-bind-html="issueHTMLTitle(issue)"></strong><strong ng-if="issue.d">:</strong> <span>{{issue.d}}
+					<a ng-if="issue.url" href="{{issue.url}}">more<i class="fa fa-external-link" style="margin-left: 4px;" aria-hidden="true"></i></a>
+				</li>
 			</ul>
 		</div>
 	</div>
-	<div class="col-xs-5">
-		<!-- Next step -->
-		<div class="block">
-			<span class="block-icon fa-stack text-info">
-				<i class="fa fa-circle fa-stack-2x"></i>
-				<i class="fa fa-info fa-stack-1x fa-inverse"></i>
-			</span>
-			<h2>What's next?</h2>
-			<p><i class="fa fa-info text-info" style="width: 18px; text-align: center;"></i> Check all the graphs to identify unexpected behaviour.</p>
-			<p><i class="fa fa-stethoscope text-info" style="width: 18px; text-align: center;"></i> Diagnose the problem through typical graph shapes or omnipresent colour.</p>
-			<p><i class="fa fa-paint-brush text-info" style="width: 18px; text-align: center;"></i> Customise the graphs by adapting some settings.</p>
-		</div>
-	</div>
-	
+</div>
+
+
+<div class="row" ng-if="! isWaiting()">
 	<!-- Ruler -->
 	<div id="ruler" style="display: none" data-ng-init="initRuler()">
 		<span class="label label-focus">? ms</span>
