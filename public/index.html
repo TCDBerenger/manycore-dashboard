@@ -15,8 +15,6 @@
 	<link rel='stylesheet' href='/details/detail.style.css' />
 	<link rel='stylesheet' href='/details/aside/aside.style.css' />
 	<link rel='stylesheet' href='/details/widgets/widgets.style.css' />
-	<link rel='stylesheet' href='/navbar/navbar.style.css' />
-	<link rel='stylesheet' href='/sidebar/sidebar.style.css' />
 	<link rel='stylesheet' href='/welcome/welcome.style.css' />
 	<link rel='stylesheet' href='/raw/raw.style.css' />
 	<link rel="icon" type="image/png" sizes="192x192"  href="/assets/favicon.png">
@@ -37,16 +35,11 @@
 	<script src="/details/aside/aside.directive.js" type="text/javascript"></script>
 	<script src="/details/widgets/widgets.directive.js" type="text/javascript"></script>
 	<script src="/details/widgets/widgets-d3.directive.js" type="text/javascript"></script>
-	<script src="/navbar/navbar.controller.js" type="text/javascript"></script>
 	<script src="/settings/settings.controller.js" type="text/javascript"></script>
-	<script src="/sidebar/sidebar.controller.js" type="text/javascript"></script>
 	<script src="/welcome/welcome.controller.js" type="text/javascript"></script>
 	<script src="/raw/raw.controller.js" type="text/javascript"></script>
 </head>
 <body ng-app="manycoreDashboard">
-
-<!-- NAVBAR -->
-<nav class="navbar navbar-default navbar-fixed-top" ng-include="'/navbar/navbar.view.html'" ng-controller="NavbarController"></nav>
 
 <!-- CONTENT -->
 <div id="content" class="container-fluid"><ui-view /></div>
