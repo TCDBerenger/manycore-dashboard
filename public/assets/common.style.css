@@ -4,6 +4,7 @@
 body {
 	padding-top: 20px;
 }
+.pagination, .carousel, .panel-title a, .link, .nav li {
 	cursor: pointer; /* Angular Bootstrap UI side effect with Bootstrap  */
 }
 .btn-toolbar-vertical {
