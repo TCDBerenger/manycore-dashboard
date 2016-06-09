@@ -277,6 +277,40 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 	// Fruit salad
 	var m =		JSON.parse(JSON.stringify(facets.m));
 	m.colors = ['#b6e3bc', '#b6e3da', '#b6cee3', '#bcb6e3', '#dab6e3', '#e3b6ce', '#e3bcb6', '#e3dab6'];
+
+	// Clues for thread states (running, waiting, ready, ...)
+	var clues_threadStates = [
+		{
+			f: facets.yb,
+			t: 'Oversubscription',
+			i: 'Too many threads are waiting an available core',
+			q: 'Reduce the number of core',
+			for: 'tg'
+		}, {
+			f: facets.y,
+			t: 'Thread migrations',
+			q: 'reduce the number of threads',
+			for: 'tg'
+		}, {
+			f: facets.y,
+			t: 'Bad thread to core ratio',
+			q: 'reduce the number of threads',
+			for: 'lb'
+		}, {
+			f: facets.i,
+			t: 'Underscubscription',
+			q: 'not enough threads',
+		}, {
+			f: facets.r,
+			t: 'Executing',
+			i: 'everything fine'
+		}, {
+			f: facets.sys,
+			t: 'Overheaded system',
+			i: 'The system took too many ressources.',
+			q: 'Close the unecessary other programs'
+		}
+	];
 	
 	return {
 		cacheBreackdown: {
@@ -452,7 +486,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '▮', f: facets.sys,	d: 'Core occupied by other program',	 c: colours.list.fGrey }
 				]
 			},
-			clues: [],
+			clues: clues_threadStates,
 			settings: []
 		},
 		lockCounts: {
@@ -641,12 +675,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '▮', f: facets.sys,	d: 'Core occupied by other program',	 c: colours.list.fGrey }
 				]
 			},
-			clues: [
-				{ f: facets.y,	t: 'Oversubscription', 			d: 'too many threads' },
-				{ f: facets.y,	t: 'Thread migrations', 		d: 'too many threads' },
-				{ f: facets.y,	t: 'Bad thread to core ratio', 	d: 'too many threads' },
-				{ f: facets.i,	t: 'Underscubscription', 		d: 'not enough threads' }
-			],
+			clues: clues_threadStates,
 			settings: []
 		},
 		threadStates: {
@@ -673,12 +702,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '▮', f: facets.sys,	d: 'Core occupied by other program',	 c: colours.list.fGrey }
 				]
 			},
-			clues: [
-				{ f: facets.y,	t: 'Oversubscription', 			d: 'too many threads' },
-				{ f: facets.y,	t: 'Thread migrations', 		d: 'too many threads' },
-				{ f: facets.y,	t: 'Bad thread to core ratio', 	d: 'too many threads' },
-				{ f: facets.i,	t: 'Underscubscription', 		d: 'not enough threads' }
-			],
+			clues: clues_threadStates,
 			settings: []
 		},
 		threadFruitSalad: {
