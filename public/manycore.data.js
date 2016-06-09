@@ -309,6 +309,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			t: 'Overheaded system',
 			i: 'The system took too many ressources.',
 			q: 'Close the unecessary other programs'
+		}, {
+			img: 'i-r-half',
+			t: 'Underscubscription',
+			i: 'The work is not appropriately divided',
 		}
 	];
 	
@@ -978,7 +982,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 			{ t: 'Undersubscription',									d: 'too few threads actively running' },
 			{ t: 'Alternating sequential/parallel execution',			d: 'the sequential phases slow down the system' },
 			{ t: 'Chains of data dependencies, too little parallelism',	d: 'a thread is waiting for the result produced by another thread' },
-			{ t: 'Bad threads to cores ratio',							d: 'the work is divided into chunks not matching appropriaely the number of cores' }
+			{ t: 'Bad threads to cores ratio',							d: 'the work is divided into chunks not matching appropriately the number of cores' }
 		],
 		strips: [strips.q],
 		gauges: [[gauge_uc, gauge_lw], [gauge_m]],
