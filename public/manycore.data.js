@@ -306,11 +306,13 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			i: 'everything fine'
 		}, {
 			f: facets.sys,
+			alt: 'Lot of busy ressources',
 			t: 'Overheaded system',
 			i: 'The system took too many ressources.',
 			q: 'Close the unecessary other programs'
 		}, {
 			img: 'i-r-half',
+			alt: 'well distributed',
 			t: 'Underscubscription',
 			i: 'The work is not appropriately divided',
 		}
