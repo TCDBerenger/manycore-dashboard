@@ -21,19 +21,16 @@
 	</uib-tab>
 	<uib-tab>
 		<uib-tab-heading><i class="fa fa-stethoscope"></i> help</uib-tab-heading>
-		<div class="row" ng-init="clueMode = 1">
-			<div class="col-sm-2">
-				<div class="btn-group-vertical btn-group-sm" role="group" style="width: 100%;">
-					<label class="btn btn-default" style="white-space: initial;" ng-model="clueMode" uib-btn-radio="0">typical graph shapes</label>
-					<label class="btn btn-default" style="white-space: initial;" ng-model="clueMode" uib-btn-radio="1">color balance help</label>
-				</div>
-			</div>
-			<div class="col-sm-10">
-				<div ng-if="clueMode == 0">
-				</div>
-				<div ng-if="clueMode == 1">
-					<p class="clues-label">Is there a uniform color?</p>
-					<facet-list list="widget.deck.clues"></facet-list>
+		<div class="clues">
+			<div class="clue" ng-repeat="clue in widget.deck.clues" ng-if="! clue.for || clue.for == meta.cat">
+				<div class="thumbnail">
+					<div ng-if="clue.img" class="clue-shape" style="background-image: url('/assets/shapes/{{clue.img}}.png')">{{clue.alt}}</div>
+					<div ng-if="clue.f" class="clue-uniform" style="background-color: {{clue.f.colours.n}}">{{ clue.alt | iif : clue.alt : 'uniform ' + clue.f.label }}</div>
+					<div class="caption">
+						<p class="clue-title">{{clue.t}}</p>
+						<p ng-if="clue.i"><i class="fa fa-fw fa-info text-info" aria-hidden="true"></i>{{clue.i}}</p>
+						<p ng-if="clue.q"><i class="fa fa-fw fa-question text-info" aria-hidden="true"></i>{{clue.q}}</p>
+					</div>
 				</div>
 			</div>
 		</div>

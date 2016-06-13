@@ -8,7 +8,7 @@
 		<span ng-if="profiles.length > 1">and <b>{{::profiles[1].label}}</b></span>
 	</p>
 	<li ng-if="! isWaiting()" uib-dropdown>
-		<a uib-dropdown-toggle><i class="fa fa-laptop fa-halfpad"></i>{{profiles.length > 1 | iif : 'hardwares' : 'hardware'}} <span class="caret"></span></a>
+		<a uib-dropdown-toggle><i class="fa fa-laptop fa-halfpad"></i>{{profiles.length > 1 | iif : 'settings' : 'setting'}} <span class="caret"></span></a>
 		<div uib-dropdown-menu template-url="template_compare_table.html" aria-labelledby="link-compare-profile"></div>
 	</li>
 	

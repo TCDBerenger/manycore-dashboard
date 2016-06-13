@@ -2,9 +2,9 @@
  * Base structure
  */
 body {
-	padding-top: 70px; /* Move down content because we have a fixed navbar that is 50px tall */
+	padding-top: 20px;
 }
-.nav, .pagination, .carousel, .panel-title a, .link {
+.pagination, .carousel, .panel-title a, .link, .nav li {
 	cursor: pointer; /* Angular Bootstrap UI side effect with Bootstrap  */
 }
 .btn-toolbar-vertical {
@@ -152,18 +152,10 @@ span.link:hover {
 
 
 /*
- * Navbar
- */
-.navbar {
-}
-
-
-/*
  * Content
  */
 #content {
 	width: 100%;
-	padding: 0px 20px 0px 20px; /* TO DELETE */
 	transition: all 0.2s ease;
 }
 
@@ -335,16 +327,4 @@ span.link:hover {
 .block-list p i:first-of-type {
 	width: 18px;
 	text-align: center;
-}
-
-
-
-/**
- * XP
- */
-body.no-navbar {
-	padding-top: 30px;
-}
-body.no-navbar > nav {
-	display: none;
 }
