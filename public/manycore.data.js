@@ -283,13 +283,14 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 		{
 			f: facets.yb,
 			t: 'Oversubscription',
-			i: 'Too many threads are waiting an available core',
-			q: 'Reduce the number of core',
+			i: 'Too many threads waiting to execute',
+			q: 'Reduce the number of threads',
 			for: 'tg'
 		}, {
 			f: facets.y,
 			t: 'Thread migrations',
-			q: 'reduce the number of threads',
+			i: 'Threads continuously move between cores',
+			q: 'Reduce the number of threads',
 			for: 'tg'
 		}, {
 			f: facets.y,
@@ -298,22 +299,22 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			for: 'lb'
 		}, {
 			f: facets.i,
-			t: 'Underscubscription',
-			q: 'not enough threads',
+			t: 'Undersubscription',
+			q: 'Too few threads',
 		}, {
 			f: facets.r,
 			t: 'Executing',
-			i: 'everything fine'
+			i: '👌 everything fine'
 		}, {
 			f: facets.sys,
-			alt: 'Lot of busy ressources',
-			t: 'Overheaded system',
-			i: 'The system took too many ressources.',
-			q: 'Close the unecessary other programs'
+			alt: 'Lot of busy resources',
+			t: 'Overloaded system',
+			i: 'Background tasks are using too many resources.',
+			q: 'Close unecessary programs'
 		}, {
 			img: 'i-r-half',
 			alt: 'well distributed',
-			t: 'Underscubscription',
+			t: 'Undersubscription',
 			i: 'The work is not appropriately divided',
 		}
 	];
@@ -358,8 +359,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '%', t: 'Percent',	d: 'maximum possible cache line invalidations per cache (L1 or L2)', c: colours.list.fGrey}
 				],
 				data: [
-					{ b: '▮', 	d: '',	f: facets.il1 },
-					{ b: '▮', 	d: '',	f: facets.il2 }
+					{ b: '▮', 	d: 'L1 cache misses due to invalidation',	f: facets.il1, t: 'L1 invalidation misses' },
+					{ b: '▮', 	d: 'L2 cache misses due to invalidation',	f: facets.il2, t: 'L2 invalidation misses' }
 				]
 			},
 			clues: [],
@@ -461,8 +462,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			legend: {
 				axis: [],
 				data: [
-					{ b: '▮', 	d: '',	f: facets.il1 },
-					{ b: '▮', 	d: '',	f: facets.il2 }
+					{ b: '▮', 	d: 'L1 cache misses due to invalidation',	f: facets.il1, t: 'L1 invalidation misses' },
+					{ b: '▮', 	d: 'L2 cache misses due to invalidation',	f: facets.il2, t: 'L2 invalidation misses' }
 				]
 			},
 			clues: [],
@@ -486,7 +487,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '◒',	f: facets.r,	t: 'Core capacity',				d: 'time spent in thread execution, idle, or used by the OS' }
 				],
 				data: [
-					{ b: '▮', f: facets.lw,		d: 'threads are not ready to be processed because they waiting to acquire a lock' },
+					{ b: '▮', f: facets.lw,		d: 'threads are waiting to acquire a lock' },
 					{ b: '▮', f: facets.r,		d: 'thread is actively executing', },
 					{ b: '▮', f: facets.i,		d: 'no thread running on core' },
 					{ b: '▮', f: facets.sys,	d: 'Core occupied by other program',	 c: colours.list.fGrey }
@@ -514,7 +515,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				],
 				data: [
 					{ b: '▮', t: 'Lock with contention',	d: 'number of failed lock acquisitions',	f: facets.lf },
-					{ b: '▮', t: 'Lock without contention',	d: 'number of succesful lock acquisitions',	f: facets.ls }
+					{ b: '▮', t: 'Lock without contention',	d: 'number of successful lock acquisitions',	f: facets.ls }
 				]
 			},
 			clues: [],
@@ -917,7 +918,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 		issues: [
 			{ t: 'Oversubscription',			d: 'not enough free cores available' },
 			{ t: 'Task start/stop overhead',	d: 'a dedicated thread is not justified for the amount of work performed' },
-			{ t: 'Thread migration',			d: 'a thread cannot executing on the same core' }
+			{ t: 'Thread migration',			d: 'excessive thread movement across cores' }
 		],
 		strips: [strips.yb, strips.i],
 		gauges: [[gauge_yb, gauge_uc], [gauge_s, gauge_m]],
@@ -938,9 +939,9 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 			 other mechanisms include barriers, semaphores, and the atomic instructions used in so-called “lock-free” and “wait-free” data structures.'
 		],
 		issues: [
-			{ t: 'Low work to synchronisation ratio',	d: 'the thread synchronisation is not justified for the amount of work performed' },
+			{ t: 'Low work to synchronisation ratio',	d: 'threads spend more time acquiring locks than executing' },
 			{ t: 'Lock contention',						d: 'a thread attempts to acquire a lock held by another thread' },
-			{ t: 'Badly-behaved spinlocks',				d: 'a thread attempts to acquire a lock repeatedly until it becomes available' }
+			{ t: 'Badly-behaved spinlocks',				d: 'a thread repeatedly fails to acquire a lock without pause' }
 		],
 		strips: [strips.lw],
 		gauges: [[gauge_lw], [gauge_ls, gauge_lf]],
@@ -959,8 +960,8 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 			'However these transfers take time, along with a cost to data sharing, particularly when shared variables and data structures are modified.'
 		],
 		issues: [
-			{ t: 'True sharing of updated data',					d: 'the same variable is writte/read by different cores' },
-			{ t: 'Sharing of data between CPUs on NUMA systems',	d: 'different parts of the data may be in different local memories' },
+			{ t: 'True sharing of updated data',					d: 'the same variable is written/read by different cores' },
+			{ t: 'Sharing data between CPUs on NUMA systems',	d: 'different parts of the data may be in different local memories' },
 			{ t: 'Sharing of lock data structures',					d: 'large number of locks acquired or released' },
 			{ t: 'Sharing data between distant cores',				d: 'transferring shared data between threads on distant cores' }
 		],

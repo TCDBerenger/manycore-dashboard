@@ -25,7 +25,7 @@
 			<div class="clue" ng-repeat="clue in widget.deck.clues" ng-if="! clue.for || clue.for == meta.cat">
 				<div class="thumbnail">
 					<div ng-if="clue.img" class="clue-shape" style="background-image: url('/assets/shapes/{{clue.img}}.png')">{{clue.alt}}</div>
-					<div ng-if="clue.f" class="clue-uniform" style="background-color: {{clue.f.colours.n}}">{{ clue.alt | iif : clue.alt : 'uniform ' + clue.f.label }}</div>
+					<div ng-if="clue.f" class="clue-uniform" style="background-color: {{clue.f.colours.n}}">{{ clue.alt | iif : clue.alt : 'mostly ' + clue.f.label }}</div>
 					<div class="caption">
 						<p class="clue-title">{{clue.t}}</p>
 						<p ng-if="clue.i"><i class="fa fa-fw fa-info text-info" aria-hidden="true"></i>{{clue.i}}</p>
