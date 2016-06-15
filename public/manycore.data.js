@@ -978,14 +978,14 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 		descriptionDetails: [
 			'Load balancing is the attempt to divide work evenly among the cores.\
 			 Dividing the work in this way is usually, but not always, beneficial.',
-			'There is an overhead in dividing work between parallel cores and it can sometimes be more efficient to not use all the available cores.\
+			'There is an overhead in dividing work between parallel cores and it can sometimes be more efficient not to use all the available cores.\
 			 Nonetheless, a poor load balance is one of the most easily understood performance problems.',
 		],
 		issues: [
-			{ t: 'Undersubscription',									d: 'too few threads actively running' },
-			{ t: 'Alternating sequential/parallel execution',			d: 'the sequential phases slow down the system' },
-			{ t: 'Chains of data dependencies, too little parallelism',	d: 'a thread is waiting for the result produced by another thread' },
-			{ t: 'Bad threads to cores ratio',							d: 'the work is divided into chunks not matching appropriately the number of cores' }
+			{ t: 'Undersubscription',							d: 'too few threads actively running' },
+			{ t: 'Alternating sequential/parallel execution',	d: 'sequential phases limit performance of the system' },
+			{ t: 'Chains of data dependencies',					d: 'the structure of some parts of the application prevents parallelisation' },
+			{ t: 'Bad threads to cores ratio',					d: 'the work is not appropriately divided for the available cores' }
 		],
 		strips: [strips.q],
 		gauges: [[gauge_uc, gauge_lw], [gauge_m]],
@@ -999,16 +999,15 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 		],
 		descriptionDetails: [
 			'This is not a specifically multicore problem, but it is impossible to talk about single or multicore performance without talking about locality.',
-			'In the early 1980s a typical computer could read a value from main memory in one or two CPU cycles.\
-			 However, between 1984 and 2004 processing speeds increased by around 50% per year, whereas the time to access DRAM memory fell by only 10%-15% per year.',
-			'The result is that it now takes hundreds of processor cycles to read a value from main memory.\
+			'Two or more memory accesses have data locality when they touch nearby memory regions. High data locality means caches are very effective, low data locality means caches have very little effect.',
+			'Locality is important because it takes hundreds of processor cycles to access a value in main memory, but only a few cycles to access cache.\
 			 This problem is often called the “memory wall”.',
 		],
 		issues: [
-			{ t: 'Cache Locality',		d: 'data is not present on a reasonably nearby location' },
+			{ t: 'Cache Locality',		d: 'data is not present in a reasonably nearby cache' },
 			{ t: '<abbr title="Translation Lookaside Buffer">TLB</abbr> Locality',
-										d: 'too large number of pages of memory' },
-			{ t: 'DRAM memory pages',	d: 'the memory accessess are not targeting the same physical DRAM pages' },
+										d: 'data used by the application is seldom in the same virtual page' },
+			{ t: 'DRAM memory pages',	d: 'memory accesses seldom target the same physical DRAM pages' },
 			{ t: 'Page faults',			d: 'not enough physical memory' }
 		],
 		strips: [strips.miss],
@@ -1025,8 +1024,8 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 			'Those who are new to parallel programming often expect linear performance scaling: code running on four cores will be four times faster than on one core. There are many reasons why this is seldom true, but perhaps the most self-explanatory is that those four cores share and must compete for access to other parts of the hardware that have not been replicated four times. For example, all cores will typically share a single connection to main memory.',
 		],
 		issues: [
-			{ t: 'Exceeding memory bandwidth',					d: 'the memory bus is satured with requests' },
-			{ t: 'False data sharing',							d: 'a group of data is invalidated due to a variable (updated by another core) but the thread aims to read/write a different variable' }
+			{ t: 'Exceeding memory bandwidth',					d: 'the memory bus is saturated with requests' },
+			{ t: 'False data sharing',							d: 'updating data invalidates nearby locations which hold data used by other threads' }
 		],
 		strips: [strips.e],
 		gauges: [[gauge_e, gauge_lw], [gauge_il]],
