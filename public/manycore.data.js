@@ -281,41 +281,37 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 	// Clues for thread states (running, waiting, ready, ...)
 	var clues_threadStates = [
 		{
-			f: facets.yb,
-			t: 'Oversubscription',
-			i: 'Too many threads waiting to execute',
-			q: 'Reduce the number of threads',
-			for: 'tg'
-		}, {
-			f: facets.y,
-			t: 'Thread migrations',
-			i: 'Threads continuously move between cores',
-			q: 'Reduce the number of threads',
-			for: 'tg'
-		}, {
-			f: facets.y,
-			t: 'Bad thread to core ratio',
-			q: 'reduce the number of threads',
-			for: 'lb'
-		}, {
-			f: facets.i,
-			t: 'Undersubscription',
-			q: 'Too few threads',
-		}, {
-			f: facets.r,
+			img: 'limit_r',
 			t: 'Executing',
-			i: '👌 everything fine'
+			good: true
 		}, {
-			f: facets.sys,
-			alt: 'Lot of busy resources',
+			img: 'limit_i',
+			t: 'Undersubscription',
+			i: 'Program consumes too little CPU',
+			q: 'Program could consume more CPU time (try adding threads)',
+			for: 'xx'
+		}, {
+			img: 'limit_sys',
 			t: 'Overloaded system',
-			i: 'Background tasks are using too many resources.',
-			q: 'Close unecessary programs'
+			i: 'Close unecessary programs',
+			q: 'Background tasks are using too many resources.'
 		}, {
-			img: 'i-r-half',
+			img: 'limit_i-r',
 			alt: 'well distributed',
 			t: 'Undersubscription',
 			i: 'The work is not appropriately divided',
+			q: 'Program could consume more CPU time (try adding threads)'
+		}, {
+			img: 'limit_r-y',
+			t: 'Oversubscription',
+			i: 'More parallelism in application than hardware can exploit',
+			q: 'too few cores',
+			for: 'tg'
+		}, {
+			img: 'limit_sys-y',
+			t: 'Oversubscription',
+			i: 'Other programs are consuming CPU time',
+			for: 'tg'
 		}
 	];
 	
@@ -608,10 +604,25 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '▮', d:'thread migrates to another core', f: facets.m }
 				]
 			},
-			clues: [
-				{ f: facets.m,	t: 'Thread migrations',							d: 'too many migrations' },
-				{ f: facets.m,	t: 'Alternating sequential/parallel execution',	d: 'alternating period of high and low thread migrations' }
-			],
+			clues: [{
+				img: 'mean',
+				good: true
+			}, {
+				img: 'mean_m',
+				good: true
+			}, {
+				img: 'mean_m-full',
+				t: 'Oversubscription',
+				i: 'Too many threads are waiting to execute',
+				q: 'Reduce the number of threads',
+				for: 'tg'
+			}, {
+				img: 'mean_m-alt',
+				t: 'Alternating s./p. execution',
+				i: 'Too many threads are waiting to execute',
+				q: 'Reduce the number of threads',
+				for: 'lb'
+			}],
 			plans: [
 				{ id: 1, label: 'log₂', property: 'useLogScale' },
 				{ id: 2, label: 'linear', property: 'useLinearScale' },
@@ -643,9 +654,18 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '▮', d: 'cores switching from one thread to another', f: facets.s }
 				]
 			},
-			clues: [
-				{ f: facets.s,	t: 'Oversubscription',	d: 'high frequency' }
-			],
+			clues: [{
+				img: 'mean',
+				good: true
+			}, {
+				img: 'mean_s',
+				good: true
+			}, {
+				img: 'mean_s-full',
+				t: 'Oversubscription',
+				i: 'Too many threads are waiting to execute',
+				q: 'Reduce the number of threads'
+			}],
 			plans: [
 				{ id: 1, label: 'log₂', property: 'useLogScale' },
 				{ id: 2, label: 'linear', property: 'useLinearScale' },
