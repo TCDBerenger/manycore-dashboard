@@ -300,7 +300,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			alt: 'well distributed',
 			t: 'Undersubscription',
 			i: 'The work is not appropriately divided',
-			q: 'Program could consume more CPU time (try adding threads)'
+			q: 'Program could consume more CPU time (try adding threads)',
+			for: 'tg'
 		}, {
 			img: 'limit_r-y',
 			t: 'Oversubscription',
@@ -312,6 +313,11 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			t: 'Oversubscription',
 			i: 'Other programs are consuming CPU time',
 			for: 'tg'
+		}, {
+			img: 'limit_i-lw',
+			t: 'Low work to sync. ratio',
+			i: 'near deadlock',
+			for: 'sy'
 		}
 	];
 	
