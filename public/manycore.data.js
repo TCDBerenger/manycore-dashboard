@@ -613,14 +613,14 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			}, {
 				img: 'mean_m-full',
 				t: 'Oversubscription',
-				i: 'Too many threads are waiting to execute',
-				q: 'Reduce the number of threads',
+				q: 'Too many threads are waiting to execute',
+				i: 'Reduce the number of threads',
 				for: 'tg'
 			}, {
 				img: 'mean_m-alt',
 				t: 'Alternating s./p. execution',
-				i: 'Too many threads are waiting to execute',
-				q: 'Reduce the number of threads',
+				q: 'Too many threads are waiting to execute',
+				i: 'Reduce the number of threads',
 				for: 'lb'
 			}],
 			plans: [
@@ -753,12 +753,39 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '◧', t: 'Cores',	d: 'core to which a thread is attached to (one color by core)',	 c: colours.list.fGrey }
 				]
 			},
-			clues: [
-				{ f: facets.m,	t: 'Task start/stop overhead',	d: 'too many creations' },
-				{ f: limit,		t: 'Oversubscription',			d: 'too many threads' },
-				{ f: limit,		t: 'Thread migrations',			d: 'too many threads' },
-				{ f: facets.m,	t: 'Thread migrations',			d: 'too many migrations' },
-				{ f: facets.m,	t: 'Task start/stop overhead',	d: 'too short lifetime' }
+			clues: [{
+					img:	'lines_m-alt',
+					plan:	'rate',
+					t:		'Alternating s./p. execution',
+					q:		'Too many threads are waiting to execute',
+					i:		'Reduce the number of threads'
+				}, {
+					img:	'lines',
+					plan:	'rate / events',
+					good:	true
+				}, {
+					img:	'lines_m-low-rate',
+					plan:	'events',
+					good:	true
+				}, {
+					img:	'lines_m-high-rate',
+					plan:	'events',
+					t:		'Thread migrations',
+					q:		'Threads are not durably attached to cores',
+					i:		'Reduce the number of threads'
+				}, {
+					img:	'lines_affinity',
+					plan:	'core afinity',
+					good:	true,
+					i:		'a thread is attached to a core'
+				}, {
+					img:	'lines_fruitsalad',
+					alt:	'fruit salad effect',
+					plan:	'core afinity',
+					t:		'Thread migrations',
+					q:		'Threads are not durably attached to cores',
+					i:		'Reduce the number of threads'
+				}
 			],
 			plans: [
 				{ id: 1, label: 'rate', property: 'groupTicks' },
