@@ -760,12 +760,18 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				]
 			},
 			clues: [{
+					img:	'lines_m-full',
+					plan:	'rate',
+					t:		'Oversubscription',
+					q:		'Too many threads are waiting to execute',
+					i:		'Reduce the number of threads'
+				}, /*{
 					img:	'lines_m-alt',
 					plan:	'rate',
 					t:		'Alternating s./p. execution',
 					q:		'Too many threads are waiting to execute',
 					i:		'Reduce the number of threads'
-				}, {
+				}, */{
 					img:	'lines',
 					plan:	'rate / events',
 					good:	true
