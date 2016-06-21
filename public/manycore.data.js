@@ -1061,7 +1061,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 		],
 		strips: [strips.il],
 		gauges: [[gauge_lw], [gauge_il, gauge_miss]],
-		widgets: [widgets.lockContentions, widgets.threadChains, widgets.memBandwidth, widgets.coreBandwidth, widgets.cacheMisses, widgets.cacheInvalidations, widgets.coreInvalidations]
+		widgets: [widgets.threadChains, widgets.memBandwidth, widgets.coreBandwidth, widgets.cacheMisses, widgets.cacheInvalidations, widgets.coreInvalidations]
 	};
 	var lb = {
 		tag: 'lb', cat: 'lb', label: 'Load balancing', title: 'Load balancing', icon: 'list-ol', enabled: true,
