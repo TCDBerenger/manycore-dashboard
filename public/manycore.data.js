@@ -281,43 +281,53 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 	// Clues for thread states (running, waiting, ready, ...)
 	var clues_threadStates = [
 		{
-			img: 'limit_r',
-			t: 'Executing',
-			good: true
+			img:	'limit_r',
+			t:		'Executing',
+			good:	true
 		}, {
-			img: 'limit_i',
-			t: 'Undersubscription',
-			i: 'Program consumes too little CPU',
-			q: 'Program could consume more CPU time (try adding threads)',
-			for: 'xx'
+			img:	'limit_r-y',
+			t:		'Bad threads to cores ratio',
+			i:		'More parallelism in application than hardware can exploit',
+			q:		'too few cores',
+			for:	'lb'
 		}, {
-			img: 'limit_sys',
-			t: 'Overloaded system',
-			i: 'Close unecessary programs',
-			q: 'Background tasks are using too many resources.'
+			img:	'limit_i',
+			t:		'Undersubscription',
+			i:		'Program consumes too little CPU',
+			q:		'Program could consume more CPU time (try adding threads)',
+			for:	'lb'
 		}, {
-			img: 'limit_i-r',
-			alt: 'well distributed',
-			t: 'Undersubscription',
-			i: 'The work is not appropriately divided',
-			q: 'Program could consume more CPU time (try adding threads)',
-			for: 'tg'
+			img:	'limit_i-lw',
+			t:		['Chains of data dependencie', 'Bad threads to cores ratio'],
+			for:	'lb'
 		}, {
-			img: 'limit_r-y',
-			t: 'Oversubscription',
-			i: 'More parallelism in application than hardware can exploit',
-			q: 'too few cores',
-			for: 'tg'
+			img:	'limit_sys',
+			t:		'Overloaded system',
+			i:		'Close unecessary programs',
+			q:		'Background tasks are using too many resources.'
 		}, {
-			img: 'limit_sys-y',
-			t: 'Oversubscription',
-			i: 'Other programs are consuming CPU time',
-			for: 'tg'
+			img:	'limit_i-r',
+			alt:	'well distributed',
+			t:		'Undersubscription',
+			i:		'The work is not appropriately divided',
+			q:		'Program could consume more CPU time (try adding threads)',
+			for:	'tg'
 		}, {
-			img: 'limit_i-lw',
-			t: 'Low work to sync. ratio',
-			i: 'near deadlock',
-			for: 'sy'
+			img:	'limit_r-y',
+			t:		'Oversubscription',
+			i:		'More parallelism in application than hardware can exploit',
+			q:		'too few cores',
+			for:	'tg'
+		}, {
+			img:	'limit_sys-y',
+			t:		'Oversubscription',
+			i:		'Other programs are consuming CPU time',
+			for:	'tg'
+		}, {
+			img:	'limit_i-lw',
+			t:		'Low work to sync. ratio',
+			i:		'near deadlock',
+			for:	'sy'
 		}
 	];
 	
@@ -479,7 +489,23 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '▮', f: facets.i, t: 'Idle', d: 'time spent by the core waiting for a thread of this program to run (work from other programs is considered as idle time)' }
 				]
 			},
-			clues: [],
+			clues: [{
+					img:	'lines',
+					good:	true
+				}, {
+					img:	'lines_i-alt',
+					t:		'Alternating s./p. execution'
+				}, {
+					img:	'lines_i-bad',
+					t:		'Bad load balance',
+					q:		'Some cores are under-used and some fully-used'
+				}, {
+					img:	'lines_i-full',
+					t:		'Undersubscription',
+					i:		'Program consumes too little CPU',
+					q:		'Program could consume more CPU time (try adding threads)'
+				}
+			],
 			settings: [
 				{ property: 'melodyHeight', value: 9, type: 'range', label: 'Inactivity height', unit: 'pixels', min: 6, max: 12, step: 1 }
 			]
