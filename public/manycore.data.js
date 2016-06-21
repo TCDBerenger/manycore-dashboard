@@ -694,7 +694,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				}, {
 					img:	'lines_contentions',
 					t:		'Sharing of lock data structures',
-					i:		'Too many failures'
+					i:		'Too many failures',
+					for:	'ds'
 				}
 			],
 			settings: [
@@ -988,7 +989,18 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '■', t: '[Parallel] execution',	d: 'core is executing a thread',								f: facets.qp }
 				]
 			},
-			clues: [],
+			clues: [{
+					img:	'lines_qp',
+					good:	true,
+					q:		'high parallelisation'
+				}, {
+					img:	'lines_qp-qs-alt',
+					t:		'Alternating s./p. execution'
+				}, {
+					img:	'lines_qs',
+					q:		'low parallelisation'
+				}
+			],
 			params: [
 				{ property: 'lineHeight', value: 10 }
 			],
