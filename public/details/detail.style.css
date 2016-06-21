@@ -331,10 +331,12 @@
 }
 .detail .clues .clue .clue-title {
 	text-align: center;
-	font-weight: 600;
 }
 .detail .clues .clue .clue-title .clue-title-plan {
-	font-weight: 400;
+	font-weight: 500;
+}
+.detail .clues .clue .clue-title .clue-title-name {
+	font-weight: 600;
 }
 .detail .clues .clue p i.fa:first-child {
 	margin-left: -16px;

@@ -391,7 +391,28 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '▮', f: facets.hpf,	d: 'hard page faults, swapping to disk' }
 				]
 			},
-			clues: [],
+			clues: [{
+				f:		facets.ipc,
+//				img:	'percent_ipc',
+				good:	true
+			}, {
+				f:		facets.l2,
+//				img:	'percent_l2',
+				alt:	'plenty of loading from L3',
+				t:		['True sharing', 'Sharing of lock data structures', 'Sharing data between distant cores'],
+				for:	'ds'
+			}, {
+				f:		facets.l3,
+//				img:	'percent_l3',
+				alt:	'plenty of loading from RAM',
+				t:		'True sharing',
+				for:	'ds'
+			}, {
+				img:	'plain_miss',
+				t:		'Poor locality',
+				q:		'Many cache misses at all levels',
+				for:	'dl'
+			}],
 			settings: []
 		},
 		coreBandwidth: {
@@ -567,7 +588,18 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '▮', f: facets.se,	d: 'used by other programs' }
 				]
 			},
-			clues: [],
+			clues: [{
+				img:	'percent_i',
+				good:	true
+			}, {
+				img:	'percent_e-sys',
+				q:		'Other programs are using too much memroy',
+				i:		'Close uncessary programs'
+			}, {
+				img:	'percent_e',
+				t:		'Sharing data between CPUs',
+				q:		'The program is memory-hungry'
+			}],
 			settings: []
 		},
 		threadChains: {
