@@ -365,7 +365,18 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '▮', 	d: 'L2 cache misses due to invalidation',	f: facets.il2, t: 'L2 invalidation misses' }
 				]
 			},
-			clues: [],
+			clues: [{
+					img:	'mean',
+					good:	true,
+					q:		'No sharing of data between threads'
+				}, {
+					img:	'mean_il1',
+					q:		'Lots of coarse-grained data sharing (between threads on different core)'
+				}, {
+					img:	'mean_il2',
+					q:		'Lots of fine-grained data sharing (between threads on the same core)'
+				}
+			],
 			settings: []
 		},
 		cacheMisses: {
@@ -437,7 +448,15 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '▮', f: facets.e,	d: 'usage by core' },
 				]
 			},
-			clues: [],
+			clues: [{
+					img:	'lines',
+					good:	true
+				}, {
+					img:	'lines_e-full',
+					t:		'Sharing data between CPUs',
+					i:		'The program is memory-hungry'
+				}
+			],
 			settings: [
 				{ property: 'melodyHeight', value: 9, type: 'range', label: 'Inactivity height', unit: 'pixels', min: 6, max: 12, step: 1 }
 			]
@@ -489,7 +508,16 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '▮', 	d: 'L2 cache misses due to invalidation',	f: facets.il2, t: 'L2 invalidation misses' }
 				]
 			},
-			clues: [],
+			clues: [{
+					f:		facets.il1,
+					alt:	'plenty L1 invalidation misses',
+					q:		'Lots of coarse-grained data sharing (between threads on different core)'
+				}, {
+					f:		facets.il2,
+					alt:	'plenty L2 invalidation misses',
+					q:		'Lots of fine-grained data sharing (between threads on the same core)'
+				}
+			],
 			settings: []
 		},
 		lockContentions: {
