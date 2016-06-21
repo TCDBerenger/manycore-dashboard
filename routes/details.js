@@ -645,7 +645,7 @@ function jsonDS(profile, id) {
 	addCommon(output, id);
 	
 	// Add raw data for visualisation
-	addRawData(output, id, ['lf', 'ls', 'e', 'ue', 'il1', 'il2'], ['e', 'ue', 'se', 'il1', 'pil1', 'il2'], null, ['il1', 'il2'], true);
+	addRawData(output, id, ['lf', 'ls', 'e', 'ue', 'il1', 'il2'], ['e', 'ue', 'se', 'il1', 'pil1', 'il2'], null, ['e', 'il1', 'il2'], true);
 
 	// Add dependencies for locks
 	addDependencies(output, id);
