@@ -980,10 +980,12 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '⊢', f: limit,	t: 'Cores',	d: 'each line represents a core, not in the right order, not with the right thread' }
 				],
 				data: [
-					{ b: '─', t: 'Sequential line',			d: 'core is idle (sequential sequence)',		f: facets.qs },
-					{ b: '▮', t: 'Sequential execution',	d: 'one core only is executing a thread',		f: facets.qs },
-					{ b: '─', t: 'Parallel line',			d: 'core is idle (parallel sequence)',			f: facets.qp },
-					{ b: '▮', t: 'Parallel execution',		d: 'more than one core is executing a thread',	f: facets.qp }
+					{ b: '⬚', t: '[Sequential] phase',		d: 'one core is executing a thread (could be customised)',		f: facets.qs },
+					{ b: '─', t: '[Sequential] line',		d: 'core is idle',												f: limit },
+					{ b: '■', t: '[Sequential] execution',	d: 'core is executing a thread',								f: facets.qs },
+					{ b: '⬚', t: '[Parallel] phase',		d: 'many cores are executing a thread (could be customised)',	f: facets.qp },
+					{ b: '─', t: '[Parallel] line',			d: 'core is idle',												f: limit },
+					{ b: '■', t: '[Parallel] execution',	d: 'core is executing a thread',								f: facets.qp }
 				]
 			},
 			clues: [],
