@@ -520,7 +520,25 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '▮', t: 'Lock without contention',	d: 'number of successful lock acquisitions',	f: facets.ls }
 				]
 			},
-			clues: [],
+			clues: [{
+				img:	'mean',
+				good:	true
+			}, {
+				img:	'mean_ls',
+				good:	true
+			}, {
+				img:	'mean_lf-half',
+				good:	true,
+				q:		'very little contention for locks'
+			}, {
+				img:	'mean_lf',
+				t:		'Low work to sync. ratio or Badly-behaved spinlocks',
+				q:		'Threads spend too much time or too repeatedly fails acquiring a lock'
+			}, {
+				img:	'mean_lf-full',
+				t:		'Low work to sync. ratio and Badly-behaved spinlocks',
+				q:		'Threads repeatedly fails acquiring a lock and spend too much time on'
+			}],
 			plans: [
 				{ id: 1, label: 'log₂', property: 'useLogScale' },
 				{ id: 2, label: 'linear', property: 'useLinearScale' },
@@ -830,7 +848,24 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '▮', f: facets.lw,						d: 'threads are not ready to be processed because they waiting to acquire a lock' }
 				]
 			},
-			clues: [],
+			clues: [{
+					img:	'lines',
+					good:	true
+				}, {
+					img:	'lines_acquiring',
+					good:	true
+				}, {
+					img:	'lines_lw-full',
+					alt:	'mostly waiting',
+					t:		'Low work to sync. ratio',
+					q:		'High contention',
+					i:		'Threads are mostly waiting for a lock'
+				}, {
+					img:	'lines_contentions',
+					t:		'Badly-behaved spinlocks',
+					i:		'Too many failures'
+				}
+			],
 			settings: [
 				{ property: 'disableTicks', value: false, type: 'flag', label: 'Disable ticks' },
 				{ property: 'disablePeriods', value: false, type: 'flag', label: 'Disable periods' }
