@@ -602,7 +602,15 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '▰', f: facets.ls,	t: 'Lock hold',					d: '' },
 				]
 			},
-			clues: [],
+			clues: [{
+					img:	'lines',
+					good:	true
+				}, {
+					img:	'lines_contentions',
+					t:		'Sharing of lock data structures',
+					i:		'Too many failures'
+				}
+			],
 			settings: [
 				{ property: 'holdingMode', value: 1, type: 'select', label: 'Thread holding the lock', choices: ['hide', 'show on mouve hover', 'show'] },
 			]
