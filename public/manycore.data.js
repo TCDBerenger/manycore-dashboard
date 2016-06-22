@@ -348,7 +348,22 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				],
 				options: { disablePrelist: true }
 			},
-			clues: [],
+			clues: [{
+					img:	'coord_5',
+					alt:	'Address translation',
+					t:		'TLB Locality',
+					q:		'poor TLB Locality'
+				}, {
+					img:	'coord_6-7',
+					alt:	'Loading from L2 & L3',
+					t:		'Cache locality',
+					q:		'poor cache locality and possibly also have other issues'
+				}, {
+					img:	'coord_9',
+					alt:	'Swapping',
+					t:		'Page faults'
+				}
+			],
 			settings: [
 				{ property: 'colorMode', value: 0, type: 'select', label: 'Color by', choices: ['good <--> poor locality', 'process', 'thread'] },
 				{ property: 'colorThreshold', value: 20, type: 'range', label: 'Locality threshold', unit: '%', min: 5, max: 95, step: 5, depends: ['colorMode', 0] },
@@ -430,8 +445,23 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				for:	'ds'
 			}, {
 				img:	'plain_miss',
-				t:		'Poor locality',
+				t:		'Cache locality',
 				q:		'Many cache misses at all levels',
+				for:	'dl'
+			}, {
+				f:		facets.tlb,
+				alt:	'plenty of address trans.',
+				t:		['TLB Locality', 'DRAM memory pages', 'Page faults',],
+				for:	'dl'
+			}, {
+				f:		facets.l3,
+				alt:	'plenty of loading from RAM',
+				t:		['Cache locality', 'TLB Locality'],
+				for:	'dl'
+			}, {
+				f:		facets.hpf,
+				alt:	'plenty of swapping',
+				t:		['DRAM memory pages', 'Page faults'],
 				for:	'dl'
 			}],
 			settings: []
