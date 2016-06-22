@@ -682,10 +682,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '⊢', f: limit,	t: 'Threads',	d: 'each line represents a thread complying with the start and end times' },
 				],
 				data: [
-					{ b: '×', f: facets.lf,									d: 'attempt to acquire a lock' },
-					{ b: '¦', f: facets.lf,									d: 'indicating which thread hold the lock' },
-					{ b: '|', f: facets.ls,	t: 'Lock acquire or release',	d: '', 								c: colours.list.dTurquoise},
-					{ b: '▰', f: facets.ls,	t: 'Lock hold',					d: '' },
+					{ b: '[ ]',	c: facets.ls.colours.f,	t: 'Lock acquire and release',	d: 'the lock events' },
+					{ b: '▮',	f: facets.ls,			t: 'Lock hold',					d: 'a thread is holding a lock' },
+					{ b: '┊',	f: facets.lf,			t: 'Lock dependency',			d: 'indicating which thread hold the lock' },
+					{ b: '×',	f: facets.lf,			t: 'Lock failure',				d: 'attempt to acquire a lock' },
 				]
 			},
 			clues: [{
@@ -696,6 +696,10 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					t:		'Sharing of lock data structures',
 					i:		'Too many failures',
 					for:	'ds'
+				}, {
+					img:	'lines_dependency',
+					t:		'Chains of data dependencies',
+					for:	'lb'
 				}
 			],
 			settings: [
