@@ -463,6 +463,21 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				alt:	'plenty of swapping',
 				t:		['DRAM memory pages', 'Page faults'],
 				for:	'dl'
+			}, {
+				f:		facets.l2,
+				alt:	'plenty of loading from L3',
+				t:		'False data sharing',
+				for:	'rs'
+			}, {
+				f:		facets.l3,
+				alt:	'plenty of loading from RAM',
+				t:		'False data sharing',
+				for:	'rs'
+			}, {
+				f:		facets.hpf,
+				alt:	'plenty of swapping',
+				t:		'Exceeding mem. bandwidth',
+				for:	'rs'
 			}],
 			settings: []
 		},
@@ -494,7 +509,24 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				}, {
 					img:	'lines_e-full',
 					t:		'Sharing data between CPUs',
-					i:		'The program is memory-hungry'
+					i:		'The program is memory-hungry',
+					for:	'ds'
+				}, {
+					img:	'lines_e-following',
+					good:	true,
+					q:		'Well balanced memory accesses (because few threads accessing memory at once)',
+					for:	'rs'
+				}, {
+					img:	'lines_e-alt',
+					t:		'Exceeding mem. bandwidth',
+					q:		'poorly balanced memory accesses (because many threads accessing memory at once)',
+					i:		'Splitting the work finer might solve this',
+					for:	'rs'
+				}, {
+					img:	'lines_e-full',
+					t:		'Exceeding mem. bandwidth',
+					i:		'The program is memory-hungry',
+					for:	'rs'
 				}
 			],
 			settings: [
@@ -638,11 +670,18 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			}, {
 				img:	'mean_lf',
 				t:		'Low work to sync. ratio or Badly-behaved spinlocks',
-				q:		'Threads spend too much time or too repeatedly fails acquiring a lock'
+				q:		'Threads spend too much time or too repeatedly fails acquiring a lock',
+				for:	'sy'
 			}, {
 				img:	'mean_lf-full',
 				t:		'Low work to sync. ratio and Badly-behaved spinlocks',
-				q:		'Threads repeatedly fails acquiring a lock and spend too much time on'
+				q:		'Threads repeatedly fails acquiring a lock and spend too much time on',
+				for:	'sy'
+			}, {
+				img:	'mean_lf-full',
+				t:		['False data sharing', 'Competition between threads sharing a cache'],
+				q:		'Threads repeatedly fails acquiring a lock and spend too much time on',
+				for:	'rs'
 			}],
 			plans: [
 				{ id: 1, label: 'log₂', property: 'useLogScale' },
@@ -682,7 +721,13 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			}, {
 				img:	'percent_e',
 				t:		'Sharing data between CPUs',
-				q:		'The program is memory-hungry'
+				q:		'The program is memory-hungry',
+				for:	'ds'
+			}, {
+				img:	'percent_e',
+				t:		'Exceeding mem. bandwidth',
+				q:		'The program is memory-hungry',
+				for:	'rs'
 			}],
 			settings: []
 		},
@@ -1261,6 +1306,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 		],
 		issues: [
 			{ t: 'Exceeding memory bandwidth',					d: 'the memory bus is saturated with requests' },
+			{ t: 'Competition between threads sharing a cache',	d: '' },
 			{ t: 'False data sharing',							d: 'updating data invalidates nearby locations which hold data used by other threads' }
 		],
 		strips: [strips.e],
