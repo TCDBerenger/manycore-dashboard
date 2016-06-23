@@ -294,29 +294,34 @@
 	padding-left: 5px;
 	padding-right: 5px;
 	flex-grow: 1;
+	min-width: 180px;
 	max-width: 220px;
 }
-.detail .clues .clue img {
-	height: 40px;
-	overflow-x: hidden;
-	/*
-	border-left: 1px solid #000;
-	border-bottom: 2px solid #000;
-	*/
-}
 .detail .clues .clue .clue-uniform {
-	color: white;
 	height: 40px;
 	line-height: 40px;
 	text-align: center;
+	
+	color: white;
+	text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000; 
 }
 .detail .clues .clue .clue-shape {
-	color: white;
 	height: 40px;
 	line-height: 40px;
 	text-align: center;
 	background-repeat: repeat-x;
 	background-position-y: center;
+	
+	color: white;
+	text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000; 
 }
 .detail .clues .clue .caption {
 	padding: 9px 4px;
@@ -326,6 +331,11 @@
 }
 .detail .clues .clue .clue-title {
 	text-align: center;
+}
+.detail .clues .clue .clue-title .clue-title-plan {
+	font-weight: 500;
+}
+.detail .clues .clue .clue-title .clue-title-name {
 	font-weight: 600;
 }
 .detail .clues .clue p i.fa:first-child {

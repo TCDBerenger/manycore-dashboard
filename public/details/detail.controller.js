@@ -146,6 +146,32 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 		return $sce.trustAsHtml(issue.t);
 	}
 
+	/**
+	 * Help - title
+	 */
+	$scope.helpHTMLTitle = function(clue) {
+		var htmlText = '';
+
+		if (clue.plan) {
+			htmlText += '<span class="clue-title-plan">ㅡ ' + clue.plan + ' ㅡ</span><br/>';
+		}
+
+		if (clue.t) {
+			if (Array.isArray(clue.t)) {
+				htmlText += '<span class="clue-title-name">';
+				htmlText += clue.t.join('</span> or <span class="clue-title-name">');
+				htmlText += '</span>';
+			} else {
+				htmlText += '<span class="clue-title-name">' + clue.t + '</span>';
+			}
+		}
+
+		if (htmlText == '')
+			return $sce.trustAsHtml('&nbsp;');
+		else
+			return $sce.trustAsHtml(htmlText);
+	}
+
 	/************************************************/
 	/* Generator - Graphical						*/
 	/************************************************/
