@@ -58,7 +58,7 @@
 			<h2>Potential issues</h2>
 			<ul>
 				<li ng-repeat="issue in meta.issues">
-					<strong ng-bind-html="issueHTMLTitle(issue)"></strong><strong ng-if="issue.d">:</strong> <span>{{issue.d}}
+					<strong ng-bind-html="getSanitisedHTML(issue.t)"></strong><strong ng-if="issue.d">:</strong> <span>{{issue.d}}
 					<a ng-if="issue.url" href="{{issue.url}}">more<i class="fa fa-external-link" style="margin-left: 4px;" aria-hidden="true"></i></a>
 				</li>
 			</ul>

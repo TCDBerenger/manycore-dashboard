@@ -111,6 +111,25 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	/* Functions - Graphical						*/
 	/************************************************/
 	/**
+	 * Generic - get in an array
+	 */
+	$scope.getInArray = function(element) {
+		if (Array.isArray(element))
+			return element;
+		else if (element)
+			return [element];
+		else
+			return [];
+	}
+
+	/**
+	 * Generic - sanitise the HTML code
+	 */
+	$scope.getSanitisedHTML = function(element) {
+		return $sce.trustAsHtml(element);
+	}
+
+	/**
 	 * Waiting - is waiting some data
 	 */
 	function isWaiting() {
@@ -140,13 +159,6 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 	};
 
 	/**
-	 * Issue - title
-	 */
-	$scope.issueHTMLTitle = function(issue) {
-		return $sce.trustAsHtml(issue.t);
-	}
-
-	/**
 	 * Help - title
 	 */
 	$scope.helpHTMLTitle = function(clue) {
@@ -154,6 +166,10 @@ app.controller('DetailController', ['$scope', '$rootScope', '$window', '$statePa
 
 		if (clue.plan) {
 			htmlText += '<span class="clue-title-plan">ㅡ ' + clue.plan + ' ㅡ</span><br/>';
+		}
+
+		if (clue.good) {
+			htmlText += '<i class="fa fa-fw fa-thumbs-up text-info" aria-hidden="true"></i>';
 		}
 
 		if (clue.t) {
