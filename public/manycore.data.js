@@ -282,23 +282,23 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 	var clues_threadStates = [
 		{
 			img:	'limit_r',
-			t:		'Executing',
+			t:		'Executing normally',
 			good:	true
 		}, {
 			img:	'limit_r-y',
 			t:		'Bad threads to cores ratio',
-			i:		'More parallelism in application than hardware can exploit',
-			q:		'too few cores',
+			q:		'More parallelism in application than hardware can exploit',
+			i:		'Reduce number of threads',
 			for:	'lb'
 		}, {
 			img:	'limit_i',
 			t:		'Undersubscription',
-			i:		'Program consumes too little CPU',
-			q:		'Program could consume more CPU time (try adding threads)',
+			i:		'Try adding threads',
+			q:		['Program could consume more CPU time','Program could be waiting for data dependencies'],
 			for:	'lb'
 		}, {
 			img:	'limit_i-lw',
-			t:		['Chains of data dependencie', 'Bad threads to cores ratio'],
+			t:		['Chains of data dependencies', 'Bad threads to cores ratio'],
 			for:	'lb'
 		}, {
 			img:	'limit_sys',
@@ -309,24 +309,25 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			img:	'limit_i-r',
 			alt:	'well distributed',
 			t:		'Undersubscription',
-			i:		'The work is not appropriately divided',
-			q:		'Program could consume more CPU time (try adding threads)',
+			q:		'The work is not appropriately divided',
+			i:		'Program could consume more CPU time (try adding threads)',
 			for:	'tg'
 		}, {
 			img:	'limit_r-y',
 			t:		'Oversubscription',
-			i:		'More parallelism in application than hardware can exploit',
-			q:		'too few cores',
+			q:		'More parallelism in application than hardware can exploit',
+			i:		'Reduce number of threads',
 			for:	'tg'
 		}, {
 			img:	'limit_sys-y',
 			t:		'Oversubscription',
-			i:		'Other programs are consuming CPU time',
+			q:		'Other programs are consuming CPU time',
+			i:		'Close unecessary programs',
 			for:	'tg'
 		}, {
 			img:	'limit_i-lw',
 			t:		'Low work to sync. ratio',
-			i:		'near deadlock',
+			q:		['Many threads contend for few locks','Possible deadlock scenario'],
 			for:	'sy'
 		}
 	];
@@ -393,12 +394,15 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			clues: [{
 					img:	'mean',
 					good:	true,
+					t:		'No sharing',
 					q:		'No sharing of data between threads'
 				}, {
 					img:	'mean_il1',
+					t:		'Coarse sharing',
 					q:		'Lots of coarse-grained data sharing (between threads on different core)'
 				}, {
 					img:	'mean_il2',
+					t:		'Fine sharing',
 					q:		'Lots of fine-grained data sharing (between threads on the same core)'
 				}
 			],
@@ -429,54 +433,55 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			clues: [{
 				f:		facets.ipc,
+				t: 		'Low memory access',
 //				img:	'percent_ipc',
 				good:	true
 			}, {
 				f:		facets.l2,
 //				img:	'percent_l2',
-				alt:	'plenty of loading from L3',
+				alt:	'many loads from L3',
 				t:		['True sharing', 'Sharing of lock data structures', 'Sharing data between distant cores'],
 				for:	'ds'
 			}, {
 				f:		facets.l3,
 //				img:	'percent_l3',
-				alt:	'plenty of loading from RAM',
+				alt:	'many loads from RAM',
 				t:		'True sharing',
 				for:	'ds'
 			}, {
 				img:	'plain_miss',
-				t:		'Cache locality',
+				t:		'Poor cache locality',
 				q:		'Many cache misses at all levels',
 				for:	'dl'
 			}, {
 				f:		facets.tlb,
-				alt:	'plenty of address trans.',
+				alt:	'lots of address trans.',
 				t:		['TLB Locality', 'DRAM memory pages', 'Page faults',],
 				for:	'dl'
 			}, {
 				f:		facets.l3,
-				alt:	'plenty of loading from RAM',
+				alt:	'many loads from RAM',
 				t:		['Cache locality', 'TLB Locality'],
 				for:	'dl'
 			}, {
 				f:		facets.hpf,
-				alt:	'plenty of swapping',
+				alt:	'lots of swapping',
 				t:		['DRAM memory pages', 'Page faults'],
 				for:	'dl'
 			}, {
 				f:		facets.l2,
-				alt:	'plenty of loading from L3',
+				alt:	'many loads from L3',
 				t:		'False data sharing',
 				for:	'rs'
 			}, {
 				f:		facets.l3,
-				alt:	'plenty of loading from RAM',
+				alt:	'many loads from RAM',
 				t:		'False data sharing',
 				for:	'rs'
 			}, {
 				f:		facets.hpf,
-				alt:	'plenty of swapping',
-				t:		'Exceeding mem. bandwidth',
+				alt:	'lots of swapping',
+				t:		'Exceeding mem. capacity',
 				for:	'rs'
 			}],
 			settings: []
@@ -505,11 +510,12 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			clues: [{
 					img:	'lines',
+					t:		'Low memory requirement',
 					good:	true
 				}, {
 					img:	'lines_e-full',
-					t:		'Sharing data between CPUs',
-					i:		'The program is memory-hungry',
+					t:		'High remote memory access',
+					q:		['The program is memory-hungry','May indicate <strong>Sharing of data between CPUs on NUMA systems</strong>'],
 					for:	'ds'
 				}, {
 					img:	'lines_e-following',
@@ -519,8 +525,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				}, {
 					img:	'lines_e-alt',
 					t:		'Exceeding mem. bandwidth',
-					q:		'poorly balanced memory accesses (because many threads accessing memory at once)',
-					i:		'Splitting the work finer might solve this',
+					q:		'Poorly balanced memory accesses (because many threads accessing memory at once)',
+					i:		'Try splitting the work more finely',
 					for:	'rs'
 				}, {
 					img:	'lines_e-full',
@@ -553,6 +559,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			clues: [{
 					img:	'lines',
+					t:		'All cores executing',
 					good:	true
 				}, {
 					img:	'lines_i-alt',
@@ -564,8 +571,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				}, {
 					img:	'lines_i-full',
 					t:		'Undersubscription',
-					i:		'Program consumes too little CPU',
-					q:		'Program could consume more CPU time (try adding threads)'
+					i:		'Try adding threads',
+					q:		['Program could consume more CPU time','Program could be waiting for data dependencies'],
 				}
 			],
 			settings: [
@@ -597,12 +604,19 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				]
 			},
 			clues: [{
+					img:	'mean',
+					alt: 	'few invalidations',
+					t:		'Low sharing',
+					q:		'Different threads rarely access the same data'
+				}, {
 					f:		facets.il1,
-					alt:	'plenty L1 invalidation misses',
+					t:		'Coarse sharing',
+					alt:	'many L1 invalidation misses',
 					q:		'Lots of coarse-grained data sharing (between threads on different core)'
 				}, {
 					f:		facets.il2,
-					alt:	'plenty L2 invalidation misses',
+					t:		'Fine sharing',
+					alt:	'many L2 invalidation misses',
 					q:		'Lots of fine-grained data sharing (between threads on the same core)'
 				}
 			],
@@ -659,28 +673,34 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			clues: [{
 				img:	'mean',
+				t:		'No synchronisation',
+				q:		'Very few locks',
 				good:	true
 			}, {
 				img:	'mean_ls',
+				t:		'No contention',
+				q:		'Locking without contention',
 				good:	true
 			}, {
 				img:	'mean_lf-half',
 				good:	true,
-				q:		'very little contention for locks'
+				t:		'Low contention',
+				q:		'Very little contention for locks'
 			}, {
 				img:	'mean_lf',
-				t:		'Low work to sync. ratio or Badly-behaved spinlocks',
-				q:		'Threads spend too much time or too repeatedly fails acquiring a lock',
+				t:		['Low work to sync. ratio', 'Badly-behaved spinlocks'],
+				q:		'Threads spend too much time acquiring locks',
 				for:	'sy'
 			}, {
 				img:	'mean_lf-full',
-				t:		'Low work to sync. ratio and Badly-behaved spinlocks',
-				q:		'Threads repeatedly fails acquiring a lock and spend too much time on',
+				t:		['Low work to sync. ratio', 'Badly-behaved spinlocks'],
+				q:		'Threads spend too much time acquiring locks',
 				for:	'sy'
 			}, {
 				img:	'mean_lf-full',
 				t:		['False data sharing', 'Competition between threads sharing a cache'],
-				q:		'Threads repeatedly fails acquiring a lock and spend too much time on',
+				q:		'High contention',
+				i:		'Try dividing the work more coarsely',
 				for:	'rs'
 			}],
 			plans: [
@@ -713,15 +733,17 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			clues: [{
 				img:	'percent_i',
+				t:		'Low memory requirement',
 				good:	true
 			}, {
 				img:	'percent_e-sys',
-				q:		'Other programs are using too much memroy',
+				t: 		'Competing for memory',
+				q:		'Other programs are using too much memory',
 				i:		'Close uncessary programs'
 			}, {
 				img:	'percent_e',
-				t:		'Sharing data between CPUs',
-				q:		'The program is memory-hungry',
+				t:		'High remote memory access',
+				q:		['The program is memory-hungry','May indicate <strong>Sharing of data between CPUs on NUMA systems</strong>'],
 				for:	'ds'
 			}, {
 				img:	'percent_e',
@@ -759,21 +781,28 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				data: [
 					{ b: '[ ]',	c: facets.ls.colours.f,	t: 'Lock acquire and release',	d: 'the lock events' },
 					{ b: '▮',	f: facets.ls,			t: 'Lock hold',					d: 'a thread is holding a lock' },
-					{ b: '┊',	f: facets.lf,			t: 'Lock dependency',			d: 'indicating which thread hold the lock' },
+					{ b: '┊',	f: facets.lf,			t: 'Lock dependency',			d: 'indicating which thread holds the lock (customisable)' },
 					{ b: '×',	f: facets.lf,			t: 'Lock failure',				d: 'attempt to acquire a lock' },
 				]
 			},
 			clues: [{
 					img:	'lines',
+					t:		'No locking',
+					good:	true
+				}, {
+					img:	'lines',
+					t:		'Locking without contention',
 					good:	true
 				}, {
 					img:	'lines_contentions',
 					t:		'Sharing of lock data structures',
-					i:		'Too many failures',
+					i:		'Locks are shared between many threads',
 					for:	'ds'
 				}, {
 					img:	'lines_dependency',
 					t:		'Chains of data dependencies',
+					q:		'Data dependencies force serial execution phases',
+					i:		'Try more fine-grained locking',
 					for:	'lb'
 				}
 			],
@@ -804,9 +833,11 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			clues: [{
 				img: 'mean',
+				t:	 'Low thread migration',
 				good: true
 			}, {
 				img: 'mean_m',
+				t:	 'Average thread migration',
 				good: true
 			}, {
 				img: 'mean_m-full',
@@ -817,8 +848,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			}, {
 				img: 'mean_m-alt',
 				t: 'Alternating s./p. execution',
-				q: 'Too many threads are waiting to execute',
-				i: 'Reduce the number of threads',
+				q: 'Sequential phases limit performance of the system',
+				i: 'Try to eliminate sequential phases and load balance better',
 				for: 'lb'
 			}],
 			plans: [
@@ -854,15 +885,17 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			clues: [{
 				img: 'mean',
+				t:	 'Low context switching',
 				good: true
 			}, {
 				img: 'mean_s',
+				t:	 'Average context switching',
 				good: true
 			}, {
 				img: 'mean_s-full',
 				t: 'Oversubscription',
-				i: 'Too many threads are waiting to execute',
-				q: 'Reduce the number of threads'
+				q: 'Too many threads are waiting to execute',
+				i: 'Reduce the number of threads'
 			}],
 			plans: [
 				{ id: 1, label: 'log₂', property: 'useLogScale' },
@@ -975,20 +1008,21 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					img:	'lines_m-high-rate',
 					plan:	'events',
 					t:		'Thread migrations',
-					q:		'Threads are not durably attached to cores',
-					i:		'Reduce the number of threads'
+					q:		'Low affinity',
+					i:		['Reduce the number of threads', 'Bind threads to specific cores']
 				}, {
 					img:	'lines_affinity',
-					plan:	'core afinity',
+					plan:	'core affinity',
 					good:	true,
-					i:		'a thread is attached to a core'
+					t:		'High affinity',
+					q:		'Threads rarely migrate'
 				}, {
 					img:	'lines_fruitsalad',
 					alt:	'fruit salad effect',
-					plan:	'core afinity',
+					plan:	'core affinity',
 					t:		'Thread migrations',
-					q:		'Threads are not durably attached to cores',
-					i:		'Reduce the number of threads'
+					q:		'Low affinity',
+					i:		['Reduce the number of threads', 'Bind threads to specific cores']
 				}
 			],
 			plans: [
@@ -1024,9 +1058,13 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			},
 			clues: [{
 					img:	'lines',
+					t:		'No synchronisation',
+					q:		'Very few locks',
 					good:	true
 				}, {
 					img:	'lines_acquiring',
+					t:		'No contention',
+					q:		'Locking without contention',
 					good:	true
 				}, {
 					img:	'lines_lw-full',
@@ -1037,7 +1075,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				}, {
 					img:	'lines_contentions',
 					t:		'Badly-behaved spinlocks',
-					i:		'Too many failures'
+					i:		'Repeated lock acquisition failures'
 				}
 			],
 			settings: [
@@ -1071,13 +1109,17 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			clues: [{
 					img:	'lines_qp',
 					good:	true,
-					q:		'high parallelisation'
+					alt:	'Mostly parallel execution',
+					t:		'High parallelisation'
 				}, {
 					img:	'lines_qp-qs-alt',
-					t:		'Alternating s./p. execution'
+					t: 'Alternating s./p. execution',
+					q: 'Sequential phases limit performance of the system',
+					i: 'Try to eliminate sequential phases and load balance better',
 				}, {
 					img:	'lines_qs',
-					q:		'low parallelisation'
+					alt:	'Mostly serial execution',
+					t:		'Low parallelisation'
 				}
 			],
 			params: [
@@ -1110,17 +1152,17 @@ app.factory('widgets', ['decks', function(decks) {
 /* 03 */	coreBandwidth:		{ id: id(),	c: CAPABILITY_MEMORY,	 file: 'chart-lines',		deck: decks.coreBandwidth,		wide: false,	title: 'Remote memory access by core',								desc: 'Memory bandwidth'},
 /* 04 */	coreIdle:			{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-lines',		deck: decks.coreIdle,			wide: false,	title: 'Idle cores',												desc: 'Times that cores are idle'},
 /* 05 */	coreInvalidations:	{ id: id(),	c: CAPABILITY_COHERENCY, file: 'chart-d3-caches',	deck: decks.coreInvalidations,	wide: true,		title: 'Breakdown of cache line invalidations by core',             desc: ''},
-/* 06 */	coreSequences:		{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-lines',		deck: decks.sequences,			wide: false,	title: 'Execution phases',                 							desc: 'phase of execution (sequential or parallel)'},
+/* 06 */	coreSequences:		{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-lines',		deck: decks.sequences,			wide: false,	title: 'Execution phases',                 							desc: 'Phase of execution (sequential or parallel)'},
 /* 07 */	lockCounts:			{ id: id(),	c: CAPABILITY_LOCK,		 file: 'chart-units',		deck: decks.lockCounts,			wide: false,	title: 'Lock contentions',											desc: 'Locking with and without contention'},
 /* 08 */	lockContentions:	{ id: id(),	c: CAPABILITY_LOCK,		 file: 'chart-percent',		deck: decks.lockContentions,	wide: false,	title: 'Time waiting for a lock',									desc: ''},
 /* 09 */	memBandwidth:		{ id: id(),	c: CAPABILITY_MEMORY,	 file: 'chart-percent',		deck: decks.memBandwidth,		wide: false,	title: 'Remote memory access',										desc: 'Memory bandwidth'},
-/* 10 */	threadChains:		{ id: id(),	c: CAPABILITY_LOCK,		 file: 'chart-lines',		deck: decks.threadChains,		wide: false,	title: 'Chains of dependencies on locks',							desc: 'synchronisations and waiting between threads'},
-/* 11 */	threadFruitSalad:	{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-threads',		deck: decks.threadFruitSalad,	wide: false,	title: 'Migrations by thread',										desc: 'creation, running, moving between cores, termination'},
+/* 10 */	threadChains:		{ id: id(),	c: CAPABILITY_LOCK,		 file: 'chart-lines',		deck: decks.threadChains,		wide: false,	title: 'Chains of dependencies on locks',							desc: 'Synchronisations, waiting and dependencies (mouseover) between threads '},
+/* 11 */	threadFruitSalad:	{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-threads',		deck: decks.threadFruitSalad,	wide: false,	title: 'Migrations by thread',										desc: 'Creation, running, moving between cores, termination'},
 /* 12 */	threadLocks:		{ id: id(),	c: CAPABILITY_LOCK,		 file: 'chart-threads',		deck: decks.threadLocks,		wide: false,	title: 'Time each thread spends waiting for locks',					desc: ''},
-/* 13 */	threadMigrations:	{ id: id(),	c: CAPABILITY_SWITCH,	 file: 'chart-units',		deck: decks.threadMigrations,	wide: false,	title: 'Rate of thread migrations',									desc: 'thread switching the core on which it is executing'},
-/* 14 */	threadStates:		{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-percent',		deck: decks.threadStates,		wide: false,	title: 'Breakdown of thread states compared to number of cores',	desc: 'number of threads compared to number of cores'},
-/* 15 */	threadAllStates:	{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-percent',		deck: decks.threadAllStates,	wide: false,	title: 'Breakdown of thread states compared to number of cores',	desc: 'number of threads compared to number of cores'},
-/* 16 */	threadSwitches:		{ id: id(),	c: CAPABILITY_SWITCH,	 file: 'chart-units',		deck: decks.threadSwitches,		wide: false,	title: 'Core switching the thread it is executing',					desc: 'thread switches'},
+/* 13 */	threadMigrations:	{ id: id(),	c: CAPABILITY_SWITCH,	 file: 'chart-units',		deck: decks.threadMigrations,	wide: false,	title: 'Rate of thread migrations',									desc: 'Thread switching the core on which it is executing'},
+/* 14 */	threadStates:		{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-percent',		deck: decks.threadStates,		wide: false,	title: 'Breakdown of thread states compared to number of cores',	desc: 'Number of threads compared to number of cores'},
+/* 15 */	threadAllStates:	{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-percent',		deck: decks.threadAllStates,	wide: false,	title: 'Breakdown of thread states compared to number of cores',	desc: 'Number of threads compared to number of cores'},
+/* 16 */	threadSwitches:		{ id: id(),	c: CAPABILITY_SWITCH,	 file: 'chart-units',		deck: decks.threadSwitches,		wide: false,	title: 'Core switching the thread it is executing',					desc: 'Thread switches'},
 	};
 }]);
 
