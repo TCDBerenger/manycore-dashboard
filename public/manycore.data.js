@@ -520,7 +520,8 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				}, {
 					img:	'lines_e-following',
 					good:	true,
-					q:		'Well balanced memory accesses (because few threads accessing memory at once)',
+					t:		'Well balanced memory accesses',
+					q:		'Few threads accessing memory at once',
 					for:	'rs'
 				}, {
 					img:	'lines_e-one',
