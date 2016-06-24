@@ -523,6 +523,12 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					q:		'Well balanced memory accesses (because few threads accessing memory at once)',
 					for:	'rs'
 				}, {
+					img:	'lines_e-one',
+					t:		'Exceeding mem. bandwidth',
+					q:		'Poorly balanced memory accesses',
+					i:		'Try splitting the work more finely',
+					for:	'rs'
+				}, {
 					img:	'lines_e-alt',
 					t:		'Exceeding mem. bandwidth',
 					q:		'Poorly balanced memory accesses (because many threads accessing memory at once)',
@@ -531,7 +537,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				}, {
 					img:	'lines_e-full',
 					t:		'Exceeding mem. bandwidth',
-					i:		'The program is memory-hungry',
+					q:		'The program is memory-hungry',
 					for:	'rs'
 				}
 			],
@@ -604,7 +610,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				]
 			},
 			clues: [{
-					img:	'mean',
+					img:	'blank',
 					alt: 	'few invalidations',
 					t:		'Low sharing',
 					q:		'Different threads rarely access the same data'
@@ -790,7 +796,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					t:		'No locking',
 					good:	true
 				}, {
-					img:	'lines',
+					img:	'lines_flow',
 					t:		'Locking without contention',
 					good:	true
 				}, {
