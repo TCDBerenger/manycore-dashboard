@@ -19,9 +19,10 @@ xpapp.controller('PageController', ['$scope', '$rootScope', '$uibModal', functio
 	/************************************************/
 	$scope.allRequiredFileds = function() {
 		var canContinue = true;
-		$rootScope.step.required.forEach(function(field) {
-			canContinue = canContinue && !! $scope.form[field];
-		});
+		if ($rootScope.step.required)
+			$rootScope.step.required.forEach(function(field) {
+				canContinue = canContinue && !! $scope.form[field];
+			});
 		return canContinue; 
 	}
 	

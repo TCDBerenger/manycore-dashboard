@@ -33,7 +33,7 @@ xpapp.controller('NavbarController', ['$scope', '$rootScope', '$stateParams', fu
 	}
 	
 	/**
-	 * XP - could display next button
+	 * XP - go next page
 	 */
 	$scope.goNext = function() {
 		$rootScope.actionNext();

@@ -1,0 +1,43 @@
+<!-- Task: presentation -->
+<section ng-if="tabIndex == 0" class="modal-content">
+	<div class="modal-header">
+		<h1 class="modal-title">Task #{{taskID}}</h1>
+	</div>
+	
+	<div class="modal-body">
+		<p>
+			Todo Task.1.1
+		</p><p>
+			Todo Task.1.2
+		</p>
+	</div>
+	
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" type="button" ng-click="actionNextTab()">Next<i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
+	</div>
+</section>
+
+<!-- Task: tool -->
+<div ng-if="tabIndex == 1" class="tool">
+	<iframe id="toolFrame" width="100%" height="100%" frameborder="0" ng-src="{{path}}" />
+</div>
+
+<!-- Task: last comments -->
+<section ng-if="tabIndex == 2" class="modal-content">
+	<div class="modal-header">
+		<h1 class="modal-title">{{tabs[tabIndex].t}}</h1>
+	</div>
+	
+	<div class="modal-body">
+		<p>
+			Todo Task.2.1
+		</p><p>
+			Todo Task.2.2
+		</p>
+	</div>
+	
+	<div class="modal-footer">
+		<button type="button" class="btn btn-link" type="button" ng-click="actionPreviousTab()"><i class="fa fa-hand-o-left" style="padding-right: 8px;"></i>Previous ({{tabs[tabIndex - 1].l}})</button>
+		<button type="button" class="btn btn-primary" type="button" ng-click="actionNextTab()">Next<i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
+	</div>
+</section>

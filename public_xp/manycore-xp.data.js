@@ -8,20 +8,27 @@ xpapp.factory('threads', function() {
 			id: 1, groups: 1,
 			title: 'Test 1',
 			goal: 'The goal of this survey is to evaluate a prototype visualisation for identifying the presence of <b>data-locality</b> issues.',
+			tasks: [
+
+			],
 			steps: [
+				// page: common					state: '...'
+				// page: a task					taskID: 99
+				// page: one in xp				pageID: '...'
 				// init a form:					form:m { ... }
 				// display next in sidebar:		nextInSidebar: true
 				// dashboard path:				path: '/admin'
 				// collect the mouse tracking:	mousetrack: true
 				// Forbid go back to edit:		editable: false
+
 				{ pageID: 'habits',		label: 'Your tools',			form: {} },
-				{ pageID: 'info',		label: 'Explanations' },
-				{ state: 'tool',		label: 'Test Merge & Sort',		path: '/dashboard/9-8', mousetrack: true, nextInSidebar: true },
+//				{ pageID: 'info',		label: 'Explanations' },
+				{ taskID: 1,			label: 'Task 1',				path: '/dashboard/9-8', mousetrack: true },
 //				{ state: 'tool',		label: 'Test Particules',		path: '/dashboard/5-4', mousetrack: true, nextInSidebar: true },
-				{ pageID: 'start',		label: 'Experimentation',		form: {} },
-				{ state: 'tool',		label: 'Test Particules',		path: '/dashboard/1012', mousetrack: true, nextInSidebar: true },
-				{ pageID: 'questions',	label: 'Questions' },
-				{ state: 'feedback',	label: 'Feedback' }
+//				{ pageID: 'start',		label: 'Experimentation',		form: {} },
+//				{ state: 'tool',		label: 'Test Particules',		path: '/dashboard/1012', mousetrack: true, nextInSidebar: true },
+//				{ pageID: 'questions',	label: 'Questions' },
+//				{ state: 'feedback',	label: 'Feedback' }
 			]
 		}, {
 			id: 98, groups: 1,
