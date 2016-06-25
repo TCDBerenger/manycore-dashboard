@@ -51,3 +51,16 @@ img.screenshot {
 	margin-top: 6px;
 	box-shadow: 0px 5px 5px rgb(136, 136, 136);
 }
+
+
+/*
+ * Enhance Bootstrap
+ */
+.btn-group-flex {
+	width: 100%;
+	display: flex;
+	flex-wrap: nowrap;
+}
+.btn-group-flex > * {
+	flex-grow: 1;
+}

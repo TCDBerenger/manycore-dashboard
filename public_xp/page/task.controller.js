@@ -11,6 +11,9 @@ xpapp.controller('TaskController',
 	var taskID = $stateParams.id;
 
 	// Form data
+//	if (! $scope.form.task[taskID]) $scope.form.task[taskID] = {};
+
+	// Form data
 	$scope.path = $sce.trustAsResourceUrl('/#/xp/nofeedback-nonavbar' + $scope.step.path);
 	
 	// Tabs

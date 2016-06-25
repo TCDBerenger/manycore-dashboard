@@ -2,3 +2,35 @@ section {
 	margin: 40px auto;
 	max-width: 1000px;
 }
+
+.task {
+	position: absolute;
+	bottom: 0px;
+	top: 60px;
+	left: 0px;
+	right: 0px;
+
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-content: stretch;
+	align-items: center;
+}
+.task > * {
+	width: 100%;
+}
+
+.task iframe {
+	flex-grow: 2;
+	margin-top: 10px;
+	
+	border-top: 1px solid #007196;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.flex-list {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
