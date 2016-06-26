@@ -1,3 +1,58 @@
+<!-- Task: problem artifact -->
+<script type="text/ng-template" id="task-artifact-issue.html">
+	<div class="list-artifact">
+		<div class="list-pill">
+			<span uib-tooltip="{{taxonomy[problem.i].d}}">{{taxonomy[problem.i].t}}</span>
+			<i class="fa {{confidencesWithNull[problem.c].i}}" style="margin-left: 6px" uib-tooltip="{{confidencesWithNull[problem.c].l}}" aria-hidden="true"></i>
+		</div>
+		<div class="list-command">
+			<a href ng-click="removeProblem()" class="pull-right">remove<i class="fa fa-trash" style="margin-left: 4px" aria-hidden="true"></i></a>
+			<a ng-if="! $first" href ng-click="upProblem()"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+			<span ng-if="! $first || ! $last"  class="badge">{{$index + 1}}</span>
+			<a ng-if="! $last" href ng-click="downProblem()"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>
+		</div>
+	</div>
+</script>
+
+<!-- Task: popup: selection -->
+<script type="text/ng-template" id="task-select-issue.html">
+	<div class="panel panel-default" style="min-width: 300px;">
+		<div class="panel-body">
+			<fieldset>
+				<div class="form-group">
+					<ui-select ng-model="tempForm[pIndex].i" theme="bootstrap">
+						<ui-select-match placeholder="Select a problem">{{$select.selected.t}}</ui-select-match>
+						<ui-select-choices group-by="getCategoryTitle" repeat="issue in listContextProblems[pIndex] | filter: $select.search">
+							<div ng-bind-html="issue.t | highlight: $select.search"></div>
+							<small ng-bind-html="issue.d | highlight: $select.search"></small>
+						</ui-select-choices>
+					</ui-select>
+					<!--
+					<select ng-model="tempForm[pIndex].i" size="5">
+						<optgroup ng-repeat="category in categories" label="{{category.t}}">
+							<option ng-repeat="issue in category.issues" value="{{issue}}">{{issue.t}}</option>
+						</optgroup>
+					</select>
+					-->
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="focusedInput">Are you confident about this problem:</label>
+					<div class="btn-group btn-group-flex" role="group">
+						<label ng-repeat="confidence in confidences" class="btn btn-default btn-sm" ng-model="tempForm[pIndex].c" uib-btn-radio="$index + 1" uncheckable>{{confidence.l}}</label>
+					</div>
+				</div>
+				<div class="form-group">
+				</div>
+			</fieldset>
+		</div>
+		<div class="panel-footer">
+			<button ng-disabled="! tempForm[pIndex].i" ng-click="addProblem()" type="button" class="btn btn-primary btn-sm">
+				<i class="fa fa-plus" style="padding-right: 8px;"></i>Add this problem
+			</button>
+		</div>
+	</div>
+</script>
+
 <!-- Task: presentation -->
 <section ng-if="tabIndex == 0" class="modal-content">
 	<div class="modal-header">
@@ -16,85 +71,6 @@
 		<button type="button" class="btn btn-primary" type="button" ng-click="actionNextTab()">Next<i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
 	</div>
 </section>
-
-<!-- Task: tool -->
-<div ng-if="tabIndex == 1" class="task">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-4"><div class="well well-sm">
-				<fieldset>
-					<div class="form-group">
-						<label class="control-label" for="focusedInput">List the problem(s) for the <span class="text-primary">◧</span> left profile:</label>
-						<div class="flex-list">
-							<span>test</span>
-							
-							<!--
-							<div class="btn-group" uib-dropdown>
-								<button type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle>
-									<i class="fa fa-plus" style="padding-right: 8px;"></i>Add
-								</button>
-								<div uib-dropdown-menu template-url="task-select-issue1.html"  style="width: 300px;"></div>
-							</div>
-
-							<!--
-							<div class="btn-group" uib-dropdown>
-								<button type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle>
-									<i class="fa fa-plus" style="padding-right: 8px;"></i>Add
-								</button>
-								<div class="dropdown-menu" uib-dropdown-menu template-url="dropdown.html"></div>
-							</div>
-							-->
-						</div>
-					</div>
-				</fieldset>
-			</div></div>
-			<div class="col-sm-3"><div class="well well-sm">
-				<fieldset>
-					<div class="form-group">
-						<label class="control-label" for="focusedInput">What is the best profile:</label>
-						<div class="btn-group btn-group-justified" role="group">
-							<label class="btn btn-default btn-xs" ng-model="form.quickest" uib-btn-radio="'none'" uncheckable>none</label>
-							<label class="btn btn-default btn-xs" ng-model="form.quickest" uib-btn-radio="'a'" uncheckable>
-								<span class="text-primary" style="margin-right: 6px;">◧</span>left
-							</label>
-							<label class="btn btn-default btn-xs" ng-model="form.quickest" uib-btn-radio="'both'" uncheckable>both</label>
-							<label class="btn btn-default btn-xs" ng-model="form.quickest" uib-btn-radio="'b'" uncheckable>
-								right<span class="text-primary" style="margin-left: 6px;">◨</span>
-							</label>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label" for="focusedInput">Are you confident about this comparison:</label>
-						<div class="btn-group btn-group-flex" role="group">
-							<label class="btn btn-default btn-xs" ng-model="form.quickest_c" uib-btn-radio="1" uncheckable>doubtful</label>
-							<label class="btn btn-default btn-xs" ng-model="form.quickest_c" uib-btn-radio="2" uncheckable>←</label>
-							<label class="btn btn-default btn-xs" ng-model="form.quickest_c" uib-btn-radio="3" uncheckable>neutral</label>
-							<label class="btn btn-default btn-xs" ng-model="form.quickest_c" uib-btn-radio="4" uncheckable>→</label>
-							<label class="btn btn-default btn-xs" ng-model="form.quickest_c" uib-btn-radio="5" uncheckable>confident</label>
-						</div>
-					</div>
-				</fieldset>
-			</div></div>
-			<div class="col-sm-4"><div class="well well-sm">
-				<fieldset>
-					<div class="form-group">
-						<label class="control-label" for="focusedInput">List the problem(s) for the right <span class="text-primary">◨</span> profile:</label>
-						<div class="flex-list">
-							<button type="button" class="btn btn-sm btn-primary"><i class="fa fa-plus" style="padding-right: 8px;"></i>Add</button>
-						</div>
-					</div>
-				</fieldset>
-			</div></div>
-			<div class="col-sm-1">
-				<div class="btn-group-vertical" style="width: 100%">
-					<button type="button" class="btn btn-link" type="button" ng-click="actionPreviousTab()"><i class="fa fa-hand-o-left" style="padding-right: 8px;"></i>Intro</button>
-					<button type="button" class="btn btn-primary" type="button" ng-click="actionNextTab()">OK<i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<iframe frameborder="0" ng-src="{{path}}" />
-</div>
 
 <!-- Task: last comments -->
 <section ng-if="tabIndex == 2" class="modal-content">
@@ -116,10 +92,80 @@
 	</div>
 </section>
 
-<!--
-<script type="text/ng-template" id="task-select-issue.html">
-	<div uib-dropdown-menu class="dropdown-menu" style="width: 300px;">
-		test
+<!-- Task: tool -->
+<div ng-if="tabIndex == 1" class="task">
+	<div class="container-fluid">
+		<div class="row">
+			<div ng-repeat="pIndex in [0]" class="col-sm-4">
+				<h4><span class="text-primary">◧</span> Left profile</h4>
+				<div class="well well-sm">
+					<div class="form-group">
+						<label class="control-label" for="focusedInput">Select or list problem(s) for this profile:</label>
+						<div class="flex-list">
+							<!-- List of selected issues -->
+							<div ng-repeat="problem in form.aProblems" ng-include="'task-artifact-issue.html'"></div>
+
+							<!-- Select (add) an issue -->
+							<div class="pure-dropdown">
+								<button type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle>
+									<i class="fa fa-plus" style="padding-right: 8px;"></i>Add
+								</button>
+								<div class="pure-dropdown-content" ng-include src="'task-select-issue.html'"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-3">
+				<div class="form-group">
+					<label class="control-label" for="focusedInput">What is the best profile:</label>
+					<div class="btn-group btn-group-justified" role="group">
+						<label class="btn btn-default btn-xs" ng-model="form.quickest" uib-btn-radio="'a'" uncheckable>
+							<span class="text-primary" style="margin-right: 6px;">◧</span>left
+						</label>
+						<label class="btn btn-default btn-xs" ng-model="form.quickest" uib-btn-radio="'both'" uncheckable>both</label>
+						<label class="btn btn-default btn-xs" ng-model="form.quickest" uib-btn-radio="'b'" uncheckable>
+							right<span class="text-primary" style="margin-left: 6px;">◨</span>
+						</label>
+						<label class="btn btn-default btn-xs" ng-model="form.quickest" uib-btn-radio="'none'" uncheckable>none</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="focusedInput">Are you confident about this comparison:</label>
+					<div class="btn-group btn-group-flex" role="group">
+						<label ng-repeat="confidence in confidences" class="btn btn-default btn-xs" ng-model="form.quickest_c" uib-btn-radio="$index + 1" uncheckable>{{confidence.l}}</label>
+					</div>
+				</div>
+			</div>
+
+			<div ng-repeat="pIndex in [1]" class="col-sm-4">
+				<h4><span class="text-primary">◨</span> Right profile</h4>
+				<div class="well well-sm">
+					<div class="form-group">
+						<label class="control-label" for="focusedInput">Select or list problem(s) for this profile:</label>
+						<div class="flex-list">
+							<!-- List of selected issues -->
+							<div ng-repeat="problem in form.bProblems" ng-include="'task-artifact-issue.html'"></div>
+
+							<!-- Select (add) an issue -->
+							<div class="pure-dropdown">
+								<button type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle>
+									<i class="fa fa-plus" style="padding-right: 8px;"></i>Add
+								</button>
+								<div class="pure-dropdown-content" ng-include src="'task-select-issue.html'"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-1">
+				<div class="btn-group-vertical" style="width: 100%">
+					<button type="button" class="btn btn-link" type="button" ng-click="actionPreviousTab()"><i class="fa fa-hand-o-left" style="padding-right: 8px;"></i>Intro</button>
+					<button type="button" class="btn btn-primary" type="button" ng-click="actionNextTab()">OK<i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
+				</div>
+			</div>
+		</div>
 	</div>
-</script>
--->
+	<iframe frameborder="0" ng-src="{{path}}" />
+</div>

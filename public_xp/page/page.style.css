@@ -34,3 +34,35 @@ section {
 	flex-direction: row;
 	flex-wrap: wrap;
 }
+
+.list-artifact {
+	display: block;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+.list-pill {
+	padding: 8px 12px;
+	background-color: #cecece;
+	color: #333333;
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 15px;
+	font-weight: 300;
+	line-height: 1.4;
+}
+
+.list-command {
+	position: relative;
+	display: block;
+	padding: 0px 15px;
+	font-size: 14px;
+	font-weight: 300;
+	line-height: 1.4;
+	color: #999999;
+}
+.list-command a {
+	color: #999999;
+}
+.list-command a:hover {
+	color: #008cba;
+}

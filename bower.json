@@ -1,28 +1,29 @@
 {
-	"name": "manycoredashboard",
-	"version": "0.15.0",
-	"dependencies": {
-		"bootswatch-dist": "yeti",
-		"awesome-bootstrap-checkbox": "latest",
-		"font-awesome": "latest",
-		"angular": "latest",
-		"angular-sanitize": "latest",
-		"ui-route": "latest",
-		"angular-bootstrap": "latest",
-		"d3": "latest",
-		"jssha": "latest"
-	},
-	"homepage": "https://github.com/TCDBerenger/manycore-dashboard",
-	"authors": [
-		"TCDBerenger <arnaudb@tcd.ie>"
-	],
-	"moduleType": [
-		"node"
-	],
-	"license": "MIT",
-	"ignore": [
-		"**/.*",
-		"node_modules",
-		"public/libs"
-	]
+  "name": "manycoredashboard",
+  "version": "0.15.0",
+  "dependencies": {
+    "bootswatch-dist": "yeti",
+    "awesome-bootstrap-checkbox": "latest",
+    "font-awesome": "latest",
+    "angular": "latest",
+    "angular-sanitize": "latest",
+    "ui-route": "latest",
+    "angular-bootstrap": "latest",
+    "d3": "latest",
+    "jssha": "latest",
+    "angular-ui-select": "^0.18.0"
+  },
+  "homepage": "https://github.com/TCDBerenger/manycore-dashboard",
+  "authors": [
+    "TCDBerenger <arnaudb@tcd.ie>"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "public/libs"
+  ]
 }

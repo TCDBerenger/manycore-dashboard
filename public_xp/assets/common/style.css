@@ -64,3 +64,27 @@ img.screenshot {
 .btn-group-flex > * {
 	flex-grow: 1;
 }
+
+
+/*
+ * CSS dropdown
+ */
+.pure-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.pure-dropdown-content {
+	display: none;
+	position: absolute;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+}
+.pure-dropdown-content > *:last-child {
+	margin-bottom: 0;
+}
+
+.pure-dropdown:hover .pure-dropdown-content {
+	display: block;
+}

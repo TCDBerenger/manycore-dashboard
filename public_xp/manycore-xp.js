@@ -1,4 +1,4 @@
-var xpapp = angular.module('manycoreXP', ['ngSanitize', 'ui.router', 'ui.bootstrap']); // , 'gist', 'mcq', 'ngAnimate'
+var xpapp = angular.module('manycoreXP', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'ui.select']); // , 'gist', 'mcq', 'ngAnimate'
 
 /************************************************/
 /* UI States									*/
@@ -253,3 +253,36 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 /************************************************/
 /* Directives									*/
 /************************************************/
+xpapp.directive('iframeAutoResize', ['$window', function($window) {
+	return {
+		restrict: 'A',
+		link: function(scope, element, attrs) {
+			function resizeIFrame() {
+				console.log('resize window');
+				element.css('min-height', Math.round(document.documentElement.clientHeight - element[0].getBoundingClientRect().top - 3) + 'px');
+			}
+
+			// Bind window resize
+			angular.element($window).bind('resize', resizeIFrame);
+
+			// Init resize
+			resizeIFrame();
+
+			/*
+			Math.round(document.documentElement.clientHeight - element[0].getBoundingClientRect())
+			console.log('height', element[0].getBoundingClientRect(), );
+			element.on('load', function(event) {
+				console.log('on');
+				console.log('contentWindow', element[0].contentWindow);
+				console.log('height', element[0].getBoundingClientRect().top, document.documentElement.clientHeight);
+			
+				element.css('min-height', element[0].contentWindow.document.body.scrollHeight + 'px');
+
+				angular.element(element[0].contentWindow).bind('resize', function() {
+					console.log('bind', arguments);
+				});
+			});
+			*/
+		}
+	}
+}]);

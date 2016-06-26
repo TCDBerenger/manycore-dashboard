@@ -23,7 +23,7 @@ xpapp.factory('threads', function() {
 
 				{ pageID: 'habits',		label: 'Your tools',			form: {} },
 //				{ pageID: 'info',		label: 'Explanations' },
-				{ taskID: 1,			label: 'Task 1',				form: {}, path: '/dashboard/9-8', mousetrack: true },
+				{ taskID: 1,			label: 'Task 1',				form: {}, path: '/', mousetrack: true },
 //				{ state: 'tool',		label: 'Test Particules',		path: '/dashboard/5-4', mousetrack: true, nextInSidebar: true },
 //				{ pageID: 'start',		label: 'Experimentation',		form: {} },
 //				{ state: 'tool',		label: 'Test Particules',		path: '/dashboard/1012', mousetrack: true, nextInSidebar: true },
@@ -61,32 +61,52 @@ xpapp.service('taxonomy', function() {
 	this.dl =	{ id: 'dl',	t: 'Load balancing',	i: 'compass',	d: '' },
 	this.rs =	{ id: 'rs',	t: 'Resource sharing',	i: 'sitemap',	d: '' },
 
-	this[11] =	{ id: 11,	t: 'oversubscription' },
-	this[12] =	{ id: 12,	t: 'task start/stop overhead' },
-	this[13] =	{ id: 13,	t: 'thread migration' },
-	this[21] =	{ id: 21,	t: 'Low work to synchronisation ratio' },
-	this[22] =	{ id: 22,	t: 'Lock contention' },
-	this[23] =	{ id: 23,	t: 'Lock convoy' },
-	this[24] =	{ id: 24,	t: 'Badly-behaved spinlocks' },
-	this[31] =	{ id: 31,	t: 'True sharing of updated data' },
-	this[32] =	{ id: 32,	t: 'Sharing of data between CPUs on NUMA systems' },
-	this[33] =	{ id: 33,	t: 'Sharing of lock data structures' },
-	this[34] =	{ id: 34,	t: 'Sharing data between distant cores' },
-	this[41] =	{ id: 41,	t: 'Undersubscription' },
-	this[42] =	{ id: 42,	t: 'Alternating sequential/parallel execution' },
-	this[43] =	{ id: 43,	t: 'Chains of data dependencies' },
-	this[44] =	{ id: 44,	t: 'Bad threads to cores ratio' },
-	this[51] =	{ id: 51,	t: 'Cache Locality' },
-	this[52] =	{ id: 52,	t: 'TLB Locality' },
-	this[53] =	{ id: 53,	t: 'DRAM memory pages' },
-	this[54] =	{ id: 54,	t: 'Page faults' },
-	this[61] =	{ id: 61,	t: 'Exceeding memory bandwidth' },
-	this[62] =	{ id: 62,	t: 'Competition between threads sharing a cache' },
-	this[63] =	{ id: 63,	t: 'False data sharing' },
+	this[11] =	{ id: 11, t: 'oversubscription',
+						  d: 'not enough free cores available' },
+	this[12] =	{ id: 12, t: 'task start/stop overhead',
+						  d: 'a dedicated thread is not justified for the amount of work performed' },
+	this[13] =	{ id: 13, t: 'thread migration',
+						  d: 'excessive thread movement across cores' },
+	this[21] =	{ id: 21, t: 'Low work to synchronisation ratio',
+						  d: 'threads spend more time acquiring locks than executing' },
+	this[22] =	{ id: 22, t: 'Lock contention',
+						  d: 'a thread attempts to acquire a lock held by another thread' },
+	this[24] =	{ id: 24, t: 'Badly-behaved spinlocks',
+						  d: 'a thread repeatedly fails to acquire a lock without pause' },
+	this[31] =	{ id: 31, t: 'True sharing of updated data',
+						  d: 'the same variable is written/read by different cores' },
+	this[32] =	{ id: 32, t: 'Sharing of data between CPUs on NUMA systems',
+						  d: 'different parts of the data may be in different local memories' },
+	this[33] =	{ id: 33, t: 'Sharing of lock data structures',
+						  d: 'large number of locks acquired or released' },
+	this[34] =	{ id: 34, t: 'Sharing data between distant cores',
+						  d: 'transferring shared data between threads on distant cores' },
+	this[41] =	{ id: 41, t: 'Undersubscription',
+						  d: 'too few threads actively running' },
+	this[42] =	{ id: 42, t: 'Alternating sequential/parallel execution',
+						  d: 'sequential phases limit performance of the system' },
+	this[43] =	{ id: 43, t: 'Chains of data dependencies',
+						  d: 'the structure of some parts of the application prevents parallelisation' },
+	this[44] =	{ id: 44, t: 'Bad threads to cores ratio',
+						  d: 'the work is not appropriately divided for the available cores' },
+	this[51] =	{ id: 51, t: 'Cache Locality',
+						  d: 'data is not present in a reasonably nearby cache' },
+	this[52] =	{ id: 52, t: 'TLB Locality',
+						  d: 'data used by the application is seldom in the same virtual page' },
+	this[53] =	{ id: 53, t: 'DRAM memory pages',
+						  d: 'memory accesses seldom target the same physical DRAM pages' },
+	this[54] =	{ id: 54, t: 'Page faults',
+						  d: 'not enough physical memory' },
+	this[61] =	{ id: 61, t: 'Exceeding memory bandwidth',
+						  d: 'the memory bus is saturated with requests' },
+	this[62] =	{ id: 62, t: 'Competition between threads sharing a cache',
+						  d: '' },
+	this[63] =	{ id: 63, t: 'False data sharing',
+						  d: 'updating data invalidates nearby locations which hold data used by other threads' },
 
 	// Fill taxonomies with issues
 	this.tg.issues = [this[11], this[12], this[13]];
-	this.sy.issues = [this[21], this[22], this[23], this[24]];
+	this.sy.issues = [this[21], this[22], this[24]];
 	this.ds.issues = [this[31], this[32], this[33], this[34]];
 	this.lb.issues = [this[41], this[42], this[43], this[44]];
 	this.dl.issues = [this[51], this[52], this[53], this[54]];
@@ -101,6 +121,7 @@ xpapp.service('taxonomy', function() {
 	// ... and issues
 	this.all.categories.forEach(function(category) {
 		category.issues.forEach(function(issue) {
+			issue.cat = category;
 			this.all.issues.push(issue);
 		}, this);
 	}, this);
