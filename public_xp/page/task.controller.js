@@ -17,8 +17,7 @@ xpapp.controller('TaskController',
 	$scope.form.bProblems = [];
 
 	// Iframe path
-	$scope.path = $sce.trustAsResourceUrl('/#/xp/nofeedback-nonavbar' + $scope.step.path);
-	$scope.path = $sce.trustAsResourceUrl('');
+	$scope.path = $sce.trustAsResourceUrl('/#/xp/nofeedback-nonavbar-nounselect' + $scope.step.path);
 	
 	// Taxonomy
 	$scope.taxonomy = taxonomy;
@@ -35,11 +34,11 @@ xpapp.controller('TaskController',
 
 	// Confidences
 	$scope.confidences = [
-		{ v: 1, l: 'doubtful',	i: 'fa-frown-o' },
-		{ v: 2, l: '←',			i: 'fa-frown-o' },
-		{ v: 3, l: 'neutral',	i: 'fa-meh-o' },
-		{ v: 4, l: '→',			i: 'fa-smile-o' },
-		{ v: 5, l: 'confident',	i: 'fa-smile-o' }
+		{ v: 1, l: 'doubtful',	smiley: '😒', i: 'fa-frown-o' },
+		{ v: 2, l: '←',			smiley: '😑', i: 'fa-frown-o' },
+		{ v: 3, l: 'neutral',	smiley: '😐', i: 'fa-meh-o' },
+		{ v: 4, l: '→',			smiley: '😔', i: 'fa-smile-o' },
+		{ v: 5, l: 'confident',	smiley: '😉', i: 'fa-smile-o' }
 	];
 	$scope.confidencesWithNull = $scope.confidences.slice();
 	$scope.confidencesWithNull.unshift({ v: 0, l: '',	i: '' });
@@ -62,7 +61,7 @@ xpapp.controller('TaskController',
 		
 		var problem = {
 			i: tempForm.i.id,
-			c: (tempForm.c) ? tempForm.c.v : 0
+			c: tempForm.c
 		};
 
 		// Add the problem

@@ -3,7 +3,10 @@
 	<div class="list-artifact">
 		<div class="list-pill">
 			<span uib-tooltip="{{taxonomy[problem.i].d}}">{{taxonomy[problem.i].t}}</span>
+			<span class="text-info" uib-tooltip="{{confidencesWithNull[problem.c].l}}">{{confidencesWithNull[problem.c].smiley}}</span>
+			<!--
 			<i class="fa {{confidencesWithNull[problem.c].i}}" style="margin-left: 6px" uib-tooltip="{{confidencesWithNull[problem.c].l}}" aria-hidden="true"></i>
+			-->
 		</div>
 		<div class="list-command">
 			<a href ng-click="removeProblem()" class="pull-right">remove<i class="fa fa-trash" style="margin-left: 4px" aria-hidden="true"></i></a>
