@@ -9,7 +9,6 @@ var fs = require('fs');
 /************************************************/
 var VERSION = 84;
 var PARALLEL_THRESHOLD = 2;
-var TEST_ID = 9999;
 
 /************************************************/
 /* Variables - hardwares						*/
@@ -98,6 +97,9 @@ var hardSTG = {
 	}
 };
 
+var hardXP = JSON.parse(JSON.stringify(hardSTG));
+hardXP.folder = 'XP';
+
 var hardTest = JSON.parse(JSON.stringify(hardSTG));
 hardTest.folder = 'tmp';
 
@@ -154,11 +156,25 @@ var profileMap = {
 //		{ id: 111,	label: 'Matmul KIJ',	desc: 'Matrix multiplication KIJ sequentially', 	hardware: hardSTG, file: 'matmul-s-kij', disabled: true },
 //		{ id: 112,	label: 'Matmul KJI',	desc: 'Matrix multiplication KJI sequentially', 	hardware: hardSTG, file: 'matmul-s-kji', disabled: true },
 		
+		{ id: 211,	label: 'Program 11',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-11' },
+		{ id: 221,	label: 'Program 21',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-21' },
+		{ id: 222,	label: 'Program 22',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-22' },
+		{ id: 231,	label: 'Program 31',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-31' },
+		{ id: 241,	label: 'Program 41',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-41' },
+		{ id: 262,	label: 'Program 62',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-62' },
+		{ id: 263,	label: 'Program 63',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-63' },
+
+		{ id: 300,	label: 'Alt 21 a',		desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'alt-21-a' },
+		{ id: 301,	label: 'Alt 31 a',		desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'alt-31-a' },
+		{ id: 302,	label: 'Alt 31 b',		desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'alt-31-b' },
+		{ id: 303,	label: 'Alt 31 c',		desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'alt-31-c' },
+		{ id: 304,	label: 'Alt 31 d',		desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'alt-31-d' },
+
 		{ id: 1006,	label: 'Dining ph.  6',	desc: 'Dining philosopher problem for 6 covers',	hardware: hardSTG,	 file: 'philosophers006', timeStep: 50, disabled: true },
 		{ id: 1012,	label: 'Dining ph. 12',	desc: 'Dining philosopher problem for 12 covers',	hardware: hardSTG,	 file: 'philosophers012', timeStep: 50 },
 		{ id: 1045,	label: 'Dining ph. 45',	desc: 'Dining philosopher problem for 45 covers',	hardware: hardSTG,	 file: 'philosophers045', timeStep: 50, v: 4, disabled: true },
 		
-		{ id: TEST_ID,	label: 'Test',	desc: 'Harvester temporary test',	hardware: hardTest,	 file: 'matmul' },
+		{ id: 9999,	label: 'Test',	desc: 'Harvester temporary test',	hardware: hardTest,	 file: 'matmul' },
 	]
 };
 
@@ -307,7 +323,7 @@ function loadData(profile, notCreateCache) {
 
 		// Check old version
 		// or check if it is the test version
-		if (profile.data.info.version != VERSION || profile.id == TEST_ID) {
+		if (profile.data.info.version != VERSION || profile.hardware == hardTest) {
 
 			// Delete file
 			fs.unlinkSync(filenameCache);
