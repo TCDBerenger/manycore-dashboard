@@ -9,6 +9,7 @@ var fs = require('fs');
 /************************************************/
 var VERSION = 84;
 var PARALLEL_THRESHOLD = 2;
+var TEST_ID = 9999;
 
 /************************************************/
 /* Variables - hardwares						*/
@@ -97,6 +98,9 @@ var hardSTG = {
 	}
 };
 
+var hardTest = JSON.parse(JSON.stringify(hardSTG));
+hardTest.folder = 'tmp';
+
 
 /************************************************/
 /* Variables - profiles							*/
@@ -141,7 +145,7 @@ var profileMap = {
 //		{ id: 102,	label: 'Matmul IKJ',	desc: 'Matrix multiplication IKJ in parallel', 	hardware: hardSTG, file: 'matmul-p-ikj', disabled: true },
 //		{ id: 103,	label: 'Matmul JIK',	desc: 'Matrix multiplication JIK in parallel', 	hardware: hardSTG, file: 'matmul-p-jik', disabled: true },
 //		{ id: 104,	label: 'Matmul JKI',	desc: 'Matrix multiplication JKI in parallel', 	hardware: hardSTG, file: 'matmul-p-jki', disabled: true },
-		{ id: 105,	label: 'Matmul KIJ',	desc: 'Matrix multiplication KIJ in parallel', 	hardware: hardSTG, file: 'matmul-p-kij', disabled: true },
+		{ id: 105,	label: 'Matmul KIJ',	desc: 'Matrix multiplication KIJ in parallel', 	hardware: hardSTG, file: 'matmul-p-kij', disabled: true,	timeStep: 25 },
 //		{ id: 106,	label: 'Matmul KJI',	desc: 'Matrix multiplication KJI in parallel', 	hardware: hardSTG, file: 'matmul-p-kji', disabled: true },
 //		{ id: 107,	label: 'Matmul IJK',	desc: 'Matrix multiplication IJK sequentially', 	hardware: hardSTG, file: 'matmul-s-ijk', disabled: true },
 //		{ id: 108,	label: 'Matmul IKJ',	desc: 'Matrix multiplication IKJ sequentially', 	hardware: hardSTG, file: 'matmul-s-ikj', disabled: true },
@@ -153,13 +157,15 @@ var profileMap = {
 		{ id: 1006,	label: 'Dining ph.  6',	desc: 'Dining philosopher problem for 6 covers',	hardware: hardSTG,	 file: 'philosophers006', timeStep: 50, disabled: true },
 		{ id: 1012,	label: 'Dining ph. 12',	desc: 'Dining philosopher problem for 12 covers',	hardware: hardSTG,	 file: 'philosophers012', timeStep: 50 },
 		{ id: 1045,	label: 'Dining ph. 45',	desc: 'Dining philosopher problem for 45 covers',	hardware: hardSTG,	 file: 'philosophers045', timeStep: 50, v: 4, disabled: true },
+		
+		{ id: TEST_ID,	label: 'Test',	desc: 'Harvester temporary test',	hardware: hardTest,	 file: 'matmul' },
 	]
 };
 
 // Global treatment
 profileMap.all.forEach(function (profile) {
 	// Missing data
-	if (! profile.timeStep) profile.timeStep = 25;
+	if (! profile.timeStep) profile.timeStep = 50;
 	if (! profile.v) profile.v = 5;
 	
 	// Indexing
@@ -300,7 +306,8 @@ function loadData(profile, notCreateCache) {
 		console.log("[" + profile.id + "] " + profile.file + " cache opened");
 
 		// Check old version
-		if (profile.data.info.version != VERSION) {
+		// or check if it is the test version
+		if (profile.data.info.version != VERSION || profile.id == TEST_ID) {
 
 			// Delete file
 			fs.unlinkSync(filenameCache);
@@ -360,7 +367,7 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 	var data = {
 		info: {
 			version:		VERSION,
-			capability:		[!!raw1, !!raw2, !!raw3, !!raw4 && raw4.length > 0, !!raw5, !!raw6],
+			capability:		[!!raw1, !!raw2, !!raw3, !!raw4, !!raw5, !!raw6],
 			timeStep:		profile.timeStep,
 			timeMin:		0,
 			timeMax:		0,
@@ -488,6 +495,7 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 	 *		states
 	 *
 	 */
+	console.log('1> start states treatment');
 	// Analyse element by element and group them by time
 	var statThreads = {};
 	raw1.forEach(function(element) {
@@ -590,6 +598,7 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 	 *		switches
 	 *
 	 */
+	console.log('2> start switches treatment');
 	// Sequential sequences
 	var coreLength = profile.hardware.data.lcores;
 	var coreActivity = [];
@@ -768,6 +777,7 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 	 *		dala locality
 	 *
 	 */
+	console.log('3> start locality treatment');
 	// Var
 //	var property;
 //	var steps = +raw3.info.duration / timeStep;
@@ -825,6 +835,7 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 	 *		locks
 	 *
 	 */
+	console.log('4> start locks treatment');
 	// Vars
 	var lock_map = {};	// current owner of a lock				(key: 'lock-id')
 	var hold_map = {};	// when a thread starts holding a lock	(key: 'lock-id')
@@ -986,6 +997,7 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 	 *		memory bandwidth
 	 *
 	 */
+	console.log('5> start bandwidth treatment');
 	var systemBandwidth = [];
 	if (raw5 != null) {
 		// Treat all elements
@@ -1035,8 +1047,12 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 	 *		cache coherency misses
 	 *
 	 */
+	console.log('6> start coherency treatment');
 	var coreCount = profile.hardware.data.lcores;
 	var lxID, pxID, value, cxID;
+
+	// Treat coherency
+	console.log('6-> treat coherency');
 	if (raw6 != null) raw6.forEach(function(element) {
 		if (element.pid == profile.pid) {
 			// Compute time ID
@@ -1066,8 +1082,11 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 			data.frames[timeEvent].c[cxID][pxID] = (data.frames[timeEvent].c[cxID][pxID] | 0) + value;
 		}
 	});
+	
+	// Truncate coherency
+	console.log('6-> truncate coherency');
 	if (raw6 != null) Object.keys(data.frames).forEach(function(timeEvent) {
-		if (timeEvent >= 0 && data.frames[timeEvent].c['0'].l1_invalid) {
+		if (timeEvent >= 0 && timeEvent <= data.info.timeMax && data.frames[timeEvent].c['0'].l1_invalid) {
 			// Truncate values
 			data.frames[timeEvent].l1_invalid = Math.min(data.frames[timeEvent].l1_invalid, data.frames[timeEvent].l1_miss);
 			data.frames[timeEvent].l2_invalid = Math.min(data.frames[timeEvent].l2_invalid, data.frames[timeEvent].l2_miss);
@@ -1086,7 +1105,6 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 			data.stats.l1_miss += data.frames[timeEvent].l1_miss;
 			data.stats.l2_miss += data.frames[timeEvent].l2_miss;
 		}
-		
 	});
 	
 
@@ -1095,6 +1113,7 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 	 *	Post treatment
 	 *
 	 */
+	console.log('7> start post treatment');
 	data.info.duration = data.info.timeMax + timeStep;
 	
 
@@ -1104,6 +1123,7 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 	 *	Done!
 	 *
 	 */
+	console.log('8> done!');
 	return data;
 }
 
