@@ -22,13 +22,18 @@ xpapp.factory('threads', function() {
 				// Forbid go back to edit:		editable: false
 
 				{ pageID: 'habits',		label: 'Your tools',			form: {} },
-//				{ pageID: 'info',		label: 'Explanations' },
-				{ taskID: 1,			label: 'Task 1',				form: {}, path: '/dashboard/5-4', mousetrack: true },
+				{ pageID: 'info',		label: 'Explanations' },
+				{ taskID: 1,			label: 'Task 1',				form: {}, path: '/dashboard/211', mousetrack: true },
+				{ taskID: 2,			label: 'Task 2',				form: {}, path: '/dashboard/221-222', mousetrack: true },
+				{ taskID: 3,			label: 'Task 3',				form: {}, path: '/dashboard/231', mousetrack: true },
+				{ taskID: 4,			label: 'Task 4',				form: {}, path: '/dashboard/241', mousetrack: true },
+				{ taskID: 5,			label: 'Task 5',				form: {}, path: '/dashboard/', mousetrack: true },
+				{ taskID: 6,			label: 'Task 6',				form: {}, path: '/dashboard/262-263', mousetrack: true },
 //				{ state: 'tool',		label: 'Test Particules',		path: '/dashboard/5-4', mousetrack: true, nextInSidebar: true },
 //				{ pageID: 'start',		label: 'Experimentation',		form: {} },
 //				{ state: 'tool',		label: 'Test Particules',		path: '/dashboard/1012', mousetrack: true, nextInSidebar: true },
 //				{ pageID: 'questions',	label: 'Questions' },
-//				{ state: 'feedback',	label: 'Feedback' }
+				{ state: 'feedback',	label: 'Feedback' }
 			]
 		},
 	];
