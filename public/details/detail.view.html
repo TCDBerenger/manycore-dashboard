@@ -14,10 +14,9 @@
 	
 	<!-- Links -->
 	<li class="navbar-right" uib-dropdown>
-		<a uib-dropdown-toggle><i class="fa fa-tachometer fa-halfpad"></i>Dashboards <span class="caret"></span></a>
+		<a ui-sref="dashboard({ids: encodedIDs})" uib-dropdown-toggle><i class="fa fa-tachometer fa-halfpad"></i>Dashboards <span class="caret"></span></a>
 		<ul uib-dropdown-menu>
-			<li><a ui-sref="dashboard({ids: encodedIDs})"><i class="fa fa-tachometer fa-16px fa-pad"></i> Graphical</a></li>
-			<li><a ui-sref="raw({ids: encodedIDs})"><i class="fa fa-graduation-cap fa-16px fa-pad"></i> Numerical</a></li>
+			<li><a ui-sref="raw({ids: encodedIDs})"><i class="fa fa-graduation-cap fa-16px fa-pad"></i> Numerical dashboard</a></li>
 		</ul>
 	</li>
 	<li class="navbar-right" uib-dropdown>
