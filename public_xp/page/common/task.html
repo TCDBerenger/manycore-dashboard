@@ -59,7 +59,7 @@
 <!-- Task: presentation -->
 <section ng-if="tabIndex == 0" class="modal-content">
 	<div class="modal-header">
-		<h1 class="modal-title">Task #{{taskID}}</h1>
+		<h1 class="modal-title">Task #{{taskID}}: information</h1>
 	</div>
 	
 	<div class="modal-body">
@@ -78,19 +78,23 @@
 <!-- Task: last comments -->
 <section ng-if="tabIndex == 2" class="modal-content">
 	<div class="modal-header">
-		<h1 class="modal-title">{{tabs[tabIndex].t}}</h1>
+		<h1 class="modal-title">Task #{{taskID}}: comments</h1>
 	</div>
 	
 	<div class="modal-body">
-		<p>
-			Todo Task.2.1
-		</p><p>
-			Todo Task.2.2
-		</p>
+		<form class="form-horizontal"><fieldset>
+			<div class="form-group">
+				<label for="inputComments" class="col-lg-2 control-label" style="font-weight: bold;">Comments</label>
+				<div class="col-lg-10" style="font-size: 1.8em;">
+					<textarea name="inputComments" ng-model="form.comments" class="form-control" rows="10" id="textArea"></textarea>
+					<span class="help-block">Your can talk about the programs you evalutates, the task, the answers, the available problems, ...</span>
+				</div>
+			</div>
+		</fieldset></form>
 	</div>
 	
 	<div class="modal-footer">
-		<button type="button" class="btn btn-link" type="button" ng-click="actionPreviousTab()"><i class="fa fa-hand-o-left" style="padding-right: 8px;"></i>Previous ({{tabs[tabIndex - 1].l}})</button>
+		<button ng-if="couldPreviousTab()" type="button" class="btn btn-link" type="button" ng-click="actionPreviousTab()"><i class="fa fa-hand-o-left" style="padding-right: 8px;"></i>Previous ({{tabs[tabIndex - 1].l}})</button>
 		<button type="button" class="btn btn-primary" type="button" ng-click="actionNextTab()">Next<i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
 	</div>
 </section>

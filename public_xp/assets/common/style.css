@@ -67,6 +67,15 @@ img.screenshot {
 
 
 /*
+ * Enhance UI Select
+ */
+.ui-select-choices-group-label {
+	color: #000000;
+	font-size: 11px;
+	font-weight: 600;
+}
+
+/*
  * CSS dropdown
  */
 .pure-dropdown {
