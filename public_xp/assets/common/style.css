@@ -79,10 +79,10 @@ img.screenshot {
  * CSS dropdown
  */
 .pure-dropdown {
-    position: relative;
-    display: inline-block;
 }
-
+.pure-dropdown > input[type=checkbox] {
+	display: none;
+}
 .pure-dropdown-content {
 	display: none;
 	position: absolute;
@@ -93,7 +93,5 @@ img.screenshot {
 .pure-dropdown-content > *:last-child {
 	margin-bottom: 0;
 }
-
-.pure-dropdown:hover .pure-dropdown-content {
-	display: block;
-}
+.pure-dropdown.pure-dropdown-hover:hover .pure-dropdown-content {		display: block; }
+.pure-dropdown input[type=checkbox]:checked ~ .pure-dropdown-content {	display: block; }

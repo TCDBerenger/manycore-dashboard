@@ -59,6 +59,9 @@ section {
 	font-weight: 300;
 	line-height: 1.4;
 	color: #999999;
+
+	border: 1px dashed #cecece;
+	border-top: none;
 }
 .list-command a {
 	color: #999999;

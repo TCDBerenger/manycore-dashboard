@@ -1,3 +1,25 @@
+<!-- Task: problem block -->
+<script type="text/ng-template" id="task-block-issues.html">
+	<h4 ng-if="pIndex == 0"><span class="text-primary">◧</span> Left profile</h4>
+	<h4 ng-if="pIndex == 1"><span class="text-primary">◨</span> Right profile</h4>
+	<div class="form-group" style="margin: 0px">
+		<label class="control-label" for="focusedInput">Select or list problem(s) for this profile:</label>
+		<div class="flex-list">
+			<!-- List of selected issues -->
+			<div ng-repeat="problem in (pIndex == 0) ? form.aProblems : form.bProblems" ng-include="'task-artifact-issue.html'"></div>
+
+			<!-- Select (add) an issue -->
+			<div class="pure-dropdown">
+				<input type="checkbox" id="dropdown_toggle_{{pIndex}}">
+				<label for="dropdown_toggle_{{pIndex}}" type="button" class="btn btn-sm btn-primary">
+					<i class="fa fa-plus" style="padding-right: 8px;"></i>Add
+				</label>
+				<div class="pure-dropdown-content" ng-include src="'task-select-issue.html'"></div>
+			</div>
+		</div>
+	</div>
+</script>
+
 <!-- Task: problem artifact -->
 <script type="text/ng-template" id="task-artifact-issue.html">
 	<div class="list-artifact">
@@ -9,10 +31,35 @@
 			-->
 		</div>
 		<div class="list-command">
-			<a href ng-click="removeProblem()" class="pull-right">remove<i class="fa fa-trash" style="margin-left: 4px" aria-hidden="true"></i></a>
-			<a ng-if="! $first" href ng-click="upProblem()"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
-			<span ng-if="! $first || ! $last"  class="badge">{{$index + 1}}</span>
-			<a ng-if="! $last" href ng-click="downProblem()"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>
+			<span class="pure-dropdown pure-dropdown-hover pull-right">
+				<a href><i class="fa fa-trash" aria-hidden="true"></i></a>
+				<div class="panel panel-default pure-dropdown-content">
+					<div class="panel-footer">
+						<button type="button" class="btn btn-primary btn-sm" type="button" ng-click="removeProblem()"><i class="fa fa-trash-o" style="padding-right: 8px;"></i>Remove this problem</button>
+					</div>
+				</div>
+			</span>
+			<span class="pure-dropdown pure-dropdown-hover pull-right" style="padding-right: 8px;">
+				<a href><i class="fa fa-pencil" aria-hidden="true"></i></a>
+				<div class="panel panel-default pure-dropdown-content" style="min-width: 300px;">
+					<div class="panel-body">
+						<fieldset>
+							<div class="form-group">
+								<label class="control-label" for="focusedInput">Are you confident about this problem:</label>
+								<div class="btn-group btn-group-flex" role="group">
+									<label ng-repeat="confidence in confidences" class="btn btn-default btn-sm" ng-model="problem.c" uib-btn-radio="$index + 1" uncheckable>{{confidence.l}}</label>
+								</div>
+							</div>
+							<div class="form-group">
+							</div>
+						</fieldset>
+					</div>
+				</div>
+			</span>
+			<a ng-if="! $first" href ng-click="upProblem()" uib-tooltip="Increase rank"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+			<span ng-if="! $first || ! $last"  class="badge" uib-tooltip="This problem is, in order of importance, ranked {{$index + 1}}">{{$index + 1}}</span>
+			<a ng-if="! $last" href ng-click="downProblem()" uib-tooltip="Decrease rank"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>
+			&nbsp;
 		</div>
 	</div>
 </script>
@@ -49,9 +96,9 @@
 			</fieldset>
 		</div>
 		<div class="panel-footer">
-			<button ng-disabled="! tempForm[pIndex].i" ng-click="addProblem()" type="button" class="btn btn-primary btn-sm">
+			<label for="dropdown_toggle_{{pIndex}}" ng-disabled="! tempForm[pIndex].i" ng-click="addProblem()" type="button" class="btn btn-primary btn-sm">
 				<i class="fa fa-plus" style="padding-right: 8px;"></i>Add this problem
-			</button>
+			</label>
 		</div>
 	</div>
 </script>
@@ -87,7 +134,7 @@
 				<label for="inputComments" class="col-lg-2 control-label" style="font-weight: bold;">Comments</label>
 				<div class="col-lg-10" style="font-size: 1.8em;">
 					<textarea name="inputComments" ng-model="form.comments" class="form-control" rows="10" id="textArea"></textarea>
-					<span class="help-block">Your can talk about the programs you evalutates, the task, the answers, the available problems, ...</span>
+					<span class="help-block">Your can talk about the programs you evalutated, tis task, your answers, the list of problems, ...</span>
 				</div>
 			</div>
 		</fieldset></form>
@@ -103,26 +150,7 @@
 <div ng-if="tabIndex == 1" class="task">
 	<div class="container-fluid">
 		<div class="row">
-			<div ng-repeat="pIndex in [0]" class="col-sm-4">
-				<h4><span class="text-primary">◧</span> Left profile</h4>
-				<div class="well well-sm">
-					<div class="form-group">
-						<label class="control-label" for="focusedInput">Select or list problem(s) for this profile:</label>
-						<div class="flex-list">
-							<!-- List of selected issues -->
-							<div ng-repeat="problem in form.aProblems" ng-include="'task-artifact-issue.html'"></div>
-
-							<!-- Select (add) an issue -->
-							<div class="pure-dropdown">
-								<button type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle>
-									<i class="fa fa-plus" style="padding-right: 8px;"></i>Add
-								</button>
-								<div class="pure-dropdown-content" ng-include src="'task-select-issue.html'"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			<div ng-repeat="pIndex in [0]" class="col-sm-4" ng-include src="'task-block-issues.html'"></div>
 
 			<div class="col-sm-3">
 				<div class="form-group">
@@ -146,26 +174,8 @@
 				</div>
 			</div>
 
-			<div ng-repeat="pIndex in [1]" class="col-sm-4">
-				<h4><span class="text-primary">◨</span> Right profile</h4>
-				<div class="well well-sm">
-					<div class="form-group">
-						<label class="control-label" for="focusedInput">Select or list problem(s) for this profile:</label>
-						<div class="flex-list">
-							<!-- List of selected issues -->
-							<div ng-repeat="problem in form.bProblems" ng-include="'task-artifact-issue.html'"></div>
+			<div ng-repeat="pIndex in [1]" class="col-sm-4" ng-include src="'task-block-issues.html'"></div>
 
-							<!-- Select (add) an issue -->
-							<div class="pure-dropdown">
-								<button type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle>
-									<i class="fa fa-plus" style="padding-right: 8px;"></i>Add
-								</button>
-								<div class="pure-dropdown-content" ng-include src="'task-select-issue.html'"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 			<div class="col-sm-1">
 				<div class="btn-group-vertical" style="width: 100%">
 					<button type="button" class="btn btn-link" type="button" ng-click="actionPreviousTab()"><i class="fa fa-hand-o-left" style="padding-right: 8px;"></i>Intro</button>
