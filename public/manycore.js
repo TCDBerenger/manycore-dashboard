@@ -73,6 +73,8 @@ app.value('xp', {
 	isCapturing:	false,
 	options: {
 		feedback:	false,
+		noselect:	false,
+		nounselect:	false,
 	},
 	width:			null,
 	heatmap:		[],

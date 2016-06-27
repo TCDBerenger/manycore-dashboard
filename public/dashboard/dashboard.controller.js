@@ -1,9 +1,15 @@
 /* global app */
 /* global angular */
-app.controller('DashboardController', ['$scope', '$rootScope', '$window', '$stateParams', '$http', '$sce', 'profileService', 'categories' , function($scope, $rootScope, $window, $stateParams, $http, $sce, profileService, categories) {
+app.controller('DashboardController',
+	['$scope', '$rootScope', '$window', '$stateParams', '$http', '$sce', 'profileService', 'categories', 'xp',
+	function($scope, $rootScope, $window, $stateParams, $http, $sce, profileService, categories, xp) {
 	/************************************************/
 	/* Constructor - Init							*/
 	/************************************************/
+	// UI Settings
+	$scope.allowSelect = ! xp.options.noselect;
+	$scope.allowUnselect = ! xp.options.nounselect;
+
 	// Profiles
 	$scope.profiles = profileService.all;
 	$scope.selectedProfiles = [];

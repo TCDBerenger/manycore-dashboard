@@ -17,7 +17,7 @@ xpapp.controller('TaskController',
 	$scope.form.bProblems = [];
 
 	// Iframe path
-	$scope.path = $sce.trustAsResourceUrl('/#/xp/nofeedback-nonavbar-nounselect' + $scope.step.path);
+	$scope.path = $sce.trustAsResourceUrl('/#/xp/nofeedback-nonavbar-nounselect-noselect' + $scope.step.path);
 	
 	// Taxonomy
 	$scope.taxonomy = taxonomy;

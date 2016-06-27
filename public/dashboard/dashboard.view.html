@@ -2,7 +2,7 @@
 <!-- -- -- -- -- -- -- -- -- -- -- -- -->
 <!--	Wizard						  -->
 <!-- -- -- -- -- -- -- -- -- -- -- -- -->
-<div class="wizard alert alert-info" ng-class="{'hidden': ! canAddProfile()}">
+<div ng-if="allowSelect" class="wizard alert alert-info" ng-class="{'hidden': ! canAddProfile()}">
 	<!-- Step 1 and 1bis (selection) -->
 	<div class="tile">
 		<span class="tile-icon fa-stack">
@@ -109,12 +109,12 @@
 		
 		<!-- pin -->
 		<aside class="hover-text">
-			<a href ng-click="unselectProfile(profile)">
+			<a href ng-click="unselectProfile(profile)" ng-if="allowUnselect">
 				<span class="text">deselect</span><span class="fa-stack fa-lg icon">
 					<i class="fa fa-thumb-tack fa-stack-1x"></i>
 					<i class="fa fa-ban fa-stack-2x"></i>
 				</span>
-			</a><br />
+			</a><br ng-if="allowUnselect" />
 			<a href ng-click="invertProfiles()" ng-if="has2Profiles()">
 				<span class="text">invert</span><span class="fa-stack fa-lg icon">
 					<i class="fa fa-circle fa-stack-2x"></i>
