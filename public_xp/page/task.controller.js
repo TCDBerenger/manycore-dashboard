@@ -25,7 +25,7 @@ xpapp.controller('TaskController',
 	$scope.issues = taxonomy.all.issues;
 
 	// Tabs
-	$scope.tabIndex = 1;
+	$scope.tabIndex = 0;
 	$scope.tabs = [
 		{ l: 'task presentation',	t: 'Presentation' },
 		{ l: 'task',				t: 'Task' },

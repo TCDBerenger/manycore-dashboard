@@ -23,7 +23,7 @@ xpapp.factory('threads', function() {
 
 				{ pageID: 'habits',		label: 'Your tools',			form: {} },
 //				{ pageID: 'info',		label: 'Explanations' },
-				{ taskID: 1,			label: 'Task 1',				form: {}, path: '/', mousetrack: true },
+				{ taskID: 1,			label: 'Task 1',				form: {}, path: '/dashboard/5-4', mousetrack: true },
 //				{ state: 'tool',		label: 'Test Particules',		path: '/dashboard/5-4', mousetrack: true, nextInSidebar: true },
 //				{ pageID: 'start',		label: 'Experimentation',		form: {} },
 //				{ state: 'tool',		label: 'Test Particules',		path: '/dashboard/1012', mousetrack: true, nextInSidebar: true },
