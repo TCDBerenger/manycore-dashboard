@@ -33,6 +33,9 @@ xpapp.controller('PageController', ['$scope', '$rootScope', '$uibModal', functio
 		if ($scope.tabIndex == $scope.tabs.length - 1) {
 			$rootScope.actionNext();
 		} else {
+			if ($rootScope.step.mousetrack && document.getElementsByTagName('iframe')[0]) {
+				$rootScope.step.currentMouseTrack = document.getElementsByTagName('iframe')[0].contentWindow.xp;
+			}
 			$scope.tabIndex++;
 		}
 	}

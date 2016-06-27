@@ -190,7 +190,7 @@ xpapp.run(['$rootScope', '$state', '$http', 'threads', function($rootScope, $sta
 		// Collect data
 		if (currentStep) {
 			if (! currentStep.hasOwnProperty('editable')) currentStep.editable = true;
-			var frameXP = (currentStep.mousetrack) ? document.getElementById("toolFrame").contentWindow.xp : null;
+			var frameXP = (currentStep.mousetrack && document.getElementsByTagName('iframe')[0]) ? document.getElementsByTagName('iframe')[0].contentWindow.xp : currentStep.currentMouseTrack;
 			$rootScope.actionWrite({
 				type:		'page',
 				user_group:	$rootScope.xp.group,
