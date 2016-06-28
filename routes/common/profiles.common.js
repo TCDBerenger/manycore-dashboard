@@ -100,9 +100,6 @@ var hardSTG = {
 var hardXP = JSON.parse(JSON.stringify(hardSTG));
 hardXP.folder = 'XP';
 
-var hardTest = JSON.parse(JSON.stringify(hardSTG));
-hardTest.folder = 'tmp';
-
 
 /************************************************/
 /* Variables - profiles							*/
@@ -173,8 +170,6 @@ var profileMap = {
 		{ id: 1006,	label: 'Dining ph.  6',	desc: 'Dining philosopher problem for 6 covers',	hardware: hardSTG,	 file: 'philosophers006', timeStep: 50, disabled: true },
 		{ id: 1012,	label: 'Dining ph. 12',	desc: 'Dining philosopher problem for 12 covers',	hardware: hardSTG,	 file: 'philosophers012', timeStep: 50 },
 		{ id: 1045,	label: 'Dining ph. 45',	desc: 'Dining philosopher problem for 45 covers',	hardware: hardSTG,	 file: 'philosophers045', timeStep: 50, v: 4, disabled: true },
-		
-		{ id: 9999,	label: 'Test',	desc: 'Harvester temporary test',	hardware: hardTest,	 file: 'matmul' },
 	]
 };
 
@@ -323,7 +318,7 @@ function loadData(profile, notCreateCache) {
 
 		// Check old version
 		// or check if it is the test version
-		if (profile.data.info.version != VERSION || profile.hardware == hardTest) {
+		if (profile.data.info.version != VERSION) {
 
 			// Delete file
 			fs.unlinkSync(filenameCache);
