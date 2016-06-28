@@ -1734,15 +1734,17 @@ app.directive('chartLines', function() {
 						depData[lock].forEach(function(event) {
 							// Failure
 							if (event.x == 'lf') {
-								// Line
-								elementClasses = (r.meta.holdingMode == 1) ? 'svg-data svg-data-line svg-group-hovered-element' : 'svg-data svg-data-line';
-								if (r.meta.holdingMode >= 1) mapLines[event.h].g.insert('line', ':first-child')
-									.attr('class', elementClasses)
-									.attr('x1', r.scaleX(event.t)).attr('x2', r.scaleX(event.t))
-									.attr('y1', lineCenter).attr('y2', lineCenter + mapLines[event.hl].y - mapLines[event.h].y)
-									.attr('stroke', r.deck.depends.failure.colours.n)
-									.attr('stroke-width', 1)
-									.attr('stroke-dasharray', '2,2');
+								// Draw the dependency line
+								if (r.meta.holdingMode >= 1 && event.hl) {
+									elementClasses = (r.meta.holdingMode == 1) ? 'svg-data svg-data-line svg-group-hovered-element' : 'svg-data svg-data-line';
+									mapLines[event.h].g.insert('line', ':first-child')
+										.attr('class', elementClasses)
+										.attr('x1', r.scaleX(event.t)).attr('x2', r.scaleX(event.t))
+										.attr('y1', lineCenter).attr('y2', lineCenter + mapLines[event.hl].y - mapLines[event.h].y)
+										.attr('stroke', r.deck.depends.failure.colours.n)
+										.attr('stroke-width', 1)
+										.attr('stroke-dasharray', '2,2');
+								}
 								// Cross
 								mapLines[event.h].g.append('text')
 									.attr('class', 'svg-data svg-data-failure svg-data-failure-label')
@@ -1754,10 +1756,10 @@ app.directive('chartLines', function() {
 									.attr('font-size', '14px')
 									.attr('fill', r.deck.depends.failure.colours.n)
 									.text('×'); // ╳
-							} else
+							}
 							
 							// Success
-							if (event.x == 'ls') {
+							else if (event.x == 'ls') {
 								// Tick
 								mapLines[event.h].g.append('text')
 									.attr('class', 'svg-data svg-data-failure svg-data-failure-label svg-data-lock-ls-' + lock)
@@ -1770,20 +1772,23 @@ app.directive('chartLines', function() {
 									.attr('fill', r.deck.depends.working.colours.f)
 									.text('[');
 								holded = event;
-							} else
+							}
 							
 							// Release
-							if (event.x == 'lr') {
-								start = (holded) ? holded.t : mapLines[holded.h].s;
-								// Line
-								if (event.t - start > 0) {
+							else if (event.x == 'lr') {
+								if (holded || event.h) {
+									start = (holded) ? holded.t : mapLines[event.h].s;
+
 									// Period
-									mapLines[holded.h].g.insert('line', '.svg-data-lock-ls-' + lock)
-										.attr('class', "svg-data svg-data-line")
-										.attr('x1', r.scaleX(start)).attr('x2', r.scaleX(event.t))
-										.attr('y1', lineCenter).attr('y2', lineCenter)
-										.attr('stroke', r.deck.depends.working.colours.n)
-										.attr('stroke-width', 5);
+									//	-> only if more than zero
+									if (event.t - start > 0) {
+										mapLines[holded.h].g.insert('line', '.svg-data-lock-ls-' + lock)
+											.attr('class', "svg-data svg-data-line")
+											.attr('x1', r.scaleX(start)).attr('x2', r.scaleX(event.t))
+											.attr('y1', lineCenter).attr('y2', lineCenter)
+											.attr('stroke', r.deck.depends.working.colours.n)
+											.attr('stroke-width', 5);
+									}
 									
 									// Tick
 									mapLines[holded.h].g.append('text')
@@ -1796,9 +1801,11 @@ app.directive('chartLines', function() {
 										.attr('font-size', '12px')
 										.attr('fill', r.deck.depends.working.colours.f)
 										.text(']');
+									
+									holded = null;
+								} else {
+									console.log('Missing thread id ("h" attribute)', event);
 								}
-								
-								holded = null;
 							}
 						}, this);
 						
