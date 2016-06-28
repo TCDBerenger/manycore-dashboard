@@ -9,7 +9,12 @@ xpapp.factory('threads', function() {
 			title: 'Test 1',
 			goal: 'The goal of this survey is to evaluate a prototype visualisation for identifying the presence of <b>data-locality</b> issues.',
 			tasks: [
-
+				{ id: 1, path: '/dashboard/211' },
+				{ id: 2, path: '/dashboard/221-222' },
+				{ id: 3, path: '/dashboard/231' },
+				{ id: 4, path: '/dashboard/241' },
+				{ id: 5, path: '/dashboard/' },
+				{ id: 6, path: '/dashboard/262-263' },
 			],
 			steps: [
 				// page: common					state: '...'
