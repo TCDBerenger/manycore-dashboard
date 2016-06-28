@@ -154,11 +154,15 @@ var profileMap = {
 //		{ id: 112,	label: 'Matmul KJI',	desc: 'Matrix multiplication KJI sequentially', 	hardware: hardSTG, file: 'matmul-s-kji', disabled: true },
 		
 		{ id: 211,	label: 'Program 11',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-11' },
+		{ id: 212,	label: 'Program 12',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-12' },
 		{ id: 221,	label: 'Program 21',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-21' },
 		{ id: 222,	label: 'Program 22',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-22' },
 		{ id: 231,	label: 'Program 31',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-31' },
+		{ id: 233,	label: 'Program 33',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-33' },
 		{ id: 241,	label: 'Program 41',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-41' },
-		{ id: 262,	label: 'Program 62',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-62' },
+		{ id: 244,	label: 'Program 44',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-44' },
+		{ id: 252,	label: 'Program 52',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-52' },
+		{ id: 261,	label: 'Program 61',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-61' },
 		{ id: 263,	label: 'Program 63',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-63' },
 
 		{ id: 300,	label: 'Alt 21 a',		desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'alt-21-a' },
