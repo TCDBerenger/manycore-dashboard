@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 84;
+var VERSION = 85;
 var PARALLEL_THRESHOLD = 2;
 
 /************************************************/
@@ -153,23 +153,25 @@ var profileMap = {
 //		{ id: 111,	label: 'Matmul KIJ',	desc: 'Matrix multiplication KIJ sequentially', 	hardware: hardSTG, file: 'matmul-s-kij', disabled: true },
 //		{ id: 112,	label: 'Matmul KJI',	desc: 'Matrix multiplication KJI sequentially', 	hardware: hardSTG, file: 'matmul-s-kji', disabled: true },
 		
-		{ id: 211,	label: 'Program 11',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-11' },
-		{ id: 212,	label: 'Program 12',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-12' },
-		{ id: 221,	label: 'Program 21',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-21' },
-		{ id: 222,	label: 'Program 22',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-22' },
-		{ id: 231,	label: 'Program 31',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-31' },
-		{ id: 233,	label: 'Program 33',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-33' },
-		{ id: 241,	label: 'Program 41',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-41' },
-		{ id: 244,	label: 'Program 44',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-44' },
-		{ id: 252,	label: 'Program 52',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-52' },
-		{ id: 261,	label: 'Program 61',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-61' },
-		{ id: 263,	label: 'Program 63',	desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'problem-63' },
+		{ id: 211,	label: 'Program 11',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-11' },
+		{ id: 212,	label: 'Program 12',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-12' },
+		{ id: 221,	label: 'Program 21',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-21' },
+		{ id: 222,	label: 'Program 22',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-22' },
+		{ id: 231,	label: 'Program 31',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-31' },
+		{ id: 233,	label: 'Program 33',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-33' },
+		{ id: 241,	label: 'Program 41',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-41' },
+		{ id: 244,	label: 'Program 44',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-44' },
+		{ id: 250,	label: 'Program 50',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-50' },
+		{ id: 251,	label: 'Program 51',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-51' },
+		{ id: 252,	label: 'Program 52',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-52' },
+		{ id: 261,	label: 'Program 61',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-61' },
+		{ id: 263,	label: 'Program 63',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-63' },
 
-		{ id: 300,	label: 'Alt 21 a',		desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'alt-21-a' },
-		{ id: 301,	label: 'Alt 31 a',		desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'alt-31-a' },
-		{ id: 302,	label: 'Alt 31 b',		desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'alt-31-b' },
-		{ id: 303,	label: 'Alt 31 c',		desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'alt-31-c' },
-		{ id: 304,	label: 'Alt 31 d',		desc: 'Program highlighting a performance problem',	hardware: hardXP, file: 'alt-31-d' },
+		{ id: 300,	label: 'Alt 21',		desc: 'Highlighting a performance problem',	hardware: hardSTG, file: 'alt-21' },
+		{ id: 301,	label: 'Alt 31 a',		desc: 'Highlighting a performance problem',	hardware: hardSTG, file: 'alt-31-a' },
+		{ id: 302,	label: 'Alt 31 b',		desc: 'Highlighting a performance problem',	hardware: hardSTG, file: 'alt-31-b' },
+		{ id: 303,	label: 'Alt 31 c',		desc: 'Highlighting a performance problem',	hardware: hardSTG, file: 'alt-31-c' },
+		{ id: 304,	label: 'Alt 31 d',		desc: 'Highlighting a performance problem',	hardware: hardSTG, file: 'alt-31-d' },
 
 		{ id: 1006,	label: 'Dining ph.  6',	desc: 'Dining philosopher problem for 6 covers',	hardware: hardSTG,	 file: 'philosophers006', timeStep: 50, disabled: true },
 		{ id: 1012,	label: 'Dining ph. 12',	desc: 'Dining philosopher problem for 12 covers',	hardware: hardSTG,	 file: 'philosophers012', timeStep: 50 },
