@@ -485,67 +485,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				for:	'rs'
 			}],
 			settings: []
-		},/*
-		coreBandwidth: {
-			handling: {
-				time: TIME_PROFILE,
-			},
-			graph : {
-				h:			limit,		// threads (color)
-				lines:		buildPhysicalCores,
-				melody_c:	facets.e,
-				melody_c_max:	function(profile, timeStep) { return Math.round(profile.hardware.data.bandwidth * timeStep / profile.hardware.data.pcores / 1048576); },
-				// in theory, a single core could use all the bandwidth. However, for the graph,
-				// we devided the max by the number of physical cores (half number of cores).
-				// This is totally arbitrary.
-			},
-			data: [facets.e],
-			legend: {
-				axis: [
-					{ b: '⊢', f: limit,	t: 'Cores',	d: 'each line represents a core' }
-				],
-				data: [
-					{ b: '▮', f: facets.e,	d: 'usage by core' },
-				]
-			},
-			clues: [{
-					img:	'lines',
-					t:		'Low memory requirement',
-					good:	true
-				}, {
-					img:	'lines_e-full',
-					t:		'High remote memory access',
-					q:		['The program is memory-hungry','May indicate <strong>Sharing of data between CPUs on NUMA systems</strong>'],
-					for:	'ds'
-				}, {
-					img:	'lines_e-following',
-					good:	true,
-					t:		'Well balanced memory accesses',
-					q:		'Few threads accessing memory at once',
-					for:	'rs'
-				}, {
-					img:	'lines_e-one',
-					t:		'Exceeding mem. bandwidth',
-					q:		'Poorly balanced memory accesses',
-					i:		'Try splitting the work more finely',
-					for:	'rs'
-				}, {
-					img:	'lines_e-alt',
-					t:		'Exceeding mem. bandwidth',
-					q:		'Poorly balanced memory accesses (because many threads accessing memory at once)',
-					i:		'Try splitting the work more finely',
-					for:	'rs'
-				}, {
-					img:	'lines_e-full',
-					t:		'Exceeding mem. bandwidth',
-					q:		'The program is memory-hungry',
-					for:	'rs'
-				}
-			],
-			settings: [
-				{ property: 'melodyHeight', value: 9, type: 'range', label: 'Inactivity height', unit: 'pixels', min: 6, max: 12, step: 1 }
-			]
-		},*/
+		},
 		coreIdle: {
 			handling: {
 				time: TIME_PROFILE,
@@ -1155,7 +1095,6 @@ app.factory('widgets', ['decks', function(decks) {
 /* 00 */	cacheBreackdown:	{ id: id(),	c: CAPABILITY_LOCALITY,	 file: 'chart-d3-pcoords',	deck: decks.cacheBreackdown,	wide: true,		title: 'Breakdown of cost by cause of locality misses',				desc: ''},
 /* 01 */	cacheInvalidations:	{ id: id(),	c: CAPABILITY_COHERENCY, file: 'chart-percent',		deck: decks.cacheInvalidations,	wide: false,	title: 'Proportion of cache line invalidations',	                desc: 'A cache line invalidation can occur when multiple cores modify a shared memory location'},
 /* 02 */	cacheMisses:		{ id: id(),	c: CAPABILITY_LOCALITY,	 file: 'chart-percent',		deck: decks.cacheMisses,		wide: false,	title: 'Proportion of locality misses',				                desc: 'Data cache misses as a proportion of instructions executed'},
-/* 03 */	//coreBandwidth:		{ id: id(),	c: CAPABILITY_MEMORY,	 file: 'chart-lines',		deck: decks.coreBandwidth,		wide: false,	title: 'Remote memory access by core',								desc: 'Memory bandwidth'},
 /* 04 */	coreIdle:			{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-lines',		deck: decks.coreIdle,			wide: false,	title: 'Idle cores',												desc: 'Times that cores are idle'},
 /* 05 */	coreInvalidations:	{ id: id(),	c: CAPABILITY_COHERENCY, file: 'chart-d3-caches',	deck: decks.coreInvalidations,	wide: true,		title: 'Breakdown of cache line invalidations by core',             desc: ''},
 /* 06 */	coreSequences:		{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-lines',		deck: decks.sequences,			wide: false,	title: 'Execution phases',                 							desc: 'Phase of execution (sequential or parallel)'},

@@ -150,7 +150,6 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 	var isLW =	{ s: statProperties.indexOf('lw') >= 0,	f: hasF && frameProperties.indexOf('lw') >= 0 };
 	var isUE =	{ s: statProperties.indexOf('ue') >= 0,	f: hasF && frameProperties.indexOf('ue') >= 0 };
 	var isYB =	{ 										f: hasF && frameProperties.indexOf('yb') >= 0 };
-	var isSE =	{										f: hasF && frameProperties.indexOf('se') >= 0 };
 	var isSYS =	{ 										f: hasF && frameProperties.indexOf('sys') >= 0 };
 	var isIL1 =	{ s: statProperties.indexOf('il1') >= 0,f: hasF && frameProperties.indexOf('il1') >= 0,													cf: hasCF && coreFrameProperties.indexOf('il1') >= 0 };
 	var isIL2 =	{ s: statProperties.indexOf('il2') >= 0,f: hasF && frameProperties.indexOf('il2') >= 0,													cf: hasCF && coreFrameProperties.indexOf('il2') >= 0 };
@@ -237,7 +236,6 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 				
 				// Bandwidth
 				if (isE.f) { amount.e =		Math.round(data.frames[timeID].bandwidth / 1048576);		amountPercent.e =	Math.round(100 * data.frames[timeID].bandwidth / max.bandwidthFrame); }
-				if (isSE.f) { amount.se =	Math.round(data.frames[timeID].sysBandwidth / 1048576);		amountPercent.se =	Math.round(100 * data.frames[timeID].sysBandwidth / max.bandwidthFrame); }
 				if (isUE.f) {
 					amount.ue =			Math.round((max.bandwidthFrame - data.frames[timeID].bandwidth) / 1048576);
 					amountPercent.ue =	100 - Math.round(100 * data.frames[timeID].bandwidth / max.bandwidthFrame);
