@@ -139,7 +139,7 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 	var hasE =	eventProperties && eventProperties.length > 0;
 	var hasCF =	coreFrameProperties && coreFrameProperties.length > 0;
 	var isB =	{ s: statProperties.indexOf('b') >= 0,	f: hasF && frameProperties.indexOf('b') >= 0 };
-	var isE =	{ s: statProperties.indexOf('e') >= 0,	f: hasF && frameProperties.indexOf('e') >= 0,													cf: hasCF && coreFrameProperties.indexOf('e') >= 0 };
+	var isE =	{ s: statProperties.indexOf('e') >= 0,	f: hasF && frameProperties.indexOf('e') >= 0 };
 	var isI =	{ s: statProperties.indexOf('i') >= 0,	f: hasF && frameProperties.indexOf('i') >= 0,													cf: hasCF && coreFrameProperties.indexOf('i') >= 0 };
 	var isM =	{ s: statProperties.indexOf('m') >= 0,													e: hasE && eventProperties.indexOf('m') >= 0 };
 	var isR =	{ s: statProperties.indexOf('r') >= 0,	f: hasF && frameProperties.indexOf('r') >= 0,													cf: hasCF && coreFrameProperties.indexOf('r') >= 0 };
@@ -155,7 +155,6 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 	var isIL1 =	{ s: statProperties.indexOf('il1') >= 0,f: hasF && frameProperties.indexOf('il1') >= 0,													cf: hasCF && coreFrameProperties.indexOf('il1') >= 0 };
 	var isIL2 =	{ s: statProperties.indexOf('il2') >= 0,f: hasF && frameProperties.indexOf('il2') >= 0,													cf: hasCF && coreFrameProperties.indexOf('il2') >= 0 };
 	var isPIL1 ={										f: hasF && frameProperties.indexOf('pil1') >= 0,													cf: hasCF && coreFrameProperties.indexOf('il1') >= 0 };
-	var hasCFP =	isE.cf;
 	var hasCFL =	isI.cf || isR.cf;
 	
 	// Find data (real raw data)
@@ -240,8 +239,8 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 				if (isE.f) { amount.e =		Math.round(data.frames[timeID].bandwidth / 1048576);		amountPercent.e =	Math.round(100 * data.frames[timeID].bandwidth / max.bandwidthFrame); }
 				if (isSE.f) { amount.se =	Math.round(data.frames[timeID].sysBandwidth / 1048576);		amountPercent.se =	Math.round(100 * data.frames[timeID].sysBandwidth / max.bandwidthFrame); }
 				if (isUE.f) {
-					amount.ue =			Math.round((max.bandwidthFrame - data.frames[timeID].bandwidth - data.frames[timeID].sysBandwidth) / 1048576);
-					amountPercent.ue =	100 - Math.round(100 * (data.frames[timeID].bandwidth + data.frames[timeID].sysBandwidth) / max.bandwidthFrame);
+					amount.ue =			Math.round((max.bandwidthFrame - data.frames[timeID].bandwidth) / 1048576);
+					amountPercent.ue =	100 - Math.round(100 * data.frames[timeID].bandwidth / max.bandwidthFrame);
 				}
 				
 				// Cache line invalidation
@@ -250,11 +249,6 @@ function addRawData(output, id, statProperties, frameProperties, eventProperties
 				if (isPIL1.f) {													amountPercent.pil1 = 100 - amountPercent.il1; }
 				
 				// Core times
-				if (hasCFP) {
-					for (var cid = profiles[id].hardware.data.pcores; cid--; ) {
-						if (isE.cf)	amount['e_c' + cid] =	Math.round(data.frames[timeID].c[cid].bandwidth / 1048576);
-					}
-				}
 				if (hasCFL) {
 					for (var cid = profiles[id].hardware.data.lcores; cid--; ) {
 						if (isR.cf)	amount['r_c' + cid] =	Math.round(data.frames[timeID].c[cid].running);
@@ -645,7 +639,7 @@ function jsonDS(profile, id) {
 	addCommon(output, id);
 	
 	// Add raw data for visualisation
-	addRawData(output, id, ['lf', 'ls', 'e', 'ue', 'il1', 'il2'], ['e', 'ue', 'se', 'il1', 'pil1', 'il2'], null, ['e', 'il1', 'il2'], true);
+	addRawData(output, id, ['lf', 'ls', 'e', 'ue', 'il1', 'il2'], ['e', 'ue', 'il1', 'pil1', 'il2'], null, ['il1', 'il2'], true);
 
 	// Add dependencies for locks
 	addDependencies(output, id);
@@ -726,7 +720,7 @@ function jsonRS(profile, id) {
 	addCommon(output, id);
 	
 	// Add raw data for visualisation
-	addRawData(output, id, ['lf', 'ls', 'e', 'ue', 'il1', 'il2'], ['e', 'ue', 'se', 'il1', 'pil1', 'il2'], ['lf', 'ls'], ['e', 'il1', 'il2'], true);
+	addRawData(output, id, ['lf', 'ls', 'e', 'ue', 'il1', 'il2'], ['e', 'ue', 'il1', 'pil1', 'il2'], ['lf', 'ls'], ['il1', 'il2'], true);
 
 	// Add locks
 	addLocks(output, id);

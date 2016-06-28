@@ -485,7 +485,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				for:	'rs'
 			}],
 			settings: []
-		},
+		},/*
 		coreBandwidth: {
 			handling: {
 				time: TIME_PROFILE,
@@ -545,7 +545,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 			settings: [
 				{ property: 'melodyHeight', value: 9, type: 'range', label: 'Inactivity height', unit: 'pixels', min: 6, max: 12, step: 1 }
 			]
-		},
+		},*/
 		coreIdle: {
 			handling: {
 				time: TIME_PROFILE,
@@ -725,17 +725,17 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				time: TIME_PROFILE,
 			},
 			graph: {
-				v:		[facets.e, facets.ue, facets.se],
+				v:		[facets.e, facets.ue], // , facets.se
 				limit:	limit
 			},
 			data: [facets.e, facets.ue],
-			focus: [facets.e, facets.ue, facets.se],
+			focus: [facets.e, facets.ue], // , facets.se
 			legend: {
 				axis: [],
 				data: [
 					{ b: '▮', f: facets.e,	d: 'used by this program' },
 					{ b: '▮', f: facets.ue,	d: 'available memory bandwidth' },
-					{ b: '▮', f: facets.se,	d: 'used by other programs' }
+//					{ b: '▮', f: facets.se,	d: 'used by other programs' }
 				]
 			},
 			clues: [{
@@ -1155,7 +1155,7 @@ app.factory('widgets', ['decks', function(decks) {
 /* 00 */	cacheBreackdown:	{ id: id(),	c: CAPABILITY_LOCALITY,	 file: 'chart-d3-pcoords',	deck: decks.cacheBreackdown,	wide: true,		title: 'Breakdown of cost by cause of locality misses',				desc: ''},
 /* 01 */	cacheInvalidations:	{ id: id(),	c: CAPABILITY_COHERENCY, file: 'chart-percent',		deck: decks.cacheInvalidations,	wide: false,	title: 'Proportion of cache line invalidations',	                desc: 'A cache line invalidation can occur when multiple cores modify a shared memory location'},
 /* 02 */	cacheMisses:		{ id: id(),	c: CAPABILITY_LOCALITY,	 file: 'chart-percent',		deck: decks.cacheMisses,		wide: false,	title: 'Proportion of locality misses',				                desc: 'Data cache misses as a proportion of instructions executed'},
-/* 03 */	coreBandwidth:		{ id: id(),	c: CAPABILITY_MEMORY,	 file: 'chart-lines',		deck: decks.coreBandwidth,		wide: false,	title: 'Remote memory access by core',								desc: 'Memory bandwidth'},
+/* 03 */	//coreBandwidth:		{ id: id(),	c: CAPABILITY_MEMORY,	 file: 'chart-lines',		deck: decks.coreBandwidth,		wide: false,	title: 'Remote memory access by core',								desc: 'Memory bandwidth'},
 /* 04 */	coreIdle:			{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-lines',		deck: decks.coreIdle,			wide: false,	title: 'Idle cores',												desc: 'Times that cores are idle'},
 /* 05 */	coreInvalidations:	{ id: id(),	c: CAPABILITY_COHERENCY, file: 'chart-d3-caches',	deck: decks.coreInvalidations,	wide: true,		title: 'Breakdown of cache line invalidations by core',             desc: ''},
 /* 06 */	coreSequences:		{ id: id(),	c: CAPABILITY_STATE,	 file: 'chart-lines',		deck: decks.sequences,			wide: false,	title: 'Execution phases',                 							desc: 'Phase of execution (sequential or parallel)'},
@@ -1296,7 +1296,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 		],
 		strips: [strips.il],
 		gauges: [[gauge_lw], [gauge_il, gauge_miss]],
-		widgets: [widgets.threadChains, widgets.memBandwidth, widgets.coreBandwidth, widgets.cacheMisses, widgets.cacheInvalidations, widgets.coreInvalidations]
+		widgets: [widgets.threadChains, widgets.memBandwidth, widgets.cacheMisses, widgets.cacheInvalidations, widgets.coreInvalidations]
 	};
 	var lb = {
 		tag: 'lb', cat: 'lb', label: 'Load balancing', title: 'Load balancing', icon: 'list-ol', enabled: true,
@@ -1359,7 +1359,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 		],
 		strips: [strips.e],
 		gauges: [[gauge_e, gauge_lw], [gauge_il]],
-		widgets: [widgets.memBandwidth, widgets.coreBandwidth, widgets.lockCounts, widgets.cacheMisses, widgets.cacheInvalidations, widgets.coreInvalidations]
+		widgets: [widgets.memBandwidth, widgets.lockCounts, widgets.cacheMisses, widgets.cacheInvalidations, widgets.coreInvalidations]
 	};
 
 	var output = {

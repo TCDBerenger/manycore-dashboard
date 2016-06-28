@@ -1023,6 +1023,17 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 			timeEvent = Math.round(element.dtime / 10000);
 			
 			// Append memory bandwidth
+			if (element.type == 'MC_read' || element.type == 'MC_write') {
+				// Check time frame existance
+				checkFrame(timeEvent);
+
+				// Append memory bandwidth (read or write)
+				data.stats.bandwidth += element.value | 0;
+				data.frames[timeEvent].bandwidth += element.value | 0;
+			}
+
+			/*
+			// Append memory bandwidth
 			if (element.cid % 2 == 0 && element.type == 'drambw') {
 
 				// Check time frame existance
@@ -1038,6 +1049,7 @@ function computeData(profile, raw1, raw2, raw3, raw4, raw5, raw6) {
 			else if (element.type == 'MC_read' || element.type == 'MC_write') {
 				systemBandwidth[timeEvent] = (systemBandwidth[timeEvent] | 0) + (element.value | 0);
 			}
+			*/
 		});
 		
 		// Compute system events
