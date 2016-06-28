@@ -1105,12 +1105,11 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 					{ b: '⊢', f: limit,	t: 'Cores',	d: 'each line represents a core, not in the right order, not with the right thread' }
 				],
 				data: [
-					{ b: '⬚', t: '[Sequential] phase',		d: 'one core is executing a thread (could be customised)',		f: facets.qs },
-					{ b: '─', t: '[Sequential] line',		d: 'core is idle',												f: limit },
+					{ b: '░', t: '[Sequential] phase',		d: 'one core is executing a thread (could be customised)',		f: facets.qs },
 					{ b: '■', t: '[Sequential] execution',	d: 'core is executing a thread',								f: facets.qs },
-					{ b: '⬚', t: '[Parallel] phase',		d: 'many cores are executing a thread (could be customised)',	f: facets.qp },
-					{ b: '─', t: '[Parallel] line',			d: 'core is idle',												f: limit },
-					{ b: '■', t: '[Parallel] execution',	d: 'core is executing a thread',								f: facets.qp }
+					{ b: '░', t: '[Parallel] phase',		d: 'many cores are executing a thread (could be customised)',	f: facets.qp },
+					{ b: '■', t: '[Parallel] execution',	d: 'core is executing a thread',								f: facets.qp },
+					{ b: '─', t: 'line',					d: 'core is idle',												f: limit }
 				]
 			},
 			clues: [{
@@ -1136,7 +1135,7 @@ app.factory('decks', ['facets', 'colours', function(facets, colours) {
 				{ property: 'disableLine', value: false, type: 'flag', label: 'Core line', desc: 'hide core line' },
 				{ property: 'disableSequenceDashs', value: false, type: 'flag', label: 'Core executing', desc: 'hide core executing' },
 				{ property: 'disableSequenceBackgound', value: false, type: 'flag', label: 'Parallel sequences', desc: 'hide backgound sequences (parallel/sequential)' },
-				{ property: 'sequenceThreshold', value: 1, type: 'range', label: 'Parallel threshold', unit: 'running threads', min: 0, max: 3, step: 1 },
+				{ property: 'sequenceThreshold', value: 1, type: 'range', label: 'Parallel threshold', unit: 'running threads', min: 1, max: 7, step: 1 },
 			]
 		}
 	};
