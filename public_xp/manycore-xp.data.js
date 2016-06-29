@@ -46,7 +46,7 @@ xpapp.factory('threads', function() {
 //				{ pageID: 'start',		label: 'Experimentation',		form: {} },
 //				{ state: 'tool',		label: 'Test Particules',		path: '/dashboard/1012', mousetrack: true, nextInSidebar: true },
 //				{ pageID: 'questions',	label: 'Questions' },
-				{ state: 'feedback',	label: 'Feedback' }
+				{ state: 'feedback',	label: 'Feedback',				form: {} }
 			]
 		},
 	];

@@ -9,6 +9,7 @@ xpapp.controller('FeedbackController', ['$controller', '$scope', '$rootScope', '
 	/* Constructor - Data							*/
 	/************************************************/
 	// Taxonomy
+	/*
 	var taxonomy = [
 		{
 			l: 'Task granularity',
@@ -30,11 +31,30 @@ xpapp.controller('FeedbackController', ['$controller', '$scope', '$rootScope', '
 			s: ['Exceeding memory bandwidth', 'Competition between threads sharing a cache', 'False data sharing'],
 		}
 	];
+	*/
 	
+	// Feedback elements
+	var feedbackParts = [
+		{ id: 'uy',	l: 'Usability',		tips: 'You could talk about the global evaluation, the usability, the reactivity, ...' },
+		{ id: 'ul',	l: 'Usefulness',	tips: 'You could talk about the global evaluation, the underdandability, the helping, ...' },
+		{ id: 'tx',	l: 'Taxonomy',		tips: 'You could talk about the global evaluation, the underdandability, the correctness, the missing categories/problems, ...' },
+		{ id: 'gh',	l: 'Graphs',		tips: 'You could talk about the global evaluation, the accurency, the missing information, ...' },
+		{ id: 'oh',	l: 'Other',			tips: 'You could talk about overall appreciation, unecpected or surprising elements, predictable things, missing features, ...' },
+	];
+
+	// Prepare form
+	feedbackParts.forEach(function(part) {
+		if (! $scope.form[part.id]) $scope.form[part.id] = {};
+	}, this);
+	console.log('form', $scope.form);
 	
 	/************************************************/
 	/* Scope - Data									*/
 	/************************************************/
+	// Expose data
+	$scope.allParts = feedbackParts;
+
+	/*
 	// Tabs
 	$scope.tabIndex = 0;
 	$scope.tabs = [
@@ -184,4 +204,5 @@ xpapp.controller('FeedbackController', ['$controller', '$scope', '$rootScope', '
 		{ l: 'Missing features' },
 		{ l: 'Comments' },
 	];
+	*/
 }]);

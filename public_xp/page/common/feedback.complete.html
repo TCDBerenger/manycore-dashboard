@@ -1,0 +1,250 @@
+<section class="modal-content">
+	<div class="modal-header">
+		<h1 class="modal-title">{{tabs[tabIndex].t}}</h1>
+	</div>
+	
+	<!-- Usability -->
+	<div ng-if="tabIndex == 0" class="modal-body">
+		<div class="row">
+			<div class="col-lg-9 col-lg-offset-2">
+				<div class="thumbnail">
+					<img style="height: 200px; width: 100%; display: block; background-color: #EEEEEE;" alt="TODO: screenshot of hovering element">
+				</div>
+			</div>
+		</div>
+		
+		<form class="form-horizontal"><fieldset>
+			<div class="form-group">
+				<div class="col-lg-3 col-lg-offset-2">
+					Evaluation
+					<span class="help-block">What is your overall evaluation?</span>
+				</div>
+				<div class="col-lg-3">
+					Usability
+					<span class="help-block">Is it clear and appropriate?</span>
+				</div>
+				<div class="col-lg-3">
+					Reactivity
+					<span class="help-block">Is it responsive and fast enough?</span>
+				</div>
+			</div>
+			<div ng-repeat="uipart in usability" class="form-group">
+				<label ng-if="! uipart.isSub" for="ui{{$index}}" class="col-lg-2 control-label" style="font-weight: bold;">{{uipart.l}}</label>
+				<label ng-if="uipart.isSub" for="ui{{$index}}" class="col-lg-2 control-label">{{uipart.l}} ↲</label>
+				<div class="col-lg-3" ng-class="{ 'text-muted': uipart.isSub }" style="font-size: 1.8em;">
+					<uib-rating ng-model="form['usability_' + $index + '_e']" max="5" aria-labelledby="default-rating"></uib-rating>
+				</div>
+				<div class="col-lg-3" ng-class="{ 'text-muted': uipart.isSub }" style="font-size: 1.8em;">
+					<uib-rating ng-model="form['usability_' + $index + '_u']" max="5" aria-labelledby="default-rating"></uib-rating>
+				</div>
+				<div class="col-lg-3" ng-class="{ 'text-muted': uipart.isSub }" style="font-size: 1.8em;">
+					<uib-rating ng-model="form['usability_' + $index + '_r']" max="5" aria-labelledby="default-rating"></uib-rating>
+				</div>
+				
+				<div ng-if="(form['usability_' + $index + '_e'] && form['usability_' + $index + '_e'] < 4) || (form['usability_' + $index + '_u'] && form['usability_' + $index + '_u'] < 4) || (form['usability_' + $index + '_r'] && form['usability_' + $index + '_r'] < 4)" class="col-lg-10 col-lg-offset-2">
+					<div style="display: flex;">
+						<a class="btn btn-link disabled">Why?</a>
+						<div style="flex-grow: 1;">
+							<textarea ng-model="form['usability_' + $index + '_w']" class="form-control" rows="3" id="textArea"></textarea>
+							<span class="help-block">what do you think is wrong?</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</fieldset></form>
+	</div>
+	
+	<!-- Usefulness -->
+	<div ng-if="tabIndex == 1" class="modal-body">
+		<div class="row">
+			<div class="col-lg-9 col-lg-offset-2">
+				<div class="thumbnail">
+					<img style="height: 200px; width: 100%; display: block; background-color: #EEEEEE;" alt="TODO: screenshot of hovering element">
+				</div>
+			</div>
+		</div>
+		
+		<form class="form-horizontal"><fieldset>
+			<div class="form-group">
+				<div class="col-lg-3 col-lg-offset-2">
+					Evaluation
+					<span class="help-block">What is your overall evaluation?</span>
+				</div>
+				<div class="col-lg-3">
+					Understandable
+					<span class="help-block">Is it clear and understandable?</span>
+				</div>
+				<div class="col-lg-3">
+					Helping
+					<span class="help-block">Is it useful?</span>
+				</div>
+			</div>
+			<div ng-repeat="uipart in usefulness" class="form-group">
+				<label ng-if="! uipart.isSub" for="ui{{$index}}" class="col-lg-2 control-label" style="font-weight: bold;">{{uipart.l}}</label>
+				<label ng-if="uipart.isSub" for="ui{{$index}}" class="col-lg-2 control-label">{{uipart.l}} ↲</label>
+				<div class="col-lg-3" ng-class="{ 'text-muted': uipart.isSub }" style="font-size: 1.8em;">
+					<uib-rating ng-model="form['usefulness_' + $index + '_e']" max="5" aria-labelledby="default-rating"></uib-rating>
+				</div>
+				<div class="col-lg-3" ng-class="{ 'text-muted': uipart.isSub }" style="font-size: 1.8em;">
+					<uib-rating ng-model="form['usefulness_' + $index + '_u']" max="5" aria-labelledby="default-rating"></uib-rating>
+				</div>
+				<div class="col-lg-3" ng-class="{ 'text-muted': uipart.isSub }" style="font-size: 1.8em;">
+					<uib-rating ng-model="form['usefulness_' + $index + '_h']" max="5" aria-labelledby="default-rating"></uib-rating>
+				</div>
+				
+				<div ng-if="(form['usefulness_' + $index + '_e'] && form['usefulness_' + $index + '_e'] < 4) || (form['usefulness_' + $index + '_u'] && form['usefulness_' + $index + '_u'] < 4) || (form['usefulness_' + $index + '_h'] && form['usefulness_' + $index + '_h'] < 4)" class="col-lg-10 col-lg-offset-2">
+					<div style="display: flex;">
+						<a class="btn btn-link disabled">Why?</a>
+						<div style="flex-grow: 1;">
+							<textarea ng-model="form['usefulness_' + $index + '_w']" class="form-control" rows="3" id="textArea"></textarea>
+							<span class="help-block">what do you think is wrong?</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</fieldset></form>
+	</div>
+	
+	<!-- Taxonomy -->
+	<div ng-if="tabIndex == 2" class="modal-body">
+		<form class="form-horizontal"><fieldset>
+			<div ng-repeat="(uiIndex, uipart) in taxonomy" class="form-group">
+				<label for="ui{{uiIndex}}" class="col-lg-2 control-label" style="font-weight: bold;">{{uipart.l}}</label>
+				<div class="col-lg-3" style="font-size: 1.8em;">
+					<uib-rating ng-model="form['taxonomy_' + uiIndex + '_g']" max="5" aria-labelledby="default-rating"></uib-rating>
+					<span class="help-block">Understanding</span>
+				</div>
+				<div class="col-lg-3" style="font-size: 1.8em;">
+					<uib-rating ng-model="form['taxonomy_' + uiIndex + '_u']" max="5" aria-labelledby="default-rating"></uib-rating>
+					<span class="help-block">Useful</span>
+				</div>
+				<div class="col-lg-3" style="font-size: 1.8em;">
+					<uib-rating ng-model="form['taxonomy_' + uiIndex + '_a']" max="5" aria-labelledby="default-rating"></uib-rating>
+					<span class="help-block">Appropriate</span>
+				</div>
+				
+				<div ng-if="(form['taxonomy_' + uiIndex + '_g'] && form['taxonomy_' + uiIndex + '_g'] < 4) || (form['taxonomy_' + uiIndex + '_u'] && form['taxonomy_' + uiIndex + '_u'] < 4) || (form['taxonomy_' + uiIndex + '_a'] && form['taxonomy_' + uiIndex + '_a'] < 4)" class="col-lg-10 col-lg-offset-2">
+					<div style="display: flex;">
+						<a class="btn btn-link disabled">Why?</a>
+						<div style="flex-grow: 1;">
+							<textarea ng-model="form['taxonomy_' + $index + '_w']" class="form-control" rows="3" id="textArea"></textarea>
+							<span class="help-block">what do you think is wrong?</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-10 col-lg-offset-2">
+					<div style="display: flex;">
+						<a class="btn btn-link disabled">Explains</a>
+						<div style="flex-grow: 1;">
+							<textarea ng-model="form['taxonomy_' + $index + '_x']" class="form-control" rows="3" id="textArea"></textarea>
+							<span class="help-block">What did you understand about this category of issues?</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-10 col-lg-offset-2">
+					<div class="col-lg-4 col-lg-offset-3">
+						Understanding
+					</div>
+					<div class="col-lg-4">
+						Visible in graphs
+					</div>
+				</div>
+				<div ng-repeat="uisubpart in uipart.s" class="col-lg-10 col-lg-offset-2">
+					<label for="ui{{$index}}" class="col-lg-3 control-label">{{uisubpart}}</label>
+					<div class="col-lg-4 text-muted" style="font-size: 1.8em;">
+						<uib-rating ng-model="form['taxonomy_' +  + '_sub' + $index + '_u']" max="5" aria-labelledby="default-rating"></uib-rating>
+					</div>
+					<div class="col-lg-4 text-muted" style="font-size: 1.8em;">
+						<uib-rating ng-model="form['taxonomy_' + uiIndex + '_sub' + $index + '_v']" max="5" aria-labelledby="default-rating"></uib-rating>
+					</div>
+					<div ng-if="(form['taxonomy_' +  + '_sub' + $index + '_u'] && form['taxonomy_' +  + '_sub' + $index + '_u'] < 4) || (form['taxonomy_' + uiIndex + '_sub' + $index + '_v'] && form['taxonomy_' + uiIndex + '_sub' + $index + '_v'] < 4)" class="col-lg-8 col-lg-offset-3">
+						<div style="display: flex;">
+							<a class="btn btn-link disabled">Why?</a>
+							<div style="flex-grow: 1;">
+								<textarea ng-model="form[['taxonomy_' +  + '_sub' + $index + '_w']" class="form-control" rows="3" id="textArea"></textarea>
+								<span class="help-block">what do you think is wrong?</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-10 col-lg-offset-2">
+					<label for="ui{{$index}}MP" class="col-lg-3 control-label" style="font-weight: bold;">Missing problems</label>
+					<div class="col-lg-8">
+						<textarea ng-model="form['taxonomy_' + $index + '_m']" class="form-control" rows="3" id="textArea"></textarea>
+						<span class="help-block">What did you understand about this category of issues?</span>
+					</div>
+				</div>
+			</div>
+		</fieldset></form>
+	</div>
+	
+	<!-- Charts -->
+	<div ng-if="tabIndex == 3" class="modal-body">
+		<div class="row">
+			<div class="col-lg-9 col-lg-offset-2">
+				<div class="thumbnail">
+					<img style="height: 200px; width: 100%; display: block; background-color: #EEEEEE;" alt="TODO: screenshot of hovering element">
+				</div>
+			</div>
+		</div>
+		
+		<form class="form-horizontal"><fieldset>
+			<div ng-repeat="uipart in graphs" class="form-group">
+				<label for="ui{{$index}}" class="col-lg-3 control-label" style="font-weight: bold;">{{uipart.l}}</label>
+				<div class="col-lg-3" style="font-size: 1.8em;">
+					<span class="help-block">What is your overall evaluation?</span>
+					<uib-rating ng-model="form['chart_' + $index + '_e']" max="5" aria-labelledby="default-rating"></uib-rating>
+				</div>
+				<div class="col-lg-3" style="font-size: 1.8em;">
+					<span class="help-block">Is it helping you in anyway?</span>
+					<uib-rating ng-model="form['chart_' + $index + '_u']" max="5" aria-labelledby="default-rating"></uib-rating>
+				</div>
+				
+				<div ng-if="(form['chart_' + $index + '_e'] && form['chart_' + $index + '_e'] < 4) || (form['chart_' + $index + '_u'] && form['chart_' + $index + '_u'] < 4)" class="col-lg-9 col-lg-offset-3">
+					<div style="display: flex;">
+						<a class="btn btn-link disabled">Why?</a>
+						<div style="flex-grow: 1;">
+							<textarea ng-model="form['chart_' + $index + '_w']" class="form-control" rows="3" id="textArea"></textarea>
+							<span class="help-block">what do you think is wrong?</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-9 col-lg-offset-3">
+					<a class="btn btn-link disabled">How helpfuls is the grpahs for these issues:</a>
+					<div ng-repeat="uisubpart in uipart.p" class="row">
+						<label for="ui{{uisubpart.id}}" class="col-lg-5 control-label">{{uisubpart.l}}</label>
+						<div class="col-lg-7 text-muted">
+							<uib-rating ng-model="form['chart_' + uisubpart.id]" max="10" aria-labelledby="default-rating" state-on="'fa-thumbs-up fa-fw'" state-off="'fa-thumbs-o-down fa-fw'" style="font-size: 1.4em;"></uib-rating>
+							<span ng-if="form['chart_' + uisubpart.id] >= 0">{{form['chart_' + uisubpart.id] * 10}}%</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-9 col-lg-offset-3">
+					<div class="row">
+						<label class="col-lg-5 control-label text-muted">Reasons</label>
+						<div class="col-lg-7">
+							<textarea ng-model="form['chart_' + $index + '_r']" class="form-control" rows="3" id="textArea"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+		</fieldset></form>
+	</div>
+	
+	<!-- Comments -->
+	<div ng-if="tabIndex == 4" class="modal-body">
+		<form class="form-horizontal"><fieldset>
+			<div ng-repeat="uipart in comments" class="form-group">
+				<label for="ui{{$index}}" class="col-lg-2 control-label" style="font-weight: bold;">{{uipart.l}}</label>
+				<div class="col-lg-10" style="font-size: 1.8em;">
+					<textarea ng-model="form['comment_' + $index]" class="form-control" rows="3" id="textArea"></textarea>
+				</div>
+			</div>
+		</fieldset></form>
+	</div>
+	
+	<div class="modal-footer">
+		<button ng-if="couldPreviousTab()" type="button" class="btn btn-link" type="button" ng-click="actionPreviousTab()"><i class="fa fa-hand-o-left" style="padding-right: 8px;"></i>Previous ({{tabs[tabIndex - 1].l}})</button>
+		<button type="button" class="btn btn-primary" type="button" ng-click="actionNextTab()">Next<i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
+	</div>
+</section>
