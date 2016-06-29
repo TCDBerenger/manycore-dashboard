@@ -1,4 +1,4 @@
-xpapp.controller('XP1Controller', ['$controller', '$scope', '$rootScope', '$uibModal', function($controller, $scope, $rootScope, $uibModal) {
+xpapp.controller('XP1Controller', ['$controller', '$scope', '$rootScope', '$uibModal', '$sce', function($controller, $scope, $rootScope, $uibModal, $sce) {
 	/************************************************/
 	/* Constructor - Init							*/
 	/************************************************/
@@ -64,6 +64,7 @@ xpapp.controller('XP1Controller', ['$controller', '$scope', '$rootScope', '$uibM
 		case 'info':		initInfo();			break;
 		case 'start':		initStart();		break;
 		case 'questions':	initQuestions();	break;
+		case 'training':	initTraining();		break;
 	}
 	
 	
@@ -131,6 +132,22 @@ xpapp.controller('XP1Controller', ['$controller', '$scope', '$rootScope', '$uibM
 		$scope.tabs = [
 			{ l: 'q1',		t: 'Q1' },
 			{				t: 'Q2' },
+		];
+	};
+	
+	
+	/************************************************/
+	/* Questions									*/
+	/************************************************/
+	function initTraining() {
+		// Tabs
+		$scope.tabIndex = 0;
+		$scope.tabs = [
+			{ isTool: false,	l: 'information',	t: 'Training: information' },
+			{ isTool: true,							path: $sce.trustAsResourceUrl('/#/dashboard/252') },
+			{ isTool: true,							path: $sce.trustAsResourceUrl('/#/detail/dl/252') },
+			{ isTool: true,		l: 'explaination',	path: $sce.trustAsResourceUrl('/#/detail/dl/252') },
+			{ isTool: false,						t: 'Before starting the experimentation' },
 		];
 	};
 }]);
