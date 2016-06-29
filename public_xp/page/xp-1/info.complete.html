@@ -7,46 +7,57 @@
 	<div ng-if="tabIndex == 0" class="modal-body">
 		<p>
 			<i class="fa fa-hand-spock-o fa-3x fa-pull-left text-muted" aria-hidden="true"></i>
-			[XP.intro.1] In this experimentation, you are going to test our approach and tool about the <span class="text-primary">software performance analysis</span> focused on multicore systems.
+			In this experimentation, you are going to test our approach and tool about the <span class="text-primary">software performance analysis</span> focused on multicore systems.
 		</p><p>
-			[XP.intro.2] How are you going to be eaten.
+			After asked a little bit about you, we going to explain you our vision and let you try our tool before starting the experimentation.
 		</p><p>
-			[XP.intro.3] Thank you for your help.
-		</p>
-		<p>&nbsp;</p>
-		<h2>Parallel performance</h2>
-		<div class="col-xs-5" style="float: right;"><a class="thumbnail" href="assets/xp-1/theory-programing.jpeg" target="_blank">
-			<img src="assets/xp-1/theory-programing.jpeg" alt="">
-		</a></div>
-		<p>
-			[XP.parrallel.1] In software engineering, there is several way to get clues about the efficiency and accuracy of a particular software.
-			Here, we're focusing on the performances by analysing several indicators and measurments of a run of an application.
-			Differents runs could produce differents values mostly because there are context-depending. But the analysis should be quite similar.
-		</p>
-		<p>
-			[XP.parrallel.2] Very simple explanation (for beginers).
-		</p>
-		<p>
-			[XP.parrallel.3] More complete explanations (for intermediate).
-		</p>
-		<p>
-			[XP.parrallel.4] Deep explanations (for experts).
+			Then, you will diagnose a potential problem with or without our tool.
+		</p><p>
+			To finish, we will ask your opinion and feedback.
+		</p><p>
+			Thank you for your help.
 		</p>
 	</div>
 	
-	<!-- Approach -->
+	<!-- Parallel -->
 	<div ng-if="tabIndex == 1" class="modal-body">
 		<p>
-			[XP.taxonomy.1] Yet, the parallel performance analysis keep displaying and handling data from the operating system and counters from the hardware. It's an explert focused-approach.
-			So we've worked on an different approach, for all kind of programmers, widely understandable, for both beginners and experts.
-		</p><p>
-			[XP.taxonomy.2] Our approach is problem-focused instead of hardware-focued.
-			However, there is no list, classification or consensus about all the problems we can faced in parallel programming.
-		</p><p>
-			[XP.taxonomy.3] Based on surveys, we create a taxonomy for this kind of problems (see below). It is composed by 6 categories which each have 3~5 problems.
+			In software engineering, there is several way to get clues about the efficiency and accuracy of a particular software.
+			Here, we're focusing on the performances by analysing several indicators and measurments of a run of an application.
+			Differents runs could produce differents values mostly because there are context-depending. But the analysis should be quite similar.
 		</p>
 		<p>&nbsp;</p>
-		<h2>Problem-focused Taxonomy</h2>
+		<div class="col-xs-5" style="float: right;"><a class="thumbnail" href="assets/xp-1/theory-programing.jpeg" target="_blank">
+			<img src="assets/xp-1/theory-programing.jpeg" alt="">
+		</a></div>
+		<h2>Parallel performance</h2>
+		<p>
+			<span style="color: red;">[TODO 4a]</span> Very simple explanation (for beginers).
+		</p>
+		<p>
+			<span style="color: red;">[TODO 4b]</span> More complete explanations (for intermediate).
+		</p>
+		<p>
+			<span style="color: red;">[TODO 4c]</span> Deep explanations (for experts).
+		</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+	</div>
+	
+	<!-- Approach -->
+	<div ng-if="tabIndex == 2" class="modal-body">
+		<p>
+			Yet, the parallel performance analysis keep displaying and handling data from the operating system and counters from the hardware. It's an explert focused-approach.
+			So we've worked on an different approach, for all kind of programmers, widely understandable, for both beginners and experts.
+		</p><p>
+			Our approach is problem-focused instead of hardware-focued.
+			However, there is no list, classification or consensus about all the problems we can faced in parallel programming.
+		</p><p>
+			Based on surveys, we create a taxonomy for this kind of problems (see below). It is composed by 6 categories which each have 3~5 problems.
+		</p>
+		<p>&nbsp;</p>
+		<h2>Our taxonomy</h2>
 		<div class="row">
 			<div class="col-sm-3">
 				<ul class="nav nav-pills nav-stacked nav-subtab">
@@ -122,11 +133,11 @@
 	</div>
 	
 	<!-- Tool -->
-	<div ng-if="tabIndex == 2" class="modal-body">
+	<div ng-if="tabIndex == 3" class="modal-body">
 		<p>
-			[XP.tool.1] Based on our taxonomy, we build a tool to visualise and compare (two) profiles.
+			Based on our taxonomy, we build a tool to visualise and compare (two) profiles.
 		</p><p>
-			[XP.tool.2] A profile is a set of values harvested while a program/software/application running.
+			A profile is a set of values harvested while a program/software/application running.
 			The data comes from OS and harware.
 		</p>
 		<center><img src="assets/xp-1/dash-overview.png"/></center>
@@ -136,10 +147,10 @@
 			<img src="assets/xp-1/dash-checked.png" alt="">
 		</a></div>
 		<p>
-			[XP.tool.3] The top-level of our webapp is the Dashboard where you could compare the profiles and, more important, have a overview of all categories (first level in our taxonomy).
+			The top-level of our webapp is the Dashboard where you could compare the profiles and, more important, have a overview of all categories (first level in our taxonomy).
 			The aim is to quickly identify one or more categories involved in the issue(s).  
 		</p><p>
-			[XP.tool.4] Once catogories are identified, you could drill-down to find the real cause of the issue.
+			Once catogories are identified, you could drill-down to find the real cause of the issue.
 		</p>
 		<p>&nbsp;</p>
 		<h2>Details of a category: drill-down</h2>
@@ -147,11 +158,26 @@
 			<img src="assets/xp-1/detail-sample.png" alt="">
 		</a></div>
 		<p>
-			[XP.tool.5] In each page, there is a set of graph that could help you to find the root of the problem.
+			In each page, there is a set of graph that could help you to find the root of the problem.
 		</p><p>
-			[XP.tool.6] To help you, you can customise each graph via the "Customise" tab in order to adapt and manipulate the data shown.
+			To help you, you can customise each graph via the "Customise" tab in order to adapt and manipulate the data shown.
 		</p><p>
-			[XP.tool.7] Also you coul find some interesting information in the "help" tab in particular if you are not familiar with the concept shown. 
+			Also you coul find some interesting information in the "help" tab in particular if you are not familiar with the concept shown. 
+		</p>
+	</div>
+	
+	<!-- Before continue -->
+	<div ng-if="tabIndex == 4" class="modal-body">
+		<p>
+			You're now going to try the tool wit two samples. Each one is a comparison of the same program with a sequential version and an parallel (optimised) version.
+		</p><p>
+			The first sample is "merge and sort" and the second is "particules".
+		</p><p>
+			Take your time, but it's only an help to understand our tool. So the real experiment starts after this samples.
+		</p><p>
+			<i class="fa fa-info-circle fa-3x fa-pull-left text-muted" aria-hidden="true"></i>
+			Since our tool take all the page space, the next button will be placed in the top navigation bar.
+			<img class="screenshot" src="assets/xp-1/navbar-next.gif"/>
 		</p>
 	</div>
 	
