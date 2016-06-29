@@ -18,11 +18,11 @@ xpapp.factory('threads', function() {
 					['f', 'a', 'b', 'c', 'd', 'e'],
 				],
 				a: { id: 4, path: '/dashboard/241-244' },	// 4: LB
-				b: { id: 2, path: '/dashboard/221-222' },	// 2: SY
+				b: { id: 2, path: '/dashboard/222-221' },	// 2: SY
 				c: { id: 5, path: '/dashboard/250-251' },	// 5: DL
 				d: { id: 3, path: '/dashboard/231-233' },	// 3: DS
 				e: { id: 1, path: '/dashboard/211-212' },	// 1: TG
-				f: { id: 6, path: '/dashboard/261-263' }	// 6: RS
+				f: { id: 6, path: '/dashboard/263-261' }	// 6: RS
 			},
 			steps: [
 				// page: common					state: '...'
