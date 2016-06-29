@@ -7,7 +7,7 @@ var fs = require('fs');
 /************************************************/
 /* Constants									*/
 /************************************************/
-var VERSION = 86;
+var VERSION = 87;
 var PARALLEL_THRESHOLD = 2;
 
 /************************************************/
@@ -155,25 +155,28 @@ var profileMap = {
 		
 		{ id: 211,	label: 'Program A',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-11' },
 		{ id: 212,	label: 'Program B',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-12' },
+		{ id: 220,	label: 'Program B',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-20' },
 		{ id: 221,	label: 'Program B',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-21' },
 		{ id: 222,	label: 'Program A',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-22' },
 		{ id: 231,	label: 'Program A',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-31' },
 		{ id: 233,	label: 'Program B',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-33' },
+		{ id: 240,	label: 'Program A',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-40' },
 		{ id: 241,	label: 'Program A',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-41' },
 		{ id: 244,	label: 'Program B',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-44' },
 		{ id: 250,	label: 'Program A',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-50' },
 		{ id: 251,	label: 'Program B',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-51' },
 		{ id: 252,	label: 'Program C',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-52' },
 		{ id: 261,	label: 'Program B',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-61' },
-		{ id: 262,	label: 'Program C',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-62' },
 		{ id: 263,	label: 'Program A',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-63' },
 
-		{ id: 301,	label: 'Alt 21',		desc: 'Highlighting a performance problem',	hardware: hardSTG, file: 'alt-21' },
-		{ id: 302,	label: 'Alt 31 a',		desc: 'Highlighting a performance problem',	hardware: hardSTG, file: 'alt-31-a' },
-		{ id: 303,	label: 'Alt 31 b',		desc: 'Highlighting a performance problem',	hardware: hardSTG, file: 'alt-31-b' },
-		{ id: 304,	label: 'Alt 31 c',		desc: 'Highlighting a performance problem',	hardware: hardSTG, file: 'alt-31-c' },
-		{ id: 305,	label: 'Alt 31 d',		desc: 'Highlighting a performance problem',	hardware: hardSTG, file: 'alt-31-d' },
-		{ id: 306,	label: 'Alt 61',		desc: 'Highlighting a performance problem',	hardware: hardSTG, file: 'alt-61' },
+		{ id: 301,	label: 'Alt 21 a',		desc: 'Highlighting a performance problem',	hardware: hardSTG, file: 'alt-21-a' },
+		{ id: 302,	label: 'Alt 21 b',		desc: 'Highlighting a performance problem',	hardware: hardSTG, file: 'alt-21-b' },
+		{ id: 303,	label: 'Alt 31 a',		desc: 'Highlighting a performance problem',	hardware: hardSTG, file: 'alt-31-a' },
+		{ id: 304,	label: 'Alt 31 b',		desc: 'Highlighting a performance problem',	hardware: hardSTG, file: 'alt-31-b' },
+		{ id: 305,	label: 'Alt 31 c',		desc: 'Highlighting a performance problem',	hardware: hardSTG, file: 'alt-31-c' },
+		{ id: 306,	label: 'Alt 31 d',		desc: 'Highlighting a performance problem',	hardware: hardSTG, file: 'alt-31-d' },
+		{ id: 307,	label: 'Alt 61',		desc: 'Highlighting a performance problem',	hardware: hardSTG, file: 'alt-61' },
+		{ id: 262,	label: 'Alt 62',		desc: 'Highlighting a performance problem',	hardware: hardSTG, file: 'alt-62' },
 
 		{ id: 1006,	label: 'Dining ph.  6',	desc: 'Dining philosopher problem for 6 covers',	hardware: hardSTG,	 file: 'philosophers006', timeStep: 50, disabled: true },
 		{ id: 1012,	label: 'Dining ph. 12',	desc: 'Dining philosopher problem for 12 covers',	hardware: hardSTG,	 file: 'philosophers012', timeStep: 50 },
