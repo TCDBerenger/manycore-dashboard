@@ -1,8 +1,7 @@
-xpapp.controller('NavbarController', ['$scope', '$rootScope', '$stateParams', function($scope, $rootScope, $stateParams) {
+xpapp.controller('NavbarController', ['$scope', '$rootScope', '$stateParams', '$sce', function($scope, $rootScope, $stateParams, $sce) {
 	/************************************************/
 	/* Controller - Init							*/
 	/************************************************/
-	$scope.xp = $rootScope.xp;
 	$scope.errors = $rootScope.network.errors;
 	
 	
@@ -14,6 +13,17 @@ xpapp.controller('NavbarController', ['$scope', '$rootScope', '$stateParams', fu
 	 */
 	$scope.isXPset = function() {
 		return $rootScope.isXPset;
+	}
+	
+	/**
+	 * XP - get unique ID
+	 */
+	$scope.getUniqueID = function() {
+		return $sce.trustAsHtml(
+			$scope.thread.id + '<span style="padding: 0 2px;">/</span>' +
+			$rootScope.xp.group + '<span style="padding: 0 2px;">/</span>' +
+			$rootScope.xp.user
+		);
 	}
 	
 	/**

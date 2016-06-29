@@ -5,17 +5,25 @@
 xpapp.factory('threads', function() {
 	var looseThreads = [
 		{
-			id: 1, groups: 1,
+			id: 1, groups: 6,
 			title: 'Test 1',
 			goal: 'The goal of this survey is to evaluate a prototype visualisation for identifying the presence of <b>data-locality</b> issues.',
-			tasks: [
-				{ id: 1, path: '/dashboard/211-212' },
-				{ id: 2, path: '/dashboard/221-222' },
-				{ id: 3, path: '/dashboard/231-233' },
-				{ id: 4, path: '/dashboard/241-244' },
-				{ id: 5, path: '/dashboard/252' },
-				{ id: 6, path: '/dashboard/261-263' },
-			],
+			tasks: {
+				distribution: [
+					['a', 'b', 'c', 'd', 'e', 'f'],
+					['b', 'c', 'd', 'e', 'f', 'a'],
+					['c', 'd', 'e', 'f', 'a', 'b'],
+					['d', 'e', 'f', 'a', 'b', 'c'],
+					['e', 'f', 'a', 'b', 'c', 'd'],
+					['f', 'a', 'b', 'c', 'd', 'e'],
+				],
+				a: { id: 4, path: '/dashboard/241-244' },	// 4: LB
+				b: { id: 2, path: '/dashboard/221-222' },	// 2: SY
+				c: { id: 5, path: '/dashboard/250-251' },	// 5: DL
+				d: { id: 3, path: '/dashboard/231-233' },	// 3: DS
+				e: { id: 1, path: '/dashboard/211-212' },	// 1: TG
+				f: { id: 6, path: '/dashboard/261-263' }	// 6: RS
+			},
 			steps: [
 				// page: common					state: '...'
 				// page: a task					taskID: 99
@@ -28,12 +36,12 @@ xpapp.factory('threads', function() {
 
 				{ pageID: 'habits',		label: 'Your tools',			form: {} },
 				{ pageID: 'info',		label: 'Explanations' },
-				{ taskID: 1,			label: 'Task 1',				form: {}, path: '/dashboard/211-212', mousetrack: true },
-				{ taskID: 2,			label: 'Task 2',				form: {}, path: '/dashboard/221-222', mousetrack: true },
-				{ taskID: 3,			label: 'Task 3',				form: {}, path: '/dashboard/231-233', mousetrack: true },
-				{ taskID: 4,			label: 'Task 4',				form: {}, path: '/dashboard/241-244', mousetrack: true },
-				{ taskID: 5,			label: 'Task 5',				form: {}, path: '/dashboard/251-252', mousetrack: true },
-				{ taskID: 6,			label: 'Task 6',				form: {}, path: '/dashboard/261-263', mousetrack: true },
+				{ taskID: 1,			label: 'Task 1',				form: {}, mousetrack: true },
+				{ taskID: 2,			label: 'Task 2',				form: {}, mousetrack: true },
+				{ taskID: 3,			label: 'Task 3',				form: {}, mousetrack: true },
+				{ taskID: 4,			label: 'Task 4',				form: {}, mousetrack: true },
+				{ taskID: 5,			label: 'Task 5',				form: {}, mousetrack: true },
+				{ taskID: 6,			label: 'Task 6',				form: {}, mousetrack: true },
 //				{ state: 'tool',		label: 'Test Particules',		path: '/dashboard/5-4', mousetrack: true, nextInSidebar: true },
 //				{ pageID: 'start',		label: 'Experimentation',		form: {} },
 //				{ state: 'tool',		label: 'Test Particules',		path: '/dashboard/1012', mousetrack: true, nextInSidebar: true },

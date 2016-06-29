@@ -6,9 +6,11 @@ xpapp.controller('TaskController',
 	/************************************************/
 	// Controller inheritance
 	$controller('PageController', {$scope: $scope, $rootScope: $rootScope, $uibModal: $uibModal});
-
-	// Task ID
-	var taskID = $stateParams.id;
+	// Tasks
+	var tasks =		$rootScope.thread.tasks;
+	var taskID =	$stateParams.id;
+	var groupID =	$rootScope.xp.group;
+	var task =		tasks[tasks.distribution[groupID - 1][taskID - 1]];
 
 	// Form data
 	$scope.tempForm = [{}, {}];
@@ -17,7 +19,7 @@ xpapp.controller('TaskController',
 	$scope.form.bProblems = [];
 
 	// Iframe path
-	$scope.path = $sce.trustAsResourceUrl('/#/xp/nofeedback-nonavbar-nounselect-noselect' + $scope.step.path);
+	$scope.path = $sce.trustAsResourceUrl('/#/xp/nofeedback-nonavbar-nounselect-noselect' + task.path);
 	
 	// Taxonomy
 	$scope.taxonomy = taxonomy;
