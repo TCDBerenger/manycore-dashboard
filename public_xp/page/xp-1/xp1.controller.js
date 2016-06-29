@@ -143,9 +143,8 @@ xpapp.controller('XP1Controller', ['$controller', '$scope', '$rootScope', '$uibM
 		// Tabs
 		$scope.tabIndex = 0;
 		$scope.tabs = [
-			{ isTool: false,	l: 'information',	t: 'Training: information' },
+			{ isTool: false,	l: 'information',	t: 'Example' },
 			{ isTool: true,							path: $sce.trustAsResourceUrl('/#/dashboard/252') },
-			{ isTool: true,							path: $sce.trustAsResourceUrl('/#/detail/dl/252') },
 			{ isTool: true,		l: 'explaination',	path: $sce.trustAsResourceUrl('/#/detail/dl/252') },
 			{ isTool: false,						t: 'Before starting the experimentation' },
 		];

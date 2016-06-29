@@ -86,7 +86,7 @@
 					-->
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="focusedInput">Are you confident about this problem:</label>
+					<label class="control-label" for="focusedInput">How confident are you in this diagnosis?</label>
 					<div class="btn-group btn-group-flex" role="group">
 						<label ng-repeat="confidence in confidences" class="btn btn-default btn-sm" ng-model="tempForm.c" uib-btn-radio="$index + 1" uncheckable>{{confidence.l}}</label>
 					</div>
@@ -104,16 +104,25 @@
 </script>
 
 <!-- Task: presentation -->
-<section ng-if="tabIndex == 0" class="modal-content">
+<section ng-if="tabs[tabIndex].id == 0" class="modal-content">
 	<div class="modal-header">
-		<h1 class="modal-title">Task #{{taskID}}: information</h1>
+		<h1 class="modal-title">Task <small>information</small></h1>
 	</div>
 	
-	<div class="modal-body">
-		<p>
-			Todo Task.1.1
-		</p><p>
-			Todo Task.1.2
+	<div class="modal-body" ng-switch="taskType">
+		<!-- TASK_STANDALONE_A -->
+		<p ng-switch-when="1">
+			In the following section, you will be able to use the tool to explore the 
+			performance of a single program. Please indicate using the drop-down menu at the 
+			top of the screen why you think the program might be running slower than expected.
+		</p>
+		<!-- TASK_COMPARISON_B -->
+		<p ng-switch-when="2">
+			In the following section, you will be able to use the tool to explore the 
+			performance of two versions of the same program. One of them runs faster than 
+			the other. Please indicate using the drop-down menu at the top of the screen why 
+			you think one of the programs performs better than the other. You can select 
+			more than one possibility and rank them if you are uncertain.
 		</p>
 	</div>
 	
@@ -123,9 +132,9 @@
 </section>
 
 <!-- Task: last comments -->
-<section ng-if="tabIndex == 2" class="modal-content">
+<section ng-if="tabs[tabIndex].id == 2" class="modal-content">
 	<div class="modal-header">
-		<h1 class="modal-title">Task #{{taskID}}: comments</h1>
+		<h1 class="modal-title">Task <small>comments</small></h1>
 	</div>
 	
 	<div class="modal-body">
@@ -147,7 +156,7 @@
 </section>
 
 <!-- Task: tool -->
-<div ng-if="tabIndex == 1" class="task">
+<div ng-if="tabs[tabIndex].id == 1" class="task">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-10">
@@ -156,7 +165,7 @@
 
 			<div class="col-sm-2">
 				<div class="btn-group-vertical" style="width: 100%">
-					<button type="button" class="btn btn-link" type="button" ng-click="actionPreviousTab()"><i class="fa fa-hand-o-left" style="padding-right: 8px;"></i>Intro</button>
+					<!--<button type="button" class="btn btn-link" type="button" ng-click="actionPreviousTab()"><i class="fa fa-hand-o-left" style="padding-right: 8px;"></i>Intro</button>-->
 					<button type="button" class="btn btn-primary" type="button" ng-click="actionNextTab()">OK<i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
 				</div>
 			</div>

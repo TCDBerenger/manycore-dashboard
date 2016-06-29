@@ -12,6 +12,9 @@ xpapp.controller('TaskController',
 	var groupID =	$rootScope.xp.group;
 	var task =		tasks[tasks.distribution[groupID - 1][taskID - 1]];
 
+	// UI data
+	$scope.taskType = task.type;
+
 	// Form data
 	$scope.form.taskID = task.id;
 	$scope.form.problems = [];
@@ -31,18 +34,26 @@ xpapp.controller('TaskController',
 	// Tabs
 	$scope.tabIndex = 0;
 	$scope.tabs = [
-		{ l: 'task presentation',	t: 'Presentation' },
-		{ l: 'task',				t: 'Task' },
-		{ l: 'task comments',		t: 'Comments' }
+			{ id: 1, l: 'task',				t: 'Task' },
 	];
+	if (taskID == 0 || taskID == 3) {
+		$scope.tabs.unshift(
+			{ id: 0,  l: 'task presentation',	t: 'Presentation' }
+		)
+	}
+	if (taskID == 2 || taskID == 6) {
+		$scope.tabs.push(
+			{ id: 2,  l: 'task comments',		t: 'Comments' }
+		)
+	}
 
 	// Confidences
 	$scope.confidences = [
-		{ v: 1, l: 'doubtful',	smiley: '😒', i: 'fa-frown-o' },
-		{ v: 2, l: '←',			smiley: '😑', i: 'fa-frown-o' },
-		{ v: 3, l: 'neutral',	smiley: '😐', i: 'fa-meh-o' },
-		{ v: 4, l: '→',			smiley: '😔', i: 'fa-smile-o' },
-		{ v: 5, l: 'confident',	smiley: '😉', i: 'fa-smile-o' }
+		{ v: 1, l: 'very doubtful',			smiley: '😒', i: 'fa-frown-o' },
+		{ v: 2, l: 'doubtful',				smiley: '😑', i: 'fa-frown-o' },
+		{ v: 3, l: 'moderately confident',	smiley: '😐', i: 'fa-meh-o' },
+		{ v: 4, l: 'confident',				smiley: '😔', i: 'fa-smile-o' },
+		{ v: 5, l: 'very confident',		smiley: '😉', i: 'fa-smile-o' }
 	];
 	$scope.confidencesWithNull = $scope.confidences.slice();
 	$scope.confidencesWithNull.unshift({ v: 0, l: '',	i: '' });
@@ -52,14 +63,14 @@ xpapp.controller('TaskController',
 	if (task.type == TYPES.TASK_STANDALONE_A) {
 		$scope.uiSections.push(
 			{
-				l: $sce.trustAsHtml('List the problem(s) of the current program:')
+				l: $sce.trustAsHtml('Select or list potential problem(s) for this profile:')
 			}
 		);
 	}
 	if (task.type == TYPES.TASK_COMPARISON_B) {
 		$scope.uiSections.push(
 			{
-				l: $sce.trustAsHtml('Comparing to the Program A (first), list the problem(s) of the Program B (second):')
+				l: $sce.trustAsHtml('Comparing to the Program A (first), select or list potential problem(s) for the Program B (second):')
 			}
 		);
 	}
