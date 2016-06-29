@@ -12,6 +12,21 @@ xpapp.controller('TaskController',
 	var groupID =	$rootScope.xp.group;
 	var task =		tasks[tasks.distribution[groupID - 1][taskID - 1]];
 
+	// Tabs
+	var tabs = [
+		{ id: 1,	l: 'task',				t: 'Task' },
+	];
+	if (taskID == 1 || taskID == 4) tabs.unshift(
+		{ id: 0,	l: 'task presentation',	t: 'Presentation' }
+	);
+	if (taskID == 3 || taskID == 6) tabs.push(
+		{ id: 2,	l: 'task comments',		t: 'Comments' }
+	);
+
+	/************************************************/
+	/* Scope - Init									*/
+	/************************************************/
+
 	// UI data
 	$scope.taskType = task.type;
 
@@ -33,19 +48,7 @@ xpapp.controller('TaskController',
 
 	// Tabs
 	$scope.tabIndex = 0;
-	$scope.tabs = [
-			{ id: 1, l: 'task',				t: 'Task' },
-	];
-	if (taskID == 0 || taskID == 3) {
-		$scope.tabs.unshift(
-			{ id: 0,  l: 'task presentation',	t: 'Presentation' }
-		)
-	}
-	if (taskID == 2 || taskID == 6) {
-		$scope.tabs.push(
-			{ id: 2,  l: 'task comments',		t: 'Comments' }
-		)
-	}
+	$scope.tabs = tabs;
 
 	// Confidences
 	$scope.confidences = [
