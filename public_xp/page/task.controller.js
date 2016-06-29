@@ -1,6 +1,6 @@
 xpapp.controller('TaskController',
-	['$rootScope', '$scope', '$sce', '$uibModal', '$controller', '$stateParams', 'taxonomy',
-	function($rootScope, $scope, $sce, $uibModal, $controller, $stateParams, taxonomy) {
+	['$rootScope', '$scope', '$sce', '$uibModal', '$controller', '$stateParams', 'taxonomy', 'TYPES',
+	function($rootScope, $scope, $sce, $uibModal, $controller, $stateParams, taxonomy, TYPES) {
 	/************************************************/
 	/* Constructor - Init							*/
 	/************************************************/
@@ -13,10 +13,12 @@ xpapp.controller('TaskController',
 	var task =		tasks[tasks.distribution[groupID - 1][taskID - 1]];
 
 	// Form data
-	$scope.tempForm = [{}, {}];
-	$scope.listContextProblems = [taxonomy.all.issues.slice(), taxonomy.all.issues.slice()];
-	$scope.form.aProblems = [];
-	$scope.form.bProblems = [];
+	$scope.form.taskID = task.id;
+	$scope.form.problems = [];
+
+	// Temp data
+	$scope.tempForm = {};
+	$scope.listContextProblems = taxonomy.all.issues.slice();
 
 	// Iframe path
 	$scope.path = $sce.trustAsResourceUrl('/#/xp/nofeedback-nonavbar-nounselect-noselect' + task.path);
@@ -44,6 +46,24 @@ xpapp.controller('TaskController',
 	];
 	$scope.confidencesWithNull = $scope.confidences.slice();
 	$scope.confidencesWithNull.unshift({ v: 0, l: '',	i: '' });
+
+	// Sections
+	$scope.uiSections = [];
+	if (task.type == TYPES.TASK_STANDALONE_A) {
+		$scope.uiSections.push(
+			{
+				l: $sce.trustAsHtml('List the problem(s) of the current program:')
+			}
+		);
+	}
+	if (task.type == TYPES.TASK_COMPARISON_B) {
+		$scope.uiSections.push(
+			{
+				l: $sce.trustAsHtml('Comparing to the Program A (first), list the problem(s) of the Program B (second):')
+			}
+		);
+	}
+
 	
 	/************************************************/
 	/* Functions - Data								*/
@@ -57,9 +77,8 @@ xpapp.controller('TaskController',
 	};
 
 	$scope.addProblem = function() {
-		var provider = $scope.listContextProblems[this.pIndex];
-		var tempForm = $scope.tempForm[this.pIndex];
-		var list = (this.pIndex == 0) ? $scope.form.aProblems : $scope.form.bProblems;
+		var provider = $scope.listContextProblems;
+		var tempForm = $scope.tempForm;
 		
 		var problem = {
 			i: tempForm.i.id,
@@ -67,7 +86,7 @@ xpapp.controller('TaskController',
 		};
 
 		// Add the problem
-		list.push(problem);
+		$scope.form.problems.push(problem);
 
 		// Remove in available problem list
 		provider.splice(provider.indexOf(tempForm.i), 1);
@@ -78,11 +97,10 @@ xpapp.controller('TaskController',
 	}
 
 	$scope.removeProblem = function() {
-		var provider = $scope.listContextProblems[this.pIndex];
-		var list = (this.pIndex == 0) ? $scope.form.aProblems : $scope.form.bProblems;
+		var provider = $scope.listContextProblems;
 		
 		// Remove the problem
-		list.splice(this.$index, 1);
+		$scope.form.problems.splice(this.$index, 1);
 		
 		// Inject in available problem list
 		provider.push(taxonomy[this.problem.i]);
@@ -90,7 +108,7 @@ xpapp.controller('TaskController',
 	}
 
 	$scope.upProblem = function() {
-		var list = (this.pIndex == 0) ? $scope.form.aProblems : $scope.form.bProblems;
+		var list = $scope.form.problems;
 
 		// Cache the element
 		var problem = list[this.$index];
@@ -103,7 +121,7 @@ xpapp.controller('TaskController',
 	}
 
 	$scope.downProblem = function() {
-		var list = (this.pIndex == 0) ? $scope.form.aProblems : $scope.form.bProblems;
+		var list = $scope.form.problems;
 
 		// Cache the element
 		var problem = list[this.$index];

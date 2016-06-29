@@ -1,28 +1,51 @@
 /************************************************/
+/* Tasks types									*/
+/************************************************/
+xpapp.constant('TYPES', {
+	TASK_STANDALONE_A: 1,
+	TASK_COMPARISON_B: 2,
+});
+
+/************************************************/
 /* Experiment threads							*/
 /*	(one thread is one experiment)				*/
 /************************************************/
-xpapp.factory('threads', function() {
+xpapp.factory('threads', ['TYPES', function(TYPES) {
 	var looseThreads = [
 		{
-			id: 1, groups: 6,
+			id: 1, groups: 12,
 			title: 'Test 1',
 			goal: 'The goal of this survey is to evaluate a prototype visualisation for identifying the presence of <b>data-locality</b> issues.',
 			tasks: {
 				distribution: [
-					['a', 'b', 'c', 'd', 'e', 'f'],
-					['b', 'c', 'd', 'e', 'f', 'a'],
-					['c', 'd', 'e', 'f', 'a', 'b'],
-					['d', 'e', 'f', 'a', 'b', 'c'],
-					['e', 'f', 'a', 'b', 'c', 'd'],
-					['f', 'a', 'b', 'c', 'd', 'e'],
+					['m', 'n', 'o', 'a', 'b', 'l'],
+					['n', 'o', 'm', 'b', 'c', 'a'],
+					['o', 'm', 'n', 'c', 'd', 'b'],
+					['o', 'n', 'm', 'd', 'e', 'c'],
+					['m', 'o', 'n', 'e', 'f', 'd'],
+					['n', 'm', 'o', 'f', 'g', 'e'],
+					['g', 'h', 'f', 'm', 'n', 'o'],
+					['h', 'i', 'g', 'n', 'o', 'm'],
+					['i', 'j', 'h', 'o', 'm', 'n'],
+					['j', 'k', 'i', 'o', 'n', 'm'],
+					['k', 'l', 'j', 'm', 'o', 'n'],
+					['l', 'a', 'k', 'n', 'm', 'o'],
 				],
-				a: { id: 4, path: '/dashboard/241-244' },	// 4: LB
-				b: { id: 2, path: '/dashboard/222-221' },	// 2: SY
-				c: { id: 5, path: '/dashboard/250-251' },	// 5: DL
-				d: { id: 3, path: '/dashboard/231-233' },	// 3: DS
-				e: { id: 1, path: '/dashboard/211-212' },	// 1: TG
-				f: { id: 6, path: '/dashboard/263-261' }	// 6: RS
+				a: { id: 's52',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/252' },	// 5: DL
+				b: { id: 's21',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/221' },	// 2: SY
+				c: { id: 's51',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/251' },	// 5: DL
+				d: { id: 's61',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/261' },	// 6: RS
+				e: { id: 's41',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/241' },	// 4: LB
+				f: { id: 's22',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/222' },	// 2: SY
+				g: { id: 's11',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/211' },	// 1: TG
+				h: { id: 's12',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/212' },	// 1: TG
+				i: { id: 's33',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/233' },	// 3: DS
+				j: { id: 's63',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/263' },	// 6: RS
+				k: { id: 's31',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/231' },	// 3: DS
+				l: { id: 's43',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/243' },	// 4: LB
+				m: { id: 'c5',	type: TYPES.TASK_COMPARISON_B,	path: '/dashboard/250-251' },	// 5: DL
+				n: { id: 'c4',	type: TYPES.TASK_COMPARISON_B,	path: '/dashboard/240-241' },	// 4: LB
+				o: { id: 'c2',	type: TYPES.TASK_COMPARISON_B,	path: '/dashboard/220-221' },	// 2: SY
 			},
 			steps: [
 				// page: common					state: '...'
@@ -65,7 +88,7 @@ xpapp.factory('threads', function() {
 	});
 	
 	return threads;
-});
+}]);
 
 /************************************************/
 /* Taxonomy										*/

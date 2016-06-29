@@ -1,20 +1,20 @@
 <!-- Task: problem block -->
 <script type="text/ng-template" id="task-block-issues.html">
-	<h4 ng-if="pIndex == 0"><span class="text-primary">◧</span> Left profile</h4>
-	<h4 ng-if="pIndex == 1"><span class="text-primary">◨</span> Right profile</h4>
-	<div class="form-group" style="margin: 0px">
-		<label class="control-label" for="focusedInput">Select or list problem(s) for this profile:</label>
-		<div class="flex-list">
-			<!-- List of selected issues -->
-			<div ng-repeat="problem in (pIndex == 0) ? form.aProblems : form.bProblems" ng-include="'task-artifact-issue.html'"></div>
+	<div class="well well-sm">
+		<div class="form-group" style="margin: 0px">
+			<label class="control-label" ng-bind-html="uiSection.l"></label>
+			<div class="flex-list">
+				<!-- List of selected issues -->
+				<div ng-repeat="problem in form.problems" ng-include="'task-artifact-issue.html'"></div>
 
-			<!-- Select (add) an issue -->
-			<div class="pure-dropdown">
-				<input type="checkbox" id="dropdown_toggle_{{pIndex}}">
-				<label for="dropdown_toggle_{{pIndex}}" type="button" class="btn btn-sm btn-primary">
-					<i class="fa fa-plus" style="padding-right: 8px;"></i>Add
-				</label>
-				<div class="pure-dropdown-content" ng-include src="'task-select-issue.html'"></div>
+				<!-- Select (add) an issue -->
+				<div class="pure-dropdown">
+					<input type="checkbox" id="dropdown_toggle_0">
+					<label for="dropdown_toggle_0" type="button" class="btn btn-sm btn-primary">
+						<i class="fa fa-plus" style="padding-right: 8px;"></i>Add
+					</label>
+					<div class="pure-dropdown-content" ng-include src="'task-select-issue.html'"></div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -70,15 +70,15 @@
 		<div class="panel-body">
 			<fieldset>
 				<div class="form-group">
-					<ui-select ng-model="tempForm[pIndex].i" theme="bootstrap">
+					<ui-select ng-model="tempForm.i" theme="bootstrap">
 						<ui-select-match placeholder="Select a problem">{{$select.selected.t}}</ui-select-match>
-						<ui-select-choices group-by="getCategoryTitle" repeat="issue in listContextProblems[pIndex] | filter: $select.search">
+						<ui-select-choices group-by="getCategoryTitle" repeat="issue in listContextProblems | filter: $select.search">
 							<div ng-bind-html="issue.t | highlight: $select.search"></div>
 							<small ng-bind-html="issue.d | highlight: $select.search"></small>
 						</ui-select-choices>
 					</ui-select>
 					<!--
-					<select ng-model="tempForm[pIndex].i" size="5">
+					<select ng-model="tempForm.i" size="5">
 						<optgroup ng-repeat="category in categories" label="{{category.t}}">
 							<option ng-repeat="issue in category.issues" value="{{issue}}">{{issue.t}}</option>
 						</optgroup>
@@ -88,7 +88,7 @@
 				<div class="form-group">
 					<label class="control-label" for="focusedInput">Are you confident about this problem:</label>
 					<div class="btn-group btn-group-flex" role="group">
-						<label ng-repeat="confidence in confidences" class="btn btn-default btn-sm" ng-model="tempForm[pIndex].c" uib-btn-radio="$index + 1" uncheckable>{{confidence.l}}</label>
+						<label ng-repeat="confidence in confidences" class="btn btn-default btn-sm" ng-model="tempForm.c" uib-btn-radio="$index + 1" uncheckable>{{confidence.l}}</label>
 					</div>
 				</div>
 				<div class="form-group">
@@ -96,7 +96,7 @@
 			</fieldset>
 		</div>
 		<div class="panel-footer">
-			<label for="dropdown_toggle_{{pIndex}}" ng-disabled="! tempForm[pIndex].i" ng-click="addProblem()" type="button" class="btn btn-primary btn-sm">
+			<label for="dropdown_toggle_0" ng-disabled="! tempForm.i" ng-click="addProblem()" type="button" class="btn btn-primary btn-sm">
 				<i class="fa fa-plus" style="padding-right: 8px;"></i>Add this problem
 			</label>
 		</div>
@@ -150,33 +150,11 @@
 <div ng-if="tabIndex == 1" class="task">
 	<div class="container-fluid">
 		<div class="row">
-			<div ng-repeat="pIndex in [0]" class="col-sm-4" ng-include src="'task-block-issues.html'"></div>
-
-			<div class="col-sm-3">
-				<div class="form-group">
-					<label class="control-label" for="focusedInput">What is the best profile:</label>
-					<div class="btn-group btn-group-justified" role="group">
-						<label class="btn btn-default btn-xs" ng-model="form.quickest" uib-btn-radio="'a'" uncheckable>
-							<span class="text-primary" style="margin-right: 6px;">◧</span>left
-						</label>
-						<label class="btn btn-default btn-xs" ng-model="form.quickest" uib-btn-radio="'both'" uncheckable>both</label>
-						<label class="btn btn-default btn-xs" ng-model="form.quickest" uib-btn-radio="'b'" uncheckable>
-							right<span class="text-primary" style="margin-left: 6px;">◨</span>
-						</label>
-						<label class="btn btn-default btn-xs" ng-model="form.quickest" uib-btn-radio="'none'" uncheckable>none</label>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label" for="focusedInput">Are you confident about this comparison:</label>
-					<div class="btn-group btn-group-flex" role="group">
-						<label ng-repeat="confidence in confidences" class="btn btn-default btn-xs" ng-model="form.quickest_c" uib-btn-radio="$index + 1" uncheckable>{{confidence.l}}</label>
-					</div>
-				</div>
+			<div class="col-sm-10">
+				<div  class="col-sm-{12 / uiSections.length}" ng-repeat="uiSection in uiSections" ng-include src="'task-block-issues.html'"></div>
 			</div>
 
-			<div ng-repeat="pIndex in [1]" class="col-sm-4" ng-include src="'task-block-issues.html'"></div>
-
-			<div class="col-sm-1">
+			<div class="col-sm-2">
 				<div class="btn-group-vertical" style="width: 100%">
 					<button type="button" class="btn btn-link" type="button" ng-click="actionPreviousTab()"><i class="fa fa-hand-o-left" style="padding-right: 8px;"></i>Intro</button>
 					<button type="button" class="btn btn-primary" type="button" ng-click="actionNextTab()">OK<i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
