@@ -10,13 +10,13 @@
 				<div class="col-md-10">
 					<p>{{uipart.t}}</p>
 					<p>
-					<div class="btn-group" role="group">
-						<button class="btn btn-default btn-sm" ng-model="form[uipart.id].r" uib-btn-radio="1" uncheckable>strongly disagree</button>
-						<button class="btn btn-default btn-sm" ng-model="form[uipart.id].r" uib-btn-radio="2" uncheckable>disagree</button>
-						<button class="btn btn-default btn-sm" ng-model="form[uipart.id].r" uib-btn-radio="3" uncheckable>neutral</button>
-						<button class="btn btn-default btn-sm" ng-model="form[uipart.id].r" uib-btn-radio="4" uncheckable>agree</button>
-						<button class="btn btn-default btn-sm" ng-model="form[uipart.id].r" uib-btn-radio="5" uncheckable>strongly agree</button>
-					</div>
+						<div class="btn-group" role="group">
+							<button class="btn btn-default btn-sm" ng-model="form[uipart.id].r" uib-btn-radio="1" uncheckable>strongly disagree</button>
+							<button class="btn btn-default btn-sm" ng-model="form[uipart.id].r" uib-btn-radio="2" uncheckable>disagree</button>
+							<button class="btn btn-default btn-sm" ng-model="form[uipart.id].r" uib-btn-radio="3" uncheckable>neutral</button>
+							<button class="btn btn-default btn-sm" ng-model="form[uipart.id].r" uib-btn-radio="4" uncheckable>agree</button>
+							<button class="btn btn-default btn-sm" ng-model="form[uipart.id].r" uib-btn-radio="5" uncheckable>strongly agree</button>
+						</div>
 					</p>
 					<textarea ng-model="form[uipart.id].c" class="form-control" rows="3" id="textArea"></textarea>
 					<span class="help-block">Please feel free to comment on your answer</span>
@@ -25,7 +25,10 @@
 			<div class="form-group">
 				<label class="col-md-2 control-label" style="font-weight: bold;">Other comments</label>
 				<div class="col-md-10 col-sm-12">
-					<textarea ng-model="form.other.c" class="form-control" rows="3" id="textArea"></textarea>
+					<p>If you have any other suggestions or comments</p>
+					<p>
+						<textarea ng-model="form.other.c" class="form-control" rows="3" id="textArea"></textarea>
+					</p>
 				</div>
 			</div>
 		</fieldset></form>
