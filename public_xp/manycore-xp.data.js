@@ -96,12 +96,49 @@ xpapp.factory('threads', ['TYPES', function(TYPES) {
 /************************************************/
 xpapp.service('taxonomy', function() {
 	// Build the "flat" taxonomy
-	this.tg =	{ id: 'tg',	t: 'Task granularity',	i: 'sliders',	d: '' },
-	this.sy =	{ id: 'sy',	t: 'Synchronisation',	i: 'refresh',	d: '' },
-	this.ds =	{ id: 'ds',	t: 'Data sharing',		i: 'exchange',	d: '' },
-	this.lb =	{ id: 'lb',	t: 'Load balancing',	i: 'list-ol',	d: '' },
-	this.dl =	{ id: 'dl',	t: 'Load balancing',	i: 'compass',	d: '' },
-	this.rs =	{ id: 'rs',	t: 'Resource sharing',	i: 'sitemap',	d: '' },
+	this.tg =	{ id: 'tg',	t: 'Task granularity',	i: 'sliders', d: [
+			'In parallel programs it is often a challenge to find enough parallelism (performing many calculations simultaneously) to keep the machine busy.\
+			 A key focus of parallel software development is designing algorithms that expose more parallelism.',
+			'However, there are overheads associated with starting, managing and switching between parallel threads.\
+			 If the tasks are too small (fine-grained parallelism), the cost of these overheads can exceed the benefits.\
+			 Conversely, if tasks are too large (coarse-grained parallelism) some resources might be under utilized.',
+			'Choosing the correct task granularity is critical.'
+		]
+	},
+	this.sy =	{ id: 'sy',	t: 'Synchronisation',	i: 'refresh',	d: [
+			'In a shared-memory programming model, where data is shared and updated by multiple threads;\
+			 some sort of synchronisation is needed to ensure that all threads get a consistent view of memory.',
+			'Synchronization always causes some overhead.',
+			'If the algorithm requires a large amount of synchronization, the overhead can offset much of the benefits of parallelism.\
+			 Perhaps the most common synchronisation mechanism is the lock;\
+			 other mechanisms include barriers, semaphores, and the atomic instructions used in so-called “lock-free” and “wait-free” data structures.'
+		]
+	},
+	this.ds =	{ id: 'ds',	t: 'Data sharing',		i: 'exchange',	d: [
+			'Threads within a process communicate through data in shared memory.\
+			 Sharing data between cores involves physically transferring the data along wires between the cores.',
+			'On shared memory computers these data transfers happen automatically through the caching hardware.',
+			'However these transfers take time, along with a cost to data sharing, particularly when shared variables and data structures are modified.'
+		]
+	},
+	this.lb =	{ id: 'lb',	t: 'Load balancing',	i: 'list-ol',	d: [
+			'Load balancing is the attempt to divide work evenly among the cores.\
+			 Dividing the work in this way is usually, but not always, beneficial.',
+			'There is an overhead in dividing work between parallel cores and it can sometimes be more efficient not to use all the available cores.\
+			 Nonetheless, a poor load balance is one of the most easily understood performance problems.',
+		]
+	},
+	this.dl =	{ id: 'dl',	t: 'Load balancing',	i: 'compass',	d: [
+			'This is not a specifically multicore problem, but it is impossible to talk about single or multicore performance without talking about locality.',
+			'Two or more memory accesses have data locality when they touch nearby memory regions. High data locality means caches are very effective, low data locality means caches have very little effect.',
+			'Locality is important because it takes hundreds of processor cycles to access a value in main memory, but only a few cycles to access cache.\
+			 This problem is often called the “memory wall”.',
+		]
+	},
+	this.rs =	{ id: 'rs',	t: 'Resource sharing',	i: 'sitemap',	d: [
+			'Those who are new to parallel programming often expect linear performance scaling: code running on four cores will be four times faster than on one core. There are many reasons why this is seldom true, but perhaps the most self-explanatory is that those four cores share and must compete for access to other parts of the hardware that have not been replicated four times. For example, all cores will typically share a single connection to main memory.',
+		]
+	},
 
 	this[11] =	{ id: 11, t: 'oversubscription',
 						  d: 'not enough free cores available' },
@@ -142,7 +179,7 @@ xpapp.service('taxonomy', function() {
 	this[61] =	{ id: 61, t: 'Exceeding memory bandwidth',
 						  d: 'the memory bus is saturated with requests' },
 	this[62] =	{ id: 62, t: 'Competition between threads sharing a cache',
-						  d: '' },
+						  d: 'individual threads might have good data locality, but different threads making a lot of accesses to different parts of memory while sharing a cache could result in poor cache performance' },
 	this[63] =	{ id: 63, t: 'False data sharing',
 						  d: 'updating data invalidates nearby locations which hold data used by other threads' },
 

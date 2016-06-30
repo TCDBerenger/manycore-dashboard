@@ -7,11 +7,8 @@
 	<div ng-if="tabIndex == 0" class="modal-body">
 		<p>
 			<i class="fa fa-hand-spock-o fa-3x fa-pull-left text-muted" aria-hidden="true"></i>
-			[XP.intro.1] In this experimentation, you are going to test our approach and tool about the <span class="text-primary">software performance analysis</span> focused on multicore systems.
-		</p><p>
-			[XP.intro.2] How are you going to be eaten.
-		</p><p>
-			[XP.intro.3] Thank you for your help.
+			In this experimentation, you will test our approach and tool about the <span class="text-primary">problem-centric software performance analysis</span>
+			on many-core (multicore) systems.
 		</p>
 		<p>&nbsp;</p>
 		<h2>Parallel performance</h2>
@@ -19,31 +16,27 @@
 			<img src="assets/xp-1/theory-programing.jpeg" alt="">
 		</a></div>
 		<p>
-			[XP.parrallel.1] In software engineering, there is several way to get clues about the efficiency and accuracy of a particular software.
+			In software engineering, there is several way to get clues about the efficiency and accuracy of a particular software.
 			Here, we're focusing on the performances by analysing several indicators and measurments of a run of an application.
 			Differents runs could produce differents values mostly because there are context-depending. But the analysis should be quite similar.
 		</p>
 		<p>
-			[XP.parrallel.2] Very simple explanation (for beginers).
+			<strong>[XP.parrallel.2]</strong> Very simple explanation (for beginers).
 		</p>
 		<p>
-			[XP.parrallel.3] More complete explanations (for intermediate).
+			<strong>[XP.parrallel.3]</strong> More complete explanations (for intermediate).
 		</p>
 		<p>
-			[XP.parrallel.4] Deep explanations (for experts).
+			<strong>[XP.parrallel.4]</strong> Deep explanations (for experts).
 		</p>
 	</div>
 	
 	<!-- Approach -->
 	<div ng-if="tabIndex == 1" class="modal-body">
 		<p>
-			[XP.taxonomy.1] Yet, the parallel performance analysis keep displaying and handling data from the operating system and counters from the hardware. It's an explert focused-approach.
-			So we've worked on an different approach, for all kind of programmers, widely understandable, for both beginners and experts.
-		</p><p>
-			[XP.taxonomy.2] Our approach is problem-focused instead of hardware-focued.
-			However, there is no list, classification or consensus about all the problems we can faced in parallel programming.
-		</p><p>
-			[XP.taxonomy.3] Based on surveys, we create a taxonomy for this kind of problems (see below). It is composed by 6 categories which each have 3~5 problems.
+			Our approach is problem-focused instead of hardware-focued.
+			Based on surveys, we create a taxonomy for this kind of problems (see below).
+			It is composed by 6 categories grouping about 4 problems.
 		</p>
 		<p>&nbsp;</p>
 		<h2>Problem-focused Taxonomy</h2>
@@ -57,63 +50,13 @@
 			</div>
 			<div class="col-sm-9">
 				<div class="well tab-content well-subtab">
-					<!-- TG -->
-					<div class="tab-pane" ng-class="{active: isSubTabActive('taxonomy', 0)}">
-						<p>
-							{{::taxonomy[0].d}}
-						</p><p>Related issues:</p><ul>
-							<li ng-repeat="issue in taxonomy[0].s">{{::issue}}</li>
-						</ul>
-					</div>
-					<!-- SY -->
-					<div class="tab-pane" ng-class="{active: isSubTabActive('taxonomy', 1)}">
-						<p>
-							{{::taxonomy[1].d}}
-						</p><p>Related issues:</p><ul>
-							<li ng-repeat="issue in taxonomy[1].s">{{::issue}}</li>
-						</ul>
-					</div>
-					<!-- DS -->
-					<div class="tab-pane" ng-class="{active: isSubTabActive('taxonomy', 2)}">
-						<p>
-							{{::taxonomy[2].d}}
-						</p><p>Related issues:</p><ul>
-							<li ng-repeat="issue in taxonomy[2].s">{{::issue}}</li>
-						</ul>
-					</div>
-					<!-- LB -->
-					<div class="tab-pane" ng-class="{active: isSubTabActive('taxonomy', 3)}">
-						<p>
-							{{::taxonomy[3].d}}
-						</p><p>Related issues:</p><ul>
-							<li ng-repeat="issue in taxonomy[3].s">{{::issue}}</li>
-						</ul>
-					</div>
-					<!-- Data Locality -->
-					<div class="tab-pane" ng-class="{active: isSubTabActive('taxonomy', 4)}">
-						<p>
-							{{::taxonomy[4].d}}
-						</p><p>Related issues:</p><ul>
-							<li ng-repeat="issue in taxonomy[4].s">{{::issue}}</li>
-						</ul><blockquote>
-							<p>Locality of reference, also known as the principle of locality, is a phenomenon describing the same value, or related storage locations, being frequently accessed. There are two basic types of reference locality – temporal and spatial locality. Temporal locality refers to the reuse of specific data, and/or resources, within a relatively small time duration. Spatial locality refers to the use of data elements within relatively close storage locations. Sequential locality, a special case of spatial locality, occurs when data elements are arranged and accessed linearly, such as, traversing the elements in a one-dimensional array.</p>
-							<small><a href="http://en.wikipedia.org/wiki/Locality_of_reference" target="_blank">Wikipedia</a></small>
-						</blockquote><p>
-							Consider a hypothetical computer with a fast, single-line cache of <b>8 bytes</b> (analogous to a CPU cache) and a slow buffer (analogous to RAM) in which a 4x4 greyscale image data resides to illustrate the example. This simplified cache system can only cache data in blocks of 8 bytes (an 8-byte cache line).
-						</p><center>
-							<img src="assets/xp-99/data-locality.png" />
-						</center></p>
-							First iteration of the loop touches 4 bytes (#0, #4, #8 and #12), two cache misses occur including the first load, as the image data needs to be loaded from memory into the cache line for CPU to use it. During the entire execution of the program, the total of 8 cache misses occurs. This means that our hypothetical CPU loads 8 * 8 = 64 bytes in total from our slow buffer into the cache.
-						</p><center>
-							<img src="assets/xp-99/data-locality-2.png" />
-						</center>
-					</div>
-					<!-- RS -->
-					<div class="tab-pane" ng-class="{active: isSubTabActive('taxonomy', 5)}">
-						<p>
-							{{::taxonomy[5].d}}
-						</p><p>Related issues:</p><ul>
-							<li ng-repeat="issue in taxonomy[5].s">{{::issue}}</li>
+					<div ng-repeat="tax in taxonomy" class="tab-pane" ng-class="{active: isSubTabActive('taxonomy', $index)}">
+						<p ng-repeat="desc in tax.d">
+							{{::desc}}
+						</p>
+						<h4>Related problems:</h4>
+						<ul>
+							<li ng-repeat="issue in tax.issues"><strong>{{::issue.t}}:</strong> {{::issue.d}}</li>
 						</ul>
 					</div>
 				</div>
@@ -124,34 +67,31 @@
 	<!-- Tool -->
 	<div ng-if="tabIndex == 2" class="modal-body">
 		<p>
-			[XP.tool.1] Based on our taxonomy, we build a tool to visualise and compare (two) profiles.
-		</p><p>
-			[XP.tool.2] A profile is a set of values harvested while a program/software/application running.
-			The data comes from OS and harware.
+			<strong>[XP.tool.1]</strong> Based on our taxonomy, we build a tool to visualise the profile of a program run; it also allows to compare two profiles.
 		</p>
-		<center><img src="assets/xp-1/dash-overview.png"/></center>
+		<!-- <center><img src="assets/xp-1/dash-overview.png"/></center> -->
 		<p>&nbsp;</p>
 		<h2>Dashboard: overview</h2>
 		<div class="col-xs-5" style="float: right;"><a class="thumbnail" href="assets/xp-1/dash-checked.png" target="_blank">
 			<img src="assets/xp-1/dash-checked.png" alt="">
 		</a></div>
 		<p>
-			[XP.tool.3] The top-level of our webapp is the Dashboard where you could compare the profiles and, more important, have a overview of all categories (first level in our taxonomy).
+			<strong>[XP.tool.3]</strong> The top-level of our webapp is the Dashboard where you could compare the profiles and, more important, have a overview of all categories (first level in our taxonomy).
 			The aim is to quickly identify one or more categories involved in the issue(s).  
 		</p><p>
-			[XP.tool.4] Once catogories are identified, you could drill-down to find the real cause of the issue.
+			<strong>[XP.tool.4]</strong> Once catogories are identified, you could drill-down to find the real cause of the issue.
 		</p>
 		<p>&nbsp;</p>
-		<h2>Details of a category: drill-down</h2>
+		<h2>Category: drill-down into problems</h2>
 		<div class="col-xs-5" style="float: right;"><a class="thumbnail" href="assets/xp-1/detail-sample.png" target="_blank">
 			<img src="assets/xp-1/detail-sample.png" alt="">
 		</a></div>
 		<p>
-			[XP.tool.5] In each page, there is a set of graph that could help you to find the root of the problem.
+			<strong>[XP.tool.5]</strong> For each category of our taxonomy, a dedicated page displays a set of graph that could help you to find the root of the problem.
 		</p><p>
-			[XP.tool.6] To help you, you can customise each graph via the "Customise" tab in order to adapt and manipulate the data shown.
+			<strong>[XP.tool.6]</strong> To help you, you can customise each graph via the "Customise" tab in order to adapt and manipulate the data shown.
 		</p><p>
-			[XP.tool.7] Also you coul find some interesting information in the "help" tab in particular if you are not familiar with the concept shown. 
+			<strong>[XP.tool.7]</strong> Also you coul find some interesting information in the "help" tab in particular if you are not familiar with the concept shown. 
 		</p>
 	</div>
 	
