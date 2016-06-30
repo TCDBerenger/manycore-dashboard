@@ -6,12 +6,26 @@
 	<div class="modal-body">
 		<form class="form-horizontal"><fieldset>
 			<div ng-repeat="uipart in allParts" class="form-group">
-				<label class="col-lg-2 control-label" style="font-weight: bold;">{{uipart.l}}</label>
-				<div class="col-lg-10">
-					<uib-rating ng-model="form[uipart.id].r" max="10" aria-labelledby="default-rating" state-on="'fa-thumbs-up fa-fw'" state-off="'fa-thumbs-o-down fa-fw'" style="font-size: 1.4em;"></uib-rating>
-					<span ng-if="form[uipart.id].r >= 0">{{form[uipart.id].r * 10}}%</span>
+				<label class="col-md-2 control-label" style="font-weight: bold;">{{uipart.l}}</label>
+				<div class="col-md-10">
+					<p>{{uipart.t}}</p>
+					<p>
+					<div class="btn-group" role="group">
+						<button class="btn btn-default btn-sm" ng-model="form[uipart.id].r" uib-btn-radio="1" uncheckable>strongly disagree</button>
+						<button class="btn btn-default btn-sm" ng-model="form[uipart.id].r" uib-btn-radio="2" uncheckable>disagree</button>
+						<button class="btn btn-default btn-sm" ng-model="form[uipart.id].r" uib-btn-radio="3" uncheckable>neutral</button>
+						<button class="btn btn-default btn-sm" ng-model="form[uipart.id].r" uib-btn-radio="4" uncheckable>agree</button>
+						<button class="btn btn-default btn-sm" ng-model="form[uipart.id].r" uib-btn-radio="5" uncheckable>strongly agree</button>
+					</div>
+					</p>
 					<textarea ng-model="form[uipart.id].c" class="form-control" rows="3" id="textArea"></textarea>
-					<span class="help-block">{{uipart.tips}}</span>
+					<span class="help-block">Please feel free to comment on your answer</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label" style="font-weight: bold;">Other comments</label>
+				<div class="col-md-10 col-sm-12">
+					<textarea ng-model="form.other.c" class="form-control" rows="3" id="textArea"></textarea>
 				</div>
 			</div>
 		</fieldset></form>
