@@ -144,8 +144,8 @@ xpapp.controller('XP1Controller', ['$controller', '$scope', '$rootScope', '$uibM
 		$scope.tabIndex = 0;
 		$scope.tabs = [
 			{ isTool: false,	l: 'information',	t: 'Example' },
-			{ isTool: true,							path: $sce.trustAsResourceUrl('/#/dashboard/252') },
-			{ isTool: true,		l: 'explaination',	path: $sce.trustAsResourceUrl('/#/detail/dl/252') },
+			{ isTool: true,							path: $sce.trustAsResourceUrl('/#/xp/nofeedback-nonavbar-nounselect-noselect/dashboard/252') },
+			{ isTool: true,		l: 'explaination',	path: $sce.trustAsResourceUrl('/#/xp/nofeedback-nonavbar-nounselect-noselect/detail/dl/252') },
 			{ isTool: false,						t: 'Before starting the experimentation' },
 		];
 	};
