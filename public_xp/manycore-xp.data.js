@@ -122,7 +122,7 @@ xpapp.factory('threads', ['TYPES', function(TYPES) {
 				// Forbid go back to edit:		editable: false
 				{ pageID: 'habits',		label: 'Your tools',			form: {} },
 				{ pageID: 'info',		label: 'Explanations' },
-				{ pageID: 'training',	label: 'Training',				form: {}, mousetrack: true },
+				{ pageID: 'training',	label: 'Training' },
 				{ taskID: 1,			label: 'Task 1',				form: {}, mousetrack: true },
 				{ taskID: 2,			label: 'Task 2',				form: {}, mousetrack: true },
 				{ taskID: 3,			label: 'Task 3',				form: {}, mousetrack: true },
