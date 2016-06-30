@@ -75,7 +75,7 @@ xpapp.controller('XP1Controller',
 		$scope.tabIndex = 0;
 		$scope.tabs = [
 			{ t: 'Visualising performance problems' },
-			{ t: 'Explanations for our tool' }
+			{ t: 'How the tool works' }
 		];
 	};
 	
@@ -114,8 +114,11 @@ xpapp.controller('XP1Controller',
 		$scope.tabIndex = 0;
 		$scope.tabs = [
 			{ isTool: false,	t: 'Example' },
-			{ isTool: true,		path: $sce.trustAsResourceUrl('/#/xp/nofeedback-nonavbar-nounselect-noselect/dashboard/252') },
-			{ isTool: true,		path: $sce.trustAsResourceUrl('/#/xp/nofeedback-nonavbar-nounselect-noselect/detail/dl/252') },
+			{ isTool: true,		path: $sce.trustAsResourceUrl('/#/xp/nofeedback-nonavbar-nounselect-noselect/dashboard/250-252') },
+			{ isTool: true,		path: $sce.trustAsResourceUrl('/#/xp/nofeedback-nonavbar-nounselect-noselect/detail/dl/250-252') },
 		];
+
+		// UI data
+		$scope.issues = taxonomy.all.issues;
 	};
 }]);
