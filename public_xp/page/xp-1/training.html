@@ -14,18 +14,9 @@
 			source of the problem.
 		</p>
 	</div>
-
-	<!-- End -->
-	<div ng-if="tabIndex == 3" class="modal-body">
-		<p>
-			Todo Training.5.1
-		</p><p>
-			Todo Training.5.2
-		</p>
-	</div>
 	
 	<div class="modal-footer">
-		<button ng-if="couldPreviousTab()" type="button" class="btn btn-link" type="button" ng-click="actionPreviousTab()"><i class="fa fa-hand-o-left" style="padding-right: 8px;"></i>Previous ({{tabs[tabIndex - 1].l}})</button>
+		<!--<button ng-if="couldPreviousTab()" type="button" class="btn btn-link" type="button" ng-click="actionPreviousTab()"><i class="fa fa-hand-o-left" style="padding-right: 8px;"></i>Previous ({{tabs[tabIndex - 1].l}})</button>-->
 		<button type="button" class="btn btn-primary" type="button" ng-click="actionNextTab()">Next<i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
 	</div>
 </section>
