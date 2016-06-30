@@ -128,7 +128,7 @@ xpapp.service('taxonomy', function() {
 			 Nonetheless, a poor load balance is one of the most easily understood performance problems.',
 		]
 	},
-	this.dl =	{ id: 'dl',	t: 'Load balancing',	i: 'compass',	d: [
+	this.dl =	{ id: 'dl',	t: 'Data locality',		i: 'compass',	d: [
 			'This is not a specifically multicore problem, but it is impossible to talk about single or multicore performance without talking about locality.',
 			'Two or more memory accesses have data locality when they touch nearby memory regions. High data locality means caches are very effective, low data locality means caches have very little effect.',
 			'Locality is important because it takes hundreds of processor cycles to access a value in main memory, but only a few cycles to access cache.\
