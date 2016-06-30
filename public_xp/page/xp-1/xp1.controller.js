@@ -74,9 +74,8 @@ xpapp.controller('XP1Controller',
 		// Tabs
 		$scope.tabIndex = 0;
 		$scope.tabs = [
-			{ l: 'the experimentation',		t: 'Experiment about parallel performance' },
-			{ l: 'our approach',			t: 'Explanations for our approach' },
-			{ l: 'our tool',				t: 'Explanations for our tool' },
+			{ t: 'Visualising performance problems' },
+			{ t: 'Explanations for our tool' }
 		];
 	};
 	

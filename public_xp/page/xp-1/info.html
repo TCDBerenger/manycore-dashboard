@@ -3,40 +3,16 @@
 		<h1 class="modal-title">{{tabs[tabIndex].t}}</h1>
 	</div>
 	
-	<!-- Experimentation -->
+	<!-- Approach -->
 	<div ng-if="tabIndex == 0" class="modal-body">
 		<p>
-			<i class="fa fa-hand-spock-o fa-3x fa-pull-left text-muted" aria-hidden="true"></i>
-			In this experimentation, you will test our approach and tool about the <span class="text-primary">problem-centric software performance analysis</span>
-			on many-core (multicore) systems.
-		</p>
-		<p>&nbsp;</p>
-		<h2>Parallel performance</h2>
-		<div class="col-xs-5" style="float: right;"><a class="thumbnail" href="assets/xp-1/theory-programing.jpeg" target="_blank">
-			<img src="assets/xp-1/theory-programing.jpeg" alt="">
-		</a></div>
-		<p>
-			In software engineering, there is several way to get clues about the efficiency and accuracy of a particular software.
-			Here, we're focusing on the performances by analysing several indicators and measurments of a run of an application.
-			Differents runs could produce differents values mostly because there are context-depending. But the analysis should be quite similar.
-		</p>
-		<p>
-			<strong>[XP.parrallel.2]</strong> Very simple explanation (for beginers).
-		</p>
-		<p>
-			<strong>[XP.parrallel.3]</strong> More complete explanations (for intermediate).
-		</p>
-		<p>
-			<strong>[XP.parrallel.4]</strong> Deep explanations (for experts).
-		</p>
-	</div>
-	
-	<!-- Approach -->
-	<div ng-if="tabIndex == 1" class="modal-body">
-		<p>
-			Our approach is problem-focused instead of hardware-focued.
-			Based on surveys, we create a taxonomy for this kind of problems (see below).
-			It is composed by 6 categories grouping about 4 problems.
+			In this experiment, you will be presented with data on the performance of some
+			parallel programs. This performance data is obtained from hardware counters and
+			visualised in a number of different ways. There are lots of different types of
+			performance problems in parallel programs, and so these visualisations are based
+			around a previously developed taxonomy of parallel performance problems. Take a
+			look through the taxonomy and sub-problems below to familiarise yourself before
+			beginning the experiment.
 		</p>
 		<p>&nbsp;</p>
 		<h2>Problem-focused Taxonomy</h2>
@@ -65,9 +41,11 @@
 	</div>
 	
 	<!-- Tool -->
-	<div ng-if="tabIndex == 2" class="modal-body">
+	<div ng-if="tabIndex == 1" class="modal-body">
 		<p>
-			<strong>[XP.tool.1]</strong> Based on our taxonomy, we build a tool to visualise the profile of a program run; it also allows to compare two profiles.
+			The tool can be used to visualize data from a single program, or to
+			compare data from two different versions of a program. We refer to a data set 
+			for a particular program version as a profile.
 		</p>
 		<!-- <center><img src="assets/xp-1/dash-overview.png"/></center> -->
 		<p>&nbsp;</p>
@@ -76,10 +54,13 @@
 			<img src="assets/xp-1/dash-checked.png" alt="">
 		</a></div>
 		<p>
-			<strong>[XP.tool.3]</strong> The top-level of our webapp is the Dashboard where you could compare the profiles and, more important, have a overview of all categories (first level in our taxonomy).
-			The aim is to quickly identify one or more categories involved in the issue(s).  
+			The top-level of the tool provides a Dashboard where you can compare
+			profiles and have an overview of all categories (the first level in our
+			taxonomy). The aim is to quickly identify one or more categories in which the
+			problem may lie.
 		</p><p>
-			<strong>[XP.tool.4]</strong> Once catogories are identified, you could drill-down to find the real cause of the issue.
+			Once a category is identified, you can drill-down to investigate the
+			potential cause of the issue.
 		</p>
 		<p>&nbsp;</p>
 		<h2>Category: drill-down into problems</h2>
@@ -87,16 +68,19 @@
 			<img src="assets/xp-1/detail-sample.png" alt="">
 		</a></div>
 		<p>
-			<strong>[XP.tool.5]</strong> For each category of our taxonomy, a dedicated page displays a set of graph that could help you to find the root of the problem.
+			For each category of our taxonomy, a dedicated page displays a set
+			of graphs that can help you to find the root of the problem.
 		</p><p>
-			<strong>[XP.tool.6]</strong> To help you, you can customise each graph via the "Customise" tab in order to adapt and manipulate the data shown.
+			You can customise many of the graphs via the "Customise" tab in
+			order to change the way the data is shown.
 		</p><p>
-			<strong>[XP.tool.7]</strong> Also you coul find some interesting information in the "help" tab in particular if you are not familiar with the concept shown. 
+			More information is available in the "help" tab if you are having
+			trouble interpreting any particular visualization.
 		</p>
 	</div>
 	
 	<div class="modal-footer">
-		<button ng-if="couldPreviousTab()" type="button" class="btn btn-link" type="button" ng-click="actionPreviousTab()"><i class="fa fa-hand-o-left" style="padding-right: 8px;"></i>Previous ({{tabs[tabIndex - 1].l}})</button>
+		<button ng-if="couldPreviousTab()" type="button" class="btn btn-link" type="button" ng-click="actionPreviousTab()"><i class="fa fa-hand-o-left" style="padding-right: 8px;"></i>Previous ({{tabs[tabIndex - 1].t}})</button>
 		<button type="button" class="btn btn-primary" type="button" ng-click="actionNextTab()">Next<i class="fa fa-hand-o-right" style="padding-left: 8px;"></i></button>
 	</div>
 </section>
