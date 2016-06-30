@@ -120,5 +120,10 @@ xpapp.controller('XP1Controller',
 
 		// UI data
 		$scope.issues = taxonomy.all.issues;
+
+		// UI methods
+		$scope.getCategoryTitle = function(issue) {
+			return issue.cat.t;
+		};
 	};
 }]);
