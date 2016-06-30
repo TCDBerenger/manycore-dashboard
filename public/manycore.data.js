@@ -1293,7 +1293,7 @@ app.factory('categories', ['widgets', 'strips', 'facets',  function(widgets, str
 		],
 		issues: [
 			{ t: 'Exceeding memory bandwidth',					d: 'the memory bus is saturated with requests' },
-			{ t: 'Competition between threads sharing a cache',	d: '' },
+			{ t: 'Competition between threads sharing a cache',	d: 'individual threads might have good data locality, but different threads making a lot of accesses to different parts of memory while sharing a cache could result in poor cache performance' },
 			{ t: 'False data sharing',							d: 'updating data invalidates nearby locations which hold data used by other threads' }
 		],
 		strips: [strips.e],
