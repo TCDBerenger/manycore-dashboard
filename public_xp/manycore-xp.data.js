@@ -18,31 +18,24 @@ xpapp.factory('threads', ['TYPES', function(TYPES) {
 			goal: 'The goal of this survey is to evaluate a prototype visualisation for identifying the presence of <b>data-locality</b> issues.',
 			tasks: {
 				distribution: [
-					['m', 'n', 'o', 'a', 'b', 'l'],
+					['m', 'n', 'o', 'a', 'b', 'h'],
 					['n', 'o', 'm', 'b', 'c', 'a'],
 					['o', 'm', 'n', 'c', 'd', 'b'],
 					['o', 'n', 'm', 'd', 'e', 'c'],
-					['m', 'o', 'n', 'e', 'f', 'd'],
-					['n', 'm', 'o', 'f', 'g', 'e'],
-					['g', 'h', 'f', 'm', 'n', 'o'],
-					['h', 'i', 'g', 'n', 'o', 'm'],
-					['i', 'j', 'h', 'o', 'm', 'n'],
-					['j', 'k', 'i', 'o', 'n', 'm'],
-					['k', 'l', 'j', 'm', 'o', 'n'],
-					['l', 'a', 'k', 'n', 'm', 'o'],
+					['e', 'f', 'e', 'm', 'o', 'n'],
+					['f', 'g', 'f', 'n', 'm', 'o'],
+					['g', 'h', 'g', 'm', 'n', 'o'],
+					['h', 'a', 'h', 'n', 'o', 'm'],
+
 				],
-				a: { id: 's52',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/252' },	// 5: DL
-				b: { id: 's21',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/221' },	// 2: SY
-				c: { id: 's51',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/251' },	// 5: DL
-				d: { id: 's61',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/261' },	// 6: RS
-				e: { id: 's41',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/241' },	// 4: LB
-				f: { id: 's22',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/222' },	// 2: SY
-				g: { id: 's11',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/211' },	// 1: TG
-				h: { id: 's12',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/212' },	// 1: TG
-				i: { id: 's33',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/233' },	// 3: DS
-				j: { id: 's63',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/263' },	// 6: RS
-				k: { id: 's31',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/231' },	// 3: DS
-				l: { id: 's44',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/244' },	// 4: LB
+				a: { id: 's61',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/261' },	// 6: RS
+				b: { id: 's22',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/222' },	// 2: SY
+				c: { id: 's11',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/211' },	// 1: TG
+				d: { id: 's12',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/212' },	// 1: TG
+				e: { id: 's33',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/233' },	// 3: DS
+				f: { id: 's63',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/263' },	// 6: RS
+				g: { id: 's31',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/231' },	// 3: DS
+				h: { id: 's44',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/244' },	// 4: LB
 				m: { id: 'c5',	type: TYPES.TASK_COMPARISON_B,	path: '/dashboard/250-251' },	// 5: DL
 				n: { id: 'c4',	type: TYPES.TASK_COMPARISON_B,	path: '/dashboard/240-241' },	// 4: LB
 				o: { id: 'c2',	type: TYPES.TASK_COMPARISON_B,	path: '/dashboard/220-221' },	// 2: SY
@@ -59,7 +52,7 @@ xpapp.factory('threads', ['TYPES', function(TYPES) {
 
 				{ pageID: 'habits',		label: 'Your tools',			form: {} },
 				{ pageID: 'info',		label: 'Explanations' },
-				{ pageID: 'training',	label: 'Training' },
+				{ pageID: 'training',	label: 'Training',				form: {} },
 				{ taskID: 1,			label: 'Task 1',				form: {}, mousetrack: true },
 				{ taskID: 2,			label: 'Task 2',				form: {}, mousetrack: true },
 				{ taskID: 3,			label: 'Task 3',				form: {}, mousetrack: true },
