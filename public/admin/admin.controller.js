@@ -136,6 +136,8 @@ app.controller('AdminController', ['$scope', '$rootScope', '$http', 'profileServ
 			reloadCacheVersions();
 		} else if ($scope.selectedTab == 3) {
 			reloadStats();
+		} else if ($scope.selectedTab == 4) {
+			reloadResults();
 		}
 	};
 	 
