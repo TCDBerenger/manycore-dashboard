@@ -2,14 +2,20 @@
 <ul class="nav nav-pills" style="margin-bottom: 20px; border-bottom: 1px solid rgb(221, 221, 221);">
 	<span class="nav-tab-title">Numerical Dashboard</span>
 	<p class="navbar-text" ng-if="! isWaiting">for <b>{{::profiles[0].label}}</b><span ng-if="profiles.length > 1"> and <b>{{::profiles[1].label}}</b></span></p>
+
+	<!-- Links -->
+	<li class="navbar-right active">
+		<a ui-sref="dashboard({ids: encodedIDs})"><i class="fa fa-tachometer fa-halfpad"></i>Dashboards</a>
+	</li>
 	<li class="navbar-right" uib-dropdown>
 		<a uib-dropdown-toggle><i class="fa fa-area-chart fa-halfpad"></i>Categories <span class="caret"></span></a>
 		<ul uib-dropdown-menu>
 			<li ng-repeat="category in categories | enabled"><a ui-sref="detail({cat: category.cat, ids: encodedIDs})"><i class="fa fa-{{::category.icon}} fa-16px fa-pad"></i> {{::category.label}}</a></li>
 		</ul>
 	</li>
-	<li class="navbar-right"><a ui-sref="dashboard({ids: encodedIDs})"><i class="fa fa-tachometer fa-halfpad"></i>Graphical Dashoard</a></li>
-	<p class="navbar-text navbar-right" style="margin-right: 10px;">&hellip; or jump to</p>
+	<p class="navbar-text navbar-right hidden-xs hidden-sm text-warning" style="margin-right: 10px;">&hellip; or browse to <i class="fa fa-external-link-square" aria-hidden="true"></i></p>
+
+	<!-- Waiting -->
 	<div class="nav-tab-spinner" ng-if="isWaiting">
 		<i class="fa fa-spinner fa-pulse fa-2x"></i>
 	</div>
