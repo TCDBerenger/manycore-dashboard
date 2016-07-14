@@ -415,6 +415,33 @@
 			</div>
 		</div>
 	</uib-tab>
+	<uib-tab disable="isWaiting()" select="selectResults()">
+		<uib-tab-heading><i class="fa fa-file-text"></i> XP results</uib-tab-heading>
+		<div ng-if="! results_loaded" class="jumbotron"><p>
+			<span class="block-icon fa-stack">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-spinner fa-pulse fa-stack-1x fa-inverse"></i>
+			</span>
+			<strong>Retrieving data...</strong>
+		</p></div>
+		<div ng-if="results_loaded" class="row">
+			<div ng-repeat="xp in results_xps" class="col-sm-4">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title">{{xp}}</h3>
+					</div>
+					<div class="list-group">
+						<a href="/service/admin/xp-result/{{xp | limitTo : 2 : 3}}" class="list-group-item">
+							<i class="fa fa-files-o" style="margin-right: 2px;"></i> download all files</span>
+						</a>
+						<a ng-repeat="file in results_all[xp]" href="{{file.p}}" class="list-group-item">
+							<i class="fa fa-file-text" style="margin-right: 2px;"></i> {{file.t}} <span class="text-muted">[{{file.l | date : 'short'}}]</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</uib-tab>
 	<p class="nav-tab-text" ng-if="couldRefresh">
 		<a type="button" ng-click="refresh()" ng-disabled="waiting"><i class="fa fa-refresh" style="margin-right: 4px;"></i>refresh data</a>
 	</p>

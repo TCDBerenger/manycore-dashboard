@@ -4,6 +4,10 @@
 var express = require('express');
 var router = express.Router();
 
+// Files
+var fs = require('fs');
+var archiver = require('archiver');
+
 
 /************************************************/
 /* Import profiles								*/
@@ -19,7 +23,6 @@ var profiles = require('./common/profiles.common.js');
  * Get CACHE - get all cache versions
  */
 router.get('/cache-versions', function(request, response) {
-
 	// Result
 	var output = {
 		expected: profiles.expected,
@@ -142,18 +145,82 @@ router.get('/stats', function(request, response) {
 });
 
 
+/**
+ * Get XP - list files
+ */
+router.get('/xp-results', function(request, response) {
+	// Vars
+	var meta_folder =	'./results/';
+
+	// Result
+	var output = {};
+
+	// List the XP folders
+	fs.readdir(meta_folder, function(err, folders) {
+		if (err) {
+			Console.err(err);
+			response.err(err);
+		} else {
+			folders.forEach(function(xpDirectory) {
+				output[xpDirectory] = [];
+				// List a XP directory
+				fs.readdirSync(meta_folder + xpDirectory + '/').forEach(function(xpFile) {
+					output[xpDirectory].push({
+						t: xpFile.substring(0, xpFile.length - 4),
+						p: '/service/admin/xp-result/' + xpDirectory.substring(3, 5) + '-' + xpFile.substring(0, xpFile.length - 4),
+						l: fs.statSync(meta_folder + xpDirectory + '/' + xpFile).mtime
+					});
+				}, this);
+
+			}, this);
+
+			// Result
+			response.json(output);
+		}
+	});
+});
+
+
+/**
+ * Get XP - get result file
+ */
+router.get('/xp-result/*', function(request, response) {
+	// Vars
+	var meta_file =		request.params[0].split('-');
+	var meta_folder =	'./results/';
+	var current_date =	new Date();
+	var zip_name =		'filename=xp-results-' + meta_file[0] + '_' +
+							current_date.getFullYear() + '-' +
+							(current_date.getMonth() + 1) + '-' +
+							current_date.getDate() + '_' +
+							current_date.getHours() + 'h' +
+							current_date.getMinutes() + '.zip';
+
+	// Result
+	if (meta_file.length == 1) {
+		// Send all files for an xp
+		// Tell the browser that this is a zip file.
+		response.setHeader('content-type', 'application/zip');
+		response.setHeader('content-disposition', 'attachment; ' + zip_name);
+
+		var zip = archiver('zip');
+		var base_folder = meta_folder + 'xp-' + meta_file[0] + '/';
+
+		// Send the file to the page output.
+		zip.pipe(response);
+
+		// Create zip with some files. Two dynamic, one static. Put #2 in a sub folder.
+		fs.readdirSync(base_folder).forEach(function(xpFile) {
+			console.log('zip file', xpFile, base_folder + xpFile);
+			zip.file(base_folder + xpFile, { name: xpFile });
+		}, this);
+		zip.finalize();
+
+	} else if (meta_file.length == 2) {
+		// Send directly the file
+		response.download(meta_folder + 'xp-' + meta_file[0] + '/' + meta_file[1] + '.log');
+	}
+});
+
 
 module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
-

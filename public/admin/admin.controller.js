@@ -14,6 +14,11 @@ app.controller('AdminController', ['$scope', '$rootScope', '$http', 'profileServ
 	// Stats
 	$scope.stats = null;
 	$scope.stats_loaded = false;
+
+	// Results
+	$scope.results_all = null;
+	$scope.results_xps = null;
+	$scope.results_loaded = false;
 	
 	// Waiting
 	$scope.waiting = 0;
@@ -109,6 +114,15 @@ app.controller('AdminController', ['$scope', '$rootScope', '$http', 'profileServ
 		$scope.couldRefresh = true;
 	}
 	
+	/**
+	 * Tab - Select - Cache
+	 */
+	$scope.selectResults = function() {
+		if (! $scope.results_loaded) reloadResults();
+		$scope.selectedTab = 4;
+		$scope.couldRefresh = true;
+	}
+	
 	
 	
 	/************************************************/
@@ -175,8 +189,8 @@ app.controller('AdminController', ['$scope', '$rootScope', '$http', 'profileServ
 			$scope.waiting--;
 		});
 	};
-	 
-	 
+	
+	
 	/**
 	 * Load stats
 	 */
@@ -189,6 +203,22 @@ app.controller('AdminController', ['$scope', '$rootScope', '$http', 'profileServ
 			$scope.stats = data;
 			$scope.stats_loaded = true;
 			$scope.waiting--;
+		});
+	};
+	
+	
+	/**
+	 * Load results
+	 */
+	function reloadResults() {
+		$scope.waiting++;
+		$http.get('/service/admin/xp-results').success(function(data) {
+			$scope.results_all = data;
+			$scope.results_xps = Object.keys(data);
+			$scope.results_loaded = true;
+			$scope.waiting--;
+			console.log('results_all', $scope.results_all);
+			console.log('results_xps', $scope.results_xps);
 		});
 	};
 	
