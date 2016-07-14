@@ -43,8 +43,8 @@
 			</div>
 			<div ng-if="tabIndex == 2" class="col-sm-10">
 				<div class="well well-sm">
-					<p>
-						You previously selected <strong ng-if="selectedIssue">{{selectedIssue.t}}</strong><em ng-if="! selectedIssue">nothing</em>.
+					<p ng-if="selectedIssue">
+						You previously selected <strong>{{selectedIssue.t}}</strong>.
 					</p><p>
 						in the example you just saw, the problem was poor <strong>data locality</strong>, and
 						specifically poor <strong>TLB locality</strong>.
