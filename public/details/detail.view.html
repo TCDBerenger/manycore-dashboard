@@ -13,11 +13,14 @@
 	</li>
 	
 	<!-- Links -->
-	<li class="navbar-right" uib-dropdown>
-		<a ui-sref="dashboard({ids: encodedIDs})" uib-dropdown-toggle><i class="fa fa-tachometer fa-halfpad"></i>Dashboards <span class="caret"></span></a>
+	<li class="navbar-right active" uib-dropdown>
+		<a ui-sref="raw({ids: encodedIDs})" uib-dropdown-toggle><i class="fa fa-graduation-cap"></i> <span class="caret"></span></a>
 		<ul uib-dropdown-menu>
 			<li><a ui-sref="raw({ids: encodedIDs})"><i class="fa fa-graduation-cap fa-16px fa-pad"></i> Numerical dashboard</a></li>
 		</ul>
+	</li>
+	<li class="navbar-right active">
+		<a class="active" ui-sref="dashboard({ids: encodedIDs})"><i class="fa fa-tachometer fa-halfpad"></i>Dashboards</a>
 	</li>
 	<li class="navbar-right" uib-dropdown>
 		<a uib-dropdown-toggle><i class="fa fa-area-chart fa-halfpad"></i>Categories <span class="caret"></span></a>
@@ -25,11 +28,7 @@
 			<li ng-repeat="category in categories | enabled"><a ui-sref="detail({cat: category.cat, ids: encodedIDs})"><i class="fa fa-{{::category.icon}} fa-16px fa-pad"></i> {{::category.label}}</a></li>
 		</ul>
 	</li>
-	<!--
-	<li class="navbar-right"><a ui-sref="dashboard({ids: encodedIDs})"><i class="fa fa-graduation-cap fa-halfpad"></i>Numerical Dashoard</a></li>
-	<li class="navbar-right"><a ui-sref="dashboard({ids: encodedIDs})"><i class="fa fa-tachometer fa-halfpad"></i>Graphical Dashoard</a></li>
-	-->
-	<p class="navbar-text navbar-right hidden-xs hidden-sm" style="margin-right: 10px;">&hellip; or try</p>
+	<p class="navbar-text navbar-right hidden-xs hidden-sm text-warning" style="margin-right: 10px;">&hellip; or browse to <i class="fa fa-external-link-square" aria-hidden="true"></i></p>
 	
 	<!-- Waiting -->
 	<p ng-if="isWaiting()" class="navbar-text text-warning" style="margin-right: 10px;">
