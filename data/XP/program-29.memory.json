@@ -1,0 +1,1602 @@
+[
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697166563287,
+    "dtime": 0,
+    "value": 27696.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697166563287,
+    "dtime": 0,
+    "value": 6072.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697166563287,
+    "dtime": 0,
+    "value": 21327.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697166563287,
+    "dtime": 0,
+    "value": 9849.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697166563287,
+    "dtime": 0,
+    "value": 15847.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697166563287,
+    "dtime": 0,
+    "value": 10959.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697166563287,
+    "dtime": 0,
+    "value": 17920.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697166563287,
+    "dtime": 0,
+    "value": 14366.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_read",
+    "program": "N/A",
+    "time": 636068697166563287,
+    "dtime": 0,
+    "value": 9378562.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_write",
+    "program": "N/A",
+    "time": 636068697166563287,
+    "dtime": 0,
+    "value": 6569719.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697167063287,
+    "dtime": 500000,
+    "value": 20546.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697167063287,
+    "dtime": 500000,
+    "value": 10110.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697167063287,
+    "dtime": 500000,
+    "value": 8580.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697167063287,
+    "dtime": 500000,
+    "value": 10203.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697167063287,
+    "dtime": 500000,
+    "value": 15397.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697167063287,
+    "dtime": 500000,
+    "value": 18922.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697167063287,
+    "dtime": 500000,
+    "value": 26111.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697167063287,
+    "dtime": 500000,
+    "value": 9368.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_read",
+    "program": "N/A",
+    "time": 636068697167063287,
+    "dtime": 500000,
+    "value": 16066653.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_write",
+    "program": "N/A",
+    "time": 636068697167063287,
+    "dtime": 500000,
+    "value": 9258437.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697167563287,
+    "dtime": 1000000,
+    "value": 24957.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697167563287,
+    "dtime": 1000000,
+    "value": 3683.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697167563287,
+    "dtime": 1000000,
+    "value": 10223.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697167563287,
+    "dtime": 1000000,
+    "value": 9697.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697167563287,
+    "dtime": 1000000,
+    "value": 20071.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697167563287,
+    "dtime": 1000000,
+    "value": 15861.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697167563287,
+    "dtime": 1000000,
+    "value": 21048.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697167563287,
+    "dtime": 1000000,
+    "value": 10449.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_read",
+    "program": "N/A",
+    "time": 636068697167563287,
+    "dtime": 1000000,
+    "value": 17109173.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_write",
+    "program": "N/A",
+    "time": 636068697167563287,
+    "dtime": 1000000,
+    "value": 9160766.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697168063287,
+    "dtime": 1500000,
+    "value": 45189.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697168063287,
+    "dtime": 1500000,
+    "value": 15114.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697168063287,
+    "dtime": 1500000,
+    "value": 37632.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697168063287,
+    "dtime": 1500000,
+    "value": 18045.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697168063287,
+    "dtime": 1500000,
+    "value": 38866.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697168063287,
+    "dtime": 1500000,
+    "value": 10641.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697168063287,
+    "dtime": 1500000,
+    "value": 49816.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697168063287,
+    "dtime": 1500000,
+    "value": 14806.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_read",
+    "program": "N/A",
+    "time": 636068697168063287,
+    "dtime": 1500000,
+    "value": 14980045.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_write",
+    "program": "N/A",
+    "time": 636068697168063287,
+    "dtime": 1500000,
+    "value": 9190194.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697168563287,
+    "dtime": 2000000,
+    "value": 132753.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697168563287,
+    "dtime": 2000000,
+    "value": 74694.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697168563287,
+    "dtime": 2000000,
+    "value": 105028.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697168563287,
+    "dtime": 2000000,
+    "value": 12938.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697168563287,
+    "dtime": 2000000,
+    "value": 31639.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697168563287,
+    "dtime": 2000000,
+    "value": 66974.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697168563287,
+    "dtime": 2000000,
+    "value": 61864.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697168563287,
+    "dtime": 2000000,
+    "value": 14677.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_read",
+    "program": "N/A",
+    "time": 636068697168563287,
+    "dtime": 2000000,
+    "value": 18471986.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_write",
+    "program": "N/A",
+    "time": 636068697168563287,
+    "dtime": 2000000,
+    "value": 9750084.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697169063287,
+    "dtime": 2500000,
+    "value": 439519.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697169063287,
+    "dtime": 2500000,
+    "value": 16272.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697169063287,
+    "dtime": 2500000,
+    "value": 33630.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697169063287,
+    "dtime": 2500000,
+    "value": 14722.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697169063287,
+    "dtime": 2500000,
+    "value": 51607.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697169063287,
+    "dtime": 2500000,
+    "value": 70670.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697169063287,
+    "dtime": 2500000,
+    "value": 40759.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697169063287,
+    "dtime": 2500000,
+    "value": 22006.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_read",
+    "program": "N/A",
+    "time": 636068697169063287,
+    "dtime": 2500000,
+    "value": 23335119.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_write",
+    "program": "N/A",
+    "time": 636068697169063287,
+    "dtime": 2500000,
+    "value": 7799404.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697169563287,
+    "dtime": 3000000,
+    "value": 39709.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697169563287,
+    "dtime": 3000000,
+    "value": 20160.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697169563287,
+    "dtime": 3000000,
+    "value": 39098.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697169563287,
+    "dtime": 3000000,
+    "value": 14967.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697169563287,
+    "dtime": 3000000,
+    "value": 27491.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697169563287,
+    "dtime": 3000000,
+    "value": 15883.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697169563287,
+    "dtime": 3000000,
+    "value": 44902.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697169563287,
+    "dtime": 3000000,
+    "value": 11302.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_read",
+    "program": "N/A",
+    "time": 636068697169563287,
+    "dtime": 3000000,
+    "value": 15292526.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_write",
+    "program": "N/A",
+    "time": 636068697169563287,
+    "dtime": 3000000,
+    "value": 8613277.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697170063287,
+    "dtime": 3500000,
+    "value": 43086.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697170063287,
+    "dtime": 3500000,
+    "value": 20641.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697170063287,
+    "dtime": 3500000,
+    "value": 36072.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697170063287,
+    "dtime": 3500000,
+    "value": 21242.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697170063287,
+    "dtime": 3500000,
+    "value": 47294.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697170063287,
+    "dtime": 3500000,
+    "value": 12124.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697170063287,
+    "dtime": 3500000,
+    "value": 33466.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697170063287,
+    "dtime": 3500000,
+    "value": 20841.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_read",
+    "program": "N/A",
+    "time": 636068697170063287,
+    "dtime": 3500000,
+    "value": 51197562.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_write",
+    "program": "N/A",
+    "time": 636068697170063287,
+    "dtime": 3500000,
+    "value": 16598324.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697170563287,
+    "dtime": 4000000,
+    "value": 47839.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697170563287,
+    "dtime": 4000000,
+    "value": 17746.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697170563287,
+    "dtime": 4000000,
+    "value": 33487.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697170563287,
+    "dtime": 4000000,
+    "value": 17438.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697170563287,
+    "dtime": 4000000,
+    "value": 47222.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697170563287,
+    "dtime": 4000000,
+    "value": 41049.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697170563287,
+    "dtime": 4000000,
+    "value": 54475.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697170563287,
+    "dtime": 4000000,
+    "value": 16975.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_read",
+    "program": "N/A",
+    "time": 636068697170563287,
+    "dtime": 4000000,
+    "value": 47571995.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_write",
+    "program": "N/A",
+    "time": 636068697170563287,
+    "dtime": 4000000,
+    "value": 14333953.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697171063287,
+    "dtime": 4500000,
+    "value": 39173.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697171063287,
+    "dtime": 4500000,
+    "value": 27292.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697171063287,
+    "dtime": 4500000,
+    "value": 52659.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697171063287,
+    "dtime": 4500000,
+    "value": 21994.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697171063287,
+    "dtime": 4500000,
+    "value": 40778.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697171063287,
+    "dtime": 4500000,
+    "value": 19104.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697171063287,
+    "dtime": 4500000,
+    "value": 35320.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697171063287,
+    "dtime": 4500000,
+    "value": 25205.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_read",
+    "program": "N/A",
+    "time": 636068697171063287,
+    "dtime": 4500000,
+    "value": 16082956.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_write",
+    "program": "N/A",
+    "time": 636068697171063287,
+    "dtime": 4500000,
+    "value": 7384948.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697171563287,
+    "dtime": 5000000,
+    "value": 48098.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697171563287,
+    "dtime": 5000000,
+    "value": 21660.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697171563287,
+    "dtime": 5000000,
+    "value": 41409.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697171563287,
+    "dtime": 5000000,
+    "value": 15289.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697171563287,
+    "dtime": 5000000,
+    "value": 50487.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697171563287,
+    "dtime": 5000000,
+    "value": 25164.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697171563287,
+    "dtime": 5000000,
+    "value": 41409.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697171563287,
+    "dtime": 5000000,
+    "value": 27712.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_read",
+    "program": "N/A",
+    "time": 636068697171563287,
+    "dtime": 5000000,
+    "value": 15451629.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_write",
+    "program": "N/A",
+    "time": 636068697171563287,
+    "dtime": 5000000,
+    "value": 9520655.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697172063287,
+    "dtime": 5500000,
+    "value": 60669.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697172063287,
+    "dtime": 5500000,
+    "value": 23524.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697172063287,
+    "dtime": 5500000,
+    "value": 53704.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697172063287,
+    "dtime": 5500000,
+    "value": 38846.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697172063287,
+    "dtime": 5500000,
+    "value": 55562.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697172063287,
+    "dtime": 5500000,
+    "value": 24143.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697172063287,
+    "dtime": 5500000,
+    "value": 38692.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697172063287,
+    "dtime": 5500000,
+    "value": 31263.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_read",
+    "program": "N/A",
+    "time": 636068697172063287,
+    "dtime": 5500000,
+    "value": 25469235.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_write",
+    "program": "N/A",
+    "time": 636068697172063287,
+    "dtime": 5500000,
+    "value": 21623690.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697172563287,
+    "dtime": 6000000,
+    "value": 56222.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697172563287,
+    "dtime": 6000000,
+    "value": 27334.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697172563287,
+    "dtime": 6000000,
+    "value": 46437.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697172563287,
+    "dtime": 6000000,
+    "value": 18326.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697172563287,
+    "dtime": 6000000,
+    "value": 38672.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697172563287,
+    "dtime": 6000000,
+    "value": 11492.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697172563287,
+    "dtime": 6000000,
+    "value": 46592.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697172563287,
+    "dtime": 6000000,
+    "value": 23607.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_read",
+    "program": "N/A",
+    "time": 636068697172563287,
+    "dtime": 6000000,
+    "value": 15411501.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_write",
+    "program": "N/A",
+    "time": 636068697172563287,
+    "dtime": 6000000,
+    "value": 8892651.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697173063287,
+    "dtime": 6500000,
+    "value": 49754.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697173063287,
+    "dtime": 6500000,
+    "value": 12086.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697173063287,
+    "dtime": 6500000,
+    "value": 38977.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697173063287,
+    "dtime": 6500000,
+    "value": 91350.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697173063287,
+    "dtime": 6500000,
+    "value": 44215.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697173063287,
+    "dtime": 6500000,
+    "value": 26488.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697173063287,
+    "dtime": 6500000,
+    "value": 52272.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697173063287,
+    "dtime": 6500000,
+    "value": 19035.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_read",
+    "program": "N/A",
+    "time": 636068697173063287,
+    "dtime": 6500000,
+    "value": 25796601.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_write",
+    "program": "N/A",
+    "time": 636068697173063287,
+    "dtime": 6500000,
+    "value": 10998319.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697173563287,
+    "dtime": 7000000,
+    "value": 40799.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697173563287,
+    "dtime": 7000000,
+    "value": 24316.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697173563287,
+    "dtime": 7000000,
+    "value": 41126.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697173563287,
+    "dtime": 7000000,
+    "value": 24153.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697173563287,
+    "dtime": 7000000,
+    "value": 47327.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697173563287,
+    "dtime": 7000000,
+    "value": 27743.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697173563287,
+    "dtime": 7000000,
+    "value": 43247.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697173563287,
+    "dtime": 7000000,
+    "value": 17462.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_read",
+    "program": "N/A",
+    "time": 636068697173563287,
+    "dtime": 7000000,
+    "value": 23168564.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_write",
+    "program": "N/A",
+    "time": 636068697173563287,
+    "dtime": 7000000,
+    "value": 7835765.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697174063287,
+    "dtime": 7500000,
+    "value": 28235.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 0
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697174063287,
+    "dtime": 7500000,
+    "value": 42980.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 1
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697174063287,
+    "dtime": 7500000,
+    "value": 40784.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 2
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697174063287,
+    "dtime": 7500000,
+    "value": 26666.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 3
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697174063287,
+    "dtime": 7500000,
+    "value": 41725.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 4
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697174063287,
+    "dtime": 7500000,
+    "value": 17568.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 5
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697174063287,
+    "dtime": 7500000,
+    "value": 47372.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 6
+  },
+  {
+    "type": "drambw",
+    "program": "N/A",
+    "time": 636068697174063287,
+    "dtime": 7500000,
+    "value": 13176.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_read",
+    "program": "N/A",
+    "time": 636068697174063287,
+    "dtime": 7500000,
+    "value": 62331490.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  },
+  {
+    "type": "MC_write",
+    "program": "N/A",
+    "time": 636068697174063287,
+    "dtime": 7500000,
+    "value": 136912417.0,
+    "tid": -1,
+    "pid": 0,
+    "cid": 7
+  }
+]

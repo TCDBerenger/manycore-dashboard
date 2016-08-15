@@ -131,6 +131,42 @@ xpapp.factory('threads', ['TYPES', function(TYPES) {
 				{ taskID: 6,			label: 'Task 6',				form: {}, mousetrack: true },
 				{ state: 'feedback',	label: 'Feedback',				form: {} }
 			]
+		}, {
+			// Test XP
+			id: 90, groups: 2,
+			title: 'ManyCore experimentation',
+			goal: 'The goal of this survey is to evaluate a prototype visualisation for identifying the presence of <b>data-locality</b> issues.',
+			tasks: {
+				distribution: [
+					['a', 'b'],
+					['b', 'a'],
+				],
+				a: { id: 's61',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/261' },	// 6: RS
+				b: { id: 's29',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/668' },	// 2: SY
+				// c: { id: 's11',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/211' },	// 1: TG
+				// d: { id: 's12',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/212' },	// 1: TG
+				// e: { id: 's33',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/233' },	// 3: DS
+				// f: { id: 's63',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/263' },	// 6: RS
+				// g: { id: 's31',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/231' },	// 3: DS
+				// h: { id: 's44',	type: TYPES.TASK_STANDALONE_A,	path: '/dashboard/244' },	// 4: LB
+				// m: { id: 'c5',	type: TYPES.TASK_COMPARISON_B,	path: '/dashboard/250-251' },	// 5: DL
+				// n: { id: 'c4',	type: TYPES.TASK_COMPARISON_B,	path: '/dashboard/240-241' },	// 4: LB
+				// o: { id: 'c2',	type: TYPES.TASK_COMPARISON_B,	path: '/dashboard/220-221' },	// 2: SY
+			},
+			steps: [
+				// page: common					state: '...'
+				// page: a task					taskID: 99
+				// page: one in xp				pageID: '...'
+				// init a form:					form:m { ... }
+				// display next in sidebar:		nextInSidebar: true
+				// dashboard path:				path: '/admin'
+				// collect the mouse tracking:	mousetrack: true
+				// Forbid go back to edit:		editable: false
+				{ pageID: 'habits',		label: 'Your tools',			form: {} },
+				{ taskID: 1,			label: 'Task 1',				form: {}, mousetrack: true },
+				{ taskID: 2,			label: 'Task 2 - New 21 benchmark',				form: {}, mousetrack: true },
+				{ pageID: 'feedback',	label: 'Feedback',				form: {} }
+			]
 		},
 	];
 	

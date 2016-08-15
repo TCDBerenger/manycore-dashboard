@@ -178,6 +178,11 @@ var profileMap = {
 		{ id: 307,	label: 'Alt 61',		desc: 'Highlighting a performance problem',	hardware: hardSTG, file: 'alt-61' },
 		{ id: 262,	label: 'Alt 62',		desc: 'Highlighting a performance problem',	hardware: hardSTG, file: 'alt-62' },
 
+		// A+A were here
+		{ id: 666,	label: 'A+A Tests',		desc: 'Testing out sample profiles',	hardware: hardSTG, file: 'aatests' },
+		{ id: 667,	label: 'A+A Tests - Lazy',		desc: 'We were too lazy to keep renaming files',	hardware: hardSTG, file: 'matmul' },
+		{ id: 668,	label: 'A+A Tests - New 21',	desc: 'Highlighting a performance problem',	hardware: hardXP, file: 'program-29' },
+
 		{ id: 1006,	label: 'Dining ph.  6',	desc: 'Dining philosopher problem for 6 covers',	hardware: hardSTG,	 file: 'philosophers006', timeStep: 50, disabled: true },
 		{ id: 1012,	label: 'Dining ph. 12',	desc: 'Dining philosopher problem for 12 covers',	hardware: hardSTG,	 file: 'philosophers012', timeStep: 50 },
 		{ id: 1045,	label: 'Dining ph. 45',	desc: 'Dining philosopher problem for 45 covers',	hardware: hardSTG,	 file: 'philosophers045', timeStep: 50, v: 4, disabled: true },
